@@ -29,7 +29,13 @@ type Config struct {
 	Logger *slog.Logger
 	// Debug 打开 gin 调试模式。
 	Debug bool
+	// ShutdownTimeout 是优雅退出的最长等待时间。
+	// 为 0 时回退到 defaultShutdownTimeout，避免测试里忘记设置就立即超时。
+	ShutdownTimeout time.Duration
 }
+
+// defaultShutdownTimeout 是 ShutdownTimeout 未配置时的回退值。
+const defaultShutdownTimeout = 5 * time.Second
 
 // providePanelService 把 Config 转成 panel.Service 的构造参数。
 func providePanelService(cfg Config) *panel.Service {
@@ -79,25 +85,49 @@ func newHTTPServer(cfg Config, handler http.Handler) *http.Server {
 	}
 }
 
+// newApp 组装运行单元。
+//
+// 不用 wire.Struct(new(App), "*")：App 含 time.Duration 字段，
+// 用结构体注入会让 wire 无法区分「哪个 Duration 对应哪个字段」。
+// 显式构造函数更清楚，也便于在这里做默认值回退。
+func newApp(cfg Config, srv *http.Server, logger *slog.Logger) *App {
+	timeout := cfg.ShutdownTimeout
+	if timeout <= 0 {
+		timeout = defaultShutdownTimeout
+	}
+	return &App{
+		Server:          srv,
+		Logger:          logger,
+		ShutdownTimeout: timeout,
+	}
+}
+
 // ProviderSet 是依赖图的完整声明，供 wire.Build 引用。
 var ProviderSet = wire.NewSet(
 	providePanelService,
 	provideLogger,
 	provideHandler,
 	newHTTPServer,
-	wire.Struct(new(App), "*"),
+	newApp,
 )
 
 // App 是组装完成的运行单元。
 type App struct {
 	Server *http.Server
 	Logger *slog.Logger
+	// ShutdownTimeout 是优雅退出的最长等待时间。
+	ShutdownTimeout time.Duration
 }
 
 // Run 启动 HTTP 服务并阻塞，直到 ctx 被取消后优雅退出。
 //
-// 关闭超时设为 5 秒，给在途请求（包括未结束的流式 RPC）留出收尾时间。
+// 关闭超时由配置决定，给在途请求（包括未结束的流式 RPC）留出收尾时间。
 func (a *App) Run(ctx context.Context) error {
+	timeout := a.ShutdownTimeout
+	if timeout <= 0 {
+		timeout = defaultShutdownTimeout
+	}
+
 	errCh := make(chan error, 1)
 	go func() {
 		a.Logger.Info("master listening", "addr", a.Server.Addr)
@@ -112,8 +142,8 @@ func (a *App) Run(ctx context.Context) error {
 		}
 		return err
 	case <-ctx.Done():
-		a.Logger.Info("shutting down")
-		shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		a.Logger.Info("shutting down", "timeout", timeout.String())
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), timeout)
 		defer cancel()
 		return a.Server.Shutdown(shutdownCtx)
 	}

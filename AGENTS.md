@@ -102,6 +102,41 @@ reflection 的路径同理。
 - 测试里可以直接调 `InitApp` 验证依赖图（见 `internal/app/app_test.go`），
   比逐个构造函数断言更能发现「装配错了」。
 
+### 配置（viper）
+
+配置包在 `master/internal/config`，用 viper 读环境变量与 YAML。
+
+**优先级（高到低）：**
+
+```
+命令行参数 > 环境变量 > config.local.yaml > config.yaml > 内置默认值
+```
+
+**环境变量**统一带 `MYPANEL_` 前缀，键名用下划线：
+
+| 配置项 | 环境变量 | 默认值 |
+| --- | --- | --- |
+| `addr` | `MYPANEL_ADDR` | `:8080` |
+| `web_dir` | `MYPANEL_WEB_DIR` | 空（用内置前端） |
+| `debug` | `MYPANEL_DEBUG` | `false` |
+| `shutdown_timeout` | `MYPANEL_SHUTDOWN_TIMEOUT` | `5s` |
+
+**YAML 文件**：`config.yaml` 入库作为默认值；个人改动写 `config.local.yaml`
+（已 gitignore，只在同目录存在时自动叠一层）。查找顺序是
+`.` → `./config` → `/etc/mypanel`，也可以用 `-config <path>` 显式指定。
+
+注意事项：
+
+- **新增配置项要改三处**：`config.go` 的 `defaults` map、`Config` 结构体、
+  以及上面这张表。
+- `AutomaticEnv` 必须配 `SetEnvKeyReplacer`，否则 `MYPANEL_WEB_DIR`
+  这类下划线变量永远读不到。
+- 时长用 `GetString` + `time.ParseDuration` 解析，不要用 `GetDuration`——
+  后者对非法值静默返回 0，会导致「配错了却按 0 超时运行」。
+- 显式指定的 `-config` 路径不存在时**必须报错**，不能静默回退默认值，
+  否则部署错误会被掩盖。
+- 配置文件存在但解析失败也要报错，理由同上。
+
 ## 构建与运行
 
 ```bash
