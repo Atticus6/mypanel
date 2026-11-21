@@ -1,1 +1,9 @@
 .DS_Store
+.bin/
+bin/
+node_modules/
+
+# Build output synced here by scripts/build.sh; only the placeholder is tracked.
+/master/internal/webdist/dist/*
+!/master/internal/webdist/dist/.gitkeep
+.zcode/
