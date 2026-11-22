@@ -38,11 +38,10 @@
 
 最大风险按顺序：
 
-1. **GPL-3.0 许可证**：1Panel 是 GPLv3，复制代码后整个分发物需要按 GPLv3 处理，必须先做法律确认。
-2. **约 654 个接口的一次性切换**：必须用代码生成 + 覆盖率门禁 + 全模块回归，否则必然漏接口。
-3. **Vue 与 React 的 RPC 风格差异**：`useSuspenseQuery` 在 Vue 里需要 `await`（Pinia Colada 没有原生 Suspense hook），方案会提供同名封装并明确用法。
-4. **流式与文件传输**：浏览器端 Connect 不能可靠承载 PTY 双向流，终端保留 WebSocket；大文件保留专用二进制 HTTP 通道。
-5. **单进程影响面**：core 和 agent 的初始化、日志、数据库、定时任务必须按确定顺序启动，任何 panic 都会同时带走控制面与数据面。
+1. **约 654 个接口的一次性切换**：必须用代码生成 + 覆盖率门禁 + 全模块回归，否则必然漏接口。
+2. **Vue 与 React 的 RPC 风格差异**：`useSuspenseQuery` 在 Vue 里需要 `await`（Pinia Colada 没有原生 Suspense hook），方案会提供同名封装并明确用法。
+3. **流式与文件传输**：浏览器端 Connect 不能可靠承载 PTY 双向流，终端保留 WebSocket；大文件保留专用二进制 HTTP 通道。
+4. **单进程影响面**：core 和 agent 的初始化、日志、数据库、定时任务必须按确定顺序启动，任何 panic 都会同时带走控制面与数据面。
 
 ---
 
@@ -60,7 +59,6 @@
 | 浏览器通讯 | REST JSON（`/api/v2/**`）+ WebSocket + SSE |
 | 鉴权 | Session Cookie、CSRF Token、MFA、Passkey、OIDC、SAML、API Key、安全入口 |
 | 数据库 | `core.db`、`task.db`、`agent.db`、`alert.db`，SQLite + gormigrate |
-| 许可证 | GPL-3.0 |
 
 路由规模（按 Swagger 注解统计，实际注册数略多；**已剔除 AI、VM、网站运行时/模板、Toolbox**）：
 
