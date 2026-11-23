@@ -90,6 +90,9 @@ routes:
   "GET /apps/installed/params/:appInstallId": panel.agent.v1.AppService.GetInstalledParams
   "GET /apps/services/:key": panel.agent.v1.AppService.GetAppServices
   "GET /apps/tags": panel.agent.v1.AppService.GetAppTags
+  "GET /backups/check/:name": panel.agent.v1.BackupService.CheckBackupUsed
+  "GET /backups/local": panel.agent.v1.BackupService.GetLocalBackupDir
+  "GET /backups/options": panel.agent.v1.BackupService.LoadBackupOptions
   "GET /containers/daemonjson": panel.agent.v1.ContainerService.GetDaemonJson
   "GET /containers/docker/status": panel.agent.v1.ContainerService.GetDockerStatus
   "GET /containers/limit": panel.agent.v1.ContainerService.GetLimit
@@ -179,7 +182,24 @@ routes:
   "POST /apps/search": panel.agent.v1.AppService.SearchApps
   "POST /apps/sync/local": panel.agent.v1.AppService.SyncAppsFromLocal
   "POST /apps/sync/remote": panel.agent.v1.AppService.SyncAppsFromRemote
+  "POST /backups": panel.agent.v1.BackupService.CreateBackupAccount
+  "POST /backups/backup": panel.agent.v1.BackupService.BackupData
+  "POST /backups/buckets": panel.agent.v1.BackupService.ListBuckets
+  "POST /backups/conn/check": panel.agent.v1.BackupService.CheckBackupConn
+  "POST /backups/del": panel.agent.v1.BackupService.DeleteBackupAccount
+  "POST /backups/record/del": panel.agent.v1.BackupService.DeleteBackupRecords
+  "POST /backups/record/description/update": panel.agent.v1.BackupService.UpdateRecordDescription
+  "POST /backups/record/download": panel.agent.v1.BackupService.DownloadBackupRecord
+  "POST /backups/record/search": panel.agent.v1.BackupService.SearchBackupRecords
+  "POST /backups/record/search/bycronjob": panel.agent.v1.BackupService.SearchBackupRecordsByCronjob
+  "POST /backups/record/size": panel.agent.v1.BackupService.LoadRecordSize
+  "POST /backups/recover": panel.agent.v1.BackupService.RecoverData
+  "POST /backups/recover/byupload": panel.agent.v1.BackupService.RecoverByUpload
+  "POST /backups/refresh/token": panel.agent.v1.BackupService.RefreshBackupToken
   "POST /backups/search": panel.agent.v1.BackupService.Search
+  "POST /backups/search/files": panel.agent.v1.BackupService.ListBackupFiles
+  "POST /backups/update": panel.agent.v1.BackupService.UpdateBackupAccount
+  "POST /backups/upload": panel.agent.v1.BackupService.UploadForRecover
   "POST /containers/clean/log": panel.agent.v1.ContainerService.CleanLogs
   "POST /containers/compose/clean/log": panel.agent.v1.ContainerService.CleanComposeLogs
   "POST /containers/compose/env": panel.agent.v1.ContainerService.GetComposeEnv

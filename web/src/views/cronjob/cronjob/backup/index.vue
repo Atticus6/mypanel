@@ -57,12 +57,9 @@ import { reactive, ref } from 'vue';
 import { computeSize } from '@/utils/size';
 import { dateFormat } from '@/utils/date';
 import { downloadFile } from '@/utils/file';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
-import { downloadBackupRecord, loadRecordSize, searchBackupRecordsByCronjob } from '@/api/modules/backup';
-import { Backup } from '@/api/interface/backup';
 import { MsgError } from '@/utils/message';
-import { useGlobalStore } from '@/composables/useGlobalStore';
-const { currentNode } = useGlobalStore();
 
 const selects = ref<any>([]);
 const loading = ref();
@@ -96,15 +93,16 @@ const search = async () => {
     let params = {
         page: paginationConfig.currentPage,
         pageSize: paginationConfig.pageSize,
-        cronjobID: cronjobID.value,
+        cronjobId: cronjobID.value,
     };
     loading.value = true;
-    await searchBackupRecordsByCronjob(params)
+    await rpc.backup
+        .searchBackupRecordsByCronjob(params)
         .then((res) => {
             loading.value = false;
             loadSize(params);
-            data.value = res.data.items || [];
-            paginationConfig.total = res.data.total;
+            data.value = res.items || [];
+            paginationConfig.total = Number(res.total);
         })
         .catch(() => {
             loading.value = false;
@@ -113,9 +111,10 @@ const search = async () => {
 
 const loadSize = async (params: any) => {
     params.type = 'cronjob';
-    await loadRecordSize(params)
+    await rpc.backup
+        .loadRecordSize(params)
         .then((res) => {
-            let stats = res.data || [];
+            let stats = res.items || [];
             if (stats.length === 0) {
                 return;
             }
@@ -123,7 +122,7 @@ const loadSize = async (params: any) => {
                 for (const item of stats) {
                     if (backup.id === item.id) {
                         backup.hasLoad = true;
-                        backup.size = item.size;
+                        backup.size = Number(item.size);
                         break;
                     }
                 }
@@ -134,21 +133,22 @@ const loadSize = async (params: any) => {
         });
 };
 
-const onDownload = async (row: Backup.RecordInfo) => {
+const onDownload = async (row: any) => {
     if (row.accountType === 'ALIYUN' && row.size < 100 * 1024 * 1024) {
         MsgError(i18n.global.t('setting.ALIYUNHelper'));
         return;
     }
     let params = {
-        downloadAccountID: row.downloadAccountID,
+        downloadAccountId: row.downloadAccountId,
         fileDir: row.fileDir,
         fileName: row.fileName,
     };
     loading.value = true;
-    await downloadBackupRecord(params)
+    await rpc.backup
+        .downloadBackupRecord(params)
         .then(async (res) => {
             loading.value = false;
-            downloadFile(res.data, currentNode.value);
+            downloadFile(res.path, 'local');
         })
         .catch(() => {
             loading.value = false;
@@ -161,7 +161,7 @@ const buttons = [
         disabled: (row: any) => {
             return row.size === 0;
         },
-        click: (row: Backup.RecordInfo) => {
+        click: (row: any) => {
             onDownload(row);
         },
     },

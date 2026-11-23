@@ -788,7 +788,6 @@ import LayoutCol from '@/components/layout-col/form.vue';
 import CleanLogConfig from '@/views/cronjob/cronjob/config/clean-log.vue';
 import { reactive, ref, computed, onMounted } from 'vue';
 import { Rules } from '@/global/form-rules';
-import { listBackupOptions } from '@/api/modules/backup';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
 import { Cronjob } from '@/api/interface/cronjob';
@@ -1440,8 +1439,8 @@ const handleFileDelete = (index: number) => {
 };
 
 const loadBackups = async () => {
-    const res = await listBackupOptions();
-    let options = res.data || [];
+    const res = await rpc.backup.loadBackupOptions({});
+    let options = res.items || [];
     backupOptions.value = [];
     let local = 0;
     for (const item of options) {

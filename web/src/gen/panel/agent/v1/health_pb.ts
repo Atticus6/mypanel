@@ -4,50 +4,46 @@
 // @generated from file panel/agent/v1/health.proto (package panel.agent.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from '@bufbuild/protobuf/codegenv2';
-import { fileDesc, messageDesc, serviceDesc } from '@bufbuild/protobuf/codegenv2';
-import { file_panel_common_v1_options } from '../../common/v1/options_pb';
-import type { Message } from '@bufbuild/protobuf';
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
+import { file_panel_common_v1_options } from "../../common/v1/options_pb";
+import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file panel/agent/v1/health.proto.
  */
-export const file_panel_agent_v1_health: GenFile =
-    /*@__PURE__*/
-    fileDesc(
-        'ChtwYW5lbC9hZ2VudC92MS9oZWFsdGgucHJvdG8SDnBhbmVsLmFnZW50LnYxIhQKEkNoZWNrSGVhbHRoUmVxdWVzdCIVChNDaGVja0hlYWx0aFJlc3BvbnNlMmsKDUhlYWx0aFNlcnZpY2USWgoFQ2hlY2sSIi5wYW5lbC5hZ2VudC52MS5DaGVja0hlYWx0aFJlcXVlc3QaIy5wYW5lbC5hZ2VudC52MS5DaGVja0hlYWx0aFJlc3BvbnNlIgiKtRgEGAEwAUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM',
-        [file_panel_common_v1_options],
-    );
+export const file_panel_agent_v1_health: GenFile = /*@__PURE__*/
+  fileDesc("ChtwYW5lbC9hZ2VudC92MS9oZWFsdGgucHJvdG8SDnBhbmVsLmFnZW50LnYxIhQKEkNoZWNrSGVhbHRoUmVxdWVzdCIVChNDaGVja0hlYWx0aFJlc3BvbnNlMmsKDUhlYWx0aFNlcnZpY2USWgoFQ2hlY2sSIi5wYW5lbC5hZ2VudC52MS5DaGVja0hlYWx0aFJlcXVlc3QaIy5wYW5lbC5hZ2VudC52MS5DaGVja0hlYWx0aFJlc3BvbnNlIgiKtRgEGAEwAUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM", [file_panel_common_v1_options]);
 
 /**
  * CheckHealthRequest 是健康检查请求，无业务字段。
  *
  * @generated from message panel.agent.v1.CheckHealthRequest
  */
-export type CheckHealthRequest = Message<'panel.agent.v1.CheckHealthRequest'> & {};
+export type CheckHealthRequest = Message<"panel.agent.v1.CheckHealthRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.CheckHealthRequest.
  * Use `create(CheckHealthRequestSchema)` to create a new message.
  */
-export const CheckHealthRequestSchema: GenMessage<CheckHealthRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_health, 0);
+export const CheckHealthRequestSchema: GenMessage<CheckHealthRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_health, 0);
 
 /**
  * CheckHealthResponse 是健康检查结果，无业务字段。
  *
  * @generated from message panel.agent.v1.CheckHealthResponse
  */
-export type CheckHealthResponse = Message<'panel.agent.v1.CheckHealthResponse'> & {};
+export type CheckHealthResponse = Message<"panel.agent.v1.CheckHealthResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.CheckHealthResponse.
  * Use `create(CheckHealthResponseSchema)` to create a new message.
  */
-export const CheckHealthResponseSchema: GenMessage<CheckHealthResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_health, 1);
+export const CheckHealthResponseSchema: GenMessage<CheckHealthResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_health, 1);
 
 /**
  * HealthService 提供轻量的存活检查，供前端启动时确认后端可用。
@@ -55,14 +51,16 @@ export const CheckHealthResponseSchema: GenMessage<CheckHealthResponse> =
  * @generated from service panel.agent.v1.HealthService
  */
 export const HealthService: GenService<{
-    /**
-     * 检查服务是否就绪；成功即表示进程与数据库已初始化。
-     *
-     * @generated from rpc panel.agent.v1.HealthService.Check
-     */
-    check: {
-        methodKind: 'unary';
-        input: typeof CheckHealthRequestSchema;
-        output: typeof CheckHealthResponseSchema;
-    };
-}> = /*@__PURE__*/ serviceDesc(file_panel_agent_v1_health, 0);
+  /**
+   * 检查服务是否就绪；成功即表示进程与数据库已初始化。
+   *
+   * @generated from rpc panel.agent.v1.HealthService.Check
+   */
+  check: {
+    methodKind: "unary";
+    input: typeof CheckHealthRequestSchema;
+    output: typeof CheckHealthResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_panel_agent_v1_health, 0);
+

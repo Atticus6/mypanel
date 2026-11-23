@@ -17,6 +17,166 @@ service BackupService {
       no_audit: true
     };
   }
+
+  // 检查备份账号是否已被任务引用。
+  rpc CheckBackupUsed(CheckBackupUsedRequest) returns (CheckBackupUsedResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 测试备份账号连通性。
+  rpc CheckBackupConn(BackupOperate) returns (BackupCheckResult) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 新建备份账号。
+  rpc CreateBackupAccount(BackupOperate) returns (CreateBackupAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建备份账号"
+      audit_action_en: "Create backup account"
+    };
+  }
+
+  // 更新备份账号。
+  rpc UpdateBackupAccount(BackupOperate) returns (UpdateBackupAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新备份账号"
+      audit_action_en: "Update backup account"
+    };
+  }
+
+  // 删除备份账号。
+  rpc DeleteBackupAccount(DeleteBackupAccountRequest) returns (DeleteBackupAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除备份账号"
+      audit_action_en: "Delete backup account"
+    };
+  }
+
+  // 刷新备份账号的访问令牌。
+  rpc RefreshBackupToken(RefreshBackupTokenRequest) returns (RefreshBackupTokenResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "刷新备份令牌"
+      audit_action_en: "Refresh backup token"
+    };
+  }
+
+  // 列出对象存储账号里的存储桶。
+  rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出可供选择的备份账号。
+  rpc LoadBackupOptions(LoadBackupOptionsRequest) returns (LoadBackupOptionsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 获取本机备份目录。
+  rpc GetLocalBackupDir(GetLocalBackupDirRequest) returns (GetLocalBackupDirResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 将已上传到本机的备份文件登记为可恢复文件。
+  rpc UploadForRecover(UploadForRecoverRequest) returns (UploadForRecoverResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "上传备份文件"
+      audit_action_en: "Upload backup file"
+    };
+  }
+
+  // 分页查询备份记录。
+  rpc SearchBackupRecords(SearchBackupRecordsRequest) returns (BackupRecordsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按计划任务分页查询备份记录。
+  rpc SearchBackupRecordsByCronjob(SearchBackupRecordsByCronjobRequest) returns (BackupRecordsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 统计备份记录占用大小。
+  rpc LoadRecordSize(LoadRecordSizeRequest) returns (LoadRecordSizeResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 获取备份记录的可下载本地路径。
+  rpc DownloadBackupRecord(DownloadBackupRecordRequest) returns (DownloadBackupRecordResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "下载备份记录"
+      audit_action_en: "Download backup record"
+    };
+  }
+
+  // 更新备份记录描述。
+  rpc UpdateRecordDescription(UpdateRecordDescriptionRequest) returns (UpdateRecordDescriptionResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新备份描述"
+      audit_action_en: "Update backup description"
+    };
+  }
+
+  // 批量删除备份记录。
+  rpc DeleteBackupRecords(DeleteBackupRecordsRequest) returns (DeleteBackupRecordsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除备份记录"
+      audit_action_en: "Delete backup records"
+    };
+  }
+
+  // 列出备份账号中的文件。
+  rpc ListBackupFiles(ListBackupFilesRequest) returns (ListBackupFilesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 执行数据备份。
+  rpc BackupData(BackupDataRequest) returns (BackupDataResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "备份数据"
+      audit_action_en: "Backup data"
+    };
+  }
+
+  // 从备份账号恢复数据。
+  rpc RecoverData(RecoverDataRequest) returns (RecoverDataResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "恢复数据"
+      audit_action_en: "Recover data"
+    };
+  }
+
+  // 从本机上传的备份文件恢复数据。
+  rpc RecoverByUpload(RecoverDataRequest) returns (RecoverDataResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "从上传文件恢复数据"
+      audit_action_en: "Recover data from upload"
+    };
+  }
 }
 
 // SearchBackupsRequest 是备份账号查询参数。
@@ -75,3 +235,435 @@ message Backup {
   // 是否记住认证信息。
   bool remember_auth = 9;
 }
+
+// BackupOperate 是备份账号的创建/更新/连通性检查参数。
+message BackupOperate {
+  // 账号 ID；创建时为 0。
+  uint32 id = 1;
+
+  // 账号名称。
+  string name = 2;
+
+  // 账号类型，例如 S3、SFTP、Local。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 是否公开。
+  bool is_public = 4;
+
+  // 存储桶名称。
+  string bucket = 5;
+
+  // 访问密钥。
+  string access_key = 6;
+
+  // 凭据。
+  string credential = 7;
+
+  // 备份路径。
+  string backup_path = 8;
+
+  // 类型专属配置（JSON 字符串）。
+  string vars = 9 [(buf.validate.field).string.min_len = 1];
+
+  // 是否记住认证信息。
+  bool remember_auth = 10;
+}
+
+// BackupCheckResult 是连通性检查结果。
+message BackupCheckResult {
+  // 是否可用。
+  bool is_ok = 1;
+
+  // 检查说明。
+  string msg = 2;
+
+  // 刷新得到的令牌。
+  string token = 3;
+}
+
+// CheckBackupUsedRequest 是账号引用检查参数。
+message CheckBackupUsedRequest {
+  // 账号名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// CheckBackupUsedResponse 是检查结果，无业务字段。
+message CheckBackupUsedResponse {}
+
+// CreateBackupAccountResponse 是创建结果，无业务字段。
+message CreateBackupAccountResponse {}
+
+// UpdateBackupAccountResponse 是更新结果，无业务字段。
+message UpdateBackupAccountResponse {}
+
+// DeleteBackupAccountRequest 是删除账号参数。
+message DeleteBackupAccountRequest {
+  // 账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteBackupAccountResponse 是删除结果，无业务字段。
+message DeleteBackupAccountResponse {}
+
+// RefreshBackupTokenRequest 是令牌刷新参数。
+message RefreshBackupTokenRequest {
+  // 账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// RefreshBackupTokenResponse 是刷新结果，无业务字段。
+message RefreshBackupTokenResponse {}
+
+// ListBucketsRequest 是存储桶查询参数。
+message ListBucketsRequest {
+  // 账号类型。
+  string type = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 访问密钥。
+  string access_key = 2;
+
+  // 凭据。
+  string credential = 3;
+
+  // 类型专属配置（JSON 字符串）。
+  string vars = 4;
+}
+
+// ListBucketsResponse 是存储桶列表。
+message ListBucketsResponse {
+  // 存储桶名称。
+  repeated string items = 1;
+}
+
+// LoadBackupOptionsRequest 是备份账号下拉查询参数，无业务字段。
+message LoadBackupOptionsRequest {}
+
+// LoadBackupOptionsResponse 是备份账号下拉列表。
+message LoadBackupOptionsResponse {
+  // 可选账号。
+  repeated BackupOption items = 1;
+}
+
+// BackupOption 是备份账号下拉项。
+message BackupOption {
+  // 账号 ID。
+  uint32 id = 1;
+
+  // 账号名称。
+  string name = 2;
+
+  // 账号类型。
+  string type = 3;
+
+  // 是否公开。
+  bool is_public = 4;
+}
+
+// GetLocalBackupDirRequest 是本地备份目录查询参数，无业务字段。
+message GetLocalBackupDirRequest {}
+
+// GetLocalBackupDirResponse 是本地备份目录。
+message GetLocalBackupDirResponse {
+  // 目录绝对路径。
+  string dir = 1;
+}
+
+// UploadForRecoverRequest 是上传备份登记参数。
+message UploadForRecoverRequest {
+  // 已上传文件的路径。
+  string file_path = 1;
+
+  // 目标目录。
+  string target_dir = 2;
+}
+
+// UploadForRecoverResponse 是登记结果，无业务字段。
+message UploadForRecoverResponse {}
+
+// SearchBackupRecordsRequest 是备份记录查询参数。
+message SearchBackupRecordsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 备份类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 资源名称。
+  string name = 4;
+
+  // 资源子名称。
+  string detail_name = 5;
+}
+
+// SearchBackupRecordsByCronjobRequest 是按计划任务查询备份记录参数。
+message SearchBackupRecordsByCronjobRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 计划任务 ID。
+  uint32 cronjob_id = 3 [(buf.validate.field).uint32.gt = 0];
+}
+
+// BackupRecordsResponse 是备份记录列表结果。
+message BackupRecordsResponse {
+  // 当前页记录。
+  repeated BackupRecordEntry items = 1;
+
+  // 符合条件的记录总数。
+  int64 total = 2;
+}
+
+// BackupRecordEntry 是一条备份记录。
+message BackupRecordEntry {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 备份账号类型。
+  string account_type = 3;
+
+  // 备份账号名称。
+  string account_name = 4;
+
+  // 下载账号 ID。
+  uint32 download_account_id = 5;
+
+  // 文件目录。
+  string file_dir = 6;
+
+  // 文件名。
+  string file_name = 7;
+
+  // 关联任务 ID。
+  string task_id = 8;
+
+  // 状态。
+  string status = 9;
+
+  // 状态说明。
+  string message = 10;
+
+  // 描述。
+  string description = 11;
+}
+
+// LoadRecordSizeRequest 是备份记录大小统计参数。
+message LoadRecordSizeRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 备份类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 资源名称。
+  string name = 4;
+
+  // 资源子名称。
+  string detail_name = 5;
+
+  // 关键字。
+  string info = 6;
+
+  // 计划任务 ID。
+  uint32 cronjob_id = 7;
+
+  // 排序字段。
+  string order_by = 8;
+
+  // 排序方向。
+  string order = 9;
+}
+
+// LoadRecordSizeResponse 是备份记录大小结果。
+message LoadRecordSizeResponse {
+  // 各记录的大小。
+  repeated RecordFileSize items = 1;
+}
+
+// RecordFileSize 是一条备份记录的大小。
+message RecordFileSize {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 记录名称。
+  string name = 2;
+
+  // 大小，单位字节。
+  int64 size = 3;
+}
+
+// DownloadBackupRecordRequest 是备份记录下载路径查询参数。
+message DownloadBackupRecordRequest {
+  // 下载账号 ID。
+  uint32 download_account_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 文件目录。
+  string file_dir = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 文件名。
+  string file_name = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// DownloadBackupRecordResponse 是本地文件路径。
+message DownloadBackupRecordResponse {
+  // 文件路径。
+  string path = 1;
+}
+
+// UpdateRecordDescriptionRequest 是描述更新参数。
+message UpdateRecordDescriptionRequest {
+  // 记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 描述内容。
+  string description = 2 [(buf.validate.field).string.max_len = 256];
+}
+
+// UpdateRecordDescriptionResponse 是更新结果，无业务字段。
+message UpdateRecordDescriptionResponse {}
+
+// DeleteBackupRecordsRequest 是批量删除记录参数。
+message DeleteBackupRecordsRequest {
+  // 记录 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteBackupRecordsResponse 是删除结果，无业务字段。
+message DeleteBackupRecordsResponse {}
+
+// ListBackupFilesRequest 是账号文件列表参数。
+message ListBackupFilesRequest {
+  // 备份账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// ListBackupFilesResponse 是账号文件列表。
+message ListBackupFilesResponse {
+  // 文件名列表。
+  repeated string files = 1;
+}
+
+// BackupDataRequest 是数据备份参数。
+message BackupDataRequest {
+  // 备份类型。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "app",
+      "mysql",
+      "mariadb",
+      "redis",
+      "website",
+      "postgresql",
+      "mongodb",
+      "mysql-cluster",
+      "postgresql-cluster",
+      "redis-cluster",
+      "container",
+      "compose"
+    ]
+  }];
+
+  // 资源名称。
+  string name = 2;
+
+  // 资源子名称。
+  string detail_name = 3;
+
+  // 备份密码。
+  string secret = 4;
+
+  // 是否立即执行并返回记录。
+  bool is_immediate = 5;
+
+  // 备份前是否停止服务。
+  bool stop_before = 6;
+
+  // 前端生成的任务 ID。
+  string task_id = 7;
+
+  // 备份文件名。
+  string file_name = 8;
+
+  // 额外参数。
+  repeated string args = 9;
+
+  // 备份描述。
+  string description = 10;
+}
+
+// BackupDataResponse 是备份启动结果。
+message BackupDataResponse {
+  // 立即备份时返回的记录 JSON；异步备份为空。
+  string record_json = 1;
+}
+
+// RecoverDataRequest 是数据恢复参数。
+message RecoverDataRequest {
+  // 下载账号 ID。
+  uint32 download_account_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 恢复类型，取值与 BackupDataRequest.type 相同。
+  string type = 2 [(buf.validate.field).string = {
+    in: [
+      "app",
+      "mysql",
+      "mariadb",
+      "redis",
+      "website",
+      "postgresql",
+      "mongodb",
+      "mysql-cluster",
+      "postgresql-cluster",
+      "redis-cluster",
+      "container",
+      "compose"
+    ]
+  }];
+
+  // 资源名称。
+  string name = 3;
+
+  // 资源子名称。
+  string detail_name = 4;
+
+  // 备份文件路径。
+  string file = 5;
+
+  // 备份密码。
+  string secret = 6;
+
+  // MongoDB 是否删除全部集合。
+  bool drop_all_collections = 7;
+
+  // 前端生成的任务 ID。
+  string task_id = 8;
+
+  // 备份记录 ID。
+  uint32 backup_record_id = 9;
+
+  // 超时时间，单位秒。
+  int32 timeout = 10;
+}
+
+// RecoverDataResponse 是恢复结果，无业务字段。
+message RecoverDataResponse {}

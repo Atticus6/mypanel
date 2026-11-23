@@ -4,1115 +4,1103 @@
 // @generated from file panel/agent/v1/app.proto (package panel.agent.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from '@bufbuild/protobuf/codegenv2';
-import { fileDesc, messageDesc, serviceDesc } from '@bufbuild/protobuf/codegenv2';
-import { file_buf_validate_validate } from '../../../buf/validate/validate_pb';
-import { file_panel_common_v1_options } from '../../common/v1/options_pb';
-import type { Message } from '@bufbuild/protobuf';
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
+import { file_buf_validate_validate } from "../../../buf/validate/validate_pb";
+import { file_panel_common_v1_options } from "../../common/v1/options_pb";
+import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file panel/agent/v1/app.proto.
  */
-export const file_panel_agent_v1_app: GenFile =
-    /*@__PURE__*/
-    fileDesc(
-        'ChhwYW5lbC9hZ2VudC92MS9hcHAucHJvdG8SDnBhbmVsLmFnZW50LnYxIs0BChFTZWFyY2hBcHBzUmVxdWVzdBIVCgRwYWdlGAEgASgFQge6SAQaAigBEhwKCXBhZ2Vfc2l6ZRgCIAEoBUIJukgGGgQYZCgBEhUKBG5hbWUYAyABKAlCB7pIBHICGEASFQoEdHlwZRgEIAEoCUIHukgEcgIYQBIMCgR0YWdzGAUgAygJEhEKCXJlY29tbWVuZBgGIAEoCBIZCghyZXNvdXJjZRgHIAEoCUIHukgEcgIYIBIZChFzaG93X2N1cnJlbnRfYXJjaBgIIAEoCCJLChJTZWFyY2hBcHBzUmVzcG9uc2USJgoFaXRlbXMYASADKAsyFy5wYW5lbC5hZ2VudC52MS5BcHBJdGVtEg0KBXRvdGFsGAIgASgDIugBCgdBcHBJdGVtEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSCwoDa2V5GAMgASgJEgwKBGljb24YBCABKAkSEwoLZGVzY3JpcHRpb24YBSABKAkSDgoGc3RhdHVzGAYgASgJEhEKCWluc3RhbGxlZBgHIAEoCBINCgVsaW1pdBgIIAEoBRIMCgR0YWdzGAkgAygJEhMKC2dwdV9zdXBwb3J0GAogASgIEhEKCXJlY29tbWVuZBgLIAEoBRIMCgR0eXBlGAwgASgJEh0KFWJhdGNoX2luc3RhbGxfc3VwcG9ydBgNIAEoCCK6AQoaU2VhcmNoSW5zdGFsbGVkQXBwc1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIVCgRuYW1lGAMgASgJQge6SARyAhhAEhUKBHR5cGUYBCABKAlCB7pIBHICGEASDAoEdGFncxgFIAMoCRIOCgZ1cGRhdGUYBiABKAgSDgoGdW51c2VkGAcgASgIEgsKA2FsbBgIIAEoCCJZChtTZWFyY2hJbnN0YWxsZWRBcHBzUmVzcG9uc2USKwoFaXRlbXMYASADKAsyHC5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRBcHASDQoFdG90YWwYAiABKAMi/gIKDEluc3RhbGxlZEFwcBIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEg4KBmFwcF9pZBgDIAEoDRIVCg1hcHBfZGV0YWlsX2lkGAQgASgNEg8KB3ZlcnNpb24YBSABKAkSDgoGc3RhdHVzGAYgASgJEg8KB21lc3NhZ2UYByABKAkSEQoJaHR0cF9wb3J0GAggASgFEhIKCmh0dHBzX3BvcnQYCSABKAUSDAoEcGF0aBgKIAEoCRISCgpjYW5fdXBkYXRlGAsgASgIEgwKBGljb24YDCABKAkSEAoIYXBwX25hbWUYDSABKAkSDwoHYXBwX2tleRgOIAEoCRIQCghhcHBfdHlwZRgPIAEoCRISCgphcHBfc3RhdHVzGBAgASgJEg4KBndlYl91aRgRIAEoCRISCgpjcmVhdGVkX2F0GBIgASgJEhAKCGZhdm9yaXRlGBMgASgIEhEKCWNvbnRhaW5lchgUIAEoCRISCgpzb3J0X29yZGVyGBUgASgFInwKFVVwZGF0ZVZlcnNpb25zUmVxdWVzdBIfCg5hcHBfaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgABIWCg51cGRhdGVfdmVyc2lvbhgCIAEoCRIZCgxsb2FkX2NvbXBvc2UYAyABKAhIAIgBAUIPCg1fbG9hZF9jb21wb3NlIkMKFlVwZGF0ZVZlcnNpb25zUmVzcG9uc2USKQoFaXRlbXMYASADKAsyGi5wYW5lbC5hZ2VudC52MS5BcHBWZXJzaW9uInoKCkFwcFZlcnNpb24SDwoHdmVyc2lvbhgBIAEoCRIRCglkZXRhaWxfaWQYAiABKA0SFgoOZG9ja2VyX2NvbXBvc2UYAyABKAkSFQoNZmVpc2h1X2xlZ2FjeRgEIAEoCBIZChFmZWlzaHVfY29uZmlndXJlZBgFIAEoCCIlCg1HZXRBcHBSZXF1ZXN0EhQKA2tleRgBIAEoCUIHukgEcgIQASLYAQoJQXBwRGV0YWlsEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSCwoDa2V5GAMgASgJEgwKBGljb24YBCABKAkSEwoLZGVzY3JpcHRpb24YBSABKAkSDgoGcmVhZG1lGAYgASgJEhAKCHZlcnNpb25zGAcgAygJEgwKBHRhZ3MYCCADKAkSEQoJaW5zdGFsbGVkGAkgASgIEgwKBHR5cGUYCiABKAkSDgoGc3RhdHVzGAsgASgJEhEKCXJlY29tbWVuZBgMIAEoBRINCgVsaW1pdBgNIAEoBSI+ChhDaGVja0luc3RhbGxlZEFwcFJlcXVlc3QSFAoDa2V5GAEgASgJQge6SARyAhABEgwKBG5hbWUYAiABKAkioAIKEUFwcEluc3RhbGxlZENoZWNrEg8KB3Rhc2tfaWQYASABKAkSEAoIaXNfZXhpc3QYAiABKAgSDAoEbmFtZRgDIAEoCRILCgNhcHAYBCABKAkSDwoHdmVyc2lvbhgFIAEoCRIOCgZzdGF0dXMYBiABKAkSEgoKY3JlYXRlZF9hdBgHIAEoCRIWCg5sYXN0X2JhY2t1cF9hdBgIIAEoCRIWCg5hcHBfaW5zdGFsbF9pZBgJIAEoDRIWCg5jb250YWluZXJfbmFtZRgKIAEoCRIUCgxpbnN0YWxsX3BhdGgYCyABKAkSEQoJaHR0cF9wb3J0GAwgASgFEhIKCmh0dHBzX3BvcnQYDSABKAUSEwoLd2Vic2l0ZV9kaXIYDiABKAki5AEKEUluc3RhbGxBcHBSZXF1ZXN0Eh4KDWFwcF9kZXRhaWxfaWQYASABKA1CB7pIBCoCIAASFQoEbmFtZRgCIAEoCUIHukgEcgIQARJBCghzZXJ2aWNlcxgDIAMoCzIvLnBhbmVsLmFnZW50LnYxLkluc3RhbGxBcHBSZXF1ZXN0LlNlcnZpY2VzRW50cnkSDwoHdGFza19pZBgEIAEoCRITCgtwYXJhbXNfanNvbhgFIAEoCRovCg1TZXJ2aWNlc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEipQIKEU9wZXJhdGVBcHBSZXF1ZXN0EhsKCmluc3RhbGxfaWQYASABKA1CB7pIBCoCIAASGAoHb3BlcmF0ZRgCIAEoCUIHukgEcgIQARIRCglkZXRhaWxfaWQYAyABKA0SDgoGYmFja3VwGAQgASgIEhIKCnB1bGxfaW1hZ2UYBSABKAgSFAoMZGVsZXRlX2ltYWdlGAYgASgIEhYKDmRvY2tlcl9jb21wb3NlGAcgASgJEg8KB3Rhc2tfaWQYCCABKAkSFAoMZm9yY2VfZGVsZXRlGAkgASgIEhUKDWRlbGV0ZV9iYWNrdXAYCiABKAgSEQoJZGVsZXRlX2RiGAsgASgIEhAKCGZhdm9yaXRlGAwgASgIEhEKCWJhY2t1cF9pZBgNIAEoDSIUChJPcGVyYXRlQXBwUmVzcG9uc2UiXwoTR2V0QXBwRGV0YWlsUmVxdWVzdBIXCgZhcHBfaWQYASABKA1CB7pIBCoCIAASGAoHdmVyc2lvbhgCIAEoCUIHukgEcgIQARIVCgR0eXBlGAMgASgJQge6SARyAhABIi4KF0dldEFwcERldGFpbEJ5SURSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIk4KGEdldEFwcERldGFpbEJ5S2V5UmVxdWVzdBIYCgdhcHBfa2V5GAEgASgJQge6SARyAhABEhgKB3ZlcnNpb24YAiABKAlCB7pIBHICEAEiKAoRQXBwRGV0YWlsRG9jdW1lbnQSEwoLZGV0YWlsX2pzb24YASABKAkiGAoKSWRSZXNwb25zZRIKCgJpZBgBIAEoDSITChFHZXRBcHBUYWdzUmVxdWVzdCI4Cg9BcHBUYWdzUmVzcG9uc2USJQoFaXRlbXMYASADKAsyFi5wYW5lbC5hZ2VudC52MS5BcHBUYWciLwoGQXBwVGFnEgoKAmlkGAEgASgNEgsKA2tleRgCIAEoCRIMCgRuYW1lGAMgASgJIhUKE0dldEFwcFVwZGF0ZVJlcXVlc3QibwoNQXBwVXBkYXRlSW5mbxISCgpjYW5fdXBkYXRlGAEgASgIEhIKCmlzX3N5bmNpbmcYAiABKAgSHwoXYXBwX3N0b3JlX2xhc3RfbW9kaWZpZWQYAyABKAUSFQoNYXBwX2xpc3RfanNvbhgEIAEoCSIYChZMaXN0SWdub3JlZEFwcHNSZXF1ZXN0IkAKE0lnbm9yZWRBcHBzUmVzcG9uc2USKQoFaXRlbXMYASADKAsyGi5wYW5lbC5hZ2VudC52MS5JZ25vcmVkQXBwIm0KCklnbm9yZWRBcHASCgoCaWQYASABKA0SDgoGYXBwX2lkGAIgASgNEhUKDWFwcF9kZXRhaWxfaWQYAyABKA0SDQoFc2NvcGUYBCABKAkSDwoHdmVyc2lvbhgFIAEoCRIMCgRuYW1lGAYgASgJIm0KF0lnbm9yZUFwcFVwZ3JhZGVSZXF1ZXN0EhcKBmFwcF9pZBgBIAEoDUIHukgEKgIgABIVCg1hcHBfZGV0YWlsX2lkGAIgASgNEiIKBXNjb3BlGAMgASgJQhO6SBByDlIDYWxsUgd2ZXJzaW9uIhoKGElnbm9yZUFwcFVwZ3JhZGVSZXNwb25zZSI0Ch1DYW5jZWxJZ25vcmVBcHBVcGdyYWRlUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACIgCh5DYW5jZWxJZ25vcmVBcHBVcGdyYWRlUmVzcG9uc2UiFgoUTGlzdEluc3RhbGxlZFJlcXVlc3QiSQoVTGlzdEluc3RhbGxlZFJlc3BvbnNlEjAKBWl0ZW1zGAEgAygLMiEucGFuZWwuYWdlbnQudjEuSW5zdGFsbGVkQXBwQnJpZWYiOgoRSW5zdGFsbGVkQXBwQnJpZWYSCgoCaWQYASABKA0SCwoDa2V5GAIgASgJEgwKBG5hbWUYAyABKAkiPgobQ2hlY2tEZWxldGVJbnN0YWxsZWRSZXF1ZXN0Eh8KDmFwcF9pbnN0YWxsX2lkGAEgASgNQge6SAQqAiAAIkoKHENoZWNrRGVsZXRlSW5zdGFsbGVkUmVzcG9uc2USKgoFaXRlbXMYASADKAsyGy5wYW5lbC5hZ2VudC52MS5BcHBSZXNvdXJjZSIpCgtBcHBSZXNvdXJjZRIMCgR0eXBlGAEgASgJEgwKBG5hbWUYAiABKAkiFgoUU3luY0luc3RhbGxlZFJlcXVlc3QiFwoVU3luY0luc3RhbGxlZFJlc3BvbnNlIi0KFUdldEFwcFNlcnZpY2VzUmVxdWVzdBIUCgNrZXkYASABKAlCB7pIBHICEAEiRwoWR2V0QXBwU2VydmljZXNSZXNwb25zZRItCgVpdGVtcxgBIAMoCzIeLnBhbmVsLmFnZW50LnYxLkFwcFNlcnZpY2VJdGVtImEKDkFwcFNlcnZpY2VJdGVtEg0KBWxhYmVsGAEgASgJEg0KBXZhbHVlGAIgASgJEgwKBGZyb20YAyABKAkSDgoGc3RhdHVzGAQgASgJEhMKC2NvbmZpZ19qc29uGAUgASgJIkgKFENoYW5nZUFwcFBvcnRSZXF1ZXN0EgsKA2tleRgBIAEoCRIMCgRuYW1lGAIgASgJEhUKBHBvcnQYAyABKANCB7pIBCICIAAiFwoVQ2hhbmdlQXBwUG9ydFJlc3BvbnNlIj4KF0dldERlZmF1bHRDb25maWdSZXF1ZXN0EgwKBG5hbWUYASABKAkSFQoEdHlwZRgCIAEoCUIHukgEcgIQASIrChhHZXREZWZhdWx0Q29uZmlnUmVzcG9uc2USDwoHY29udGVudBgBIAEoCSI8ChlHZXRJbnN0YWxsZWRQYXJhbXNSZXF1ZXN0Eh8KDmFwcF9pbnN0YWxsX2lkGAEgASgNQge6SAQqAiAAIv8BChdJbnN0YWxsZWRQYXJhbXNSZXNwb25zZRIPCgdhcHBfa2V5GAEgASgJEgwKBG5hbWUYAiABKAkSEQoJaHR0cF9wb3J0GAMgASgFEhoKEnN5bmNfbW9kZWxfYWNjb3VudBgEIAEoCBIjChttb2RlbF9hY2NvdW50X2Jhc2VfdXJsX3R5cGUYBSABKAkSHgoWbW9kZWxfYWNjb3VudF9iYXNlX3VybBgGIAEoCRITCgtyYXdfY29tcG9zZRgHIAEoCRIPCgdpc19lZGl0GAggASgIEhMKC3BhcmFtc19qc29uGAkgASgJEhYKDmNvbnRhaW5lcl9qc29uGAogASgJIlQKFlVwZGF0ZUluc3RhbGxlZFJlcXVlc3QSGwoKaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgABIdCgxwYXlsb2FkX2pzb24YAiABKAlCB7pIBHICEAEiGQoXVXBkYXRlSW5zdGFsbGVkUmVzcG9uc2UiSwocVXBkYXRlSW5zdGFsbGVkQ29uZmlnUmVxdWVzdBIbCgppbnN0YWxsX2lkGAEgASgNQge6SAQqAiAAEg4KBndlYl91aRgCIAEoCSIfCh1VcGRhdGVJbnN0YWxsZWRDb25maWdSZXNwb25zZSI6ChdHZXRJbnN0YWxsZWRJbmZvUmVxdWVzdBIfCg5hcHBfaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgACLNAQoNSW5zdGFsbGVkSW5mbxIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEg8KB3ZlcnNpb24YAyABKAkSDgoGc3RhdHVzGAQgASgJEg8KB21lc3NhZ2UYBSABKAkSEQoJaHR0cF9wb3J0GAYgASgFEhEKCWNvbnRhaW5lchgHIAEoCRIUCgxjb21wb3NlX3BhdGgYCCABKAkSDwoHYXBwX2tleRgJIAEoCRIRCglhcHBfcG9ydHMYCiADKAUSEAoIZW52X2pzb24YCyABKAkiWAoaVXBkYXRlSW5zdGFsbGVkU29ydFJlcXVlc3QSOgoFaXRlbXMYASADKAsyIS5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRTb3J0SXRlbUIIukgFkgECCAEiRAoRSW5zdGFsbGVkU29ydEl0ZW0SGwoKaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgABISCgpzb3J0X29yZGVyGAIgASgFIh0KG1VwZGF0ZUluc3RhbGxlZFNvcnRSZXNwb25zZSIiCg9TeW5jQXBwc1JlcXVlc3QSDwoHdGFza19pZBgBIAEoCSIjChBTeW5jQXBwc1Jlc3BvbnNlEg8KB21lc3NhZ2UYASABKAkiOQoSTG9hZEFwcFBvcnRSZXF1ZXN0EgwKBG5hbWUYASABKAkSFQoEdHlwZRgCIAEoCUIHukgEcgIQASIjChNMb2FkQXBwUG9ydFJlc3BvbnNlEgwKBHBvcnQYASABKAMiPQoWTG9hZEFwcENvbm5JbmZvUmVxdWVzdBIMCgRuYW1lGAEgASgJEhUKBHR5cGUYAiABKAlCB7pIBHICEAEiiQEKF0xvYWRBcHBDb25uSW5mb1Jlc3BvbnNlEg4KBnN0YXR1cxgBIAEoCRIQCgh1c2VybmFtZRgCIAEoCRIQCghwYXNzd29yZBgDIAEoCRIWCg5jb250YWluZXJfbmFtZRgEIAEoCRIUCgxzZXJ2aWNlX25hbWUYBSABKAkSDAoEcG9ydBgGIAEoAzLjGwoKQXBwU2VydmljZRJMCgZHZXRBcHASHS5wYW5lbC5hZ2VudC52MS5HZXRBcHBSZXF1ZXN0GhkucGFuZWwuYWdlbnQudjEuQXBwRGV0YWlsIgiKtRgEGAEwARJnCg5DaGVja0luc3RhbGxlZBIoLnBhbmVsLmFnZW50LnYxLkNoZWNrSW5zdGFsbGVkQXBwUmVxdWVzdBohLnBhbmVsLmFnZW50LnYxLkFwcEluc3RhbGxlZENoZWNrIgiKtRgEGAEwARJrCgdJbnN0YWxsEiEucGFuZWwuYWdlbnQudjEuSW5zdGFsbEFwcFJlcXVlc3QaHC5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRBcHAiH4q1GBsiDOWuieijheW6lOeUqCoLSW5zdGFsbCBhcHASXQoKU2VhcmNoQXBwcxIhLnBhbmVsLmFnZW50LnYxLlNlYXJjaEFwcHNSZXF1ZXN0GiIucGFuZWwuYWdlbnQudjEuU2VhcmNoQXBwc1Jlc3BvbnNlIgiKtRgEGAEwARJpCg5VcGRhdGVWZXJzaW9ucxIlLnBhbmVsLmFnZW50LnYxLlVwZGF0ZVZlcnNpb25zUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLlVwZGF0ZVZlcnNpb25zUmVzcG9uc2UiCIq1GAQYATABEnEKB09wZXJhdGUSIS5wYW5lbC5hZ2VudC52MS5PcGVyYXRlQXBwUmVxdWVzdBoiLnBhbmVsLmFnZW50LnYxLk9wZXJhdGVBcHBSZXNwb25zZSIfirUYGyIM5pON5L2c5bqU55SoKgtPcGVyYXRlIGFwcBJ0Cg9TZWFyY2hJbnN0YWxsZWQSKi5wYW5lbC5hZ2VudC52MS5TZWFyY2hJbnN0YWxsZWRBcHBzUmVxdWVzdBorLnBhbmVsLmFnZW50LnYxLlNlYXJjaEluc3RhbGxlZEFwcHNSZXNwb25zZSIIirUYBBgBMAESYAoMR2V0QXBwRGV0YWlsEiMucGFuZWwuYWdlbnQudjEuR2V0QXBwRGV0YWlsUmVxdWVzdBohLnBhbmVsLmFnZW50LnYxLkFwcERldGFpbERvY3VtZW50IgiKtRgEGAEwARJoChBHZXRBcHBEZXRhaWxCeUlEEicucGFuZWwuYWdlbnQudjEuR2V0QXBwRGV0YWlsQnlJRFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5BcHBEZXRhaWxEb2N1bWVudCIIirUYBBgBMAESYwoRR2V0QXBwRGV0YWlsQnlLZXkSKC5wYW5lbC5hZ2VudC52MS5HZXRBcHBEZXRhaWxCeUtleVJlcXVlc3QaGi5wYW5lbC5hZ2VudC52MS5JZFJlc3BvbnNlIgiKtRgEGAEwARJaCgpHZXRBcHBUYWdzEiEucGFuZWwuYWdlbnQudjEuR2V0QXBwVGFnc1JlcXVlc3QaHy5wYW5lbC5hZ2VudC52MS5BcHBUYWdzUmVzcG9uc2UiCIq1GAQYATABElwKDEdldEFwcFVwZGF0ZRIjLnBhbmVsLmFnZW50LnYxLkdldEFwcFVwZGF0ZVJlcXVlc3QaHS5wYW5lbC5hZ2VudC52MS5BcHBVcGRhdGVJbmZvIgiKtRgEGAEwARJoCg9MaXN0SWdub3JlZEFwcHMSJi5wYW5lbC5hZ2VudC52MS5MaXN0SWdub3JlZEFwcHNSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuSWdub3JlZEFwcHNSZXNwb25zZSIIirUYBBgBMAESkwEKEElnbm9yZUFwcFVwZ3JhZGUSJy5wYW5lbC5hZ2VudC52MS5JZ25vcmVBcHBVcGdyYWRlUmVxdWVzdBooLnBhbmVsLmFnZW50LnYxLklnbm9yZUFwcFVwZ3JhZGVSZXNwb25zZSIsirUYKCIS5b+955Wl5bqU55So5Y2H57qnKhJJZ25vcmUgYXBwIHVwZ3JhZGUSsgEKFkNhbmNlbElnbm9yZUFwcFVwZ3JhZGUSLS5wYW5lbC5hZ2VudC52MS5DYW5jZWxJZ25vcmVBcHBVcGdyYWRlUmVxdWVzdBouLnBhbmVsLmFnZW50LnYxLkNhbmNlbElnbm9yZUFwcFVwZ3JhZGVSZXNwb25zZSI5irUYNSIY5Y+W5raI5b+955Wl5bqU55So5Y2H57qnKhlDYW5jZWwgaWdub3JlIGFwcCB1cGdyYWRlEmYKDUxpc3RJbnN0YWxsZWQSJC5wYW5lbC5hZ2VudC52MS5MaXN0SW5zdGFsbGVkUmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLkxpc3RJbnN0YWxsZWRSZXNwb25zZSIIirUYBBgBMAESewoUQ2hlY2tEZWxldGVJbnN0YWxsZWQSKy5wYW5lbC5hZ2VudC52MS5DaGVja0RlbGV0ZUluc3RhbGxlZFJlcXVlc3QaLC5wYW5lbC5hZ2VudC52MS5DaGVja0RlbGV0ZUluc3RhbGxlZFJlc3BvbnNlIgiKtRgEGAEwARKOAQoNU3luY0luc3RhbGxlZBIkLnBhbmVsLmFnZW50LnYxLlN5bmNJbnN0YWxsZWRSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuU3luY0luc3RhbGxlZFJlc3BvbnNlIjCKtRgsIhXlkIzmraXlt7Llronoo4XlupTnlKgqE1N5bmMgaW5zdGFsbGVkIGFwcHMSaQoOR2V0QXBwU2VydmljZXMSJS5wYW5lbC5hZ2VudC52MS5HZXRBcHBTZXJ2aWNlc1JlcXVlc3QaJi5wYW5lbC5hZ2VudC52MS5HZXRBcHBTZXJ2aWNlc1Jlc3BvbnNlIgiKtRgEGAEwARKHAQoNQ2hhbmdlQXBwUG9ydBIkLnBhbmVsLmFnZW50LnYxLkNoYW5nZUFwcFBvcnRSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuQ2hhbmdlQXBwUG9ydFJlc3BvbnNlIimKtRglIhLkv67mlLnlupTnlKjnq6/lj6MqD0NoYW5nZSBhcHAgcG9ydBJvChBHZXREZWZhdWx0Q29uZmlnEicucGFuZWwuYWdlbnQudjEuR2V0RGVmYXVsdENvbmZpZ1JlcXVlc3QaKC5wYW5lbC5hZ2VudC52MS5HZXREZWZhdWx0Q29uZmlnUmVzcG9uc2UiCIq1GAQYATABEnIKEkdldEluc3RhbGxlZFBhcmFtcxIpLnBhbmVsLmFnZW50LnYxLkdldEluc3RhbGxlZFBhcmFtc1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRQYXJhbXNSZXNwb25zZSIIirUYBBgBMAESjwEKD1VwZGF0ZUluc3RhbGxlZBImLnBhbmVsLmFnZW50LnYxLlVwZGF0ZUluc3RhbGxlZFJlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5VcGRhdGVJbnN0YWxsZWRSZXNwb25zZSIrirUYJyIS5L+u5pS55bqU55So5Y+C5pWwKhFVcGRhdGUgYXBwIHBhcmFtcxKhAQoVVXBkYXRlSW5zdGFsbGVkQ29uZmlnEiwucGFuZWwuYWdlbnQudjEuVXBkYXRlSW5zdGFsbGVkQ29uZmlnUmVxdWVzdBotLnBhbmVsLmFnZW50LnYxLlVwZGF0ZUluc3RhbGxlZENvbmZpZ1Jlc3BvbnNlIiuKtRgnIhLkv67mlLnlupTnlKjphY3nva4qEVVwZGF0ZSBhcHAgY29uZmlnEmQKEEdldEluc3RhbGxlZEluZm8SJy5wYW5lbC5hZ2VudC52MS5HZXRJbnN0YWxsZWRJbmZvUmVxdWVzdBodLnBhbmVsLmFnZW50LnYxLkluc3RhbGxlZEluZm8iCIq1GAQYATABEpkBChNVcGRhdGVJbnN0YWxsZWRTb3J0EioucGFuZWwuYWdlbnQudjEuVXBkYXRlSW5zdGFsbGVkU29ydFJlcXVlc3QaKy5wYW5lbC5hZ2VudC52MS5VcGRhdGVJbnN0YWxsZWRTb3J0UmVzcG9uc2UiKYq1GCUiEuabtOaWsOW6lOeUqOaOkuW6jyoPVXBkYXRlIGFwcCBzb3J0EoEBChJTeW5jQXBwc0Zyb21SZW1vdGUSHy5wYW5lbC5hZ2VudC52MS5TeW5jQXBwc1JlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5TeW5jQXBwc1Jlc3BvbnNlIiiKtRgkIhLlkIzmraXlupTnlKjllYblupcqDlN5bmMgYXBwIHN0b3JlEoEBChFTeW5jQXBwc0Zyb21Mb2NhbBIfLnBhbmVsLmFnZW50LnYxLlN5bmNBcHBzUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLlN5bmNBcHBzUmVzcG9uc2UiKYq1GCUiEuWQjOatpeacrOWcsOW6lOeUqCoPU3luYyBsb2NhbCBhcHBzEmAKC0xvYWRBcHBQb3J0EiIucGFuZWwuYWdlbnQudjEuTG9hZEFwcFBvcnRSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuTG9hZEFwcFBvcnRSZXNwb25zZSIIirUYBBgBMAESbAoPTG9hZEFwcENvbm5JbmZvEiYucGFuZWwuYWdlbnQudjEuTG9hZEFwcENvbm5JbmZvUmVxdWVzdBonLnBhbmVsLmFnZW50LnYxLkxvYWRBcHBDb25uSW5mb1Jlc3BvbnNlIgiKtRgEGAEwAUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM',
-        [file_buf_validate_validate, file_panel_common_v1_options],
-    );
+export const file_panel_agent_v1_app: GenFile = /*@__PURE__*/
+  fileDesc("ChhwYW5lbC9hZ2VudC92MS9hcHAucHJvdG8SDnBhbmVsLmFnZW50LnYxIs0BChFTZWFyY2hBcHBzUmVxdWVzdBIVCgRwYWdlGAEgASgFQge6SAQaAigBEhwKCXBhZ2Vfc2l6ZRgCIAEoBUIJukgGGgQYZCgBEhUKBG5hbWUYAyABKAlCB7pIBHICGEASFQoEdHlwZRgEIAEoCUIHukgEcgIYQBIMCgR0YWdzGAUgAygJEhEKCXJlY29tbWVuZBgGIAEoCBIZCghyZXNvdXJjZRgHIAEoCUIHukgEcgIYIBIZChFzaG93X2N1cnJlbnRfYXJjaBgIIAEoCCJLChJTZWFyY2hBcHBzUmVzcG9uc2USJgoFaXRlbXMYASADKAsyFy5wYW5lbC5hZ2VudC52MS5BcHBJdGVtEg0KBXRvdGFsGAIgASgDIugBCgdBcHBJdGVtEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSCwoDa2V5GAMgASgJEgwKBGljb24YBCABKAkSEwoLZGVzY3JpcHRpb24YBSABKAkSDgoGc3RhdHVzGAYgASgJEhEKCWluc3RhbGxlZBgHIAEoCBINCgVsaW1pdBgIIAEoBRIMCgR0YWdzGAkgAygJEhMKC2dwdV9zdXBwb3J0GAogASgIEhEKCXJlY29tbWVuZBgLIAEoBRIMCgR0eXBlGAwgASgJEh0KFWJhdGNoX2luc3RhbGxfc3VwcG9ydBgNIAEoCCK6AQoaU2VhcmNoSW5zdGFsbGVkQXBwc1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIVCgRuYW1lGAMgASgJQge6SARyAhhAEhUKBHR5cGUYBCABKAlCB7pIBHICGEASDAoEdGFncxgFIAMoCRIOCgZ1cGRhdGUYBiABKAgSDgoGdW51c2VkGAcgASgIEgsKA2FsbBgIIAEoCCJZChtTZWFyY2hJbnN0YWxsZWRBcHBzUmVzcG9uc2USKwoFaXRlbXMYASADKAsyHC5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRBcHASDQoFdG90YWwYAiABKAMi/gIKDEluc3RhbGxlZEFwcBIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEg4KBmFwcF9pZBgDIAEoDRIVCg1hcHBfZGV0YWlsX2lkGAQgASgNEg8KB3ZlcnNpb24YBSABKAkSDgoGc3RhdHVzGAYgASgJEg8KB21lc3NhZ2UYByABKAkSEQoJaHR0cF9wb3J0GAggASgFEhIKCmh0dHBzX3BvcnQYCSABKAUSDAoEcGF0aBgKIAEoCRISCgpjYW5fdXBkYXRlGAsgASgIEgwKBGljb24YDCABKAkSEAoIYXBwX25hbWUYDSABKAkSDwoHYXBwX2tleRgOIAEoCRIQCghhcHBfdHlwZRgPIAEoCRISCgphcHBfc3RhdHVzGBAgASgJEg4KBndlYl91aRgRIAEoCRISCgpjcmVhdGVkX2F0GBIgASgJEhAKCGZhdm9yaXRlGBMgASgIEhEKCWNvbnRhaW5lchgUIAEoCRISCgpzb3J0X29yZGVyGBUgASgFInwKFVVwZGF0ZVZlcnNpb25zUmVxdWVzdBIfCg5hcHBfaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgABIWCg51cGRhdGVfdmVyc2lvbhgCIAEoCRIZCgxsb2FkX2NvbXBvc2UYAyABKAhIAIgBAUIPCg1fbG9hZF9jb21wb3NlIkMKFlVwZGF0ZVZlcnNpb25zUmVzcG9uc2USKQoFaXRlbXMYASADKAsyGi5wYW5lbC5hZ2VudC52MS5BcHBWZXJzaW9uInoKCkFwcFZlcnNpb24SDwoHdmVyc2lvbhgBIAEoCRIRCglkZXRhaWxfaWQYAiABKA0SFgoOZG9ja2VyX2NvbXBvc2UYAyABKAkSFQoNZmVpc2h1X2xlZ2FjeRgEIAEoCBIZChFmZWlzaHVfY29uZmlndXJlZBgFIAEoCCIlCg1HZXRBcHBSZXF1ZXN0EhQKA2tleRgBIAEoCUIHukgEcgIQASLYAQoJQXBwRGV0YWlsEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSCwoDa2V5GAMgASgJEgwKBGljb24YBCABKAkSEwoLZGVzY3JpcHRpb24YBSABKAkSDgoGcmVhZG1lGAYgASgJEhAKCHZlcnNpb25zGAcgAygJEgwKBHRhZ3MYCCADKAkSEQoJaW5zdGFsbGVkGAkgASgIEgwKBHR5cGUYCiABKAkSDgoGc3RhdHVzGAsgASgJEhEKCXJlY29tbWVuZBgMIAEoBRINCgVsaW1pdBgNIAEoBSI+ChhDaGVja0luc3RhbGxlZEFwcFJlcXVlc3QSFAoDa2V5GAEgASgJQge6SARyAhABEgwKBG5hbWUYAiABKAkioAIKEUFwcEluc3RhbGxlZENoZWNrEg8KB3Rhc2tfaWQYASABKAkSEAoIaXNfZXhpc3QYAiABKAgSDAoEbmFtZRgDIAEoCRILCgNhcHAYBCABKAkSDwoHdmVyc2lvbhgFIAEoCRIOCgZzdGF0dXMYBiABKAkSEgoKY3JlYXRlZF9hdBgHIAEoCRIWCg5sYXN0X2JhY2t1cF9hdBgIIAEoCRIWCg5hcHBfaW5zdGFsbF9pZBgJIAEoDRIWCg5jb250YWluZXJfbmFtZRgKIAEoCRIUCgxpbnN0YWxsX3BhdGgYCyABKAkSEQoJaHR0cF9wb3J0GAwgASgFEhIKCmh0dHBzX3BvcnQYDSABKAUSEwoLd2Vic2l0ZV9kaXIYDiABKAki5AEKEUluc3RhbGxBcHBSZXF1ZXN0Eh4KDWFwcF9kZXRhaWxfaWQYASABKA1CB7pIBCoCIAASFQoEbmFtZRgCIAEoCUIHukgEcgIQARJBCghzZXJ2aWNlcxgDIAMoCzIvLnBhbmVsLmFnZW50LnYxLkluc3RhbGxBcHBSZXF1ZXN0LlNlcnZpY2VzRW50cnkSDwoHdGFza19pZBgEIAEoCRITCgtwYXJhbXNfanNvbhgFIAEoCRovCg1TZXJ2aWNlc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEipQIKEU9wZXJhdGVBcHBSZXF1ZXN0EhsKCmluc3RhbGxfaWQYASABKA1CB7pIBCoCIAASGAoHb3BlcmF0ZRgCIAEoCUIHukgEcgIQARIRCglkZXRhaWxfaWQYAyABKA0SDgoGYmFja3VwGAQgASgIEhIKCnB1bGxfaW1hZ2UYBSABKAgSFAoMZGVsZXRlX2ltYWdlGAYgASgIEhYKDmRvY2tlcl9jb21wb3NlGAcgASgJEg8KB3Rhc2tfaWQYCCABKAkSFAoMZm9yY2VfZGVsZXRlGAkgASgIEhUKDWRlbGV0ZV9iYWNrdXAYCiABKAgSEQoJZGVsZXRlX2RiGAsgASgIEhAKCGZhdm9yaXRlGAwgASgIEhEKCWJhY2t1cF9pZBgNIAEoDSIUChJPcGVyYXRlQXBwUmVzcG9uc2UiXwoTR2V0QXBwRGV0YWlsUmVxdWVzdBIXCgZhcHBfaWQYASABKA1CB7pIBCoCIAASGAoHdmVyc2lvbhgCIAEoCUIHukgEcgIQARIVCgR0eXBlGAMgASgJQge6SARyAhABIi4KF0dldEFwcERldGFpbEJ5SURSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIk4KGEdldEFwcERldGFpbEJ5S2V5UmVxdWVzdBIYCgdhcHBfa2V5GAEgASgJQge6SARyAhABEhgKB3ZlcnNpb24YAiABKAlCB7pIBHICEAEiKAoRQXBwRGV0YWlsRG9jdW1lbnQSEwoLZGV0YWlsX2pzb24YASABKAkiGAoKSWRSZXNwb25zZRIKCgJpZBgBIAEoDSITChFHZXRBcHBUYWdzUmVxdWVzdCI4Cg9BcHBUYWdzUmVzcG9uc2USJQoFaXRlbXMYASADKAsyFi5wYW5lbC5hZ2VudC52MS5BcHBUYWciLwoGQXBwVGFnEgoKAmlkGAEgASgNEgsKA2tleRgCIAEoCRIMCgRuYW1lGAMgASgJIhUKE0dldEFwcFVwZGF0ZVJlcXVlc3QibwoNQXBwVXBkYXRlSW5mbxISCgpjYW5fdXBkYXRlGAEgASgIEhIKCmlzX3N5bmNpbmcYAiABKAgSHwoXYXBwX3N0b3JlX2xhc3RfbW9kaWZpZWQYAyABKAUSFQoNYXBwX2xpc3RfanNvbhgEIAEoCSIYChZMaXN0SWdub3JlZEFwcHNSZXF1ZXN0IkAKE0lnbm9yZWRBcHBzUmVzcG9uc2USKQoFaXRlbXMYASADKAsyGi5wYW5lbC5hZ2VudC52MS5JZ25vcmVkQXBwIm0KCklnbm9yZWRBcHASCgoCaWQYASABKA0SDgoGYXBwX2lkGAIgASgNEhUKDWFwcF9kZXRhaWxfaWQYAyABKA0SDQoFc2NvcGUYBCABKAkSDwoHdmVyc2lvbhgFIAEoCRIMCgRuYW1lGAYgASgJIm0KF0lnbm9yZUFwcFVwZ3JhZGVSZXF1ZXN0EhcKBmFwcF9pZBgBIAEoDUIHukgEKgIgABIVCg1hcHBfZGV0YWlsX2lkGAIgASgNEiIKBXNjb3BlGAMgASgJQhO6SBByDlIDYWxsUgd2ZXJzaW9uIhoKGElnbm9yZUFwcFVwZ3JhZGVSZXNwb25zZSI0Ch1DYW5jZWxJZ25vcmVBcHBVcGdyYWRlUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACIgCh5DYW5jZWxJZ25vcmVBcHBVcGdyYWRlUmVzcG9uc2UiFgoUTGlzdEluc3RhbGxlZFJlcXVlc3QiSQoVTGlzdEluc3RhbGxlZFJlc3BvbnNlEjAKBWl0ZW1zGAEgAygLMiEucGFuZWwuYWdlbnQudjEuSW5zdGFsbGVkQXBwQnJpZWYiOgoRSW5zdGFsbGVkQXBwQnJpZWYSCgoCaWQYASABKA0SCwoDa2V5GAIgASgJEgwKBG5hbWUYAyABKAkiPgobQ2hlY2tEZWxldGVJbnN0YWxsZWRSZXF1ZXN0Eh8KDmFwcF9pbnN0YWxsX2lkGAEgASgNQge6SAQqAiAAIkoKHENoZWNrRGVsZXRlSW5zdGFsbGVkUmVzcG9uc2USKgoFaXRlbXMYASADKAsyGy5wYW5lbC5hZ2VudC52MS5BcHBSZXNvdXJjZSIpCgtBcHBSZXNvdXJjZRIMCgR0eXBlGAEgASgJEgwKBG5hbWUYAiABKAkiFgoUU3luY0luc3RhbGxlZFJlcXVlc3QiFwoVU3luY0luc3RhbGxlZFJlc3BvbnNlIi0KFUdldEFwcFNlcnZpY2VzUmVxdWVzdBIUCgNrZXkYASABKAlCB7pIBHICEAEiRwoWR2V0QXBwU2VydmljZXNSZXNwb25zZRItCgVpdGVtcxgBIAMoCzIeLnBhbmVsLmFnZW50LnYxLkFwcFNlcnZpY2VJdGVtImEKDkFwcFNlcnZpY2VJdGVtEg0KBWxhYmVsGAEgASgJEg0KBXZhbHVlGAIgASgJEgwKBGZyb20YAyABKAkSDgoGc3RhdHVzGAQgASgJEhMKC2NvbmZpZ19qc29uGAUgASgJIkgKFENoYW5nZUFwcFBvcnRSZXF1ZXN0EgsKA2tleRgBIAEoCRIMCgRuYW1lGAIgASgJEhUKBHBvcnQYAyABKANCB7pIBCICIAAiFwoVQ2hhbmdlQXBwUG9ydFJlc3BvbnNlIj4KF0dldERlZmF1bHRDb25maWdSZXF1ZXN0EgwKBG5hbWUYASABKAkSFQoEdHlwZRgCIAEoCUIHukgEcgIQASIrChhHZXREZWZhdWx0Q29uZmlnUmVzcG9uc2USDwoHY29udGVudBgBIAEoCSI8ChlHZXRJbnN0YWxsZWRQYXJhbXNSZXF1ZXN0Eh8KDmFwcF9pbnN0YWxsX2lkGAEgASgNQge6SAQqAiAAIv8BChdJbnN0YWxsZWRQYXJhbXNSZXNwb25zZRIPCgdhcHBfa2V5GAEgASgJEgwKBG5hbWUYAiABKAkSEQoJaHR0cF9wb3J0GAMgASgFEhoKEnN5bmNfbW9kZWxfYWNjb3VudBgEIAEoCBIjChttb2RlbF9hY2NvdW50X2Jhc2VfdXJsX3R5cGUYBSABKAkSHgoWbW9kZWxfYWNjb3VudF9iYXNlX3VybBgGIAEoCRITCgtyYXdfY29tcG9zZRgHIAEoCRIPCgdpc19lZGl0GAggASgIEhMKC3BhcmFtc19qc29uGAkgASgJEhYKDmNvbnRhaW5lcl9qc29uGAogASgJIlQKFlVwZGF0ZUluc3RhbGxlZFJlcXVlc3QSGwoKaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgABIdCgxwYXlsb2FkX2pzb24YAiABKAlCB7pIBHICEAEiGQoXVXBkYXRlSW5zdGFsbGVkUmVzcG9uc2UiSwocVXBkYXRlSW5zdGFsbGVkQ29uZmlnUmVxdWVzdBIbCgppbnN0YWxsX2lkGAEgASgNQge6SAQqAiAAEg4KBndlYl91aRgCIAEoCSIfCh1VcGRhdGVJbnN0YWxsZWRDb25maWdSZXNwb25zZSI6ChdHZXRJbnN0YWxsZWRJbmZvUmVxdWVzdBIfCg5hcHBfaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgACLNAQoNSW5zdGFsbGVkSW5mbxIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEg8KB3ZlcnNpb24YAyABKAkSDgoGc3RhdHVzGAQgASgJEg8KB21lc3NhZ2UYBSABKAkSEQoJaHR0cF9wb3J0GAYgASgFEhEKCWNvbnRhaW5lchgHIAEoCRIUCgxjb21wb3NlX3BhdGgYCCABKAkSDwoHYXBwX2tleRgJIAEoCRIRCglhcHBfcG9ydHMYCiADKAUSEAoIZW52X2pzb24YCyABKAkiWAoaVXBkYXRlSW5zdGFsbGVkU29ydFJlcXVlc3QSOgoFaXRlbXMYASADKAsyIS5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRTb3J0SXRlbUIIukgFkgECCAEiRAoRSW5zdGFsbGVkU29ydEl0ZW0SGwoKaW5zdGFsbF9pZBgBIAEoDUIHukgEKgIgABISCgpzb3J0X29yZGVyGAIgASgFIh0KG1VwZGF0ZUluc3RhbGxlZFNvcnRSZXNwb25zZSIiCg9TeW5jQXBwc1JlcXVlc3QSDwoHdGFza19pZBgBIAEoCSIjChBTeW5jQXBwc1Jlc3BvbnNlEg8KB21lc3NhZ2UYASABKAkiOQoSTG9hZEFwcFBvcnRSZXF1ZXN0EgwKBG5hbWUYASABKAkSFQoEdHlwZRgCIAEoCUIHukgEcgIQASIjChNMb2FkQXBwUG9ydFJlc3BvbnNlEgwKBHBvcnQYASABKAMiPQoWTG9hZEFwcENvbm5JbmZvUmVxdWVzdBIMCgRuYW1lGAEgASgJEhUKBHR5cGUYAiABKAlCB7pIBHICEAEiiQEKF0xvYWRBcHBDb25uSW5mb1Jlc3BvbnNlEg4KBnN0YXR1cxgBIAEoCRIQCgh1c2VybmFtZRgCIAEoCRIQCghwYXNzd29yZBgDIAEoCRIWCg5jb250YWluZXJfbmFtZRgEIAEoCRIUCgxzZXJ2aWNlX25hbWUYBSABKAkSDAoEcG9ydBgGIAEoAzLjGwoKQXBwU2VydmljZRJMCgZHZXRBcHASHS5wYW5lbC5hZ2VudC52MS5HZXRBcHBSZXF1ZXN0GhkucGFuZWwuYWdlbnQudjEuQXBwRGV0YWlsIgiKtRgEGAEwARJnCg5DaGVja0luc3RhbGxlZBIoLnBhbmVsLmFnZW50LnYxLkNoZWNrSW5zdGFsbGVkQXBwUmVxdWVzdBohLnBhbmVsLmFnZW50LnYxLkFwcEluc3RhbGxlZENoZWNrIgiKtRgEGAEwARJrCgdJbnN0YWxsEiEucGFuZWwuYWdlbnQudjEuSW5zdGFsbEFwcFJlcXVlc3QaHC5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRBcHAiH4q1GBsiDOWuieijheW6lOeUqCoLSW5zdGFsbCBhcHASXQoKU2VhcmNoQXBwcxIhLnBhbmVsLmFnZW50LnYxLlNlYXJjaEFwcHNSZXF1ZXN0GiIucGFuZWwuYWdlbnQudjEuU2VhcmNoQXBwc1Jlc3BvbnNlIgiKtRgEGAEwARJpCg5VcGRhdGVWZXJzaW9ucxIlLnBhbmVsLmFnZW50LnYxLlVwZGF0ZVZlcnNpb25zUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLlVwZGF0ZVZlcnNpb25zUmVzcG9uc2UiCIq1GAQYATABEnEKB09wZXJhdGUSIS5wYW5lbC5hZ2VudC52MS5PcGVyYXRlQXBwUmVxdWVzdBoiLnBhbmVsLmFnZW50LnYxLk9wZXJhdGVBcHBSZXNwb25zZSIfirUYGyIM5pON5L2c5bqU55SoKgtPcGVyYXRlIGFwcBJ0Cg9TZWFyY2hJbnN0YWxsZWQSKi5wYW5lbC5hZ2VudC52MS5TZWFyY2hJbnN0YWxsZWRBcHBzUmVxdWVzdBorLnBhbmVsLmFnZW50LnYxLlNlYXJjaEluc3RhbGxlZEFwcHNSZXNwb25zZSIIirUYBBgBMAESYAoMR2V0QXBwRGV0YWlsEiMucGFuZWwuYWdlbnQudjEuR2V0QXBwRGV0YWlsUmVxdWVzdBohLnBhbmVsLmFnZW50LnYxLkFwcERldGFpbERvY3VtZW50IgiKtRgEGAEwARJoChBHZXRBcHBEZXRhaWxCeUlEEicucGFuZWwuYWdlbnQudjEuR2V0QXBwRGV0YWlsQnlJRFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5BcHBEZXRhaWxEb2N1bWVudCIIirUYBBgBMAESYwoRR2V0QXBwRGV0YWlsQnlLZXkSKC5wYW5lbC5hZ2VudC52MS5HZXRBcHBEZXRhaWxCeUtleVJlcXVlc3QaGi5wYW5lbC5hZ2VudC52MS5JZFJlc3BvbnNlIgiKtRgEGAEwARJaCgpHZXRBcHBUYWdzEiEucGFuZWwuYWdlbnQudjEuR2V0QXBwVGFnc1JlcXVlc3QaHy5wYW5lbC5hZ2VudC52MS5BcHBUYWdzUmVzcG9uc2UiCIq1GAQYATABElwKDEdldEFwcFVwZGF0ZRIjLnBhbmVsLmFnZW50LnYxLkdldEFwcFVwZGF0ZVJlcXVlc3QaHS5wYW5lbC5hZ2VudC52MS5BcHBVcGRhdGVJbmZvIgiKtRgEGAEwARJoCg9MaXN0SWdub3JlZEFwcHMSJi5wYW5lbC5hZ2VudC52MS5MaXN0SWdub3JlZEFwcHNSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuSWdub3JlZEFwcHNSZXNwb25zZSIIirUYBBgBMAESkwEKEElnbm9yZUFwcFVwZ3JhZGUSJy5wYW5lbC5hZ2VudC52MS5JZ25vcmVBcHBVcGdyYWRlUmVxdWVzdBooLnBhbmVsLmFnZW50LnYxLklnbm9yZUFwcFVwZ3JhZGVSZXNwb25zZSIsirUYKCIS5b+955Wl5bqU55So5Y2H57qnKhJJZ25vcmUgYXBwIHVwZ3JhZGUSsgEKFkNhbmNlbElnbm9yZUFwcFVwZ3JhZGUSLS5wYW5lbC5hZ2VudC52MS5DYW5jZWxJZ25vcmVBcHBVcGdyYWRlUmVxdWVzdBouLnBhbmVsLmFnZW50LnYxLkNhbmNlbElnbm9yZUFwcFVwZ3JhZGVSZXNwb25zZSI5irUYNSIY5Y+W5raI5b+955Wl5bqU55So5Y2H57qnKhlDYW5jZWwgaWdub3JlIGFwcCB1cGdyYWRlEmYKDUxpc3RJbnN0YWxsZWQSJC5wYW5lbC5hZ2VudC52MS5MaXN0SW5zdGFsbGVkUmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLkxpc3RJbnN0YWxsZWRSZXNwb25zZSIIirUYBBgBMAESewoUQ2hlY2tEZWxldGVJbnN0YWxsZWQSKy5wYW5lbC5hZ2VudC52MS5DaGVja0RlbGV0ZUluc3RhbGxlZFJlcXVlc3QaLC5wYW5lbC5hZ2VudC52MS5DaGVja0RlbGV0ZUluc3RhbGxlZFJlc3BvbnNlIgiKtRgEGAEwARKOAQoNU3luY0luc3RhbGxlZBIkLnBhbmVsLmFnZW50LnYxLlN5bmNJbnN0YWxsZWRSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuU3luY0luc3RhbGxlZFJlc3BvbnNlIjCKtRgsIhXlkIzmraXlt7Llronoo4XlupTnlKgqE1N5bmMgaW5zdGFsbGVkIGFwcHMSaQoOR2V0QXBwU2VydmljZXMSJS5wYW5lbC5hZ2VudC52MS5HZXRBcHBTZXJ2aWNlc1JlcXVlc3QaJi5wYW5lbC5hZ2VudC52MS5HZXRBcHBTZXJ2aWNlc1Jlc3BvbnNlIgiKtRgEGAEwARKHAQoNQ2hhbmdlQXBwUG9ydBIkLnBhbmVsLmFnZW50LnYxLkNoYW5nZUFwcFBvcnRSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuQ2hhbmdlQXBwUG9ydFJlc3BvbnNlIimKtRglIhLkv67mlLnlupTnlKjnq6/lj6MqD0NoYW5nZSBhcHAgcG9ydBJvChBHZXREZWZhdWx0Q29uZmlnEicucGFuZWwuYWdlbnQudjEuR2V0RGVmYXVsdENvbmZpZ1JlcXVlc3QaKC5wYW5lbC5hZ2VudC52MS5HZXREZWZhdWx0Q29uZmlnUmVzcG9uc2UiCIq1GAQYATABEnIKEkdldEluc3RhbGxlZFBhcmFtcxIpLnBhbmVsLmFnZW50LnYxLkdldEluc3RhbGxlZFBhcmFtc1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5JbnN0YWxsZWRQYXJhbXNSZXNwb25zZSIIirUYBBgBMAESjwEKD1VwZGF0ZUluc3RhbGxlZBImLnBhbmVsLmFnZW50LnYxLlVwZGF0ZUluc3RhbGxlZFJlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5VcGRhdGVJbnN0YWxsZWRSZXNwb25zZSIrirUYJyIS5L+u5pS55bqU55So5Y+C5pWwKhFVcGRhdGUgYXBwIHBhcmFtcxKhAQoVVXBkYXRlSW5zdGFsbGVkQ29uZmlnEiwucGFuZWwuYWdlbnQudjEuVXBkYXRlSW5zdGFsbGVkQ29uZmlnUmVxdWVzdBotLnBhbmVsLmFnZW50LnYxLlVwZGF0ZUluc3RhbGxlZENvbmZpZ1Jlc3BvbnNlIiuKtRgnIhLkv67mlLnlupTnlKjphY3nva4qEVVwZGF0ZSBhcHAgY29uZmlnEmQKEEdldEluc3RhbGxlZEluZm8SJy5wYW5lbC5hZ2VudC52MS5HZXRJbnN0YWxsZWRJbmZvUmVxdWVzdBodLnBhbmVsLmFnZW50LnYxLkluc3RhbGxlZEluZm8iCIq1GAQYATABEpkBChNVcGRhdGVJbnN0YWxsZWRTb3J0EioucGFuZWwuYWdlbnQudjEuVXBkYXRlSW5zdGFsbGVkU29ydFJlcXVlc3QaKy5wYW5lbC5hZ2VudC52MS5VcGRhdGVJbnN0YWxsZWRTb3J0UmVzcG9uc2UiKYq1GCUiEuabtOaWsOW6lOeUqOaOkuW6jyoPVXBkYXRlIGFwcCBzb3J0EoEBChJTeW5jQXBwc0Zyb21SZW1vdGUSHy5wYW5lbC5hZ2VudC52MS5TeW5jQXBwc1JlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5TeW5jQXBwc1Jlc3BvbnNlIiiKtRgkIhLlkIzmraXlupTnlKjllYblupcqDlN5bmMgYXBwIHN0b3JlEoEBChFTeW5jQXBwc0Zyb21Mb2NhbBIfLnBhbmVsLmFnZW50LnYxLlN5bmNBcHBzUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLlN5bmNBcHBzUmVzcG9uc2UiKYq1GCUiEuWQjOatpeacrOWcsOW6lOeUqCoPU3luYyBsb2NhbCBhcHBzEmAKC0xvYWRBcHBQb3J0EiIucGFuZWwuYWdlbnQudjEuTG9hZEFwcFBvcnRSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuTG9hZEFwcFBvcnRSZXNwb25zZSIIirUYBBgBMAESbAoPTG9hZEFwcENvbm5JbmZvEiYucGFuZWwuYWdlbnQudjEuTG9hZEFwcENvbm5JbmZvUmVxdWVzdBonLnBhbmVsLmFnZW50LnYxLkxvYWRBcHBDb25uSW5mb1Jlc3BvbnNlIgiKtRgEGAEwAUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM", [file_buf_validate_validate, file_panel_common_v1_options]);
 
 /**
  * SearchAppsRequest 是应用商店查询参数。
  *
  * @generated from message panel.agent.v1.SearchAppsRequest
  */
-export type SearchAppsRequest = Message<'panel.agent.v1.SearchAppsRequest'> & {
-    /**
-     * 页码，从 1 开始。
-     *
-     * @generated from field: int32 page = 1;
-     */
-    page: number;
+export type SearchAppsRequest = Message<"panel.agent.v1.SearchAppsRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
 
-    /**
-     * 每页条数，最大 100。
-     *
-     * @generated from field: int32 page_size = 2;
-     */
-    pageSize: number;
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
 
-    /**
-     * 应用名称关键字。
-     *
-     * @generated from field: string name = 3;
-     */
-    name: string;
+  /**
+   * 应用名称关键字。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
 
-    /**
-     * 应用类型，例如 app、runtime、website。
-     *
-     * @generated from field: string type = 4;
-     */
-    type: string;
+  /**
+   * 应用类型，例如 app、runtime、website。
+   *
+   * @generated from field: string type = 4;
+   */
+  type: string;
 
-    /**
-     * 标签键列表。
-     *
-     * @generated from field: repeated string tags = 5;
-     */
-    tags: string[];
+  /**
+   * 标签键列表。
+   *
+   * @generated from field: repeated string tags = 5;
+   */
+  tags: string[];
 
-    /**
-     * 是否只返回推荐应用。
-     *
-     * @generated from field: bool recommend = 6;
-     */
-    recommend: boolean;
+  /**
+   * 是否只返回推荐应用。
+   *
+   * @generated from field: bool recommend = 6;
+   */
+  recommend: boolean;
 
-    /**
-     * 资源来源过滤：remote、local、custom、all。
-     *
-     * @generated from field: string resource = 7;
-     */
-    resource: string;
+  /**
+   * 资源来源过滤：remote、local、custom、all。
+   *
+   * @generated from field: string resource = 7;
+   */
+  resource: string;
 
-    /**
-     * 是否按当前 CPU 架构过滤。
-     *
-     * @generated from field: bool show_current_arch = 8;
-     */
-    showCurrentArch: boolean;
+  /**
+   * 是否按当前 CPU 架构过滤。
+   *
+   * @generated from field: bool show_current_arch = 8;
+   */
+  showCurrentArch: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchAppsRequest.
  * Use `create(SearchAppsRequestSchema)` to create a new message.
  */
-export const SearchAppsRequestSchema: GenMessage<SearchAppsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 0);
+export const SearchAppsRequestSchema: GenMessage<SearchAppsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 0);
 
 /**
  * SearchAppsResponse 是应用商店列表结果。
  *
  * @generated from message panel.agent.v1.SearchAppsResponse
  */
-export type SearchAppsResponse = Message<'panel.agent.v1.SearchAppsResponse'> & {
-    /**
-     * 当前页的应用列表。
-     *
-     * @generated from field: repeated panel.agent.v1.AppItem items = 1;
-     */
-    items: AppItem[];
+export type SearchAppsResponse = Message<"panel.agent.v1.SearchAppsResponse"> & {
+  /**
+   * 当前页的应用列表。
+   *
+   * @generated from field: repeated panel.agent.v1.AppItem items = 1;
+   */
+  items: AppItem[];
 
-    /**
-     * 符合条件的应用总数。
-     *
-     * @generated from field: int64 total = 2;
-     */
-    total: bigint;
+  /**
+   * 符合条件的应用总数。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchAppsResponse.
  * Use `create(SearchAppsResponseSchema)` to create a new message.
  */
-export const SearchAppsResponseSchema: GenMessage<SearchAppsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 1);
+export const SearchAppsResponseSchema: GenMessage<SearchAppsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 1);
 
 /**
  * AppItem 是应用商店里的一个应用。
  *
  * @generated from message panel.agent.v1.AppItem
  */
-export type AppItem = Message<'panel.agent.v1.AppItem'> & {
-    /**
-     * 应用 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type AppItem = Message<"panel.agent.v1.AppItem"> & {
+  /**
+   * 应用 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 应用名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 应用名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * 应用键，例如 redis。
-     *
-     * @generated from field: string key = 3;
-     */
-    key: string;
+  /**
+   * 应用键，例如 redis。
+   *
+   * @generated from field: string key = 3;
+   */
+  key: string;
 
-    /**
-     * 图标 URL。
-     *
-     * @generated from field: string icon = 4;
-     */
-    icon: string;
+  /**
+   * 图标 URL。
+   *
+   * @generated from field: string icon = 4;
+   */
+  icon: string;
 
-    /**
-     * 简介。
-     *
-     * @generated from field: string description = 5;
-     */
-    description: string;
+  /**
+   * 简介。
+   *
+   * @generated from field: string description = 5;
+   */
+  description: string;
 
-    /**
-     * 状态。
-     *
-     * @generated from field: string status = 6;
-     */
-    status: string;
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 6;
+   */
+  status: string;
 
-    /**
-     * 是否已安装。
-     *
-     * @generated from field: bool installed = 7;
-     */
-    installed: boolean;
+  /**
+   * 是否已安装。
+   *
+   * @generated from field: bool installed = 7;
+   */
+  installed: boolean;
 
-    /**
-     * 安装数量上限。
-     *
-     * @generated from field: int32 limit = 8;
-     */
-    limit: number;
+  /**
+   * 安装数量上限。
+   *
+   * @generated from field: int32 limit = 8;
+   */
+  limit: number;
 
-    /**
-     * 标签名称列表。
-     *
-     * @generated from field: repeated string tags = 9;
-     */
-    tags: string[];
+  /**
+   * 标签名称列表。
+   *
+   * @generated from field: repeated string tags = 9;
+   */
+  tags: string[];
 
-    /**
-     * 是否支持 GPU。
-     *
-     * @generated from field: bool gpu_support = 10;
-     */
-    gpuSupport: boolean;
+  /**
+   * 是否支持 GPU。
+   *
+   * @generated from field: bool gpu_support = 10;
+   */
+  gpuSupport: boolean;
 
-    /**
-     * 推荐顺序。
-     *
-     * @generated from field: int32 recommend = 11;
-     */
-    recommend: number;
+  /**
+   * 推荐顺序。
+   *
+   * @generated from field: int32 recommend = 11;
+   */
+  recommend: number;
 
-    /**
-     * 应用类型。
-     *
-     * @generated from field: string type = 12;
-     */
-    type: string;
+  /**
+   * 应用类型。
+   *
+   * @generated from field: string type = 12;
+   */
+  type: string;
 
-    /**
-     * 是否支持批量安装。
-     *
-     * @generated from field: bool batch_install_support = 13;
-     */
-    batchInstallSupport: boolean;
+  /**
+   * 是否支持批量安装。
+   *
+   * @generated from field: bool batch_install_support = 13;
+   */
+  batchInstallSupport: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.AppItem.
  * Use `create(AppItemSchema)` to create a new message.
  */
-export const AppItemSchema: GenMessage<AppItem> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 2);
+export const AppItemSchema: GenMessage<AppItem> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 2);
 
 /**
  * SearchInstalledAppsRequest 是已安装应用查询参数。
  *
  * @generated from message panel.agent.v1.SearchInstalledAppsRequest
  */
-export type SearchInstalledAppsRequest = Message<'panel.agent.v1.SearchInstalledAppsRequest'> & {
-    /**
-     * 页码，从 1 开始。
-     *
-     * @generated from field: int32 page = 1;
-     */
-    page: number;
+export type SearchInstalledAppsRequest = Message<"panel.agent.v1.SearchInstalledAppsRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
 
-    /**
-     * 每页条数，最大 100。
-     *
-     * @generated from field: int32 page_size = 2;
-     */
-    pageSize: number;
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
 
-    /**
-     * 应用名称关键字。
-     *
-     * @generated from field: string name = 3;
-     */
-    name: string;
+  /**
+   * 应用名称关键字。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
 
-    /**
-     * 应用类型过滤。
-     *
-     * @generated from field: string type = 4;
-     */
-    type: string;
+  /**
+   * 应用类型过滤。
+   *
+   * @generated from field: string type = 4;
+   */
+  type: string;
 
-    /**
-     * 标签键列表。
-     *
-     * @generated from field: repeated string tags = 5;
-     */
-    tags: string[];
+  /**
+   * 标签键列表。
+   *
+   * @generated from field: repeated string tags = 5;
+   */
+  tags: string[];
 
-    /**
-     * 只查询可升级的应用。
-     *
-     * @generated from field: bool update = 6;
-     */
-    update: boolean;
+  /**
+   * 只查询可升级的应用。
+   *
+   * @generated from field: bool update = 6;
+   */
+  update: boolean;
 
-    /**
-     * 只查询未使用的应用。
-     *
-     * @generated from field: bool unused = 7;
-     */
-    unused: boolean;
+  /**
+   * 只查询未使用的应用。
+   *
+   * @generated from field: bool unused = 7;
+   */
+  unused: boolean;
 
-    /**
-     * 是否返回全部。
-     *
-     * @generated from field: bool all = 8;
-     */
-    all: boolean;
+  /**
+   * 是否返回全部。
+   *
+   * @generated from field: bool all = 8;
+   */
+  all: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchInstalledAppsRequest.
  * Use `create(SearchInstalledAppsRequestSchema)` to create a new message.
  */
-export const SearchInstalledAppsRequestSchema: GenMessage<SearchInstalledAppsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 3);
+export const SearchInstalledAppsRequestSchema: GenMessage<SearchInstalledAppsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 3);
 
 /**
  * SearchInstalledAppsResponse 是已安装应用列表结果。
  *
  * @generated from message panel.agent.v1.SearchInstalledAppsResponse
  */
-export type SearchInstalledAppsResponse = Message<'panel.agent.v1.SearchInstalledAppsResponse'> & {
-    /**
-     * 当前页的已安装应用。
-     *
-     * @generated from field: repeated panel.agent.v1.InstalledApp items = 1;
-     */
-    items: InstalledApp[];
+export type SearchInstalledAppsResponse = Message<"panel.agent.v1.SearchInstalledAppsResponse"> & {
+  /**
+   * 当前页的已安装应用。
+   *
+   * @generated from field: repeated panel.agent.v1.InstalledApp items = 1;
+   */
+  items: InstalledApp[];
 
-    /**
-     * 符合条件的应用总数。
-     *
-     * @generated from field: int64 total = 2;
-     */
-    total: bigint;
+  /**
+   * 符合条件的应用总数。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchInstalledAppsResponse.
  * Use `create(SearchInstalledAppsResponseSchema)` to create a new message.
  */
-export const SearchInstalledAppsResponseSchema: GenMessage<SearchInstalledAppsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 4);
+export const SearchInstalledAppsResponseSchema: GenMessage<SearchInstalledAppsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 4);
 
 /**
  * InstalledApp 是一个已安装应用。
  *
  * @generated from message panel.agent.v1.InstalledApp
  */
-export type InstalledApp = Message<'panel.agent.v1.InstalledApp'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type InstalledApp = Message<"panel.agent.v1.InstalledApp"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * 应用 ID。
-     *
-     * @generated from field: uint32 app_id = 3;
-     */
-    appId: number;
+  /**
+   * 应用 ID。
+   *
+   * @generated from field: uint32 app_id = 3;
+   */
+  appId: number;
 
-    /**
-     * 应用详情 ID。
-     *
-     * @generated from field: uint32 app_detail_id = 4;
-     */
-    appDetailId: number;
+  /**
+   * 应用详情 ID。
+   *
+   * @generated from field: uint32 app_detail_id = 4;
+   */
+  appDetailId: number;
 
-    /**
-     * 版本。
-     *
-     * @generated from field: string version = 5;
-     */
-    version: string;
+  /**
+   * 版本。
+   *
+   * @generated from field: string version = 5;
+   */
+  version: string;
 
-    /**
-     * 安装状态。
-     *
-     * @generated from field: string status = 6;
-     */
-    status: string;
+  /**
+   * 安装状态。
+   *
+   * @generated from field: string status = 6;
+   */
+  status: string;
 
-    /**
-     * 状态说明。
-     *
-     * @generated from field: string message = 7;
-     */
-    message: string;
+  /**
+   * 状态说明。
+   *
+   * @generated from field: string message = 7;
+   */
+  message: string;
 
-    /**
-     * HTTP 端口。
-     *
-     * @generated from field: int32 http_port = 8;
-     */
-    httpPort: number;
+  /**
+   * HTTP 端口。
+   *
+   * @generated from field: int32 http_port = 8;
+   */
+  httpPort: number;
 
-    /**
-     * HTTPS 端口。
-     *
-     * @generated from field: int32 https_port = 9;
-     */
-    httpsPort: number;
+  /**
+   * HTTPS 端口。
+   *
+   * @generated from field: int32 https_port = 9;
+   */
+  httpsPort: number;
 
-    /**
-     * 安装目录。
-     *
-     * @generated from field: string path = 10;
-     */
-    path: string;
+  /**
+   * 安装目录。
+   *
+   * @generated from field: string path = 10;
+   */
+  path: string;
 
-    /**
-     * 是否可升级。
-     *
-     * @generated from field: bool can_update = 11;
-     */
-    canUpdate: boolean;
+  /**
+   * 是否可升级。
+   *
+   * @generated from field: bool can_update = 11;
+   */
+  canUpdate: boolean;
 
-    /**
-     * 图标 URL。
-     *
-     * @generated from field: string icon = 12;
-     */
-    icon: string;
+  /**
+   * 图标 URL。
+   *
+   * @generated from field: string icon = 12;
+   */
+  icon: string;
 
-    /**
-     * 应用名称。
-     *
-     * @generated from field: string app_name = 13;
-     */
-    appName: string;
+  /**
+   * 应用名称。
+   *
+   * @generated from field: string app_name = 13;
+   */
+  appName: string;
 
-    /**
-     * 应用键。
-     *
-     * @generated from field: string app_key = 14;
-     */
-    appKey: string;
+  /**
+   * 应用键。
+   *
+   * @generated from field: string app_key = 14;
+   */
+  appKey: string;
 
-    /**
-     * 应用类型。
-     *
-     * @generated from field: string app_type = 15;
-     */
-    appType: string;
+  /**
+   * 应用类型。
+   *
+   * @generated from field: string app_type = 15;
+   */
+  appType: string;
 
-    /**
-     * 容器状态。
-     *
-     * @generated from field: string app_status = 16;
-     */
-    appStatus: string;
+  /**
+   * 容器状态。
+   *
+   * @generated from field: string app_status = 16;
+   */
+  appStatus: string;
 
-    /**
-     * Web UI 地址。
-     *
-     * @generated from field: string web_ui = 17;
-     */
-    webUi: string;
+  /**
+   * Web UI 地址。
+   *
+   * @generated from field: string web_ui = 17;
+   */
+  webUi: string;
 
-    /**
-     * 创建时间，RFC3339 格式。
-     *
-     * @generated from field: string created_at = 18;
-     */
-    createdAt: string;
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 18;
+   */
+  createdAt: string;
 
-    /**
-     * 是否收藏。
-     *
-     * @generated from field: bool favorite = 19;
-     */
-    favorite: boolean;
+  /**
+   * 是否收藏。
+   *
+   * @generated from field: bool favorite = 19;
+   */
+  favorite: boolean;
 
-    /**
-     * 容器名。
-     *
-     * @generated from field: string container = 20;
-     */
-    container: string;
+  /**
+   * 容器名。
+   *
+   * @generated from field: string container = 20;
+   */
+  container: string;
 
-    /**
-     * 排序序号。
-     *
-     * @generated from field: int32 sort_order = 21;
-     */
-    sortOrder: number;
+  /**
+   * 排序序号。
+   *
+   * @generated from field: int32 sort_order = 21;
+   */
+  sortOrder: number;
 };
 
 /**
  * Describes the message panel.agent.v1.InstalledApp.
  * Use `create(InstalledAppSchema)` to create a new message.
  */
-export const InstalledAppSchema: GenMessage<InstalledApp> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 5);
+export const InstalledAppSchema: GenMessage<InstalledApp> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 5);
 
 /**
  * UpdateVersionsRequest 是升级版本查询参数。
  *
  * @generated from message panel.agent.v1.UpdateVersionsRequest
  */
-export type UpdateVersionsRequest = Message<'panel.agent.v1.UpdateVersionsRequest'> & {
-    /**
-     * 应用安装 ID。
-     *
-     * @generated from field: uint32 app_install_id = 1;
-     */
-    appInstallId: number;
+export type UpdateVersionsRequest = Message<"panel.agent.v1.UpdateVersionsRequest"> & {
+  /**
+   * 应用安装 ID。
+   *
+   * @generated from field: uint32 app_install_id = 1;
+   */
+  appInstallId: number;
 
-    /**
-     * 指定版本；为空表示列出全部可升级版本。
-     *
-     * @generated from field: string update_version = 2;
-     */
-    updateVersion: string;
+  /**
+   * 指定版本；为空表示列出全部可升级版本。
+   *
+   * @generated from field: string update_version = 2;
+   */
+  updateVersion: string;
 
-    /**
-     * 是否加载 Compose 预览；未设置时按服务端默认。
-     *
-     * @generated from field: optional bool load_compose = 3;
-     */
-    loadCompose?: boolean | undefined;
+  /**
+   * 是否加载 Compose 预览；未设置时按服务端默认。
+   *
+   * @generated from field: optional bool load_compose = 3;
+   */
+  loadCompose?: boolean | undefined;
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateVersionsRequest.
  * Use `create(UpdateVersionsRequestSchema)` to create a new message.
  */
-export const UpdateVersionsRequestSchema: GenMessage<UpdateVersionsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 6);
+export const UpdateVersionsRequestSchema: GenMessage<UpdateVersionsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 6);
 
 /**
  * UpdateVersionsResponse 是可升级版本列表。
  *
  * @generated from message panel.agent.v1.UpdateVersionsResponse
  */
-export type UpdateVersionsResponse = Message<'panel.agent.v1.UpdateVersionsResponse'> & {
-    /**
-     * 版本列表。
-     *
-     * @generated from field: repeated panel.agent.v1.AppVersion items = 1;
-     */
-    items: AppVersion[];
+export type UpdateVersionsResponse = Message<"panel.agent.v1.UpdateVersionsResponse"> & {
+  /**
+   * 版本列表。
+   *
+   * @generated from field: repeated panel.agent.v1.AppVersion items = 1;
+   */
+  items: AppVersion[];
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateVersionsResponse.
  * Use `create(UpdateVersionsResponseSchema)` to create a new message.
  */
-export const UpdateVersionsResponseSchema: GenMessage<UpdateVersionsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 7);
+export const UpdateVersionsResponseSchema: GenMessage<UpdateVersionsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 7);
 
 /**
  * AppVersion 是一个可升级版本。
  *
  * @generated from message panel.agent.v1.AppVersion
  */
-export type AppVersion = Message<'panel.agent.v1.AppVersion'> & {
-    /**
-     * 版本号。
-     *
-     * @generated from field: string version = 1;
-     */
-    version: string;
+export type AppVersion = Message<"panel.agent.v1.AppVersion"> & {
+  /**
+   * 版本号。
+   *
+   * @generated from field: string version = 1;
+   */
+  version: string;
 
-    /**
-     * 应用详情 ID。
-     *
-     * @generated from field: uint32 detail_id = 2;
-     */
-    detailId: number;
+  /**
+   * 应用详情 ID。
+   *
+   * @generated from field: uint32 detail_id = 2;
+   */
+  detailId: number;
 
-    /**
-     * 该版本的 Compose 内容预览；未请求时为空。
-     *
-     * @generated from field: string docker_compose = 3;
-     */
-    dockerCompose: string;
+  /**
+   * 该版本的 Compose 内容预览；未请求时为空。
+   *
+   * @generated from field: string docker_compose = 3;
+   */
+  dockerCompose: string;
 
-    /**
-     * 是否检测到旧版飞书配置。
-     *
-     * @generated from field: bool feishu_legacy = 4;
-     */
-    feishuLegacy: boolean;
+  /**
+   * 是否检测到旧版飞书配置。
+   *
+   * @generated from field: bool feishu_legacy = 4;
+   */
+  feishuLegacy: boolean;
 
-    /**
-     * 是否已配置飞书。
-     *
-     * @generated from field: bool feishu_configured = 5;
-     */
-    feishuConfigured: boolean;
+  /**
+   * 是否已配置飞书。
+   *
+   * @generated from field: bool feishu_configured = 5;
+   */
+  feishuConfigured: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.AppVersion.
  * Use `create(AppVersionSchema)` to create a new message.
  */
-export const AppVersionSchema: GenMessage<AppVersion> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 8);
+export const AppVersionSchema: GenMessage<AppVersion> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 8);
 
 /**
  * GetAppRequest 是应用查询参数。
  *
  * @generated from message panel.agent.v1.GetAppRequest
  */
-export type GetAppRequest = Message<'panel.agent.v1.GetAppRequest'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 1;
-     */
-    key: string;
+export type GetAppRequest = Message<"panel.agent.v1.GetAppRequest"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
 };
 
 /**
  * Describes the message panel.agent.v1.GetAppRequest.
  * Use `create(GetAppRequestSchema)` to create a new message.
  */
-export const GetAppRequestSchema: GenMessage<GetAppRequest> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 9);
+export const GetAppRequestSchema: GenMessage<GetAppRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 9);
 
 /**
  * AppDetail 是应用详情摘要。
  *
  * @generated from message panel.agent.v1.AppDetail
  */
-export type AppDetail = Message<'panel.agent.v1.AppDetail'> & {
-    /**
-     * 应用 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type AppDetail = Message<"panel.agent.v1.AppDetail"> & {
+  /**
+   * 应用 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 应用名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 应用名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 3;
-     */
-    key: string;
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 3;
+   */
+  key: string;
 
-    /**
-     * 图标 URL。
-     *
-     * @generated from field: string icon = 4;
-     */
-    icon: string;
+  /**
+   * 图标 URL。
+   *
+   * @generated from field: string icon = 4;
+   */
+  icon: string;
 
-    /**
-     * 简介。
-     *
-     * @generated from field: string description = 5;
-     */
-    description: string;
+  /**
+   * 简介。
+   *
+   * @generated from field: string description = 5;
+   */
+  description: string;
 
-    /**
-     * ReadMe 内容。
-     *
-     * @generated from field: string readme = 6;
-     */
-    readme: string;
+  /**
+   * ReadMe 内容。
+   *
+   * @generated from field: string readme = 6;
+   */
+  readme: string;
 
-    /**
-     * 可用版本列表。
-     *
-     * @generated from field: repeated string versions = 7;
-     */
-    versions: string[];
+  /**
+   * 可用版本列表。
+   *
+   * @generated from field: repeated string versions = 7;
+   */
+  versions: string[];
 
-    /**
-     * 标签名称列表。
-     *
-     * @generated from field: repeated string tags = 8;
-     */
-    tags: string[];
+  /**
+   * 标签名称列表。
+   *
+   * @generated from field: repeated string tags = 8;
+   */
+  tags: string[];
 
-    /**
-     * 是否已安装。
-     *
-     * @generated from field: bool installed = 9;
-     */
-    installed: boolean;
+  /**
+   * 是否已安装。
+   *
+   * @generated from field: bool installed = 9;
+   */
+  installed: boolean;
 
-    /**
-     * 应用类型。
-     *
-     * @generated from field: string type = 10;
-     */
-    type: string;
+  /**
+   * 应用类型。
+   *
+   * @generated from field: string type = 10;
+   */
+  type: string;
 
-    /**
-     * 状态。
-     *
-     * @generated from field: string status = 11;
-     */
-    status: string;
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 11;
+   */
+  status: string;
 
-    /**
-     * 推荐顺序。
-     *
-     * @generated from field: int32 recommend = 12;
-     */
-    recommend: number;
+  /**
+   * 推荐顺序。
+   *
+   * @generated from field: int32 recommend = 12;
+   */
+  recommend: number;
 
-    /**
-     * 安装数量上限。
-     *
-     * @generated from field: int32 limit = 13;
-     */
-    limit: number;
+  /**
+   * 安装数量上限。
+   *
+   * @generated from field: int32 limit = 13;
+   */
+  limit: number;
 };
 
 /**
  * Describes the message panel.agent.v1.AppDetail.
  * Use `create(AppDetailSchema)` to create a new message.
  */
-export const AppDetailSchema: GenMessage<AppDetail> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 10);
+export const AppDetailSchema: GenMessage<AppDetail> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 10);
 
 /**
  * CheckInstalledAppRequest 是安装前检查参数。
  *
  * @generated from message panel.agent.v1.CheckInstalledAppRequest
  */
-export type CheckInstalledAppRequest = Message<'panel.agent.v1.CheckInstalledAppRequest'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 1;
-     */
-    key: string;
+export type CheckInstalledAppRequest = Message<"panel.agent.v1.CheckInstalledAppRequest"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
 
-    /**
-     * 计划使用的安装名称；openresty 等场景允许为空。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 计划使用的安装名称；openresty 等场景允许为空。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 };
 
 /**
  * Describes the message panel.agent.v1.CheckInstalledAppRequest.
  * Use `create(CheckInstalledAppRequestSchema)` to create a new message.
  */
-export const CheckInstalledAppRequestSchema: GenMessage<CheckInstalledAppRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 11);
+export const CheckInstalledAppRequestSchema: GenMessage<CheckInstalledAppRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 11);
 
 /**
  * AppInstalledCheck 是安装检查结果。
  *
  * @generated from message panel.agent.v1.AppInstalledCheck
  */
-export type AppInstalledCheck = Message<'panel.agent.v1.AppInstalledCheck'> & {
-    /**
-     * 关联任务 ID。
-     *
-     * @generated from field: string task_id = 1;
-     */
-    taskId: string;
+export type AppInstalledCheck = Message<"panel.agent.v1.AppInstalledCheck"> & {
+  /**
+   * 关联任务 ID。
+   *
+   * @generated from field: string task_id = 1;
+   */
+  taskId: string;
 
-    /**
-     * 是否已存在。
-     *
-     * @generated from field: bool is_exist = 2;
-     */
-    isExist: boolean;
+  /**
+   * 是否已存在。
+   *
+   * @generated from field: bool is_exist = 2;
+   */
+  isExist: boolean;
 
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 3;
-     */
-    name: string;
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
 
-    /**
-     * 应用名称。
-     *
-     * @generated from field: string app = 4;
-     */
-    app: string;
+  /**
+   * 应用名称。
+   *
+   * @generated from field: string app = 4;
+   */
+  app: string;
 
-    /**
-     * 版本。
-     *
-     * @generated from field: string version = 5;
-     */
-    version: string;
+  /**
+   * 版本。
+   *
+   * @generated from field: string version = 5;
+   */
+  version: string;
 
-    /**
-     * 状态。
-     *
-     * @generated from field: string status = 6;
-     */
-    status: string;
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 6;
+   */
+  status: string;
 
-    /**
-     * 创建时间，RFC3339 格式。
-     *
-     * @generated from field: string created_at = 7;
-     */
-    createdAt: string;
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 7;
+   */
+  createdAt: string;
 
-    /**
-     * 最近备份时间。
-     *
-     * @generated from field: string last_backup_at = 8;
-     */
-    lastBackupAt: string;
+  /**
+   * 最近备份时间。
+   *
+   * @generated from field: string last_backup_at = 8;
+   */
+  lastBackupAt: string;
 
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 app_install_id = 9;
-     */
-    appInstallId: number;
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 app_install_id = 9;
+   */
+  appInstallId: number;
 
-    /**
-     * 容器名。
-     *
-     * @generated from field: string container_name = 10;
-     */
-    containerName: string;
+  /**
+   * 容器名。
+   *
+   * @generated from field: string container_name = 10;
+   */
+  containerName: string;
 
-    /**
-     * 安装目录。
-     *
-     * @generated from field: string install_path = 11;
-     */
-    installPath: string;
+  /**
+   * 安装目录。
+   *
+   * @generated from field: string install_path = 11;
+   */
+  installPath: string;
 
-    /**
-     * HTTP 端口。
-     *
-     * @generated from field: int32 http_port = 12;
-     */
-    httpPort: number;
+  /**
+   * HTTP 端口。
+   *
+   * @generated from field: int32 http_port = 12;
+   */
+  httpPort: number;
 
-    /**
-     * HTTPS 端口。
-     *
-     * @generated from field: int32 https_port = 13;
-     */
-    httpsPort: number;
+  /**
+   * HTTPS 端口。
+   *
+   * @generated from field: int32 https_port = 13;
+   */
+  httpsPort: number;
 
-    /**
-     * 网站目录。
-     *
-     * @generated from field: string website_dir = 14;
-     */
-    websiteDir: string;
+  /**
+   * 网站目录。
+   *
+   * @generated from field: string website_dir = 14;
+   */
+  websiteDir: string;
 };
 
 /**
  * Describes the message panel.agent.v1.AppInstalledCheck.
  * Use `create(AppInstalledCheckSchema)` to create a new message.
  */
-export const AppInstalledCheckSchema: GenMessage<AppInstalledCheck> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 12);
+export const AppInstalledCheckSchema: GenMessage<AppInstalledCheck> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 12);
 
 /**
  * InstallAppRequest 是安装应用参数。
  *
  * @generated from message panel.agent.v1.InstallAppRequest
  */
-export type InstallAppRequest = Message<'panel.agent.v1.InstallAppRequest'> & {
-    /**
-     * 应用详情 ID。
-     *
-     * @generated from field: uint32 app_detail_id = 1;
-     */
-    appDetailId: number;
+export type InstallAppRequest = Message<"panel.agent.v1.InstallAppRequest"> & {
+  /**
+   * 应用详情 ID。
+   *
+   * @generated from field: uint32 app_detail_id = 1;
+   */
+  appDetailId: number;
 
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * 服务名映射。
-     *
-     * @generated from field: map<string, string> services = 3;
-     */
-    services: { [key: string]: string };
+  /**
+   * 服务名映射。
+   *
+   * @generated from field: map<string, string> services = 3;
+   */
+  services: { [key: string]: string };
 
-    /**
-     * 前端生成的任务 ID。
-     *
-     * @generated from field: string task_id = 4;
-     */
-    taskId: string;
+  /**
+   * 前端生成的任务 ID。
+   *
+   * @generated from field: string task_id = 4;
+   */
+  taskId: string;
 
-    /**
-     * 安装参数的 JSON 字符串。
-     *
-     * @generated from field: string params_json = 5;
-     */
-    paramsJson: string;
+  /**
+   * 安装参数的 JSON 字符串。
+   *
+   * @generated from field: string params_json = 5;
+   */
+  paramsJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.InstallAppRequest.
  * Use `create(InstallAppRequestSchema)` to create a new message.
  */
-export const InstallAppRequestSchema: GenMessage<InstallAppRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 13);
+export const InstallAppRequestSchema: GenMessage<InstallAppRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 13);
 
 /**
  * OperateAppRequest 是已安装应用操作参数。
  *
  * @generated from message panel.agent.v1.OperateAppRequest
  */
-export type OperateAppRequest = Message<'panel.agent.v1.OperateAppRequest'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 install_id = 1;
-     */
-    installId: number;
+export type OperateAppRequest = Message<"panel.agent.v1.OperateAppRequest"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 install_id = 1;
+   */
+  installId: number;
 
-    /**
-     * 操作类型：start、stop、restart、upgrade、delete、sync、favorite 等。
-     *
-     * @generated from field: string operate = 2;
-     */
-    operate: string;
+  /**
+   * 操作类型：start、stop、restart、upgrade、delete、sync、favorite 等。
+   *
+   * @generated from field: string operate = 2;
+   */
+  operate: string;
 
-    /**
-     * 升级目标详情 ID。
-     *
-     * @generated from field: uint32 detail_id = 3;
-     */
-    detailId: number;
+  /**
+   * 升级目标详情 ID。
+   *
+   * @generated from field: uint32 detail_id = 3;
+   */
+  detailId: number;
 
-    /**
-     * 升级前是否备份。
-     *
-     * @generated from field: bool backup = 4;
-     */
-    backup: boolean;
+  /**
+   * 升级前是否备份。
+   *
+   * @generated from field: bool backup = 4;
+   */
+  backup: boolean;
 
-    /**
-     * 升级是否拉取镜像。
-     *
-     * @generated from field: bool pull_image = 5;
-     */
-    pullImage: boolean;
+  /**
+   * 升级是否拉取镜像。
+   *
+   * @generated from field: bool pull_image = 5;
+   */
+  pullImage: boolean;
 
-    /**
-     * 是否删除镜像。
-     *
-     * @generated from field: bool delete_image = 6;
-     */
-    deleteImage: boolean;
+  /**
+   * 是否删除镜像。
+   *
+   * @generated from field: bool delete_image = 6;
+   */
+  deleteImage: boolean;
 
-    /**
-     * 覆盖用的 Compose 内容。
-     *
-     * @generated from field: string docker_compose = 7;
-     */
-    dockerCompose: string;
+  /**
+   * 覆盖用的 Compose 内容。
+   *
+   * @generated from field: string docker_compose = 7;
+   */
+  dockerCompose: string;
 
-    /**
-     * 前端生成的任务 ID。
-     *
-     * @generated from field: string task_id = 8;
-     */
-    taskId: string;
+  /**
+   * 前端生成的任务 ID。
+   *
+   * @generated from field: string task_id = 8;
+   */
+  taskId: string;
 
-    /**
-     * 是否强制删除。
-     *
-     * @generated from field: bool force_delete = 9;
-     */
-    forceDelete: boolean;
+  /**
+   * 是否强制删除。
+   *
+   * @generated from field: bool force_delete = 9;
+   */
+  forceDelete: boolean;
 
-    /**
-     * 删除时是否同时删除备份。
-     *
-     * @generated from field: bool delete_backup = 10;
-     */
-    deleteBackup: boolean;
+  /**
+   * 删除时是否同时删除备份。
+   *
+   * @generated from field: bool delete_backup = 10;
+   */
+  deleteBackup: boolean;
 
-    /**
-     * 删除时是否同时删除数据库。
-     *
-     * @generated from field: bool delete_db = 11;
-     */
-    deleteDb: boolean;
+  /**
+   * 删除时是否同时删除数据库。
+   *
+   * @generated from field: bool delete_db = 11;
+   */
+  deleteDb: boolean;
 
-    /**
-     * 是否收藏。
-     *
-     * @generated from field: bool favorite = 12;
-     */
-    favorite: boolean;
+  /**
+   * 是否收藏。
+   *
+   * @generated from field: bool favorite = 12;
+   */
+  favorite: boolean;
 
-    /**
-     * 备份记录 ID。
-     *
-     * @generated from field: uint32 backup_id = 13;
-     */
-    backupId: number;
+  /**
+   * 备份记录 ID。
+   *
+   * @generated from field: uint32 backup_id = 13;
+   */
+  backupId: number;
 };
 
 /**
  * Describes the message panel.agent.v1.OperateAppRequest.
  * Use `create(OperateAppRequestSchema)` to create a new message.
  */
-export const OperateAppRequestSchema: GenMessage<OperateAppRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 14);
+export const OperateAppRequestSchema: GenMessage<OperateAppRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 14);
 
 /**
  * OperateAppResponse 是操作结果，无业务字段。
  *
  * @generated from message panel.agent.v1.OperateAppResponse
  */
-export type OperateAppResponse = Message<'panel.agent.v1.OperateAppResponse'> & {};
+export type OperateAppResponse = Message<"panel.agent.v1.OperateAppResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.OperateAppResponse.
  * Use `create(OperateAppResponseSchema)` to create a new message.
  */
-export const OperateAppResponseSchema: GenMessage<OperateAppResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 15);
+export const OperateAppResponseSchema: GenMessage<OperateAppResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 15);
 
 /**
  * GetAppDetailRequest 是应用详情查询参数。
  *
  * @generated from message panel.agent.v1.GetAppDetailRequest
  */
-export type GetAppDetailRequest = Message<'panel.agent.v1.GetAppDetailRequest'> & {
-    /**
-     * 应用 ID。
-     *
-     * @generated from field: uint32 app_id = 1;
-     */
-    appId: number;
+export type GetAppDetailRequest = Message<"panel.agent.v1.GetAppDetailRequest"> & {
+  /**
+   * 应用 ID。
+   *
+   * @generated from field: uint32 app_id = 1;
+   */
+  appId: number;
 
-    /**
-     * 应用版本。
-     *
-     * @generated from field: string version = 2;
-     */
-    version: string;
+  /**
+   * 应用版本。
+   *
+   * @generated from field: string version = 2;
+   */
+  version: string;
 
-    /**
-     * 应用类型。
-     *
-     * @generated from field: string type = 3;
-     */
-    type: string;
+  /**
+   * 应用类型。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
 };
 
 /**
  * Describes the message panel.agent.v1.GetAppDetailRequest.
  * Use `create(GetAppDetailRequestSchema)` to create a new message.
  */
-export const GetAppDetailRequestSchema: GenMessage<GetAppDetailRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 16);
+export const GetAppDetailRequestSchema: GenMessage<GetAppDetailRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 16);
 
 /**
  * GetAppDetailByIDRequest 是按详情 ID 查询参数。
  *
  * @generated from message panel.agent.v1.GetAppDetailByIDRequest
  */
-export type GetAppDetailByIDRequest = Message<'panel.agent.v1.GetAppDetailByIDRequest'> & {
-    /**
-     * 应用详情 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type GetAppDetailByIDRequest = Message<"panel.agent.v1.GetAppDetailByIDRequest"> & {
+  /**
+   * 应用详情 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.GetAppDetailByIDRequest.
  * Use `create(GetAppDetailByIDRequestSchema)` to create a new message.
  */
-export const GetAppDetailByIDRequestSchema: GenMessage<GetAppDetailByIDRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 17);
+export const GetAppDetailByIDRequestSchema: GenMessage<GetAppDetailByIDRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 17);
 
 /**
  * GetAppDetailByKeyRequest 是按 key 与版本查询参数。
  *
  * @generated from message panel.agent.v1.GetAppDetailByKeyRequest
  */
-export type GetAppDetailByKeyRequest = Message<'panel.agent.v1.GetAppDetailByKeyRequest'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string app_key = 1;
-     */
-    appKey: string;
+export type GetAppDetailByKeyRequest = Message<"panel.agent.v1.GetAppDetailByKeyRequest"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string app_key = 1;
+   */
+  appKey: string;
 
-    /**
-     * 应用版本。
-     *
-     * @generated from field: string version = 2;
-     */
-    version: string;
+  /**
+   * 应用版本。
+   *
+   * @generated from field: string version = 2;
+   */
+  version: string;
 };
 
 /**
  * Describes the message panel.agent.v1.GetAppDetailByKeyRequest.
  * Use `create(GetAppDetailByKeyRequestSchema)` to create a new message.
  */
-export const GetAppDetailByKeyRequestSchema: GenMessage<GetAppDetailByKeyRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 18);
+export const GetAppDetailByKeyRequestSchema: GenMessage<GetAppDetailByKeyRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 18);
 
 /**
  * AppDetailDocument 是应用详情的 JSON 表示。
@@ -1122,824 +1110,814 @@ export const GetAppDetailByKeyRequestSchema: GenMessage<GetAppDetailByKeyRequest
  *
  * @generated from message panel.agent.v1.AppDetailDocument
  */
-export type AppDetailDocument = Message<'panel.agent.v1.AppDetailDocument'> & {
-    /**
-     * 应用详情的 JSON 字符串。
-     *
-     * @generated from field: string detail_json = 1;
-     */
-    detailJson: string;
+export type AppDetailDocument = Message<"panel.agent.v1.AppDetailDocument"> & {
+  /**
+   * 应用详情的 JSON 字符串。
+   *
+   * @generated from field: string detail_json = 1;
+   */
+  detailJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.AppDetailDocument.
  * Use `create(AppDetailDocumentSchema)` to create a new message.
  */
-export const AppDetailDocumentSchema: GenMessage<AppDetailDocument> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 19);
+export const AppDetailDocumentSchema: GenMessage<AppDetailDocument> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 19);
 
 /**
  * IdResponse 仅返回一个 ID。
  *
  * @generated from message panel.agent.v1.IdResponse
  */
-export type IdResponse = Message<'panel.agent.v1.IdResponse'> & {
-    /**
-     * 目标 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type IdResponse = Message<"panel.agent.v1.IdResponse"> & {
+  /**
+   * 目标 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.IdResponse.
  * Use `create(IdResponseSchema)` to create a new message.
  */
-export const IdResponseSchema: GenMessage<IdResponse> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 20);
+export const IdResponseSchema: GenMessage<IdResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 20);
 
 /**
  * GetAppTagsRequest 是标签查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.GetAppTagsRequest
  */
-export type GetAppTagsRequest = Message<'panel.agent.v1.GetAppTagsRequest'> & {};
+export type GetAppTagsRequest = Message<"panel.agent.v1.GetAppTagsRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.GetAppTagsRequest.
  * Use `create(GetAppTagsRequestSchema)` to create a new message.
  */
-export const GetAppTagsRequestSchema: GenMessage<GetAppTagsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 21);
+export const GetAppTagsRequestSchema: GenMessage<GetAppTagsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 21);
 
 /**
  * AppTagsResponse 是标签列表结果。
  *
  * @generated from message panel.agent.v1.AppTagsResponse
  */
-export type AppTagsResponse = Message<'panel.agent.v1.AppTagsResponse'> & {
-    /**
-     * 标签列表。
-     *
-     * @generated from field: repeated panel.agent.v1.AppTag items = 1;
-     */
-    items: AppTag[];
+export type AppTagsResponse = Message<"panel.agent.v1.AppTagsResponse"> & {
+  /**
+   * 标签列表。
+   *
+   * @generated from field: repeated panel.agent.v1.AppTag items = 1;
+   */
+  items: AppTag[];
 };
 
 /**
  * Describes the message panel.agent.v1.AppTagsResponse.
  * Use `create(AppTagsResponseSchema)` to create a new message.
  */
-export const AppTagsResponseSchema: GenMessage<AppTagsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 22);
+export const AppTagsResponseSchema: GenMessage<AppTagsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 22);
 
 /**
  * AppTag 是一个应用标签。
  *
  * @generated from message panel.agent.v1.AppTag
  */
-export type AppTag = Message<'panel.agent.v1.AppTag'> & {
-    /**
-     * 标签 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type AppTag = Message<"panel.agent.v1.AppTag"> & {
+  /**
+   * 标签 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 标签键。
-     *
-     * @generated from field: string key = 2;
-     */
-    key: string;
+  /**
+   * 标签键。
+   *
+   * @generated from field: string key = 2;
+   */
+  key: string;
 
-    /**
-     * 标签名称。
-     *
-     * @generated from field: string name = 3;
-     */
-    name: string;
+  /**
+   * 标签名称。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
 };
 
 /**
  * Describes the message panel.agent.v1.AppTag.
  * Use `create(AppTagSchema)` to create a new message.
  */
-export const AppTagSchema: GenMessage<AppTag> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 23);
+export const AppTagSchema: GenMessage<AppTag> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 23);
 
 /**
  * GetAppUpdateRequest 是应用商店更新检查参数，无业务字段。
  *
  * @generated from message panel.agent.v1.GetAppUpdateRequest
  */
-export type GetAppUpdateRequest = Message<'panel.agent.v1.GetAppUpdateRequest'> & {};
+export type GetAppUpdateRequest = Message<"panel.agent.v1.GetAppUpdateRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.GetAppUpdateRequest.
  * Use `create(GetAppUpdateRequestSchema)` to create a new message.
  */
-export const GetAppUpdateRequestSchema: GenMessage<GetAppUpdateRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 24);
+export const GetAppUpdateRequestSchema: GenMessage<GetAppUpdateRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 24);
 
 /**
  * AppUpdateInfo 是应用商店更新状态。
  *
  * @generated from message panel.agent.v1.AppUpdateInfo
  */
-export type AppUpdateInfo = Message<'panel.agent.v1.AppUpdateInfo'> & {
-    /**
-     * 是否有可更新内容。
-     *
-     * @generated from field: bool can_update = 1;
-     */
-    canUpdate: boolean;
+export type AppUpdateInfo = Message<"panel.agent.v1.AppUpdateInfo"> & {
+  /**
+   * 是否有可更新内容。
+   *
+   * @generated from field: bool can_update = 1;
+   */
+  canUpdate: boolean;
 
-    /**
-     * 是否正在同步。
-     *
-     * @generated from field: bool is_syncing = 2;
-     */
-    isSyncing: boolean;
+  /**
+   * 是否正在同步。
+   *
+   * @generated from field: bool is_syncing = 2;
+   */
+  isSyncing: boolean;
 
-    /**
-     * 应用商店最近修改时间戳。
-     *
-     * @generated from field: int32 app_store_last_modified = 3;
-     */
-    appStoreLastModified: number;
+  /**
+   * 应用商店最近修改时间戳。
+   *
+   * @generated from field: int32 app_store_last_modified = 3;
+   */
+  appStoreLastModified: number;
 
-    /**
-     * 应用清单的 JSON 字符串。
-     *
-     * @generated from field: string app_list_json = 4;
-     */
-    appListJson: string;
+  /**
+   * 应用清单的 JSON 字符串。
+   *
+   * @generated from field: string app_list_json = 4;
+   */
+  appListJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.AppUpdateInfo.
  * Use `create(AppUpdateInfoSchema)` to create a new message.
  */
-export const AppUpdateInfoSchema: GenMessage<AppUpdateInfo> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 25);
+export const AppUpdateInfoSchema: GenMessage<AppUpdateInfo> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 25);
 
 /**
  * ListIgnoredAppsRequest 是忽略列表查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.ListIgnoredAppsRequest
  */
-export type ListIgnoredAppsRequest = Message<'panel.agent.v1.ListIgnoredAppsRequest'> & {};
+export type ListIgnoredAppsRequest = Message<"panel.agent.v1.ListIgnoredAppsRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.ListIgnoredAppsRequest.
  * Use `create(ListIgnoredAppsRequestSchema)` to create a new message.
  */
-export const ListIgnoredAppsRequestSchema: GenMessage<ListIgnoredAppsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 26);
+export const ListIgnoredAppsRequestSchema: GenMessage<ListIgnoredAppsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 26);
 
 /**
  * IgnoredAppsResponse 是忽略升级的应用列表。
  *
  * @generated from message panel.agent.v1.IgnoredAppsResponse
  */
-export type IgnoredAppsResponse = Message<'panel.agent.v1.IgnoredAppsResponse'> & {
-    /**
-     * 忽略记录。
-     *
-     * @generated from field: repeated panel.agent.v1.IgnoredApp items = 1;
-     */
-    items: IgnoredApp[];
+export type IgnoredAppsResponse = Message<"panel.agent.v1.IgnoredAppsResponse"> & {
+  /**
+   * 忽略记录。
+   *
+   * @generated from field: repeated panel.agent.v1.IgnoredApp items = 1;
+   */
+  items: IgnoredApp[];
 };
 
 /**
  * Describes the message panel.agent.v1.IgnoredAppsResponse.
  * Use `create(IgnoredAppsResponseSchema)` to create a new message.
  */
-export const IgnoredAppsResponseSchema: GenMessage<IgnoredAppsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 27);
+export const IgnoredAppsResponseSchema: GenMessage<IgnoredAppsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 27);
 
 /**
  * IgnoredApp 是一条忽略升级记录。
  *
  * @generated from message panel.agent.v1.IgnoredApp
  */
-export type IgnoredApp = Message<'panel.agent.v1.IgnoredApp'> & {
-    /**
-     * 记录 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type IgnoredApp = Message<"panel.agent.v1.IgnoredApp"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 应用 ID。
-     *
-     * @generated from field: uint32 app_id = 2;
-     */
-    appId: number;
+  /**
+   * 应用 ID。
+   *
+   * @generated from field: uint32 app_id = 2;
+   */
+  appId: number;
 
-    /**
-     * 应用详情 ID。
-     *
-     * @generated from field: uint32 app_detail_id = 3;
-     */
-    appDetailId: number;
+  /**
+   * 应用详情 ID。
+   *
+   * @generated from field: uint32 app_detail_id = 3;
+   */
+  appDetailId: number;
 
-    /**
-     * 忽略范围：all 或 version。
-     *
-     * @generated from field: string scope = 4;
-     */
-    scope: string;
+  /**
+   * 忽略范围：all 或 version。
+   *
+   * @generated from field: string scope = 4;
+   */
+  scope: string;
 
-    /**
-     * 忽略的版本。
-     *
-     * @generated from field: string version = 5;
-     */
-    version: string;
+  /**
+   * 忽略的版本。
+   *
+   * @generated from field: string version = 5;
+   */
+  version: string;
 
-    /**
-     * 应用名称。
-     *
-     * @generated from field: string name = 6;
-     */
-    name: string;
+  /**
+   * 应用名称。
+   *
+   * @generated from field: string name = 6;
+   */
+  name: string;
 };
 
 /**
  * Describes the message panel.agent.v1.IgnoredApp.
  * Use `create(IgnoredAppSchema)` to create a new message.
  */
-export const IgnoredAppSchema: GenMessage<IgnoredApp> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 28);
+export const IgnoredAppSchema: GenMessage<IgnoredApp> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 28);
 
 /**
  * IgnoreAppUpgradeRequest 是忽略升级参数。
  *
  * @generated from message panel.agent.v1.IgnoreAppUpgradeRequest
  */
-export type IgnoreAppUpgradeRequest = Message<'panel.agent.v1.IgnoreAppUpgradeRequest'> & {
-    /**
-     * 应用 ID。
-     *
-     * @generated from field: uint32 app_id = 1;
-     */
-    appId: number;
+export type IgnoreAppUpgradeRequest = Message<"panel.agent.v1.IgnoreAppUpgradeRequest"> & {
+  /**
+   * 应用 ID。
+   *
+   * @generated from field: uint32 app_id = 1;
+   */
+  appId: number;
 
-    /**
-     * 应用详情 ID。
-     *
-     * @generated from field: uint32 app_detail_id = 2;
-     */
-    appDetailId: number;
+  /**
+   * 应用详情 ID。
+   *
+   * @generated from field: uint32 app_detail_id = 2;
+   */
+  appDetailId: number;
 
-    /**
-     * 忽略范围：all 表示全部版本，version 表示指定版本。
-     *
-     * @generated from field: string scope = 3;
-     */
-    scope: string;
+  /**
+   * 忽略范围：all 表示全部版本，version 表示指定版本。
+   *
+   * @generated from field: string scope = 3;
+   */
+  scope: string;
 };
 
 /**
  * Describes the message panel.agent.v1.IgnoreAppUpgradeRequest.
  * Use `create(IgnoreAppUpgradeRequestSchema)` to create a new message.
  */
-export const IgnoreAppUpgradeRequestSchema: GenMessage<IgnoreAppUpgradeRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 29);
+export const IgnoreAppUpgradeRequestSchema: GenMessage<IgnoreAppUpgradeRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 29);
 
 /**
  * IgnoreAppUpgradeResponse 是忽略结果，无业务字段。
  *
  * @generated from message panel.agent.v1.IgnoreAppUpgradeResponse
  */
-export type IgnoreAppUpgradeResponse = Message<'panel.agent.v1.IgnoreAppUpgradeResponse'> & {};
+export type IgnoreAppUpgradeResponse = Message<"panel.agent.v1.IgnoreAppUpgradeResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.IgnoreAppUpgradeResponse.
  * Use `create(IgnoreAppUpgradeResponseSchema)` to create a new message.
  */
-export const IgnoreAppUpgradeResponseSchema: GenMessage<IgnoreAppUpgradeResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 30);
+export const IgnoreAppUpgradeResponseSchema: GenMessage<IgnoreAppUpgradeResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 30);
 
 /**
  * CancelIgnoreAppUpgradeRequest 是取消忽略参数。
  *
  * @generated from message panel.agent.v1.CancelIgnoreAppUpgradeRequest
  */
-export type CancelIgnoreAppUpgradeRequest = Message<'panel.agent.v1.CancelIgnoreAppUpgradeRequest'> & {
-    /**
-     * 忽略记录 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type CancelIgnoreAppUpgradeRequest = Message<"panel.agent.v1.CancelIgnoreAppUpgradeRequest"> & {
+  /**
+   * 忽略记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.CancelIgnoreAppUpgradeRequest.
  * Use `create(CancelIgnoreAppUpgradeRequestSchema)` to create a new message.
  */
-export const CancelIgnoreAppUpgradeRequestSchema: GenMessage<CancelIgnoreAppUpgradeRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 31);
+export const CancelIgnoreAppUpgradeRequestSchema: GenMessage<CancelIgnoreAppUpgradeRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 31);
 
 /**
  * CancelIgnoreAppUpgradeResponse 是取消结果，无业务字段。
  *
  * @generated from message panel.agent.v1.CancelIgnoreAppUpgradeResponse
  */
-export type CancelIgnoreAppUpgradeResponse = Message<'panel.agent.v1.CancelIgnoreAppUpgradeResponse'> & {};
+export type CancelIgnoreAppUpgradeResponse = Message<"panel.agent.v1.CancelIgnoreAppUpgradeResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.CancelIgnoreAppUpgradeResponse.
  * Use `create(CancelIgnoreAppUpgradeResponseSchema)` to create a new message.
  */
-export const CancelIgnoreAppUpgradeResponseSchema: GenMessage<CancelIgnoreAppUpgradeResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 32);
+export const CancelIgnoreAppUpgradeResponseSchema: GenMessage<CancelIgnoreAppUpgradeResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 32);
 
 /**
  * ListInstalledRequest 是已安装摘要查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.ListInstalledRequest
  */
-export type ListInstalledRequest = Message<'panel.agent.v1.ListInstalledRequest'> & {};
+export type ListInstalledRequest = Message<"panel.agent.v1.ListInstalledRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.ListInstalledRequest.
  * Use `create(ListInstalledRequestSchema)` to create a new message.
  */
-export const ListInstalledRequestSchema: GenMessage<ListInstalledRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 33);
+export const ListInstalledRequestSchema: GenMessage<ListInstalledRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 33);
 
 /**
  * ListInstalledResponse 是已安装应用摘要列表。
  *
  * @generated from message panel.agent.v1.ListInstalledResponse
  */
-export type ListInstalledResponse = Message<'panel.agent.v1.ListInstalledResponse'> & {
-    /**
-     * 应用摘要。
-     *
-     * @generated from field: repeated panel.agent.v1.InstalledAppBrief items = 1;
-     */
-    items: InstalledAppBrief[];
+export type ListInstalledResponse = Message<"panel.agent.v1.ListInstalledResponse"> & {
+  /**
+   * 应用摘要。
+   *
+   * @generated from field: repeated panel.agent.v1.InstalledAppBrief items = 1;
+   */
+  items: InstalledAppBrief[];
 };
 
 /**
  * Describes the message panel.agent.v1.ListInstalledResponse.
  * Use `create(ListInstalledResponseSchema)` to create a new message.
  */
-export const ListInstalledResponseSchema: GenMessage<ListInstalledResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 34);
+export const ListInstalledResponseSchema: GenMessage<ListInstalledResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 34);
 
 /**
  * InstalledAppBrief 是已安装应用的摘要。
  *
  * @generated from message panel.agent.v1.InstalledAppBrief
  */
-export type InstalledAppBrief = Message<'panel.agent.v1.InstalledAppBrief'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type InstalledAppBrief = Message<"panel.agent.v1.InstalledAppBrief"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 2;
-     */
-    key: string;
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 2;
+   */
+  key: string;
 
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 3;
-     */
-    name: string;
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
 };
 
 /**
  * Describes the message panel.agent.v1.InstalledAppBrief.
  * Use `create(InstalledAppBriefSchema)` to create a new message.
  */
-export const InstalledAppBriefSchema: GenMessage<InstalledAppBrief> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 35);
+export const InstalledAppBriefSchema: GenMessage<InstalledAppBrief> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 35);
 
 /**
  * CheckDeleteInstalledRequest 是删除前检查参数。
  *
  * @generated from message panel.agent.v1.CheckDeleteInstalledRequest
  */
-export type CheckDeleteInstalledRequest = Message<'panel.agent.v1.CheckDeleteInstalledRequest'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 app_install_id = 1;
-     */
-    appInstallId: number;
+export type CheckDeleteInstalledRequest = Message<"panel.agent.v1.CheckDeleteInstalledRequest"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 app_install_id = 1;
+   */
+  appInstallId: number;
 };
 
 /**
  * Describes the message panel.agent.v1.CheckDeleteInstalledRequest.
  * Use `create(CheckDeleteInstalledRequestSchema)` to create a new message.
  */
-export const CheckDeleteInstalledRequestSchema: GenMessage<CheckDeleteInstalledRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 36);
+export const CheckDeleteInstalledRequestSchema: GenMessage<CheckDeleteInstalledRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 36);
 
 /**
  * CheckDeleteInstalledResponse 是关联资源列表。
  *
  * @generated from message panel.agent.v1.CheckDeleteInstalledResponse
  */
-export type CheckDeleteInstalledResponse = Message<'panel.agent.v1.CheckDeleteInstalledResponse'> & {
-    /**
-     * 关联资源。
-     *
-     * @generated from field: repeated panel.agent.v1.AppResource items = 1;
-     */
-    items: AppResource[];
+export type CheckDeleteInstalledResponse = Message<"panel.agent.v1.CheckDeleteInstalledResponse"> & {
+  /**
+   * 关联资源。
+   *
+   * @generated from field: repeated panel.agent.v1.AppResource items = 1;
+   */
+  items: AppResource[];
 };
 
 /**
  * Describes the message panel.agent.v1.CheckDeleteInstalledResponse.
  * Use `create(CheckDeleteInstalledResponseSchema)` to create a new message.
  */
-export const CheckDeleteInstalledResponseSchema: GenMessage<CheckDeleteInstalledResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 37);
+export const CheckDeleteInstalledResponseSchema: GenMessage<CheckDeleteInstalledResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 37);
 
 /**
  * AppResource 是一个关联资源。
  *
  * @generated from message panel.agent.v1.AppResource
  */
-export type AppResource = Message<'panel.agent.v1.AppResource'> & {
-    /**
-     * 资源类型。
-     *
-     * @generated from field: string type = 1;
-     */
-    type: string;
+export type AppResource = Message<"panel.agent.v1.AppResource"> & {
+  /**
+   * 资源类型。
+   *
+   * @generated from field: string type = 1;
+   */
+  type: string;
 
-    /**
-     * 资源名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 资源名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 };
 
 /**
  * Describes the message panel.agent.v1.AppResource.
  * Use `create(AppResourceSchema)` to create a new message.
  */
-export const AppResourceSchema: GenMessage<AppResource> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 38);
+export const AppResourceSchema: GenMessage<AppResource> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 38);
 
 /**
  * SyncInstalledRequest 是同步已安装应用参数，无业务字段。
  *
  * @generated from message panel.agent.v1.SyncInstalledRequest
  */
-export type SyncInstalledRequest = Message<'panel.agent.v1.SyncInstalledRequest'> & {};
+export type SyncInstalledRequest = Message<"panel.agent.v1.SyncInstalledRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.SyncInstalledRequest.
  * Use `create(SyncInstalledRequestSchema)` to create a new message.
  */
-export const SyncInstalledRequestSchema: GenMessage<SyncInstalledRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 39);
+export const SyncInstalledRequestSchema: GenMessage<SyncInstalledRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 39);
 
 /**
  * SyncInstalledResponse 是同步结果，无业务字段。
  *
  * @generated from message panel.agent.v1.SyncInstalledResponse
  */
-export type SyncInstalledResponse = Message<'panel.agent.v1.SyncInstalledResponse'> & {};
+export type SyncInstalledResponse = Message<"panel.agent.v1.SyncInstalledResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.SyncInstalledResponse.
  * Use `create(SyncInstalledResponseSchema)` to create a new message.
  */
-export const SyncInstalledResponseSchema: GenMessage<SyncInstalledResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 40);
+export const SyncInstalledResponseSchema: GenMessage<SyncInstalledResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 40);
 
 /**
  * GetAppServicesRequest 是服务查询参数。
  *
  * @generated from message panel.agent.v1.GetAppServicesRequest
  */
-export type GetAppServicesRequest = Message<'panel.agent.v1.GetAppServicesRequest'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 1;
-     */
-    key: string;
+export type GetAppServicesRequest = Message<"panel.agent.v1.GetAppServicesRequest"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
 };
 
 /**
  * Describes the message panel.agent.v1.GetAppServicesRequest.
  * Use `create(GetAppServicesRequestSchema)` to create a new message.
  */
-export const GetAppServicesRequestSchema: GenMessage<GetAppServicesRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 41);
+export const GetAppServicesRequestSchema: GenMessage<GetAppServicesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 41);
 
 /**
  * GetAppServicesResponse 是应用服务列表。
  *
  * @generated from message panel.agent.v1.GetAppServicesResponse
  */
-export type GetAppServicesResponse = Message<'panel.agent.v1.GetAppServicesResponse'> & {
-    /**
-     * 服务项。
-     *
-     * @generated from field: repeated panel.agent.v1.AppServiceItem items = 1;
-     */
-    items: AppServiceItem[];
+export type GetAppServicesResponse = Message<"panel.agent.v1.GetAppServicesResponse"> & {
+  /**
+   * 服务项。
+   *
+   * @generated from field: repeated panel.agent.v1.AppServiceItem items = 1;
+   */
+  items: AppServiceItem[];
 };
 
 /**
  * Describes the message panel.agent.v1.GetAppServicesResponse.
  * Use `create(GetAppServicesResponseSchema)` to create a new message.
  */
-export const GetAppServicesResponseSchema: GenMessage<GetAppServicesResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 42);
+export const GetAppServicesResponseSchema: GenMessage<GetAppServicesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 42);
 
 /**
  * AppServiceItem 是应用定义里的一个服务。
  *
  * @generated from message panel.agent.v1.AppServiceItem
  */
-export type AppServiceItem = Message<'panel.agent.v1.AppServiceItem'> & {
-    /**
-     * 展示名称。
-     *
-     * @generated from field: string label = 1;
-     */
-    label: string;
+export type AppServiceItem = Message<"panel.agent.v1.AppServiceItem"> & {
+  /**
+   * 展示名称。
+   *
+   * @generated from field: string label = 1;
+   */
+  label: string;
 
-    /**
-     * 服务键。
-     *
-     * @generated from field: string value = 2;
-     */
-    value: string;
+  /**
+   * 服务键。
+   *
+   * @generated from field: string value = 2;
+   */
+  value: string;
 
-    /**
-     * 来源。
-     *
-     * @generated from field: string from = 3;
-     */
-    from: string;
+  /**
+   * 来源。
+   *
+   * @generated from field: string from = 3;
+   */
+  from: string;
 
-    /**
-     * 状态。
-     *
-     * @generated from field: string status = 4;
-     */
-    status: string;
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 4;
+   */
+  status: string;
 
-    /**
-     * 服务配置的 JSON 字符串。
-     *
-     * @generated from field: string config_json = 5;
-     */
-    configJson: string;
+  /**
+   * 服务配置的 JSON 字符串。
+   *
+   * @generated from field: string config_json = 5;
+   */
+  configJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.AppServiceItem.
  * Use `create(AppServiceItemSchema)` to create a new message.
  */
-export const AppServiceItemSchema: GenMessage<AppServiceItem> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 43);
+export const AppServiceItemSchema: GenMessage<AppServiceItem> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 43);
 
 /**
  * ChangeAppPortRequest 是端口修改参数。
  *
  * @generated from message panel.agent.v1.ChangeAppPortRequest
  */
-export type ChangeAppPortRequest = Message<'panel.agent.v1.ChangeAppPortRequest'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 1;
-     */
-    key: string;
+export type ChangeAppPortRequest = Message<"panel.agent.v1.ChangeAppPortRequest"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
 
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * 新端口。
-     *
-     * @generated from field: int64 port = 3;
-     */
-    port: bigint;
+  /**
+   * 新端口。
+   *
+   * @generated from field: int64 port = 3;
+   */
+  port: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.ChangeAppPortRequest.
  * Use `create(ChangeAppPortRequestSchema)` to create a new message.
  */
-export const ChangeAppPortRequestSchema: GenMessage<ChangeAppPortRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 44);
+export const ChangeAppPortRequestSchema: GenMessage<ChangeAppPortRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 44);
 
 /**
  * ChangeAppPortResponse 是修改结果，无业务字段。
  *
  * @generated from message panel.agent.v1.ChangeAppPortResponse
  */
-export type ChangeAppPortResponse = Message<'panel.agent.v1.ChangeAppPortResponse'> & {};
+export type ChangeAppPortResponse = Message<"panel.agent.v1.ChangeAppPortResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.ChangeAppPortResponse.
  * Use `create(ChangeAppPortResponseSchema)` to create a new message.
  */
-export const ChangeAppPortResponseSchema: GenMessage<ChangeAppPortResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 45);
+export const ChangeAppPortResponseSchema: GenMessage<ChangeAppPortResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 45);
 
 /**
  * GetDefaultConfigRequest 是默认配置查询参数。
  *
  * @generated from message panel.agent.v1.GetDefaultConfigRequest
  */
-export type GetDefaultConfigRequest = Message<'panel.agent.v1.GetDefaultConfigRequest'> & {
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 1;
-     */
-    name: string;
+export type GetDefaultConfigRequest = Message<"panel.agent.v1.GetDefaultConfigRequest"> & {
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
 
-    /**
-     * 配置类型。
-     *
-     * @generated from field: string type = 2;
-     */
-    type: string;
+  /**
+   * 配置类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
 };
 
 /**
  * Describes the message panel.agent.v1.GetDefaultConfigRequest.
  * Use `create(GetDefaultConfigRequestSchema)` to create a new message.
  */
-export const GetDefaultConfigRequestSchema: GenMessage<GetDefaultConfigRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 46);
+export const GetDefaultConfigRequestSchema: GenMessage<GetDefaultConfigRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 46);
 
 /**
  * GetDefaultConfigResponse 是默认配置内容。
  *
  * @generated from message panel.agent.v1.GetDefaultConfigResponse
  */
-export type GetDefaultConfigResponse = Message<'panel.agent.v1.GetDefaultConfigResponse'> & {
-    /**
-     * 文件内容。
-     *
-     * @generated from field: string content = 1;
-     */
-    content: string;
+export type GetDefaultConfigResponse = Message<"panel.agent.v1.GetDefaultConfigResponse"> & {
+  /**
+   * 文件内容。
+   *
+   * @generated from field: string content = 1;
+   */
+  content: string;
 };
 
 /**
  * Describes the message panel.agent.v1.GetDefaultConfigResponse.
  * Use `create(GetDefaultConfigResponseSchema)` to create a new message.
  */
-export const GetDefaultConfigResponseSchema: GenMessage<GetDefaultConfigResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 47);
+export const GetDefaultConfigResponseSchema: GenMessage<GetDefaultConfigResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 47);
 
 /**
  * GetInstalledParamsRequest 是已安装参数查询参数。
  *
  * @generated from message panel.agent.v1.GetInstalledParamsRequest
  */
-export type GetInstalledParamsRequest = Message<'panel.agent.v1.GetInstalledParamsRequest'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 app_install_id = 1;
-     */
-    appInstallId: number;
+export type GetInstalledParamsRequest = Message<"panel.agent.v1.GetInstalledParamsRequest"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 app_install_id = 1;
+   */
+  appInstallId: number;
 };
 
 /**
  * Describes the message panel.agent.v1.GetInstalledParamsRequest.
  * Use `create(GetInstalledParamsRequestSchema)` to create a new message.
  */
-export const GetInstalledParamsRequestSchema: GenMessage<GetInstalledParamsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 48);
+export const GetInstalledParamsRequestSchema: GenMessage<GetInstalledParamsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 48);
 
 /**
  * InstalledParamsResponse 是已安装应用参数。
  *
  * @generated from message panel.agent.v1.InstalledParamsResponse
  */
-export type InstalledParamsResponse = Message<'panel.agent.v1.InstalledParamsResponse'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string app_key = 1;
-     */
-    appKey: string;
+export type InstalledParamsResponse = Message<"panel.agent.v1.InstalledParamsResponse"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string app_key = 1;
+   */
+  appKey: string;
 
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * HTTP 端口。
-     *
-     * @generated from field: int32 http_port = 3;
-     */
-    httpPort: number;
+  /**
+   * HTTP 端口。
+   *
+   * @generated from field: int32 http_port = 3;
+   */
+  httpPort: number;
 
-    /**
-     * 是否同步模型账号。
-     *
-     * @generated from field: bool sync_model_account = 4;
-     */
-    syncModelAccount: boolean;
+  /**
+   * 是否同步模型账号。
+   *
+   * @generated from field: bool sync_model_account = 4;
+   */
+  syncModelAccount: boolean;
 
-    /**
-     * 模型账号地址类型。
-     *
-     * @generated from field: string model_account_base_url_type = 5;
-     */
-    modelAccountBaseUrlType: string;
+  /**
+   * 模型账号地址类型。
+   *
+   * @generated from field: string model_account_base_url_type = 5;
+   */
+  modelAccountBaseUrlType: string;
 
-    /**
-     * 模型账号地址。
-     *
-     * @generated from field: string model_account_base_url = 6;
-     */
-    modelAccountBaseUrl: string;
+  /**
+   * 模型账号地址。
+   *
+   * @generated from field: string model_account_base_url = 6;
+   */
+  modelAccountBaseUrl: string;
 
-    /**
-     * 原始 Compose 内容。
-     *
-     * @generated from field: string raw_compose = 7;
-     */
-    rawCompose: string;
+  /**
+   * 原始 Compose 内容。
+   *
+   * @generated from field: string raw_compose = 7;
+   */
+  rawCompose: string;
 
-    /**
-     * 是否可编辑。
-     *
-     * @generated from field: bool is_edit = 8;
-     */
-    isEdit: boolean;
+  /**
+   * 是否可编辑。
+   *
+   * @generated from field: bool is_edit = 8;
+   */
+  isEdit: boolean;
 
-    /**
-     * 参数列表的 JSON 字符串。
-     *
-     * @generated from field: string params_json = 9;
-     */
-    paramsJson: string;
+  /**
+   * 参数列表的 JSON 字符串。
+   *
+   * @generated from field: string params_json = 9;
+   */
+  paramsJson: string;
 
-    /**
-     * 容器配置的 JSON 字符串。
-     *
-     * @generated from field: string container_json = 10;
-     */
-    containerJson: string;
+  /**
+   * 容器配置的 JSON 字符串。
+   *
+   * @generated from field: string container_json = 10;
+   */
+  containerJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.InstalledParamsResponse.
  * Use `create(InstalledParamsResponseSchema)` to create a new message.
  */
-export const InstalledParamsResponseSchema: GenMessage<InstalledParamsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 49);
+export const InstalledParamsResponseSchema: GenMessage<InstalledParamsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 49);
 
 /**
  * UpdateInstalledRequest 是已安装参数更新参数。
@@ -1948,447 +1926,437 @@ export const InstalledParamsResponseSchema: GenMessage<InstalledParamsResponse> 
  *
  * @generated from message panel.agent.v1.UpdateInstalledRequest
  */
-export type UpdateInstalledRequest = Message<'panel.agent.v1.UpdateInstalledRequest'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 install_id = 1;
-     */
-    installId: number;
+export type UpdateInstalledRequest = Message<"panel.agent.v1.UpdateInstalledRequest"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 install_id = 1;
+   */
+  installId: number;
 
-    /**
-     * 原始请求体的 JSON 字符串。
-     *
-     * @generated from field: string payload_json = 2;
-     */
-    payloadJson: string;
+  /**
+   * 原始请求体的 JSON 字符串。
+   *
+   * @generated from field: string payload_json = 2;
+   */
+  payloadJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateInstalledRequest.
  * Use `create(UpdateInstalledRequestSchema)` to create a new message.
  */
-export const UpdateInstalledRequestSchema: GenMessage<UpdateInstalledRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 50);
+export const UpdateInstalledRequestSchema: GenMessage<UpdateInstalledRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 50);
 
 /**
  * UpdateInstalledResponse 是更新结果，无业务字段。
  *
  * @generated from message panel.agent.v1.UpdateInstalledResponse
  */
-export type UpdateInstalledResponse = Message<'panel.agent.v1.UpdateInstalledResponse'> & {};
+export type UpdateInstalledResponse = Message<"panel.agent.v1.UpdateInstalledResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.UpdateInstalledResponse.
  * Use `create(UpdateInstalledResponseSchema)` to create a new message.
  */
-export const UpdateInstalledResponseSchema: GenMessage<UpdateInstalledResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 51);
+export const UpdateInstalledResponseSchema: GenMessage<UpdateInstalledResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 51);
 
 /**
  * UpdateInstalledConfigRequest 是 WebUI 配置更新参数。
  *
  * @generated from message panel.agent.v1.UpdateInstalledConfigRequest
  */
-export type UpdateInstalledConfigRequest = Message<'panel.agent.v1.UpdateInstalledConfigRequest'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 install_id = 1;
-     */
-    installId: number;
+export type UpdateInstalledConfigRequest = Message<"panel.agent.v1.UpdateInstalledConfigRequest"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 install_id = 1;
+   */
+  installId: number;
 
-    /**
-     * WebUI 地址。
-     *
-     * @generated from field: string web_ui = 2;
-     */
-    webUi: string;
+  /**
+   * WebUI 地址。
+   *
+   * @generated from field: string web_ui = 2;
+   */
+  webUi: string;
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateInstalledConfigRequest.
  * Use `create(UpdateInstalledConfigRequestSchema)` to create a new message.
  */
-export const UpdateInstalledConfigRequestSchema: GenMessage<UpdateInstalledConfigRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 52);
+export const UpdateInstalledConfigRequestSchema: GenMessage<UpdateInstalledConfigRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 52);
 
 /**
  * UpdateInstalledConfigResponse 是更新结果，无业务字段。
  *
  * @generated from message panel.agent.v1.UpdateInstalledConfigResponse
  */
-export type UpdateInstalledConfigResponse = Message<'panel.agent.v1.UpdateInstalledConfigResponse'> & {};
+export type UpdateInstalledConfigResponse = Message<"panel.agent.v1.UpdateInstalledConfigResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.UpdateInstalledConfigResponse.
  * Use `create(UpdateInstalledConfigResponseSchema)` to create a new message.
  */
-export const UpdateInstalledConfigResponseSchema: GenMessage<UpdateInstalledConfigResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 53);
+export const UpdateInstalledConfigResponseSchema: GenMessage<UpdateInstalledConfigResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 53);
 
 /**
  * GetInstalledInfoRequest 是运行信息查询参数。
  *
  * @generated from message panel.agent.v1.GetInstalledInfoRequest
  */
-export type GetInstalledInfoRequest = Message<'panel.agent.v1.GetInstalledInfoRequest'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 app_install_id = 1;
-     */
-    appInstallId: number;
+export type GetInstalledInfoRequest = Message<"panel.agent.v1.GetInstalledInfoRequest"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 app_install_id = 1;
+   */
+  appInstallId: number;
 };
 
 /**
  * Describes the message panel.agent.v1.GetInstalledInfoRequest.
  * Use `create(GetInstalledInfoRequestSchema)` to create a new message.
  */
-export const GetInstalledInfoRequestSchema: GenMessage<GetInstalledInfoRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 54);
+export const GetInstalledInfoRequestSchema: GenMessage<GetInstalledInfoRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 54);
 
 /**
  * InstalledInfo 是已安装应用的运行信息。
  *
  * @generated from message panel.agent.v1.InstalledInfo
  */
-export type InstalledInfo = Message<'panel.agent.v1.InstalledInfo'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type InstalledInfo = Message<"panel.agent.v1.InstalledInfo"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * 版本。
-     *
-     * @generated from field: string version = 3;
-     */
-    version: string;
+  /**
+   * 版本。
+   *
+   * @generated from field: string version = 3;
+   */
+  version: string;
 
-    /**
-     * 状态。
-     *
-     * @generated from field: string status = 4;
-     */
-    status: string;
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 4;
+   */
+  status: string;
 
-    /**
-     * 状态说明。
-     *
-     * @generated from field: string message = 5;
-     */
-    message: string;
+  /**
+   * 状态说明。
+   *
+   * @generated from field: string message = 5;
+   */
+  message: string;
 
-    /**
-     * HTTP 端口。
-     *
-     * @generated from field: int32 http_port = 6;
-     */
-    httpPort: number;
+  /**
+   * HTTP 端口。
+   *
+   * @generated from field: int32 http_port = 6;
+   */
+  httpPort: number;
 
-    /**
-     * 容器名。
-     *
-     * @generated from field: string container = 7;
-     */
-    container: string;
+  /**
+   * 容器名。
+   *
+   * @generated from field: string container = 7;
+   */
+  container: string;
 
-    /**
-     * Compose 文件路径。
-     *
-     * @generated from field: string compose_path = 8;
-     */
-    composePath: string;
+  /**
+   * Compose 文件路径。
+   *
+   * @generated from field: string compose_path = 8;
+   */
+  composePath: string;
 
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string app_key = 9;
-     */
-    appKey: string;
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string app_key = 9;
+   */
+  appKey: string;
 
-    /**
-     * 应用端口列表。
-     *
-     * @generated from field: repeated int32 app_ports = 10;
-     */
-    appPorts: number[];
+  /**
+   * 应用端口列表。
+   *
+   * @generated from field: repeated int32 app_ports = 10;
+   */
+  appPorts: number[];
 
-    /**
-     * 环境变量的 JSON 字符串。
-     *
-     * @generated from field: string env_json = 11;
-     */
-    envJson: string;
+  /**
+   * 环境变量的 JSON 字符串。
+   *
+   * @generated from field: string env_json = 11;
+   */
+  envJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.InstalledInfo.
  * Use `create(InstalledInfoSchema)` to create a new message.
  */
-export const InstalledInfoSchema: GenMessage<InstalledInfo> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_app, 55);
+export const InstalledInfoSchema: GenMessage<InstalledInfo> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 55);
 
 /**
  * UpdateInstalledSortRequest 是排序更新参数。
  *
  * @generated from message panel.agent.v1.UpdateInstalledSortRequest
  */
-export type UpdateInstalledSortRequest = Message<'panel.agent.v1.UpdateInstalledSortRequest'> & {
-    /**
-     * 排序项。
-     *
-     * @generated from field: repeated panel.agent.v1.InstalledSortItem items = 1;
-     */
-    items: InstalledSortItem[];
+export type UpdateInstalledSortRequest = Message<"panel.agent.v1.UpdateInstalledSortRequest"> & {
+  /**
+   * 排序项。
+   *
+   * @generated from field: repeated panel.agent.v1.InstalledSortItem items = 1;
+   */
+  items: InstalledSortItem[];
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateInstalledSortRequest.
  * Use `create(UpdateInstalledSortRequestSchema)` to create a new message.
  */
-export const UpdateInstalledSortRequestSchema: GenMessage<UpdateInstalledSortRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 56);
+export const UpdateInstalledSortRequestSchema: GenMessage<UpdateInstalledSortRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 56);
 
 /**
  * InstalledSortItem 是一条排序记录。
  *
  * @generated from message panel.agent.v1.InstalledSortItem
  */
-export type InstalledSortItem = Message<'panel.agent.v1.InstalledSortItem'> & {
-    /**
-     * 安装 ID。
-     *
-     * @generated from field: uint32 install_id = 1;
-     */
-    installId: number;
+export type InstalledSortItem = Message<"panel.agent.v1.InstalledSortItem"> & {
+  /**
+   * 安装 ID。
+   *
+   * @generated from field: uint32 install_id = 1;
+   */
+  installId: number;
 
-    /**
-     * 排序序号。
-     *
-     * @generated from field: int32 sort_order = 2;
-     */
-    sortOrder: number;
+  /**
+   * 排序序号。
+   *
+   * @generated from field: int32 sort_order = 2;
+   */
+  sortOrder: number;
 };
 
 /**
  * Describes the message panel.agent.v1.InstalledSortItem.
  * Use `create(InstalledSortItemSchema)` to create a new message.
  */
-export const InstalledSortItemSchema: GenMessage<InstalledSortItem> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 57);
+export const InstalledSortItemSchema: GenMessage<InstalledSortItem> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 57);
 
 /**
  * UpdateInstalledSortResponse 是更新结果，无业务字段。
  *
  * @generated from message panel.agent.v1.UpdateInstalledSortResponse
  */
-export type UpdateInstalledSortResponse = Message<'panel.agent.v1.UpdateInstalledSortResponse'> & {};
+export type UpdateInstalledSortResponse = Message<"panel.agent.v1.UpdateInstalledSortResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.UpdateInstalledSortResponse.
  * Use `create(UpdateInstalledSortResponseSchema)` to create a new message.
  */
-export const UpdateInstalledSortResponseSchema: GenMessage<UpdateInstalledSortResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 58);
+export const UpdateInstalledSortResponseSchema: GenMessage<UpdateInstalledSortResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 58);
 
 /**
  * SyncAppsRequest 是应用商店同步参数。
  *
  * @generated from message panel.agent.v1.SyncAppsRequest
  */
-export type SyncAppsRequest = Message<'panel.agent.v1.SyncAppsRequest'> & {
-    /**
-     * 前端生成的任务 ID。
-     *
-     * @generated from field: string task_id = 1;
-     */
-    taskId: string;
+export type SyncAppsRequest = Message<"panel.agent.v1.SyncAppsRequest"> & {
+  /**
+   * 前端生成的任务 ID。
+   *
+   * @generated from field: string task_id = 1;
+   */
+  taskId: string;
 };
 
 /**
  * Describes the message panel.agent.v1.SyncAppsRequest.
  * Use `create(SyncAppsRequestSchema)` to create a new message.
  */
-export const SyncAppsRequestSchema: GenMessage<SyncAppsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 59);
+export const SyncAppsRequestSchema: GenMessage<SyncAppsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 59);
 
 /**
  * SyncAppsResponse 是同步结果。
  *
  * @generated from message panel.agent.v1.SyncAppsResponse
  */
-export type SyncAppsResponse = Message<'panel.agent.v1.SyncAppsResponse'> & {
-    /**
-     * 无需同步时返回的提示文案；已启动同步任务时为空。
-     *
-     * @generated from field: string message = 1;
-     */
-    message: string;
+export type SyncAppsResponse = Message<"panel.agent.v1.SyncAppsResponse"> & {
+  /**
+   * 无需同步时返回的提示文案；已启动同步任务时为空。
+   *
+   * @generated from field: string message = 1;
+   */
+  message: string;
 };
 
 /**
  * Describes the message panel.agent.v1.SyncAppsResponse.
  * Use `create(SyncAppsResponseSchema)` to create a new message.
  */
-export const SyncAppsResponseSchema: GenMessage<SyncAppsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 60);
+export const SyncAppsResponseSchema: GenMessage<SyncAppsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 60);
 
 /**
  * LoadAppPortRequest 是端口查询参数。
  *
  * @generated from message panel.agent.v1.LoadAppPortRequest
  */
-export type LoadAppPortRequest = Message<'panel.agent.v1.LoadAppPortRequest'> & {
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 1;
-     */
-    name: string;
+export type LoadAppPortRequest = Message<"panel.agent.v1.LoadAppPortRequest"> & {
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
 
-    /**
-     * 应用类型。
-     *
-     * @generated from field: string type = 2;
-     */
-    type: string;
+  /**
+   * 应用类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
 };
 
 /**
  * Describes the message panel.agent.v1.LoadAppPortRequest.
  * Use `create(LoadAppPortRequestSchema)` to create a new message.
  */
-export const LoadAppPortRequestSchema: GenMessage<LoadAppPortRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 61);
+export const LoadAppPortRequestSchema: GenMessage<LoadAppPortRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 61);
 
 /**
  * LoadAppPortResponse 是可用端口。
  *
  * @generated from message panel.agent.v1.LoadAppPortResponse
  */
-export type LoadAppPortResponse = Message<'panel.agent.v1.LoadAppPortResponse'> & {
-    /**
-     * 端口号。
-     *
-     * @generated from field: int64 port = 1;
-     */
-    port: bigint;
+export type LoadAppPortResponse = Message<"panel.agent.v1.LoadAppPortResponse"> & {
+  /**
+   * 端口号。
+   *
+   * @generated from field: int64 port = 1;
+   */
+  port: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.LoadAppPortResponse.
  * Use `create(LoadAppPortResponseSchema)` to create a new message.
  */
-export const LoadAppPortResponseSchema: GenMessage<LoadAppPortResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 62);
+export const LoadAppPortResponseSchema: GenMessage<LoadAppPortResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 62);
 
 /**
  * LoadAppConnInfoRequest 是数据库连接查询参数。
  *
  * @generated from message panel.agent.v1.LoadAppConnInfoRequest
  */
-export type LoadAppConnInfoRequest = Message<'panel.agent.v1.LoadAppConnInfoRequest'> & {
-    /**
-     * 安装名称。
-     *
-     * @generated from field: string name = 1;
-     */
-    name: string;
+export type LoadAppConnInfoRequest = Message<"panel.agent.v1.LoadAppConnInfoRequest"> & {
+  /**
+   * 安装名称。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
 
-    /**
-     * 应用类型。
-     *
-     * @generated from field: string type = 2;
-     */
-    type: string;
+  /**
+   * 应用类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
 };
 
 /**
  * Describes the message panel.agent.v1.LoadAppConnInfoRequest.
  * Use `create(LoadAppConnInfoRequestSchema)` to create a new message.
  */
-export const LoadAppConnInfoRequestSchema: GenMessage<LoadAppConnInfoRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 63);
+export const LoadAppConnInfoRequestSchema: GenMessage<LoadAppConnInfoRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 63);
 
 /**
  * LoadAppConnInfoResponse 是数据库连接信息。
  *
  * @generated from message panel.agent.v1.LoadAppConnInfoResponse
  */
-export type LoadAppConnInfoResponse = Message<'panel.agent.v1.LoadAppConnInfoResponse'> & {
-    /**
-     * 连接状态。
-     *
-     * @generated from field: string status = 1;
-     */
-    status: string;
+export type LoadAppConnInfoResponse = Message<"panel.agent.v1.LoadAppConnInfoResponse"> & {
+  /**
+   * 连接状态。
+   *
+   * @generated from field: string status = 1;
+   */
+  status: string;
 
-    /**
-     * 用户名。
-     *
-     * @generated from field: string username = 2;
-     */
-    username: string;
+  /**
+   * 用户名。
+   *
+   * @generated from field: string username = 2;
+   */
+  username: string;
 
-    /**
-     * 密码。
-     *
-     * @generated from field: string password = 3;
-     */
-    password: string;
+  /**
+   * 密码。
+   *
+   * @generated from field: string password = 3;
+   */
+  password: string;
 
-    /**
-     * 容器名。
-     *
-     * @generated from field: string container_name = 4;
-     */
-    containerName: string;
+  /**
+   * 容器名。
+   *
+   * @generated from field: string container_name = 4;
+   */
+  containerName: string;
 
-    /**
-     * 服务名。
-     *
-     * @generated from field: string service_name = 5;
-     */
-    serviceName: string;
+  /**
+   * 服务名。
+   *
+   * @generated from field: string service_name = 5;
+   */
+  serviceName: string;
 
-    /**
-     * 端口。
-     *
-     * @generated from field: int64 port = 6;
-     */
-    port: bigint;
+  /**
+   * 端口。
+   *
+   * @generated from field: int64 port = 6;
+   */
+  port: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.LoadAppConnInfoResponse.
  * Use `create(LoadAppConnInfoResponseSchema)` to create a new message.
  */
-export const LoadAppConnInfoResponseSchema: GenMessage<LoadAppConnInfoResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_app, 64);
+export const LoadAppConnInfoResponseSchema: GenMessage<LoadAppConnInfoResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_app, 64);
 
 /**
  * AppService 对应 1Panel 的应用商店域。
@@ -2396,304 +2364,306 @@ export const LoadAppConnInfoResponseSchema: GenMessage<LoadAppConnInfoResponse> 
  * @generated from service panel.agent.v1.AppService
  */
 export const AppService: GenService<{
-    /**
-     * 按 key 查询应用信息（含版本与标签）。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetApp
-     */
-    getApp: {
-        methodKind: 'unary';
-        input: typeof GetAppRequestSchema;
-        output: typeof AppDetailSchema;
-    };
-    /**
-     * 安装应用前检查是否已存在同名安装。
-     *
-     * @generated from rpc panel.agent.v1.AppService.CheckInstalled
-     */
-    checkInstalled: {
-        methodKind: 'unary';
-        input: typeof CheckInstalledAppRequestSchema;
-        output: typeof AppInstalledCheckSchema;
-    };
-    /**
-     * 安装应用（异步，返回安装记录）。
-     *
-     * @generated from rpc panel.agent.v1.AppService.Install
-     */
-    install: {
-        methodKind: 'unary';
-        input: typeof InstallAppRequestSchema;
-        output: typeof InstalledAppSchema;
-    };
-    /**
-     * 分页查询应用商店列表。
-     *
-     * @generated from rpc panel.agent.v1.AppService.SearchApps
-     */
-    searchApps: {
-        methodKind: 'unary';
-        input: typeof SearchAppsRequestSchema;
-        output: typeof SearchAppsResponseSchema;
-    };
-    /**
-     * 查询已安装应用可升级的版本列表。
-     *
-     * @generated from rpc panel.agent.v1.AppService.UpdateVersions
-     */
-    updateVersions: {
-        methodKind: 'unary';
-        input: typeof UpdateVersionsRequestSchema;
-        output: typeof UpdateVersionsResponseSchema;
-    };
-    /**
-     * 执行已安装应用操作（启动、停止、重启、升级、删除等）。
-     *
-     * @generated from rpc panel.agent.v1.AppService.Operate
-     */
-    operate: {
-        methodKind: 'unary';
-        input: typeof OperateAppRequestSchema;
-        output: typeof OperateAppResponseSchema;
-    };
-    /**
-     * 分页查询已安装应用。
-     *
-     * @generated from rpc panel.agent.v1.AppService.SearchInstalled
-     */
-    searchInstalled: {
-        methodKind: 'unary';
-        input: typeof SearchInstalledAppsRequestSchema;
-        output: typeof SearchInstalledAppsResponseSchema;
-    };
-    /**
-     * 按应用 ID、版本与类型查询应用详情。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetAppDetail
-     */
-    getAppDetail: {
-        methodKind: 'unary';
-        input: typeof GetAppDetailRequestSchema;
-        output: typeof AppDetailDocumentSchema;
-    };
-    /**
-     * 按应用详情 ID 查询详情。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetAppDetailByID
-     */
-    getAppDetailByID: {
-        methodKind: 'unary';
-        input: typeof GetAppDetailByIDRequestSchema;
-        output: typeof AppDetailDocumentSchema;
-    };
-    /**
-     * 按应用 key 与版本查询应用详情 ID。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetAppDetailByKey
-     */
-    getAppDetailByKey: {
-        methodKind: 'unary';
-        input: typeof GetAppDetailByKeyRequestSchema;
-        output: typeof IdResponseSchema;
-    };
-    /**
-     * 查询应用商店标签。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetAppTags
-     */
-    getAppTags: {
-        methodKind: 'unary';
-        input: typeof GetAppTagsRequestSchema;
-        output: typeof AppTagsResponseSchema;
-    };
-    /**
-     * 检查应用商店是否有更新。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetAppUpdate
-     */
-    getAppUpdate: {
-        methodKind: 'unary';
-        input: typeof GetAppUpdateRequestSchema;
-        output: typeof AppUpdateInfoSchema;
-    };
-    /**
-     * 查询已忽略升级的应用。
-     *
-     * @generated from rpc panel.agent.v1.AppService.ListIgnoredApps
-     */
-    listIgnoredApps: {
-        methodKind: 'unary';
-        input: typeof ListIgnoredAppsRequestSchema;
-        output: typeof IgnoredAppsResponseSchema;
-    };
-    /**
-     * 忽略指定应用的升级。
-     *
-     * @generated from rpc panel.agent.v1.AppService.IgnoreAppUpgrade
-     */
-    ignoreAppUpgrade: {
-        methodKind: 'unary';
-        input: typeof IgnoreAppUpgradeRequestSchema;
-        output: typeof IgnoreAppUpgradeResponseSchema;
-    };
-    /**
-     * 取消忽略应用升级。
-     *
-     * @generated from rpc panel.agent.v1.AppService.CancelIgnoreAppUpgrade
-     */
-    cancelIgnoreAppUpgrade: {
-        methodKind: 'unary';
-        input: typeof CancelIgnoreAppUpgradeRequestSchema;
-        output: typeof CancelIgnoreAppUpgradeResponseSchema;
-    };
-    /**
-     * 列出全部已安装应用的摘要。
-     *
-     * @generated from rpc panel.agent.v1.AppService.ListInstalled
-     */
-    listInstalled: {
-        methodKind: 'unary';
-        input: typeof ListInstalledRequestSchema;
-        output: typeof ListInstalledResponseSchema;
-    };
-    /**
-     * 删除安装前检查关联资源。
-     *
-     * @generated from rpc panel.agent.v1.AppService.CheckDeleteInstalled
-     */
-    checkDeleteInstalled: {
-        methodKind: 'unary';
-        input: typeof CheckDeleteInstalledRequestSchema;
-        output: typeof CheckDeleteInstalledResponseSchema;
-    };
-    /**
-     * 同步已安装应用列表。
-     *
-     * @generated from rpc panel.agent.v1.AppService.SyncInstalled
-     */
-    syncInstalled: {
-        methodKind: 'unary';
-        input: typeof SyncInstalledRequestSchema;
-        output: typeof SyncInstalledResponseSchema;
-    };
-    /**
-     * 查询应用定义里的服务列表。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetAppServices
-     */
-    getAppServices: {
-        methodKind: 'unary';
-        input: typeof GetAppServicesRequestSchema;
-        output: typeof GetAppServicesResponseSchema;
-    };
-    /**
-     * 修改已安装应用的端口。
-     *
-     * @generated from rpc panel.agent.v1.AppService.ChangeAppPort
-     */
-    changeAppPort: {
-        methodKind: 'unary';
-        input: typeof ChangeAppPortRequestSchema;
-        output: typeof ChangeAppPortResponseSchema;
-    };
-    /**
-     * 查询应用默认配置文件内容。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetDefaultConfig
-     */
-    getDefaultConfig: {
-        methodKind: 'unary';
-        input: typeof GetDefaultConfigRequestSchema;
-        output: typeof GetDefaultConfigResponseSchema;
-    };
-    /**
-     * 查询已安装应用的参数。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetInstalledParams
-     */
-    getInstalledParams: {
-        methodKind: 'unary';
-        input: typeof GetInstalledParamsRequestSchema;
-        output: typeof InstalledParamsResponseSchema;
-    };
-    /**
-     * 更新已安装应用的参数与容器配置。
-     *
-     * @generated from rpc panel.agent.v1.AppService.UpdateInstalled
-     */
-    updateInstalled: {
-        methodKind: 'unary';
-        input: typeof UpdateInstalledRequestSchema;
-        output: typeof UpdateInstalledResponseSchema;
-    };
-    /**
-     * 更新已安装应用的 WebUI 配置。
-     *
-     * @generated from rpc panel.agent.v1.AppService.UpdateInstalledConfig
-     */
-    updateInstalledConfig: {
-        methodKind: 'unary';
-        input: typeof UpdateInstalledConfigRequestSchema;
-        output: typeof UpdateInstalledConfigResponseSchema;
-    };
-    /**
-     * 查询已安装应用的运行信息。
-     *
-     * @generated from rpc panel.agent.v1.AppService.GetInstalledInfo
-     */
-    getInstalledInfo: {
-        methodKind: 'unary';
-        input: typeof GetInstalledInfoRequestSchema;
-        output: typeof InstalledInfoSchema;
-    };
-    /**
-     * 更新已安装应用的排序。
-     *
-     * @generated from rpc panel.agent.v1.AppService.UpdateInstalledSort
-     */
-    updateInstalledSort: {
-        methodKind: 'unary';
-        input: typeof UpdateInstalledSortRequestSchema;
-        output: typeof UpdateInstalledSortResponseSchema;
-    };
-    /**
-     * 从远端同步应用商店列表。
-     *
-     * @generated from rpc panel.agent.v1.AppService.SyncAppsFromRemote
-     */
-    syncAppsFromRemote: {
-        methodKind: 'unary';
-        input: typeof SyncAppsRequestSchema;
-        output: typeof SyncAppsResponseSchema;
-    };
-    /**
-     * 从本地同步应用商店列表。
-     *
-     * @generated from rpc panel.agent.v1.AppService.SyncAppsFromLocal
-     */
-    syncAppsFromLocal: {
-        methodKind: 'unary';
-        input: typeof SyncAppsRequestSchema;
-        output: typeof SyncAppsResponseSchema;
-    };
-    /**
-     * 查询应用可用的端口。
-     *
-     * @generated from rpc panel.agent.v1.AppService.LoadAppPort
-     */
-    loadAppPort: {
-        methodKind: 'unary';
-        input: typeof LoadAppPortRequestSchema;
-        output: typeof LoadAppPortResponseSchema;
-    };
-    /**
-     * 查询应用数据库连接信息。
-     *
-     * @generated from rpc panel.agent.v1.AppService.LoadAppConnInfo
-     */
-    loadAppConnInfo: {
-        methodKind: 'unary';
-        input: typeof LoadAppConnInfoRequestSchema;
-        output: typeof LoadAppConnInfoResponseSchema;
-    };
-}> = /*@__PURE__*/ serviceDesc(file_panel_agent_v1_app, 0);
+  /**
+   * 按 key 查询应用信息（含版本与标签）。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetApp
+   */
+  getApp: {
+    methodKind: "unary";
+    input: typeof GetAppRequestSchema;
+    output: typeof AppDetailSchema;
+  },
+  /**
+   * 安装应用前检查是否已存在同名安装。
+   *
+   * @generated from rpc panel.agent.v1.AppService.CheckInstalled
+   */
+  checkInstalled: {
+    methodKind: "unary";
+    input: typeof CheckInstalledAppRequestSchema;
+    output: typeof AppInstalledCheckSchema;
+  },
+  /**
+   * 安装应用（异步，返回安装记录）。
+   *
+   * @generated from rpc panel.agent.v1.AppService.Install
+   */
+  install: {
+    methodKind: "unary";
+    input: typeof InstallAppRequestSchema;
+    output: typeof InstalledAppSchema;
+  },
+  /**
+   * 分页查询应用商店列表。
+   *
+   * @generated from rpc panel.agent.v1.AppService.SearchApps
+   */
+  searchApps: {
+    methodKind: "unary";
+    input: typeof SearchAppsRequestSchema;
+    output: typeof SearchAppsResponseSchema;
+  },
+  /**
+   * 查询已安装应用可升级的版本列表。
+   *
+   * @generated from rpc panel.agent.v1.AppService.UpdateVersions
+   */
+  updateVersions: {
+    methodKind: "unary";
+    input: typeof UpdateVersionsRequestSchema;
+    output: typeof UpdateVersionsResponseSchema;
+  },
+  /**
+   * 执行已安装应用操作（启动、停止、重启、升级、删除等）。
+   *
+   * @generated from rpc panel.agent.v1.AppService.Operate
+   */
+  operate: {
+    methodKind: "unary";
+    input: typeof OperateAppRequestSchema;
+    output: typeof OperateAppResponseSchema;
+  },
+  /**
+   * 分页查询已安装应用。
+   *
+   * @generated from rpc panel.agent.v1.AppService.SearchInstalled
+   */
+  searchInstalled: {
+    methodKind: "unary";
+    input: typeof SearchInstalledAppsRequestSchema;
+    output: typeof SearchInstalledAppsResponseSchema;
+  },
+  /**
+   * 按应用 ID、版本与类型查询应用详情。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetAppDetail
+   */
+  getAppDetail: {
+    methodKind: "unary";
+    input: typeof GetAppDetailRequestSchema;
+    output: typeof AppDetailDocumentSchema;
+  },
+  /**
+   * 按应用详情 ID 查询详情。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetAppDetailByID
+   */
+  getAppDetailByID: {
+    methodKind: "unary";
+    input: typeof GetAppDetailByIDRequestSchema;
+    output: typeof AppDetailDocumentSchema;
+  },
+  /**
+   * 按应用 key 与版本查询应用详情 ID。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetAppDetailByKey
+   */
+  getAppDetailByKey: {
+    methodKind: "unary";
+    input: typeof GetAppDetailByKeyRequestSchema;
+    output: typeof IdResponseSchema;
+  },
+  /**
+   * 查询应用商店标签。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetAppTags
+   */
+  getAppTags: {
+    methodKind: "unary";
+    input: typeof GetAppTagsRequestSchema;
+    output: typeof AppTagsResponseSchema;
+  },
+  /**
+   * 检查应用商店是否有更新。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetAppUpdate
+   */
+  getAppUpdate: {
+    methodKind: "unary";
+    input: typeof GetAppUpdateRequestSchema;
+    output: typeof AppUpdateInfoSchema;
+  },
+  /**
+   * 查询已忽略升级的应用。
+   *
+   * @generated from rpc panel.agent.v1.AppService.ListIgnoredApps
+   */
+  listIgnoredApps: {
+    methodKind: "unary";
+    input: typeof ListIgnoredAppsRequestSchema;
+    output: typeof IgnoredAppsResponseSchema;
+  },
+  /**
+   * 忽略指定应用的升级。
+   *
+   * @generated from rpc panel.agent.v1.AppService.IgnoreAppUpgrade
+   */
+  ignoreAppUpgrade: {
+    methodKind: "unary";
+    input: typeof IgnoreAppUpgradeRequestSchema;
+    output: typeof IgnoreAppUpgradeResponseSchema;
+  },
+  /**
+   * 取消忽略应用升级。
+   *
+   * @generated from rpc panel.agent.v1.AppService.CancelIgnoreAppUpgrade
+   */
+  cancelIgnoreAppUpgrade: {
+    methodKind: "unary";
+    input: typeof CancelIgnoreAppUpgradeRequestSchema;
+    output: typeof CancelIgnoreAppUpgradeResponseSchema;
+  },
+  /**
+   * 列出全部已安装应用的摘要。
+   *
+   * @generated from rpc panel.agent.v1.AppService.ListInstalled
+   */
+  listInstalled: {
+    methodKind: "unary";
+    input: typeof ListInstalledRequestSchema;
+    output: typeof ListInstalledResponseSchema;
+  },
+  /**
+   * 删除安装前检查关联资源。
+   *
+   * @generated from rpc panel.agent.v1.AppService.CheckDeleteInstalled
+   */
+  checkDeleteInstalled: {
+    methodKind: "unary";
+    input: typeof CheckDeleteInstalledRequestSchema;
+    output: typeof CheckDeleteInstalledResponseSchema;
+  },
+  /**
+   * 同步已安装应用列表。
+   *
+   * @generated from rpc panel.agent.v1.AppService.SyncInstalled
+   */
+  syncInstalled: {
+    methodKind: "unary";
+    input: typeof SyncInstalledRequestSchema;
+    output: typeof SyncInstalledResponseSchema;
+  },
+  /**
+   * 查询应用定义里的服务列表。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetAppServices
+   */
+  getAppServices: {
+    methodKind: "unary";
+    input: typeof GetAppServicesRequestSchema;
+    output: typeof GetAppServicesResponseSchema;
+  },
+  /**
+   * 修改已安装应用的端口。
+   *
+   * @generated from rpc panel.agent.v1.AppService.ChangeAppPort
+   */
+  changeAppPort: {
+    methodKind: "unary";
+    input: typeof ChangeAppPortRequestSchema;
+    output: typeof ChangeAppPortResponseSchema;
+  },
+  /**
+   * 查询应用默认配置文件内容。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetDefaultConfig
+   */
+  getDefaultConfig: {
+    methodKind: "unary";
+    input: typeof GetDefaultConfigRequestSchema;
+    output: typeof GetDefaultConfigResponseSchema;
+  },
+  /**
+   * 查询已安装应用的参数。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetInstalledParams
+   */
+  getInstalledParams: {
+    methodKind: "unary";
+    input: typeof GetInstalledParamsRequestSchema;
+    output: typeof InstalledParamsResponseSchema;
+  },
+  /**
+   * 更新已安装应用的参数与容器配置。
+   *
+   * @generated from rpc panel.agent.v1.AppService.UpdateInstalled
+   */
+  updateInstalled: {
+    methodKind: "unary";
+    input: typeof UpdateInstalledRequestSchema;
+    output: typeof UpdateInstalledResponseSchema;
+  },
+  /**
+   * 更新已安装应用的 WebUI 配置。
+   *
+   * @generated from rpc panel.agent.v1.AppService.UpdateInstalledConfig
+   */
+  updateInstalledConfig: {
+    methodKind: "unary";
+    input: typeof UpdateInstalledConfigRequestSchema;
+    output: typeof UpdateInstalledConfigResponseSchema;
+  },
+  /**
+   * 查询已安装应用的运行信息。
+   *
+   * @generated from rpc panel.agent.v1.AppService.GetInstalledInfo
+   */
+  getInstalledInfo: {
+    methodKind: "unary";
+    input: typeof GetInstalledInfoRequestSchema;
+    output: typeof InstalledInfoSchema;
+  },
+  /**
+   * 更新已安装应用的排序。
+   *
+   * @generated from rpc panel.agent.v1.AppService.UpdateInstalledSort
+   */
+  updateInstalledSort: {
+    methodKind: "unary";
+    input: typeof UpdateInstalledSortRequestSchema;
+    output: typeof UpdateInstalledSortResponseSchema;
+  },
+  /**
+   * 从远端同步应用商店列表。
+   *
+   * @generated from rpc panel.agent.v1.AppService.SyncAppsFromRemote
+   */
+  syncAppsFromRemote: {
+    methodKind: "unary";
+    input: typeof SyncAppsRequestSchema;
+    output: typeof SyncAppsResponseSchema;
+  },
+  /**
+   * 从本地同步应用商店列表。
+   *
+   * @generated from rpc panel.agent.v1.AppService.SyncAppsFromLocal
+   */
+  syncAppsFromLocal: {
+    methodKind: "unary";
+    input: typeof SyncAppsRequestSchema;
+    output: typeof SyncAppsResponseSchema;
+  },
+  /**
+   * 查询应用可用的端口。
+   *
+   * @generated from rpc panel.agent.v1.AppService.LoadAppPort
+   */
+  loadAppPort: {
+    methodKind: "unary";
+    input: typeof LoadAppPortRequestSchema;
+    output: typeof LoadAppPortResponseSchema;
+  },
+  /**
+   * 查询应用数据库连接信息。
+   *
+   * @generated from rpc panel.agent.v1.AppService.LoadAppConnInfo
+   */
+  loadAppConnInfo: {
+    methodKind: "unary";
+    input: typeof LoadAppConnInfoRequestSchema;
+    output: typeof LoadAppConnInfoResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_panel_agent_v1_app, 0);
+

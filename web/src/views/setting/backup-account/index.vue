@@ -125,7 +125,6 @@ import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { useSearchState } from '@/utils/search-reset';
 import { dateFormat } from '@/utils/date';
 import { toRef, onMounted, ref } from 'vue';
-import { deleteBackup, refreshToken } from '@/api/modules/backup';
 import { rpc } from '@/lib/rpc';
 import Operate from '@/views/setting/backup-account/operate/index.vue';
 import DetailShow from '@/components/detail-show/index.vue';
@@ -210,7 +209,10 @@ const onDelete = async (row: Backup.BackupInfo) => {
             i18n.global.t('setting.backupAccount'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: (params: { name: string }) => rpc.core.backups.delete({ name: params.name }),
+        api: (params: { id: number; name: string; isPublic: boolean }) =>
+            params.isPublic
+                ? rpc.core.backups.delete({ name: params.name })
+                : rpc.backup.deleteBackupAccount({ id: params.id }),
         params: { id: row.id, name: row.name, isPublic: row.isPublic },
     });
 };
@@ -294,7 +296,8 @@ const onInspect = (row: any) => {
 
 const refreshItemToken = async (row: any) => {
     loading.value = true;
-    await rpc.core.backups.refreshToken({ name: row.name })
+    await rpc.backup
+        .refreshBackupToken({ id: row.id })
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

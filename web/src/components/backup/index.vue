@@ -47,7 +47,7 @@
                         <Status
                             v-if="row.status === 'Waiting'"
                             :status="row.status"
-                            @click="openTaskLog(row.taskID)"
+                            @click="openTaskLog(row.taskId)"
                             :msg="row.message"
                             :operate="true"
                         />
@@ -183,24 +183,12 @@ import { dateFormat } from '@/utils/date';
 import { downloadFile } from '@/utils/file';
 import { newUUID } from '@/utils/id';
 import { transferTimeToSecond } from '@/utils/validate';
-import {
-    getLocalBackupDir,
-    handleBackup,
-    handleRecover,
-    deleteBackupRecord,
-    downloadBackupRecord,
-    searchBackupRecords,
-    loadRecordSize,
-    updateRecordDescription,
-} from '@/api/modules/backup';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
-import { Backup } from '@/api/interface/backup';
 import { MsgSuccess } from '@/utils/message';
 import TaskLog from '@/components/log/task/index.vue';
 import { routerToFileWithPath } from '@/utils/router';
-import { useGlobalStore } from '@/composables/useGlobalStore';
 import { loadMysqlArgs } from '@/views/cronjob/cronjob/helper';
-const { currentNode } = useGlobalStore();
 
 const emit = defineEmits(['close']);
 
@@ -227,7 +215,6 @@ const secret = ref();
 const description = ref();
 const timeoutItem = ref(30);
 const timeoutUnit = ref('m');
-const node = ref();
 const stopBefore = ref(false);
 const dropAllCollections = ref(false);
 
@@ -242,11 +229,9 @@ interface DialogProps {
     detailName: string;
     status: string;
     appInstallID?: number;
-    node?: string;
 }
 const acceptParams = (params: DialogProps): void => {
     type.value = params.type;
-    node.value = params.node || currentNode.value;
     if (type.value === 'app') {
         appInstallID.value = params.appInstallID || 0;
         loadBackupDir();
@@ -268,8 +253,8 @@ const handleBackupClose = () => {
 };
 
 const loadBackupDir = async () => {
-    const res = await getLocalBackupDir(node.value);
-    backupPath.value = res.data;
+    const res = await rpc.backup.getLocalBackupDir({});
+    backupPath.value = res.dir;
 };
 
 const goFile = async () => {
@@ -277,7 +262,7 @@ const goFile = async () => {
 };
 
 const onChange = async (info: any) => {
-    await updateRecordDescription(info.id, info.description, node.value);
+    await rpc.backup.updateRecordDescription({ id: info.id, description: info.description });
     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
 };
 
@@ -290,12 +275,13 @@ const search = async () => {
         detailName: detailName.value,
     };
     loading.value = true;
-    await searchBackupRecords(params, node.value)
+    await rpc.backup
+        .searchBackupRecords(params)
         .then((res) => {
             loading.value = false;
             loadSize(params);
-            data.value = res.data.items || [];
-            paginationConfig.total = res.data.total;
+            data.value = res.items || [];
+            paginationConfig.total = Number(res.total);
         })
         .catch(() => {
             loading.value = false;
@@ -303,9 +289,10 @@ const search = async () => {
 };
 
 const loadSize = async (params: any) => {
-    await loadRecordSize(params, node.value)
+    await rpc.backup
+        .loadRecordSize(params)
         .then((res) => {
-            let stats = res.data || [];
+            let stats = res.items || [];
             if (stats.length === 0) {
                 return;
             }
@@ -313,7 +300,7 @@ const loadSize = async (params: any) => {
                 for (const item of stats) {
                     if (backup.id === item.id) {
                         backup.hasLoad = true;
-                        backup.size = item.size;
+                        backup.size = Number(item.size);
                         break;
                     }
                 }
@@ -325,7 +312,7 @@ const loadSize = async (params: any) => {
 };
 
 const openTaskLog = (taskID: string) => {
-    taskLogRef.value.openWithTaskID(taskID, true, node.value);
+    taskLogRef.value.openWithTaskID(taskID, true);
 };
 
 const supportMysqlBackupArgs = () => {
@@ -343,13 +330,14 @@ const backup = async () => {
         name: name.value,
         detailName: detailName.value,
         secret: secret.value,
-        taskID: taskID,
+        taskId: taskID,
         description: description.value,
         args: args.value,
         stopBefore: stopBefore.value,
     };
     loading.value = true;
-    await handleBackup(params, node.value)
+    await rpc.backup
+        .backupData(params)
         .then(() => {
             loading.value = false;
             openTaskLog(taskID);
@@ -363,19 +351,20 @@ const backup = async () => {
 const recover = async (row?: any) => {
     const taskID = newUUID();
     let params = {
-        downloadAccountID: row.downloadAccountID,
+        downloadAccountId: row.downloadAccountId,
         type: type.value,
         name: name.value,
         detailName: detailName.value,
         file: row.fileDir + '/' + row.fileName,
         secret: secret.value,
-        taskID: taskID,
-        backupRecordID: row.id,
+        taskId: taskID,
+        backupRecordId: row.id,
         timeout: timeoutItem.value === -1 ? -1 : transferTimeToSecond(timeoutItem.value + timeoutUnit.value),
         dropAllCollections: type.value === 'mongodb' ? dropAllCollections.value : false,
     };
     loading.value = true;
-    await handleRecover(params, node.value)
+    await rpc.backup
+        .recoverData(params)
         .then(() => {
             loading.value = false;
             openTaskLog(taskID);
@@ -395,7 +384,7 @@ const onBackup = async () => {
     open.value = true;
 };
 
-const onRecover = async (row: Backup.RecordInfo) => {
+const onRecover = async (row: any) => {
     secret.value = '';
     dropAllCollections.value = false;
     isBackup.value = false;
@@ -411,25 +400,23 @@ const onSubmit = () => {
     }
 };
 
-const onDownload = async (row: Backup.RecordInfo) => {
-    let params = {
-        downloadAccountID: row.downloadAccountID,
+const onDownload = async (row: any) => {
+    const res = await rpc.backup.downloadBackupRecord({
+        downloadAccountId: row.downloadAccountId,
         fileDir: row.fileDir,
         fileName: row.fileName,
-    };
-    await downloadBackupRecord(params, node.value).then(async (res) => {
-        downloadFile(res.data, node.value);
     });
+    downloadFile(res.path, 'local');
 };
 
-const onBatchDelete = async (row: Backup.RecordInfo | null) => {
+const onBatchDelete = async (row: any | null) => {
     let ids: Array<number> = [];
     let names = [];
     if (row) {
         ids.push(row.id);
         names.push(row.fileName);
     } else {
-        selects.value.forEach((item: Backup.RecordInfo) => {
+        selects.value.forEach((item: any) => {
             ids.push(item.id);
             names.push(item.fileName);
         });
@@ -437,12 +424,12 @@ const onBatchDelete = async (row: Backup.RecordInfo | null) => {
     opRef.value.acceptParams({
         names: names,
         title: i18n.global.t('commons.button.delete'),
-        api: deleteBackupRecord,
+        api: rpc.backup.deleteBackupRecords,
         msg: i18n.global.t('commons.msg.operatorHelper', [
             i18n.global.t('commons.button.backup'),
             i18n.global.t('commons.button.delete'),
         ]),
-        params: { ids: ids, node: node.value },
+        params: { ids: ids },
     });
 };
 
@@ -452,7 +439,7 @@ const buttons = [
         disabled: (row: any) => {
             return row.size === 0 || row.status === 'Failed';
         },
-        click: (row: Backup.RecordInfo) => {
+        click: (row: any) => {
             onRecover(row);
         },
     },
@@ -461,7 +448,7 @@ const buttons = [
         disabled: (row: any) => {
             return row.size === 0 || row.status === 'Failed';
         },
-        click: (row: Backup.RecordInfo) => {
+        click: (row: any) => {
             onDownload(row);
         },
     },
@@ -470,7 +457,7 @@ const buttons = [
         disabled: (row: any) => {
             return row.status === 'Waiting';
         },
-        click: (row: Backup.RecordInfo) => {
+        click: (row: any) => {
             onBatchDelete(row);
         },
     },

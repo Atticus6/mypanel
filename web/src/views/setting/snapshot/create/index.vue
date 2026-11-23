@@ -180,7 +180,6 @@ import { transferTimeToSecond } from '@/utils/validate';
 import i18n from '@/lang';
 import TaskLog from '@/components/log/task/index.vue';
 import InputTag from '@/components/input-tag/index.vue';
-import { listBackupOptions } from '@/api/modules/backup';
 import { Rules } from '@/global/form-rules';
 import { ElForm } from 'element-plus';
 import { MsgSuccess } from '@/utils/message';
@@ -324,9 +323,9 @@ const loadApp18n = (label: string) => {
 };
 
 const loadBackups = async () => {
-    const res = await listBackupOptions();
+    const res = await rpc.backup.loadBackupOptions({});
     backupOptions.value = [];
-    for (const item of res.data) {
+    for (const item of res.items) {
         if (item.id !== 0) {
             backupOptions.value.push({ id: item.id, type: i18n.global.t('setting.' + item.type), name: item.name });
         }
@@ -428,15 +427,16 @@ const submitAddSnapshot = async () => {
     form.taskID = newUUID();
     form.sourceAccountIDs = form.fromAccounts.join(',');
     form.timeout = transferTimeToSecond(form.timeoutItem + form.timeoutUnit);
-    await rpc.snapshot.create({
-        ...form,
-        sourceAccountIds: form.sourceAccountIDs,
-        downloadAccountId: Number(form.downloadAccountID) || 0,
-        taskId: form.taskID,
-        appData: form.appData,
-        backupData: form.backupData,
-        panelData: form.panelData,
-    })
+    await rpc.snapshot
+        .create({
+            ...form,
+            sourceAccountIds: form.sourceAccountIDs,
+            downloadAccountId: Number(form.downloadAccountID) || 0,
+            taskId: form.taskID,
+            appData: form.appData,
+            backupData: form.backupData,
+            panelData: form.panelData,
+        })
         .then(() => {
             loading.value = false;
             drawerVisible.value = false;
@@ -486,7 +486,8 @@ const loadInstallDir = async () => {
 
 const search = async () => {
     loading.value = true;
-    await rpc.snapshot.loadData({})
+    await rpc.snapshot
+        .loadData({})
         .then((res) => {
             loading.value = false;
             form.panelData = res.panelData || [];

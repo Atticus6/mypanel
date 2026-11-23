@@ -37,12 +37,112 @@ const (
 const (
 	// BackupServiceSearchProcedure is the fully-qualified name of the BackupService's Search RPC.
 	BackupServiceSearchProcedure = "/panel.agent.v1.BackupService/Search"
+	// BackupServiceCheckBackupUsedProcedure is the fully-qualified name of the BackupService's
+	// CheckBackupUsed RPC.
+	BackupServiceCheckBackupUsedProcedure = "/panel.agent.v1.BackupService/CheckBackupUsed"
+	// BackupServiceCheckBackupConnProcedure is the fully-qualified name of the BackupService's
+	// CheckBackupConn RPC.
+	BackupServiceCheckBackupConnProcedure = "/panel.agent.v1.BackupService/CheckBackupConn"
+	// BackupServiceCreateBackupAccountProcedure is the fully-qualified name of the BackupService's
+	// CreateBackupAccount RPC.
+	BackupServiceCreateBackupAccountProcedure = "/panel.agent.v1.BackupService/CreateBackupAccount"
+	// BackupServiceUpdateBackupAccountProcedure is the fully-qualified name of the BackupService's
+	// UpdateBackupAccount RPC.
+	BackupServiceUpdateBackupAccountProcedure = "/panel.agent.v1.BackupService/UpdateBackupAccount"
+	// BackupServiceDeleteBackupAccountProcedure is the fully-qualified name of the BackupService's
+	// DeleteBackupAccount RPC.
+	BackupServiceDeleteBackupAccountProcedure = "/panel.agent.v1.BackupService/DeleteBackupAccount"
+	// BackupServiceRefreshBackupTokenProcedure is the fully-qualified name of the BackupService's
+	// RefreshBackupToken RPC.
+	BackupServiceRefreshBackupTokenProcedure = "/panel.agent.v1.BackupService/RefreshBackupToken"
+	// BackupServiceListBucketsProcedure is the fully-qualified name of the BackupService's ListBuckets
+	// RPC.
+	BackupServiceListBucketsProcedure = "/panel.agent.v1.BackupService/ListBuckets"
+	// BackupServiceLoadBackupOptionsProcedure is the fully-qualified name of the BackupService's
+	// LoadBackupOptions RPC.
+	BackupServiceLoadBackupOptionsProcedure = "/panel.agent.v1.BackupService/LoadBackupOptions"
+	// BackupServiceGetLocalBackupDirProcedure is the fully-qualified name of the BackupService's
+	// GetLocalBackupDir RPC.
+	BackupServiceGetLocalBackupDirProcedure = "/panel.agent.v1.BackupService/GetLocalBackupDir"
+	// BackupServiceUploadForRecoverProcedure is the fully-qualified name of the BackupService's
+	// UploadForRecover RPC.
+	BackupServiceUploadForRecoverProcedure = "/panel.agent.v1.BackupService/UploadForRecover"
+	// BackupServiceSearchBackupRecordsProcedure is the fully-qualified name of the BackupService's
+	// SearchBackupRecords RPC.
+	BackupServiceSearchBackupRecordsProcedure = "/panel.agent.v1.BackupService/SearchBackupRecords"
+	// BackupServiceSearchBackupRecordsByCronjobProcedure is the fully-qualified name of the
+	// BackupService's SearchBackupRecordsByCronjob RPC.
+	BackupServiceSearchBackupRecordsByCronjobProcedure = "/panel.agent.v1.BackupService/SearchBackupRecordsByCronjob"
+	// BackupServiceLoadRecordSizeProcedure is the fully-qualified name of the BackupService's
+	// LoadRecordSize RPC.
+	BackupServiceLoadRecordSizeProcedure = "/panel.agent.v1.BackupService/LoadRecordSize"
+	// BackupServiceDownloadBackupRecordProcedure is the fully-qualified name of the BackupService's
+	// DownloadBackupRecord RPC.
+	BackupServiceDownloadBackupRecordProcedure = "/panel.agent.v1.BackupService/DownloadBackupRecord"
+	// BackupServiceUpdateRecordDescriptionProcedure is the fully-qualified name of the BackupService's
+	// UpdateRecordDescription RPC.
+	BackupServiceUpdateRecordDescriptionProcedure = "/panel.agent.v1.BackupService/UpdateRecordDescription"
+	// BackupServiceDeleteBackupRecordsProcedure is the fully-qualified name of the BackupService's
+	// DeleteBackupRecords RPC.
+	BackupServiceDeleteBackupRecordsProcedure = "/panel.agent.v1.BackupService/DeleteBackupRecords"
+	// BackupServiceListBackupFilesProcedure is the fully-qualified name of the BackupService's
+	// ListBackupFiles RPC.
+	BackupServiceListBackupFilesProcedure = "/panel.agent.v1.BackupService/ListBackupFiles"
+	// BackupServiceBackupDataProcedure is the fully-qualified name of the BackupService's BackupData
+	// RPC.
+	BackupServiceBackupDataProcedure = "/panel.agent.v1.BackupService/BackupData"
+	// BackupServiceRecoverDataProcedure is the fully-qualified name of the BackupService's RecoverData
+	// RPC.
+	BackupServiceRecoverDataProcedure = "/panel.agent.v1.BackupService/RecoverData"
+	// BackupServiceRecoverByUploadProcedure is the fully-qualified name of the BackupService's
+	// RecoverByUpload RPC.
+	BackupServiceRecoverByUploadProcedure = "/panel.agent.v1.BackupService/RecoverByUpload"
 )
 
 // BackupServiceClient is a client for the panel.agent.v1.BackupService service.
 type BackupServiceClient interface {
 	// 分页查询备份账号。
 	Search(context.Context, *connect.Request[v1.SearchBackupsRequest]) (*connect.Response[v1.SearchBackupsResponse], error)
+	// 检查备份账号是否已被任务引用。
+	CheckBackupUsed(context.Context, *connect.Request[v1.CheckBackupUsedRequest]) (*connect.Response[v1.CheckBackupUsedResponse], error)
+	// 测试备份账号连通性。
+	CheckBackupConn(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.BackupCheckResult], error)
+	// 新建备份账号。
+	CreateBackupAccount(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.CreateBackupAccountResponse], error)
+	// 更新备份账号。
+	UpdateBackupAccount(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.UpdateBackupAccountResponse], error)
+	// 删除备份账号。
+	DeleteBackupAccount(context.Context, *connect.Request[v1.DeleteBackupAccountRequest]) (*connect.Response[v1.DeleteBackupAccountResponse], error)
+	// 刷新备份账号的访问令牌。
+	RefreshBackupToken(context.Context, *connect.Request[v1.RefreshBackupTokenRequest]) (*connect.Response[v1.RefreshBackupTokenResponse], error)
+	// 列出对象存储账号里的存储桶。
+	ListBuckets(context.Context, *connect.Request[v1.ListBucketsRequest]) (*connect.Response[v1.ListBucketsResponse], error)
+	// 列出可供选择的备份账号。
+	LoadBackupOptions(context.Context, *connect.Request[v1.LoadBackupOptionsRequest]) (*connect.Response[v1.LoadBackupOptionsResponse], error)
+	// 获取本机备份目录。
+	GetLocalBackupDir(context.Context, *connect.Request[v1.GetLocalBackupDirRequest]) (*connect.Response[v1.GetLocalBackupDirResponse], error)
+	// 将已上传到本机的备份文件登记为可恢复文件。
+	UploadForRecover(context.Context, *connect.Request[v1.UploadForRecoverRequest]) (*connect.Response[v1.UploadForRecoverResponse], error)
+	// 分页查询备份记录。
+	SearchBackupRecords(context.Context, *connect.Request[v1.SearchBackupRecordsRequest]) (*connect.Response[v1.BackupRecordsResponse], error)
+	// 按计划任务分页查询备份记录。
+	SearchBackupRecordsByCronjob(context.Context, *connect.Request[v1.SearchBackupRecordsByCronjobRequest]) (*connect.Response[v1.BackupRecordsResponse], error)
+	// 统计备份记录占用大小。
+	LoadRecordSize(context.Context, *connect.Request[v1.LoadRecordSizeRequest]) (*connect.Response[v1.LoadRecordSizeResponse], error)
+	// 获取备份记录的可下载本地路径。
+	DownloadBackupRecord(context.Context, *connect.Request[v1.DownloadBackupRecordRequest]) (*connect.Response[v1.DownloadBackupRecordResponse], error)
+	// 更新备份记录描述。
+	UpdateRecordDescription(context.Context, *connect.Request[v1.UpdateRecordDescriptionRequest]) (*connect.Response[v1.UpdateRecordDescriptionResponse], error)
+	// 批量删除备份记录。
+	DeleteBackupRecords(context.Context, *connect.Request[v1.DeleteBackupRecordsRequest]) (*connect.Response[v1.DeleteBackupRecordsResponse], error)
+	// 列出备份账号中的文件。
+	ListBackupFiles(context.Context, *connect.Request[v1.ListBackupFilesRequest]) (*connect.Response[v1.ListBackupFilesResponse], error)
+	// 执行数据备份。
+	BackupData(context.Context, *connect.Request[v1.BackupDataRequest]) (*connect.Response[v1.BackupDataResponse], error)
+	// 从备份账号恢复数据。
+	RecoverData(context.Context, *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error)
+	// 从本机上传的备份文件恢复数据。
+	RecoverByUpload(context.Context, *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error)
 }
 
 // NewBackupServiceClient constructs a client for the panel.agent.v1.BackupService service. By
@@ -62,12 +162,152 @@ func NewBackupServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithSchema(backupServiceMethods.ByName("Search")),
 			connect.WithClientOptions(opts...),
 		),
+		checkBackupUsed: connect.NewClient[v1.CheckBackupUsedRequest, v1.CheckBackupUsedResponse](
+			httpClient,
+			baseURL+BackupServiceCheckBackupUsedProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("CheckBackupUsed")),
+			connect.WithClientOptions(opts...),
+		),
+		checkBackupConn: connect.NewClient[v1.BackupOperate, v1.BackupCheckResult](
+			httpClient,
+			baseURL+BackupServiceCheckBackupConnProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("CheckBackupConn")),
+			connect.WithClientOptions(opts...),
+		),
+		createBackupAccount: connect.NewClient[v1.BackupOperate, v1.CreateBackupAccountResponse](
+			httpClient,
+			baseURL+BackupServiceCreateBackupAccountProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("CreateBackupAccount")),
+			connect.WithClientOptions(opts...),
+		),
+		updateBackupAccount: connect.NewClient[v1.BackupOperate, v1.UpdateBackupAccountResponse](
+			httpClient,
+			baseURL+BackupServiceUpdateBackupAccountProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("UpdateBackupAccount")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteBackupAccount: connect.NewClient[v1.DeleteBackupAccountRequest, v1.DeleteBackupAccountResponse](
+			httpClient,
+			baseURL+BackupServiceDeleteBackupAccountProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("DeleteBackupAccount")),
+			connect.WithClientOptions(opts...),
+		),
+		refreshBackupToken: connect.NewClient[v1.RefreshBackupTokenRequest, v1.RefreshBackupTokenResponse](
+			httpClient,
+			baseURL+BackupServiceRefreshBackupTokenProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("RefreshBackupToken")),
+			connect.WithClientOptions(opts...),
+		),
+		listBuckets: connect.NewClient[v1.ListBucketsRequest, v1.ListBucketsResponse](
+			httpClient,
+			baseURL+BackupServiceListBucketsProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("ListBuckets")),
+			connect.WithClientOptions(opts...),
+		),
+		loadBackupOptions: connect.NewClient[v1.LoadBackupOptionsRequest, v1.LoadBackupOptionsResponse](
+			httpClient,
+			baseURL+BackupServiceLoadBackupOptionsProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("LoadBackupOptions")),
+			connect.WithClientOptions(opts...),
+		),
+		getLocalBackupDir: connect.NewClient[v1.GetLocalBackupDirRequest, v1.GetLocalBackupDirResponse](
+			httpClient,
+			baseURL+BackupServiceGetLocalBackupDirProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("GetLocalBackupDir")),
+			connect.WithClientOptions(opts...),
+		),
+		uploadForRecover: connect.NewClient[v1.UploadForRecoverRequest, v1.UploadForRecoverResponse](
+			httpClient,
+			baseURL+BackupServiceUploadForRecoverProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("UploadForRecover")),
+			connect.WithClientOptions(opts...),
+		),
+		searchBackupRecords: connect.NewClient[v1.SearchBackupRecordsRequest, v1.BackupRecordsResponse](
+			httpClient,
+			baseURL+BackupServiceSearchBackupRecordsProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("SearchBackupRecords")),
+			connect.WithClientOptions(opts...),
+		),
+		searchBackupRecordsByCronjob: connect.NewClient[v1.SearchBackupRecordsByCronjobRequest, v1.BackupRecordsResponse](
+			httpClient,
+			baseURL+BackupServiceSearchBackupRecordsByCronjobProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("SearchBackupRecordsByCronjob")),
+			connect.WithClientOptions(opts...),
+		),
+		loadRecordSize: connect.NewClient[v1.LoadRecordSizeRequest, v1.LoadRecordSizeResponse](
+			httpClient,
+			baseURL+BackupServiceLoadRecordSizeProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("LoadRecordSize")),
+			connect.WithClientOptions(opts...),
+		),
+		downloadBackupRecord: connect.NewClient[v1.DownloadBackupRecordRequest, v1.DownloadBackupRecordResponse](
+			httpClient,
+			baseURL+BackupServiceDownloadBackupRecordProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("DownloadBackupRecord")),
+			connect.WithClientOptions(opts...),
+		),
+		updateRecordDescription: connect.NewClient[v1.UpdateRecordDescriptionRequest, v1.UpdateRecordDescriptionResponse](
+			httpClient,
+			baseURL+BackupServiceUpdateRecordDescriptionProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("UpdateRecordDescription")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteBackupRecords: connect.NewClient[v1.DeleteBackupRecordsRequest, v1.DeleteBackupRecordsResponse](
+			httpClient,
+			baseURL+BackupServiceDeleteBackupRecordsProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("DeleteBackupRecords")),
+			connect.WithClientOptions(opts...),
+		),
+		listBackupFiles: connect.NewClient[v1.ListBackupFilesRequest, v1.ListBackupFilesResponse](
+			httpClient,
+			baseURL+BackupServiceListBackupFilesProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("ListBackupFiles")),
+			connect.WithClientOptions(opts...),
+		),
+		backupData: connect.NewClient[v1.BackupDataRequest, v1.BackupDataResponse](
+			httpClient,
+			baseURL+BackupServiceBackupDataProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("BackupData")),
+			connect.WithClientOptions(opts...),
+		),
+		recoverData: connect.NewClient[v1.RecoverDataRequest, v1.RecoverDataResponse](
+			httpClient,
+			baseURL+BackupServiceRecoverDataProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("RecoverData")),
+			connect.WithClientOptions(opts...),
+		),
+		recoverByUpload: connect.NewClient[v1.RecoverDataRequest, v1.RecoverDataResponse](
+			httpClient,
+			baseURL+BackupServiceRecoverByUploadProcedure,
+			connect.WithSchema(backupServiceMethods.ByName("RecoverByUpload")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // backupServiceClient implements BackupServiceClient.
 type backupServiceClient struct {
-	search *connect.Client[v1.SearchBackupsRequest, v1.SearchBackupsResponse]
+	search                       *connect.Client[v1.SearchBackupsRequest, v1.SearchBackupsResponse]
+	checkBackupUsed              *connect.Client[v1.CheckBackupUsedRequest, v1.CheckBackupUsedResponse]
+	checkBackupConn              *connect.Client[v1.BackupOperate, v1.BackupCheckResult]
+	createBackupAccount          *connect.Client[v1.BackupOperate, v1.CreateBackupAccountResponse]
+	updateBackupAccount          *connect.Client[v1.BackupOperate, v1.UpdateBackupAccountResponse]
+	deleteBackupAccount          *connect.Client[v1.DeleteBackupAccountRequest, v1.DeleteBackupAccountResponse]
+	refreshBackupToken           *connect.Client[v1.RefreshBackupTokenRequest, v1.RefreshBackupTokenResponse]
+	listBuckets                  *connect.Client[v1.ListBucketsRequest, v1.ListBucketsResponse]
+	loadBackupOptions            *connect.Client[v1.LoadBackupOptionsRequest, v1.LoadBackupOptionsResponse]
+	getLocalBackupDir            *connect.Client[v1.GetLocalBackupDirRequest, v1.GetLocalBackupDirResponse]
+	uploadForRecover             *connect.Client[v1.UploadForRecoverRequest, v1.UploadForRecoverResponse]
+	searchBackupRecords          *connect.Client[v1.SearchBackupRecordsRequest, v1.BackupRecordsResponse]
+	searchBackupRecordsByCronjob *connect.Client[v1.SearchBackupRecordsByCronjobRequest, v1.BackupRecordsResponse]
+	loadRecordSize               *connect.Client[v1.LoadRecordSizeRequest, v1.LoadRecordSizeResponse]
+	downloadBackupRecord         *connect.Client[v1.DownloadBackupRecordRequest, v1.DownloadBackupRecordResponse]
+	updateRecordDescription      *connect.Client[v1.UpdateRecordDescriptionRequest, v1.UpdateRecordDescriptionResponse]
+	deleteBackupRecords          *connect.Client[v1.DeleteBackupRecordsRequest, v1.DeleteBackupRecordsResponse]
+	listBackupFiles              *connect.Client[v1.ListBackupFilesRequest, v1.ListBackupFilesResponse]
+	backupData                   *connect.Client[v1.BackupDataRequest, v1.BackupDataResponse]
+	recoverData                  *connect.Client[v1.RecoverDataRequest, v1.RecoverDataResponse]
+	recoverByUpload              *connect.Client[v1.RecoverDataRequest, v1.RecoverDataResponse]
 }
 
 // Search calls panel.agent.v1.BackupService.Search.
@@ -75,10 +315,150 @@ func (c *backupServiceClient) Search(ctx context.Context, req *connect.Request[v
 	return c.search.CallUnary(ctx, req)
 }
 
+// CheckBackupUsed calls panel.agent.v1.BackupService.CheckBackupUsed.
+func (c *backupServiceClient) CheckBackupUsed(ctx context.Context, req *connect.Request[v1.CheckBackupUsedRequest]) (*connect.Response[v1.CheckBackupUsedResponse], error) {
+	return c.checkBackupUsed.CallUnary(ctx, req)
+}
+
+// CheckBackupConn calls panel.agent.v1.BackupService.CheckBackupConn.
+func (c *backupServiceClient) CheckBackupConn(ctx context.Context, req *connect.Request[v1.BackupOperate]) (*connect.Response[v1.BackupCheckResult], error) {
+	return c.checkBackupConn.CallUnary(ctx, req)
+}
+
+// CreateBackupAccount calls panel.agent.v1.BackupService.CreateBackupAccount.
+func (c *backupServiceClient) CreateBackupAccount(ctx context.Context, req *connect.Request[v1.BackupOperate]) (*connect.Response[v1.CreateBackupAccountResponse], error) {
+	return c.createBackupAccount.CallUnary(ctx, req)
+}
+
+// UpdateBackupAccount calls panel.agent.v1.BackupService.UpdateBackupAccount.
+func (c *backupServiceClient) UpdateBackupAccount(ctx context.Context, req *connect.Request[v1.BackupOperate]) (*connect.Response[v1.UpdateBackupAccountResponse], error) {
+	return c.updateBackupAccount.CallUnary(ctx, req)
+}
+
+// DeleteBackupAccount calls panel.agent.v1.BackupService.DeleteBackupAccount.
+func (c *backupServiceClient) DeleteBackupAccount(ctx context.Context, req *connect.Request[v1.DeleteBackupAccountRequest]) (*connect.Response[v1.DeleteBackupAccountResponse], error) {
+	return c.deleteBackupAccount.CallUnary(ctx, req)
+}
+
+// RefreshBackupToken calls panel.agent.v1.BackupService.RefreshBackupToken.
+func (c *backupServiceClient) RefreshBackupToken(ctx context.Context, req *connect.Request[v1.RefreshBackupTokenRequest]) (*connect.Response[v1.RefreshBackupTokenResponse], error) {
+	return c.refreshBackupToken.CallUnary(ctx, req)
+}
+
+// ListBuckets calls panel.agent.v1.BackupService.ListBuckets.
+func (c *backupServiceClient) ListBuckets(ctx context.Context, req *connect.Request[v1.ListBucketsRequest]) (*connect.Response[v1.ListBucketsResponse], error) {
+	return c.listBuckets.CallUnary(ctx, req)
+}
+
+// LoadBackupOptions calls panel.agent.v1.BackupService.LoadBackupOptions.
+func (c *backupServiceClient) LoadBackupOptions(ctx context.Context, req *connect.Request[v1.LoadBackupOptionsRequest]) (*connect.Response[v1.LoadBackupOptionsResponse], error) {
+	return c.loadBackupOptions.CallUnary(ctx, req)
+}
+
+// GetLocalBackupDir calls panel.agent.v1.BackupService.GetLocalBackupDir.
+func (c *backupServiceClient) GetLocalBackupDir(ctx context.Context, req *connect.Request[v1.GetLocalBackupDirRequest]) (*connect.Response[v1.GetLocalBackupDirResponse], error) {
+	return c.getLocalBackupDir.CallUnary(ctx, req)
+}
+
+// UploadForRecover calls panel.agent.v1.BackupService.UploadForRecover.
+func (c *backupServiceClient) UploadForRecover(ctx context.Context, req *connect.Request[v1.UploadForRecoverRequest]) (*connect.Response[v1.UploadForRecoverResponse], error) {
+	return c.uploadForRecover.CallUnary(ctx, req)
+}
+
+// SearchBackupRecords calls panel.agent.v1.BackupService.SearchBackupRecords.
+func (c *backupServiceClient) SearchBackupRecords(ctx context.Context, req *connect.Request[v1.SearchBackupRecordsRequest]) (*connect.Response[v1.BackupRecordsResponse], error) {
+	return c.searchBackupRecords.CallUnary(ctx, req)
+}
+
+// SearchBackupRecordsByCronjob calls panel.agent.v1.BackupService.SearchBackupRecordsByCronjob.
+func (c *backupServiceClient) SearchBackupRecordsByCronjob(ctx context.Context, req *connect.Request[v1.SearchBackupRecordsByCronjobRequest]) (*connect.Response[v1.BackupRecordsResponse], error) {
+	return c.searchBackupRecordsByCronjob.CallUnary(ctx, req)
+}
+
+// LoadRecordSize calls panel.agent.v1.BackupService.LoadRecordSize.
+func (c *backupServiceClient) LoadRecordSize(ctx context.Context, req *connect.Request[v1.LoadRecordSizeRequest]) (*connect.Response[v1.LoadRecordSizeResponse], error) {
+	return c.loadRecordSize.CallUnary(ctx, req)
+}
+
+// DownloadBackupRecord calls panel.agent.v1.BackupService.DownloadBackupRecord.
+func (c *backupServiceClient) DownloadBackupRecord(ctx context.Context, req *connect.Request[v1.DownloadBackupRecordRequest]) (*connect.Response[v1.DownloadBackupRecordResponse], error) {
+	return c.downloadBackupRecord.CallUnary(ctx, req)
+}
+
+// UpdateRecordDescription calls panel.agent.v1.BackupService.UpdateRecordDescription.
+func (c *backupServiceClient) UpdateRecordDescription(ctx context.Context, req *connect.Request[v1.UpdateRecordDescriptionRequest]) (*connect.Response[v1.UpdateRecordDescriptionResponse], error) {
+	return c.updateRecordDescription.CallUnary(ctx, req)
+}
+
+// DeleteBackupRecords calls panel.agent.v1.BackupService.DeleteBackupRecords.
+func (c *backupServiceClient) DeleteBackupRecords(ctx context.Context, req *connect.Request[v1.DeleteBackupRecordsRequest]) (*connect.Response[v1.DeleteBackupRecordsResponse], error) {
+	return c.deleteBackupRecords.CallUnary(ctx, req)
+}
+
+// ListBackupFiles calls panel.agent.v1.BackupService.ListBackupFiles.
+func (c *backupServiceClient) ListBackupFiles(ctx context.Context, req *connect.Request[v1.ListBackupFilesRequest]) (*connect.Response[v1.ListBackupFilesResponse], error) {
+	return c.listBackupFiles.CallUnary(ctx, req)
+}
+
+// BackupData calls panel.agent.v1.BackupService.BackupData.
+func (c *backupServiceClient) BackupData(ctx context.Context, req *connect.Request[v1.BackupDataRequest]) (*connect.Response[v1.BackupDataResponse], error) {
+	return c.backupData.CallUnary(ctx, req)
+}
+
+// RecoverData calls panel.agent.v1.BackupService.RecoverData.
+func (c *backupServiceClient) RecoverData(ctx context.Context, req *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error) {
+	return c.recoverData.CallUnary(ctx, req)
+}
+
+// RecoverByUpload calls panel.agent.v1.BackupService.RecoverByUpload.
+func (c *backupServiceClient) RecoverByUpload(ctx context.Context, req *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error) {
+	return c.recoverByUpload.CallUnary(ctx, req)
+}
+
 // BackupServiceHandler is an implementation of the panel.agent.v1.BackupService service.
 type BackupServiceHandler interface {
 	// 分页查询备份账号。
 	Search(context.Context, *connect.Request[v1.SearchBackupsRequest]) (*connect.Response[v1.SearchBackupsResponse], error)
+	// 检查备份账号是否已被任务引用。
+	CheckBackupUsed(context.Context, *connect.Request[v1.CheckBackupUsedRequest]) (*connect.Response[v1.CheckBackupUsedResponse], error)
+	// 测试备份账号连通性。
+	CheckBackupConn(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.BackupCheckResult], error)
+	// 新建备份账号。
+	CreateBackupAccount(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.CreateBackupAccountResponse], error)
+	// 更新备份账号。
+	UpdateBackupAccount(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.UpdateBackupAccountResponse], error)
+	// 删除备份账号。
+	DeleteBackupAccount(context.Context, *connect.Request[v1.DeleteBackupAccountRequest]) (*connect.Response[v1.DeleteBackupAccountResponse], error)
+	// 刷新备份账号的访问令牌。
+	RefreshBackupToken(context.Context, *connect.Request[v1.RefreshBackupTokenRequest]) (*connect.Response[v1.RefreshBackupTokenResponse], error)
+	// 列出对象存储账号里的存储桶。
+	ListBuckets(context.Context, *connect.Request[v1.ListBucketsRequest]) (*connect.Response[v1.ListBucketsResponse], error)
+	// 列出可供选择的备份账号。
+	LoadBackupOptions(context.Context, *connect.Request[v1.LoadBackupOptionsRequest]) (*connect.Response[v1.LoadBackupOptionsResponse], error)
+	// 获取本机备份目录。
+	GetLocalBackupDir(context.Context, *connect.Request[v1.GetLocalBackupDirRequest]) (*connect.Response[v1.GetLocalBackupDirResponse], error)
+	// 将已上传到本机的备份文件登记为可恢复文件。
+	UploadForRecover(context.Context, *connect.Request[v1.UploadForRecoverRequest]) (*connect.Response[v1.UploadForRecoverResponse], error)
+	// 分页查询备份记录。
+	SearchBackupRecords(context.Context, *connect.Request[v1.SearchBackupRecordsRequest]) (*connect.Response[v1.BackupRecordsResponse], error)
+	// 按计划任务分页查询备份记录。
+	SearchBackupRecordsByCronjob(context.Context, *connect.Request[v1.SearchBackupRecordsByCronjobRequest]) (*connect.Response[v1.BackupRecordsResponse], error)
+	// 统计备份记录占用大小。
+	LoadRecordSize(context.Context, *connect.Request[v1.LoadRecordSizeRequest]) (*connect.Response[v1.LoadRecordSizeResponse], error)
+	// 获取备份记录的可下载本地路径。
+	DownloadBackupRecord(context.Context, *connect.Request[v1.DownloadBackupRecordRequest]) (*connect.Response[v1.DownloadBackupRecordResponse], error)
+	// 更新备份记录描述。
+	UpdateRecordDescription(context.Context, *connect.Request[v1.UpdateRecordDescriptionRequest]) (*connect.Response[v1.UpdateRecordDescriptionResponse], error)
+	// 批量删除备份记录。
+	DeleteBackupRecords(context.Context, *connect.Request[v1.DeleteBackupRecordsRequest]) (*connect.Response[v1.DeleteBackupRecordsResponse], error)
+	// 列出备份账号中的文件。
+	ListBackupFiles(context.Context, *connect.Request[v1.ListBackupFilesRequest]) (*connect.Response[v1.ListBackupFilesResponse], error)
+	// 执行数据备份。
+	BackupData(context.Context, *connect.Request[v1.BackupDataRequest]) (*connect.Response[v1.BackupDataResponse], error)
+	// 从备份账号恢复数据。
+	RecoverData(context.Context, *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error)
+	// 从本机上传的备份文件恢复数据。
+	RecoverByUpload(context.Context, *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error)
 }
 
 // NewBackupServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -94,10 +474,170 @@ func NewBackupServiceHandler(svc BackupServiceHandler, opts ...connect.HandlerOp
 		connect.WithSchema(backupServiceMethods.ByName("Search")),
 		connect.WithHandlerOptions(opts...),
 	)
+	backupServiceCheckBackupUsedHandler := connect.NewUnaryHandler(
+		BackupServiceCheckBackupUsedProcedure,
+		svc.CheckBackupUsed,
+		connect.WithSchema(backupServiceMethods.ByName("CheckBackupUsed")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceCheckBackupConnHandler := connect.NewUnaryHandler(
+		BackupServiceCheckBackupConnProcedure,
+		svc.CheckBackupConn,
+		connect.WithSchema(backupServiceMethods.ByName("CheckBackupConn")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceCreateBackupAccountHandler := connect.NewUnaryHandler(
+		BackupServiceCreateBackupAccountProcedure,
+		svc.CreateBackupAccount,
+		connect.WithSchema(backupServiceMethods.ByName("CreateBackupAccount")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceUpdateBackupAccountHandler := connect.NewUnaryHandler(
+		BackupServiceUpdateBackupAccountProcedure,
+		svc.UpdateBackupAccount,
+		connect.WithSchema(backupServiceMethods.ByName("UpdateBackupAccount")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceDeleteBackupAccountHandler := connect.NewUnaryHandler(
+		BackupServiceDeleteBackupAccountProcedure,
+		svc.DeleteBackupAccount,
+		connect.WithSchema(backupServiceMethods.ByName("DeleteBackupAccount")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceRefreshBackupTokenHandler := connect.NewUnaryHandler(
+		BackupServiceRefreshBackupTokenProcedure,
+		svc.RefreshBackupToken,
+		connect.WithSchema(backupServiceMethods.ByName("RefreshBackupToken")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceListBucketsHandler := connect.NewUnaryHandler(
+		BackupServiceListBucketsProcedure,
+		svc.ListBuckets,
+		connect.WithSchema(backupServiceMethods.ByName("ListBuckets")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceLoadBackupOptionsHandler := connect.NewUnaryHandler(
+		BackupServiceLoadBackupOptionsProcedure,
+		svc.LoadBackupOptions,
+		connect.WithSchema(backupServiceMethods.ByName("LoadBackupOptions")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceGetLocalBackupDirHandler := connect.NewUnaryHandler(
+		BackupServiceGetLocalBackupDirProcedure,
+		svc.GetLocalBackupDir,
+		connect.WithSchema(backupServiceMethods.ByName("GetLocalBackupDir")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceUploadForRecoverHandler := connect.NewUnaryHandler(
+		BackupServiceUploadForRecoverProcedure,
+		svc.UploadForRecover,
+		connect.WithSchema(backupServiceMethods.ByName("UploadForRecover")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceSearchBackupRecordsHandler := connect.NewUnaryHandler(
+		BackupServiceSearchBackupRecordsProcedure,
+		svc.SearchBackupRecords,
+		connect.WithSchema(backupServiceMethods.ByName("SearchBackupRecords")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceSearchBackupRecordsByCronjobHandler := connect.NewUnaryHandler(
+		BackupServiceSearchBackupRecordsByCronjobProcedure,
+		svc.SearchBackupRecordsByCronjob,
+		connect.WithSchema(backupServiceMethods.ByName("SearchBackupRecordsByCronjob")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceLoadRecordSizeHandler := connect.NewUnaryHandler(
+		BackupServiceLoadRecordSizeProcedure,
+		svc.LoadRecordSize,
+		connect.WithSchema(backupServiceMethods.ByName("LoadRecordSize")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceDownloadBackupRecordHandler := connect.NewUnaryHandler(
+		BackupServiceDownloadBackupRecordProcedure,
+		svc.DownloadBackupRecord,
+		connect.WithSchema(backupServiceMethods.ByName("DownloadBackupRecord")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceUpdateRecordDescriptionHandler := connect.NewUnaryHandler(
+		BackupServiceUpdateRecordDescriptionProcedure,
+		svc.UpdateRecordDescription,
+		connect.WithSchema(backupServiceMethods.ByName("UpdateRecordDescription")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceDeleteBackupRecordsHandler := connect.NewUnaryHandler(
+		BackupServiceDeleteBackupRecordsProcedure,
+		svc.DeleteBackupRecords,
+		connect.WithSchema(backupServiceMethods.ByName("DeleteBackupRecords")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceListBackupFilesHandler := connect.NewUnaryHandler(
+		BackupServiceListBackupFilesProcedure,
+		svc.ListBackupFiles,
+		connect.WithSchema(backupServiceMethods.ByName("ListBackupFiles")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceBackupDataHandler := connect.NewUnaryHandler(
+		BackupServiceBackupDataProcedure,
+		svc.BackupData,
+		connect.WithSchema(backupServiceMethods.ByName("BackupData")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceRecoverDataHandler := connect.NewUnaryHandler(
+		BackupServiceRecoverDataProcedure,
+		svc.RecoverData,
+		connect.WithSchema(backupServiceMethods.ByName("RecoverData")),
+		connect.WithHandlerOptions(opts...),
+	)
+	backupServiceRecoverByUploadHandler := connect.NewUnaryHandler(
+		BackupServiceRecoverByUploadProcedure,
+		svc.RecoverByUpload,
+		connect.WithSchema(backupServiceMethods.ByName("RecoverByUpload")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.BackupService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case BackupServiceSearchProcedure:
 			backupServiceSearchHandler.ServeHTTP(w, r)
+		case BackupServiceCheckBackupUsedProcedure:
+			backupServiceCheckBackupUsedHandler.ServeHTTP(w, r)
+		case BackupServiceCheckBackupConnProcedure:
+			backupServiceCheckBackupConnHandler.ServeHTTP(w, r)
+		case BackupServiceCreateBackupAccountProcedure:
+			backupServiceCreateBackupAccountHandler.ServeHTTP(w, r)
+		case BackupServiceUpdateBackupAccountProcedure:
+			backupServiceUpdateBackupAccountHandler.ServeHTTP(w, r)
+		case BackupServiceDeleteBackupAccountProcedure:
+			backupServiceDeleteBackupAccountHandler.ServeHTTP(w, r)
+		case BackupServiceRefreshBackupTokenProcedure:
+			backupServiceRefreshBackupTokenHandler.ServeHTTP(w, r)
+		case BackupServiceListBucketsProcedure:
+			backupServiceListBucketsHandler.ServeHTTP(w, r)
+		case BackupServiceLoadBackupOptionsProcedure:
+			backupServiceLoadBackupOptionsHandler.ServeHTTP(w, r)
+		case BackupServiceGetLocalBackupDirProcedure:
+			backupServiceGetLocalBackupDirHandler.ServeHTTP(w, r)
+		case BackupServiceUploadForRecoverProcedure:
+			backupServiceUploadForRecoverHandler.ServeHTTP(w, r)
+		case BackupServiceSearchBackupRecordsProcedure:
+			backupServiceSearchBackupRecordsHandler.ServeHTTP(w, r)
+		case BackupServiceSearchBackupRecordsByCronjobProcedure:
+			backupServiceSearchBackupRecordsByCronjobHandler.ServeHTTP(w, r)
+		case BackupServiceLoadRecordSizeProcedure:
+			backupServiceLoadRecordSizeHandler.ServeHTTP(w, r)
+		case BackupServiceDownloadBackupRecordProcedure:
+			backupServiceDownloadBackupRecordHandler.ServeHTTP(w, r)
+		case BackupServiceUpdateRecordDescriptionProcedure:
+			backupServiceUpdateRecordDescriptionHandler.ServeHTTP(w, r)
+		case BackupServiceDeleteBackupRecordsProcedure:
+			backupServiceDeleteBackupRecordsHandler.ServeHTTP(w, r)
+		case BackupServiceListBackupFilesProcedure:
+			backupServiceListBackupFilesHandler.ServeHTTP(w, r)
+		case BackupServiceBackupDataProcedure:
+			backupServiceBackupDataHandler.ServeHTTP(w, r)
+		case BackupServiceRecoverDataProcedure:
+			backupServiceRecoverDataHandler.ServeHTTP(w, r)
+		case BackupServiceRecoverByUploadProcedure:
+			backupServiceRecoverByUploadHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -109,4 +649,84 @@ type UnimplementedBackupServiceHandler struct{}
 
 func (UnimplementedBackupServiceHandler) Search(context.Context, *connect.Request[v1.SearchBackupsRequest]) (*connect.Response[v1.SearchBackupsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.Search is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) CheckBackupUsed(context.Context, *connect.Request[v1.CheckBackupUsedRequest]) (*connect.Response[v1.CheckBackupUsedResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.CheckBackupUsed is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) CheckBackupConn(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.BackupCheckResult], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.CheckBackupConn is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) CreateBackupAccount(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.CreateBackupAccountResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.CreateBackupAccount is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) UpdateBackupAccount(context.Context, *connect.Request[v1.BackupOperate]) (*connect.Response[v1.UpdateBackupAccountResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.UpdateBackupAccount is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) DeleteBackupAccount(context.Context, *connect.Request[v1.DeleteBackupAccountRequest]) (*connect.Response[v1.DeleteBackupAccountResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.DeleteBackupAccount is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) RefreshBackupToken(context.Context, *connect.Request[v1.RefreshBackupTokenRequest]) (*connect.Response[v1.RefreshBackupTokenResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.RefreshBackupToken is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) ListBuckets(context.Context, *connect.Request[v1.ListBucketsRequest]) (*connect.Response[v1.ListBucketsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.ListBuckets is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) LoadBackupOptions(context.Context, *connect.Request[v1.LoadBackupOptionsRequest]) (*connect.Response[v1.LoadBackupOptionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.LoadBackupOptions is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) GetLocalBackupDir(context.Context, *connect.Request[v1.GetLocalBackupDirRequest]) (*connect.Response[v1.GetLocalBackupDirResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.GetLocalBackupDir is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) UploadForRecover(context.Context, *connect.Request[v1.UploadForRecoverRequest]) (*connect.Response[v1.UploadForRecoverResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.UploadForRecover is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) SearchBackupRecords(context.Context, *connect.Request[v1.SearchBackupRecordsRequest]) (*connect.Response[v1.BackupRecordsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.SearchBackupRecords is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) SearchBackupRecordsByCronjob(context.Context, *connect.Request[v1.SearchBackupRecordsByCronjobRequest]) (*connect.Response[v1.BackupRecordsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.SearchBackupRecordsByCronjob is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) LoadRecordSize(context.Context, *connect.Request[v1.LoadRecordSizeRequest]) (*connect.Response[v1.LoadRecordSizeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.LoadRecordSize is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) DownloadBackupRecord(context.Context, *connect.Request[v1.DownloadBackupRecordRequest]) (*connect.Response[v1.DownloadBackupRecordResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.DownloadBackupRecord is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) UpdateRecordDescription(context.Context, *connect.Request[v1.UpdateRecordDescriptionRequest]) (*connect.Response[v1.UpdateRecordDescriptionResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.UpdateRecordDescription is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) DeleteBackupRecords(context.Context, *connect.Request[v1.DeleteBackupRecordsRequest]) (*connect.Response[v1.DeleteBackupRecordsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.DeleteBackupRecords is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) ListBackupFiles(context.Context, *connect.Request[v1.ListBackupFilesRequest]) (*connect.Response[v1.ListBackupFilesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.ListBackupFiles is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) BackupData(context.Context, *connect.Request[v1.BackupDataRequest]) (*connect.Response[v1.BackupDataResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.BackupData is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) RecoverData(context.Context, *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.RecoverData is not implemented"))
+}
+
+func (UnimplementedBackupServiceHandler) RecoverByUpload(context.Context, *connect.Request[v1.RecoverDataRequest]) (*connect.Response[v1.RecoverDataResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.BackupService.RecoverByUpload is not implemented"))
 }

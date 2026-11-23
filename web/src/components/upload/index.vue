@@ -144,7 +144,6 @@ import { File } from '@/api/interface/file';
 import { chunkUploadFileData } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { handleRecoverByUpload, uploadByRecover } from '@/api/modules/backup';
 import TaskLog from '@/components/log/task/index.vue';
 
 const emit = defineEmits(['close']);
@@ -296,7 +295,8 @@ const loadFile = async (path: string) => {
         confirmButtonText: i18n.global.t('commons.button.confirm'),
         cancelButtonText: i18n.global.t('commons.button.cancel'),
     }).then(async () => {
-        uploadByRecover(path, baseDir.value, node.value)
+        rpc.backup
+            .uploadForRecover({ filePath: path, targetDir: baseDir.value })
             .then(() => {
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
                 search();
@@ -313,24 +313,25 @@ const openTaskLog = (taskID: string) => {
 
 const onHandleRecover = async () => {
     let params = {
-        downloadAccountID: 1,
+        downloadAccountId: 1,
         type: type.value,
         name: name.value,
         detailName: detailName.value,
         file: baseDir.value + currentRow.value.name,
         secret: secret.value,
-        taskID: newUUID(),
+        taskId: newUUID(),
         timeout: timeoutItem.value === -1 ? -1 : transferTimeToSecond(timeoutItem.value + timeoutUnit.value),
     };
     loading.value = true;
-    await handleRecoverByUpload(params, node.value)
+    await rpc.backup
+        .recoverByUpload(params)
         .then(() => {
             loading.value = false;
             handleUploadClose();
             handleRecoverClose();
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
             search();
-            openTaskLog(params.taskID);
+            openTaskLog(params.taskId);
         })
         .catch(() => {
             loading.value = false;

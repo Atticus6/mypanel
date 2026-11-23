@@ -271,6 +271,2249 @@ func (x *Backup) GetRememberAuth() bool {
 	return false
 }
 
+// BackupOperate 是备份账号的创建/更新/连通性检查参数。
+type BackupOperate struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 账号 ID；创建时为 0。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 账号名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// 账号类型，例如 S3、SFTP、Local。
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	// 是否公开。
+	IsPublic bool `protobuf:"varint,4,opt,name=is_public,json=isPublic,proto3" json:"is_public,omitempty"`
+	// 存储桶名称。
+	Bucket string `protobuf:"bytes,5,opt,name=bucket,proto3" json:"bucket,omitempty"`
+	// 访问密钥。
+	AccessKey string `protobuf:"bytes,6,opt,name=access_key,json=accessKey,proto3" json:"access_key,omitempty"`
+	// 凭据。
+	Credential string `protobuf:"bytes,7,opt,name=credential,proto3" json:"credential,omitempty"`
+	// 备份路径。
+	BackupPath string `protobuf:"bytes,8,opt,name=backup_path,json=backupPath,proto3" json:"backup_path,omitempty"`
+	// 类型专属配置（JSON 字符串）。
+	Vars string `protobuf:"bytes,9,opt,name=vars,proto3" json:"vars,omitempty"`
+	// 是否记住认证信息。
+	RememberAuth  bool `protobuf:"varint,10,opt,name=remember_auth,json=rememberAuth,proto3" json:"remember_auth,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackupOperate) Reset() {
+	*x = BackupOperate{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackupOperate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackupOperate) ProtoMessage() {}
+
+func (x *BackupOperate) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackupOperate.ProtoReflect.Descriptor instead.
+func (*BackupOperate) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *BackupOperate) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *BackupOperate) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *BackupOperate) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *BackupOperate) GetIsPublic() bool {
+	if x != nil {
+		return x.IsPublic
+	}
+	return false
+}
+
+func (x *BackupOperate) GetBucket() string {
+	if x != nil {
+		return x.Bucket
+	}
+	return ""
+}
+
+func (x *BackupOperate) GetAccessKey() string {
+	if x != nil {
+		return x.AccessKey
+	}
+	return ""
+}
+
+func (x *BackupOperate) GetCredential() string {
+	if x != nil {
+		return x.Credential
+	}
+	return ""
+}
+
+func (x *BackupOperate) GetBackupPath() string {
+	if x != nil {
+		return x.BackupPath
+	}
+	return ""
+}
+
+func (x *BackupOperate) GetVars() string {
+	if x != nil {
+		return x.Vars
+	}
+	return ""
+}
+
+func (x *BackupOperate) GetRememberAuth() bool {
+	if x != nil {
+		return x.RememberAuth
+	}
+	return false
+}
+
+// BackupCheckResult 是连通性检查结果。
+type BackupCheckResult struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 是否可用。
+	IsOk bool `protobuf:"varint,1,opt,name=is_ok,json=isOk,proto3" json:"is_ok,omitempty"`
+	// 检查说明。
+	Msg string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	// 刷新得到的令牌。
+	Token         string `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackupCheckResult) Reset() {
+	*x = BackupCheckResult{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackupCheckResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackupCheckResult) ProtoMessage() {}
+
+func (x *BackupCheckResult) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackupCheckResult.ProtoReflect.Descriptor instead.
+func (*BackupCheckResult) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *BackupCheckResult) GetIsOk() bool {
+	if x != nil {
+		return x.IsOk
+	}
+	return false
+}
+
+func (x *BackupCheckResult) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *BackupCheckResult) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+// CheckBackupUsedRequest 是账号引用检查参数。
+type CheckBackupUsedRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 账号名称。
+	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckBackupUsedRequest) Reset() {
+	*x = CheckBackupUsedRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckBackupUsedRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckBackupUsedRequest) ProtoMessage() {}
+
+func (x *CheckBackupUsedRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckBackupUsedRequest.ProtoReflect.Descriptor instead.
+func (*CheckBackupUsedRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CheckBackupUsedRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+// CheckBackupUsedResponse 是检查结果，无业务字段。
+type CheckBackupUsedResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckBackupUsedResponse) Reset() {
+	*x = CheckBackupUsedResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckBackupUsedResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckBackupUsedResponse) ProtoMessage() {}
+
+func (x *CheckBackupUsedResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckBackupUsedResponse.ProtoReflect.Descriptor instead.
+func (*CheckBackupUsedResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{6}
+}
+
+// CreateBackupAccountResponse 是创建结果，无业务字段。
+type CreateBackupAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateBackupAccountResponse) Reset() {
+	*x = CreateBackupAccountResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateBackupAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateBackupAccountResponse) ProtoMessage() {}
+
+func (x *CreateBackupAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateBackupAccountResponse.ProtoReflect.Descriptor instead.
+func (*CreateBackupAccountResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{7}
+}
+
+// UpdateBackupAccountResponse 是更新结果，无业务字段。
+type UpdateBackupAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateBackupAccountResponse) Reset() {
+	*x = UpdateBackupAccountResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateBackupAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateBackupAccountResponse) ProtoMessage() {}
+
+func (x *UpdateBackupAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateBackupAccountResponse.ProtoReflect.Descriptor instead.
+func (*UpdateBackupAccountResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{8}
+}
+
+// DeleteBackupAccountRequest 是删除账号参数。
+type DeleteBackupAccountRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 账号 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteBackupAccountRequest) Reset() {
+	*x = DeleteBackupAccountRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteBackupAccountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteBackupAccountRequest) ProtoMessage() {}
+
+func (x *DeleteBackupAccountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteBackupAccountRequest.ProtoReflect.Descriptor instead.
+func (*DeleteBackupAccountRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteBackupAccountRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// DeleteBackupAccountResponse 是删除结果，无业务字段。
+type DeleteBackupAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteBackupAccountResponse) Reset() {
+	*x = DeleteBackupAccountResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteBackupAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteBackupAccountResponse) ProtoMessage() {}
+
+func (x *DeleteBackupAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteBackupAccountResponse.ProtoReflect.Descriptor instead.
+func (*DeleteBackupAccountResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{10}
+}
+
+// RefreshBackupTokenRequest 是令牌刷新参数。
+type RefreshBackupTokenRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 账号 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RefreshBackupTokenRequest) Reset() {
+	*x = RefreshBackupTokenRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshBackupTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshBackupTokenRequest) ProtoMessage() {}
+
+func (x *RefreshBackupTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshBackupTokenRequest.ProtoReflect.Descriptor instead.
+func (*RefreshBackupTokenRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *RefreshBackupTokenRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// RefreshBackupTokenResponse 是刷新结果，无业务字段。
+type RefreshBackupTokenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RefreshBackupTokenResponse) Reset() {
+	*x = RefreshBackupTokenResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshBackupTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshBackupTokenResponse) ProtoMessage() {}
+
+func (x *RefreshBackupTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshBackupTokenResponse.ProtoReflect.Descriptor instead.
+func (*RefreshBackupTokenResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{12}
+}
+
+// ListBucketsRequest 是存储桶查询参数。
+type ListBucketsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 账号类型。
+	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	// 访问密钥。
+	AccessKey string `protobuf:"bytes,2,opt,name=access_key,json=accessKey,proto3" json:"access_key,omitempty"`
+	// 凭据。
+	Credential string `protobuf:"bytes,3,opt,name=credential,proto3" json:"credential,omitempty"`
+	// 类型专属配置（JSON 字符串）。
+	Vars          string `protobuf:"bytes,4,opt,name=vars,proto3" json:"vars,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBucketsRequest) Reset() {
+	*x = ListBucketsRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBucketsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBucketsRequest) ProtoMessage() {}
+
+func (x *ListBucketsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBucketsRequest.ProtoReflect.Descriptor instead.
+func (*ListBucketsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ListBucketsRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *ListBucketsRequest) GetAccessKey() string {
+	if x != nil {
+		return x.AccessKey
+	}
+	return ""
+}
+
+func (x *ListBucketsRequest) GetCredential() string {
+	if x != nil {
+		return x.Credential
+	}
+	return ""
+}
+
+func (x *ListBucketsRequest) GetVars() string {
+	if x != nil {
+		return x.Vars
+	}
+	return ""
+}
+
+// ListBucketsResponse 是存储桶列表。
+type ListBucketsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 存储桶名称。
+	Items         []string `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBucketsResponse) Reset() {
+	*x = ListBucketsResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBucketsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBucketsResponse) ProtoMessage() {}
+
+func (x *ListBucketsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBucketsResponse.ProtoReflect.Descriptor instead.
+func (*ListBucketsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *ListBucketsResponse) GetItems() []string {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// LoadBackupOptionsRequest 是备份账号下拉查询参数，无业务字段。
+type LoadBackupOptionsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadBackupOptionsRequest) Reset() {
+	*x = LoadBackupOptionsRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadBackupOptionsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadBackupOptionsRequest) ProtoMessage() {}
+
+func (x *LoadBackupOptionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadBackupOptionsRequest.ProtoReflect.Descriptor instead.
+func (*LoadBackupOptionsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{15}
+}
+
+// LoadBackupOptionsResponse 是备份账号下拉列表。
+type LoadBackupOptionsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 可选账号。
+	Items         []*BackupOption `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadBackupOptionsResponse) Reset() {
+	*x = LoadBackupOptionsResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadBackupOptionsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadBackupOptionsResponse) ProtoMessage() {}
+
+func (x *LoadBackupOptionsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadBackupOptionsResponse.ProtoReflect.Descriptor instead.
+func (*LoadBackupOptionsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *LoadBackupOptionsResponse) GetItems() []*BackupOption {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// BackupOption 是备份账号下拉项。
+type BackupOption struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 账号 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 账号名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// 账号类型。
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	// 是否公开。
+	IsPublic      bool `protobuf:"varint,4,opt,name=is_public,json=isPublic,proto3" json:"is_public,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackupOption) Reset() {
+	*x = BackupOption{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackupOption) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackupOption) ProtoMessage() {}
+
+func (x *BackupOption) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackupOption.ProtoReflect.Descriptor instead.
+func (*BackupOption) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *BackupOption) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *BackupOption) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *BackupOption) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *BackupOption) GetIsPublic() bool {
+	if x != nil {
+		return x.IsPublic
+	}
+	return false
+}
+
+// GetLocalBackupDirRequest 是本地备份目录查询参数，无业务字段。
+type GetLocalBackupDirRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLocalBackupDirRequest) Reset() {
+	*x = GetLocalBackupDirRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLocalBackupDirRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLocalBackupDirRequest) ProtoMessage() {}
+
+func (x *GetLocalBackupDirRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLocalBackupDirRequest.ProtoReflect.Descriptor instead.
+func (*GetLocalBackupDirRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{18}
+}
+
+// GetLocalBackupDirResponse 是本地备份目录。
+type GetLocalBackupDirResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目录绝对路径。
+	Dir           string `protobuf:"bytes,1,opt,name=dir,proto3" json:"dir,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLocalBackupDirResponse) Reset() {
+	*x = GetLocalBackupDirResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLocalBackupDirResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLocalBackupDirResponse) ProtoMessage() {}
+
+func (x *GetLocalBackupDirResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLocalBackupDirResponse.ProtoReflect.Descriptor instead.
+func (*GetLocalBackupDirResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *GetLocalBackupDirResponse) GetDir() string {
+	if x != nil {
+		return x.Dir
+	}
+	return ""
+}
+
+// UploadForRecoverRequest 是上传备份登记参数。
+type UploadForRecoverRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 已上传文件的路径。
+	FilePath string `protobuf:"bytes,1,opt,name=file_path,json=filePath,proto3" json:"file_path,omitempty"`
+	// 目标目录。
+	TargetDir     string `protobuf:"bytes,2,opt,name=target_dir,json=targetDir,proto3" json:"target_dir,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadForRecoverRequest) Reset() {
+	*x = UploadForRecoverRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadForRecoverRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadForRecoverRequest) ProtoMessage() {}
+
+func (x *UploadForRecoverRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadForRecoverRequest.ProtoReflect.Descriptor instead.
+func (*UploadForRecoverRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *UploadForRecoverRequest) GetFilePath() string {
+	if x != nil {
+		return x.FilePath
+	}
+	return ""
+}
+
+func (x *UploadForRecoverRequest) GetTargetDir() string {
+	if x != nil {
+		return x.TargetDir
+	}
+	return ""
+}
+
+// UploadForRecoverResponse 是登记结果，无业务字段。
+type UploadForRecoverResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadForRecoverResponse) Reset() {
+	*x = UploadForRecoverResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadForRecoverResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadForRecoverResponse) ProtoMessage() {}
+
+func (x *UploadForRecoverResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadForRecoverResponse.ProtoReflect.Descriptor instead.
+func (*UploadForRecoverResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{21}
+}
+
+// SearchBackupRecordsRequest 是备份记录查询参数。
+type SearchBackupRecordsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 100。
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 备份类型。
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	// 资源名称。
+	Name string `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	// 资源子名称。
+	DetailName    string `protobuf:"bytes,5,opt,name=detail_name,json=detailName,proto3" json:"detail_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchBackupRecordsRequest) Reset() {
+	*x = SearchBackupRecordsRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchBackupRecordsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchBackupRecordsRequest) ProtoMessage() {}
+
+func (x *SearchBackupRecordsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchBackupRecordsRequest.ProtoReflect.Descriptor instead.
+func (*SearchBackupRecordsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *SearchBackupRecordsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchBackupRecordsRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *SearchBackupRecordsRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *SearchBackupRecordsRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *SearchBackupRecordsRequest) GetDetailName() string {
+	if x != nil {
+		return x.DetailName
+	}
+	return ""
+}
+
+// SearchBackupRecordsByCronjobRequest 是按计划任务查询备份记录参数。
+type SearchBackupRecordsByCronjobRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 100。
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 计划任务 ID。
+	CronjobId     uint32 `protobuf:"varint,3,opt,name=cronjob_id,json=cronjobId,proto3" json:"cronjob_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchBackupRecordsByCronjobRequest) Reset() {
+	*x = SearchBackupRecordsByCronjobRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchBackupRecordsByCronjobRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchBackupRecordsByCronjobRequest) ProtoMessage() {}
+
+func (x *SearchBackupRecordsByCronjobRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchBackupRecordsByCronjobRequest.ProtoReflect.Descriptor instead.
+func (*SearchBackupRecordsByCronjobRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *SearchBackupRecordsByCronjobRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchBackupRecordsByCronjobRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *SearchBackupRecordsByCronjobRequest) GetCronjobId() uint32 {
+	if x != nil {
+		return x.CronjobId
+	}
+	return 0
+}
+
+// BackupRecordsResponse 是备份记录列表结果。
+type BackupRecordsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 当前页记录。
+	Items []*BackupRecordEntry `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	// 符合条件的记录总数。
+	Total         int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackupRecordsResponse) Reset() {
+	*x = BackupRecordsResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackupRecordsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackupRecordsResponse) ProtoMessage() {}
+
+func (x *BackupRecordsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackupRecordsResponse.ProtoReflect.Descriptor instead.
+func (*BackupRecordsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *BackupRecordsResponse) GetItems() []*BackupRecordEntry {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *BackupRecordsResponse) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+// BackupRecordEntry 是一条备份记录。
+type BackupRecordEntry struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 创建时间，RFC3339 格式。
+	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 备份账号类型。
+	AccountType string `protobuf:"bytes,3,opt,name=account_type,json=accountType,proto3" json:"account_type,omitempty"`
+	// 备份账号名称。
+	AccountName string `protobuf:"bytes,4,opt,name=account_name,json=accountName,proto3" json:"account_name,omitempty"`
+	// 下载账号 ID。
+	DownloadAccountId uint32 `protobuf:"varint,5,opt,name=download_account_id,json=downloadAccountId,proto3" json:"download_account_id,omitempty"`
+	// 文件目录。
+	FileDir string `protobuf:"bytes,6,opt,name=file_dir,json=fileDir,proto3" json:"file_dir,omitempty"`
+	// 文件名。
+	FileName string `protobuf:"bytes,7,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// 关联任务 ID。
+	TaskId string `protobuf:"bytes,8,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,9,opt,name=status,proto3" json:"status,omitempty"`
+	// 状态说明。
+	Message string `protobuf:"bytes,10,opt,name=message,proto3" json:"message,omitempty"`
+	// 描述。
+	Description   string `protobuf:"bytes,11,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackupRecordEntry) Reset() {
+	*x = BackupRecordEntry{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackupRecordEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackupRecordEntry) ProtoMessage() {}
+
+func (x *BackupRecordEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackupRecordEntry.ProtoReflect.Descriptor instead.
+func (*BackupRecordEntry) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *BackupRecordEntry) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *BackupRecordEntry) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetAccountType() string {
+	if x != nil {
+		return x.AccountType
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetAccountName() string {
+	if x != nil {
+		return x.AccountName
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetDownloadAccountId() uint32 {
+	if x != nil {
+		return x.DownloadAccountId
+	}
+	return 0
+}
+
+func (x *BackupRecordEntry) GetFileDir() string {
+	if x != nil {
+		return x.FileDir
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *BackupRecordEntry) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+// LoadRecordSizeRequest 是备份记录大小统计参数。
+type LoadRecordSizeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 100。
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 备份类型。
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	// 资源名称。
+	Name string `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	// 资源子名称。
+	DetailName string `protobuf:"bytes,5,opt,name=detail_name,json=detailName,proto3" json:"detail_name,omitempty"`
+	// 关键字。
+	Info string `protobuf:"bytes,6,opt,name=info,proto3" json:"info,omitempty"`
+	// 计划任务 ID。
+	CronjobId uint32 `protobuf:"varint,7,opt,name=cronjob_id,json=cronjobId,proto3" json:"cronjob_id,omitempty"`
+	// 排序字段。
+	OrderBy string `protobuf:"bytes,8,opt,name=order_by,json=orderBy,proto3" json:"order_by,omitempty"`
+	// 排序方向。
+	Order         string `protobuf:"bytes,9,opt,name=order,proto3" json:"order,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadRecordSizeRequest) Reset() {
+	*x = LoadRecordSizeRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadRecordSizeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadRecordSizeRequest) ProtoMessage() {}
+
+func (x *LoadRecordSizeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadRecordSizeRequest.ProtoReflect.Descriptor instead.
+func (*LoadRecordSizeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *LoadRecordSizeRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *LoadRecordSizeRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *LoadRecordSizeRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *LoadRecordSizeRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *LoadRecordSizeRequest) GetDetailName() string {
+	if x != nil {
+		return x.DetailName
+	}
+	return ""
+}
+
+func (x *LoadRecordSizeRequest) GetInfo() string {
+	if x != nil {
+		return x.Info
+	}
+	return ""
+}
+
+func (x *LoadRecordSizeRequest) GetCronjobId() uint32 {
+	if x != nil {
+		return x.CronjobId
+	}
+	return 0
+}
+
+func (x *LoadRecordSizeRequest) GetOrderBy() string {
+	if x != nil {
+		return x.OrderBy
+	}
+	return ""
+}
+
+func (x *LoadRecordSizeRequest) GetOrder() string {
+	if x != nil {
+		return x.Order
+	}
+	return ""
+}
+
+// LoadRecordSizeResponse 是备份记录大小结果。
+type LoadRecordSizeResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 各记录的大小。
+	Items         []*RecordFileSize `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadRecordSizeResponse) Reset() {
+	*x = LoadRecordSizeResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadRecordSizeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadRecordSizeResponse) ProtoMessage() {}
+
+func (x *LoadRecordSizeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadRecordSizeResponse.ProtoReflect.Descriptor instead.
+func (*LoadRecordSizeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *LoadRecordSizeResponse) GetItems() []*RecordFileSize {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// RecordFileSize 是一条备份记录的大小。
+type RecordFileSize struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 记录名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// 大小，单位字节。
+	Size          int64 `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RecordFileSize) Reset() {
+	*x = RecordFileSize{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RecordFileSize) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RecordFileSize) ProtoMessage() {}
+
+func (x *RecordFileSize) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RecordFileSize.ProtoReflect.Descriptor instead.
+func (*RecordFileSize) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *RecordFileSize) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *RecordFileSize) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RecordFileSize) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+// DownloadBackupRecordRequest 是备份记录下载路径查询参数。
+type DownloadBackupRecordRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 下载账号 ID。
+	DownloadAccountId uint32 `protobuf:"varint,1,opt,name=download_account_id,json=downloadAccountId,proto3" json:"download_account_id,omitempty"`
+	// 文件目录。
+	FileDir string `protobuf:"bytes,2,opt,name=file_dir,json=fileDir,proto3" json:"file_dir,omitempty"`
+	// 文件名。
+	FileName      string `protobuf:"bytes,3,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DownloadBackupRecordRequest) Reset() {
+	*x = DownloadBackupRecordRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DownloadBackupRecordRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DownloadBackupRecordRequest) ProtoMessage() {}
+
+func (x *DownloadBackupRecordRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DownloadBackupRecordRequest.ProtoReflect.Descriptor instead.
+func (*DownloadBackupRecordRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *DownloadBackupRecordRequest) GetDownloadAccountId() uint32 {
+	if x != nil {
+		return x.DownloadAccountId
+	}
+	return 0
+}
+
+func (x *DownloadBackupRecordRequest) GetFileDir() string {
+	if x != nil {
+		return x.FileDir
+	}
+	return ""
+}
+
+func (x *DownloadBackupRecordRequest) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+// DownloadBackupRecordResponse 是本地文件路径。
+type DownloadBackupRecordResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件路径。
+	Path          string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DownloadBackupRecordResponse) Reset() {
+	*x = DownloadBackupRecordResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DownloadBackupRecordResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DownloadBackupRecordResponse) ProtoMessage() {}
+
+func (x *DownloadBackupRecordResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DownloadBackupRecordResponse.ProtoReflect.Descriptor instead.
+func (*DownloadBackupRecordResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *DownloadBackupRecordResponse) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+// UpdateRecordDescriptionRequest 是描述更新参数。
+type UpdateRecordDescriptionRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 描述内容。
+	Description   string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateRecordDescriptionRequest) Reset() {
+	*x = UpdateRecordDescriptionRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateRecordDescriptionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRecordDescriptionRequest) ProtoMessage() {}
+
+func (x *UpdateRecordDescriptionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRecordDescriptionRequest.ProtoReflect.Descriptor instead.
+func (*UpdateRecordDescriptionRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *UpdateRecordDescriptionRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateRecordDescriptionRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+// UpdateRecordDescriptionResponse 是更新结果，无业务字段。
+type UpdateRecordDescriptionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateRecordDescriptionResponse) Reset() {
+	*x = UpdateRecordDescriptionResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateRecordDescriptionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRecordDescriptionResponse) ProtoMessage() {}
+
+func (x *UpdateRecordDescriptionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRecordDescriptionResponse.ProtoReflect.Descriptor instead.
+func (*UpdateRecordDescriptionResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{32}
+}
+
+// DeleteBackupRecordsRequest 是批量删除记录参数。
+type DeleteBackupRecordsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID 列表。
+	Ids           []uint32 `protobuf:"varint,1,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteBackupRecordsRequest) Reset() {
+	*x = DeleteBackupRecordsRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteBackupRecordsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteBackupRecordsRequest) ProtoMessage() {}
+
+func (x *DeleteBackupRecordsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteBackupRecordsRequest.ProtoReflect.Descriptor instead.
+func (*DeleteBackupRecordsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *DeleteBackupRecordsRequest) GetIds() []uint32 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+// DeleteBackupRecordsResponse 是删除结果，无业务字段。
+type DeleteBackupRecordsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteBackupRecordsResponse) Reset() {
+	*x = DeleteBackupRecordsResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteBackupRecordsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteBackupRecordsResponse) ProtoMessage() {}
+
+func (x *DeleteBackupRecordsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteBackupRecordsResponse.ProtoReflect.Descriptor instead.
+func (*DeleteBackupRecordsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{34}
+}
+
+// ListBackupFilesRequest 是账号文件列表参数。
+type ListBackupFilesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 备份账号 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBackupFilesRequest) Reset() {
+	*x = ListBackupFilesRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBackupFilesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBackupFilesRequest) ProtoMessage() {}
+
+func (x *ListBackupFilesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBackupFilesRequest.ProtoReflect.Descriptor instead.
+func (*ListBackupFilesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *ListBackupFilesRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// ListBackupFilesResponse 是账号文件列表。
+type ListBackupFilesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件名列表。
+	Files         []string `protobuf:"bytes,1,rep,name=files,proto3" json:"files,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBackupFilesResponse) Reset() {
+	*x = ListBackupFilesResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBackupFilesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBackupFilesResponse) ProtoMessage() {}
+
+func (x *ListBackupFilesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBackupFilesResponse.ProtoReflect.Descriptor instead.
+func (*ListBackupFilesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *ListBackupFilesResponse) GetFiles() []string {
+	if x != nil {
+		return x.Files
+	}
+	return nil
+}
+
+// BackupDataRequest 是数据备份参数。
+type BackupDataRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 备份类型。
+	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	// 资源名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// 资源子名称。
+	DetailName string `protobuf:"bytes,3,opt,name=detail_name,json=detailName,proto3" json:"detail_name,omitempty"`
+	// 备份密码。
+	Secret string `protobuf:"bytes,4,opt,name=secret,proto3" json:"secret,omitempty"`
+	// 是否立即执行并返回记录。
+	IsImmediate bool `protobuf:"varint,5,opt,name=is_immediate,json=isImmediate,proto3" json:"is_immediate,omitempty"`
+	// 备份前是否停止服务。
+	StopBefore bool `protobuf:"varint,6,opt,name=stop_before,json=stopBefore,proto3" json:"stop_before,omitempty"`
+	// 前端生成的任务 ID。
+	TaskId string `protobuf:"bytes,7,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	// 备份文件名。
+	FileName string `protobuf:"bytes,8,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// 额外参数。
+	Args []string `protobuf:"bytes,9,rep,name=args,proto3" json:"args,omitempty"`
+	// 备份描述。
+	Description   string `protobuf:"bytes,10,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackupDataRequest) Reset() {
+	*x = BackupDataRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackupDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackupDataRequest) ProtoMessage() {}
+
+func (x *BackupDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackupDataRequest.ProtoReflect.Descriptor instead.
+func (*BackupDataRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *BackupDataRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *BackupDataRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *BackupDataRequest) GetDetailName() string {
+	if x != nil {
+		return x.DetailName
+	}
+	return ""
+}
+
+func (x *BackupDataRequest) GetSecret() string {
+	if x != nil {
+		return x.Secret
+	}
+	return ""
+}
+
+func (x *BackupDataRequest) GetIsImmediate() bool {
+	if x != nil {
+		return x.IsImmediate
+	}
+	return false
+}
+
+func (x *BackupDataRequest) GetStopBefore() bool {
+	if x != nil {
+		return x.StopBefore
+	}
+	return false
+}
+
+func (x *BackupDataRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+func (x *BackupDataRequest) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *BackupDataRequest) GetArgs() []string {
+	if x != nil {
+		return x.Args
+	}
+	return nil
+}
+
+func (x *BackupDataRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+// BackupDataResponse 是备份启动结果。
+type BackupDataResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 立即备份时返回的记录 JSON；异步备份为空。
+	RecordJson    string `protobuf:"bytes,1,opt,name=record_json,json=recordJson,proto3" json:"record_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BackupDataResponse) Reset() {
+	*x = BackupDataResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BackupDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BackupDataResponse) ProtoMessage() {}
+
+func (x *BackupDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BackupDataResponse.ProtoReflect.Descriptor instead.
+func (*BackupDataResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *BackupDataResponse) GetRecordJson() string {
+	if x != nil {
+		return x.RecordJson
+	}
+	return ""
+}
+
+// RecoverDataRequest 是数据恢复参数。
+type RecoverDataRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 下载账号 ID。
+	DownloadAccountId uint32 `protobuf:"varint,1,opt,name=download_account_id,json=downloadAccountId,proto3" json:"download_account_id,omitempty"`
+	// 恢复类型，取值与 BackupDataRequest.type 相同。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 资源名称。
+	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	// 资源子名称。
+	DetailName string `protobuf:"bytes,4,opt,name=detail_name,json=detailName,proto3" json:"detail_name,omitempty"`
+	// 备份文件路径。
+	File string `protobuf:"bytes,5,opt,name=file,proto3" json:"file,omitempty"`
+	// 备份密码。
+	Secret string `protobuf:"bytes,6,opt,name=secret,proto3" json:"secret,omitempty"`
+	// MongoDB 是否删除全部集合。
+	DropAllCollections bool `protobuf:"varint,7,opt,name=drop_all_collections,json=dropAllCollections,proto3" json:"drop_all_collections,omitempty"`
+	// 前端生成的任务 ID。
+	TaskId string `protobuf:"bytes,8,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	// 备份记录 ID。
+	BackupRecordId uint32 `protobuf:"varint,9,opt,name=backup_record_id,json=backupRecordId,proto3" json:"backup_record_id,omitempty"`
+	// 超时时间，单位秒。
+	Timeout       int32 `protobuf:"varint,10,opt,name=timeout,proto3" json:"timeout,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RecoverDataRequest) Reset() {
+	*x = RecoverDataRequest{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RecoverDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RecoverDataRequest) ProtoMessage() {}
+
+func (x *RecoverDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RecoverDataRequest.ProtoReflect.Descriptor instead.
+func (*RecoverDataRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *RecoverDataRequest) GetDownloadAccountId() uint32 {
+	if x != nil {
+		return x.DownloadAccountId
+	}
+	return 0
+}
+
+func (x *RecoverDataRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *RecoverDataRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RecoverDataRequest) GetDetailName() string {
+	if x != nil {
+		return x.DetailName
+	}
+	return ""
+}
+
+func (x *RecoverDataRequest) GetFile() string {
+	if x != nil {
+		return x.File
+	}
+	return ""
+}
+
+func (x *RecoverDataRequest) GetSecret() string {
+	if x != nil {
+		return x.Secret
+	}
+	return ""
+}
+
+func (x *RecoverDataRequest) GetDropAllCollections() bool {
+	if x != nil {
+		return x.DropAllCollections
+	}
+	return false
+}
+
+func (x *RecoverDataRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+func (x *RecoverDataRequest) GetBackupRecordId() uint32 {
+	if x != nil {
+		return x.BackupRecordId
+	}
+	return 0
+}
+
+func (x *RecoverDataRequest) GetTimeout() int32 {
+	if x != nil {
+		return x.Timeout
+	}
+	return 0
+}
+
+// RecoverDataResponse 是恢复结果，无业务字段。
+type RecoverDataResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RecoverDataResponse) Reset() {
+	*x = RecoverDataResponse{}
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RecoverDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RecoverDataResponse) ProtoMessage() {}
+
+func (x *RecoverDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_backup_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RecoverDataResponse.ProtoReflect.Descriptor instead.
+func (*RecoverDataResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_backup_proto_rawDescGZIP(), []int{40}
+}
+
 var File_panel_agent_v1_backup_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_backup_proto_rawDesc = "" +
@@ -295,9 +2538,184 @@ const file_panel_agent_v1_backup_proto_rawDesc = "" +
 	"\x04vars\x18\a \x01(\tR\x04vars\x12\x1d\n" +
 	"\n" +
 	"created_at\x18\b \x01(\tR\tcreatedAt\x12#\n" +
-	"\rremember_auth\x18\t \x01(\bR\frememberAuth2p\n" +
+	"\rremember_auth\x18\t \x01(\bR\frememberAuth\"\xa7\x02\n" +
+	"\rBackupOperate\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1b\n" +
+	"\x04type\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\x12\x1b\n" +
+	"\tis_public\x18\x04 \x01(\bR\bisPublic\x12\x16\n" +
+	"\x06bucket\x18\x05 \x01(\tR\x06bucket\x12\x1d\n" +
+	"\n" +
+	"access_key\x18\x06 \x01(\tR\taccessKey\x12\x1e\n" +
+	"\n" +
+	"credential\x18\a \x01(\tR\n" +
+	"credential\x12\x1f\n" +
+	"\vbackup_path\x18\b \x01(\tR\n" +
+	"backupPath\x12\x1b\n" +
+	"\x04vars\x18\t \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04vars\x12#\n" +
+	"\rremember_auth\x18\n" +
+	" \x01(\bR\frememberAuth\"P\n" +
+	"\x11BackupCheckResult\x12\x13\n" +
+	"\x05is_ok\x18\x01 \x01(\bR\x04isOk\x12\x10\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\x12\x14\n" +
+	"\x05token\x18\x03 \x01(\tR\x05token\"5\n" +
+	"\x16CheckBackupUsedRequest\x12\x1b\n" +
+	"\x04name\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04name\"\x19\n" +
+	"\x17CheckBackupUsedResponse\"\x1d\n" +
+	"\x1bCreateBackupAccountResponse\"\x1d\n" +
+	"\x1bUpdateBackupAccountResponse\"5\n" +
+	"\x1aDeleteBackupAccountRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\x1d\n" +
+	"\x1bDeleteBackupAccountResponse\"4\n" +
+	"\x19RefreshBackupTokenRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\x1c\n" +
+	"\x1aRefreshBackupTokenResponse\"\x84\x01\n" +
+	"\x12ListBucketsRequest\x12\x1b\n" +
+	"\x04type\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\x12\x1d\n" +
+	"\n" +
+	"access_key\x18\x02 \x01(\tR\taccessKey\x12\x1e\n" +
+	"\n" +
+	"credential\x18\x03 \x01(\tR\n" +
+	"credential\x12\x12\n" +
+	"\x04vars\x18\x04 \x01(\tR\x04vars\"+\n" +
+	"\x13ListBucketsResponse\x12\x14\n" +
+	"\x05items\x18\x01 \x03(\tR\x05items\"\x1a\n" +
+	"\x18LoadBackupOptionsRequest\"O\n" +
+	"\x19LoadBackupOptionsResponse\x122\n" +
+	"\x05items\x18\x01 \x03(\v2\x1c.panel.agent.v1.BackupOptionR\x05items\"c\n" +
+	"\fBackupOption\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12\x1b\n" +
+	"\tis_public\x18\x04 \x01(\bR\bisPublic\"\x1a\n" +
+	"\x18GetLocalBackupDirRequest\"-\n" +
+	"\x19GetLocalBackupDirResponse\x12\x10\n" +
+	"\x03dir\x18\x01 \x01(\tR\x03dir\"U\n" +
+	"\x17UploadForRecoverRequest\x12\x1b\n" +
+	"\tfile_path\x18\x01 \x01(\tR\bfilePath\x12\x1d\n" +
+	"\n" +
+	"target_dir\x18\x02 \x01(\tR\ttargetDir\"\x1a\n" +
+	"\x18UploadForRecoverResponse\"\xb3\x01\n" +
+	"\x1aSearchBackupRecordsRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12&\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\x12\x1b\n" +
+	"\x04type\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\x12\x12\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12\x1f\n" +
+	"\vdetail_name\x18\x05 \x01(\tR\n" +
+	"detailName\"\x92\x01\n" +
+	"#SearchBackupRecordsByCronjobRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12&\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\x12&\n" +
+	"\n" +
+	"cronjob_id\x18\x03 \x01(\rB\a\xbaH\x04*\x02 \x00R\tcronjobId\"f\n" +
+	"\x15BackupRecordsResponse\x127\n" +
+	"\x05items\x18\x01 \x03(\v2!.panel.agent.v1.BackupRecordEntryR\x05items\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x03R\x05total\"\xdd\x02\n" +
+	"\x11BackupRecordEntry\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x02 \x01(\tR\tcreatedAt\x12!\n" +
+	"\faccount_type\x18\x03 \x01(\tR\vaccountType\x12!\n" +
+	"\faccount_name\x18\x04 \x01(\tR\vaccountName\x12.\n" +
+	"\x13download_account_id\x18\x05 \x01(\rR\x11downloadAccountId\x12\x19\n" +
+	"\bfile_dir\x18\x06 \x01(\tR\afileDir\x12\x1b\n" +
+	"\tfile_name\x18\a \x01(\tR\bfileName\x12\x17\n" +
+	"\atask_id\x18\b \x01(\tR\x06taskId\x12\x16\n" +
+	"\x06status\x18\t \x01(\tR\x06status\x12\x18\n" +
+	"\amessage\x18\n" +
+	" \x01(\tR\amessage\x12 \n" +
+	"\vdescription\x18\v \x01(\tR\vdescription\"\x92\x02\n" +
+	"\x15LoadRecordSizeRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12&\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\x12\x1b\n" +
+	"\x04type\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\x12\x12\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12\x1f\n" +
+	"\vdetail_name\x18\x05 \x01(\tR\n" +
+	"detailName\x12\x12\n" +
+	"\x04info\x18\x06 \x01(\tR\x04info\x12\x1d\n" +
+	"\n" +
+	"cronjob_id\x18\a \x01(\rR\tcronjobId\x12\x19\n" +
+	"\border_by\x18\b \x01(\tR\aorderBy\x12\x14\n" +
+	"\x05order\x18\t \x01(\tR\x05order\"N\n" +
+	"\x16LoadRecordSizeResponse\x124\n" +
+	"\x05items\x18\x01 \x03(\v2\x1e.panel.agent.v1.RecordFileSizeR\x05items\"H\n" +
+	"\x0eRecordFileSize\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04size\x18\x03 \x01(\x03R\x04size\"\xa0\x01\n" +
+	"\x1bDownloadBackupRecordRequest\x127\n" +
+	"\x13download_account_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x11downloadAccountId\x12\"\n" +
+	"\bfile_dir\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\afileDir\x12$\n" +
+	"\tfile_name\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\bfileName\"2\n" +
+	"\x1cDownloadBackupRecordResponse\x12\x12\n" +
+	"\x04path\x18\x01 \x01(\tR\x04path\"e\n" +
+	"\x1eUpdateRecordDescriptionRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12*\n" +
+	"\vdescription\x18\x02 \x01(\tB\b\xbaH\x05r\x03\x18\x80\x02R\vdescription\"!\n" +
+	"\x1fUpdateRecordDescriptionResponse\"8\n" +
+	"\x1aDeleteBackupRecordsRequest\x12\x1a\n" +
+	"\x03ids\x18\x01 \x03(\rB\b\xbaH\x05\x92\x01\x02\b\x01R\x03ids\"\x1d\n" +
+	"\x1bDeleteBackupRecordsResponse\"1\n" +
+	"\x16ListBackupFilesRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"/\n" +
+	"\x17ListBackupFilesResponse\x12\x14\n" +
+	"\x05files\x18\x01 \x03(\tR\x05files\"\xaf\x03\n" +
+	"\x11BackupDataRequest\x12\x9c\x01\n" +
+	"\x04type\x18\x01 \x01(\tB\x87\x01\xbaH\x83\x01r\x80\x01R\x03appR\x05mysqlR\amariadbR\x05redisR\awebsiteR\n" +
+	"postgresqlR\amongodbR\rmysql-clusterR\x12postgresql-clusterR\rredis-clusterR\tcontainerR\acomposeR\x04type\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1f\n" +
+	"\vdetail_name\x18\x03 \x01(\tR\n" +
+	"detailName\x12\x16\n" +
+	"\x06secret\x18\x04 \x01(\tR\x06secret\x12!\n" +
+	"\fis_immediate\x18\x05 \x01(\bR\visImmediate\x12\x1f\n" +
+	"\vstop_before\x18\x06 \x01(\bR\n" +
+	"stopBefore\x12\x17\n" +
+	"\atask_id\x18\a \x01(\tR\x06taskId\x12\x1b\n" +
+	"\tfile_name\x18\b \x01(\tR\bfileName\x12\x12\n" +
+	"\x04args\x18\t \x03(\tR\x04args\x12 \n" +
+	"\vdescription\x18\n" +
+	" \x01(\tR\vdescription\"5\n" +
+	"\x12BackupDataResponse\x12\x1f\n" +
+	"\vrecord_json\x18\x01 \x01(\tR\n" +
+	"recordJson\"\xdc\x03\n" +
+	"\x12RecoverDataRequest\x127\n" +
+	"\x13download_account_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x11downloadAccountId\x12\x9c\x01\n" +
+	"\x04type\x18\x02 \x01(\tB\x87\x01\xbaH\x83\x01r\x80\x01R\x03appR\x05mysqlR\amariadbR\x05redisR\awebsiteR\n" +
+	"postgresqlR\amongodbR\rmysql-clusterR\x12postgresql-clusterR\rredis-clusterR\tcontainerR\acomposeR\x04type\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x1f\n" +
+	"\vdetail_name\x18\x04 \x01(\tR\n" +
+	"detailName\x12\x12\n" +
+	"\x04file\x18\x05 \x01(\tR\x04file\x12\x16\n" +
+	"\x06secret\x18\x06 \x01(\tR\x06secret\x120\n" +
+	"\x14drop_all_collections\x18\a \x01(\bR\x12dropAllCollections\x12\x17\n" +
+	"\atask_id\x18\b \x01(\tR\x06taskId\x12(\n" +
+	"\x10backup_record_id\x18\t \x01(\rR\x0ebackupRecordId\x12\x18\n" +
+	"\atimeout\x18\n" +
+	" \x01(\x05R\atimeout\"\x15\n" +
+	"\x13RecoverDataResponse2\xdf\x15\n" +
 	"\rBackupService\x12_\n" +
-	"\x06Search\x12$.panel.agent.v1.SearchBackupsRequest\x1a%.panel.agent.v1.SearchBackupsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\x06Search\x12$.panel.agent.v1.SearchBackupsRequest\x1a%.panel.agent.v1.SearchBackupsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12l\n" +
+	"\x0fCheckBackupUsed\x12&.panel.agent.v1.CheckBackupUsedRequest\x1a'.panel.agent.v1.CheckBackupUsedResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12]\n" +
+	"\x0fCheckBackupConn\x12\x1d.panel.agent.v1.BackupOperate\x1a!.panel.agent.v1.BackupCheckResult\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x92\x01\n" +
+	"\x13CreateBackupAccount\x12\x1d.panel.agent.v1.BackupOperate\x1a+.panel.agent.v1.CreateBackupAccountResponse\"/\x8a\xb5\x18+\"\x12创建备份账号*\x15Create backup account\x12\x92\x01\n" +
+	"\x13UpdateBackupAccount\x12\x1d.panel.agent.v1.BackupOperate\x1a+.panel.agent.v1.UpdateBackupAccountResponse\"/\x8a\xb5\x18+\"\x12更新备份账号*\x15Update backup account\x12\x9f\x01\n" +
+	"\x13DeleteBackupAccount\x12*.panel.agent.v1.DeleteBackupAccountRequest\x1a+.panel.agent.v1.DeleteBackupAccountResponse\"/\x8a\xb5\x18+\"\x12删除备份账号*\x15Delete backup account\x12\x9b\x01\n" +
+	"\x12RefreshBackupToken\x12).panel.agent.v1.RefreshBackupTokenRequest\x1a*.panel.agent.v1.RefreshBackupTokenResponse\".\x8a\xb5\x18*\"\x12刷新备份令牌*\x14Refresh backup token\x12`\n" +
+	"\vListBuckets\x12\".panel.agent.v1.ListBucketsRequest\x1a#.panel.agent.v1.ListBucketsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12r\n" +
+	"\x11LoadBackupOptions\x12(.panel.agent.v1.LoadBackupOptionsRequest\x1a).panel.agent.v1.LoadBackupOptionsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12r\n" +
+	"\x11GetLocalBackupDir\x12(.panel.agent.v1.GetLocalBackupDirRequest\x1a).panel.agent.v1.GetLocalBackupDirResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x93\x01\n" +
+	"\x10UploadForRecover\x12'.panel.agent.v1.UploadForRecoverRequest\x1a(.panel.agent.v1.UploadForRecoverResponse\",\x8a\xb5\x18(\"\x12上传备份文件*\x12Upload backup file\x12r\n" +
+	"\x13SearchBackupRecords\x12*.panel.agent.v1.SearchBackupRecordsRequest\x1a%.panel.agent.v1.BackupRecordsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x84\x01\n" +
+	"\x1cSearchBackupRecordsByCronjob\x123.panel.agent.v1.SearchBackupRecordsByCronjobRequest\x1a%.panel.agent.v1.BackupRecordsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12i\n" +
+	"\x0eLoadRecordSize\x12%.panel.agent.v1.LoadRecordSizeRequest\x1a&.panel.agent.v1.LoadRecordSizeResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\xa3\x01\n" +
+	"\x14DownloadBackupRecord\x12+.panel.agent.v1.DownloadBackupRecordRequest\x1a,.panel.agent.v1.DownloadBackupRecordResponse\"0\x8a\xb5\x18,\"\x12下载备份记录*\x16Download backup record\x12\xaf\x01\n" +
+	"\x17UpdateRecordDescription\x12..panel.agent.v1.UpdateRecordDescriptionRequest\x1a/.panel.agent.v1.UpdateRecordDescriptionResponse\"3\x8a\xb5\x18/\"\x12更新备份描述*\x19Update backup description\x12\x9f\x01\n" +
+	"\x13DeleteBackupRecords\x12*.panel.agent.v1.DeleteBackupRecordsRequest\x1a+.panel.agent.v1.DeleteBackupRecordsResponse\"/\x8a\xb5\x18+\"\x12删除备份记录*\x15Delete backup records\x12l\n" +
+	"\x0fListBackupFiles\x12&.panel.agent.v1.ListBackupFilesRequest\x1a'.panel.agent.v1.ListBackupFilesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12t\n" +
+	"\n" +
+	"BackupData\x12!.panel.agent.v1.BackupDataRequest\x1a\".panel.agent.v1.BackupDataResponse\"\x1f\x8a\xb5\x18\x1b\"\f备份数据*\vBackup data\x12x\n" +
+	"\vRecoverData\x12\".panel.agent.v1.RecoverDataRequest\x1a#.panel.agent.v1.RecoverDataResponse\" \x8a\xb5\x18\x1c\"\f恢复数据*\fRecover data\x12\x97\x01\n" +
+	"\x0fRecoverByUpload\x12\".panel.agent.v1.RecoverDataRequest\x1a#.panel.agent.v1.RecoverDataResponse\";\x8a\xb5\x187\"\x1b从上传文件恢复数据*\x18Recover data from uploadB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_backup_proto_rawDescOnce sync.Once
@@ -311,21 +2729,102 @@ func file_panel_agent_v1_backup_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_backup_proto_rawDescData
 }
 
-var file_panel_agent_v1_backup_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_panel_agent_v1_backup_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
 var file_panel_agent_v1_backup_proto_goTypes = []any{
-	(*SearchBackupsRequest)(nil),  // 0: panel.agent.v1.SearchBackupsRequest
-	(*SearchBackupsResponse)(nil), // 1: panel.agent.v1.SearchBackupsResponse
-	(*Backup)(nil),                // 2: panel.agent.v1.Backup
+	(*SearchBackupsRequest)(nil),                // 0: panel.agent.v1.SearchBackupsRequest
+	(*SearchBackupsResponse)(nil),               // 1: panel.agent.v1.SearchBackupsResponse
+	(*Backup)(nil),                              // 2: panel.agent.v1.Backup
+	(*BackupOperate)(nil),                       // 3: panel.agent.v1.BackupOperate
+	(*BackupCheckResult)(nil),                   // 4: panel.agent.v1.BackupCheckResult
+	(*CheckBackupUsedRequest)(nil),              // 5: panel.agent.v1.CheckBackupUsedRequest
+	(*CheckBackupUsedResponse)(nil),             // 6: panel.agent.v1.CheckBackupUsedResponse
+	(*CreateBackupAccountResponse)(nil),         // 7: panel.agent.v1.CreateBackupAccountResponse
+	(*UpdateBackupAccountResponse)(nil),         // 8: panel.agent.v1.UpdateBackupAccountResponse
+	(*DeleteBackupAccountRequest)(nil),          // 9: panel.agent.v1.DeleteBackupAccountRequest
+	(*DeleteBackupAccountResponse)(nil),         // 10: panel.agent.v1.DeleteBackupAccountResponse
+	(*RefreshBackupTokenRequest)(nil),           // 11: panel.agent.v1.RefreshBackupTokenRequest
+	(*RefreshBackupTokenResponse)(nil),          // 12: panel.agent.v1.RefreshBackupTokenResponse
+	(*ListBucketsRequest)(nil),                  // 13: panel.agent.v1.ListBucketsRequest
+	(*ListBucketsResponse)(nil),                 // 14: panel.agent.v1.ListBucketsResponse
+	(*LoadBackupOptionsRequest)(nil),            // 15: panel.agent.v1.LoadBackupOptionsRequest
+	(*LoadBackupOptionsResponse)(nil),           // 16: panel.agent.v1.LoadBackupOptionsResponse
+	(*BackupOption)(nil),                        // 17: panel.agent.v1.BackupOption
+	(*GetLocalBackupDirRequest)(nil),            // 18: panel.agent.v1.GetLocalBackupDirRequest
+	(*GetLocalBackupDirResponse)(nil),           // 19: panel.agent.v1.GetLocalBackupDirResponse
+	(*UploadForRecoverRequest)(nil),             // 20: panel.agent.v1.UploadForRecoverRequest
+	(*UploadForRecoverResponse)(nil),            // 21: panel.agent.v1.UploadForRecoverResponse
+	(*SearchBackupRecordsRequest)(nil),          // 22: panel.agent.v1.SearchBackupRecordsRequest
+	(*SearchBackupRecordsByCronjobRequest)(nil), // 23: panel.agent.v1.SearchBackupRecordsByCronjobRequest
+	(*BackupRecordsResponse)(nil),               // 24: panel.agent.v1.BackupRecordsResponse
+	(*BackupRecordEntry)(nil),                   // 25: panel.agent.v1.BackupRecordEntry
+	(*LoadRecordSizeRequest)(nil),               // 26: panel.agent.v1.LoadRecordSizeRequest
+	(*LoadRecordSizeResponse)(nil),              // 27: panel.agent.v1.LoadRecordSizeResponse
+	(*RecordFileSize)(nil),                      // 28: panel.agent.v1.RecordFileSize
+	(*DownloadBackupRecordRequest)(nil),         // 29: panel.agent.v1.DownloadBackupRecordRequest
+	(*DownloadBackupRecordResponse)(nil),        // 30: panel.agent.v1.DownloadBackupRecordResponse
+	(*UpdateRecordDescriptionRequest)(nil),      // 31: panel.agent.v1.UpdateRecordDescriptionRequest
+	(*UpdateRecordDescriptionResponse)(nil),     // 32: panel.agent.v1.UpdateRecordDescriptionResponse
+	(*DeleteBackupRecordsRequest)(nil),          // 33: panel.agent.v1.DeleteBackupRecordsRequest
+	(*DeleteBackupRecordsResponse)(nil),         // 34: panel.agent.v1.DeleteBackupRecordsResponse
+	(*ListBackupFilesRequest)(nil),              // 35: panel.agent.v1.ListBackupFilesRequest
+	(*ListBackupFilesResponse)(nil),             // 36: panel.agent.v1.ListBackupFilesResponse
+	(*BackupDataRequest)(nil),                   // 37: panel.agent.v1.BackupDataRequest
+	(*BackupDataResponse)(nil),                  // 38: panel.agent.v1.BackupDataResponse
+	(*RecoverDataRequest)(nil),                  // 39: panel.agent.v1.RecoverDataRequest
+	(*RecoverDataResponse)(nil),                 // 40: panel.agent.v1.RecoverDataResponse
 }
 var file_panel_agent_v1_backup_proto_depIdxs = []int32{
-	2, // 0: panel.agent.v1.SearchBackupsResponse.items:type_name -> panel.agent.v1.Backup
-	0, // 1: panel.agent.v1.BackupService.Search:input_type -> panel.agent.v1.SearchBackupsRequest
-	1, // 2: panel.agent.v1.BackupService.Search:output_type -> panel.agent.v1.SearchBackupsResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2,  // 0: panel.agent.v1.SearchBackupsResponse.items:type_name -> panel.agent.v1.Backup
+	17, // 1: panel.agent.v1.LoadBackupOptionsResponse.items:type_name -> panel.agent.v1.BackupOption
+	25, // 2: panel.agent.v1.BackupRecordsResponse.items:type_name -> panel.agent.v1.BackupRecordEntry
+	28, // 3: panel.agent.v1.LoadRecordSizeResponse.items:type_name -> panel.agent.v1.RecordFileSize
+	0,  // 4: panel.agent.v1.BackupService.Search:input_type -> panel.agent.v1.SearchBackupsRequest
+	5,  // 5: panel.agent.v1.BackupService.CheckBackupUsed:input_type -> panel.agent.v1.CheckBackupUsedRequest
+	3,  // 6: panel.agent.v1.BackupService.CheckBackupConn:input_type -> panel.agent.v1.BackupOperate
+	3,  // 7: panel.agent.v1.BackupService.CreateBackupAccount:input_type -> panel.agent.v1.BackupOperate
+	3,  // 8: panel.agent.v1.BackupService.UpdateBackupAccount:input_type -> panel.agent.v1.BackupOperate
+	9,  // 9: panel.agent.v1.BackupService.DeleteBackupAccount:input_type -> panel.agent.v1.DeleteBackupAccountRequest
+	11, // 10: panel.agent.v1.BackupService.RefreshBackupToken:input_type -> panel.agent.v1.RefreshBackupTokenRequest
+	13, // 11: panel.agent.v1.BackupService.ListBuckets:input_type -> panel.agent.v1.ListBucketsRequest
+	15, // 12: panel.agent.v1.BackupService.LoadBackupOptions:input_type -> panel.agent.v1.LoadBackupOptionsRequest
+	18, // 13: panel.agent.v1.BackupService.GetLocalBackupDir:input_type -> panel.agent.v1.GetLocalBackupDirRequest
+	20, // 14: panel.agent.v1.BackupService.UploadForRecover:input_type -> panel.agent.v1.UploadForRecoverRequest
+	22, // 15: panel.agent.v1.BackupService.SearchBackupRecords:input_type -> panel.agent.v1.SearchBackupRecordsRequest
+	23, // 16: panel.agent.v1.BackupService.SearchBackupRecordsByCronjob:input_type -> panel.agent.v1.SearchBackupRecordsByCronjobRequest
+	26, // 17: panel.agent.v1.BackupService.LoadRecordSize:input_type -> panel.agent.v1.LoadRecordSizeRequest
+	29, // 18: panel.agent.v1.BackupService.DownloadBackupRecord:input_type -> panel.agent.v1.DownloadBackupRecordRequest
+	31, // 19: panel.agent.v1.BackupService.UpdateRecordDescription:input_type -> panel.agent.v1.UpdateRecordDescriptionRequest
+	33, // 20: panel.agent.v1.BackupService.DeleteBackupRecords:input_type -> panel.agent.v1.DeleteBackupRecordsRequest
+	35, // 21: panel.agent.v1.BackupService.ListBackupFiles:input_type -> panel.agent.v1.ListBackupFilesRequest
+	37, // 22: panel.agent.v1.BackupService.BackupData:input_type -> panel.agent.v1.BackupDataRequest
+	39, // 23: panel.agent.v1.BackupService.RecoverData:input_type -> panel.agent.v1.RecoverDataRequest
+	39, // 24: panel.agent.v1.BackupService.RecoverByUpload:input_type -> panel.agent.v1.RecoverDataRequest
+	1,  // 25: panel.agent.v1.BackupService.Search:output_type -> panel.agent.v1.SearchBackupsResponse
+	6,  // 26: panel.agent.v1.BackupService.CheckBackupUsed:output_type -> panel.agent.v1.CheckBackupUsedResponse
+	4,  // 27: panel.agent.v1.BackupService.CheckBackupConn:output_type -> panel.agent.v1.BackupCheckResult
+	7,  // 28: panel.agent.v1.BackupService.CreateBackupAccount:output_type -> panel.agent.v1.CreateBackupAccountResponse
+	8,  // 29: panel.agent.v1.BackupService.UpdateBackupAccount:output_type -> panel.agent.v1.UpdateBackupAccountResponse
+	10, // 30: panel.agent.v1.BackupService.DeleteBackupAccount:output_type -> panel.agent.v1.DeleteBackupAccountResponse
+	12, // 31: panel.agent.v1.BackupService.RefreshBackupToken:output_type -> panel.agent.v1.RefreshBackupTokenResponse
+	14, // 32: panel.agent.v1.BackupService.ListBuckets:output_type -> panel.agent.v1.ListBucketsResponse
+	16, // 33: panel.agent.v1.BackupService.LoadBackupOptions:output_type -> panel.agent.v1.LoadBackupOptionsResponse
+	19, // 34: panel.agent.v1.BackupService.GetLocalBackupDir:output_type -> panel.agent.v1.GetLocalBackupDirResponse
+	21, // 35: panel.agent.v1.BackupService.UploadForRecover:output_type -> panel.agent.v1.UploadForRecoverResponse
+	24, // 36: panel.agent.v1.BackupService.SearchBackupRecords:output_type -> panel.agent.v1.BackupRecordsResponse
+	24, // 37: panel.agent.v1.BackupService.SearchBackupRecordsByCronjob:output_type -> panel.agent.v1.BackupRecordsResponse
+	27, // 38: panel.agent.v1.BackupService.LoadRecordSize:output_type -> panel.agent.v1.LoadRecordSizeResponse
+	30, // 39: panel.agent.v1.BackupService.DownloadBackupRecord:output_type -> panel.agent.v1.DownloadBackupRecordResponse
+	32, // 40: panel.agent.v1.BackupService.UpdateRecordDescription:output_type -> panel.agent.v1.UpdateRecordDescriptionResponse
+	34, // 41: panel.agent.v1.BackupService.DeleteBackupRecords:output_type -> panel.agent.v1.DeleteBackupRecordsResponse
+	36, // 42: panel.agent.v1.BackupService.ListBackupFiles:output_type -> panel.agent.v1.ListBackupFilesResponse
+	38, // 43: panel.agent.v1.BackupService.BackupData:output_type -> panel.agent.v1.BackupDataResponse
+	40, // 44: panel.agent.v1.BackupService.RecoverData:output_type -> panel.agent.v1.RecoverDataResponse
+	40, // 45: panel.agent.v1.BackupService.RecoverByUpload:output_type -> panel.agent.v1.RecoverDataResponse
+	25, // [25:46] is the sub-list for method output_type
+	4,  // [4:25] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_backup_proto_init() }
@@ -339,7 +2838,7 @@ func file_panel_agent_v1_backup_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_backup_proto_rawDesc), len(file_panel_agent_v1_backup_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   41,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

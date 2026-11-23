@@ -921,87 +921,138 @@
     {
       "method": "POST",
       "path": "/backups",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.CreateBackupAccount",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "CreateBackupAccount",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/backup",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.BackupData",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "BackupData",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/buckets",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.ListBuckets",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "ListBuckets",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/backups/check/{name}",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.CheckBackupUsed",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "CheckBackupUsed",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/conn/check",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.CheckBackupConn",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "CheckBackupConn",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/del",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.DeleteBackupAccount",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "DeleteBackupAccount",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/backups/local",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.GetLocalBackupDir",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "GetLocalBackupDir",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/backups/options",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.LoadBackupOptions",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "LoadBackupOptions",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/record/del",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.DeleteBackupRecords",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "DeleteBackupRecords",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/record/description/update",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.UpdateRecordDescription",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "UpdateRecordDescription",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/record/download",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.DownloadBackupRecord",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "DownloadBackupRecord",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/record/search",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.SearchBackupRecords",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "SearchBackupRecords",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/record/search/bycronjob",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.SearchBackupRecordsByCronjob",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "SearchBackupRecordsByCronjob",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/record/size",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.LoadRecordSize",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "LoadRecordSize",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/recover",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.RecoverData",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "RecoverData",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/recover/byupload",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.RecoverByUpload",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "RecoverByUpload",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/refresh/token",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.RefreshBackupToken",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "RefreshBackupToken",
+      "covered": true
     },
     {
       "method": "POST",
@@ -1014,17 +1065,26 @@
     {
       "method": "POST",
       "path": "/backups/search/files",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.ListBackupFiles",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "ListBackupFiles",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/update",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.UpdateBackupAccount",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "UpdateBackupAccount",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/backups/upload",
-      "covered": false
+      "target": "panel.agent.v1.BackupService.UploadForRecover",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "UploadForRecover",
+      "covered": true
     },
     {
       "method": "POST",

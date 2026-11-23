@@ -47,12 +47,9 @@ import { reactive, ref } from 'vue';
 import { FormInstance } from 'element-plus';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
-import { listBackupOptions, getFilesFromBackup, getLocalBackupDir } from '@/api/modules/backup';
 import { Rules } from '@/global/form-rules';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { routerToFileWithPath } from '@/utils/router';
-import { useGlobalStore } from '@/composables/useGlobalStore';
-const { currentNode } = useGlobalStore();
 
 const drawerVisible = ref(false);
 const loading = ref();
@@ -111,8 +108,8 @@ const toFolder = async () => {
 };
 
 const loadBackupDir = async () => {
-    const res = await getLocalBackupDir(currentNode.value);
-    backupPath.value = `${res.data}${res.data.endsWith('/') ? '' : '/'}system_snapshot`;
+    const res = await rpc.backup.getLocalBackupDir({});
+    backupPath.value = `${res.dir}${res.dir.endsWith('/') ? '' : '/'}system_snapshot`;
 };
 
 const submitImport = async (formEl: FormInstance | undefined) => {
@@ -120,7 +117,8 @@ const submitImport = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     formEl.validate(async (valid) => {
         if (!valid) return;
-        await rpc.snapshot.import({ ...form })
+        await rpc.snapshot
+            .import({ ...form })
             .then(() => {
                 emit('search');
                 loading.value = false;
@@ -135,11 +133,12 @@ const submitImport = async (formEl: FormInstance | undefined) => {
 
 const loadBackups = async () => {
     loading.value = true;
-    await listBackupOptions()
+    await rpc.backup
+        .loadBackupOptions({})
         .then((res) => {
             loading.value = false;
             backupOptions.value = [];
-            for (const item of res.data) {
+            for (const item of res.items) {
                 if (item.type === 'LOCAL') {
                     localAccountID.value = item.id;
                 }
@@ -157,8 +156,8 @@ const loadBackups = async () => {
 
 const loadFiles = async () => {
     form.names = [];
-    const res = await getFilesFromBackup(form.backupAccountID);
-    fileNames.value = res.data || [];
+    const res = await rpc.backup.listBackupFiles({ id: form.backupAccountID });
+    fileNames.value = res.files || [];
 };
 
 defineExpose({

@@ -426,9 +426,9 @@ import i18n from '@/lang';
 import { ElForm } from 'element-plus';
 import { Backup } from '@/api/interface/backup';
 import FileList from '@/components/file-list/index.vue';
-import { addBackup, checkBackup, editBackup, getClientInfo, listBucket } from '@/api/modules/backup';
 import { cities } from './../helper';
 import { dateFormat } from '@/utils/date';
+import { encodeBase64Fields } from '@/utils/base64';
 import { deepCopy } from '@/utils/misc';
 import { spliceHttp, splitHttp } from '@/utils/validate';
 import { MsgError, MsgSuccess } from '@/utils/message';
@@ -682,9 +682,9 @@ const changeClientFrom = () => {
     } else {
         dialogData.value.rowData.varsJson = {
             isCN: false,
-            client_id: clientInfo.value.client_id,
-            client_secret: clientInfo.value.client_secret,
-            redirect_uri: clientInfo.value.redirect_uri,
+            client_id: clientInfo.value.clientId,
+            client_secret: clientInfo.value.clientSecret,
+            redirect_uri: clientInfo.value.redirectUri,
         };
     }
 };
@@ -712,16 +712,19 @@ const getBuckets = async (formEl: FormInstance | undefined) => {
         item['endpoint'] = itemEndpoint;
     }
     item['endpointItem'] = undefined;
-    listBucket({
-        isPublic: dialogData.value.rowData!.isPublic,
+    const params = {
         type: dialogData.value.rowData!.type,
         vars: JSON.stringify(item),
         accessKey: dialogData.value.rowData!.accessKey,
         credential: dialogData.value.rowData!.credential,
-    })
+    };
+    let request = deepCopy(params) as typeof params;
+    encodeBase64Fields(request, ['accessKey', 'credential']);
+    rpc.backup
+        .listBuckets(request)
         .then((res) => {
             loading.value = false;
-            buckets.value = res.data;
+            buckets.value = res.items;
         })
         .catch(() => {
             buckets.value = [];
@@ -760,15 +763,18 @@ const onCheck = async (formEl: FormInstance | undefined) => {
             dialogData.value.rowData!.varsJson['token'] = undefined;
         }
         dialogData.value.rowData.vars = JSON.stringify(dialogData.value.rowData!.varsJson);
+        const request = deepCopy(dialogData.value.rowData!) as Backup.BackupOperate;
+        encodeBase64Fields(request, ['accessKey', 'credential']);
         loading.value = true;
-        await checkBackup(dialogData.value.rowData)
+        await rpc.backup
+            .checkBackupConn(request)
             .then((res) => {
                 loading.value = false;
-                if (res.data.isOk) {
+                if (res.isOk) {
                     isOK.value = true;
                     MsgSuccess(i18n.global.t('terminal.connTestOk'));
                     if (hasClient()) {
-                        dialogData.value.rowData!.varsJson['refresh_token'] = Base64.decode(res.data.token);
+                        dialogData.value.rowData!.varsJson['refresh_token'] = Base64.decode(res.token);
                         dialogData.value.rowData!.varsJson['refresh_status'] = 'Success';
                         dialogData.value.rowData!.varsJson['refresh_time'] = dateFormat(null, null, new Date());
                     }
@@ -780,7 +786,7 @@ const onCheck = async (formEl: FormInstance | undefined) => {
                     return;
                 }
                 isOK.value = false;
-                MsgError(i18n.global.t('terminal.connTestFailed') + ':' + res.data.msg);
+                MsgError(i18n.global.t('terminal.connTestFailed') + ':' + res.msg);
             })
             .catch(() => {
                 loading.value = false;
@@ -791,20 +797,17 @@ const onCheck = async (formEl: FormInstance | undefined) => {
 
 const onSubmit = async () => {
     dialogData.value.rowData.vars = JSON.stringify(dialogData.value.rowData!.varsJson);
+    const request = deepCopy(dialogData.value.rowData!) as Backup.BackupOperate;
+    encodeBase64Fields(request, ['accessKey', 'credential']);
+    const isPublic = !!dialogData.value.rowData!.isPublic;
     loading.value = true;
+    let call: Promise<unknown>;
     if (dialogData.value.title === 'create') {
-        await rpc.core.backups.create(dialogData.value.rowData as any)
-            .then(() => {
-                loading.value = false;
-                MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
-                drawerVisible.value = false;
-            })
-            .catch(() => {
-                loading.value = false;
-            });
-        return;
+        call = isPublic ? rpc.core.backups.create(request) : rpc.backup.createBackupAccount(request);
+    } else {
+        call = isPublic ? rpc.core.backups.update(request) : rpc.backup.updateBackupAccount(request);
     }
-    await rpc.core.backups.update(dialogData.value.rowData as any)
+    await call
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

@@ -14,7 +14,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file panel/agent/v1/backup.proto.
  */
 export const file_panel_agent_v1_backup: GenFile = /*@__PURE__*/
-  fileDesc("ChtwYW5lbC9hZ2VudC92MS9iYWNrdXAucHJvdG8SDnBhbmVsLmFnZW50LnYxInkKFFNlYXJjaEJhY2t1cHNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAESFQoEaW5mbxgDIAEoCUIHukgEcgIYQBIVCgR0eXBlGAQgASgJQge6SARyAhggIk0KFVNlYXJjaEJhY2t1cHNSZXNwb25zZRIlCgVpdGVtcxgBIAMoCzIWLnBhbmVsLmFnZW50LnYxLkJhY2t1cBINCgV0b3RhbBgCIAEoAyKhAQoGQmFja3VwEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSDAoEdHlwZRgDIAEoCRIRCglpc19wdWJsaWMYBCABKAgSDgoGYnVja2V0GAUgASgJEhMKC2JhY2t1cF9wYXRoGAYgASgJEgwKBHZhcnMYByABKAkSEgoKY3JlYXRlZF9hdBgIIAEoCRIVCg1yZW1lbWJlcl9hdXRoGAkgASgIMnAKDUJhY2t1cFNlcnZpY2USXwoGU2VhcmNoEiQucGFuZWwuYWdlbnQudjEuU2VhcmNoQmFja3Vwc1JlcXVlc3QaJS5wYW5lbC5hZ2VudC52MS5TZWFyY2hCYWNrdXBzUmVzcG9uc2UiCIq1GAQYATABQi1aK215cGFuZWwvcHJvdG8vZ2VuL2dvL3BhbmVsL2FnZW50L3YxO2FnZW50djFiBnByb3RvMw", [file_buf_validate_validate, file_panel_common_v1_options]);
+  fileDesc("ChtwYW5lbC9hZ2VudC92MS9iYWNrdXAucHJvdG8SDnBhbmVsLmFnZW50LnYxInkKFFNlYXJjaEJhY2t1cHNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAESFQoEaW5mbxgDIAEoCUIHukgEcgIYQBIVCgR0eXBlGAQgASgJQge6SARyAhggIk0KFVNlYXJjaEJhY2t1cHNSZXNwb25zZRIlCgVpdGVtcxgBIAMoCzIWLnBhbmVsLmFnZW50LnYxLkJhY2t1cBINCgV0b3RhbBgCIAEoAyKhAQoGQmFja3VwEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSDAoEdHlwZRgDIAEoCRIRCglpc19wdWJsaWMYBCABKAgSDgoGYnVja2V0GAUgASgJEhMKC2JhY2t1cF9wYXRoGAYgASgJEgwKBHZhcnMYByABKAkSEgoKY3JlYXRlZF9hdBgIIAEoCRIVCg1yZW1lbWJlcl9hdXRoGAkgASgIIs4BCg1CYWNrdXBPcGVyYXRlEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSFQoEdHlwZRgDIAEoCUIHukgEcgIQARIRCglpc19wdWJsaWMYBCABKAgSDgoGYnVja2V0GAUgASgJEhIKCmFjY2Vzc19rZXkYBiABKAkSEgoKY3JlZGVudGlhbBgHIAEoCRITCgtiYWNrdXBfcGF0aBgIIAEoCRIVCgR2YXJzGAkgASgJQge6SARyAhABEhUKDXJlbWVtYmVyX2F1dGgYCiABKAgiPgoRQmFja3VwQ2hlY2tSZXN1bHQSDQoFaXNfb2sYASABKAgSCwoDbXNnGAIgASgJEg0KBXRva2VuGAMgASgJIi8KFkNoZWNrQmFja3VwVXNlZFJlcXVlc3QSFQoEbmFtZRgBIAEoCUIHukgEcgIQASIZChdDaGVja0JhY2t1cFVzZWRSZXNwb25zZSIdChtDcmVhdGVCYWNrdXBBY2NvdW50UmVzcG9uc2UiHQobVXBkYXRlQmFja3VwQWNjb3VudFJlc3BvbnNlIjEKGkRlbGV0ZUJhY2t1cEFjY291bnRSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIh0KG0RlbGV0ZUJhY2t1cEFjY291bnRSZXNwb25zZSIwChlSZWZyZXNoQmFja3VwVG9rZW5SZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIhwKGlJlZnJlc2hCYWNrdXBUb2tlblJlc3BvbnNlImEKEkxpc3RCdWNrZXRzUmVxdWVzdBIVCgR0eXBlGAEgASgJQge6SARyAhABEhIKCmFjY2Vzc19rZXkYAiABKAkSEgoKY3JlZGVudGlhbBgDIAEoCRIMCgR2YXJzGAQgASgJIiQKE0xpc3RCdWNrZXRzUmVzcG9uc2USDQoFaXRlbXMYASADKAkiGgoYTG9hZEJhY2t1cE9wdGlvbnNSZXF1ZXN0IkgKGUxvYWRCYWNrdXBPcHRpb25zUmVzcG9uc2USKwoFaXRlbXMYASADKAsyHC5wYW5lbC5hZ2VudC52MS5CYWNrdXBPcHRpb24iSQoMQmFja3VwT3B0aW9uEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSDAoEdHlwZRgDIAEoCRIRCglpc19wdWJsaWMYBCABKAgiGgoYR2V0TG9jYWxCYWNrdXBEaXJSZXF1ZXN0IigKGUdldExvY2FsQmFja3VwRGlyUmVzcG9uc2USCwoDZGlyGAEgASgJIkAKF1VwbG9hZEZvclJlY292ZXJSZXF1ZXN0EhEKCWZpbGVfcGF0aBgBIAEoCRISCgp0YXJnZXRfZGlyGAIgASgJIhoKGFVwbG9hZEZvclJlY292ZXJSZXNwb25zZSKLAQoaU2VhcmNoQmFja3VwUmVjb3Jkc1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIVCgR0eXBlGAMgASgJQge6SARyAhABEgwKBG5hbWUYBCABKAkSEwoLZGV0YWlsX25hbWUYBSABKAkidwojU2VhcmNoQmFja3VwUmVjb3Jkc0J5Q3JvbmpvYlJlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIbCgpjcm9uam9iX2lkGAMgASgNQge6SAQqAiAAIlgKFUJhY2t1cFJlY29yZHNSZXNwb25zZRIwCgVpdGVtcxgBIAMoCzIhLnBhbmVsLmFnZW50LnYxLkJhY2t1cFJlY29yZEVudHJ5Eg0KBXRvdGFsGAIgASgDIugBChFCYWNrdXBSZWNvcmRFbnRyeRIKCgJpZBgBIAEoDRISCgpjcmVhdGVkX2F0GAIgASgJEhQKDGFjY291bnRfdHlwZRgDIAEoCRIUCgxhY2NvdW50X25hbWUYBCABKAkSGwoTZG93bmxvYWRfYWNjb3VudF9pZBgFIAEoDRIQCghmaWxlX2RpchgGIAEoCRIRCglmaWxlX25hbWUYByABKAkSDwoHdGFza19pZBgIIAEoCRIOCgZzdGF0dXMYCSABKAkSDwoHbWVzc2FnZRgKIAEoCRITCgtkZXNjcmlwdGlvbhgLIAEoCSLJAQoVTG9hZFJlY29yZFNpemVSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAESFQoEdHlwZRgDIAEoCUIHukgEcgIQARIMCgRuYW1lGAQgASgJEhMKC2RldGFpbF9uYW1lGAUgASgJEgwKBGluZm8YBiABKAkSEgoKY3JvbmpvYl9pZBgHIAEoDRIQCghvcmRlcl9ieRgIIAEoCRINCgVvcmRlchgJIAEoCSJHChZMb2FkUmVjb3JkU2l6ZVJlc3BvbnNlEi0KBWl0ZW1zGAEgAygLMh4ucGFuZWwuYWdlbnQudjEuUmVjb3JkRmlsZVNpemUiOAoOUmVjb3JkRmlsZVNpemUSCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCRIMCgRzaXplGAMgASgDInoKG0Rvd25sb2FkQmFja3VwUmVjb3JkUmVxdWVzdBIkChNkb3dubG9hZF9hY2NvdW50X2lkGAEgASgNQge6SAQqAiAAEhkKCGZpbGVfZGlyGAIgASgJQge6SARyAhABEhoKCWZpbGVfbmFtZRgDIAEoCUIHukgEcgIQASIsChxEb3dubG9hZEJhY2t1cFJlY29yZFJlc3BvbnNlEgwKBHBhdGgYASABKAkiVAoeVXBkYXRlUmVjb3JkRGVzY3JpcHRpb25SZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAEh0KC2Rlc2NyaXB0aW9uGAIgASgJQgi6SAVyAxiAAiIhCh9VcGRhdGVSZWNvcmREZXNjcmlwdGlvblJlc3BvbnNlIjMKGkRlbGV0ZUJhY2t1cFJlY29yZHNSZXF1ZXN0EhUKA2lkcxgBIAMoDUIIukgFkgECCAEiHQobRGVsZXRlQmFja3VwUmVjb3Jkc1Jlc3BvbnNlIi0KFkxpc3RCYWNrdXBGaWxlc1JlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAAiKAoXTGlzdEJhY2t1cEZpbGVzUmVzcG9uc2USDQoFZmlsZXMYASADKAki0QIKEUJhY2t1cERhdGFSZXF1ZXN0EpYBCgR0eXBlGAEgASgJQocBukiDAXKAAVIDYXBwUgVteXNxbFIHbWFyaWFkYlIFcmVkaXNSB3dlYnNpdGVSCnBvc3RncmVzcWxSB21vbmdvZGJSDW15c3FsLWNsdXN0ZXJSEnBvc3RncmVzcWwtY2x1c3RlclINcmVkaXMtY2x1c3RlclIJY29udGFpbmVyUgdjb21wb3NlEgwKBG5hbWUYAiABKAkSEwoLZGV0YWlsX25hbWUYAyABKAkSDgoGc2VjcmV0GAQgASgJEhQKDGlzX2ltbWVkaWF0ZRgFIAEoCBITCgtzdG9wX2JlZm9yZRgGIAEoCBIPCgd0YXNrX2lkGAcgASgJEhEKCWZpbGVfbmFtZRgIIAEoCRIMCgRhcmdzGAkgAygJEhMKC2Rlc2NyaXB0aW9uGAogASgJIikKEkJhY2t1cERhdGFSZXNwb25zZRITCgtyZWNvcmRfanNvbhgBIAEoCSLuAgoSUmVjb3ZlckRhdGFSZXF1ZXN0EiQKE2Rvd25sb2FkX2FjY291bnRfaWQYASABKA1CB7pIBCoCIAASlgEKBHR5cGUYAiABKAlChwG6SIMBcoABUgNhcHBSBW15c3FsUgdtYXJpYWRiUgVyZWRpc1IHd2Vic2l0ZVIKcG9zdGdyZXNxbFIHbW9uZ29kYlINbXlzcWwtY2x1c3RlclIScG9zdGdyZXNxbC1jbHVzdGVyUg1yZWRpcy1jbHVzdGVyUgljb250YWluZXJSB2NvbXBvc2USDAoEbmFtZRgDIAEoCRITCgtkZXRhaWxfbmFtZRgEIAEoCRIMCgRmaWxlGAUgASgJEg4KBnNlY3JldBgGIAEoCRIcChRkcm9wX2FsbF9jb2xsZWN0aW9ucxgHIAEoCBIPCgd0YXNrX2lkGAggASgJEhgKEGJhY2t1cF9yZWNvcmRfaWQYCSABKA0SDwoHdGltZW91dBgKIAEoBSIVChNSZWNvdmVyRGF0YVJlc3BvbnNlMt8VCg1CYWNrdXBTZXJ2aWNlEl8KBlNlYXJjaBIkLnBhbmVsLmFnZW50LnYxLlNlYXJjaEJhY2t1cHNSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuU2VhcmNoQmFja3Vwc1Jlc3BvbnNlIgiKtRgEGAEwARJsCg9DaGVja0JhY2t1cFVzZWQSJi5wYW5lbC5hZ2VudC52MS5DaGVja0JhY2t1cFVzZWRSZXF1ZXN0GicucGFuZWwuYWdlbnQudjEuQ2hlY2tCYWNrdXBVc2VkUmVzcG9uc2UiCIq1GAQYATABEl0KD0NoZWNrQmFja3VwQ29ubhIdLnBhbmVsLmFnZW50LnYxLkJhY2t1cE9wZXJhdGUaIS5wYW5lbC5hZ2VudC52MS5CYWNrdXBDaGVja1Jlc3VsdCIIirUYBBgBMAESkgEKE0NyZWF0ZUJhY2t1cEFjY291bnQSHS5wYW5lbC5hZ2VudC52MS5CYWNrdXBPcGVyYXRlGisucGFuZWwuYWdlbnQudjEuQ3JlYXRlQmFja3VwQWNjb3VudFJlc3BvbnNlIi+KtRgrIhLliJvlu7rlpIfku73otKblj7cqFUNyZWF0ZSBiYWNrdXAgYWNjb3VudBKSAQoTVXBkYXRlQmFja3VwQWNjb3VudBIdLnBhbmVsLmFnZW50LnYxLkJhY2t1cE9wZXJhdGUaKy5wYW5lbC5hZ2VudC52MS5VcGRhdGVCYWNrdXBBY2NvdW50UmVzcG9uc2UiL4q1GCsiEuabtOaWsOWkh+S7vei0puWPtyoVVXBkYXRlIGJhY2t1cCBhY2NvdW50Ep8BChNEZWxldGVCYWNrdXBBY2NvdW50EioucGFuZWwuYWdlbnQudjEuRGVsZXRlQmFja3VwQWNjb3VudFJlcXVlc3QaKy5wYW5lbC5hZ2VudC52MS5EZWxldGVCYWNrdXBBY2NvdW50UmVzcG9uc2UiL4q1GCsiEuWIoOmZpOWkh+S7vei0puWPtyoVRGVsZXRlIGJhY2t1cCBhY2NvdW50EpsBChJSZWZyZXNoQmFja3VwVG9rZW4SKS5wYW5lbC5hZ2VudC52MS5SZWZyZXNoQmFja3VwVG9rZW5SZXF1ZXN0GioucGFuZWwuYWdlbnQudjEuUmVmcmVzaEJhY2t1cFRva2VuUmVzcG9uc2UiLoq1GCoiEuWIt+aWsOWkh+S7veS7pOeJjCoUUmVmcmVzaCBiYWNrdXAgdG9rZW4SYAoLTGlzdEJ1Y2tldHMSIi5wYW5lbC5hZ2VudC52MS5MaXN0QnVja2V0c1JlcXVlc3QaIy5wYW5lbC5hZ2VudC52MS5MaXN0QnVja2V0c1Jlc3BvbnNlIgiKtRgEGAEwARJyChFMb2FkQmFja3VwT3B0aW9ucxIoLnBhbmVsLmFnZW50LnYxLkxvYWRCYWNrdXBPcHRpb25zUmVxdWVzdBopLnBhbmVsLmFnZW50LnYxLkxvYWRCYWNrdXBPcHRpb25zUmVzcG9uc2UiCIq1GAQYATABEnIKEUdldExvY2FsQmFja3VwRGlyEigucGFuZWwuYWdlbnQudjEuR2V0TG9jYWxCYWNrdXBEaXJSZXF1ZXN0GikucGFuZWwuYWdlbnQudjEuR2V0TG9jYWxCYWNrdXBEaXJSZXNwb25zZSIIirUYBBgBMAESkwEKEFVwbG9hZEZvclJlY292ZXISJy5wYW5lbC5hZ2VudC52MS5VcGxvYWRGb3JSZWNvdmVyUmVxdWVzdBooLnBhbmVsLmFnZW50LnYxLlVwbG9hZEZvclJlY292ZXJSZXNwb25zZSIsirUYKCIS5LiK5Lyg5aSH5Lu95paH5Lu2KhJVcGxvYWQgYmFja3VwIGZpbGUScgoTU2VhcmNoQmFja3VwUmVjb3JkcxIqLnBhbmVsLmFnZW50LnYxLlNlYXJjaEJhY2t1cFJlY29yZHNSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuQmFja3VwUmVjb3Jkc1Jlc3BvbnNlIgiKtRgEGAEwARKEAQocU2VhcmNoQmFja3VwUmVjb3Jkc0J5Q3JvbmpvYhIzLnBhbmVsLmFnZW50LnYxLlNlYXJjaEJhY2t1cFJlY29yZHNCeUNyb25qb2JSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuQmFja3VwUmVjb3Jkc1Jlc3BvbnNlIgiKtRgEGAEwARJpCg5Mb2FkUmVjb3JkU2l6ZRIlLnBhbmVsLmFnZW50LnYxLkxvYWRSZWNvcmRTaXplUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLkxvYWRSZWNvcmRTaXplUmVzcG9uc2UiCIq1GAQYATABEqMBChREb3dubG9hZEJhY2t1cFJlY29yZBIrLnBhbmVsLmFnZW50LnYxLkRvd25sb2FkQmFja3VwUmVjb3JkUmVxdWVzdBosLnBhbmVsLmFnZW50LnYxLkRvd25sb2FkQmFja3VwUmVjb3JkUmVzcG9uc2UiMIq1GCwiEuS4i+i9veWkh+S7veiusOW9lSoWRG93bmxvYWQgYmFja3VwIHJlY29yZBKvAQoXVXBkYXRlUmVjb3JkRGVzY3JpcHRpb24SLi5wYW5lbC5hZ2VudC52MS5VcGRhdGVSZWNvcmREZXNjcmlwdGlvblJlcXVlc3QaLy5wYW5lbC5hZ2VudC52MS5VcGRhdGVSZWNvcmREZXNjcmlwdGlvblJlc3BvbnNlIjOKtRgvIhLmm7TmlrDlpIfku73mj4/ov7AqGVVwZGF0ZSBiYWNrdXAgZGVzY3JpcHRpb24SnwEKE0RlbGV0ZUJhY2t1cFJlY29yZHMSKi5wYW5lbC5hZ2VudC52MS5EZWxldGVCYWNrdXBSZWNvcmRzUmVxdWVzdBorLnBhbmVsLmFnZW50LnYxLkRlbGV0ZUJhY2t1cFJlY29yZHNSZXNwb25zZSIvirUYKyIS5Yig6Zmk5aSH5Lu96K6w5b2VKhVEZWxldGUgYmFja3VwIHJlY29yZHMSbAoPTGlzdEJhY2t1cEZpbGVzEiYucGFuZWwuYWdlbnQudjEuTGlzdEJhY2t1cEZpbGVzUmVxdWVzdBonLnBhbmVsLmFnZW50LnYxLkxpc3RCYWNrdXBGaWxlc1Jlc3BvbnNlIgiKtRgEGAEwARJ0CgpCYWNrdXBEYXRhEiEucGFuZWwuYWdlbnQudjEuQmFja3VwRGF0YVJlcXVlc3QaIi5wYW5lbC5hZ2VudC52MS5CYWNrdXBEYXRhUmVzcG9uc2UiH4q1GBsiDOWkh+S7veaVsOaNrioLQmFja3VwIGRhdGESeAoLUmVjb3ZlckRhdGESIi5wYW5lbC5hZ2VudC52MS5SZWNvdmVyRGF0YVJlcXVlc3QaIy5wYW5lbC5hZ2VudC52MS5SZWNvdmVyRGF0YVJlc3BvbnNlIiCKtRgcIgzmgaLlpI3mlbDmja4qDFJlY292ZXIgZGF0YRKXAQoPUmVjb3ZlckJ5VXBsb2FkEiIucGFuZWwuYWdlbnQudjEuUmVjb3ZlckRhdGFSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuUmVjb3ZlckRhdGFSZXNwb25zZSI7irUYNyIb5LuO5LiK5Lyg5paH5Lu25oGi5aSN5pWw5o2uKhhSZWNvdmVyIGRhdGEgZnJvbSB1cGxvYWRCLVorbXlwYW5lbC9wcm90by9nZW4vZ28vcGFuZWwvYWdlbnQvdjE7YWdlbnR2MWIGcHJvdG8z", [file_buf_validate_validate, file_panel_common_v1_options]);
 
 /**
  * SearchBackupsRequest 是备份账号查询参数。
@@ -164,6 +164,1200 @@ export const BackupSchema: GenMessage<Backup> = /*@__PURE__*/
   messageDesc(file_panel_agent_v1_backup, 2);
 
 /**
+ * BackupOperate 是备份账号的创建/更新/连通性检查参数。
+ *
+ * @generated from message panel.agent.v1.BackupOperate
+ */
+export type BackupOperate = Message<"panel.agent.v1.BackupOperate"> & {
+  /**
+   * 账号 ID；创建时为 0。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 账号名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * 账号类型，例如 S3、SFTP、Local。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
+
+  /**
+   * 是否公开。
+   *
+   * @generated from field: bool is_public = 4;
+   */
+  isPublic: boolean;
+
+  /**
+   * 存储桶名称。
+   *
+   * @generated from field: string bucket = 5;
+   */
+  bucket: string;
+
+  /**
+   * 访问密钥。
+   *
+   * @generated from field: string access_key = 6;
+   */
+  accessKey: string;
+
+  /**
+   * 凭据。
+   *
+   * @generated from field: string credential = 7;
+   */
+  credential: string;
+
+  /**
+   * 备份路径。
+   *
+   * @generated from field: string backup_path = 8;
+   */
+  backupPath: string;
+
+  /**
+   * 类型专属配置（JSON 字符串）。
+   *
+   * @generated from field: string vars = 9;
+   */
+  vars: string;
+
+  /**
+   * 是否记住认证信息。
+   *
+   * @generated from field: bool remember_auth = 10;
+   */
+  rememberAuth: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.BackupOperate.
+ * Use `create(BackupOperateSchema)` to create a new message.
+ */
+export const BackupOperateSchema: GenMessage<BackupOperate> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 3);
+
+/**
+ * BackupCheckResult 是连通性检查结果。
+ *
+ * @generated from message panel.agent.v1.BackupCheckResult
+ */
+export type BackupCheckResult = Message<"panel.agent.v1.BackupCheckResult"> & {
+  /**
+   * 是否可用。
+   *
+   * @generated from field: bool is_ok = 1;
+   */
+  isOk: boolean;
+
+  /**
+   * 检查说明。
+   *
+   * @generated from field: string msg = 2;
+   */
+  msg: string;
+
+  /**
+   * 刷新得到的令牌。
+   *
+   * @generated from field: string token = 3;
+   */
+  token: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.BackupCheckResult.
+ * Use `create(BackupCheckResultSchema)` to create a new message.
+ */
+export const BackupCheckResultSchema: GenMessage<BackupCheckResult> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 4);
+
+/**
+ * CheckBackupUsedRequest 是账号引用检查参数。
+ *
+ * @generated from message panel.agent.v1.CheckBackupUsedRequest
+ */
+export type CheckBackupUsedRequest = Message<"panel.agent.v1.CheckBackupUsedRequest"> & {
+  /**
+   * 账号名称。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.CheckBackupUsedRequest.
+ * Use `create(CheckBackupUsedRequestSchema)` to create a new message.
+ */
+export const CheckBackupUsedRequestSchema: GenMessage<CheckBackupUsedRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 5);
+
+/**
+ * CheckBackupUsedResponse 是检查结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CheckBackupUsedResponse
+ */
+export type CheckBackupUsedResponse = Message<"panel.agent.v1.CheckBackupUsedResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CheckBackupUsedResponse.
+ * Use `create(CheckBackupUsedResponseSchema)` to create a new message.
+ */
+export const CheckBackupUsedResponseSchema: GenMessage<CheckBackupUsedResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 6);
+
+/**
+ * CreateBackupAccountResponse 是创建结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CreateBackupAccountResponse
+ */
+export type CreateBackupAccountResponse = Message<"panel.agent.v1.CreateBackupAccountResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateBackupAccountResponse.
+ * Use `create(CreateBackupAccountResponseSchema)` to create a new message.
+ */
+export const CreateBackupAccountResponseSchema: GenMessage<CreateBackupAccountResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 7);
+
+/**
+ * UpdateBackupAccountResponse 是更新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateBackupAccountResponse
+ */
+export type UpdateBackupAccountResponse = Message<"panel.agent.v1.UpdateBackupAccountResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateBackupAccountResponse.
+ * Use `create(UpdateBackupAccountResponseSchema)` to create a new message.
+ */
+export const UpdateBackupAccountResponseSchema: GenMessage<UpdateBackupAccountResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 8);
+
+/**
+ * DeleteBackupAccountRequest 是删除账号参数。
+ *
+ * @generated from message panel.agent.v1.DeleteBackupAccountRequest
+ */
+export type DeleteBackupAccountRequest = Message<"panel.agent.v1.DeleteBackupAccountRequest"> & {
+  /**
+   * 账号 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteBackupAccountRequest.
+ * Use `create(DeleteBackupAccountRequestSchema)` to create a new message.
+ */
+export const DeleteBackupAccountRequestSchema: GenMessage<DeleteBackupAccountRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 9);
+
+/**
+ * DeleteBackupAccountResponse 是删除结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.DeleteBackupAccountResponse
+ */
+export type DeleteBackupAccountResponse = Message<"panel.agent.v1.DeleteBackupAccountResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteBackupAccountResponse.
+ * Use `create(DeleteBackupAccountResponseSchema)` to create a new message.
+ */
+export const DeleteBackupAccountResponseSchema: GenMessage<DeleteBackupAccountResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 10);
+
+/**
+ * RefreshBackupTokenRequest 是令牌刷新参数。
+ *
+ * @generated from message panel.agent.v1.RefreshBackupTokenRequest
+ */
+export type RefreshBackupTokenRequest = Message<"panel.agent.v1.RefreshBackupTokenRequest"> & {
+  /**
+   * 账号 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.RefreshBackupTokenRequest.
+ * Use `create(RefreshBackupTokenRequestSchema)` to create a new message.
+ */
+export const RefreshBackupTokenRequestSchema: GenMessage<RefreshBackupTokenRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 11);
+
+/**
+ * RefreshBackupTokenResponse 是刷新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.RefreshBackupTokenResponse
+ */
+export type RefreshBackupTokenResponse = Message<"panel.agent.v1.RefreshBackupTokenResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.RefreshBackupTokenResponse.
+ * Use `create(RefreshBackupTokenResponseSchema)` to create a new message.
+ */
+export const RefreshBackupTokenResponseSchema: GenMessage<RefreshBackupTokenResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 12);
+
+/**
+ * ListBucketsRequest 是存储桶查询参数。
+ *
+ * @generated from message panel.agent.v1.ListBucketsRequest
+ */
+export type ListBucketsRequest = Message<"panel.agent.v1.ListBucketsRequest"> & {
+  /**
+   * 账号类型。
+   *
+   * @generated from field: string type = 1;
+   */
+  type: string;
+
+  /**
+   * 访问密钥。
+   *
+   * @generated from field: string access_key = 2;
+   */
+  accessKey: string;
+
+  /**
+   * 凭据。
+   *
+   * @generated from field: string credential = 3;
+   */
+  credential: string;
+
+  /**
+   * 类型专属配置（JSON 字符串）。
+   *
+   * @generated from field: string vars = 4;
+   */
+  vars: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.ListBucketsRequest.
+ * Use `create(ListBucketsRequestSchema)` to create a new message.
+ */
+export const ListBucketsRequestSchema: GenMessage<ListBucketsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 13);
+
+/**
+ * ListBucketsResponse 是存储桶列表。
+ *
+ * @generated from message panel.agent.v1.ListBucketsResponse
+ */
+export type ListBucketsResponse = Message<"panel.agent.v1.ListBucketsResponse"> & {
+  /**
+   * 存储桶名称。
+   *
+   * @generated from field: repeated string items = 1;
+   */
+  items: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.ListBucketsResponse.
+ * Use `create(ListBucketsResponseSchema)` to create a new message.
+ */
+export const ListBucketsResponseSchema: GenMessage<ListBucketsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 14);
+
+/**
+ * LoadBackupOptionsRequest 是备份账号下拉查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.LoadBackupOptionsRequest
+ */
+export type LoadBackupOptionsRequest = Message<"panel.agent.v1.LoadBackupOptionsRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.LoadBackupOptionsRequest.
+ * Use `create(LoadBackupOptionsRequestSchema)` to create a new message.
+ */
+export const LoadBackupOptionsRequestSchema: GenMessage<LoadBackupOptionsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 15);
+
+/**
+ * LoadBackupOptionsResponse 是备份账号下拉列表。
+ *
+ * @generated from message panel.agent.v1.LoadBackupOptionsResponse
+ */
+export type LoadBackupOptionsResponse = Message<"panel.agent.v1.LoadBackupOptionsResponse"> & {
+  /**
+   * 可选账号。
+   *
+   * @generated from field: repeated panel.agent.v1.BackupOption items = 1;
+   */
+  items: BackupOption[];
+};
+
+/**
+ * Describes the message panel.agent.v1.LoadBackupOptionsResponse.
+ * Use `create(LoadBackupOptionsResponseSchema)` to create a new message.
+ */
+export const LoadBackupOptionsResponseSchema: GenMessage<LoadBackupOptionsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 16);
+
+/**
+ * BackupOption 是备份账号下拉项。
+ *
+ * @generated from message panel.agent.v1.BackupOption
+ */
+export type BackupOption = Message<"panel.agent.v1.BackupOption"> & {
+  /**
+   * 账号 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 账号名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * 账号类型。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
+
+  /**
+   * 是否公开。
+   *
+   * @generated from field: bool is_public = 4;
+   */
+  isPublic: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.BackupOption.
+ * Use `create(BackupOptionSchema)` to create a new message.
+ */
+export const BackupOptionSchema: GenMessage<BackupOption> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 17);
+
+/**
+ * GetLocalBackupDirRequest 是本地备份目录查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.GetLocalBackupDirRequest
+ */
+export type GetLocalBackupDirRequest = Message<"panel.agent.v1.GetLocalBackupDirRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.GetLocalBackupDirRequest.
+ * Use `create(GetLocalBackupDirRequestSchema)` to create a new message.
+ */
+export const GetLocalBackupDirRequestSchema: GenMessage<GetLocalBackupDirRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 18);
+
+/**
+ * GetLocalBackupDirResponse 是本地备份目录。
+ *
+ * @generated from message panel.agent.v1.GetLocalBackupDirResponse
+ */
+export type GetLocalBackupDirResponse = Message<"panel.agent.v1.GetLocalBackupDirResponse"> & {
+  /**
+   * 目录绝对路径。
+   *
+   * @generated from field: string dir = 1;
+   */
+  dir: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetLocalBackupDirResponse.
+ * Use `create(GetLocalBackupDirResponseSchema)` to create a new message.
+ */
+export const GetLocalBackupDirResponseSchema: GenMessage<GetLocalBackupDirResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 19);
+
+/**
+ * UploadForRecoverRequest 是上传备份登记参数。
+ *
+ * @generated from message panel.agent.v1.UploadForRecoverRequest
+ */
+export type UploadForRecoverRequest = Message<"panel.agent.v1.UploadForRecoverRequest"> & {
+  /**
+   * 已上传文件的路径。
+   *
+   * @generated from field: string file_path = 1;
+   */
+  filePath: string;
+
+  /**
+   * 目标目录。
+   *
+   * @generated from field: string target_dir = 2;
+   */
+  targetDir: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UploadForRecoverRequest.
+ * Use `create(UploadForRecoverRequestSchema)` to create a new message.
+ */
+export const UploadForRecoverRequestSchema: GenMessage<UploadForRecoverRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 20);
+
+/**
+ * UploadForRecoverResponse 是登记结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UploadForRecoverResponse
+ */
+export type UploadForRecoverResponse = Message<"panel.agent.v1.UploadForRecoverResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UploadForRecoverResponse.
+ * Use `create(UploadForRecoverResponseSchema)` to create a new message.
+ */
+export const UploadForRecoverResponseSchema: GenMessage<UploadForRecoverResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 21);
+
+/**
+ * SearchBackupRecordsRequest 是备份记录查询参数。
+ *
+ * @generated from message panel.agent.v1.SearchBackupRecordsRequest
+ */
+export type SearchBackupRecordsRequest = Message<"panel.agent.v1.SearchBackupRecordsRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+
+  /**
+   * 备份类型。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
+
+  /**
+   * 资源名称。
+   *
+   * @generated from field: string name = 4;
+   */
+  name: string;
+
+  /**
+   * 资源子名称。
+   *
+   * @generated from field: string detail_name = 5;
+   */
+  detailName: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchBackupRecordsRequest.
+ * Use `create(SearchBackupRecordsRequestSchema)` to create a new message.
+ */
+export const SearchBackupRecordsRequestSchema: GenMessage<SearchBackupRecordsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 22);
+
+/**
+ * SearchBackupRecordsByCronjobRequest 是按计划任务查询备份记录参数。
+ *
+ * @generated from message panel.agent.v1.SearchBackupRecordsByCronjobRequest
+ */
+export type SearchBackupRecordsByCronjobRequest = Message<"panel.agent.v1.SearchBackupRecordsByCronjobRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+
+  /**
+   * 计划任务 ID。
+   *
+   * @generated from field: uint32 cronjob_id = 3;
+   */
+  cronjobId: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchBackupRecordsByCronjobRequest.
+ * Use `create(SearchBackupRecordsByCronjobRequestSchema)` to create a new message.
+ */
+export const SearchBackupRecordsByCronjobRequestSchema: GenMessage<SearchBackupRecordsByCronjobRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 23);
+
+/**
+ * BackupRecordsResponse 是备份记录列表结果。
+ *
+ * @generated from message panel.agent.v1.BackupRecordsResponse
+ */
+export type BackupRecordsResponse = Message<"panel.agent.v1.BackupRecordsResponse"> & {
+  /**
+   * 当前页记录。
+   *
+   * @generated from field: repeated panel.agent.v1.BackupRecordEntry items = 1;
+   */
+  items: BackupRecordEntry[];
+
+  /**
+   * 符合条件的记录总数。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.BackupRecordsResponse.
+ * Use `create(BackupRecordsResponseSchema)` to create a new message.
+ */
+export const BackupRecordsResponseSchema: GenMessage<BackupRecordsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 24);
+
+/**
+ * BackupRecordEntry 是一条备份记录。
+ *
+ * @generated from message panel.agent.v1.BackupRecordEntry
+ */
+export type BackupRecordEntry = Message<"panel.agent.v1.BackupRecordEntry"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 2;
+   */
+  createdAt: string;
+
+  /**
+   * 备份账号类型。
+   *
+   * @generated from field: string account_type = 3;
+   */
+  accountType: string;
+
+  /**
+   * 备份账号名称。
+   *
+   * @generated from field: string account_name = 4;
+   */
+  accountName: string;
+
+  /**
+   * 下载账号 ID。
+   *
+   * @generated from field: uint32 download_account_id = 5;
+   */
+  downloadAccountId: number;
+
+  /**
+   * 文件目录。
+   *
+   * @generated from field: string file_dir = 6;
+   */
+  fileDir: string;
+
+  /**
+   * 文件名。
+   *
+   * @generated from field: string file_name = 7;
+   */
+  fileName: string;
+
+  /**
+   * 关联任务 ID。
+   *
+   * @generated from field: string task_id = 8;
+   */
+  taskId: string;
+
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 9;
+   */
+  status: string;
+
+  /**
+   * 状态说明。
+   *
+   * @generated from field: string message = 10;
+   */
+  message: string;
+
+  /**
+   * 描述。
+   *
+   * @generated from field: string description = 11;
+   */
+  description: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.BackupRecordEntry.
+ * Use `create(BackupRecordEntrySchema)` to create a new message.
+ */
+export const BackupRecordEntrySchema: GenMessage<BackupRecordEntry> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 25);
+
+/**
+ * LoadRecordSizeRequest 是备份记录大小统计参数。
+ *
+ * @generated from message panel.agent.v1.LoadRecordSizeRequest
+ */
+export type LoadRecordSizeRequest = Message<"panel.agent.v1.LoadRecordSizeRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+
+  /**
+   * 备份类型。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
+
+  /**
+   * 资源名称。
+   *
+   * @generated from field: string name = 4;
+   */
+  name: string;
+
+  /**
+   * 资源子名称。
+   *
+   * @generated from field: string detail_name = 5;
+   */
+  detailName: string;
+
+  /**
+   * 关键字。
+   *
+   * @generated from field: string info = 6;
+   */
+  info: string;
+
+  /**
+   * 计划任务 ID。
+   *
+   * @generated from field: uint32 cronjob_id = 7;
+   */
+  cronjobId: number;
+
+  /**
+   * 排序字段。
+   *
+   * @generated from field: string order_by = 8;
+   */
+  orderBy: string;
+
+  /**
+   * 排序方向。
+   *
+   * @generated from field: string order = 9;
+   */
+  order: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.LoadRecordSizeRequest.
+ * Use `create(LoadRecordSizeRequestSchema)` to create a new message.
+ */
+export const LoadRecordSizeRequestSchema: GenMessage<LoadRecordSizeRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 26);
+
+/**
+ * LoadRecordSizeResponse 是备份记录大小结果。
+ *
+ * @generated from message panel.agent.v1.LoadRecordSizeResponse
+ */
+export type LoadRecordSizeResponse = Message<"panel.agent.v1.LoadRecordSizeResponse"> & {
+  /**
+   * 各记录的大小。
+   *
+   * @generated from field: repeated panel.agent.v1.RecordFileSize items = 1;
+   */
+  items: RecordFileSize[];
+};
+
+/**
+ * Describes the message panel.agent.v1.LoadRecordSizeResponse.
+ * Use `create(LoadRecordSizeResponseSchema)` to create a new message.
+ */
+export const LoadRecordSizeResponseSchema: GenMessage<LoadRecordSizeResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 27);
+
+/**
+ * RecordFileSize 是一条备份记录的大小。
+ *
+ * @generated from message panel.agent.v1.RecordFileSize
+ */
+export type RecordFileSize = Message<"panel.agent.v1.RecordFileSize"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 记录名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * 大小，单位字节。
+   *
+   * @generated from field: int64 size = 3;
+   */
+  size: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.RecordFileSize.
+ * Use `create(RecordFileSizeSchema)` to create a new message.
+ */
+export const RecordFileSizeSchema: GenMessage<RecordFileSize> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 28);
+
+/**
+ * DownloadBackupRecordRequest 是备份记录下载路径查询参数。
+ *
+ * @generated from message panel.agent.v1.DownloadBackupRecordRequest
+ */
+export type DownloadBackupRecordRequest = Message<"panel.agent.v1.DownloadBackupRecordRequest"> & {
+  /**
+   * 下载账号 ID。
+   *
+   * @generated from field: uint32 download_account_id = 1;
+   */
+  downloadAccountId: number;
+
+  /**
+   * 文件目录。
+   *
+   * @generated from field: string file_dir = 2;
+   */
+  fileDir: string;
+
+  /**
+   * 文件名。
+   *
+   * @generated from field: string file_name = 3;
+   */
+  fileName: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.DownloadBackupRecordRequest.
+ * Use `create(DownloadBackupRecordRequestSchema)` to create a new message.
+ */
+export const DownloadBackupRecordRequestSchema: GenMessage<DownloadBackupRecordRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 29);
+
+/**
+ * DownloadBackupRecordResponse 是本地文件路径。
+ *
+ * @generated from message panel.agent.v1.DownloadBackupRecordResponse
+ */
+export type DownloadBackupRecordResponse = Message<"panel.agent.v1.DownloadBackupRecordResponse"> & {
+  /**
+   * 文件路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.DownloadBackupRecordResponse.
+ * Use `create(DownloadBackupRecordResponseSchema)` to create a new message.
+ */
+export const DownloadBackupRecordResponseSchema: GenMessage<DownloadBackupRecordResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 30);
+
+/**
+ * UpdateRecordDescriptionRequest 是描述更新参数。
+ *
+ * @generated from message panel.agent.v1.UpdateRecordDescriptionRequest
+ */
+export type UpdateRecordDescriptionRequest = Message<"panel.agent.v1.UpdateRecordDescriptionRequest"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 描述内容。
+   *
+   * @generated from field: string description = 2;
+   */
+  description: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateRecordDescriptionRequest.
+ * Use `create(UpdateRecordDescriptionRequestSchema)` to create a new message.
+ */
+export const UpdateRecordDescriptionRequestSchema: GenMessage<UpdateRecordDescriptionRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 31);
+
+/**
+ * UpdateRecordDescriptionResponse 是更新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateRecordDescriptionResponse
+ */
+export type UpdateRecordDescriptionResponse = Message<"panel.agent.v1.UpdateRecordDescriptionResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateRecordDescriptionResponse.
+ * Use `create(UpdateRecordDescriptionResponseSchema)` to create a new message.
+ */
+export const UpdateRecordDescriptionResponseSchema: GenMessage<UpdateRecordDescriptionResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 32);
+
+/**
+ * DeleteBackupRecordsRequest 是批量删除记录参数。
+ *
+ * @generated from message panel.agent.v1.DeleteBackupRecordsRequest
+ */
+export type DeleteBackupRecordsRequest = Message<"panel.agent.v1.DeleteBackupRecordsRequest"> & {
+  /**
+   * 记录 ID 列表。
+   *
+   * @generated from field: repeated uint32 ids = 1;
+   */
+  ids: number[];
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteBackupRecordsRequest.
+ * Use `create(DeleteBackupRecordsRequestSchema)` to create a new message.
+ */
+export const DeleteBackupRecordsRequestSchema: GenMessage<DeleteBackupRecordsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 33);
+
+/**
+ * DeleteBackupRecordsResponse 是删除结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.DeleteBackupRecordsResponse
+ */
+export type DeleteBackupRecordsResponse = Message<"panel.agent.v1.DeleteBackupRecordsResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteBackupRecordsResponse.
+ * Use `create(DeleteBackupRecordsResponseSchema)` to create a new message.
+ */
+export const DeleteBackupRecordsResponseSchema: GenMessage<DeleteBackupRecordsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 34);
+
+/**
+ * ListBackupFilesRequest 是账号文件列表参数。
+ *
+ * @generated from message panel.agent.v1.ListBackupFilesRequest
+ */
+export type ListBackupFilesRequest = Message<"panel.agent.v1.ListBackupFilesRequest"> & {
+  /**
+   * 备份账号 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.ListBackupFilesRequest.
+ * Use `create(ListBackupFilesRequestSchema)` to create a new message.
+ */
+export const ListBackupFilesRequestSchema: GenMessage<ListBackupFilesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 35);
+
+/**
+ * ListBackupFilesResponse 是账号文件列表。
+ *
+ * @generated from message panel.agent.v1.ListBackupFilesResponse
+ */
+export type ListBackupFilesResponse = Message<"panel.agent.v1.ListBackupFilesResponse"> & {
+  /**
+   * 文件名列表。
+   *
+   * @generated from field: repeated string files = 1;
+   */
+  files: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.ListBackupFilesResponse.
+ * Use `create(ListBackupFilesResponseSchema)` to create a new message.
+ */
+export const ListBackupFilesResponseSchema: GenMessage<ListBackupFilesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 36);
+
+/**
+ * BackupDataRequest 是数据备份参数。
+ *
+ * @generated from message panel.agent.v1.BackupDataRequest
+ */
+export type BackupDataRequest = Message<"panel.agent.v1.BackupDataRequest"> & {
+  /**
+   * 备份类型。
+   *
+   * @generated from field: string type = 1;
+   */
+  type: string;
+
+  /**
+   * 资源名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * 资源子名称。
+   *
+   * @generated from field: string detail_name = 3;
+   */
+  detailName: string;
+
+  /**
+   * 备份密码。
+   *
+   * @generated from field: string secret = 4;
+   */
+  secret: string;
+
+  /**
+   * 是否立即执行并返回记录。
+   *
+   * @generated from field: bool is_immediate = 5;
+   */
+  isImmediate: boolean;
+
+  /**
+   * 备份前是否停止服务。
+   *
+   * @generated from field: bool stop_before = 6;
+   */
+  stopBefore: boolean;
+
+  /**
+   * 前端生成的任务 ID。
+   *
+   * @generated from field: string task_id = 7;
+   */
+  taskId: string;
+
+  /**
+   * 备份文件名。
+   *
+   * @generated from field: string file_name = 8;
+   */
+  fileName: string;
+
+  /**
+   * 额外参数。
+   *
+   * @generated from field: repeated string args = 9;
+   */
+  args: string[];
+
+  /**
+   * 备份描述。
+   *
+   * @generated from field: string description = 10;
+   */
+  description: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.BackupDataRequest.
+ * Use `create(BackupDataRequestSchema)` to create a new message.
+ */
+export const BackupDataRequestSchema: GenMessage<BackupDataRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 37);
+
+/**
+ * BackupDataResponse 是备份启动结果。
+ *
+ * @generated from message panel.agent.v1.BackupDataResponse
+ */
+export type BackupDataResponse = Message<"panel.agent.v1.BackupDataResponse"> & {
+  /**
+   * 立即备份时返回的记录 JSON；异步备份为空。
+   *
+   * @generated from field: string record_json = 1;
+   */
+  recordJson: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.BackupDataResponse.
+ * Use `create(BackupDataResponseSchema)` to create a new message.
+ */
+export const BackupDataResponseSchema: GenMessage<BackupDataResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 38);
+
+/**
+ * RecoverDataRequest 是数据恢复参数。
+ *
+ * @generated from message panel.agent.v1.RecoverDataRequest
+ */
+export type RecoverDataRequest = Message<"panel.agent.v1.RecoverDataRequest"> & {
+  /**
+   * 下载账号 ID。
+   *
+   * @generated from field: uint32 download_account_id = 1;
+   */
+  downloadAccountId: number;
+
+  /**
+   * 恢复类型，取值与 BackupDataRequest.type 相同。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 资源名称。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
+
+  /**
+   * 资源子名称。
+   *
+   * @generated from field: string detail_name = 4;
+   */
+  detailName: string;
+
+  /**
+   * 备份文件路径。
+   *
+   * @generated from field: string file = 5;
+   */
+  file: string;
+
+  /**
+   * 备份密码。
+   *
+   * @generated from field: string secret = 6;
+   */
+  secret: string;
+
+  /**
+   * MongoDB 是否删除全部集合。
+   *
+   * @generated from field: bool drop_all_collections = 7;
+   */
+  dropAllCollections: boolean;
+
+  /**
+   * 前端生成的任务 ID。
+   *
+   * @generated from field: string task_id = 8;
+   */
+  taskId: string;
+
+  /**
+   * 备份记录 ID。
+   *
+   * @generated from field: uint32 backup_record_id = 9;
+   */
+  backupRecordId: number;
+
+  /**
+   * 超时时间，单位秒。
+   *
+   * @generated from field: int32 timeout = 10;
+   */
+  timeout: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.RecoverDataRequest.
+ * Use `create(RecoverDataRequestSchema)` to create a new message.
+ */
+export const RecoverDataRequestSchema: GenMessage<RecoverDataRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 39);
+
+/**
+ * RecoverDataResponse 是恢复结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.RecoverDataResponse
+ */
+export type RecoverDataResponse = Message<"panel.agent.v1.RecoverDataResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.RecoverDataResponse.
+ * Use `create(RecoverDataResponseSchema)` to create a new message.
+ */
+export const RecoverDataResponseSchema: GenMessage<RecoverDataResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_backup, 40);
+
+/**
  * BackupService 对应 1Panel 的备份账号域。
  *
  * @generated from service panel.agent.v1.BackupService
@@ -178,6 +1372,206 @@ export const BackupService: GenService<{
     methodKind: "unary";
     input: typeof SearchBackupsRequestSchema;
     output: typeof SearchBackupsResponseSchema;
+  },
+  /**
+   * 检查备份账号是否已被任务引用。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.CheckBackupUsed
+   */
+  checkBackupUsed: {
+    methodKind: "unary";
+    input: typeof CheckBackupUsedRequestSchema;
+    output: typeof CheckBackupUsedResponseSchema;
+  },
+  /**
+   * 测试备份账号连通性。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.CheckBackupConn
+   */
+  checkBackupConn: {
+    methodKind: "unary";
+    input: typeof BackupOperateSchema;
+    output: typeof BackupCheckResultSchema;
+  },
+  /**
+   * 新建备份账号。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.CreateBackupAccount
+   */
+  createBackupAccount: {
+    methodKind: "unary";
+    input: typeof BackupOperateSchema;
+    output: typeof CreateBackupAccountResponseSchema;
+  },
+  /**
+   * 更新备份账号。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.UpdateBackupAccount
+   */
+  updateBackupAccount: {
+    methodKind: "unary";
+    input: typeof BackupOperateSchema;
+    output: typeof UpdateBackupAccountResponseSchema;
+  },
+  /**
+   * 删除备份账号。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.DeleteBackupAccount
+   */
+  deleteBackupAccount: {
+    methodKind: "unary";
+    input: typeof DeleteBackupAccountRequestSchema;
+    output: typeof DeleteBackupAccountResponseSchema;
+  },
+  /**
+   * 刷新备份账号的访问令牌。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.RefreshBackupToken
+   */
+  refreshBackupToken: {
+    methodKind: "unary";
+    input: typeof RefreshBackupTokenRequestSchema;
+    output: typeof RefreshBackupTokenResponseSchema;
+  },
+  /**
+   * 列出对象存储账号里的存储桶。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.ListBuckets
+   */
+  listBuckets: {
+    methodKind: "unary";
+    input: typeof ListBucketsRequestSchema;
+    output: typeof ListBucketsResponseSchema;
+  },
+  /**
+   * 列出可供选择的备份账号。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.LoadBackupOptions
+   */
+  loadBackupOptions: {
+    methodKind: "unary";
+    input: typeof LoadBackupOptionsRequestSchema;
+    output: typeof LoadBackupOptionsResponseSchema;
+  },
+  /**
+   * 获取本机备份目录。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.GetLocalBackupDir
+   */
+  getLocalBackupDir: {
+    methodKind: "unary";
+    input: typeof GetLocalBackupDirRequestSchema;
+    output: typeof GetLocalBackupDirResponseSchema;
+  },
+  /**
+   * 将已上传到本机的备份文件登记为可恢复文件。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.UploadForRecover
+   */
+  uploadForRecover: {
+    methodKind: "unary";
+    input: typeof UploadForRecoverRequestSchema;
+    output: typeof UploadForRecoverResponseSchema;
+  },
+  /**
+   * 分页查询备份记录。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.SearchBackupRecords
+   */
+  searchBackupRecords: {
+    methodKind: "unary";
+    input: typeof SearchBackupRecordsRequestSchema;
+    output: typeof BackupRecordsResponseSchema;
+  },
+  /**
+   * 按计划任务分页查询备份记录。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.SearchBackupRecordsByCronjob
+   */
+  searchBackupRecordsByCronjob: {
+    methodKind: "unary";
+    input: typeof SearchBackupRecordsByCronjobRequestSchema;
+    output: typeof BackupRecordsResponseSchema;
+  },
+  /**
+   * 统计备份记录占用大小。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.LoadRecordSize
+   */
+  loadRecordSize: {
+    methodKind: "unary";
+    input: typeof LoadRecordSizeRequestSchema;
+    output: typeof LoadRecordSizeResponseSchema;
+  },
+  /**
+   * 获取备份记录的可下载本地路径。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.DownloadBackupRecord
+   */
+  downloadBackupRecord: {
+    methodKind: "unary";
+    input: typeof DownloadBackupRecordRequestSchema;
+    output: typeof DownloadBackupRecordResponseSchema;
+  },
+  /**
+   * 更新备份记录描述。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.UpdateRecordDescription
+   */
+  updateRecordDescription: {
+    methodKind: "unary";
+    input: typeof UpdateRecordDescriptionRequestSchema;
+    output: typeof UpdateRecordDescriptionResponseSchema;
+  },
+  /**
+   * 批量删除备份记录。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.DeleteBackupRecords
+   */
+  deleteBackupRecords: {
+    methodKind: "unary";
+    input: typeof DeleteBackupRecordsRequestSchema;
+    output: typeof DeleteBackupRecordsResponseSchema;
+  },
+  /**
+   * 列出备份账号中的文件。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.ListBackupFiles
+   */
+  listBackupFiles: {
+    methodKind: "unary";
+    input: typeof ListBackupFilesRequestSchema;
+    output: typeof ListBackupFilesResponseSchema;
+  },
+  /**
+   * 执行数据备份。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.BackupData
+   */
+  backupData: {
+    methodKind: "unary";
+    input: typeof BackupDataRequestSchema;
+    output: typeof BackupDataResponseSchema;
+  },
+  /**
+   * 从备份账号恢复数据。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.RecoverData
+   */
+  recoverData: {
+    methodKind: "unary";
+    input: typeof RecoverDataRequestSchema;
+    output: typeof RecoverDataResponseSchema;
+  },
+  /**
+   * 从本机上传的备份文件恢复数据。
+   *
+   * @generated from rpc panel.agent.v1.BackupService.RecoverByUpload
+   */
+  recoverByUpload: {
+    methodKind: "unary";
+    input: typeof RecoverDataRequestSchema;
+    output: typeof RecoverDataResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_panel_agent_v1_backup, 0);

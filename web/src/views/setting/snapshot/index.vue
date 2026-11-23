@@ -243,7 +243,6 @@ import SnapshotCreate from '@/views/setting/snapshot/create/index.vue';
 import SnapRecover from '@/views/setting/snapshot/recover/index.vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { loadOsInfo } from '@/api/modules/dashboard';
-import { loadRecordSize } from '@/api/modules/backup';
 
 const loading = ref(false);
 const data = ref();
@@ -292,7 +291,8 @@ const reCreate = (row: any) => {
         cancelButtonText: i18n.global.t('commons.button.cancel'),
         type: 'error',
     }).then(async () => {
-        await rpc.snapshot.recreate({ id: row.id })
+        await rpc.snapshot
+            .recreate({ id: row.id })
             .then(() => {
                 loading.value = false;
                 openTaskLog(row.taskID);
@@ -324,7 +324,8 @@ const reRollback = (row: any) => {
             reDownload: false,
             secret: '',
         };
-        await rpc.snapshot.rollback(param)
+        await rpc.snapshot
+            .rollback(param)
             .then(() => {
                 loading.value = false;
                 openTaskLog(row.taskRollbackID || param.taskID);
@@ -400,7 +401,8 @@ const batchDelete = async (row: Setting.SnapshotInfo | null) => {
 
 const onSubmitDelete = async () => {
     loading.value = true;
-    await rpc.snapshot.delete({ ids: operateIDs.value, deleteWithFile: cleanData.value })
+    await rpc.snapshot
+        .delete({ ids: operateIDs.value, deleteWithFile: cleanData.value })
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.deleteSuccess'));
@@ -438,7 +440,8 @@ const search = async (column?: any) => {
         order: paginationConfig.order,
     };
     loading.value = true;
-    await rpc.snapshot.search(params)
+    await rpc.snapshot
+        .search(params)
         .then((res) => {
             loading.value = false;
             loadSize(params);
@@ -453,9 +456,10 @@ const search = async (column?: any) => {
 
 const loadSize = async (params: any) => {
     params.type = 'snapshot';
-    await loadRecordSize(params)
+    await rpc.backup
+        .loadRecordSize(params)
         .then((res) => {
-            let stats = res.data || [];
+            let stats = res.items || [];
             if (stats.length === 0) {
                 return;
             }
@@ -463,7 +467,7 @@ const loadSize = async (params: any) => {
                 for (const item of stats) {
                     if (snap.id === item.id) {
                         snap.hasLoad = true;
-                        snap.size = item.size;
+                        snap.size = Number(item.size);
                         break;
                     }
                 }
