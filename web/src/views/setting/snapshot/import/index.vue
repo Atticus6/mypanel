@@ -50,7 +50,6 @@ import i18n from '@/lang';
 import { listBackupOptions, getFilesFromBackup, getLocalBackupDir } from '@/api/modules/backup';
 import { Rules } from '@/global/form-rules';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { checkFile } from '@/api/modules/files';
 import { routerToFileWithPath } from '@/utils/router';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 const { currentNode } = useGlobalStore();
@@ -103,8 +102,8 @@ const checkDisable = (val: string) => {
     return false;
 };
 const toFolder = async () => {
-    const res = await checkFile(backupPath.value, true);
-    if (res.data) {
+    const res = await rpc.file.checkFile({ path: backupPath.value, withInit: true });
+    if (res.exists) {
         routerToFileWithPath(backupPath.value);
     } else {
         MsgError(i18n.global.t('file.noSuchFile'));

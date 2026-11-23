@@ -141,7 +141,7 @@ import { transferTimeToSecond } from '@/utils/validate';
 import i18n from '@/lang';
 import { UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile, genFileId } from 'element-plus';
 import { File } from '@/api/interface/file';
-import { batchDeleteFile, checkFile, chunkUploadFileData, getUploadList } from '@/api/modules/files';
+import { chunkUploadFileData } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { handleRecoverByUpload, uploadByRecover } from '@/api/modules/backup';
@@ -241,9 +241,9 @@ const search = async () => {
         pageSize: paginationConfig.pageSize,
         path: baseDir.value,
     };
-    const res = await getUploadList(params);
-    data.value = res.data.items || [];
-    paginationConfig.total = res.data.total;
+    const res = await rpc.file.searchUpload(params);
+    data.value = (res.items || []).map((item) => ({ ...item, size: Number(item.size) }));
+    paginationConfig.total = Number(res.total);
 };
 
 const beforeUpload = (fileName: string) => {
@@ -412,8 +412,8 @@ const onSubmit = async () => {
         MsgError(i18n.global.t('commons.msg.fileNameErr'));
         return;
     }
-    const res = await checkFile(baseDir.value + file.raw.name, false);
-    if (res.data) {
+    const res = await rpc.file.checkFile({ path: baseDir.value + file.raw.name, withInit: false });
+    if (res.exists) {
         MsgError(i18n.global.t('commons.msg.fileExist'));
         return;
     }
@@ -483,7 +483,7 @@ const onBatchDelete = async (row: File.File | null) => {
             i18n.global.t('commons.button.import'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: batchDeleteFile,
+        api: rpc.file.batchDeleteFiles,
         params: { paths: files, isDir: false },
     });
 };

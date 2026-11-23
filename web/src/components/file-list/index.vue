@@ -194,14 +194,13 @@
 
 <script lang="ts" setup>
 import { File } from '@/api/interface/file';
-import { computeDirSize, createFile, getFileContent, getFilesList, searchFavorite } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { computed, nextTick, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess, MsgWarning } from '@/utils/message';
 import { useSearchableForSelect } from '@/views/host/file-management/hooks/searchable';
 import { computeSize } from '@/utils/size';
 import { debounce } from '@/utils/misc';
-const props = defineProps<{ currentNode?: string }>();
 const data = ref([]);
 const loading = ref(false);
 const paths = ref<string[]>([]);
@@ -359,30 +358,20 @@ const jumpPath = async () => {
 };
 
 const getFileSize = async (path: string) => {
-    let params = {
-        path: path,
-        expand: true,
-        isDetail: true,
-        page: 1,
-        pageSize: 100,
-    };
     updateByPath(path, { btnLoading: true });
     try {
-        const res = await getFileContent(params, props.currentNode);
-        updateByPath(path, { dirSize: res.data.size });
+        const res = await rpc.file.getFile({ path });
+        updateByPath(path, { dirSize: Number(res.size) });
     } finally {
         updateByPath(path, { btnLoading: false });
     }
 };
 
 const getDirSize = async (path: string) => {
-    const req = {
-        path: path,
-    };
     updateByPath(path, { btnLoading: true });
     try {
-        const res = await computeDirSize(req, props.currentNode);
-        updateByPath(path, { dirSize: res.data.size });
+        const res = await rpc.file.getSize({ path });
+        updateByPath(path, { dirSize: Number(res.size) });
     } finally {
         updateByPath(path, { btnLoading: false });
     }
@@ -411,16 +400,17 @@ const getPaths = (reqPath: string) => {
 const search = async (req: File.ReqFile) => {
     req.dir = form.dir;
     loading.value = true;
-    await getFilesList(req, props.currentNode)
+    await rpc.file
+        .listFiles(req)
         .then((res) => {
-            if (!res.data.path) {
+            if (!res.path) {
                 req.path = oldUrl.value;
                 getPaths(oldUrl.value);
                 MsgWarning(i18n.global.t('commons.res.notFound'));
                 return;
             }
-            data.value = res.data.items || [];
-            req.path = res.data.path;
+            data.value = (res.items || []).map((item) => ({ ...item, size: Number(item.size) }));
+            req.path = res.path;
             const pathArray = req.path.split('/');
             paths.value = [];
             for (const p of pathArray) {
@@ -495,10 +485,16 @@ const createFolder = async (row: any) => {
     }
     addForm.isDir = row.isDir;
     addForm.name = newFolder.value;
-    let addItem = {};
-    Object.assign(addItem, addForm);
     loading.value = true;
-    createFile(addItem as File.FileCreate, props.currentNode)
+    rpc.file
+        .createFile({
+            path: addForm.path,
+            isDir: addForm.isDir,
+            mode: BigInt(addForm.mode),
+            isLink: addForm.isLink,
+            isSymlink: addForm.isSymlink,
+            linkPath: addForm.linkPath,
+        })
         .then(async () => {
             row.isCreate = false;
             disBtn.value = false;
@@ -525,8 +521,8 @@ const removeSelected = (index: number) => {
 
 const loadFavorites = async () => {
     try {
-        const res = await searchFavorite({ page: 1, pageSize: 100 }, props.currentNode);
-        favorites.value = res.data.items || [];
+        const res = await rpc.file.searchFavorites({ page: 1, pageSize: 100 });
+        favorites.value = res.items || [];
     } catch {}
 };
 

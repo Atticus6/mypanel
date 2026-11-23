@@ -95,8 +95,9 @@
 </template>
 
 <script lang="ts" setup>
-import { createFileShare, getFileShareDetail, removeFileShare } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { File } from '@/api/interface/file';
+import type { FileShareInfo as FileShareInfoMessage } from '@/gen/panel/agent/v1/file_pb';
 import { CopyDocument, Download, Picture } from '@element-plus/icons-vue';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -207,9 +208,23 @@ const applyShareInfo = (info: File.FileShareInfo | null) => {
     syncingPassword.value = false;
 };
 
+// proto 的 expiresAt 是 int64（bigint），而日期工具与展示按毫秒数处理，统一在边界转换。
+const toShareInfo = (share?: FileShareInfoMessage): File.FileShareInfo | null =>
+    share
+        ? {
+              code: share.code,
+              path: share.path,
+              fileName: share.fileName,
+              expiresAt: Number(share.expiresAt),
+              permanent: share.permanent,
+              hasPassword: share.hasPassword,
+              password: share.password,
+          }
+        : null;
+
 const loadShareDetail = async () => {
-    const res = await getFileShareDetail(filePath.value);
-    applyShareInfo(res.data?.code ? res.data : null);
+    const res = await rpc.file.getShare({ path: filePath.value });
+    applyShareInfo(toShareInfo(res.share));
 };
 
 const resetForm = () => {
@@ -245,8 +260,8 @@ const generate = async () => {
             payload.password = pw;
         }
 
-        const res = await createFileShare(payload);
-        applyShareInfo(res.data as File.FileShareInfo);
+        const res = await rpc.file.createShare(payload);
+        applyShareInfo(toShareInfo(res.share));
         changed.value = true;
     } finally {
         loading.value = false;
@@ -256,7 +271,7 @@ const generate = async () => {
 const cancelShare = async () => {
     loading.value = true;
     try {
-        await removeFileShare(filePath.value);
+        await rpc.file.deleteShare({ path: filePath.value });
         applyShareInfo(null);
         changed.value = true;
     } finally {

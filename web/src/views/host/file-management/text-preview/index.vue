@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, nextTick } from 'vue';
-import { getPreviewContent } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { downloadFile } from '@/utils/file';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
@@ -104,11 +104,11 @@ const acceptParams = async (props: PreviewProps) => {
     loading.value = true;
 
     try {
-        const res = await getPreviewContent({ path: props.path });
-        if (res.data.content) {
-            lines.value = res.data.content.split('\n');
+        const res = await rpc.file.previewFile({ path: props.path });
+        if (res.content) {
+            lines.value = res.content.split('\n');
             hasContent.value = true;
-            if (res.data.size > 10 * 1024 * 1024) {
+            if (Number(res.size) > 10 * 1024 * 1024) {
                 isTruncated.value = true;
             }
         }

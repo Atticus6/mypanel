@@ -92,7 +92,6 @@ import { File } from '@/api/interface/file';
 import { Log } from '@/api/interface/log';
 import { FormInstance, FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
-import { stopDeCompressFile } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { searchTasks } from '@/api/modules/log';
 import FileList from '@/components/file-list/index.vue';
@@ -253,7 +252,7 @@ const stopCurrentTask = async () => {
                 abortController.value.abort();
             }
         } else if (currentTaskID.value) {
-            await stopDeCompressFile(currentTaskID.value);
+            await rpc.file.stopDecompress({ taskId: currentTaskID.value });
         }
         open.value = false;
         em('close', false);
@@ -294,9 +293,10 @@ const submit = async (formEl: FormInstance | undefined) => {
         canceling.value = false;
         abortController.value = new AbortController();
         loading.value = true;
-        rpc.file.deCompress(form.value, {
-            signal: abortController.value?.signal,
-        })
+        rpc.file
+            .deCompress(form.value, {
+                signal: abortController.value?.signal,
+            })
             .then(() => {
                 currentTaskID.value = taskID;
                 loading.value = false;

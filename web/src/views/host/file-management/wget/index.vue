@@ -68,7 +68,6 @@
 </template>
 
 <script lang="ts" setup>
-import { wgetFile } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
@@ -150,7 +149,8 @@ const submit = async (formEl: FormInstance | undefined) => {
             return;
         }
         loading.value = true;
-        wgetFile(addForm)
+        rpc.file
+            .wget({ ...addForm })
             .then(() => {
                 MsgSuccess(i18n.global.t('file.downloadStart'));
                 submitData.value = true;

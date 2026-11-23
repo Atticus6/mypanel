@@ -58,7 +58,6 @@ import i18n from '@/lang';
 import { ref } from 'vue';
 import { File } from '@/api/interface/file';
 import { getIcon } from '@/utils/file';
-import { getRecycleStatus, getRecycleStatusByNode } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { MsgSuccess, MsgWarning } from '@/utils/message';
 
@@ -68,13 +67,9 @@ const loading = ref(false);
 const em = defineEmits(['close']);
 const forceDelete = ref(false);
 const recycleStatus = ref('Enable');
-const reqNode = ref('');
 
-const acceptParams = (props: File.File[], node: string) => {
-    reqNode.value = '';
-    if (node != '') {
-        reqNode.value = node;
-    }
+// 单进程下不再区分节点，多节点能力已移除；调用方多传的 node 参数会被忽略。
+const acceptParams = (props: File.File[]) => {
     getStatus();
     files.value = props;
     open.value = true;
@@ -84,13 +79,7 @@ const acceptParams = (props: File.File[], node: string) => {
 const getStatus = async () => {
     loading.value = true;
     try {
-        let res;
-        if (reqNode.value != '') {
-            res = await getRecycleStatusByNode(reqNode.value);
-        } else {
-            res = await getRecycleStatus();
-        }
-        recycleStatus.value = res.data;
+        recycleStatus.value = (await rpc.file.getRecycleStatus({})).status;
         if (recycleStatus.value === 'Disable') {
             forceDelete.value = true;
         }

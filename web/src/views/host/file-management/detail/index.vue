@@ -42,7 +42,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computeDirSize, getFileContent } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
+import { toPlainNumbers } from '@/lib/rpc/dashboard';
 import { computeSize } from '@/utils/size';
 import { ref } from 'vue';
 import { dateFormatSimple } from '@/utils/date';
@@ -63,20 +64,18 @@ const handleClose = () => {
 
 const acceptParams = async (params: InfoProps): Promise<void> => {
     props.value = params;
-    getFileContent({ path: params.path, expand: false, page: 1, pageSize: 1, isDetail: true }).then((res) => {
-        data.value = res.data;
+    rpc.file.getFile({ path: params.path }).then((res) => {
+        data.value = toPlainNumbers(res);
         open.value = true;
     });
 };
 
 const getDirSize = async (row: any) => {
-    const req = {
-        path: row.path,
-    };
     loading.value = true;
-    await computeDirSize(req)
-        .then(async (res) => {
-            data.value.dirSize = res.data.size;
+    await rpc.file
+        .getSize({ path: row.path })
+        .then((res) => {
+            data.value.dirSize = Number(res.size);
         })
         .finally(() => {
             loading.value = false;

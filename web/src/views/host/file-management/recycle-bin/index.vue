@@ -83,7 +83,6 @@
 
 <script lang="ts" setup>
 import { readCachedPageSize } from '@/utils/panel-cache';
-import { getRecycleStatus, clearRecycle } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { reactive, ref } from 'vue';
 import { dateFormat } from '@/utils/date';
@@ -120,8 +119,9 @@ const handleClose = () => {
     em('close', false);
 };
 
-const getFileSize = (size: number) => {
-    return computeSize(size);
+const getFileSize = (size: number | bigint) => {
+    // proto 的 size 是 int64（bigint），computeSize 按 number 计算。
+    return computeSize(Number(size));
 };
 
 const acceptParams = () => {
@@ -131,8 +131,8 @@ const acceptParams = () => {
 
 const getStatus = async () => {
     try {
-        const res = await getRecycleStatus();
-        status.value = res.data;
+        const res = await rpc.file.getRecycleStatus({});
+        status.value = res.status;
     } catch (error) {}
 };
 
@@ -195,7 +195,7 @@ const clear = async () => {
     }).then(async () => {
         try {
             loading.value = true;
-            await clearRecycle();
+            await rpc.file.clearRecycle({});
             loading.value = false;
             search();
         } catch (error) {}

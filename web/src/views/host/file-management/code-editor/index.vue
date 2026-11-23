@@ -541,16 +541,6 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    batchCheckFiles,
-    createFile,
-    deleteFile,
-    getFileContent,
-    getFilesTree,
-    renameRile,
-    saveFileContent,
-    searchFileHistory,
-} from '@/api/modules/files';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess, MsgWarning } from '@/utils/message';
 import { loadMonacoLanguageSupport, setupMonacoEnvironment } from '@/utils/monaco';
@@ -561,14 +551,13 @@ import { hasManagePermissionAccess } from '@/utils/permission';
 
 import type { TabPaneName } from 'element-plus';
 import { ElMessageBox, ElTreeV2 } from 'element-plus';
-import { ResultData } from '@/api/interface';
-import { File } from '@/api/interface/file';
 import { copyText } from '@/utils/clipboard';
 import { getIcon } from '@/utils/file';
 import { newUUID } from '@/utils/id';
 import { TreeNodeData } from 'element-plus/es/components/tree-v2/src/types';
 import { CopyDocument, Delete, Edit, MoreFilled, Refresh, Top } from '@element-plus/icons-vue';
 import { rpc } from '@/lib/rpc';
+import type { FileTreeNode, FileTreeResponse } from '@/gen/panel/agent/v1/file_pb';
 import CodeTabs from './tabs/index.vue';
 import FileHistoryDrawer from './history/index.vue';
 import noUpdateImage from '@/assets/images/no_update_app.svg';
@@ -706,7 +695,6 @@ const codeBox = ref();
 const defaultHeight = ref(56);
 const treeHeight = ref(0);
 const splitterHeight = ref('56vh');
-const codeReq = reactive({ path: '', expand: false, page: 1, pageSize: 100 });
 const isShow = ref(true);
 const defaultTreePanelSize = 220;
 const minTreePanelSize = 160;
@@ -1298,14 +1286,14 @@ const loadHistoryVersionCount = async (path: string) => {
     }
 
     try {
-        const res = await searchFileHistory({
+        const res = await rpc.file.searchHistory({
             page: 1,
             pageSize: 1,
             path,
             scope: 'current',
         });
         if (form.value.path === path) {
-            historyVersionCount.value = res.data?.total || 0;
+            historyVersionCount.value = Number(res.total);
         }
     } catch {
         if (form.value.path === path) {
@@ -1322,16 +1310,11 @@ const saveContent = async () => {
     if (isEdit.value) {
         loading.value = true;
         try {
-            const res = await saveFileContent(form.value);
-            if (res) {
-                isEdit.value = false;
-                oldFileContent.value = form.value.content;
-                await loadHistoryVersionCount(form.value.path);
-                MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
-            } else {
-                MsgError(i18n.global.t('commons.status.failed'));
-                isEdit.value = false;
-            }
+            await rpc.file.saveFile(form.value);
+            isEdit.value = false;
+            oldFileContent.value = form.value.content;
+            await loadHistoryVersionCount(form.value.path);
+            MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
         } finally {
             loading.value = false;
         }
@@ -1358,8 +1341,8 @@ const acceptParams = async (props: EditProps) => {
     const withoutCurrent = savedTabs.filter((tab) => tab.path !== props.path);
     if (withoutCurrent.length > 0) {
         try {
-            const existRes = await batchCheckFiles(withoutCurrent.map((t) => t.path));
-            const existList = existRes?.data ?? [];
+            const existRes = await rpc.file.batchCheckFiles({ paths: withoutCurrent.map((t) => t.path) });
+            const existList = existRes.items;
             const existingPaths = new Set(existList.map((r) => r.path));
             savedTabs = withoutCurrent.filter((t) => existingPaths.has(t.path));
         } catch {
@@ -1433,10 +1416,10 @@ const onOpen = async () => {
     });
 };
 
-const handleSearchResult = (res: ResultData<File.FileTree[]>) => {
+const handleSearchResult = (res: FileTreeResponse) => {
     resetExpandedNodes();
-    if (res.data.length > 0 && res.data[0].children) {
-        treeData.value = res.data[0].children.map((item) => ({
+    if (res.items.length > 0 && res.items[0].children) {
+        treeData.value = res.items[0].children.map((item) => ({
             ...item,
             children: item.isDir ? item.children || [] : undefined,
         }));
@@ -1449,7 +1432,7 @@ const getRefresh = (path: string) => {
     loading.value = true;
     try {
         search(path).then((res) => {
-            treeData.value = res.data[0].children;
+            treeData.value = res.items[0].children;
             loadedNodes.value = new Set();
             resetExpandedNodes();
             isCreate.value = 'none';
@@ -1475,31 +1458,29 @@ const getContent = (path: string, forceReload = false) => {
         fileTabs.value.shift();
     }
     const fetchFileContent = () => {
-        codeReq.path = path;
-        codeReq.expand = true;
-
-        getFileContent(codeReq)
+        rpc.file
+            .getFile({ path })
             .then((res) => {
-                form.value.content = res.data.content;
-                oldFileContent.value = res.data.content;
-                form.value.path = res.data.path;
-                fileExtension.value = res.data.extension;
-                fileName.value = res.data.name;
-                config.language = resolveEditorLanguage(res.data.path, res.data.extension, res.data.name);
+                form.value.content = res.content;
+                oldFileContent.value = res.content;
+                form.value.path = res.path;
+                fileExtension.value = res.extension;
+                fileName.value = res.name;
+                config.language = resolveEditorLanguage(res.path, res.extension, res.name);
                 initEditor();
                 const exists = fileTabs.value.some((tab) => tab.path === path);
                 if (exists) {
                     const tab = fileTabs.value.find((t) => t.path === path);
-                    if (tab) tab.name = res.data.name;
+                    if (tab) tab.name = res.name;
                 } else {
                     fileTabs.value.push({
-                        name: res.data.name,
-                        path: res.data.path,
+                        name: res.name,
+                        path: res.path,
                     });
                 }
                 saveTabsToStorage();
-                selectTab.value = res.data.path;
-                loadHistoryVersionCount(res.data.path);
+                selectTab.value = res.path;
+                loadHistoryVersionCount(res.path);
                 if (isMobile.value && isShow.value) {
                     syncTreePanelState(0);
                     scheduleHeightUpdate();
@@ -1557,7 +1538,7 @@ const search = async (path: string) => {
         req.sortBy = 'name';
         req.sortOrder = 'ascending';
     }
-    return await getFilesTree(req);
+    return await rpc.file.getFileTree(req);
 };
 
 const getUpData = async () => {
@@ -1571,7 +1552,7 @@ const getUpData = async () => {
 
     try {
         const response = await search(newPath);
-        treeData.value = response.data[0]?.children || [];
+        treeData.value = response.items[0]?.children || [];
         loadedNodes.value = new Set();
         resetExpandedNodes();
         isCreate.value = 'none';
@@ -1660,10 +1641,10 @@ const handleNodeExpand = (data: TreeNodeData, node: any) => {
     search(data.path)
         .then((response) => {
             const newTreeData = JSON.parse(JSON.stringify(treeData.value));
-            if (response.data.length > 0 && response.data[0].children) {
-                node.children = response.data[0].children;
+            if (response.items.length > 0 && response.items[0].children) {
+                node.children = response.items[0].children;
                 loadedNodes.value.add(node.data.path);
-                updateNodeChildren(newTreeData, node.data.path, response.data[0].children);
+                updateNodeChildren(newTreeData, node.data.path, response.items[0].children);
             } else {
                 node.children = [];
             }
@@ -1672,8 +1653,8 @@ const handleNodeExpand = (data: TreeNodeData, node: any) => {
         .catch(() => {});
 };
 
-const getChildItems = (res: ResultData<File.FileTree[]>) => {
-    return res.data.length > 0 && res.data[0].children ? res.data[0].children : [];
+const getChildItems = (res: FileTreeResponse) => {
+    return res.items.length > 0 && res.items[0].children ? res.items[0].children : [];
 };
 
 const loadDirectoryChildren = async (data: any, node: any) => {
@@ -1716,7 +1697,7 @@ const copyPathFromContextMenu = () => {
     copyText(path);
 };
 
-const updateNodeChildren = (nodes: any[], path: any, newChildren: File.FileTree[]) => {
+const updateNodeChildren = (nodes: any[], path: any, newChildren: FileTreeNode[]) => {
     const updateNode = (nodes: string | any[]) => {
         for (const element of nodes) {
             if (element.path === path) {
@@ -1855,7 +1836,7 @@ const renameFromContextMenu = async () => {
         const parentPath = getDirectoryPath(oldPath);
         const newPath = joinPath(parentPath, newName);
         loading.value = true;
-        await renameRile({ oldName: oldPath, newName: newPath });
+        await rpc.file.changeName({ oldName: oldPath, newName: newPath });
         renameTreeNodePaths(treeData.value, oldPath, newPath, newName, data.isDir);
         treeData.value = [...treeData.value];
         syncTabsAfterRename(oldPath, newPath, newName, data.isDir);
@@ -1884,7 +1865,7 @@ const deleteFromContextMenu = async () => {
             },
         );
         loading.value = true;
-        await deleteFile({ path: data.path, isDir: data.isDir, forceDelete: false });
+        await rpc.file.delete({ path: data.path, isDir: data.isDir, forceDelete: false });
         closeTabsAfterDelete(data.path, data.isDir);
         treeData.value = removeTreeNodeByPath(treeData.value, data.path, data.isDir);
         loadedNodes.value.delete(data.path);
@@ -2025,7 +2006,8 @@ const createFolder = async (isDir: boolean) => {
     let addItem = {};
     Object.assign(addItem, addForm);
     loading.value = true;
-    createFile(addItem as File.FileCreate)
+    rpc.file
+        .createFile(addItem)
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.createSuccess'));
             editingNode.id = newUUID();

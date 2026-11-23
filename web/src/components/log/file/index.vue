@@ -51,7 +51,6 @@
 <script lang="ts" setup>
 import { nextTick, onMounted, onUnmounted, reactive, ref, computed } from 'vue';
 import { downloadFile } from '@/utils/file';
-import { readByLine } from '@/api/modules/files';
 import { readTaskLogByLine } from '@/api/modules/log';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -270,11 +269,19 @@ const getContent = async (pre: boolean) => {
     emit('update:isReading', true);
     const requestedPage = readReq.page;
 
-    let res;
+    let res: {
+        end: boolean;
+        path: string;
+        total: number;
+        taskStatus: string;
+        lines: string[];
+        scope: string;
+        totalLines: number;
+    };
     try {
         const operateNode = props.config.operateNode || currentNode.value;
         if (readReq.type === 'task') {
-            res = await readTaskLogByLine(readReq, operateNode);
+            res = (await readTaskLogByLine(readReq, operateNode)).data;
         } else if (readReq.type === 'website') {
             // 网站日志已迁移到 RPC；把返回的 content 适配成通用日志组件需要的数据结构。
             const log = await rpc.website.getLog({
@@ -285,17 +292,27 @@ const getContent = async (pre: boolean) => {
             });
             const lines = log.content ? log.content.split('\n') : [];
             res = {
-                data: {
-                    lines,
-                    totalLines: (requestedPage - 1) * readReq.pageSize + lines.length,
-                    total: log.end ? requestedPage : requestedPage + 1,
-                    end: log.end,
-                    path: log.path,
-                    scope: '',
-                },
+                lines,
+                totalLines: (requestedPage - 1) * readReq.pageSize + lines.length,
+                total: log.end ? requestedPage : requestedPage + 1,
+                end: log.end,
+                path: log.path,
+                scope: '',
+                taskStatus: '',
             };
         } else {
-            res = await readByLine(readReq, operateNode);
+            res = await rpc.file.readFileLines({
+                id: readReq.id,
+                type: readReq.type,
+                name: readReq.name,
+                page: readReq.page,
+                pageSize: readReq.pageSize,
+                latest: readReq.latest,
+                taskId: readReq.taskID,
+                taskType: readReq.taskType,
+                taskOperate: readReq.taskOperate,
+                resourceId: readReq.resourceID,
+            });
         }
     } catch (error) {
         isLoading.value = false;
@@ -303,30 +320,30 @@ const getContent = async (pre: boolean) => {
         return;
     }
 
-    totalLines.value = res.data.totalLines;
+    totalLines.value = res.totalLines;
 
-    if (res.data.scope == 'tail') {
+    if (res.scope == 'tail') {
         showTail.value = false;
     }
 
-    if (res.data.taskStatus && res.data.taskStatus !== 'Executing') {
+    if (res.taskStatus && res.taskStatus !== 'Executing') {
         isTailDisabled.value = true;
     }
 
-    logPath.value = res.data.path;
+    logPath.value = res.path;
     firstLoading.value = false;
 
-    if (!end.value && res.data.end) {
+    if (!end.value && res.end) {
         lastLogs.value = [...logs.value];
     }
-    if (res.data.lines && res.data.lines.length > 0) {
-        res.data.lines = res.data.lines.map((line) =>
+    if (res.lines && res.lines.length > 0) {
+        res.lines = res.lines.map((line) =>
             line.replace(/\\u(\w{4})/g, function (match, grp) {
                 return String.fromCharCode(parseInt(grp, 16));
             }),
         );
-        const newLogs = res.data.lines.map((line) => translateTaskText(line));
-        if (tailLog.value && newLogs.length === readReq.pageSize && readReq.page < res.data.total) {
+        const newLogs = res.lines.map((line) => translateTaskText(line));
+        if (tailLog.value && newLogs.length === readReq.pageSize && readReq.page < res.total) {
             readReq.page++;
         }
         if (
@@ -376,18 +393,18 @@ const getContent = async (pre: boolean) => {
         });
     }
 
-    end.value = res.data.end;
-    totalPages.value = res.data.total;
+    end.value = res.end;
+    totalPages.value = res.total;
     emit('update:hasContent', logs.value.length > 0);
     if (readReq.latest) {
-        readReq.page = res.data.total;
+        readReq.page = res.total;
         readReq.latest = false;
-        maxPage.value = res.data.total;
+        maxPage.value = res.total;
         isEndOfFile.value = true;
-        if (res.data.lines && res.data.lines.length > 500) {
-            minPage.value = res.data.total - 1;
+        if (res.lines && res.lines.length > 500) {
+            minPage.value = res.total - 1;
         } else {
-            minPage.value = res.data.total;
+            minPage.value = res.total;
         }
     } else {
         maxPage.value = Math.max(maxPage.value, readReq.page);
@@ -416,8 +433,8 @@ const getContent = async (pre: boolean) => {
         }
     }
     isLoading.value = false;
-    if (readReq.type === 'task' && res.data.taskStatus && res.data.taskStatus !== 'Executing') {
-        if (!pre && !res.data.end && res.data.scope !== 'tail' && requestedPage < res.data.total) {
+    if (readReq.type === 'task' && res.taskStatus && res.taskStatus !== 'Executing') {
+        if (!pre && !res.end && res.scope !== 'tail' && requestedPage < res.total) {
             readReq.page = requestedPage + 1;
             await getContent(false);
         } else {

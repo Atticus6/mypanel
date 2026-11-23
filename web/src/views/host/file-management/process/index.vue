@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { fileWgetKeys, stopWgetFile, removeWgetRecords } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { computeSize } from '@/utils/size';
 import { onBeforeUnmount, ref, watch } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -217,9 +217,9 @@ const onRemove = async (requestedKeys: string[]) => {
             if (node !== globalCurrentNode.value || token !== initProcessToken || !open.value) return;
             const batch = selected.slice(offset, offset + 1000);
             batch.forEach((key) => autoRemoveAttempts.set(key, (autoRemoveAttempts.get(key) || 0) + 1));
-            const response = await removeWgetRecords(batch, node);
+            const response = await rpc.file.removeWgetRecords({ keys: batch });
             if (node !== globalCurrentNode.value || token !== initProcessToken || !open.value) return;
-            const removed = (response.data?.keys || []).filter((key) => batch.includes(key));
+            const removed = (response.keys || []).filter((key) => batch.includes(key));
             removedKeys.value.push(...removed);
             res.value = res.value.filter((value) => !removed.includes(value.key));
             keys.value = keys.value.filter((key) => !removed.includes(key));
@@ -302,10 +302,10 @@ const getKeys = async () => {
     autoRemoveAttempts.clear();
     loading.value = true;
     try {
-        const res = await fileWgetKeys();
+        const result = await rpc.file.getWgetProcessKeys({});
         if (token !== initProcessToken || !open.value) return;
-        if (res.data?.keys?.length > 0) {
-            keys.value = res.data.keys;
+        if (result.keys.length > 0) {
+            keys.value = result.keys;
             await initProcess();
         } else {
             handleClose();
@@ -345,7 +345,7 @@ const onStop = async (key: string) => {
     if (node !== globalCurrentNode.value || token !== initProcessToken || !open.value) return;
     stoppingKeys.value.push(key);
     try {
-        await stopWgetFile(key, node);
+        await rpc.file.stopWget({ key });
         if (token === initProcessToken && open.value && node === globalCurrentNode.value) {
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         }

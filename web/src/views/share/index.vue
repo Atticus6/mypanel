@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { checkFileShare, getPublicFileShareInfo } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { File } from '@/api/interface/file';
 import i18n, { loadLocaleMessages } from '@/lang';
 import { buildFileShareDownloadUrl, getFileSharePasswordFromHash, removeFileSharePasswordFromHash } from '@/utils/file';
@@ -127,10 +127,17 @@ const loadShareInfo = async () => {
         errorMessage.value = getFallbackText('invalid');
         return;
     }
-    const res = await getPublicFileShareInfo(code.value, currentNode.value, {
-        'Accept-Language': shareLocale.value,
-    });
-    shareInfo.value = res.data;
+    const res = await rpc.file.getPublicShare(
+        { code: code.value },
+        { headers: { 'Accept-Language': shareLocale.value } },
+    );
+    // proto 的 expiresAt 是 int64（bigint），展示层按毫秒数处理，此处统一转成 number。
+    shareInfo.value = {
+        fileName: res.fileName,
+        expiresAt: Number(res.expiresAt),
+        permanent: res.permanent,
+        hasPassword: res.hasPassword,
+    };
 };
 
 const downloadWithPassword = async () => {
@@ -145,14 +152,13 @@ const downloadWithPassword = async () => {
     downloading.value = true;
     errorMessage.value = '';
     try {
-        await checkFileShare(
+        await rpc.file.checkShare(
             {
                 code: code.value,
                 password: password.value.trim(),
-                operateNode: currentNode.value,
             },
             {
-                'Accept-Language': shareLocale.value,
+                headers: { 'Accept-Language': shareLocale.value },
             },
         );
         triggerDownload(password.value.trim());

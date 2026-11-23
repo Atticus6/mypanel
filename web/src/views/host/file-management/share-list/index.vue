@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { readCachedPageSize } from '@/utils/panel-cache';
-import { removeFileShare, searchFileShare } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { File } from '@/api/interface/file';
 import i18n from '@/lang';
 import { dateFormat as formatDateTime } from '@/utils/date';
@@ -66,14 +66,23 @@ const acceptParams = async () => {
 const search = async () => {
     req.page = paginationConfig.currentPage;
     req.pageSize = paginationConfig.pageSize;
-    const res = await searchFileShare(req);
-    data.value = res.data.items;
-    paginationConfig.total = res.data.total;
+    const res = await rpc.file.searchShares(req);
+    // proto 的 expiresAt 是 int64（bigint），展示层按毫秒数处理，此处统一转成 number。
+    data.value = res.items.map((item) => ({
+        code: item.code,
+        path: item.path,
+        fileName: item.fileName,
+        expiresAt: Number(item.expiresAt),
+        permanent: item.permanent,
+        hasPassword: item.hasPassword,
+        password: item.password,
+    }));
+    paginationConfig.total = Number(res.total);
     open.value = true;
 };
 
 const closeShare = async (path: string) => {
-    await removeFileShare(path);
+    await rpc.file.deleteShare({ path });
     emit('close', true);
     await search();
 };

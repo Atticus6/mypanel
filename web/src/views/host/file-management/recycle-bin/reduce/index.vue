@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getIcon } from '@/utils/file';
-import { reduceFile } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { File } from '@/api/interface/file';
@@ -49,7 +49,7 @@ const acceptParams = (props: File.RecycleBin[]) => {
 const onConfirm = () => {
     const pros = [];
     for (const s of files.value) {
-        pros.push(reduceFile({ from: s.from, rName: s.rName, name: s.name }));
+        pros.push(rpc.file.restoreRecycle({ from: s.from, rName: s.rName, name: s.name }));
     }
     loading.value = true;
     Promise.all(pros)

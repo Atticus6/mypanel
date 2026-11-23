@@ -30,7 +30,7 @@ import i18n from '@/lang';
 import { ref } from 'vue';
 import { File } from '@/api/interface/file';
 import { getIcon } from '@/utils/file';
-import { deleteFile } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
 
 const open = ref(false);
@@ -48,7 +48,7 @@ const acceptParams = (props: File.RecycleBin[]) => {
 const onConfirm = () => {
     const pros = [];
     for (const s of files.value) {
-        pros.push(deleteFile({ path: s.from + '/' + s.rName, isDir: s.isDir, forceDelete: true }));
+        pros.push(rpc.file.delete({ path: s.from + '/' + s.rName, isDir: s.isDir, forceDelete: true }));
     }
     loading.value = true;
     Promise.all(pros)

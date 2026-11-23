@@ -2252,6 +2252,11 @@ bun run build
 `wget/process` 与 `ai-search` 属于二进制、WebSocket 或 AI 通道，保留 HTTP 实现并列入剔除前缀；
 其余文件操作全部走 `FileService`。
 
+前端 `web/src/api/modules/files.ts` 已随之瘦身，只保留上述二进制/AI 通道；文件管理相关的
+页面、弹窗与通用组件（`components/file-list`、`components/upload`、`components/log/file` 等）
+全部改为直接调用 `rpc.file.*`。迁移时注意 proto 的 `int64` 在 TypeScript 侧是 `bigint`，
+尺寸、时间戳、分页总数在展示前统一转成 `number`。
+
 覆盖率权威命令：`./scripts/check-rpc-coverage.sh`；映射维护在 `master/cmd/rpc-coverage/main.go` 的 `overrides`，
 快照 `proto/route-coverage.json` 随映射一起更新。
 

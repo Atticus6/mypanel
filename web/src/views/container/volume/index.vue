@@ -139,7 +139,6 @@ import TaskLog from '@/components/log/task/index.vue';
 import i18n from '@/lang';
 import { ElMessageBox } from 'element-plus';
 import { routerToFileWithPath } from '@/utils/router';
-import { checkFile } from '@/api/modules/files';
 import { MsgError } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 
@@ -236,8 +235,8 @@ const openTaskLog = (taskID: string) => {
 };
 
 const jumpTo = async (path: any) => {
-    await checkFile(path, false).then((res) => {
-        if (res.data) {
+    await rpc.file.checkFile({ path, withInit: false }).then((res) => {
+        if (res.exists) {
             routerToFileWithPath(path);
         } else {
             MsgError(i18n.global.t('file.noSuchFile'));

@@ -112,8 +112,7 @@
 </template>
 
 <script lang="ts" setup>
-import { batchCheckFiles, checkFile, moveFile, stopMoveFile } from '@/api/modules/files';
-import { File } from '@/api/interface/file';
+import { rpc } from '@/lib/rpc';
 import { Log } from '@/api/interface/log';
 import { searchTasks } from '@/api/modules/log';
 import TaskLog from '@/components/log/task/index.vue';
@@ -143,7 +142,8 @@ const open = ref(false);
 const type = ref('cut');
 const changeName = ref(false);
 const oldName = ref('');
-const existFiles = ref<File.ExistFileInfo[]>([]);
+// 只用到名称与目录标记，避免把 proto 的 bigint 字段带进模板。
+const existFiles = ref<{ name: string; isDir: boolean }[]>([]);
 const skipFiles = ref([]);
 const transferData = ref([]);
 const fileRef = ref();
@@ -341,7 +341,7 @@ const stopCurrentTask = async () => {
     }
     stopping.value = true;
     try {
-        await stopMoveFile(currentTaskID.value, currentTaskNode.value || currentNode.value);
+        await rpc.file.stopMove({ taskId: currentTaskID.value });
     } catch (error) {
         MsgError(getErrorMessage(error));
     } finally {
@@ -395,13 +395,22 @@ const mvFile = () => {
     loading.value = true;
     em('loading', true);
     syncTaskStorage();
-    moveFile({ ...addForm, taskID })
+    rpc.file
+        .moveFiles({
+            type: addForm.type,
+            oldPaths: addForm.oldPaths,
+            newPath: addForm.newPath,
+            name: addForm.name,
+            cover: addForm.cover,
+            coverPaths: addForm.coverPaths,
+            taskId: taskID,
+        })
         .then(async () => {
             loading.value = false;
             if (canceling.value) {
                 stopping.value = true;
                 try {
-                    await stopMoveFile(taskID, currentTaskNode.value || currentNode.value);
+                    await rpc.file.stopMove({ taskId: taskID });
                 } catch (error) {
                     MsgError(getErrorMessage(error));
                 } finally {
@@ -469,9 +478,9 @@ const renameFileWithSuffix = (fileName: string, isDir: boolean): string => {
 const handleFilePaths = async (fileNames: string[], newPath: string) => {
     const uniqueFiles = [...new Set(fileNames)];
     const fileNamesWithPath = uniqueFiles.map((file) => newPath + '/' + file);
-    const existData = await batchCheckFiles(fileNamesWithPath);
-    existFiles.value = existData.data;
-    transferData.value = existData.data.map((file) => ({
+    const existData = (await rpc.file.batchCheckFiles({ paths: fileNamesWithPath })).items;
+    existFiles.value = existData;
+    transferData.value = existData.map((file) => ({
         key: file.name,
         label: file.name,
     }));
@@ -500,8 +509,8 @@ const acceptParams = async (props: MoveProps) => {
     addForm.coverPaths = [];
     if (props.name && props.name != '') {
         oldName.value = props.name;
-        const res = await checkFile(props.path + '/' + props.name, false);
-        if (res.data) {
+        const exists = (await rpc.file.checkFile({ path: props.path + '/' + props.name, withInit: false })).exists;
+        if (exists) {
             changeName.value = true;
             addForm.cover = false;
             addForm.name = renameFileWithSuffix(props.name, addForm.isDir);

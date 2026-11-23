@@ -103,7 +103,6 @@ import { Log } from '@/api/interface/log';
 import { FormInstance, FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import { CompressExtension, CompressType } from '@/enums/files';
-import { stopCompressFile } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { searchTasks } from '@/api/modules/log';
 import FileList from '@/components/file-list/index.vue';
@@ -272,7 +271,7 @@ const stopCurrentTask = async () => {
                 abortController.value.abort();
             }
         } else if (currentTaskID.value) {
-            await stopCompressFile(currentTaskID.value);
+            await rpc.file.stopCompress({ taskId: currentTaskID.value });
         }
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         open.value = false;
@@ -328,9 +327,10 @@ const submit = async (formEl: FormInstance | undefined) => {
         canceling.value = false;
         abortController.value = new AbortController();
         loading.value = true;
-        rpc.file.compress(addItem as File.FileCompress, {
-            signal: abortController.value?.signal,
-        })
+        rpc.file
+            .compress(addItem as File.FileCompress, {
+                signal: abortController.value?.signal,
+            })
             .then(() => {
                 saveCompressTypePreference();
                 currentTaskID.value = taskID;

@@ -144,7 +144,7 @@ import { File } from '@/api/interface/file';
 import FileList from '@/components/file-list/index.vue';
 import { Plus } from '@element-plus/icons-vue';
 import { MsgWarning, MsgSuccess } from '@/utils/message';
-import { convertFiles, convertLogs, getFileContent } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { getFileType, isConvertible } from '@/utils/file';
 import { v4 as uuidv4 } from 'uuid';
 import TaskLog from '@/components/log/task/index.vue';
@@ -241,10 +241,11 @@ const search = async () => {
     req.pageSize = paginationConfig.pageSize;
     loading.value = true;
     data.value = [];
-    await convertLogs(req)
+    await rpc.file
+        .searchConvertLogs(req)
         .then((res) => {
-            logs.value = res.data.items;
-            paginationConfig.total = res.data.total;
+            logs.value = res.items;
+            paginationConfig.total = Number(res.total);
         })
         .finally(() => {
             loading.value = false;
@@ -252,18 +253,18 @@ const search = async () => {
 };
 
 const chooseFile = async (path: string) => {
-    await getFileContent({ path: path, expand: false, page: 1, pageSize: 1, isDetail: true }).then((res) => {
-        if (!isConvertible(res.data.extension, res.data.mimeType)) {
+    await rpc.file.getFile({ path }).then((res) => {
+        if (!isConvertible(res.extension, res.mimeType)) {
             MsgWarning(i18n.global.t('file.fileCanNotConvert'));
             return;
         }
         updateFiles([
             {
-                type: getFileType(res.data.extension),
-                inputFile: res.data.name,
-                extension: res.data.extension,
-                path: getDirPath(res.data.path, res.data.name),
-                outputFormat: res.data.extension.slice(1),
+                type: getFileType(res.extension),
+                inputFile: res.name,
+                extension: res.extension,
+                path: getDirPath(res.path, res.name),
+                outputFormat: res.extension.slice(1),
             },
         ]);
     });
@@ -314,9 +315,10 @@ const convert = async () => {
                 files: reqFiles,
                 outputPath: output,
                 deleteSource: deleteSrc,
-                taskID: taskID,
+                taskId: taskID,
             };
-            await convertFiles(singleReq)
+            await rpc.file
+                .convertFiles(singleReq)
                 .then(() => {
                     removeSelected();
                     deleteSource.value = false;

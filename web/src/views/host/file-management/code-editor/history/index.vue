@@ -145,7 +145,7 @@
                                 </el-table-column>
                                 <el-table-column :label="$t('file.size')" min-width="110">
                                     <template #default="{ row }">
-                                        {{ computeSize(row.contentSize) }}
+                                        {{ computeSize(Number(row.contentSize)) }}
                                     </template>
                                 </el-table-column>
                                 <el-table-column :label="$t('commons.table.operate')" min-width="150" fixed="right">
@@ -187,7 +187,7 @@
                             </div>
                             <el-space>
                                 <el-tag effect="plain">{{ getOperationLabel(selectedHistory.operation) }}</el-tag>
-                                <el-tag effect="plain">{{ computeSize(selectedHistory.contentSize) }}</el-tag>
+                                <el-tag effect="plain">{{ computeSize(Number(selectedHistory.contentSize)) }}</el-tag>
                                 <el-button
                                     v-if="canRestoreSelected"
                                     v-permission
@@ -228,9 +228,8 @@ import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, 
 import { dateFormatSimpleWithSecond } from '@/utils/date';
 import { computeSize } from '@/utils/size';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { deleteFileHistory, getFileHistoryContent, searchFileHistory, restoreFileHistory } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
-import { File } from '@/api/interface/file';
+import type { FileHistoryEntry } from '@/gen/panel/agent/v1/file_pb';
 import { Setting } from '@/api/interface/setting';
 import { loadMonacoLanguageSupport, setupMonacoEnvironment } from '@/utils/monaco';
 import { ElMessageBox, type FormInstance, type FormRules } from 'element-plus';
@@ -248,6 +247,14 @@ interface HistoryDrawerProps {
     dirty: boolean;
     scope?: 'current' | 'all';
 }
+
+// 列表接口不返回 diff 用到的当前内容与来源/目标路径，
+// 这里补成可选字段，避免模板里到处做类型断言。
+type HistoryRow = FileHistoryEntry & {
+    sourcePath?: string;
+    targetPath?: string;
+    currentContent?: string;
+};
 
 const drawerVisible = ref(false);
 const historyLoading = ref(false);
@@ -323,9 +330,9 @@ const historySettingRules = reactive<FormRules<Setting.FileHistoryInfo>>({
         },
     ],
 });
-const historyItems = ref<File.FileHistoryInfo[]>([]);
-const selected = ref<File.FileHistoryInfo[]>([]);
-const selectedHistory = ref<File.FileHistoryInfo | null>(null);
+const historyItems = ref<HistoryRow[]>([]);
+const selected = ref<HistoryRow[]>([]);
+const selectedHistory = ref<HistoryRow | null>(null);
 const historyContent = ref('');
 const currentFileContent = ref('');
 const compareTargetPath = ref('');
@@ -349,10 +356,10 @@ const getOperationLabel = (operation: string) => {
 const isVersionRecord = (operation: string) => operation === 'save' || operation === 'restore';
 const canRestoreSelected = computed(() => isVersionRecord(selectedHistory.value?.operation || ''));
 const isRestoringCurrentFile = computed(() => selectedHistory.value?.path === currentFile.value.path);
-const getCurrentTargetPath = (row: File.FileHistoryInfo) => row.currentPath || row.path;
+const getCurrentTargetPath = (row: HistoryRow) => row.currentPath || row.path;
 const canSwitchToCurrentScope = computed(() => !!currentFile.value.path || historyItems.value.length > 0);
 
-const syncCurrentFileContext = (history?: File.FileHistoryInfo | null) => {
+const syncCurrentFileContext = (history?: HistoryRow | null) => {
     if (currentFile.value.path) {
         return;
     }
@@ -510,15 +517,15 @@ const loadHistoryList = async (resetPage = false) => {
             historyItems.value[0]?.currentPath ||
             historyItems.value[0]?.path ||
             '';
-        const res = await searchFileHistory({
+        const res = await rpc.file.searchHistory({
             page: paginationConfig.currentPage,
             pageSize: paginationConfig.pageSize,
             path: scope.value === 'current' ? currentScopePath : '',
             scope: scope.value,
             operation: operationFilter.value,
         });
-        historyItems.value = res.data.items || [];
-        paginationConfig.total = res.data.total || 0;
+        historyItems.value = res.items || [];
+        paginationConfig.total = Number(res.total);
         if (historyItems.value.length > 0) {
             const existSelected = selectedHistory.value
                 ? historyItems.value.find((item) => item.id === selectedHistory.value?.id)
@@ -545,11 +552,10 @@ const loadHistoryList = async (resetPage = false) => {
 };
 
 const loadHistoryContent = async (historyId: number) => {
-    const res = await getFileHistoryContent(historyId);
-    return res.data;
+    return await rpc.file.getHistoryContent({ id: historyId });
 };
 
-const openHistoryRecord = async (row: File.FileHistoryInfo) => {
+const openHistoryRecord = async (row: HistoryRow) => {
     selectedHistory.value = row;
     try {
         const data = await loadHistoryContent(row.id);
@@ -563,11 +569,11 @@ const openHistoryRecord = async (row: File.FileHistoryInfo) => {
     }
 };
 
-const handleSelectionChange = (rows: File.FileHistoryInfo[]) => {
+const handleSelectionChange = (rows: HistoryRow[]) => {
     selected.value = rows;
 };
 
-const deleteSelected = async (row: File.FileHistoryInfo | null) => {
+const deleteSelected = async (row: HistoryRow | null) => {
     const ids = selected.value.map((item) => item.id);
     const targetIds = row ? [row.id] : ids;
     if (!targetIds.length) return;
@@ -582,7 +588,7 @@ const deleteSelected = async (row: File.FileHistoryInfo | null) => {
     }
     deleteLoading.value = true;
     try {
-        await deleteFileHistory(targetIds);
+        await rpc.file.deleteHistory({ ids: Array.from(targetIds) });
         MsgSuccess(i18n.global.t('commons.msg.deleteSuccess'));
         selected.value = [];
         await loadHistoryList(true);
@@ -635,11 +641,11 @@ const confirmRestoreSelected = async () => {
     }
     restoreLoading.value = true;
     try {
-        const res = await restoreFileHistory(selectedHistory.value.id);
+        const res = await rpc.file.restoreHistory({ id: selectedHistory.value.id });
         MsgSuccess(i18n.global.t('file.historyRestoreSuccess'));
-        currentFile.value.content = res.data.content || currentFile.value.content;
+        currentFile.value.content = res.content || currentFile.value.content;
         currentFile.value.dirty = false;
-        emit('restored', res.data.path);
+        emit('restored', res.path);
         await loadHistoryList(true);
     } catch (error) {
         MsgError(String(error));

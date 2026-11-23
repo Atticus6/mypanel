@@ -54,7 +54,7 @@
 import { ref, reactive, computed } from 'vue';
 import { File } from '@/api/interface/file';
 import { FormInstance, FormRules } from 'element-plus';
-import { createFile } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import FileRole from '@/components/file-role/index.vue';
 import { Rules } from '@/global/form-rules';
@@ -135,7 +135,8 @@ const submit = async (formEl: FormInstance | undefined) => {
             addItem['mode'] = undefined;
         }
         addItem['name'] = addForm.name.trim();
-        createFile(addItem as File.FileCreate)
+        rpc.file
+            .createFile(addItem)
             .then(() => {
                 MsgSuccess(i18n.global.t('commons.msg.createSuccess'));
                 handleClose();

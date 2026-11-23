@@ -746,20 +746,6 @@
 <script setup lang="ts">
 import { useSearchState } from '@/utils/search-reset';
 import { toRef, computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
-import {
-    batchGetFileRemarks,
-    computeDepthDirSize,
-    computeDirSize,
-    fileWgetKeys,
-    getFileContent,
-    checkFile,
-    removeFileShare,
-
-    setFileRemark,
-    renameRile,
-    searchFavorite,
-    searchHostMount,
-} from '@/api/modules/files';
 import { computeSize } from '@/utils/size';
 import { copyText } from '@/utils/clipboard';
 import { dateFormatSimpleWithSecond } from '@/utils/date';
@@ -810,6 +796,7 @@ import { ClickOutside as vClickOutside } from 'element-plus';
 import { routerToNameWithQuery } from '@/utils/router';
 import { rpc } from '@/lib/rpc';
 import { toFileListView, type FileListView } from '@/lib/rpc/file';
+import { toPlainNumbers } from '@/lib/rpc/dashboard';
 import FileList from '@/components/file-list/index.vue';
 
 const { currentNode, isAdminOrNodeAdmin, isMobile, lastFilePath, openMenuTabs } = useGlobalStore();
@@ -876,7 +863,6 @@ const fileEdit = reactive<{
     initialLine?: number;
 }>({ content: '', path: '', name: '', language: 'plaintext', extension: '' });
 const filePreview = reactive({ path: '', name: '', extension: '', fileType: '', imageFiles: [], currentNode: '' });
-const codeReq = reactive({ path: '', expand: false, page: 1, pageSize: 100, isDetail: false });
 const fileUpload = reactive({ path: '', isAppendOnly: false });
 const fileRename = reactive({ path: '', oldPath: '', oldName: '', newName: '', tabId: '' });
 const renameSubmitting = ref(false);
@@ -1175,8 +1161,8 @@ const findExistingPath = async (filePath: string) => {
     while (segments.length > 0) {
         const current = `/${segments.join('/')}`;
         try {
-            const res = await checkFile(current, false);
-            if (res.data) {
+            const res = await rpc.file.checkFile({ path: current, withInit: false });
+            if (res.exists) {
                 return current;
             }
         } catch {
@@ -1480,14 +1466,12 @@ const enqueueDirSizeTask = (task: () => Promise<void>) => {
 };
 
 const getFileSize = async (path: string) => {
-    codeReq.path = path;
-    codeReq.expand = true;
-    codeReq.isDetail = true;
     updateByPath(path, { btnLoading: true });
     try {
-        const res = await getFileContent(codeReq);
-        updateDirSizeCache(dirSizeCache, [{ path, size: res.data.size }]);
-        updateByPath(path, { dirSize: res.data.size });
+        const res = await rpc.file.getFile({ path });
+        const size = Number(res.size);
+        updateDirSizeCache(dirSizeCache, [{ path, size }]);
+        updateByPath(path, { dirSize: size });
     } finally {
         updateByPath(path, { btnLoading: false });
     }
@@ -1497,16 +1481,14 @@ const getDirSize = async (path: string) => {
     if (dirSizeLoadingPaths.has(path)) {
         return;
     }
-    const req = {
-        path: path,
-    };
     dirSizeLoadingPaths.add(path);
     updateByPath(path, { btnLoading: true });
     try {
         await enqueueDirSizeTask(async () => {
-            const res = await computeDirSize(req);
-            updateDirSizeCache(dirSizeCache, [{ path, size: res.data.size }]);
-            updateByPath(path, { dirSize: res.data.size });
+            const res = await rpc.file.getSize({ path });
+            const size = Number(res.size);
+            updateDirSizeCache(dirSizeCache, [{ path, size }]);
+            updateByPath(path, { dirSize: size });
         });
     } finally {
         dirSizeLoadingPaths.delete(path);
@@ -1519,13 +1501,10 @@ const updateByPath = (path: string, patch: Partial<(typeof data.value)[0]>) => {
 };
 
 const getDirTotalSize = async (path: string) => {
-    const sizeReq = {
-        path: path,
-    };
     calculateBtn.value = true;
     try {
-        const res = await computeDirSize(sizeReq);
-        dirTotalSize.value = res.data.size;
+        const res = await rpc.file.getSize({ path });
+        dirTotalSize.value = Number(res.size);
     } finally {
         calculateBtn.value = false;
     }
@@ -1533,16 +1512,16 @@ const getDirTotalSize = async (path: string) => {
 
 const calculateSize = (path: string) => {
     const token = ++depthSizeToken;
-    const sizeReq = { path };
     disableBtn.value = true;
     setTimeout(async () => {
         try {
-            const res = await computeDepthDirSize(sizeReq);
+            const res = await rpc.file.getDepthSize({ path });
             if (token !== depthSizeToken || req.path !== path) {
                 return;
             }
-            const sizeMap = new Map(res.data.map((dir) => [dir.path, dir.size]));
-            updateDirSizeCache(dirSizeCache, res.data);
+            const items = res.items.map((dir) => ({ path: dir.path, size: Number(dir.size) }));
+            const sizeMap = new Map(items.map((dir) => [dir.path, dir.size]));
+            updateDirSizeCache(dirSizeCache, items);
             data.value = data.value.map((item) =>
                 sizeMap.has(item.path) ? { ...item, dirSize: sizeMap.get(item.path)! } : item,
             );
@@ -1692,18 +1671,16 @@ const openPathInCodeEditor = (
     if (!path) {
         return;
     }
-    codeReq.path = path;
-    codeReq.expand = true;
-
     const line = opts?.initialLine && opts.initialLine > 0 ? Math.floor(opts.initialLine) : undefined;
 
-    getFileContent(codeReq)
+    rpc.file
+        .getFile({ path })
         .then((res) => {
-            fileEdit.content = res.data.content;
-            fileEdit.path = res.data.path;
-            fileEdit.name = res.data.name;
-            fileEdit.extension = res.data.extension;
-            fileEdit.language = resolveEditorLanguage(res.data.path, res.data.extension, res.data.name);
+            fileEdit.content = res.content;
+            fileEdit.path = res.path;
+            fileEdit.name = res.name;
+            fileEdit.extension = res.extension;
+            fileEdit.language = resolveEditorLanguage(res.path, res.extension, res.name);
             fileEdit.initialLine = line;
             codeEditorRef.value.acceptParams(fileEdit);
             fileEdit.initialLine = undefined;
@@ -1767,9 +1744,9 @@ const processCount = ref(0);
 const getWgetProcess = async () => {
     processCount.value = 0;
     try {
-        const res = await fileWgetKeys();
-        if (res.data && res.data.keys.length > 0) {
-            processCount.value = res.data.keys.length;
+        const res = await rpc.file.getWgetProcessKeys({});
+        if (res.keys.length > 0) {
+            processCount.value = res.keys.length;
         }
     } catch (error) {}
 };
@@ -1866,7 +1843,7 @@ const handleRename = async (row: File.File): Promise<void> => {
     const namePrefix = row.name.substring(0, row.name.lastIndexOf('/') + 1);
     renameSubmitting.value = true;
     try {
-        await renameRile(addItem);
+        await rpc.file.changeName(addItem);
         MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
         isEdit.value = false;
         fileRename.oldName = '';
@@ -2035,8 +2012,8 @@ const remove = async (id: number) => {
 
 const getFavorites = async () => {
     try {
-        const res = await searchFavorite(req);
-        favorites.value = res.data.items;
+        const res = await rpc.file.searchFavorites(req);
+        favorites.value = res.items;
     } catch (error) {}
 };
 
@@ -2046,7 +2023,7 @@ const removeShareByPath = async (path: string) => {
         cancelButtonText: i18n.global.t('commons.button.cancel'),
     }).then(async () => {
         try {
-            await removeFileShare(path);
+            await rpc.file.deleteShare({ path });
             await search();
         } catch (error) {}
     });
@@ -2084,7 +2061,7 @@ const openRemark = async (row: File.File) => {
             inputPlaceholder: i18n.global.t('file.remarkPlaceholder'),
         });
         const remark = res.value ?? '';
-        await setFileRemark({ path: row.path, remark: remark });
+        await rpc.file.setRemark({ path: row.path, remark: remark });
         row.remark = remark;
         MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
     } catch (error) {
@@ -2329,8 +2306,8 @@ const isDecompressFile = (row: File.File) => {
 
 const getHostMount = async () => {
     try {
-        const res = await searchHostMount();
-        hostMount.value = res.data;
+        const res = await rpc.file.listMounts({});
+        hostMount.value = toPlainNumbers(res.items);
     } catch (error) {
         console.error('Error fetching host mount:', error);
     }
@@ -2394,9 +2371,9 @@ const loadRemarksForCurrentPage = async () => {
     if (paths.length === 0) return;
     const currentId = ++remarkRequestId.value;
     try {
-        const res = await batchGetFileRemarks(paths);
+        const res = await rpc.file.getRemarks({ paths });
         if (currentId !== remarkRequestId.value) return;
-        const remarks = res.data?.remarks || {};
+        const remarks = res.remarks || {};
         data.value.forEach((item) => {
             const remark = remarks[item.path];
             if (remark !== undefined && remark !== '') {

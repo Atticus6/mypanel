@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { File } from '@/api/interface/file';
-import { batchChangeRole, searchUserGroup } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import FileRole from '@/components/file-role/index.vue';
 import { MsgSuccess } from '@/utils/message';
@@ -66,8 +66,8 @@ const handleClose = () => {
 };
 
 const addForm = reactive({
-    paths: [],
-    mode: 755,
+    paths: [] as string[],
+    mode: BigInt(755),
     user: '',
     group: '',
     sub: false,
@@ -79,7 +79,7 @@ const acceptParams = (props: BatchRoleProps) => {
     files.value.forEach((file) => {
         addForm.paths.push(file.path);
     });
-    addForm.mode = Number.parseInt(String(props.files[0].mode), 8);
+    addForm.mode = BigInt(Number.parseInt(String(props.files[0].mode), 8));
     addForm.group = props.files[0].group || props.files[0].gid + '';
     addForm.user = props.files[0].user || props.files[0].uid + '';
     addForm.sub = true;
@@ -90,9 +90,9 @@ const acceptParams = (props: BatchRoleProps) => {
 
 const getUserAndGroup = async () => {
     try {
-        const res = await searchUserGroup();
-        users.value = res.data.users;
-        groups.value = res.data.groups;
+        const res = await rpc.file.getUsersAndGroups({});
+        users.value = res.users;
+        groups.value = res.groups;
     } catch (error) {
         console.error('Failed to fetch user and group:', error);
     }
@@ -106,7 +106,7 @@ const handleUserChange = (val: string) => {
 };
 
 const getMode = (val: number) => {
-    addForm.mode = val;
+    addForm.mode = BigInt(val);
 };
 
 const submit = async () => {
@@ -116,7 +116,8 @@ const submit = async () => {
     }
     loading.value = true;
 
-    batchChangeRole(addForm)
+    rpc.file
+        .batchChangeRole(addForm)
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
             handleClose();

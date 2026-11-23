@@ -122,7 +122,8 @@
 import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
 import { UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile, genFileId } from 'element-plus';
 import { uploadContainerFile } from '@/api/modules/container';
-import { batchCheckFiles, stopChunkUpload, uploadFileData } from '@/api/modules/files';
+import { stopChunkUpload, uploadFileData } from '@/api/modules/files';
+import { rpc } from '@/lib/rpc';
 import { CHUNK_SIZE, uploadChunkWithRetry } from '@/utils/chunk-upload';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess, MsgWarning } from '@/utils/message';
@@ -382,18 +383,22 @@ const submit = async () => {
     const fileNamesWithPath = Array.from(
         new Set(files.map((file) => `${path.value}/${file.raw.webkitRelativePath || file.name}`)),
     );
-    const existFiles = await batchCheckFiles(fileNamesWithPath);
-    if (existFiles.data.length > 0) {
+    const existFiles = (await rpc.file.batchCheckFiles({ paths: fileNamesWithPath })).items;
+    if (existFiles.length > 0) {
         const fileSizeMap = new Map(
             files.map((file) => [`${path.value}/${file.raw.webkitRelativePath || file.name}`, file.size]),
         );
-        existFiles.data.forEach((file) => {
-            if (fileSizeMap.has(file.path)) {
-                file.uploadSize = fileSizeMap.get(file.path);
-            }
-        });
+        const existPaths = existFiles.map((file) => ({
+            name: file.name,
+            path: file.path,
+            modTime: file.modTime,
+            isDir: file.isDir,
+            // proto 的 size 是 int64（bigint），展示层按 number 计算。
+            size: Number(file.size),
+            uploadSize: fileSizeMap.get(file.path) ?? 0,
+        }));
         dialogExistFileRef.value.acceptParams({
-            paths: existFiles.data,
+            paths: existPaths,
             onConfirm: handleFileUpload,
         });
     } else {
