@@ -2113,7 +2113,7 @@ bun run build
 - [x] 登录/路由守卫/401 处理完成
 - [x] CSRF 拦截器完成
 - [x] api 模块 17 → 8（仅二进制/流式通道与本地空桩）
-- [ ] 类型统一从 `web/src/gen` 导入，`api/interface` 已删除（DTO 已改为 gen 派生，剩余 UI-only 类型尚未全部下沉）
+- [x] `api/interface` 已删除；331 个业务 DTO 从 `web/src/gen` 派生，剩余本地类型均为无 proto 对应物的 UI 表单/基础设施类型
 - [x] `vite build` 覆盖全部页面产物，`vue-tsc` 0 error（未逐页人工点击）
 - [x] 终端 WS 完成
 - [x] 容器日志 SSE 完成（master 挂载 + 登录校验）

@@ -25,6 +25,8 @@ import {
     GetProxiesRequestSchema,
     GetRewriteRequestSchema,
     GetWebsiteLogRequestSchema,
+    GetWebsiteRequestSchema,
+    GetNginxScopeConfigRequestSchema,
     LoadBalanceSchema,
     LoadBalanceServerSchema,
     NginxParamSchema,
@@ -77,8 +79,8 @@ import {
     DNSResolveRecordSchema,
     GetDNSResolveRequestSchema,
     ObtainCARequestSchema,
-    PushSSLRequestSchema,
     RenewCARequestSchema,
+    PushSSLRequestSchema,
     UpdateACMEAccountRequestSchema,
     UpdateSSLRequestSchema,
     WebsiteSSLSchema,
@@ -171,10 +173,8 @@ export namespace Website {
         params?: any;
     }
 
-    export interface NginxScopeReq {
-        websiteId: number;
-        scope: string;
-    }
+    export type NginxScopeReq = Init<typeof GetNginxScopeConfigRequestSchema>;
+
 
     export type NginxParam = Init<typeof NginxParamSchema>;
     export type NginxScopeConfig = Init<typeof NginxScopeConfigSchema>;
@@ -214,9 +214,8 @@ export namespace Website {
         websiteId: number;
         SSLId: number;
     }
-    export interface SSLRenew {
-        SSLId: number;
-    }
+    export type SSLRenew = Init<typeof RenewCARequestSchema>;
+
     export type SSLUpdate = Init<typeof UpdateSSLRequestSchema> & {
         pushNode?: boolean;
         nodes?: string;
@@ -250,9 +249,8 @@ export namespace Website {
 
     export type CheckReq = Init<typeof CheckWebsiteRequestSchema>;
     export type CheckRes = Init<typeof WebsiteCheckItemSchema>;
-    export interface DelReq {
-        id: number;
-    }
+    export type DelReq = Init<typeof DeleteWebsiteRequestSchema>;
+
     export type NginxUpdate = Init<typeof UpdateWebsiteNginxFileRequestSchema>;
     export type DefaultServerUpdate = Init<typeof ChangeDefaultWebsiteRequestSchema>;
 
@@ -300,9 +298,8 @@ export namespace Website {
 
     export type LeechConfig = Init<typeof AntiLeechConfigSchema> & { websiteID?: number };
     export type LeechReq = Init<typeof GetAntiLeechRequestSchema> & { websiteID?: number };
-    export interface WebsiteReq {
-        websiteID: number;
-    }
+    export type WebsiteReq = Init<typeof GetWebsiteRequestSchema> & { websiteID?: number };
+
 
     export type RedirectConfig = Init<typeof RedirectConfigSchema> & {
         operate?: string;
@@ -331,9 +328,8 @@ export namespace Website {
         pushNode?: boolean;
         nodes?: string;
     }
-    export interface SSLObtain {
-        ID: number;
-    }
+    export type SSLObtain = Init<typeof ObtainCARequestSchema> & { ID?: number };
+
 
     export type CA = Init<typeof CADetailSchema>;
     export type CACreate = Init<typeof CreateCARequestSchema>;
