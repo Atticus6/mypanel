@@ -43,6 +43,9 @@ fi
 echo "==> buf generate"
 cd "$root/proto"
 buf generate
+# 单独生成被 import 的 TypeScript 依赖（buf.validate），
+# 否则生成的 *_pb.ts 会 import 一个不存在的 validate_pb.ts。
+buf generate --template buf.gen.deps.yaml --include-imports
 
 echo "==> generated:"
 find "$root/proto/gen" "$root/web/src/gen" -type f 2>/dev/null | sed "s|^$root/|  |" | sort

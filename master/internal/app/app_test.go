@@ -82,18 +82,19 @@ func TestInitAppHandlerServesRPC(t *testing.T) {
 
 	// 确认 wire 串起来的 handler 真的能响应 RPC，
 	// 而不是只有依赖关系成立、路由却没挂上。
-	// Connect 要求 JSON 请求带正确的 Content-Type，否则返回 415。
+	// 这里用公开方法 Login 发送空请求：Protovalidate 会在进入业务前
+	// 返回 InvalidArgument，既不依赖数据库，也能证明拦截器链路已生效。
 	req, _ := http.NewRequest(http.MethodPost,
-		"/rpc/panel.v1.PanelService/Ping", strings.NewReader(`{"message":"wired"}`))
+		"/rpc/panel.core.v1.AuthService/Login", strings.NewReader(`{}`))
 	req.Header.Set("Content-Type", "application/json")
 	rec := &statusRecorder{header: http.Header{}}
 	app.Server.Handler.ServeHTTP(rec, req)
 
-	if rec.status != http.StatusOK {
-		t.Fatalf("status = %d, want 200", rec.status)
+	if rec.status != http.StatusBadRequest {
+		t.Fatalf("status = %d, want 400 (body %q)", rec.status, string(rec.body))
 	}
-	if !strings.Contains(string(rec.body), "wired") {
-		t.Fatalf("body = %q, want echoed message", string(rec.body))
+	if !strings.Contains(string(rec.body), "invalid_argument") {
+		t.Fatalf("body = %q, want invalid_argument", string(rec.body))
 	}
 }
 

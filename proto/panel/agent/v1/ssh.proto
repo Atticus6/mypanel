@@ -1,0 +1,413 @@
+// panel/agent/v1/ssh.proto 定义主机 SSH 服务与登录日志管理 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// SSHService 负责 SSH 服务开关、配置文件、主机密钥与登录日志。
+service SSHService {
+  // 读取 SSH 服务状态与关键配置。
+  rpc GetInfo(GetSSHInfoRequest) returns (SSHInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 启停或重载 SSH 服务。
+  rpc Operate(OperateSSHRequest) returns (OperateSSHResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作 SSH 服务"
+      audit_action_en: "Operate SSH service"
+    };
+  }
+
+  // 修改单个 SSH 配置项。
+  rpc Update(UpdateSSHRequest) returns (UpdateSSHResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 SSH 配置"
+      audit_action_en: "Update SSH setting"
+    };
+  }
+
+  // 读取 sshd 配置文件内容。
+  rpc LoadFile(LoadSSHFileRequest) returns (SSHFileContent) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按文件方式修改 SSH 配置。
+  rpc UpdateFile(UpdateSSHFileRequest) returns (UpdateSSHFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 SSH 配置文件"
+      audit_action_en: "Update SSH config file"
+    };
+  }
+
+  // 生成主机 SSH 密钥对。
+  rpc CreateCert(CreateSSHCertRequest) returns (CreateSSHCertResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "生成 SSH 密钥"
+      audit_action_en: "Generate SSH key"
+    };
+  }
+
+  // 修改已有主机密钥。
+  rpc UpdateCert(UpdateSSHCertRequest) returns (UpdateSSHCertResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 SSH 密钥"
+      audit_action_en: "Update SSH key"
+    };
+  }
+
+  // 把密钥同步到 authorized_keys。
+  rpc SyncCerts(SyncSSHCertsRequest) returns (SyncSSHCertsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "同步 SSH 密钥"
+      audit_action_en: "Sync SSH key"
+    };
+  }
+
+  // 分页查询主机密钥。
+  rpc SearchCerts(SearchSSHCertsRequest) returns (SearchSSHCertsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 删除主机密钥；是否强制由请求决定。
+  rpc DeleteCerts(DeleteSSHCertsRequest) returns (DeleteSSHCertsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除 SSH 密钥"
+      audit_action_en: "Delete SSH key"
+    };
+  }
+
+  // 分页查询 SSH 登录日志。
+  rpc SearchLogs(SearchSSHLogsRequest) returns (SearchSSHLogsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 导出 SSH 登录日志到临时文件，返回文件路径。
+  rpc ExportLogs(ExportSSHLogsRequest) returns (ExportSSHLogsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导出 SSH 登录日志"
+      audit_action_en: "Export SSH login logs"
+    };
+  }
+
+  // 清空 SSH 登录日志。
+  rpc CleanLogs(CleanSSHLogsRequest) returns (CleanSSHLogsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清空 SSH 登录日志"
+      audit_action_en: "Clean SSH login logs"
+    };
+  }
+}
+
+// GetSSHInfoRequest 是 SSH 状态查询参数，无业务字段。
+message GetSSHInfoRequest {}
+
+// SSHInfo 是 SSH 服务状态。
+message SSHInfo {
+  // 是否开机自启。
+  bool auto_start = 1;
+
+  // 是否已安装。
+  bool is_exist = 2;
+
+  // 是否运行中。
+  bool is_active = 3;
+
+  // 状态说明。
+  string message = 4;
+
+  // 监听端口。
+  string port = 5;
+
+  // 监听地址。
+  string listen_address = 6;
+
+  // 密码认证开关。
+  string password_authentication = 7;
+
+  // 公钥认证开关。
+  string pubkey_authentication = 8;
+
+  // 是否允许 root 登录。
+  string permit_root_login = 9;
+
+  // 是否启用 DNS 反解。
+  string use_dns = 10;
+
+  // 当前登录用户。
+  string current_user = 11;
+}
+
+// OperateSSHRequest 是 SSH 服务操作参数。
+message OperateSSHRequest {
+  // 操作：start、stop、restart、reload。
+  string operation = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// OperateSSHResponse 是操作结果，无业务字段。
+message OperateSSHResponse {}
+
+// UpdateSSHRequest 是 SSH 配置项更新参数。
+message UpdateSSHRequest {
+  // 配置键。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 新值。
+  string new_value = 2;
+}
+
+// UpdateSSHResponse 是更新结果，无业务字段。
+message UpdateSSHResponse {}
+
+// LoadSSHFileRequest 是配置文件读取参数。
+message LoadSSHFileRequest {
+  // 文件名。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// SSHFileContent 是配置文件内容。
+message SSHFileContent {
+  // 文件内容。
+  string content = 1;
+}
+
+// UpdateSSHFileRequest 是按文件修改配置参数。
+message UpdateSSHFileRequest {
+  // 配置键。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 文件路径。
+  string path = 2;
+
+  // 新值。
+  string value = 3;
+}
+
+// UpdateSSHFileResponse 是更新结果，无业务字段。
+message UpdateSSHFileResponse {}
+
+// CreateSSHCertRequest 是生成密钥参数。
+message CreateSSHCertRequest {
+  // 密钥名称。
+  string name = 1;
+
+  // 加密模式：rsa、ed25519、ecdsa、dsa。
+  string encryption_mode = 2;
+
+  // 私钥口令（明文，服务端自行编码）。
+  string pass_phrase = 3;
+
+  // 备注。
+  string description = 4;
+}
+
+// CreateSSHCertResponse 是生成结果，无业务字段。
+message CreateSSHCertResponse {}
+
+// UpdateSSHCertRequest 是修改密钥参数。
+message UpdateSSHCertRequest {
+  // 密钥记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2;
+
+  // 加密模式。
+  string encryption_mode = 3;
+
+  // 私钥口令。
+  string pass_phrase = 4;
+
+  // 备注。
+  string description = 5;
+}
+
+// UpdateSSHCertResponse 是修改结果，无业务字段。
+message UpdateSSHCertResponse {}
+
+// SyncSSHCertsRequest 是同步密钥参数，无业务字段。
+message SyncSSHCertsRequest {}
+
+// SyncSSHCertsResponse 是同步结果，无业务字段。
+message SyncSSHCertsResponse {}
+
+// SearchSSHCertsRequest 是密钥分页查询参数。
+message SearchSSHCertsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 关键字。
+  string info = 3;
+}
+
+// SSHCert 是一条主机密钥记录。
+message SSHCert {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 名称。
+  string name = 3;
+
+  // 加密模式。
+  string encryption_mode = 4;
+
+  // 私钥口令。
+  string pass_phrase = 5;
+
+  // 公钥内容（base64）。
+  string public_key = 6;
+
+  // 私钥内容（base64）。
+  string private_key = 7;
+
+  // 备注。
+  string description = 8;
+}
+
+// SearchSSHCertsResponse 是密钥列表结果。
+message SearchSSHCertsResponse {
+  // 密钥列表。
+  repeated SSHCert items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// DeleteSSHCertsRequest 是删除密钥参数。
+message DeleteSSHCertsRequest {
+  // 密钥 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 是否忽略 authorized_keys 同步失败。
+  bool force_delete = 2;
+}
+
+// DeleteSSHCertsResponse 是删除结果，无业务字段。
+message DeleteSSHCertsResponse {}
+
+// SearchSSHLogsRequest 是登录日志查询参数。
+message SearchSSHLogsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 关键字。
+  string info = 3;
+
+  // 状态过滤：Success、Failed、All。
+  string status = 4 [(buf.validate.field).string = {
+    in: [
+      "Success",
+      "Failed",
+      "All"
+    ]
+  }];
+
+  // 开始时间，RFC3339 格式。
+  string start_time = 5;
+
+  // 结束时间，RFC3339 格式。
+  string end_time = 6;
+}
+
+// SSHLog 是一条登录记录。
+message SSHLog {
+  // 时间（RFC3339）。
+  string date = 1;
+
+  // 时间文本。
+  string date_str = 2;
+
+  // 地区。
+  string area = 3;
+
+  // 用户名。
+  string user = 4;
+
+  // 认证方式。
+  string auth_mode = 5;
+
+  // 来源地址。
+  string address = 6;
+
+  // 端口。
+  string port = 7;
+
+  // 状态。
+  string status = 8;
+
+  // 说明。
+  string message = 9;
+}
+
+// SearchSSHLogsResponse 是登录日志列表结果。
+message SearchSSHLogsResponse {
+  // 日志列表。
+  repeated SSHLog items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// ExportSSHLogsRequest 是日志导出参数。
+message ExportSSHLogsRequest {
+  // 关键字。
+  string info = 1;
+
+  // 状态过滤。
+  string status = 2 [(buf.validate.field).string = {
+    in: [
+      "Success",
+      "Failed",
+      "All"
+    ]
+  }];
+
+  // 开始时间。
+  string start_time = 3;
+
+  // 结束时间。
+  string end_time = 4;
+}
+
+// ExportSSHLogsResponse 是导出结果。
+message ExportSSHLogsResponse {
+  // 导出的临时文件路径。
+  string path = 1;
+}
+
+// CleanSSHLogsRequest 是日志清理参数，无业务字段。
+message CleanSSHLogsRequest {}
+
+// CleanSSHLogsResponse 是清理结果，无业务字段。
+message CleanSSHLogsResponse {}

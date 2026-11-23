@@ -1,0 +1,21 @@
+// panel/common/v1/page.proto 定义跨服务复用的分页请求与响应类型。
+syntax = "proto3";
+
+package panel.common.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/common/v1;commonv1";
+
+// PageRequest 是分页查询的通用入参。
+message PageRequest {
+  // 页码，从 1 开始；小于 1 时按 1 处理。
+  int32 page = 1;
+
+  // 每页条数，默认 20，最大 100。
+  int32 page_size = 2;
+
+  // 排序字段名，为空表示使用服务端默认排序。
+  string order_by = 3;
+
+  // 是否倒序；true 表示按 order_by 倒序排列。
+  bool order_desc = 4;
+}

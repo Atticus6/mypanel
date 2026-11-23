@@ -1,0 +1,122 @@
+// panel/agent/v1/alert.proto 定义告警管理相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// AlertService 对应 1Panel 的告警域。
+service AlertService {
+  // 分页查询告警记录。
+  rpc Page(SearchAlertsRequest) returns (SearchAlertsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchAlertsRequest 是告警列表查询参数。
+message SearchAlertsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 告警类型过滤；为空表示全部。
+  string type = 3 [(buf.validate.field).string.max_len = 64];
+
+  // 状态过滤：Enable=启用，Disable=停用。
+  string status = 4 [(buf.validate.field).string = {
+    in: [
+      "",
+      "Enable",
+      "Disable"
+    ]
+  }];
+
+  // 发送方式过滤，例如 email、webhook。
+  string method = 5 [(buf.validate.field).string.max_len = 64];
+
+  // 排序字段，当前只支持 createdAt。
+  string order_by = 6 [(buf.validate.field).string = {
+    in: [
+      "",
+      "createdAt"
+    ]
+  }];
+
+  // 排序方向：null、ascending、descending。
+  string order = 7 [(buf.validate.field).string = {
+    in: [
+      "",
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+}
+
+// SearchAlertsResponse 是告警列表结果。
+message SearchAlertsResponse {
+  // 当前页的告警列表。
+  repeated Alert items = 1;
+
+  // 符合条件的告警总数。
+  int64 total = 2;
+}
+
+// Alert 是一条告警配置。
+message Alert {
+  // 告警 ID。
+  uint32 id = 1;
+
+  // 告警类型。
+  string type = 2;
+
+  // 检查周期，单位分钟。
+  uint32 cycle = 3;
+
+  // 连续触发次数。
+  uint32 count = 4;
+
+  // 发送方式。
+  string method = 5;
+
+  // 标题。
+  string title = 6;
+
+  // 关联项目。
+  string project = 7;
+
+  // 关联任务名称。
+  string task_name = 8;
+
+  // 状态：Enable=启用，Disable=停用。
+  string status = 9;
+
+  // 已发送次数。
+  uint32 send_count = 10;
+
+  // 高级参数（JSON 字符串）。
+  string advanced_params = 11;
+
+  // 创建人。
+  string create_user = 12;
+
+  // 更新人。
+  string update_user = 13;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 14;
+
+  // 更新时间，RFC3339 格式。
+  string updated_at = 15;
+}

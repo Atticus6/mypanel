@@ -16,9 +16,6 @@ import (
 
 	"connectrpc.com/grpcreflect"
 	"github.com/gin-gonic/gin"
-
-	"mypanel/master/internal/panel"
-	"mypanel/proto/gen/go/panel/v1/panelv1connect"
 )
 
 // RPCPrefix 是浏览器访问 RPC 时额外使用的路径前缀。
@@ -41,9 +38,28 @@ type Options struct {
 	Logger *slog.Logger
 	// Debug 打开 gin 的调试输出。生产环境应保持 false。
 	Debug bool
-	// Panel 是 PanelService 的实现。为 nil 时按 Version 现造一个，
-	// 便于只关心路由的测试直接调用 New。
-	Panel *panel.Service
+	// FileUpload 是 /files/upload 的处理器；为 nil 时不注册。
+	FileUpload http.Handler
+	// FileDownload 是 /files/download 的处理器；为 nil 时不注册。
+	FileDownload http.Handler
+	// TerminalWS 是 /ws/terminal 的 WebSocket 处理器；为 nil 时不注册。
+	TerminalWS gin.HandlerFunc
+	// MCPHandler 是 /mcp 的处理器；为 nil 时不注册。
+	MCPHandler gin.HandlerFunc
+	// Services 是要挂载的 Connect 服务集合。
+	//
+	// 每个服务同时挂载在根路径与 /rpc 前缀下，见 RPCPrefix 的说明。
+	Services []RPCService
+}
+
+// RPCService 是一个待挂载的 Connect 服务。
+type RPCService struct {
+	// Name 是服务全限定名，例如 panel.core.v1.AuthService，用于 gRPC 反射。
+	Name string
+	// Path 是生成 handler 返回的服务前缀，例如 /panel.core.v1.AuthService/。
+	Path string
+	// Handler 是生成的 Connect handler，同时支持 Connect、gRPC 与 gRPC-Web。
+	Handler http.Handler
 }
 
 // New 组装并返回 master 的完整 HTTP handler。
@@ -54,11 +70,6 @@ func New(opts Options) http.Handler {
 	logger := opts.Logger
 	if logger == nil {
 		logger = slog.Default()
-	}
-
-	svc := opts.Panel
-	if svc == nil {
-		svc = &panel.Service{Version: opts.Version}
 	}
 
 	if opts.Debug {
@@ -79,21 +90,45 @@ func New(opts Options) http.Handler {
 	// （如 /panel.v1.PanelService/），其内部再按完整 procedure 路径分发。
 	// 所以这里必须用通配 /*filepath 覆盖其下所有子路径，
 	// 用精确路径注册会导致所有 RPC 落到 NoRoute。
-	panelPath, panelHandler := panelv1connect.NewPanelServiceHandler(svc)
-	r.Any(panelPath+"*filepath", gin.WrapH(panelHandler))
-	r.Any(RPCPrefix+"/*filepath", gin.WrapH(http.StripPrefix(RPCPrefix, panelHandler)))
+	for _, svc := range opts.Services {
+		r.Any(svc.Path+"*filepath", gin.WrapH(svc.Handler))
+		r.Any(RPCPrefix+svc.Path+"*filepath", gin.WrapH(http.StripPrefix(RPCPrefix, svc.Handler)))
+	}
 
 	// gRPC server reflection 让 grpcurl、grpcui 等工具无需本地 .proto 就能
 	// 发现 schema。反射接口依赖双向流，只能在 HTTP/2 上工作。
-	// 这里静态列出所有服务名，新增服务时记得同步添加。
-	//
-	// 与上面的 RPC 一样，返回的是前缀，需要用通配匹配子路径。
-	reflector := grpcreflect.NewStaticReflector(panelv1connect.PanelServiceName)
+	// 服务名由注册表提供，新增服务时不需要改这里。
+	names := make([]string, 0, len(opts.Services))
+	for _, svc := range opts.Services {
+		names = append(names, svc.Name)
+	}
+	reflector := grpcreflect.NewStaticReflector(names...)
 	reflectPath, reflectHandler := grpcreflect.NewHandlerV1(reflector)
 	r.Any(reflectPath+"*filepath", gin.WrapH(reflectHandler))
 	// 部分老工具仍使用 v1alpha 版本的反射协议，一并提供。
 	reflectAlphaPath, reflectAlphaHandler := grpcreflect.NewHandlerV1Alpha(reflector)
 	r.Any(reflectAlphaPath+"*filepath", gin.WrapH(reflectAlphaHandler))
+
+	// MCP 是外部协议端点，客户端要求 streamable HTTP，不能改成 gRPC。
+	if opts.MCPHandler != nil {
+		r.POST("/mcp", opts.MCPHandler)
+		r.GET("/mcp", opts.MCPHandler)
+		r.DELETE("/mcp", opts.MCPHandler)
+	}
+
+	// 终端是唯一保留的双向流通道：浏览器端 Connect 不能可靠承载 PTY。
+	if opts.TerminalWS != nil {
+		r.GET("/ws/terminal", opts.TerminalWS)
+	}
+
+	// 大文件走专用二进制 HTTP 通道，与 RPC 共用票据存储。
+	if opts.FileUpload != nil {
+		r.POST("/files/upload", gin.WrapH(opts.FileUpload))
+	}
+	if opts.FileDownload != nil {
+		r.GET("/files/download", gin.WrapH(opts.FileDownload))
+		r.HEAD("/files/download", gin.WrapH(opts.FileDownload))
+	}
 
 	// 给负载均衡器/容器探针用的轻量健康检查，不依赖任何下游。
 	r.GET("/healthz", func(c *gin.Context) {

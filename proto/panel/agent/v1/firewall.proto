@@ -1,0 +1,1502 @@
+// panel/agent/v1/firewall.proto 定义防火墙相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// FirewallService 对应 1Panel 的防火墙域。
+service FirewallService {
+  // 读取防火墙子系统状态（system/forward/docker）。
+  rpc BaseInfo(FirewallBaseInfoRequest) returns (FirewallBaseInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 启停防火墙或切换禁 ping 策略。
+  rpc Operate(FirewallLifecycleRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作防火墙"
+      audit_action_en: "Operate firewall"
+    };
+  }
+
+  // 读取端口转发子系统状态。
+  rpc GetForwardBase(GetForwardBaseRequest) returns (FirewallSubsystem) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询端口转发规则。
+  rpc SearchForwardRules(SearchForwardRulesRequest) returns (SearchForwardRulesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 新增或删除端口转发规则。
+  rpc OperateForwardRules(OperateForwardRulesRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改端口转发规则"
+      audit_action_en: "Update port forward rules"
+    };
+  }
+
+  // 初始化并启用端口转发。
+  rpc EnableForwarding(EnableForwardingRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "启用端口转发"
+      audit_action_en: "Enable port forwarding"
+    };
+  }
+
+  // 初始化、绑定或解绑防火墙过滤链。
+  rpc OperateFilterChain(OperateFilterChainRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作防火墙过滤链"
+      audit_action_en: "Operate firewall filter chain"
+    };
+  }
+
+  // 重置某个子系统的规则，可先备份。
+  rpc ResetRules(ResetFirewallRulesRequest) returns (ResetFirewallRulesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "重置防火墙规则"
+      audit_action_en: "Reset firewall rules"
+    };
+  }
+
+  // 读取原生区域/应用的规则详情。
+  rpc GetNativeDetail(GetFirewallNativeDetailRequest) returns (FirewallNativeDetailResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 批量创建防火墙规则。
+  rpc CreateRules(CreateFirewallRulesRequest) returns (CreateFirewallRulesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建防火墙规则"
+      audit_action_en: "Create firewall rules"
+    };
+  }
+
+  // 批量删除防火墙规则。
+  rpc DeleteRules(DeleteFirewallRulesRequest) returns (DeleteFirewallRulesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除防火墙规则"
+      audit_action_en: "Delete firewall rules"
+    };
+  }
+
+  // 修改单条规则，或只改描述/排序。
+  rpc UpdateRule(UpdateFirewallRuleRequest) returns (UpdateFirewallRuleResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改防火墙规则"
+      audit_action_en: "Update firewall rule"
+    };
+  }
+
+  // 调整单条规则的位置或优先级。
+  rpc ReorderRule(ReorderFirewallRuleRequest) returns (ReorderFirewallRuleResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "调整防火墙规则顺序"
+      audit_action_en: "Reorder firewall rule"
+    };
+  }
+
+  // 读取防火墙设置（后端选择、白名单、端口等）。
+  rpc GetSettings(GetFirewallSettingsRequest) returns (FirewallSettings) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 新增端口白名单。
+  rpc CreateWhitelist(CreateFirewallWhitelistRequest) returns (CreateFirewallWhitelistResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建防火墙端口白名单"
+      audit_action_en: "Create firewall port whitelist"
+    };
+  }
+
+  // 修改端口白名单。
+  rpc UpdateWhitelist(UpdateFirewallWhitelistRequest) returns (UpdateFirewallWhitelistResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改防火墙端口白名单"
+      audit_action_en: "Update firewall port whitelist"
+    };
+  }
+
+  // 删除端口白名单。
+  rpc DeleteWhitelist(DeleteFirewallWhitelistRequest) returns (DeleteFirewallWhitelistResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除防火墙端口白名单"
+      audit_action_en: "Delete firewall port whitelist"
+    };
+  }
+
+  // 切换某子系统的防火墙后端。
+  rpc OperateBackend(OperateFirewallBackendRequest) returns (OperateFirewallBackendResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "切换防火墙后端"
+      audit_action_en: "Switch firewall backend"
+    };
+  }
+
+  // 开启或关闭防火墙 IPv6 支持。
+  rpc OperateIPv6(OperateFirewallIPv6Request) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "设置防火墙 IPv6"
+      audit_action_en: "Set firewall IPv6"
+    };
+  }
+
+  // 初始化、修复或绑定某个地址族的防火墙链。
+  rpc OperateFamily(OperateFirewallFamilyRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作防火墙地址族"
+      audit_action_en: "Operate firewall family"
+    };
+  }
+
+  // 读取 Docker 端口防护总览。
+  rpc ListDockerPorts(GetDockerPortsRequest) returns (DockerGuardOverview) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出 Docker 已发布端口及其防护状态。
+  rpc ListDockerEndpoints(GetDockerEndpointsRequest) returns (DockerEndpointsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 初始化或绑定 Docker 端口防护。
+  rpc OperateDocker(OperateDockerGuardRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作 Docker 端口防护"
+      audit_action_en: "Operate Docker port guard"
+    };
+  }
+
+  // 批量新增或更新 Docker 端口防护策略。
+  rpc UpsertDockerPolicies(UpsertDockerPoliciesRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新 Docker 端口防护策略"
+      audit_action_en: "Update Docker port guard policies"
+    };
+  }
+
+  // 批量删除 Docker 端口防护策略。
+  rpc DeleteDockerPolicies(DeleteDockerPoliciesRequest) returns (FirewallTaskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除 Docker 端口防护策略"
+      audit_action_en: "Delete Docker port guard policies"
+    };
+  }
+
+  // 列出防火墙规则备份文件。
+  rpc ListRuleBackups(ListFirewallBackupsRequest) returns (FirewallRuleBackups) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询防火墙规则清单。
+  rpc Inventory(FirewallInventoryRequest) returns (FirewallInventory) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// FirewallBaseInfoRequest 是子系统状态查询参数。
+message FirewallBaseInfoRequest {
+  // 子系统名称：system、forward、docker。
+  string name = 1 [(buf.validate.field).string = {
+    in: [
+      "",
+      "system",
+      "forward",
+      "docker"
+    ]
+  }];
+}
+
+// FirewallBaseInfo 是防火墙子系统状态。
+message FirewallBaseInfo {
+  // 是否启用 IPv6。
+  bool ipv6_enabled = 1;
+
+  // 名称。
+  string name = 2;
+
+  // 后端：iptables、nftables、firewalld、ufw。
+  string backend = 3;
+
+  // 冲突的后端。
+  string conflict_backend = 4;
+
+  // 防火墙是否安装。
+  bool is_exist = 5;
+
+  // 防火墙是否运行。
+  bool is_active = 6;
+
+  // 是否已初始化。
+  bool is_init = 7;
+
+  // 是否已绑定。
+  bool is_bind = 8;
+
+  // 版本。
+  string version = 9;
+
+  // 探活状态。
+  string ping_status = 10;
+
+  // 状态说明。
+  string message = 11;
+
+  // 状态原因。
+  string reason = 12;
+
+  // 生命周期任务 ID。
+  string lifecycle_task_id = 13;
+
+  // IPv4 后端状态。
+  FirewallFamilyStatus ipv4 = 14;
+
+  // IPv6 后端状态。
+  FirewallFamilyStatus ipv6 = 15;
+}
+
+// FirewallFamilyStatus 是某个地址族的后端状态。
+message FirewallFamilyStatus {
+  // 是否部分可用。
+  bool partial = 1;
+
+  // 是否可用。
+  bool available = 2;
+
+  // 是否已初始化。
+  bool initialized = 3;
+
+  // 是否已绑定。
+  bool bound = 4;
+
+  // 不可用原因。
+  string reason = 5;
+
+  // RA 接口列表。
+  repeated string ra_interfaces = 6;
+}
+
+// FirewallInventoryRequest 是规则清单查询参数。
+message FirewallInventoryRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 200。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 200
+  }];
+
+  // 单个范围过滤。
+  FirewallScope scope = 3;
+
+  // 多个范围过滤。
+  repeated FirewallScope scopes = 4;
+
+  // 是否返回全部。
+  bool all = 5;
+
+  // 关键字过滤。
+  string info = 6 [(buf.validate.field).string.max_len = 128];
+
+  // 地址族过滤：ipv4、ipv6。
+  repeated string families = 7;
+
+  // 动作过滤：accept、deny。
+  repeated string actions = 8;
+
+  // 排除的链。
+  repeated string exclude_chains = 9;
+}
+
+// FirewallInventory 是规则清单结果。
+message FirewallInventory {
+  // IPv4 位置范围。
+  FirewallPositionRange ipv4_range = 1;
+
+  // IPv6 位置范围。
+  FirewallPositionRange ipv6_range = 2;
+
+  // 当前页规则数。
+  int64 total = 3;
+
+  // 全部规则数。
+  int64 all_total = 4;
+
+  // 当前页规则。
+  repeated FirewallInventoryItem items = 5;
+
+  // 范围告警。
+  repeated FirewallScopeNotice notices = 6;
+}
+
+// FirewallPositionRange 是规则位置范围。
+message FirewallPositionRange {
+  // 最小值。
+  int32 min = 1;
+
+  // 最大值。
+  int32 max = 2;
+}
+
+// FirewallScopeNotice 是范围告警。
+message FirewallScopeNotice {
+  // 告警码。
+  string code = 1;
+
+  // 告警参数。
+  repeated string values = 2;
+}
+
+// FirewallInventoryItem 是一条规则及其观测状态。
+message FirewallInventoryItem {
+  // 规则。
+  FirewallRule rule = 1;
+
+  // 观测状态；系统规则可能为空。
+  FirewallObservedRule observed = 2;
+
+  // 是否为白名单规则。
+  bool is_whitelist = 3;
+
+  // 描述 ID。
+  string description_id = 4;
+}
+
+// FirewallScope 是规则所属范围。
+message FirewallScope {
+  // 后端：iptables、nftables、firewalld、ufw。
+  string provider = 1;
+
+  // 地址族：ipv4、ipv6。
+  string family = 2;
+
+  // 表名。
+  string table = 3;
+
+  // 区域名。
+  string zone = 4;
+
+  // 链名。
+  string chain = 5;
+
+  // 方向：input、forward。
+  string direction = 6;
+}
+
+// FirewallRule 是一条防火墙规则。
+message FirewallRule {
+  // 规则 UUID。
+  string uuid = 1;
+
+  // 所属范围。
+  FirewallScope scope = 2;
+
+  // 原生类型。
+  string native_kind = 3;
+
+  // 协议。
+  string protocol = 4;
+
+  // 源地址。
+  string source_address = 5;
+
+  // 源端口。
+  string source_port = 6;
+
+  // 目标地址。
+  string destination_address = 7;
+
+  // 目标端口。
+  string destination_port = 8;
+
+  // 网络接口。
+  string interface = 9;
+
+  // 连接状态列表。
+  repeated string connection_states = 10;
+
+  // 动作：accept、deny。
+  string action = 11;
+
+  // 优先级。
+  int32 priority = 12;
+
+  // 排序索引。
+  int64 order_index = 13;
+
+  // 排序桶。
+  string order_bucket = 14;
+
+  // 备注。
+  string description = 15;
+
+  // 是否设置了优先级。
+  bool has_priority = 16;
+
+  // 是否设置了排序索引。
+  bool has_order_index = 17;
+}
+
+// FirewallLocator 是规则在原生命令里的定位信息。
+message FirewallLocator {
+  // 后端。
+  string provider = 1;
+
+  // 范围键。
+  string scope_key = 2;
+
+  // 原生 ID。
+  string native_id = 3;
+
+  // 规范化定位串。
+  string canonical = 4;
+
+  // 位置。
+  int32 position = 5;
+
+  // 是否设置了位置。
+  bool has_position = 6;
+}
+
+// FirewallObservedRule 是规则的实际观测状态。
+message FirewallObservedRule {
+  // 观测到的规则。
+  FirewallRule rule = 1;
+
+  // 定位信息。
+  FirewallLocator locator = 2;
+
+  // 实例键。
+  string instance_key = 3;
+
+  // 标记。
+  string marker = 4;
+
+  // 解析状态：supported、opaque。
+  string parse_status = 5;
+
+  // 不确定字段。
+  repeated string uncertain_fields = 6;
+
+  // 原始规则文本。
+  string raw = 7;
+
+  // 是否受保护。
+  bool protected = 8;
+
+  // 持久化状态。
+  string persistence = 9;
+}
+
+// FirewallLifecycleRequest 是启停防火墙参数。
+message FirewallLifecycleRequest {
+  // 备份文件；启动时可用于恢复。
+  string backup_file = 1 [(buf.validate.field).string.max_len = 255];
+
+  // 操作：start、stop、restart、disableBanPing、enableBanPing。
+  string operation = 2 [(buf.validate.field).string = {
+    in: [
+      "start",
+      "stop",
+      "restart",
+      "disableBanPing",
+      "enableBanPing"
+    ]
+  }];
+
+  // 是否同时重启 Docker。
+  bool with_docker_restart = 3;
+}
+
+// FirewallTaskResponse 是异步任务受理结果。
+message FirewallTaskResponse {
+  // 任务 ID；同步执行时为空。
+  string task_id = 1;
+
+  // 是否已排队。
+  bool queued = 2;
+}
+
+// GetForwardBaseRequest 是端口转发状态查询参数，无业务字段。
+message GetForwardBaseRequest {}
+
+// FirewallSubsystem 是某个防火墙子系统的状态。
+message FirewallSubsystem {
+  // 是否启用 IPv6。
+  bool ipv6_enabled = 1;
+
+  // 子系统名称。
+  string name = 2;
+
+  // 后端名称。
+  string backend = 3;
+
+  // 冲突的后端。
+  string conflict_backend = 4;
+
+  // 是否已安装。
+  bool is_exist = 5;
+
+  // 是否运行中。
+  bool is_active = 6;
+
+  // 是否已初始化。
+  bool is_init = 7;
+
+  // 是否已绑定。
+  bool is_bind = 8;
+
+  // 版本。
+  string version = 9;
+
+  // 探活状态。
+  string ping_status = 10;
+
+  // 说明。
+  string message = 11;
+
+  // 原因。
+  string reason = 12;
+
+  // 生命周期任务 ID。
+  string lifecycle_task_id = 13;
+
+  // IPv4 状态。
+  FirewallFamilyStatus ipv4 = 14;
+
+  // IPv6 状态。
+  FirewallFamilyStatus ipv6 = 15;
+}
+
+// ForwardRule 是一条端口转发规则。
+message ForwardRule {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 链名。
+  string chain = 2;
+
+  // 地址族。
+  string family = 3;
+
+  // 来源地址。
+  string address = 4;
+
+  // 来源端口。
+  string port = 5;
+
+  // 协议。
+  string protocol = 6;
+
+  // 策略。
+  string strategy = 7;
+
+  // 规则编号。
+  string num = 8;
+
+  // 目标地址。
+  string target_ip = 9;
+
+  // 目标端口。
+  string target_port = 10;
+
+  // 网卡。
+  string interface = 11;
+
+  // 使用状态。
+  string used_status = 12;
+
+  // 备注。
+  string description = 13;
+}
+
+// SearchForwardRulesRequest 是端口转发规则查询参数。
+message SearchForwardRulesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 200。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 200
+  }];
+
+  // 是否返回全部。
+  bool all = 3;
+
+  // 关键字。
+  string info = 4 [(buf.validate.field).string.max_len = 128];
+
+  // 状态过滤。
+  string status = 5;
+
+  // 策略过滤。
+  string strategy = 6;
+}
+
+// SearchForwardRulesResponse 是端口转发规则列表。
+message SearchForwardRulesResponse {
+  // 规则列表。
+  repeated ForwardRule items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// ForwardRuleOperation 是一条端口转发变更。
+message ForwardRuleOperation {
+  // 操作：add 或 remove。
+  string operation = 1 [(buf.validate.field).string = {
+    in: [
+      "add",
+      "remove"
+    ]
+  }];
+
+  // 规则编号。
+  string num = 2;
+
+  // 地址族：ipv4 或 ipv6。
+  string family = 3 [(buf.validate.field).string = {
+    in: [
+      "",
+      "ipv4",
+      "ipv6"
+    ]
+  }];
+
+  // 协议：tcp、udp、tcp/udp。
+  string protocol = 4 [(buf.validate.field).string = {
+    in: [
+      "tcp",
+      "udp",
+      "tcp/udp"
+    ]
+  }];
+
+  // 网卡。
+  string interface = 5;
+
+  // 来源端口。
+  string port = 6 [(buf.validate.field).string.min_len = 1];
+
+  // 目标地址。
+  string target_ip = 7;
+
+  // 目标端口。
+  string target_port = 8 [(buf.validate.field).string.min_len = 1];
+}
+
+// OperateForwardRulesRequest 是端口转发变更参数。
+message OperateForwardRulesRequest {
+  // 是否为导入。
+  bool import = 1;
+
+  // 变更列表。
+  repeated ForwardRuleOperation rules = 2 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// EnableForwardingRequest 是启用端口转发参数。
+message EnableForwardingRequest {
+  // 备份文件。
+  string backup_file = 1 [(buf.validate.field).string.max_len = 255];
+
+  // 任务 ID。
+  string task_id = 2 [(buf.validate.field).string.max_len = 64];
+}
+
+// OperateFilterChainRequest 是过滤链操作参数。
+message OperateFilterChainRequest {
+  // 链名，固定为 1PANEL_BASIC。
+  string name = 1 [(buf.validate.field).string.const = "1PANEL_BASIC"];
+
+  // 操作：init-base、bind-base、unbind-base。
+  string operate = 2 [(buf.validate.field).string = {
+    in: [
+      "init-base",
+      "bind-base",
+      "unbind-base"
+    ]
+  }];
+
+  // 任务 ID。
+  string task_id = 3 [(buf.validate.field).string.max_len = 64];
+}
+
+// ResetFirewallRulesRequest 是规则重置参数。
+message ResetFirewallRulesRequest {
+  // 子系统：system、forwarding、docker。
+  string subsystem = 1 [(buf.validate.field).string = {
+    in: [
+      "",
+      "system",
+      "forwarding",
+      "docker"
+    ]
+  }];
+
+  // 是否先备份。
+  bool backup = 2;
+
+  // 后端。
+  string provider = 3 [(buf.validate.field).string = {
+    in: [
+      "",
+      "firewalld",
+      "ufw",
+      "iptables",
+      "nftables"
+    ]
+  }];
+
+  // 是否同时重启 Docker。
+  bool with_docker_restart = 4;
+}
+
+// ResetFirewallRulesResponse 是规则重置结果。
+message ResetFirewallRulesResponse {
+  // 备份路径。
+  string backup_path = 1;
+
+  // 删除的规则数。
+  int32 removed = 2;
+
+  // 防火墙是否被停用。
+  bool disabled = 3;
+}
+
+// GetFirewallNativeDetailRequest 是原生详情查询参数。
+message GetFirewallNativeDetailRequest {
+  // 后端：firewalld 或 ufw。
+  string provider = 1 [(buf.validate.field).string = {
+    in: [
+      "firewalld",
+      "ufw"
+    ]
+  }];
+
+  // 原生类型：zone_service 或 ufw_application。
+  string native_kind = 2 [(buf.validate.field).string = {
+    in: [
+      "zone_service",
+      "ufw_application"
+    ]
+  }];
+
+  // 名称。
+  string name = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 是否查看持久化配置。
+  bool permanent = 4;
+}
+
+// FirewallNativeDetailResponse 是原生详情文本。
+message FirewallNativeDetailResponse {
+  // 详情内容。
+  string content = 1;
+}
+
+// FirewallRuleCreateItem 是一条待创建规则。
+message FirewallRuleCreateItem {
+  // 原始规则文本（导入时使用）。
+  string raw = 1;
+
+  // 解析状态：supported 或 opaque。
+  string parse_status = 2;
+
+  // 结构化规则。
+  FirewallRule rule = 3;
+
+  // 来源：user 或 imported。
+  string source_kind = 4 [(buf.validate.field).string = {
+    in: [
+      "",
+      "user",
+      "imported"
+    ]
+  }];
+}
+
+// CreateFirewallRulesRequest 是批量创建规则参数。
+message CreateFirewallRulesRequest {
+  // 备份文件。
+  string backup_file = 1 [(buf.validate.field).string.max_len = 255];
+
+  // 是否先初始化过滤链。
+  bool initialize = 2;
+
+  // 待创建规则。
+  repeated FirewallRuleCreateItem items = 3;
+}
+
+// FirewallRuleCreateFailure 是一条创建失败记录。
+message FirewallRuleCreateFailure {
+  // 下标。
+  int32 index = 1;
+
+  // 状态。
+  string status = 2;
+
+  // 规则。
+  FirewallRule rule = 3;
+
+  // 错误信息。
+  string error = 4;
+}
+
+// CreateFirewallRulesResponse 是创建结果。
+message CreateFirewallRulesResponse {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 是否已排队。
+  bool queued = 2;
+
+  // 成功数。
+  int32 succeeded = 3;
+
+  // 失败数。
+  int32 failed = 4;
+
+  // 跳过数。
+  int32 skipped = 5;
+
+  // 失败明细。
+  repeated FirewallRuleCreateFailure errors = 6;
+}
+
+// FirewallRuleDeleteTarget 是规则定位。
+message FirewallRuleDeleteTarget {
+  // 规则范围。
+  FirewallScope scope = 1;
+
+  // 实例键。
+  string instance_key = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 128
+  }];
+}
+
+// FirewallRuleDeleteItem 是一条待删除规则。
+message FirewallRuleDeleteItem {
+  // 规则范围。
+  FirewallScope scope = 1;
+
+  // 实例键。
+  string instance_key = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 128
+  }];
+
+  // 观测状态。
+  FirewallObservedRule observed = 3;
+}
+
+// DeleteFirewallRulesRequest 是批量删除规则参数。
+message DeleteFirewallRulesRequest {
+  // 待删除规则。
+  repeated FirewallRuleDeleteItem targets = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// FirewallRuleDeleteFailure 是一条删除失败记录。
+message FirewallRuleDeleteFailure {
+  // 下标。
+  int32 index = 1;
+
+  // 实例键。
+  string instance_key = 2;
+
+  // 错误信息。
+  string error = 3;
+}
+
+// DeleteFirewallRulesResponse 是删除结果。
+message DeleteFirewallRulesResponse {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 是否已排队。
+  bool queued = 2;
+
+  // 成功数。
+  int32 succeeded = 3;
+
+  // 失败数。
+  int32 failed = 4;
+
+  // 失败明细。
+  repeated FirewallRuleDeleteFailure errors = 5;
+}
+
+// UpdateFirewallRuleRequest 是单条规则修改参数。
+//
+// rule 与 description/order_index/priority 互斥：前者整体替换规则，
+// 后者只调整元数据（供拖拽排序、改备注使用）。
+message UpdateFirewallRuleRequest {
+  // 规则范围。
+  FirewallScope scope = 1;
+
+  // 实例键。
+  string instance_key = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 128
+  }];
+
+  // 新规则。
+  FirewallRule rule = 3;
+
+  // 新描述。
+  optional string description = 4;
+
+  // 新排序索引。
+  optional int64 order_index = 5;
+
+  // 新优先级。
+  optional int32 priority = 6;
+}
+
+// UpdateFirewallRuleResponse 是修改结果，无业务字段。
+message UpdateFirewallRuleResponse {}
+
+// ReorderFirewallRuleRequest 是规则排序参数。
+message ReorderFirewallRuleRequest {
+  // 规则范围。
+  FirewallScope scope = 1;
+
+  // 实例键。
+  string instance_key = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 128
+  }];
+
+  // 目标位置。
+  optional int64 target_position = 3;
+
+  // 新优先级。
+  optional int32 priority = 4;
+}
+
+// ReorderFirewallRuleResponse 是排序结果，无业务字段。
+message ReorderFirewallRuleResponse {}
+
+// GetFirewallSettingsRequest 是防火墙设置查询参数，无业务字段。
+message GetFirewallSettingsRequest {}
+
+// PortWhitelistRule 是一条端口白名单。
+message PortWhitelistRule {
+  // 端口。
+  string port = 1;
+
+  // 协议。
+  string protocol = 2;
+
+  // 类型。
+  string type = 3;
+
+  // 来源地址。
+  repeated string sources = 4;
+}
+
+// FirewallBackendOption 是一种可选后端。
+message FirewallBackendOption {
+  // 名称。
+  string name = 1;
+
+  // 是否安装。
+  bool installed = 2;
+
+  // 是否运行中。
+  bool active = 3;
+
+  // 是否已初始化。
+  bool initialized = 4;
+
+  // 是否已绑定。
+  bool bound = 5;
+
+  // 是否受支持。
+  bool supported = 6;
+
+  // 不支持原因。
+  string support_reason = 7;
+
+  // 实现方式。
+  string implementation = 8;
+
+  // 说明。
+  string message = 9;
+
+  // IPv4 状态。
+  FirewallFamilyStatus ipv4 = 10;
+
+  // IPv6 状态。
+  FirewallFamilyStatus ipv6 = 11;
+}
+
+// FirewallBackendGroup 是某子系统可选与当前后端。
+message FirewallBackendGroup {
+  // 已选择的后端。
+  string selected = 1;
+
+  // 当前生效的后端。
+  string current = 2;
+
+  // 可选后端。
+  repeated FirewallBackendOption options = 3;
+}
+
+// FirewallSettings 是防火墙设置。
+message FirewallSettings {
+  // 是否启用 IPv6。
+  bool ipv6_enabled = 1;
+
+  // 系统防火墙后端。
+  FirewallBackendGroup system = 2;
+
+  // 转发后端。
+  FirewallBackendGroup forwarding = 3;
+
+  // Docker 后端。
+  FirewallBackendGroup docker = 4;
+
+  // 探活状态。
+  string ping_status = 5;
+
+  // 端口白名单。
+  repeated PortWhitelistRule port_white_list = 6;
+
+  // 面板端口。
+  string panel_port = 7;
+
+  // SSH 端口。
+  string ssh_port = 8;
+}
+
+// CreateFirewallWhitelistRequest 是新增白名单参数。
+message CreateFirewallWhitelistRequest {
+  // 白名单规则。
+  PortWhitelistRule rule = 1;
+}
+
+// CreateFirewallWhitelistResponse 是新增结果，无业务字段。
+message CreateFirewallWhitelistResponse {}
+
+// UpdateFirewallWhitelistRequest 是修改白名单参数。
+message UpdateFirewallWhitelistRequest {
+  // 原规则。
+  PortWhitelistRule old_rule = 1;
+
+  // 新规则。
+  PortWhitelistRule rule = 2;
+}
+
+// UpdateFirewallWhitelistResponse 是修改结果，无业务字段。
+message UpdateFirewallWhitelistResponse {}
+
+// DeleteFirewallWhitelistRequest 是删除白名单参数。
+message DeleteFirewallWhitelistRequest {
+  // 待删除规则。
+  PortWhitelistRule rule = 1;
+}
+
+// DeleteFirewallWhitelistResponse 是删除结果，无业务字段。
+message DeleteFirewallWhitelistResponse {}
+
+// OperateFirewallBackendRequest 是后端切换参数。
+message OperateFirewallBackendRequest {
+  // 子系统：system、forwarding、docker。
+  string subsystem = 1 [(buf.validate.field).string = {
+    in: [
+      "system",
+      "forwarding",
+      "docker"
+    ]
+  }];
+
+  // 后端：firewalld、ufw、iptables、nftables。
+  string backend = 2 [(buf.validate.field).string = {
+    in: [
+      "firewalld",
+      "ufw",
+      "iptables",
+      "nftables"
+    ]
+  }];
+
+  // 操作：select、initialize、cleanup。
+  string operation = 3 [(buf.validate.field).string = {
+    in: [
+      "select",
+      "initialize",
+      "cleanup"
+    ]
+  }];
+}
+
+// OperateFirewallBackendResponse 是切换结果，无业务字段。
+message OperateFirewallBackendResponse {}
+
+// OperateFirewallIPv6Request 是 IPv6 开关参数。
+message OperateFirewallIPv6Request {
+  // 状态：Enable 或 Disable。
+  string status = 1 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+}
+
+// OperateFirewallFamilyRequest 是地址族操作参数。
+message OperateFirewallFamilyRequest {
+  // 子系统：system、forwarding、docker。
+  string subsystem = 1 [(buf.validate.field).string = {
+    in: [
+      "system",
+      "forwarding",
+      "docker"
+    ]
+  }];
+
+  // 后端：iptables、nftables。
+  string backend = 2 [(buf.validate.field).string = {
+    in: [
+      "iptables",
+      "nftables"
+    ]
+  }];
+
+  // 地址族：ipv4、ipv6。
+  string family = 3 [(buf.validate.field).string = {
+    in: [
+      "ipv4",
+      "ipv6"
+    ]
+  }];
+
+  // 操作：initialize、repair、bind。
+  string operation = 4 [(buf.validate.field).string = {
+    in: [
+      "initialize",
+      "repair",
+      "bind"
+    ]
+  }];
+}
+
+// DockerGuardFamilyStatus 是 Docker 防护的地址族状态。
+message DockerGuardFamilyStatus {
+  // 是否部分可用。
+  bool partial = 1;
+
+  // 状态。
+  string state = 2;
+
+  // 原因。
+  string reason = 3;
+
+  // 是否已初始化。
+  bool initialized = 4;
+
+  // 是否已绑定。
+  bool bound = 5;
+
+  // 是否生效。
+  bool effective = 6;
+}
+
+// DockerGuardBase 是 Docker 端口防护基础状态。
+message DockerGuardBase {
+  // 是否启用 IPv6。
+  bool ipv6_enabled = 1;
+
+  // 名称。
+  string name = 2;
+
+  // 版本。
+  string version = 3;
+
+  // 是否安装。
+  bool is_exist = 4;
+
+  // 是否已初始化。
+  bool initialized = 5;
+
+  // 是否已绑定。
+  bool bound = 6;
+
+  // IPv4 状态。
+  DockerGuardFamilyStatus ipv4 = 7;
+
+  // IPv6 状态。
+  DockerGuardFamilyStatus ipv6 = 8;
+
+  // 后端。
+  string backend = 9;
+
+  // 说明。
+  string message = 10;
+}
+
+// DockerGuardEndpoint 是一个已发布端口。
+message DockerGuardEndpoint {
+  // 地址族。
+  string family = 1;
+
+  // 宿主机地址。
+  string host_ip = 2;
+
+  // 宿主机端口。
+  uint32 host_port = 3;
+
+  // 协议。
+  string protocol = 4;
+
+  // 容器 ID。
+  string container_id = 5;
+
+  // 容器名。
+  string container_name = 6;
+
+  // 容器状态。
+  string container_state = 7;
+
+  // 容器端口。
+  uint32 container_port = 8;
+
+  // Compose 项目名。
+  string compose = 9;
+
+  // 应用名。
+  string application = 10;
+
+  // 策略 UUID。
+  string policy_uuid = 11;
+
+  // 策略模式。
+  string mode = 12;
+
+  // 来源地址。
+  repeated string sources = 13;
+
+  // 策略是否生效。
+  bool effective = 14;
+
+  // 流量路径。
+  string traffic_path = 15;
+
+  // 管理目标。
+  string management_target = 16;
+
+  // 管理原因。
+  string management_reason = 17;
+}
+
+// DockerGuardPortGroup 是按端口聚合的端点。
+message DockerGuardPortGroup {
+  // 聚合键。
+  string key = 1;
+
+  // 显示名。
+  string label = 2;
+
+  // 代表端点。
+  DockerGuardEndpoint endpoint = 3;
+
+  // 端点列表。
+  repeated DockerGuardEndpoint endpoints = 4;
+}
+
+// DockerGuardContainer 是一个容器的端口与策略。
+message DockerGuardContainer {
+  // 聚合键。
+  string key = 1;
+
+  // 容器名。
+  string name = 2;
+
+  // Compose 项目名。
+  string compose = 3;
+
+  // 应用名。
+  string application = 4;
+
+  // 端点列表。
+  repeated DockerGuardEndpoint endpoints = 5;
+
+  // 按端口聚合。
+  repeated DockerGuardPortGroup port_groups = 6;
+}
+
+// DockerGuardOverview 是 Docker 端口防护总览。
+message DockerGuardOverview {
+  // 基础状态。
+  DockerGuardBase base = 1;
+
+  // 容器列表。
+  repeated DockerGuardContainer containers = 2;
+
+  // 孤儿策略。
+  repeated DockerGuardEndpoint orphan_policies = 3;
+}
+
+// GetDockerPortsRequest 是 Docker 防护总览查询参数，无业务字段。
+message GetDockerPortsRequest {}
+
+// GetDockerEndpointsRequest 是 Docker 发布端口查询参数，无业务字段。
+message GetDockerEndpointsRequest {}
+
+// DockerEndpointsResponse 是 Docker 发布端口列表。
+message DockerEndpointsResponse {
+  // 容器列表。
+  repeated DockerGuardContainer items = 1;
+}
+
+// OperateDockerGuardRequest 是 Docker 防护操作参数。
+message OperateDockerGuardRequest {
+  // 备份文件。
+  string backup_file = 1 [(buf.validate.field).string.max_len = 255];
+
+  // 操作：initialize、bind、unbind。
+  string operation = 2 [(buf.validate.field).string = {
+    in: [
+      "initialize",
+      "bind",
+      "unbind"
+    ]
+  }];
+
+  // 任务 ID。
+  string task_id = 3 [(buf.validate.field).string.max_len = 64];
+}
+
+// DockerGuardPolicy 是一条 Docker 端口防护策略。
+message DockerGuardPolicy {
+  // 地址族：ipv4、ipv6。
+  string family = 1 [(buf.validate.field).string = {
+    in: [
+      "ipv4",
+      "ipv6"
+    ]
+  }];
+
+  // 宿主机地址。
+  string host_ip = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 45
+  }];
+
+  // 宿主机端口。
+  uint32 host_port = 3 [(buf.validate.field).uint32 = {
+    gt: 0
+    lt: 65536
+  }];
+
+  // 协议：tcp、udp。
+  string protocol = 4 [(buf.validate.field).string = {
+    in: [
+      "tcp",
+      "udp"
+    ]
+  }];
+
+  // 模式。
+  string mode = 5 [(buf.validate.field).string = {
+    in: [
+      "deny_sources",
+      "allow_sources",
+      "deny_all",
+      "accept_sources",
+      "accept_all"
+    ]
+  }];
+
+  // 来源地址。
+  repeated string sources = 6;
+}
+
+// UpsertDockerPoliciesRequest 是批量更新策略参数。
+message UpsertDockerPoliciesRequest {
+  // 策略列表。
+  repeated DockerGuardPolicy policies = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 是否为导入。
+  bool import = 2;
+}
+
+// DeleteDockerPoliciesRequest 是批量删除策略参数。
+message DeleteDockerPoliciesRequest {
+  // 策略 UUID 列表。
+  repeated string uuids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// ListFirewallBackupsRequest 是备份列表查询参数。
+message ListFirewallBackupsRequest {
+  // 子系统：system、forwarding、docker。
+  string subsystem = 1 [(buf.validate.field).string = {
+    in: [
+      "",
+      "system",
+      "forwarding",
+      "docker"
+    ]
+  }];
+}
+
+// FirewallRuleBackup 是一个规则备份文件。
+message FirewallRuleBackup {
+  // 文件名。
+  string name = 1;
+
+  // 后端。
+  string provider = 2;
+
+  // 规则数。
+  int32 rule_count = 3;
+
+  // 修改时间（Unix 秒）。
+  int64 modified_at = 4;
+}
+
+// FirewallRuleBackups 是备份文件列表。
+message FirewallRuleBackups {
+  // 目录。
+  string directory = 1;
+
+  // 文件列表。
+  repeated FirewallRuleBackup files = 2;
+}

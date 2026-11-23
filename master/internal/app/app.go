@@ -13,8 +13,8 @@ import (
 
 	"github.com/google/wire"
 
-	"mypanel/master/internal/panel"
 	"mypanel/master/internal/server"
+	"mypanel/master/internal/transport"
 )
 
 // Config 是从命令行解析出来、供依赖图使用的配置。
@@ -37,9 +37,9 @@ type Config struct {
 // defaultShutdownTimeout 是 ShutdownTimeout 未配置时的回退值。
 const defaultShutdownTimeout = 5 * time.Second
 
-// providePanelService 把 Config 转成 panel.Service 的构造参数。
-func providePanelService(cfg Config) *panel.Service {
-	return panel.NewService(panel.Options{Version: cfg.Version})
+// provideRPCServices 返回已实现的 Connect 服务集合。
+func provideRPCServices() []server.RPCService {
+	return transport.Services()
 }
 
 // provideLogger 从 Config 取出日志器，供 App 字段注入使用。
@@ -54,13 +54,18 @@ func provideLogger(cfg Config) *slog.Logger {
 //
 // wire 需要知道每个构造函数的入参从哪来，所以用这个函数把 Config
 // 的字段映射到 server.Options，避免 server 包反向依赖 Config。
-func provideHandler(cfg Config, svc *panel.Service) http.Handler {
+func provideHandler(cfg Config, services []server.RPCService) http.Handler {
+	upload, download := transport.FileHandlers()
 	return server.New(server.Options{
-		Version: cfg.Version,
-		WebFS:   cfg.WebFS,
-		Logger:  cfg.Logger,
-		Debug:   cfg.Debug,
-		Panel:   svc,
+		Version:      cfg.Version,
+		WebFS:        cfg.WebFS,
+		Logger:       cfg.Logger,
+		Debug:        cfg.Debug,
+		Services:     services,
+		FileUpload:   upload,
+		FileDownload: download,
+		TerminalWS:   transport.TerminalWSHandler(),
+		MCPHandler:   transport.MCPHandler(),
 	})
 }
 
@@ -104,7 +109,7 @@ func newApp(cfg Config, srv *http.Server, logger *slog.Logger) *App {
 
 // ProviderSet 是依赖图的完整声明，供 wire.Build 引用。
 var ProviderSet = wire.NewSet(
-	providePanelService,
+	provideRPCServices,
 	provideLogger,
 	provideHandler,
 	newHTTPServer,

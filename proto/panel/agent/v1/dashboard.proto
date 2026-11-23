@@ -1,0 +1,347 @@
+// panel/agent/v1/dashboard.proto 定义首页概览与系统信息相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// DashboardService 对应 1Panel 的首页概览域。
+service DashboardService {
+  // 读取操作系统与磁盘概况。
+  rpc GetOsInfo(OsInfoRequest) returns (OsInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取首页基础信息（主机、CPU、当前负载、快捷入口）。
+  rpc BaseInfo(BaseInfoRequest) returns (DashboardBase) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取当前负载（CPU、内存、磁盘 IO、网络流量）。
+  rpc CurrentInfo(CurrentInfoRequest) returns (DashboardCurrent) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取首页快捷入口配置。
+  rpc QuickJumps(QuickJumpsRequest) returns (QuickJumpsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// OsInfoRequest 是系统信息查询参数，无业务字段。
+message OsInfoRequest {}
+
+// OsInfo 是操作系统与磁盘概况。
+message OsInfo {
+  // 操作系统名称，例如 linux、darwin。
+  string os = 1;
+
+  // 发行版名称，例如 Ubuntu。
+  string platform = 2;
+
+  // 发行版家族，例如 debian。
+  string platform_family = 3;
+
+  // 内核架构，例如 amd64、arm64。
+  string kernel_arch = 4;
+
+  // 内核版本。
+  string kernel_version = 5;
+
+  // 易读的发行版描述。
+  string pretty_distro = 6;
+
+  // 数据目录所在磁盘的剩余空间，单位字节。
+  int64 disk_size = 7;
+}
+
+// BaseInfoRequest 是首页基础信息查询参数。
+message BaseInfoRequest {
+  // 磁盘 IO 的采样方式，例如 all、read、write；为空使用服务端默认值。
+  string io_option = 1 [(buf.validate.field).string.max_len = 16];
+
+  // 网络流量的采样方式，例如 all、sent、recv；为空使用服务端默认值。
+  string net_option = 2 [(buf.validate.field).string.max_len = 16];
+}
+
+// DashboardBase 是首页基础信息。
+message DashboardBase {
+  // 网站数量。
+  int32 website_number = 1;
+
+  // 节点数量。
+  int32 agent_number = 2;
+
+  // 数据库数量。
+  int32 database_number = 3;
+
+  // 计划任务数量。
+  int32 cronjob_number = 4;
+
+  // 已安装应用数量。
+  int32 app_installed_number = 5;
+
+  // 主机名。
+  string hostname = 6;
+
+  // 操作系统名称。
+  string os = 7;
+
+  // 发行版名称。
+  string platform = 8;
+
+  // 发行版家族。
+  string platform_family = 9;
+
+  // 发行版版本。
+  string platform_version = 10;
+
+  // 易读的发行版描述。
+  string pretty_distro = 11;
+
+  // 内核架构。
+  string kernel_arch = 12;
+
+  // 内核版本。
+  string kernel_version = 13;
+
+  // 虚拟化信息（JSON 字符串）。
+  string virtualization_system = 14;
+
+  // 出站 IPv4 地址。
+  string ip_v4_addr = 15;
+
+  // 系统代理。
+  string system_proxy = 16;
+
+  // 物理 CPU 核数。
+  int32 cpu_cores = 17;
+
+  // 逻辑 CPU 核数。
+  int32 cpu_logical_cores = 18;
+
+  // CPU 型号。
+  string cpu_model_name = 19;
+
+  // CPU 主频，单位 MHz。
+  double cpu_mhz = 20;
+
+  // 首页快捷入口。
+  repeated QuickJump quick_jumps = 21;
+
+  // 当前负载。
+  DashboardCurrent current_info = 22;
+}
+
+// CurrentInfoRequest 是当前负载查询参数。
+message CurrentInfoRequest {
+  // 磁盘 IO 的采样方式；为空使用服务端默认值。
+  string io_option = 1 [(buf.validate.field).string.max_len = 16];
+
+  // 网络流量的采样方式；为空使用服务端默认值。
+  string net_option = 2 [(buf.validate.field).string.max_len = 16];
+}
+
+// DashboardCurrent 是当前负载快照。
+message DashboardCurrent {
+  // 系统运行时长，单位秒。
+  uint64 uptime = 1;
+
+  // 运行时长的人读格式，例如 3 days。
+  string time_since_uptime = 2;
+
+  // 运行时长拆分为天/时/分/秒。
+  RunningTime running_time = 3;
+
+  // 进程数量。
+  uint64 procs = 4;
+
+  // 1 分钟平均负载。
+  double load1 = 5;
+
+  // 5 分钟平均负载。
+  double load5 = 6;
+
+  // 15 分钟平均负载。
+  double load15 = 7;
+
+  // 负载使用率百分比。
+  double load_usage_percent = 8;
+
+  // 每个核心的 CPU 使用率百分比。
+  repeated double cpu_percent = 9;
+
+  // CPU 总体使用率百分比。
+  double cpu_used_percent = 10;
+
+  // CPU 使用量（核）。
+  double cpu_used = 11;
+
+  // CPU 总核数。
+  int32 cpu_total = 12;
+
+  // 每个核心的详细使用率百分比。
+  repeated double cpu_detailed_percent = 13;
+
+  // 内存总量，单位字节。
+  uint64 memory_total = 14;
+
+  // 已用内存，单位字节。
+  uint64 memory_used = 15;
+
+  // 空闲内存，单位字节。
+  uint64 memory_free = 16;
+
+  // 共享内存，单位字节。
+  uint64 memory_shard = 17;
+
+  // 缓存内存，单位字节。
+  uint64 memory_cache = 18;
+
+  // 可用内存，单位字节。
+  uint64 memory_available = 19;
+
+  // 内存使用率百分比。
+  double memory_used_percent = 20;
+
+  // 交换分区总量，单位字节。
+  uint64 swap_memory_total = 21;
+
+  // 交换分区可用量，单位字节。
+  uint64 swap_memory_available = 22;
+
+  // 交换分区已用量，单位字节。
+  uint64 swap_memory_used = 23;
+
+  // 交换分区使用率百分比。
+  double swap_memory_used_percent = 24;
+
+  // 磁盘读取字节数。
+  uint64 io_read_bytes = 25;
+
+  // 磁盘写入字节数。
+  uint64 io_write_bytes = 26;
+
+  // 磁盘 IO 次数。
+  uint64 io_count = 27;
+
+  // 磁盘读取耗时，单位毫秒。
+  uint64 io_read_time = 28;
+
+  // 磁盘写入耗时，单位毫秒。
+  uint64 io_write_time = 29;
+
+  // 各挂载点的磁盘使用情况。
+  repeated DiskInfo disk_data = 30;
+
+  // 网络发送字节数。
+  uint64 net_bytes_sent = 31;
+
+  // 网络接收字节数。
+  uint64 net_bytes_recv = 32;
+
+  // 采样时间，RFC3339 格式；前端据此计算两次采样之间的增量。
+  string shot_time = 33;
+}
+
+// RunningTime 把运行时长拆成天/时/分/秒。
+message RunningTime {
+  // 天数。
+  uint64 days = 1;
+
+  // 小时数。
+  uint64 hours = 2;
+
+  // 分钟数。
+  uint64 minutes = 3;
+
+  // 秒数。
+  uint64 seconds = 4;
+}
+
+// DiskInfo 是一个挂载点的磁盘使用情况。
+message DiskInfo {
+  // 挂载路径。
+  string path = 1;
+
+  // 文件系统类型。
+  string type = 2;
+
+  // 设备名。
+  string device = 3;
+
+  // 总容量，单位字节。
+  uint64 total = 4;
+
+  // 可用容量，单位字节。
+  uint64 free = 5;
+
+  // 已用容量，单位字节。
+  uint64 used = 6;
+
+  // 使用率百分比。
+  double used_percent = 7;
+
+  // inode 总数。
+  uint64 inodes_total = 8;
+
+  // 已用 inode 数。
+  uint64 inodes_used = 9;
+
+  // 可用 inode 数。
+  uint64 inodes_free = 10;
+
+  // inode 使用率百分比。
+  double inodes_used_percent = 11;
+}
+
+// QuickJumpsRequest 是快捷入口查询参数，无业务字段。
+message QuickJumpsRequest {}
+
+// QuickJumpsResponse 是首页快捷入口列表。
+message QuickJumpsResponse {
+  // 快捷入口列表。
+  repeated QuickJump items = 1;
+}
+
+// QuickJump 是一个快捷入口。
+message QuickJump {
+  // 入口 ID。
+  uint32 id = 1;
+
+  // 名称。
+  string name = 2;
+
+  // 别名。
+  string alias = 3;
+
+  // 标题。
+  string title = 4;
+
+  // 说明。
+  string detail = 5;
+
+  // 推荐顺序。
+  int32 recommend = 6;
+
+  // 是否显示。
+  bool is_show = 7;
+
+  // 前端路由。
+  string router = 8;
+}

@@ -1,0 +1,676 @@
+// panel/agent/v1/host.proto 定义主机管理相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// HostService 对应 1Panel 的主机管理域。
+//
+// 只返回展示所需字段：密码、私钥、口令永不出现在 RPC 响应里。
+service HostService {
+  // 分页查询主机列表，支持按分组与关键字过滤。
+  rpc Search(SearchHostsRequest) returns (SearchHostsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按 ID 查询单个主机。
+  rpc Get(GetHostRequest) returns (Host) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建主机。
+  rpc Create(CreateHostRequest) returns (Host) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建主机"
+      audit_action_en: "Create host"
+    };
+  }
+
+  // 批量删除主机。
+  rpc DeleteHosts(DeleteHostsRequest) returns (DeleteHostsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除主机"
+      audit_action_en: "Delete host"
+    };
+  }
+
+  // 修改主机信息；密码与私钥在服务端加密存储。
+  rpc UpdateHost(UpdateHostRequest) returns (Host) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改主机"
+      audit_action_en: "Update host"
+    };
+  }
+
+  // 修改主机所属分组。
+  rpc UpdateHostGroup(UpdateHostGroupRequest) returns (UpdateHostGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改主机分组"
+      audit_action_en: "Update host group"
+    };
+  }
+
+  // 使用请求中的连接信息测试 SSH 是否可用（不落库）。
+  rpc TestByInfo(TestHostInfoRequest) returns (TestHostResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+    };
+  }
+
+  // 使用已保存主机的凭据测试 SSH 是否可用。
+  rpc TestByID(TestHostByIDRequest) returns (TestHostResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+    };
+  }
+
+  // 检查本机是否安装了某个命令行组件。
+  rpc CheckComponent(CheckComponentRequest) returns (ComponentInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取磁盘、分区与挂载点信息。
+  rpc GetDisks(GetDisksRequest) returns (CompleteDiskDetail) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 对未分区磁盘执行分区并挂载。
+  rpc PartitionDisk(PartitionDiskRequest) returns (PartitionDiskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "磁盘分区"
+      audit_action_en: "Partition disk"
+    };
+  }
+
+  // 挂载磁盘到指定目录。
+  rpc MountDisk(MountDiskRequest) returns (MountDiskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "挂载磁盘"
+      audit_action_en: "Mount disk"
+    };
+  }
+
+  // 卸载已挂载的磁盘。
+  rpc UnmountDisk(UnmountDiskRequest) returns (UnmountDiskResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "卸载磁盘"
+      audit_action_en: "Unmount disk"
+    };
+  }
+
+  // 读取进程运行时资源概况（RSS、堆、goroutine 数）。
+  rpc GetDiagnosticsSummary(GetDiagnosticsSummaryRequest) returns (DiagnosticsSummary) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取 goroutine 快照；数量过多时按调用栈聚合。
+  rpc GetDiagnosticsGoroutines(GetDiagnosticsGoroutinesRequest) returns (GoroutineSnapshot) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 采集 pprof 性能剖析文件。
+  rpc CreateDiagnosticsProfile(CreateDiagnosticsProfileRequest) returns (DiagnosticsProfile) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "采集运行时剖析"
+      audit_action_en: "Capture runtime profile"
+    };
+  }
+
+  // 查询主机分组树，用于左侧筛选与移动主机。
+  rpc Tree(HostTreeRequest) returns (HostTreeResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchHostsRequest 是主机列表查询参数。
+message SearchHostsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 主机分组 ID；0 表示全部分组。
+  uint32 group_id = 3;
+
+  // 名称、地址或备注的模糊搜索关键字。
+  string info = 4 [(buf.validate.field).string.max_len = 64];
+}
+
+// SearchHostsResponse 是主机列表查询结果。
+message SearchHostsResponse {
+  // 当前页的主机列表。
+  repeated Host items = 1;
+
+  // 符合条件的主机总数。
+  int64 total = 2;
+}
+
+// GetHostRequest 是主机详情查询参数。
+message GetHostRequest {
+  // 主机 ID，必须大于 0。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// Host 是主机展示信息。
+message Host {
+  // 主机 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 所属分组 ID。
+  uint32 group_id = 3;
+
+  // 分组名称。
+  string group_belong = 4;
+
+  // 主机名称。
+  string name = 5;
+
+  // 主机地址（IP 或域名）。
+  string addr = 6;
+
+  // SSH 端口。
+  uint32 port = 7;
+
+  // SSH 用户名。
+  string user = 8;
+
+  // 认证方式：password=密码，key=私钥。
+  string auth_mode = 9;
+
+  // 备注。
+  string description = 10;
+}
+
+// HostTreeRequest 是主机分组树查询参数。
+message HostTreeRequest {
+  // 分组名称关键字，为空表示不筛选。
+  string info = 1 [(buf.validate.field).string.max_len = 64];
+}
+
+// HostTreeResponse 是主机分组树。
+message HostTreeResponse {
+  // 分组列表。
+  repeated HostGroup groups = 1;
+}
+
+// HostGroup 是一个主机分组及其下的主机。
+message HostGroup {
+  // 分组 ID。
+  uint32 id = 1;
+
+  // 分组名称。
+  string label = 2;
+
+  // 分组下的主机。
+  repeated HostTreeChild children = 3;
+}
+
+// HostTreeChild 是分组树里的一个主机节点。
+message HostTreeChild {
+  // 主机 ID。
+  uint32 id = 1;
+
+  // 主机名称。
+  string label = 2;
+}
+
+// CreateHostRequest 是创建主机参数。
+message CreateHostRequest {
+  // 分组 ID。
+  uint32 group_id = 1;
+
+  // 主机名称。
+  string name = 2;
+
+  // 主机地址。
+  string addr = 3 [(buf.validate.field).string.min_len = 1];
+
+  // SSH 端口，1-65535。
+  uint32 port = 4 [(buf.validate.field).uint32 = {
+    gt: 0
+    lt: 65536
+  }];
+
+  // SSH 用户名。
+  string user = 5 [(buf.validate.field).string.min_len = 1];
+
+  // 认证方式：password 或 key。
+  string auth_mode = 6 [(buf.validate.field).string = {
+    in: [
+      "password",
+      "key"
+    ]
+  }];
+
+  // 登录密码（auth_mode=password 时使用），明文传输、服务端加密保存。
+  string password = 7;
+
+  // 私钥内容（auth_mode=key 时使用）。
+  string private_key = 8;
+
+  // 私钥口令。
+  string pass_phrase = 9;
+
+  // 是否记住密码。
+  bool remember_password = 10;
+
+  // 备注。
+  string description = 11;
+}
+
+// DeleteHostsRequest 是批量删除主机参数。
+message DeleteHostsRequest {
+  // 主机 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteHostsResponse 是删除结果，无业务字段。
+message DeleteHostsResponse {}
+
+// UpdateHostRequest 是修改主机参数。
+message UpdateHostRequest {
+  // 主机 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 分组 ID。
+  uint32 group_id = 2;
+
+  // 主机名称。
+  string name = 3;
+
+  // 主机地址。
+  string addr = 4 [(buf.validate.field).string.min_len = 1];
+
+  // SSH 端口，1-65535。
+  uint32 port = 5 [(buf.validate.field).uint32 = {
+    gt: 0
+    lt: 65536
+  }];
+
+  // SSH 用户名。
+  string user = 6 [(buf.validate.field).string.min_len = 1];
+
+  // 认证方式：password 或 key。
+  string auth_mode = 7 [(buf.validate.field).string = {
+    in: [
+      "password",
+      "key"
+    ]
+  }];
+
+  // 登录密码；留空表示不修改。
+  string password = 8;
+
+  // 私钥内容；留空表示不修改。
+  string private_key = 9;
+
+  // 私钥口令。
+  string pass_phrase = 10;
+
+  // 是否记住密码。
+  bool remember_password = 11;
+
+  // 备注。
+  string description = 12;
+}
+
+// UpdateHostGroupRequest 是修改主机分组参数。
+message UpdateHostGroupRequest {
+  // 主机 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 目标分组 ID；0 表示未分组。
+  uint32 group_id = 2;
+}
+
+// UpdateHostGroupResponse 是修改结果，无业务字段。
+message UpdateHostGroupResponse {}
+
+// TestHostInfoRequest 是使用临时连接信息测试 SSH 的参数。
+message TestHostInfoRequest {
+  // 主机地址。
+  string addr = 1 [(buf.validate.field).string.min_len = 1];
+
+  // SSH 端口，1-65535。
+  uint32 port = 2 [(buf.validate.field).uint32 = {
+    gt: 0
+    lt: 65536
+  }];
+
+  // SSH 用户名。
+  string user = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 认证方式：password 或 key。
+  string auth_mode = 4 [(buf.validate.field).string = {
+    in: [
+      "password",
+      "key"
+    ]
+  }];
+
+  // 登录密码。
+  string password = 5;
+
+  // 私钥内容。
+  string private_key = 6;
+
+  // 私钥口令。
+  string pass_phrase = 7;
+}
+
+// TestHostByIDRequest 是使用已保存凭据测试 SSH 的参数。
+message TestHostByIDRequest {
+  // 主机 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// TestHostResponse 是 SSH 连通性测试结果。
+message TestHostResponse {
+  // 是否连接成功。
+  bool ok = 1;
+}
+
+// CheckComponentRequest 是组件检查参数。
+message CheckComponentRequest {
+  // 命令名，例如 docker、supervisord。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ComponentInfo 是组件检查结果。
+message ComponentInfo {
+  // 是否已安装。
+  bool exists = 1;
+
+  // 版本号（可执行文件未提供时为 empty）。
+  string version = 2;
+
+  // 可执行文件路径。
+  string path = 3;
+
+  // 检查失败原因。
+  string error = 4;
+}
+
+// GetDisksRequest 是磁盘信息查询参数，无业务字段。
+message GetDisksRequest {}
+
+// CompleteDiskDetail 是本机磁盘与分区的完整信息。
+message CompleteDiskDetail {
+  // 已分区磁盘。
+  repeated DiskDetail disks = 1;
+
+  // 未分区磁盘。
+  repeated DiskPartBase unpartitioned_disks = 2;
+
+  // 系统盘。
+  repeated DiskDetail system_disks = 3;
+
+  // 磁盘总数。
+  int32 total_disks = 4;
+
+  // 总容量。
+  int64 total_capacity = 5;
+}
+
+// DiskDetail 是一块磁盘及其分区。
+message DiskDetail {
+  // 设备路径。
+  string device = 1;
+
+  // 容量（人类可读）。
+  string size = 2;
+
+  // 型号。
+  string model = 3;
+
+  // 磁盘类型（hdd、ssd 等）。
+  string disk_type = 4;
+
+  // 是否可移动。
+  bool is_removable = 5;
+
+  // 是否为系统盘。
+  bool is_system = 6;
+
+  // 文件系统。
+  string filesystem = 7;
+
+  // 已用容量（人类可读）。
+  string used = 8;
+
+  // 可用容量（人类可读）。
+  string avail = 9;
+
+  // 使用率百分比。
+  int32 use_percent = 10;
+
+  // 挂载点。
+  string mount_point = 11;
+
+  // 是否已挂载。
+  bool is_mounted = 12;
+
+  // 序列号。
+  string serial = 13;
+
+  // 分区列表。
+  repeated DiskPartBase partitions = 14;
+}
+
+// DiskPartBase 是磁盘或分区的基础信息。
+message DiskPartBase {
+  // 设备路径。
+  string device = 1;
+
+  // 容量（人类可读）。
+  string size = 2;
+
+  // 型号。
+  string model = 3;
+
+  // 磁盘类型（hdd、ssd 等）。
+  string disk_type = 4;
+
+  // 是否可移动。
+  bool is_removable = 5;
+
+  // 是否为系统盘。
+  bool is_system = 6;
+
+  // 文件系统。
+  string filesystem = 7;
+
+  // 已用容量（人类可读）。
+  string used = 8;
+
+  // 可用容量（人类可读）。
+  string avail = 9;
+
+  // 使用率百分比。
+  int32 use_percent = 10;
+
+  // 挂载点。
+  string mount_point = 11;
+
+  // 是否已挂载。
+  bool is_mounted = 12;
+
+  // 序列号。
+  string serial = 13;
+}
+
+// PartitionDiskRequest 是磁盘分区参数。
+message PartitionDiskRequest {
+  // 设备路径。
+  string device = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 文件系统：ext4 或 xfs。
+  string filesystem = 2 [(buf.validate.field).string = {
+    in: [
+      "ext4",
+      "xfs"
+    ]
+  }];
+
+  // 卷标。
+  string label = 3;
+
+  // 是否写入 fstab 自动挂载。
+  bool auto_mount = 4;
+
+  // 挂载点。
+  string mount_point = 5 [(buf.validate.field).string.min_len = 1];
+}
+
+// PartitionDiskResponse 是分区结果，无业务字段。
+message PartitionDiskResponse {}
+
+// MountDiskRequest 是磁盘挂载参数。
+message MountDiskRequest {
+  // 设备路径。
+  string device = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 挂载点。
+  string mount_point = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 文件系统：ext4 或 xfs。
+  string filesystem = 3 [(buf.validate.field).string = {
+    in: [
+      "ext4",
+      "xfs"
+    ]
+  }];
+
+  // 是否写入 fstab 自动挂载。
+  bool auto_mount = 4;
+
+  // 挂载失败时是否忽略（fstab nofail）。
+  bool no_fail = 5;
+}
+
+// MountDiskResponse 是挂载结果，无业务字段。
+message MountDiskResponse {}
+
+// UnmountDiskRequest 是磁盘卸载参数。
+message UnmountDiskRequest {
+  // 挂载点。
+  string mount_point = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// UnmountDiskResponse 是卸载结果，无业务字段。
+message UnmountDiskResponse {}
+
+// GetDiagnosticsSummaryRequest 是运行时概况查询参数，无业务字段。
+message GetDiagnosticsSummaryRequest {}
+
+// DiagnosticsSummary 是进程运行时概况。
+message DiagnosticsSummary {
+  // 常驻内存，单位字节。
+  uint64 rss = 1;
+
+  // 堆分配，单位字节。
+  uint64 heap_alloc = 2;
+
+  // 堆对象数。
+  uint64 heap_objects = 3;
+
+  // goroutine 数量。
+  int32 goroutines = 4;
+}
+
+// GetDiagnosticsGoroutinesRequest 是 goroutine 快照查询参数，无业务字段。
+message GetDiagnosticsGoroutinesRequest {}
+
+// GoroutineSnapshot 是 goroutine 快照。
+message GoroutineSnapshot {
+  // 总数。
+  int32 total = 1;
+
+  // 聚合后的分组数。
+  int32 group_count = 2;
+
+  // 是否因为数量过多而聚合截断。
+  bool truncated = 3;
+
+  // 采集时间，RFC3339 格式。
+  string captured_at = 4;
+
+  // 分组明细。
+  repeated GoroutineGroup goroutines = 5;
+}
+
+// GoroutineGroup 是一类 goroutine 的聚合。
+message GoroutineGroup {
+  // 状态。
+  string state = 1;
+
+  // 栈顶函数。
+  string top = 2;
+
+  // 数量。
+  int32 count = 3;
+
+  // 调用栈。
+  repeated string stack = 4;
+}
+
+// CreateDiagnosticsProfileRequest 是性能剖析参数。
+message CreateDiagnosticsProfileRequest {
+  // 剖析类型：cpu、heap、goroutine、mutex、block。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "cpu",
+      "heap",
+      "goroutine",
+      "mutex",
+      "block"
+    ]
+  }];
+
+  // CPU 剖析时长（秒），5-30。
+  int32 duration = 2 [(buf.validate.field).int32 = {
+    gte: 5
+    lte: 30
+  }];
+}
+
+// DiagnosticsProfile 是采集结果。
+message DiagnosticsProfile {
+  // 文件路径。
+  string path = 1;
+
+  // 文件名。
+  string name = 2;
+}

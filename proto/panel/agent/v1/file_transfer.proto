@@ -1,0 +1,67 @@
+// panel/agent/v1/file_transfer.proto 定义大文件上传/下载的一次性票据。
+//
+// 文件内容本身走专用二进制 HTTP 通道（/files/upload、/files/download），
+// 这里只负责签发短期票据，避免把大文件塞进 unary proto。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// FileTransferService 负责签发文件上传/下载票据。
+service FileTransferService {
+  // 创建上传票据。
+  rpc CreateUploadTicket(CreateUploadTicketRequest) returns (FileTicket) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "上传文件"
+      audit_action_en: "Upload file"
+    };
+  }
+
+  // 创建下载票据。
+  rpc CreateDownloadTicket(CreateDownloadTicketRequest) returns (FileTicket) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// CreateUploadTicketRequest 是申请上传票据的参数。
+message CreateUploadTicketRequest {
+  // 目标目录绝对路径。
+  string dir = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 目标文件名。
+  string filename = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 255
+  }];
+
+  // 文件大小，单位字节；0 表示不限制。
+  int64 size = 3 [(buf.validate.field).int64.gte = 0];
+
+  // 是否覆盖同名文件。
+  bool overwrite = 4;
+}
+
+// CreateDownloadTicketRequest 是申请下载票据的参数。
+message CreateDownloadTicketRequest {
+  // 文件绝对路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// FileTicket 是一次性文件传输票据。
+message FileTicket {
+  // 票据 token，放在 X-File-Ticket 请求头或 ticket 查询参数里。
+  string token = 1;
+
+  // 上传/下载使用的 HTTP 地址。
+  string url = 2;
+
+  // 过期时间，RFC3339 格式。
+  string expires_at = 3;
+}

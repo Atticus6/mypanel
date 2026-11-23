@@ -1,0 +1,2409 @@
+// panel/agent/v1/website.proto 定义网站管理域的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/agent/v1/file.proto";
+import "panel/common/v1/options.proto";
+
+// WebsiteService 对应 1Panel 的网站管理域。
+//
+// 迁移后只保留静态站点、反向代理与四层代理；运行环境站点
+// （PHP/Node/Java/Go/Python/.NET）与网站模板已从产品中移除。
+service WebsiteService {
+  // 分页查询网站列表，支持按名称/域名模糊搜索与类型过滤。
+  rpc Search(SearchWebsitesRequest) returns (SearchWebsitesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取单个网站详情。
+  rpc GetWebsite(GetWebsiteRequest) returns (WebsiteDetail) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出全部网站（轻量视图）。
+  rpc List(ListWebsitesRequest) returns (ListWebsitesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出网站名称选项，供下拉框使用。
+  rpc Options(WebsiteOptionsRequest) returns (WebsiteOptionsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 启停、重载或设置默认站点。
+  rpc OperateWebsite(OperateWebsiteRequest) returns (OperateWebsiteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作网站"
+      audit_action_en: "Operate website"
+    };
+  }
+
+  // 修改网站基础信息（备注、分组、到期时间等）。
+  rpc UpdateWebsite(UpdateWebsiteRequest) returns (UpdateWebsiteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改网站"
+      audit_action_en: "Update website"
+    };
+  }
+
+  // 创建前的依赖检查（应用、运行时等）。
+  rpc Check(CheckWebsiteRequest) returns (CheckWebsiteResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 迁移分组内全部网站到新分组。
+  rpc ChangeGroup(ChangeWebsiteGroupRequest) returns (ChangeWebsiteGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "迁移网站分组"
+      audit_action_en: "Change website group"
+    };
+  }
+
+  // 批量设置网站分组。
+  rpc BatchGroup(BatchWebsiteGroupRequest) returns (BatchWebsiteGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "批量设置网站分组"
+      audit_action_en: "Batch set website group"
+    };
+  }
+
+  // 批量启停网站。
+  rpc BatchOperate(BatchWebsiteOperateRequest) returns (BatchWebsiteOperateResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "批量操作网站"
+      audit_action_en: "Batch operate websites"
+    };
+  }
+
+  // 切换网站的 PHP 运行版本。
+  rpc ChangePHPVersion(ChangeWebsitePHPVersionRequest) returns (ChangeWebsitePHPVersionResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改网站 PHP 版本"
+      audit_action_en: "Change website PHP version"
+    };
+  }
+
+  // 开启或关闭跨站访问。
+  rpc OperateCrossSite(OperateCrossSiteRequest) returns (OperateCrossSiteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改跨站访问"
+      audit_action_en: "Operate cross-site access"
+    };
+  }
+
+  // 读取 CORS 配置。
+  rpc GetCors(GetCorsRequest) returns (CorsConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新 CORS 配置。
+  rpc UpdateCors(UpdateCorsRequest) returns (UpdateCorsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 CORS"
+      audit_action_en: "Update CORS"
+    };
+  }
+
+  // 读取网站目录配置。
+  rpc GetSiteDir(GetSiteDirRequest) returns (WebsiteDirConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改网站根目录。
+  rpc UpdateSiteDir(UpdateWebsiteDirRequest) returns (UpdateWebsiteDirResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改网站目录"
+      audit_action_en: "Update website directory"
+    };
+  }
+
+  // 修改网站目录权限。
+  rpc UpdateSitePermission(UpdateWebsitePermissionRequest) returns (UpdateWebsitePermissionResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改网站目录权限"
+      audit_action_en: "Update website directory permission"
+    };
+  }
+
+  // 列出自定义伪静态规则。
+  rpc ListCustomRewrite(ListCustomRewriteRequest) returns (ListCustomRewriteResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 新增或删除自定义伪静态规则。
+  rpc OperateCustomRewrite(OperateCustomRewriteRequest) returns (OperateCustomRewriteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "管理自定义伪静态"
+      audit_action_en: "Operate custom rewrite"
+    };
+  }
+
+  // 新增 DNS 账号。
+  rpc CreateDNSAccount(CreateDNSAccountRequest) returns (CreateDNSAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建 DNS 账号"
+      audit_action_en: "Create DNS account"
+    };
+  }
+
+  // 修改 DNS 账号。
+  rpc UpdateDNSAccount(UpdateDNSAccountRequest) returns (UpdateDNSAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 DNS 账号"
+      audit_action_en: "Update DNS account"
+    };
+  }
+
+  // 删除 DNS 账号。
+  rpc DeleteDNSAccount(DeleteDNSAccountRequest) returns (DeleteDNSAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除 DNS 账号"
+      audit_action_en: "Delete DNS account"
+    };
+  }
+
+  // 列出可绑定的数据库。
+  rpc ListDatabases(ListWebsiteDatabasesRequest) returns (ListWebsiteDatabasesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改网站绑定的数据库。
+  rpc ChangeDatabase(ChangeWebsiteDatabaseRequest) returns (ChangeWebsiteDatabaseResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改网站数据库"
+      audit_action_en: "Change website database"
+    };
+  }
+
+  // 更新负载均衡配置文件。
+  rpc UpdateLoadBalanceFile(UpdateLoadBalanceFileRequest) returns (UpdateLoadBalanceFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改负载均衡配置"
+      audit_action_en: "Update load balance config"
+    };
+  }
+
+  // 开启、关闭或清理网站日志。
+  rpc OperateLog(OperateWebsiteLogRequest) returns (OperateWebsiteLogResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作网站日志"
+      audit_action_en: "Operate website log"
+    };
+  }
+
+  // 新增或修改一条反向代理。
+  rpc UpdateProxy(UpdateProxyRequest) returns (UpdateProxyResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改反向代理"
+      audit_action_en: "Update proxy"
+    };
+  }
+
+  // 更新反向代理配置文件。
+  rpc UpdateProxyFile(UpdateProxyFileRequest) returns (UpdateProxyFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改反向代理配置"
+      audit_action_en: "Update proxy config"
+    };
+  }
+
+  // 删除一条反向代理配置。
+  rpc DeleteProxy(DeleteProxyRequest) returns (DeleteProxyResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除反向代理"
+      audit_action_en: "Delete proxy"
+    };
+  }
+
+  // 启用或停用一条反向代理。
+  rpc UpdateProxyStatus(UpdateProxyStatusRequest) returns (UpdateProxyStatusResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "切换反向代理状态"
+      audit_action_en: "Update proxy status"
+    };
+  }
+
+  // 清理反向代理缓存。
+  rpc ClearProxyCache(ClearProxyCacheRequest) returns (ClearProxyCacheResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清理代理缓存"
+      audit_action_en: "Clear proxy cache"
+    };
+  }
+
+  // 读取网站访问认证配置。
+  rpc GetAuth(GetAuthRequest) returns (AuthConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改网站访问认证配置。
+  rpc UpdateAuth(UpdateAuthRequest) returns (UpdateAuthResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改访问认证"
+      audit_action_en: "Update access auth"
+    };
+  }
+
+  // 读取路径级访问认证配置。
+  rpc GetPathAuth(GetPathAuthRequest) returns (GetPathAuthResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改路径级访问认证配置。
+  rpc UpdatePathAuth(UpdatePathAuthRequest) returns (UpdatePathAuthResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改路径认证"
+      audit_action_en: "Update path auth"
+    };
+  }
+
+  // 更新重定向配置文件。
+  rpc UpdateRedirectFile(UpdateRedirectFileRequest) returns (UpdateRedirectFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改重定向"
+      audit_action_en: "Update redirect"
+    };
+  }
+
+  // 更新四层代理配置。
+  rpc UpdateStream(UpdateStreamRequest) returns (UpdateStreamResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改四层代理"
+      audit_action_en: "Update stream proxy"
+    };
+  }
+
+  // 读取网站关联资源（应用、数据库等）。
+  rpc GetResource(GetWebsiteResourceRequest) returns (GetWebsiteResourceResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 为网站新增域名。
+  rpc CreateDomains(CreateDomainsRequest) returns (CreateDomainsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "新增网站域名"
+      audit_action_en: "Create website domains"
+    };
+  }
+
+  // 删除网站域名。
+  rpc DeleteDomain(DeleteDomainRequest) returns (DeleteDomainResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除网站域名"
+      audit_action_en: "Delete website domain"
+    };
+  }
+
+  // 修改域名 SSL 开关。
+  rpc UpdateDomain(UpdateDomainRequest) returns (UpdateDomainResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改网站域名"
+      audit_action_en: "Update website domain"
+    };
+  }
+
+  // 创建网站。
+  rpc Create(CreateWebsiteRequest) returns (CreateWebsiteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建网站"
+      audit_action_en: "Create website"
+    };
+  }
+
+  // 删除网站。
+  rpc Delete(DeleteWebsiteRequest) returns (DeleteWebsiteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除网站"
+      audit_action_en: "Delete website"
+    };
+  }
+
+  // 创建负载均衡配置。
+  rpc CreateLoadBalance(CreateLoadBalanceRequest) returns (CreateLoadBalanceResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建负载均衡"
+      audit_action_en: "Create load balance"
+    };
+  }
+
+  // 更新负载均衡配置。
+  rpc UpdateLoadBalance(UpdateLoadBalanceRequest) returns (UpdateLoadBalanceResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改负载均衡"
+      audit_action_en: "Update load balance"
+    };
+  }
+
+  // 删除负载均衡配置。
+  rpc DeleteLoadBalance(DeleteLoadBalanceRequest) returns (DeleteLoadBalanceResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除负载均衡"
+      audit_action_en: "Delete load balance"
+    };
+  }
+
+  // 读取真实 IP 配置。
+  rpc GetRealIP(GetRealIPRequest) returns (RealIPConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新真实 IP 配置。
+  rpc UpdateRealIP(UpdateRealIPRequest) returns (UpdateRealIPResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改真实 IP"
+      audit_action_en: "Update real IP"
+    };
+  }
+
+  // 读取默认站点 HTML。
+  rpc GetDefaultHtml(GetDefaultHtmlRequest) returns (DefaultHtml) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新默认站点 HTML。
+  rpc UpdateDefaultHtml(UpdateDefaultHtmlRequest) returns (UpdateDefaultHtmlResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改默认站点"
+      audit_action_en: "Update default site"
+    };
+  }
+
+  // 读取负载均衡（upstream）配置。
+  rpc GetLoadBalances(GetLoadBalancesRequest) returns (GetLoadBalancesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取反向代理缓存配置。
+  rpc GetProxyCache(GetProxyCacheRequest) returns (ProxyCache) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新反向代理缓存配置。
+  rpc UpdateProxyCache(UpdateProxyCacheRequest) returns (UpdateProxyCacheResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改代理缓存"
+      audit_action_en: "Update proxy cache"
+    };
+  }
+
+  // 读取 Nginx 指令级配置（默认文档、限流等）。
+  rpc GetNginxScopeConfig(GetNginxScopeConfigRequest) returns (NginxScopeConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新 Nginx 指令级配置。
+  rpc UpdateNginxScopeConfig(UpdateNginxScopeConfigRequest) returns (UpdateNginxScopeConfigResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 Nginx 配置"
+      audit_action_en: "Update nginx config"
+    };
+  }
+
+  // 读取网站的 HTTPS 配置。
+  rpc GetHTTPS(GetWebsiteHTTPSRequest) returns (WebsiteHTTPS) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新网站的 HTTPS 配置。
+  rpc UpdateHTTPS(UpdateWebsiteHTTPSRequest) returns (WebsiteHTTPS) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 HTTPS"
+      audit_action_en: "Update HTTPS"
+    };
+  }
+
+  // 读取网站的反盗链配置。
+  rpc GetAntiLeech(GetAntiLeechRequest) returns (AntiLeechConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新网站的反盗链配置。
+  rpc UpdateAntiLeech(UpdateAntiLeechRequest) returns (UpdateAntiLeechResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改防盗链"
+      audit_action_en: "Update anti-leech"
+    };
+  }
+
+  // 读取网站的反向代理列表。
+  rpc GetProxies(GetProxiesRequest) returns (GetProxiesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 将网站设为默认站点。
+  rpc ChangeDefault(ChangeDefaultWebsiteRequest) returns (ChangeDefaultWebsiteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "设置默认站点"
+      audit_action_en: "Change default site"
+    };
+  }
+
+  // 读取伪静态配置。
+  rpc GetRewrite(GetRewriteRequest) returns (RewriteConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 保存伪静态配置。
+  rpc UpdateRewrite(UpdateRewriteRequest) returns (UpdateRewriteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改伪静态"
+      audit_action_en: "Update rewrite"
+    };
+  }
+
+  // 读取重定向配置列表。
+  rpc GetRedirect(GetRedirectRequest) returns (GetRedirectResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 保存重定向配置文件。
+  rpc UpdateRedirect(UpdateRedirectRequest) returns (UpdateRedirectResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改重定向"
+      audit_action_en: "Update redirect"
+    };
+  }
+
+  // 读取网站 Nginx 配置文件。
+  rpc GetNginxFile(GetWebsiteNginxFileRequest) returns (FileEntry) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 保存网站 Nginx 配置文件。
+  rpc UpdateNginxFile(UpdateWebsiteNginxFileRequest) returns (UpdateWebsiteNginxFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改网站配置"
+      audit_action_en: "Update website config"
+    };
+  }
+
+  // 读取网站访问/错误日志。
+  rpc GetLog(GetWebsiteLogRequest) returns (WebsiteLog) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 查询网站的域名列表。
+  rpc ListDomains(ListWebsiteDomainsRequest) returns (ListWebsiteDomainsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按 ID 查询单个网站详情。
+  rpc Get(GetWebsiteRequest) returns (Website) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchWebsitesRequest 是网站列表查询参数。
+message SearchWebsitesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，默认 20，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 名称或域名模糊搜索关键字，为空表示不筛选。
+  string name = 3 [(buf.validate.field).string.max_len = 64];
+
+  // 排序字段；为空时按创建时间倒序。
+  string order_by = 4 [(buf.validate.field).string = {
+    in: [
+      "",
+      "primary_domain",
+      "type",
+      "status",
+      "createdAt",
+      "expire_date",
+      "created_at",
+      "favorite"
+    ]
+  }];
+
+  // 排序方向；为空时按倒序。
+  string order = 5 [(buf.validate.field).string = {
+    in: [
+      "",
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+
+  // 网站分组 ID；0 表示不按分组筛选。
+  uint32 website_group_id = 6;
+
+  // 网站类型过滤：static=静态，proxy=反向代理，stream=四层代理，deployment=应用部署。
+  string type = 7 [(buf.validate.field).string = {
+    in: [
+      "",
+      "static",
+      "proxy",
+      "stream",
+      "deployment"
+    ]
+  }];
+}
+
+// SearchWebsitesResponse 是网站列表查询结果。
+message SearchWebsitesResponse {
+  // 当前页的网站列表。
+  repeated Website items = 1;
+
+  // 符合条件的网站总数。
+  int64 total = 2;
+}
+
+// Website 是网站的展示信息。
+message Website {
+  // 网站 ID，创建后不可变。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式，例如 2026-11-22T10:00:00+08:00。
+  string created_at = 2;
+
+  // 访问协议：http 或 https。
+  string protocol = 3;
+
+  // 主域名。
+  string primary_domain = 4;
+
+  // 网站类型：static=静态，proxy=反向代理，stream=四层代理，deployment=应用部署。
+  string type = 5;
+
+  // 网站别名，列表展示用。
+  string alias = 6;
+
+  // 备注。
+  string remark = 7;
+
+  // 运行状态：Running=运行中，Stopped=已停止，Error=异常。
+  string status = 8;
+
+  // 到期时间，RFC3339 格式；零值表示无到期时间。
+  string expire_date = 9;
+
+  // 网站根目录的绝对路径。
+  string site_path = 10;
+
+  // 关联应用名称；非应用部署站点为空。
+  string app_name = 11;
+
+  // 关联应用安装 ID；非应用部署站点为 0。
+  uint32 app_install_id = 12;
+
+  // SSL 证书到期时间，RFC3339 格式；未配置证书时为空。
+  string ssl_expire_date = 13;
+
+  // SSL 状态：success=有效，warning=10 天内到期，danger=已过期。
+  string ssl_status = 14;
+
+  // 子站点域名列表。
+  repeated string child_sites = 15;
+
+  // 父站点域名；独立站点为空。
+  string parent_site = 16;
+
+  // 是否收藏。
+  bool favorite = 17;
+
+  // 是否启用 IPv6。
+  bool ipv6 = 18;
+}
+
+// ListWebsiteDomainsRequest 是网站域名查询参数。
+message ListWebsiteDomainsRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// ListWebsiteDomainsResponse 是网站的域名列表。
+message ListWebsiteDomainsResponse {
+  // 域名列表。
+  repeated WebsiteDomain items = 1;
+}
+
+// WebsiteDomain 是网站绑定的一个域名。
+message WebsiteDomain {
+  // 域名 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 所属网站 ID。
+  uint32 website_id = 3;
+
+  // 域名。
+  string domain = 4;
+
+  // 是否启用 SSL。
+  bool ssl = 5;
+
+  // 端口。
+  int32 port = 6;
+}
+
+// GetWebsiteLogRequest 是网站日志查询参数。
+message GetWebsiteLogRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 日志类型：access.log 或 error.log。
+  string log_type = 2 [(buf.validate.field).string = {
+    in: [
+      "access.log",
+      "error.log"
+    ]
+  }];
+
+  // 页码，从 1 开始。
+  int32 page = 3 [(buf.validate.field).int32.gte = 1];
+
+  // 每页行数，最大 1000。
+  int32 page_size = 4 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 1000
+  }];
+}
+
+// WebsiteLog 是网站日志内容。
+message WebsiteLog {
+  // 该类型日志是否启用。
+  bool enable = 1;
+
+  // 日志内容，按行拼接。
+  string content = 2;
+
+  // 是否已到文件末尾。
+  bool end = 3;
+
+  // 日志文件路径。
+  string path = 4;
+}
+
+// GetWebsiteNginxFileRequest 是 Nginx 配置文件查询参数。
+message GetWebsiteNginxFileRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 配置类型，例如 openresty。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateWebsiteNginxFileRequest 是 Nginx 配置文件保存参数。
+message UpdateWebsiteNginxFileRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 完整配置内容。
+  string content = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateWebsiteNginxFileResponse 是保存结果，无业务字段。
+message UpdateWebsiteNginxFileResponse {}
+
+// ChangeDefaultWebsiteRequest 是设置默认站点的参数。
+message ChangeDefaultWebsiteRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// ChangeDefaultWebsiteResponse 是设置结果，无业务字段。
+message ChangeDefaultWebsiteResponse {}
+
+// GetRewriteRequest 是伪静态查询参数。
+message GetRewriteRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 伪静态名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// RewriteConfig 是伪静态配置内容。
+message RewriteConfig {
+  // 配置内容。
+  string content = 1;
+}
+
+// UpdateRewriteRequest 是伪静态保存参数。
+message UpdateRewriteRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 伪静态名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 配置内容。
+  string content = 3;
+}
+
+// UpdateRewriteResponse 是保存结果，无业务字段。
+message UpdateRewriteResponse {}
+
+// GetRedirectRequest 是重定向配置查询参数。
+message GetRedirectRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// GetRedirectResponse 是重定向配置列表。
+message GetRedirectResponse {
+  // 配置列表。
+  repeated RedirectConfig items = 1;
+}
+
+// RedirectConfig 是一条重定向配置。
+message RedirectConfig {
+  // 网站 ID。
+  uint32 website_id = 1;
+
+  // 配置名称。
+  string name = 2;
+
+  // 域名列表。
+  repeated string domains = 3;
+
+  // 是否保留路径。
+  bool keep_path = 4;
+
+  // 是否启用。
+  bool enable = 5;
+
+  // 重定向类型。
+  string type = 6;
+
+  // 重定向地址。
+  string redirect = 7;
+
+  // 路径。
+  string path = 8;
+
+  // 目标。
+  string target = 9;
+
+  // 文件路径。
+  string file_path = 10;
+
+  // 配置内容。
+  string content = 11;
+
+  // 是否重定向根路径。
+  bool redirect_root = 12;
+}
+
+// UpdateRedirectRequest 是重定向配置保存参数。
+message UpdateRedirectRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 配置名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 配置内容。
+  string content = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateRedirectResponse 是保存结果，无业务字段。
+message UpdateRedirectResponse {}
+
+// GetWebsiteHTTPSRequest 是 HTTPS 配置查询参数。
+message GetWebsiteHTTPSRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// WebsiteHTTPS 是网站的 HTTPS 配置。
+message WebsiteHTTPS {
+  // 是否启用 HTTPS。
+  bool enable = 1;
+
+  // HTTP 跳转策略：HTTPSOnly、HTTPAlso、HTTPToHTTPS。
+  string http_config = 2;
+
+  // 绑定的证书 ID。
+  uint32 ssl_id = 3;
+
+  // 证书主域名。
+  string ssl_primary_domain = 4;
+
+  // TLS 协议版本。
+  repeated string ssl_protocol = 5;
+
+  // 加密套件。
+  string algorithm = 6;
+
+  // 是否启用 HSTS。
+  bool hsts = 7;
+
+  // HSTS 是否包含子域名。
+  bool hsts_include_sub_domains = 8;
+
+  // HTTPS 端口列表。
+  repeated int32 https_ports = 9;
+
+  // 当前 HTTPS 端口。
+  string https_port = 10;
+
+  // 是否启用 HTTP/3。
+  bool http3 = 11;
+
+  // 关联证书详情。
+  WebsiteSSLRef ssl = 12;
+}
+
+// WebsiteSSLRef 是 HTTPS 配置关联的证书摘要。
+message WebsiteSSLRef {
+  // 证书 ID。
+  uint32 id = 1;
+
+  // 主域名。
+  string primary_domain = 2;
+
+  // 包含的域名，逗号分隔。
+  string domains = 3;
+
+  // 组织名称。
+  string organization = 4;
+
+  // 签发机构。
+  string provider = 5;
+
+  // 到期时间，RFC3339 格式。
+  string expire_date = 6;
+
+  // 备注。
+  string description = 7;
+
+  // ACME 账号 ID。
+  uint32 acme_account_id = 8;
+
+  // ACME 账号邮箱。
+  string acme_account_email = 9;
+}
+
+// UpdateWebsiteHTTPSRequest 是 HTTPS 配置更新参数。
+message UpdateWebsiteHTTPSRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否启用 HTTPS。
+  bool enable = 2;
+
+  // 证书 ID。
+  uint32 website_ssl_id = 3;
+
+  // 证书来源：existed、auto、manual。
+  string type = 4 [(buf.validate.field).string = {
+    in: [
+      "",
+      "existed",
+      "auto",
+      "manual"
+    ]
+  }];
+
+  // 私钥内容（manual）。
+  string private_key = 5;
+
+  // 证书内容（manual）。
+  string certificate = 6;
+
+  // HTTP 跳转策略。
+  string http_config = 7;
+
+  // TLS 协议版本。
+  repeated string ssl_protocol = 8;
+
+  // 加密套件。
+  string algorithm = 9;
+
+  // 是否启用 HSTS。
+  bool hsts = 10;
+
+  // HSTS 是否包含子域名。
+  bool hsts_include_sub_domains = 11;
+
+  // HTTPS 端口列表。
+  repeated int32 https_ports = 12;
+
+  // 是否启用 HTTP/3。
+  bool http3 = 13;
+}
+
+// GetAntiLeechRequest 是反盗链配置查询参数。
+message GetAntiLeechRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// AntiLeechConfig 是反盗链配置。
+message AntiLeechConfig {
+  // 是否启用。
+  bool enable = 1;
+
+  // 允许的扩展名。
+  string extends = 2;
+
+  // 命中时的响应。
+  string return = 3;
+
+  // 允许的域名。
+  repeated string server_names = 4;
+
+  // 是否缓存。
+  bool cache = 5;
+
+  // 缓存时间。
+  int32 cache_time = 6;
+
+  // 缓存时间单位。
+  string cache_uint = 7;
+
+  // 是否允许空 Referer。
+  bool none_ref = 8;
+
+  // 是否记录日志。
+  bool log_enable = 9;
+
+  // 是否封禁来源。
+  bool blocked = 10;
+}
+
+// UpdateAntiLeechRequest 是反盗链配置更新参数。
+message UpdateAntiLeechRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否启用。
+  bool enable = 2;
+
+  // 允许的扩展名。
+  string extends = 3;
+
+  // 命中时的响应。
+  string return = 4;
+
+  // 允许的域名。
+  repeated string server_names = 5;
+
+  // 是否缓存。
+  bool cache = 6;
+
+  // 缓存时间。
+  int32 cache_time = 7;
+
+  // 缓存时间单位。
+  string cache_uint = 8;
+
+  // 是否允许空 Referer。
+  bool none_ref = 9;
+
+  // 是否记录日志。
+  bool log_enable = 10;
+
+  // 是否封禁来源。
+  bool blocked = 11;
+}
+
+// UpdateAntiLeechResponse 是更新结果，无业务字段。
+message UpdateAntiLeechResponse {}
+
+// GetProxiesRequest 是反向代理查询参数。
+message GetProxiesRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// GetProxiesResponse 是反向代理列表。
+message GetProxiesResponse {
+  // 代理配置列表。
+  repeated WebsiteProxy items = 1;
+}
+
+// WebsiteProxy 是一条反向代理配置。
+message WebsiteProxy {
+  // 网站 ID。
+  uint32 id = 1;
+
+  // 代理名称。
+  string name = 2;
+
+  // 匹配规则。
+  string match = 3;
+
+  // 上游地址。
+  string proxy_pass = 4;
+
+  // Proxy Host 头。
+  string proxy_host = 5;
+
+  // 是否启用。
+  bool enable = 6;
+
+  // 是否启用缓存。
+  bool cache = 7;
+
+  // 缓存时间。
+  int32 cache_time = 8;
+
+  // 缓存时间单位。
+  string cache_unit = 9;
+
+  // 服务端缓存时间。
+  int32 server_cache_time = 10;
+
+  // 服务端缓存时间单位。
+  string server_cache_unit = 11;
+
+  // 是否启用 SNI。
+  bool sni = 12;
+
+  // 代理 SSL 名称。
+  string proxy_ssl_name = 13;
+
+  // 是否校验上游证书。
+  bool ssl_verify = 14;
+
+  // 配置文件路径。
+  string file_path = 15;
+
+  // 配置内容。
+  string content = 16;
+}
+
+// DeleteWebsiteRequest 是删除网站参数。
+message DeleteWebsiteRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否同时删除关联应用。
+  bool delete_app = 2;
+
+  // 是否同时删除备份。
+  bool delete_backup = 3;
+
+  // 是否强制删除。
+  bool force_delete = 4;
+
+  // 是否同时删除数据库。
+  bool delete_db = 5;
+}
+
+// DeleteWebsiteResponse 是删除结果，无业务字段。
+message DeleteWebsiteResponse {}
+
+// GetNginxScopeConfigRequest 是 Nginx 指令配置查询参数。
+message GetNginxScopeConfigRequest {
+  // 网站 ID。
+  uint32 website_id = 1;
+
+  // 配置作用域键。
+  string scope = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// NginxScopeConfig 是指令级配置。
+message NginxScopeConfig {
+  // 是否启用。
+  bool enable = 1;
+
+  // 指令参数。
+  repeated NginxParam params = 2;
+}
+
+// NginxParam 是一条 Nginx 指令。
+message NginxParam {
+  // 指令名。
+  string name = 1;
+
+  // 指令参数。
+  repeated string params = 2;
+
+  // 参数来源文件。
+  string source = 3;
+}
+
+// UpdateNginxScopeConfigRequest 是 Nginx 指令配置更新参数。
+message UpdateNginxScopeConfigRequest {
+  // 网站 ID。
+  uint32 website_id = 1;
+
+  // 配置作用域键。
+  string scope = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 操作：add、update、delete。
+  string operate = 3 [(buf.validate.field).string = {
+    in: [
+      "",
+      "add",
+      "update",
+      "delete"
+    ]
+  }];
+
+  // 参数列表的 JSON 字符串。
+  string params_json = 4;
+}
+
+// UpdateNginxScopeConfigResponse 是更新结果，无业务字段。
+message UpdateNginxScopeConfigResponse {}
+
+// CreateWebsiteRequest 是创建网站参数。
+message CreateWebsiteRequest {
+  // 网站类型：static、proxy、stream、deployment。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "static",
+      "proxy",
+      "stream",
+      "deployment"
+    ]
+  }];
+
+  // 网站别名。
+  string alias = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 备注。
+  string remark = 3;
+
+  // 反向代理目标。
+  string proxy = 4;
+
+  // 网站分组 ID。
+  uint32 website_group_id = 5;
+
+  // 是否启用 IPv6。
+  bool ipv6 = 6;
+
+  // 网站目录。
+  string site_dir = 7;
+
+  // 前端生成的任务 ID。
+  string task_id = 8;
+
+  // 应用类型：new 或 installed。
+  string app_type = 9;
+
+  // 应用 ID。
+  uint32 app_id = 10;
+
+  // 应用安装 ID。
+  uint32 app_install_id = 11;
+
+  // 父站点 ID（子站点）。
+  uint32 parent_website_id = 12;
+
+  // 域名列表。
+  repeated CreateWebsiteDomain domains = 13;
+
+  // 四层代理端口。
+  string stream_ports = 14;
+
+  // 四层代理名称。
+  string name = 15;
+
+  // 四层代理算法。
+  string algorithm = 16;
+
+  // 四层代理是否使用 UDP。
+  bool udp = 17;
+
+  // 其余 DTO 字段的 JSON（FTP、数据库、SSL、运行时等）。
+  string options_json = 18;
+}
+
+// CreateWebsiteDomain 是创建网站时的域名。
+message CreateWebsiteDomain {
+  // 域名。
+  string domain = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 端口。
+  int32 port = 2;
+
+  // 是否启用 SSL。
+  bool ssl = 3;
+}
+
+// CreateWebsiteResponse 是创建结果，无业务字段。
+message CreateWebsiteResponse {}
+
+// GetProxyCacheRequest 是代理缓存查询参数。
+message GetProxyCacheRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// ProxyCache 是代理缓存配置。
+message ProxyCache {
+  // 是否开启缓存。
+  bool open = 1;
+
+  // 缓存容量。
+  double cache_limit = 2;
+
+  // 缓存容量单位。
+  string cache_limit_unit = 3;
+
+  // 共享内存大小。
+  int32 share_cache = 4;
+
+  // 共享内存单位。
+  string share_cache_unit = 5;
+
+  // 缓存过期时间。
+  int32 cache_expire = 6;
+
+  // 过期时间单位。
+  string cache_expire_unit = 7;
+}
+
+// UpdateProxyCacheRequest 是代理缓存更新参数。
+message UpdateProxyCacheRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否开启缓存。
+  bool open = 2;
+
+  // 缓存容量。
+  int32 cache_limit = 3;
+
+  // 缓存容量单位。
+  string cache_limit_unit = 4;
+
+  // 共享内存大小。
+  int32 share_cache = 5;
+
+  // 共享内存单位。
+  string share_cache_unit = 6;
+
+  // 缓存过期时间。
+  int32 cache_expire = 7;
+
+  // 过期时间单位。
+  string cache_expire_unit = 8;
+}
+
+// UpdateProxyCacheResponse 是更新结果，无业务字段。
+message UpdateProxyCacheResponse {}
+
+// GetLoadBalancesRequest 是负载均衡查询参数。
+message GetLoadBalancesRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// GetLoadBalancesResponse 是负载均衡列表。
+message GetLoadBalancesResponse {
+  // 配置列表。
+  repeated LoadBalance items = 1;
+}
+
+// LoadBalance 是一组 upstream 配置。
+message LoadBalance {
+  // 名称。
+  string name = 1;
+
+  // 负载算法。
+  string algorithm = 2;
+
+  // 上游服务端。
+  repeated LoadBalanceServer servers = 3;
+
+  // 配置内容。
+  string content = 4;
+}
+
+// LoadBalanceServer 是一个上游服务端。
+message LoadBalanceServer {
+  // 地址。
+  string server = 1;
+
+  // 权重。
+  int32 weight = 2;
+
+  // 失败超时。
+  int32 fail_timeout = 3;
+
+  // 失败超时单位。
+  string fail_timeout_unit = 4;
+
+  // 最大失败次数。
+  int32 max_fails = 5;
+
+  // 最大连接数。
+  int32 max_conns = 6;
+
+  // 标记。
+  string flag = 7;
+}
+
+// CreateLoadBalanceRequest 是创建负载均衡参数。
+message CreateLoadBalanceRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 负载算法。
+  string algorithm = 3;
+
+  // 上游服务端。
+  repeated LoadBalanceServer servers = 4;
+}
+
+// CreateLoadBalanceResponse 是创建结果，无业务字段。
+message CreateLoadBalanceResponse {}
+
+// UpdateLoadBalanceRequest 是更新负载均衡参数。
+message UpdateLoadBalanceRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 负载算法。
+  string algorithm = 3;
+
+  // 上游服务端。
+  repeated LoadBalanceServer servers = 4;
+}
+
+// UpdateLoadBalanceResponse 是更新结果，无业务字段。
+message UpdateLoadBalanceResponse {}
+
+// DeleteLoadBalanceRequest 是删除负载均衡参数。
+message DeleteLoadBalanceRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// DeleteLoadBalanceResponse 是删除结果，无业务字段。
+message DeleteLoadBalanceResponse {}
+
+// GetRealIPRequest 是真实 IP 配置查询参数。
+message GetRealIPRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// RealIPConfig 是真实 IP 配置。
+message RealIPConfig {
+  // 网站 ID。
+  uint32 website_id = 1;
+
+  // 是否启用。
+  bool open = 2;
+
+  // IP 来源。
+  string ip_from = 3;
+
+  // IP 请求头。
+  string ip_header = 4;
+
+  // 自定义 IP。
+  string ip_other = 5;
+}
+
+// UpdateRealIPRequest 是真实 IP 配置更新参数。
+message UpdateRealIPRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否启用。
+  bool open = 2;
+
+  // IP 来源。
+  string ip_from = 3;
+
+  // IP 请求头。
+  string ip_header = 4;
+
+  // 自定义 IP。
+  string ip_other = 5;
+}
+
+// UpdateRealIPResponse 是更新结果，无业务字段。
+message UpdateRealIPResponse {}
+
+// GetDefaultHtmlRequest 是默认站点 HTML 查询参数。
+message GetDefaultHtmlRequest {
+  // 资源类型。
+  string type = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// DefaultHtml 是默认站点 HTML 内容。
+message DefaultHtml {
+  // HTML 内容。
+  string content = 1;
+}
+
+// UpdateDefaultHtmlRequest 是默认站点 HTML 更新参数。
+message UpdateDefaultHtmlRequest {
+  // 资源类型。
+  string type = 1 [(buf.validate.field).string.min_len = 1];
+
+  // HTML 内容。
+  string content = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 是否同步到已有站点。
+  bool sync = 3;
+}
+
+// UpdateDefaultHtmlResponse 是更新结果，无业务字段。
+message UpdateDefaultHtmlResponse {}
+
+// GetWebsiteRequest 是网站详情查询参数。
+message GetWebsiteRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// WebsiteDetail 是网站详情。
+message WebsiteDetail {
+  // 网站 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 协议：http 或 https。
+  string protocol = 3;
+
+  // 主域名。
+  string primary_domain = 4;
+
+  // 网站类型：static、proxy、stream、deployment、subsite。
+  string type = 5;
+
+  // 别名。
+  string alias = 6;
+
+  // 备注。
+  string remark = 7;
+
+  // 状态：Running、Stopped。
+  string status = 8;
+
+  // 到期时间，RFC3339 格式。
+  string expire_date = 9;
+
+  // 反向代理目标。
+  string proxy = 10;
+
+  // 代理类型。
+  string proxy_type = 11;
+
+  // 网站目录。
+  string site_dir = 12;
+
+  // 是否记录错误日志。
+  bool error_log = 13;
+
+  // 是否记录访问日志。
+  bool access_log = 14;
+
+  // 是否为默认站点。
+  bool default_server = 15;
+
+  // 是否启用 IPv6。
+  bool ipv6 = 16;
+
+  // 伪静态名称。
+  string rewrite = 17;
+
+  // 网站分组 ID。
+  uint32 website_group_id = 18;
+
+  // 绑定的 SSL ID。
+  uint32 website_ssl_id = 19;
+
+  // 运行时 ID。
+  uint32 runtime_id = 20;
+
+  // 应用安装 ID。
+  uint32 app_install_id = 21;
+
+  // 父站点 ID。
+  uint32 parent_website_id = 22;
+
+  // 运行用户。
+  string user = 23;
+
+  // 运行用户组。
+  string group = 24;
+
+  // 数据库类型。
+  string db_type = 25;
+
+  // 错误日志路径。
+  string error_log_path = 26;
+
+  // 访问日志路径。
+  string access_log_path = 27;
+
+  // 站点路径。
+  string site_path = 28;
+
+  // 应用名称。
+  string app_name = 29;
+
+  // 运行时名称。
+  string runtime_name = 30;
+
+  // 运行时类型。
+  string runtime_type = 31;
+
+  // 四层代理算法。
+  string algorithm = 32;
+
+  // 四层代理是否使用 UDP。
+  bool udp = 33;
+
+  // 四层代理端口列表。
+  string stream_ports = 34;
+
+  // HTTP 端口。
+  string http_port = 35;
+
+  // HTTPS 端口。
+  string https_port = 36;
+
+  // 是否允许跨目录访问。
+  bool open_base_dir = 37;
+
+  // 是否收藏。
+  bool favorite = 38;
+}
+
+// ListWebsitesRequest 是网站列表查询参数，无业务字段。
+message ListWebsitesRequest {}
+
+// ListWebsitesResponse 是网站列表。
+message ListWebsitesResponse {
+  // 网站列表。
+  repeated WebsiteDetail items = 1;
+}
+
+// WebsiteOptionsRequest 是按类型过滤的选项查询参数。
+message WebsiteOptionsRequest {
+  // 网站类型列表；为空表示全部。
+  repeated string types = 1;
+}
+
+// WebsiteOption 是一个网站选项。
+message WebsiteOption {
+  // 网站 ID。
+  uint32 id = 1;
+
+  // 主域名。
+  string primary_domain = 2;
+
+  // 别名。
+  string alias = 3;
+}
+
+// WebsiteOptionsResponse 是网站选项列表。
+message WebsiteOptionsResponse {
+  // 选项列表。
+  repeated WebsiteOption items = 1;
+}
+
+// OperateWebsiteRequest 是网站操作参数。
+message OperateWebsiteRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 操作：start、stop、restart、reload、default。
+  string operate = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// OperateWebsiteResponse 是操作结果，无业务字段。
+message OperateWebsiteResponse {}
+
+// UpdateWebsiteRequest 是网站基础信息修改参数。
+message UpdateWebsiteRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 主域名。
+  string primary_domain = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 备注。
+  string remark = 3;
+
+  // 网站分组 ID。
+  uint32 website_group_id = 4;
+
+  // 到期时间，RFC3339 格式。
+  string expire_date = 5;
+
+  // 是否启用 IPv6。
+  bool ipv6 = 6;
+
+  // 是否收藏。
+  bool favorite = 7;
+}
+
+// UpdateWebsiteResponse 是修改结果，无业务字段。
+message UpdateWebsiteResponse {}
+
+// CheckWebsiteRequest 是创建前检查参数。
+message CheckWebsiteRequest {
+  // 待安装应用 ID 列表。
+  repeated uint32 install_ids = 1;
+}
+
+// WebsiteCheckItem 是一项检查结果。
+message WebsiteCheckItem {
+  // 检查项名称。
+  string name = 1;
+
+  // 状态。
+  string status = 2;
+
+  // 版本。
+  string version = 3;
+
+  // 应用名称。
+  string app_name = 4;
+}
+
+// CheckWebsiteResponse 是检查结果列表。
+message CheckWebsiteResponse {
+  // 检查项。
+  repeated WebsiteCheckItem items = 1;
+}
+
+// ChangeWebsiteGroupRequest 是分组迁移参数。
+message ChangeWebsiteGroupRequest {
+  // 原分组 ID。
+  uint32 group = 1;
+
+  // 新分组 ID。
+  uint32 new_group = 2;
+}
+
+// ChangeWebsiteGroupResponse 是迁移结果，无业务字段。
+message ChangeWebsiteGroupResponse {}
+
+// BatchWebsiteGroupRequest 是批量设置分组参数。
+message BatchWebsiteGroupRequest {
+  // 网站 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 目标分组 ID。
+  uint32 group_id = 2 [(buf.validate.field).uint32.gt = 0];
+}
+
+// BatchWebsiteGroupResponse 是设置结果，无业务字段。
+message BatchWebsiteGroupResponse {}
+
+// BatchWebsiteOperateRequest 是批量操作参数。
+message BatchWebsiteOperateRequest {
+  // 网站 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 操作。
+  string operate = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 任务 ID。
+  string task_id = 3;
+}
+
+// BatchWebsiteOperateResponse 是批量操作结果，无业务字段。
+message BatchWebsiteOperateResponse {}
+
+// ChangeWebsitePHPVersionRequest 是 PHP 版本切换参数。
+message ChangeWebsitePHPVersionRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 目标运行时 ID。
+  uint32 runtime_id = 2;
+}
+
+// ChangeWebsitePHPVersionResponse 是切换结果，无业务字段。
+message ChangeWebsitePHPVersionResponse {}
+
+// OperateCrossSiteRequest 是跨站访问开关参数。
+message OperateCrossSiteRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 操作：Enable 或 Disable。
+  string operation = 2 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+}
+
+// OperateCrossSiteResponse 是操作结果，无业务字段。
+message OperateCrossSiteResponse {}
+
+// GetCorsRequest 是 CORS 配置查询参数。
+message GetCorsRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// CorsConfig 是 CORS 配置。
+message CorsConfig {
+  // 是否开启。
+  bool cors = 1;
+
+  // 允许的来源。
+  string allow_origins = 2;
+
+  // 允许的方法。
+  string allow_methods = 3;
+
+  // 允许的请求头。
+  string allow_headers = 4;
+
+  // 是否允许携带凭据。
+  bool allow_credentials = 5;
+
+  // 是否处理预检请求。
+  bool preflight = 6;
+}
+
+// UpdateCorsRequest 是 CORS 配置更新参数。
+message UpdateCorsRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否开启。
+  bool cors = 2;
+
+  // 允许的来源。
+  string allow_origins = 3;
+
+  // 允许的方法。
+  string allow_methods = 4;
+
+  // 允许的请求头。
+  string allow_headers = 5;
+
+  // 是否允许携带凭据。
+  bool allow_credentials = 6;
+
+  // 是否处理预检请求。
+  bool preflight = 7;
+}
+
+// UpdateCorsResponse 是更新结果，无业务字段。
+message UpdateCorsResponse {}
+
+// GetSiteDirRequest 是网站目录配置查询参数。
+message GetSiteDirRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// WebsiteDirConfig 是网站目录配置。
+message WebsiteDirConfig {
+  // 当前站点目录。
+  string site_dir = 1;
+
+  // 运行用户。
+  string user = 2;
+
+  // 运行用户组。
+  string group = 3;
+
+  // 是否允许跨目录访问。
+  bool open_base_dir = 4;
+
+  // 可用目录列表。
+  repeated string dirs = 5;
+}
+
+// UpdateWebsiteDirRequest 是网站目录修改参数。
+message UpdateWebsiteDirRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 新目录。
+  string site_dir = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateWebsiteDirResponse 是修改结果，无业务字段。
+message UpdateWebsiteDirResponse {}
+
+// UpdateWebsitePermissionRequest 是目录权限修改参数。
+message UpdateWebsitePermissionRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 运行用户。
+  string user = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 运行用户组。
+  string group = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateWebsitePermissionResponse 是修改结果，无业务字段。
+message UpdateWebsitePermissionResponse {}
+
+// ListCustomRewriteRequest 是自定义伪静态列表查询参数，无业务字段。
+message ListCustomRewriteRequest {}
+
+// ListCustomRewriteResponse 是自定义伪静态列表。
+message ListCustomRewriteResponse {
+  // 规则名称列表。
+  repeated string items = 1;
+}
+
+// OperateCustomRewriteRequest 是自定义伪静态管理参数。
+message OperateCustomRewriteRequest {
+  // 操作：create 或 delete。
+  string operate = 1 [(buf.validate.field).string = {
+    in: [
+      "create",
+      "delete"
+    ]
+  }];
+
+  // 规则内容（创建时必填）。
+  string content = 2;
+
+  // 规则名称。
+  string name = 3;
+}
+
+// OperateCustomRewriteResponse 是管理结果，无业务字段。
+message OperateCustomRewriteResponse {}
+
+// UpdateProxyFileRequest 是反向代理文件更新参数。
+message UpdateProxyFileRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 配置内容。
+  string content = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 代理名称。
+  string name = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateProxyFileResponse 是更新结果，无业务字段。
+message UpdateProxyFileResponse {}
+
+// DeleteProxyRequest 是删除代理参数。
+message DeleteProxyRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 代理名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// DeleteProxyResponse 是删除结果，无业务字段。
+message DeleteProxyResponse {}
+
+// UpdateProxyStatusRequest 是代理状态切换参数。
+message UpdateProxyStatusRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 代理名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 状态：Enable 或 Disable。
+  string status = 3 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+}
+
+// UpdateProxyStatusResponse 是切换结果，无业务字段。
+message UpdateProxyStatusResponse {}
+
+// ClearProxyCacheRequest 是缓存清理参数。
+message ClearProxyCacheRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// ClearProxyCacheResponse 是清理结果，无业务字段。
+message ClearProxyCacheResponse {}
+
+// GetAuthRequest 是访问认证查询参数。
+message GetAuthRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// AuthItem 是一条访问认证记录。
+message AuthItem {
+  // 用户名。
+  string username = 1;
+
+  // 备注。
+  string remark = 2;
+}
+
+// AuthConfig 是访问认证配置。
+message AuthConfig {
+  // 是否启用。
+  bool enable = 1;
+
+  // 认证记录。
+  repeated AuthItem items = 2;
+}
+
+// UpdateAuthRequest 是访问认证更新参数。
+message UpdateAuthRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 操作：add、delete、enable、disable。
+  string operate = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 用户名。
+  string username = 3;
+
+  // 密码。
+  string password = 4;
+
+  // 备注。
+  string remark = 5;
+}
+
+// UpdateAuthResponse 是更新结果，无业务字段。
+message UpdateAuthResponse {}
+
+// GetPathAuthRequest 是路径认证查询参数。
+message GetPathAuthRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// PathAuthItem 是一条路径认证记录。
+message PathAuthItem {
+  // 用户名。
+  string username = 1;
+
+  // 备注。
+  string remark = 2;
+
+  // 路径。
+  string path = 3;
+
+  // 名称。
+  string name = 4;
+}
+
+// GetPathAuthResponse 是路径认证列表。
+message GetPathAuthResponse {
+  // 记录列表。
+  repeated PathAuthItem items = 1;
+}
+
+// UpdatePathAuthRequest 是路径认证更新参数。
+message UpdatePathAuthRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 操作：add、delete、update。
+  string operate = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 名称。
+  string name = 3;
+
+  // 用户名。
+  string username = 4;
+
+  // 密码。
+  string password = 5;
+
+  // 路径。
+  string path = 6;
+
+  // 备注。
+  string remark = 7;
+}
+
+// UpdatePathAuthResponse 是更新结果，无业务字段。
+message UpdatePathAuthResponse {}
+
+// UpdateRedirectFileRequest 是重定向文件更新参数。
+message UpdateRedirectFileRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 配置内容。
+  string content = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 名称。
+  string name = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateRedirectFileResponse 是更新结果，无业务字段。
+message UpdateRedirectFileResponse {}
+
+// UpdateStreamRequest 是四层代理更新参数。
+message UpdateStreamRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 端口列表。
+  string stream_ports = 2;
+
+  // 名称。
+  string name = 3;
+
+  // 算法。
+  string algorithm = 4;
+
+  // 是否使用 UDP。
+  bool udp = 5;
+
+  // 上游服务端。
+  repeated LoadBalanceServer servers = 6;
+}
+
+// UpdateStreamResponse 是更新结果，无业务字段。
+message UpdateStreamResponse {}
+
+// GetWebsiteResourceRequest 是资源查询参数。
+message GetWebsiteResourceRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// WebsiteResource 是一条关联资源。
+message WebsiteResource {
+  // 名称。
+  string name = 1;
+
+  // 类型。
+  string type = 2;
+
+  // 资源 ID。
+  uint32 resource_id = 3;
+
+  // 资源详情 JSON。
+  string detail_json = 4;
+}
+
+// GetWebsiteResourceResponse 是资源列表。
+message GetWebsiteResourceResponse {
+  // 资源列表。
+  repeated WebsiteResource items = 1;
+}
+
+// CreateDomainsRequest 是新增域名参数。
+message CreateDomainsRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 域名列表。
+  repeated CreateWebsiteDomain domains = 2 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// CreateDomainsResponse 是新增结果，无业务字段。
+message CreateDomainsResponse {}
+
+// DeleteDomainRequest 是删除域名参数。
+message DeleteDomainRequest {
+  // 域名记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteDomainResponse 是删除结果，无业务字段。
+message DeleteDomainResponse {}
+
+// UpdateDomainRequest 是域名修改参数。
+message UpdateDomainRequest {
+  // 域名记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否启用 SSL。
+  bool ssl = 2;
+}
+
+// UpdateDomainResponse 是修改结果，无业务字段。
+message UpdateDomainResponse {}
+
+// CreateDNSAccountRequest 是新增 DNS 账号参数。
+message CreateDNSAccountRequest {
+  // 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 服务商类型。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 授权信息；不同服务商字段不同，用 map 承载。
+  map<string, string> authorization = 3;
+}
+
+// CreateDNSAccountResponse 是创建结果，无业务字段。
+message CreateDNSAccountResponse {}
+
+// UpdateDNSAccountRequest 是修改 DNS 账号参数。
+message UpdateDNSAccountRequest {
+  // 账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 服务商类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 授权信息。
+  map<string, string> authorization = 4;
+}
+
+// UpdateDNSAccountResponse 是修改结果，无业务字段。
+message UpdateDNSAccountResponse {}
+
+// DeleteDNSAccountRequest 是删除 DNS 账号参数。
+message DeleteDNSAccountRequest {
+  // 账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteDNSAccountResponse 是删除结果，无业务字段。
+message DeleteDNSAccountResponse {}
+
+// ListWebsiteDatabasesRequest 是数据库列表查询参数，无业务字段。
+message ListWebsiteDatabasesRequest {}
+
+// WebsiteDatabase 是一个可绑定的数据库。
+message WebsiteDatabase {
+  // 显示名。
+  string name = 1;
+
+  // 数据库名。
+  string database_name = 2;
+
+  // 数据库类型。
+  string type = 3;
+
+  // 来源。
+  string from = 4;
+
+  // 数据库 ID。
+  uint32 id = 5;
+}
+
+// ListWebsiteDatabasesResponse 是数据库列表。
+message ListWebsiteDatabasesResponse {
+  // 数据库列表。
+  repeated WebsiteDatabase items = 1;
+}
+
+// ChangeWebsiteDatabaseRequest 是绑定数据库参数。
+message ChangeWebsiteDatabaseRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 数据库 ID；0 表示解绑。
+  uint32 database_id = 2;
+
+  // 数据库类型。
+  string database_type = 3;
+}
+
+// ChangeWebsiteDatabaseResponse 是修改结果，无业务字段。
+message ChangeWebsiteDatabaseResponse {}
+
+// UpdateLoadBalanceFileRequest 是负载均衡文件更新参数。
+message UpdateLoadBalanceFileRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 内容。
+  string content = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateLoadBalanceFileResponse 是更新结果，无业务字段。
+message UpdateLoadBalanceFileResponse {}
+
+// OperateWebsiteLogRequest 是日志操作参数。
+message OperateWebsiteLogRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 操作：enable、disable、delete。
+  string operate = 2 [(buf.validate.field).string = {
+    in: [
+      "enable",
+      "disable",
+      "delete"
+    ]
+  }];
+
+  // 日志类型：access.log 或 error.log。
+  string log_type = 3 [(buf.validate.field).string = {
+    in: [
+      "access.log",
+      "error.log"
+    ]
+  }];
+}
+
+// OperateWebsiteLogResponse 是操作结果，无业务字段。
+message OperateWebsiteLogResponse {}
+
+// UpdateProxyRequest 是反向代理新增/修改参数。
+message UpdateProxyRequest {
+  // 网站 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 操作：create 或 update。
+  string operate = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 是否启用。
+  bool enable = 3;
+
+  // 是否缓存。
+  bool cache = 4;
+
+  // 缓存时间。
+  int32 cache_time = 5;
+
+  // 缓存时间单位。
+  string cache_unit = 6;
+
+  // 服务端缓存时间。
+  int32 server_cache_time = 7;
+
+  // 服务端缓存时间单位。
+  string server_cache_unit = 8;
+
+  // 代理名称。
+  string name = 9 [(buf.validate.field).string.min_len = 1];
+
+  // 匹配修饰符。
+  string modifier = 10;
+
+  // 匹配路径。
+  string match = 11 [(buf.validate.field).string.min_len = 1];
+
+  // 上游地址。
+  string proxy_pass = 12 [(buf.validate.field).string.min_len = 1];
+
+  // 上游 Host 头。
+  string proxy_host = 13 [(buf.validate.field).string.min_len = 1];
+
+  // 配置内容。
+  string content = 14;
+
+  // 配置文件路径。
+  string file_path = 15;
+
+  // 文本替换规则。
+  map<string, string> replaces = 16;
+
+  // 是否开启 SNI。
+  bool sni = 17;
+
+  // 上游 SSL 名称。
+  string proxy_ssl_name = 18;
+
+  // 是否校验上游证书。
+  bool ssl_verify = 19;
+}
+
+// UpdateProxyResponse 是更新结果，无业务字段。
+message UpdateProxyResponse {}

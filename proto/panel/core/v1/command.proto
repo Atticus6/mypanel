@@ -1,0 +1,283 @@
+// panel/core/v1/command.proto 定义快速命令库的 RPC。
+//
+// 命令库用于终端快速插入命令与 Redis 命令提示；
+// CSV 上传（/core/commands/upload）是 multipart 通道，不在 proto 中定义。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// CommandService 负责快速命令的增删改查与导入导出。
+service CommandService {
+  // 分页查询命令。
+  rpc Search(SearchCommandsRequest) returns (SearchCommandsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按类型列出命令（不分页）。
+  rpc List(ListCommandsRequest) returns (ListCommandsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按类型返回命令分组树。
+  rpc Tree(CommandTreeRequest) returns (CommandTreeResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建命令。
+  rpc Create(CreateCommandRequest) returns (CreateCommandResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建快速命令"
+      audit_action_en: "Create quick command"
+    };
+  }
+
+  // 修改命令。
+  rpc Update(UpdateCommandRequest) returns (UpdateCommandResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改快速命令"
+      audit_action_en: "Update quick command"
+    };
+  }
+
+  // 批量删除命令。
+  rpc Delete(DeleteCommandsRequest) returns (DeleteCommandsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除快速命令"
+      audit_action_en: "Delete quick command"
+    };
+  }
+
+  // 批量导入命令。
+  rpc Import(ImportCommandsRequest) returns (ImportCommandsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导入快速命令"
+      audit_action_en: "Import quick commands"
+    };
+  }
+
+  // 导出命令到 CSV，返回文件路径。
+  rpc Export(ExportCommandsRequest) returns (ExportCommandsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导出快速命令"
+      audit_action_en: "Export quick commands"
+    };
+  }
+}
+
+// CommandEntry 是一条快速命令。
+message CommandEntry {
+  // 命令 ID。
+  uint32 id = 1;
+
+  // 分组 ID。
+  uint32 group_id = 2;
+
+  // 名称。
+  string name = 3;
+
+  // 类型：command 或 redis。
+  string type = 4;
+
+  // 命令内容。
+  string command = 5;
+
+  // 分组名称。
+  string group_belong = 6;
+}
+
+// SearchCommandsRequest 是命令分页查询参数。
+message SearchCommandsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 排序字段：name、command、createdAt。
+  string order_by = 3 [(buf.validate.field).string = {
+    in: [
+      "name",
+      "command",
+      "createdAt"
+    ]
+  }];
+
+  // 排序方向：null、ascending、descending。
+  string order = 4 [(buf.validate.field).string = {
+    in: [
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+
+  // 分组 ID。
+  uint32 group_id = 5;
+
+  // 类型：command 或 redis。
+  string type = 6 [(buf.validate.field).string = {
+    in: [
+      "command",
+      "redis"
+    ]
+  }];
+
+  // 关键字。
+  string info = 7;
+}
+
+// SearchCommandsResponse 是命令列表。
+message SearchCommandsResponse {
+  // 命令列表。
+  repeated CommandEntry items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// ListCommandsRequest 是按类型列命令参数。
+message ListCommandsRequest {
+  // 类型：command 或 redis。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "",
+      "command",
+      "redis"
+    ]
+  }];
+}
+
+// ListCommandsResponse 是命令列表。
+message ListCommandsResponse {
+  // 命令列表。
+  repeated CommandEntry items = 1;
+}
+
+// CommandTreeRequest 是命令树查询参数。
+message CommandTreeRequest {
+  // 类型：command 或 redis。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "",
+      "command",
+      "redis"
+    ]
+  }];
+}
+
+// CommandTreeNode 是命令树的一个节点。
+message CommandTreeNode {
+  // 显示名。
+  string label = 1;
+
+  // 值。
+  string value = 2;
+
+  // 子节点。
+  repeated CommandTreeNode children = 3;
+}
+
+// CommandTreeResponse 是命令树。
+message CommandTreeResponse {
+  // 根节点。
+  repeated CommandTreeNode items = 1;
+}
+
+// CreateCommandRequest 是创建命令参数。
+message CreateCommandRequest {
+  // 类型。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "command",
+      "redis"
+    ]
+  }];
+
+  // 分组 ID。
+  uint32 group_id = 2;
+
+  // 分组名称。
+  string group_belong = 3;
+
+  // 名称。
+  string name = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 命令内容。
+  string command = 5 [(buf.validate.field).string.min_len = 1];
+}
+
+// CreateCommandResponse 是创建结果，无业务字段。
+message CreateCommandResponse {}
+
+// UpdateCommandRequest 是修改命令参数。
+message UpdateCommandRequest {
+  // 命令 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 类型。
+  string type = 2 [(buf.validate.field).string = {
+    in: [
+      "command",
+      "redis"
+    ]
+  }];
+
+  // 分组 ID。
+  uint32 group_id = 3;
+
+  // 分组名称。
+  string group_belong = 4;
+
+  // 名称。
+  string name = 5 [(buf.validate.field).string.min_len = 1];
+
+  // 命令内容。
+  string command = 6 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateCommandResponse 是修改结果，无业务字段。
+message UpdateCommandResponse {}
+
+// DeleteCommandsRequest 是批量删除参数。
+message DeleteCommandsRequest {
+  // 命令 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteCommandsResponse 是删除结果，无业务字段。
+message DeleteCommandsResponse {}
+
+// ImportCommandsRequest 是导入参数。
+message ImportCommandsRequest {
+  // 待导入命令。
+  repeated CreateCommandRequest items = 1;
+}
+
+// ImportCommandsResponse 是导入结果，无业务字段。
+message ImportCommandsResponse {}
+
+// ExportCommandsRequest 是导出参数，无业务字段。
+message ExportCommandsRequest {}
+
+// ExportCommandsResponse 是导出结果。
+message ExportCommandsResponse {
+  // 导出的 CSV 文件路径。
+  string path = 1;
+}

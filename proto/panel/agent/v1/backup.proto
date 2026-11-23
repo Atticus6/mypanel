@@ -1,0 +1,77 @@
+// panel/agent/v1/backup.proto 定义备份账号相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// BackupService 对应 1Panel 的备份账号域。
+service BackupService {
+  // 分页查询备份账号。
+  rpc Search(SearchBackupsRequest) returns (SearchBackupsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchBackupsRequest 是备份账号查询参数。
+message SearchBackupsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 账号名称关键字。
+  string info = 3 [(buf.validate.field).string.max_len = 64];
+
+  // 类型过滤，例如 S3、SFTP。
+  string type = 4 [(buf.validate.field).string.max_len = 32];
+}
+
+// SearchBackupsResponse 是备份账号列表结果。
+message SearchBackupsResponse {
+  // 当前页的备份账号。
+  repeated Backup items = 1;
+
+  // 符合条件的账号总数。
+  int64 total = 2;
+}
+
+// Backup 是一个备份账号（不含密钥与凭据）。
+message Backup {
+  // 账号 ID。
+  uint32 id = 1;
+
+  // 账号名称。
+  string name = 2;
+
+  // 类型，例如 S3、SFTP。
+  string type = 3;
+
+  // 是否公开。
+  bool is_public = 4;
+
+  // 存储桶名称。
+  string bucket = 5;
+
+  // 备份路径。
+  string backup_path = 6;
+
+  // 额外参数（JSON 字符串）。
+  string vars = 7;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 8;
+
+  // 是否记住认证信息。
+  bool remember_auth = 9;
+}

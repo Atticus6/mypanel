@@ -1,0 +1,268 @@
+// panel/agent/v1/monitor.proto 定义主机监控数据的查询与设置 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// MonitorService 负责监控数据查询、采集设置与历史清理。
+service MonitorService {
+  // 按时间范围查询监控数据；param 决定返回哪些序列。
+  rpc Search(SearchMonitorRequest) returns (SearchMonitorResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取监控采集设置。
+  rpc GetSetting(GetMonitorSettingRequest) returns (MonitorSetting) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改监控采集设置的单项。
+  rpc UpdateSetting(UpdateMonitorSettingRequest) returns (UpdateMonitorSettingResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改监控设置"
+      audit_action_en: "Update monitor setting"
+    };
+  }
+
+  // 清空监控历史数据。
+  rpc Clean(CleanMonitorRequest) returns (CleanMonitorResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清空监控数据"
+      audit_action_en: "Clean monitor data"
+    };
+  }
+
+  // 读取可用的磁盘 IO 设备列表。
+  rpc ListIOOptions(ListMonitorIOOptionsRequest) returns (MonitorOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取可用的网卡列表。
+  rpc ListNetworkOptions(ListMonitorNetworkOptionsRequest) returns (MonitorOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchMonitorRequest 是监控数据查询参数。
+message SearchMonitorRequest {
+  // 查询范围：all、cpu、memory、load、io、network。
+  string param = 1 [(buf.validate.field).string = {
+    in: [
+      "all",
+      "cpu",
+      "memory",
+      "load",
+      "io",
+      "network"
+    ]
+  }];
+
+  // 磁盘设备名；为空表示聚合数据。
+  string io = 2;
+
+  // 网卡名；为空表示聚合数据。
+  string network = 3;
+
+  // 开始时间，RFC3339 格式。
+  string start_time = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 结束时间，RFC3339 格式。
+  string end_time = 5 [(buf.validate.field).string.min_len = 1];
+}
+
+// SearchMonitorResponse 是监控数据结果。
+message SearchMonitorResponse {
+  // 序列列表，按 param 区分。
+  repeated MonitorSeries items = 1;
+}
+
+// MonitorSeries 是一种监控数据序列。
+message MonitorSeries {
+  // 序列类型：base、io、network。
+  string param = 1;
+
+  // 采样时间点，RFC3339 格式。
+  repeated string dates = 2;
+
+  // 基础负载序列（param=base 时有效）。
+  repeated MonitorBasePoint base = 3;
+
+  // 磁盘 IO 序列（param=io 时有效）。
+  repeated MonitorIOPoint io = 4;
+
+  // 网络序列（param=network 时有效）。
+  repeated MonitorNetworkPoint network = 5;
+}
+
+// MonitorBasePoint 是一个采样的基础负载。
+message MonitorBasePoint {
+  // CPU 使用率。
+  double cpu = 1;
+
+  // 内存使用率。
+  double memory = 2;
+
+  // 负载使用率。
+  double load_usage = 3;
+
+  // 1 分钟负载。
+  double cpu_load1 = 4;
+
+  // 5 分钟负载。
+  double cpu_load5 = 5;
+
+  // 15 分钟负载。
+  double cpu_load15 = 6;
+
+  // CPU 占用最高的进程。
+  repeated MonitorProcess top_cpu_items = 7;
+
+  // 内存占用最高的进程。
+  repeated MonitorProcess top_mem_items = 8;
+}
+
+// MonitorProcess 是一个进程采样。
+message MonitorProcess {
+  // 进程名。
+  string name = 1;
+
+  // 进程 ID。
+  int32 pid = 2;
+
+  // 占用百分比。
+  double percent = 3;
+
+  // 内存占用，单位字节。
+  uint64 memory = 4;
+
+  // 命令行。
+  string cmd = 5;
+
+  // 运行用户。
+  string user = 6;
+}
+
+// MonitorIOPoint 是一个磁盘 IO 采样。
+message MonitorIOPoint {
+  // 设备名。
+  string name = 1;
+
+  // 读字节数。
+  uint64 read = 2;
+
+  // 写字节数。
+  uint64 write = 3;
+
+  // IO 次数。
+  uint64 count = 4;
+
+  // IO 耗时。
+  uint64 time = 5;
+}
+
+// MonitorNetworkPoint 是一个网络采样。
+message MonitorNetworkPoint {
+  // 网卡名。
+  string name = 1;
+
+  // 上行速率。
+  double up = 2;
+
+  // 下行速率。
+  double down = 3;
+}
+
+// GetMonitorSettingRequest 是监控设置查询参数，无业务字段。
+message GetMonitorSettingRequest {}
+
+// MonitorSetting 是监控采集设置。
+message MonitorSetting {
+  // GPU 监控开关。
+  string gpu_monitor_status = 1;
+
+  // GPU 数据保留天数。
+  string gpu_monitor_store_days = 2;
+
+  // GPU 采集间隔。
+  string gpu_monitor_interval = 3;
+
+  // 主机监控开关。
+  string monitor_status = 4;
+
+  // 主机数据保留天数。
+  string monitor_store_days = 5;
+
+  // 主机采集间隔。
+  string monitor_interval = 6;
+
+  // 默认网卡。
+  string default_network = 7;
+
+  // 默认磁盘。
+  string default_io = 8;
+}
+
+// UpdateMonitorSettingRequest 是监控设置更新参数。
+message UpdateMonitorSettingRequest {
+  // 设置键。
+  string key = 1 [(buf.validate.field).string = {
+    in: [
+      "MonitorStatus",
+      "MonitorStoreDays",
+      "MonitorInterval",
+      "GPUMonitorStatus",
+      "GPUMonitorStoreDays",
+      "GPUMonitorInterval",
+      "DefaultNetwork",
+      "DefaultIO"
+    ]
+  }];
+
+  // 设置值。
+  string value = 2;
+}
+
+// UpdateMonitorSettingResponse 是更新结果，无业务字段。
+message UpdateMonitorSettingResponse {}
+
+// CleanMonitorRequest 是清理参数。
+message CleanMonitorRequest {
+  // 清理范围：host 或 gpu。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "host",
+      "gpu"
+    ]
+  }];
+}
+
+// CleanMonitorResponse 是清理结果，无业务字段。
+message CleanMonitorResponse {}
+
+// ListMonitorIOOptionsRequest 是磁盘列表查询参数，无业务字段。
+message ListMonitorIOOptionsRequest {}
+
+// ListMonitorNetworkOptionsRequest 是网卡列表查询参数，无业务字段。
+message ListMonitorNetworkOptionsRequest {}
+
+// MonitorOptions 是可选设备列表。
+message MonitorOptions {
+  // 设备名列表。
+  repeated string items = 1;
+}

@@ -13,13 +13,10 @@ package app
 // 函数体永远 panic：真正实现由 wire 生成到 wire_gen.go。
 // 依赖链：Config → panel.Service → http.Handler → *http.Server → App。
 func InitApp(cfg Config) (*App, error) {
-	service := providePanelService(cfg)
-	handler := provideHandler(cfg, service)
+	v := provideRPCServices()
+	handler := provideHandler(cfg, v)
 	server := newHTTPServer(cfg, handler)
 	logger := provideLogger(cfg)
-	app := &App{
-		Server: server,
-		Logger: logger,
-	}
+	app := newApp(cfg, server, logger)
 	return app, nil
 }

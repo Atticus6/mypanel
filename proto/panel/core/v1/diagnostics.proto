@@ -1,0 +1,66 @@
+// panel/core/v1/diagnostics.proto 定义控制面进程的运行时诊断 RPC。
+//
+// 数据面（agent）的同名能力在 panel.agent.v1.HostService 上，
+// 两者共享 DTO 结构但不共享进程，所以分成两个服务。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+import "panel/agent/v1/host.proto";
+
+// DiagnosticsService 负责控制面进程的运行时诊断。
+service DiagnosticsService {
+  // 读取进程运行时概况（RSS、堆、goroutine 数）。
+  rpc Summary(SummaryRequest) returns (panel.agent.v1.DiagnosticsSummary) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取 goroutine 快照；数量过多时按调用栈聚合。
+  rpc Goroutines(GoroutinesRequest) returns (panel.agent.v1.GoroutineSnapshot) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 采集 pprof 性能剖析文件。
+  rpc CreateProfile(CreateProfileRequest) returns (panel.agent.v1.DiagnosticsProfile) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "采集运行时剖析"
+      audit_action_en: "Capture runtime profile"
+    };
+  }
+}
+
+// SummaryRequest 是运行时概况查询参数，无业务字段。
+message SummaryRequest {}
+
+// GoroutinesRequest 是 goroutine 快照查询参数，无业务字段。
+message GoroutinesRequest {}
+
+// CreateProfileRequest 是性能剖析参数。
+message CreateProfileRequest {
+  // 剖析类型：cpu、heap、goroutine、mutex、block。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "cpu",
+      "heap",
+      "goroutine",
+      "mutex",
+      "block"
+    ]
+  }];
+
+  // CPU 剖析时长（秒），5-30。
+  int32 duration = 2 [(buf.validate.field).int32 = {
+    gte: 5
+    lte: 30
+  }];
+}

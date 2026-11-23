@@ -1,0 +1,553 @@
+// panel/agent/v1/file.proto 定义文件管理相关的 RPC。
+//
+// 大文件的上传/下载仍走专用二进制 HTTP 通道；这里只负责元数据、
+// 目录浏览与文件内容等 unary 操作。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// FileService 对应 1Panel 的文件管理域。
+service FileService {
+  // 列出目录内容或按关键字搜索文件。
+  rpc ListFiles(ListFilesRequest) returns (FileList) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改文件或目录权限。
+  rpc ChangeMode(ChangeFileModeRequest) returns (ChangeFileModeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改文件权限"
+      audit_action_en: "Change file mode"
+    };
+  }
+
+  // 添加收藏。
+  rpc AddFavorite(AddFavoriteRequest) returns (AddFavoriteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "添加收藏"
+      audit_action_en: "Add favorite"
+    };
+  }
+
+  // 删除收藏。
+  rpc DeleteFavorite(DeleteFavoriteRequest) returns (DeleteFavoriteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除收藏"
+      audit_action_en: "Delete favorite"
+    };
+  }
+
+  // 分页查询文件历史版本。
+  rpc SearchHistory(SearchFileHistoryRequest) returns (SearchFileHistoryResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询收藏夹。
+  rpc SearchFavorites(SearchFavoritesRequest) returns (SearchFavoritesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 从回收站还原文件。
+  rpc RestoreRecycle(RestoreRecycleRequest) returns (RestoreRecycleResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "还原文件"
+      audit_action_en: "Restore file"
+    };
+  }
+
+  // 分页查询回收站。
+  rpc SearchRecycle(SearchRecycleRequest) returns (SearchRecycleResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 删除文件或目录。
+  rpc Delete(DeleteFilesRequest) returns (DeleteFilesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除文件"
+      audit_action_en: "Delete file"
+    };
+  }
+
+  // 重命名文件或目录。
+  rpc ChangeName(ChangeFileNameRequest) returns (ChangeFileNameResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "重命名文件"
+      audit_action_en: "Rename file"
+    };
+  }
+
+  // 异步解压文件。
+  rpc DeCompress(DecompressFilesRequest) returns (DecompressFilesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "解压文件"
+      audit_action_en: "Decompress file"
+    };
+  }
+
+  // 异步压缩文件或目录。
+  rpc Compress(CompressFilesRequest) returns (CompressFilesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "压缩文件"
+      audit_action_en: "Compress files"
+    };
+  }
+
+  // 查询单个文件或目录的详情（含内容、权限、所有者）。
+  rpc GetFile(GetFileRequest) returns (FileEntry) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// ListFilesRequest 是目录浏览/搜索参数。
+message ListFilesRequest {
+  // 目录绝对路径；文件路径会先转换为所在目录。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 搜索关键字，为空表示浏览目录。
+  string search = 2 [(buf.validate.field).string.max_len = 128];
+
+  // 是否递归搜索子目录。
+  bool contain_sub = 3;
+
+  // 是否展开目录树。
+  bool expand = 4;
+
+  // 是否只返回目录。
+  bool dir = 5;
+
+  // 是否显示隐藏文件。
+  bool show_hidden = 6;
+
+  // 页码，从 1 开始。
+  int32 page = 7 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 1000。
+  int32 page_size = 8 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 1000
+  }];
+
+  // 排序字段，例如 name、size、modTime。
+  string sort_by = 9 [(buf.validate.field).string.max_len = 32];
+
+  // 排序方向：ascending 或 descending。
+  string sort_order = 10 [(buf.validate.field).string = {
+    in: [
+      "",
+      "ascending",
+      "descending"
+    ]
+  }];
+
+  // 是否返回详情（含文件内容）。
+  bool is_detail = 11;
+}
+
+// GetFileRequest 是文件详情查询参数。
+message GetFileRequest {
+  // 文件绝对路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// FileList 是目录浏览结果。
+message FileList {
+  // 实际打开的目录路径。
+  string path = 1;
+
+  // 目录名称。
+  string name = 2;
+
+  // 当前页的文件数量。
+  int32 item_total = 3;
+
+  // 文件条目。
+  repeated FileEntry items = 4;
+
+  // 目录是否只追加写入。
+  bool is_append_only = 5;
+
+  // 目录是否不可修改。
+  bool is_immutable = 6;
+}
+
+// FileEntry 是文件或目录的元数据。
+message FileEntry {
+  // 文件路径。
+  string path = 1;
+
+  // 文件名。
+  string name = 2;
+
+  // 所有者用户名。
+  string user = 3;
+
+  // 所属组名。
+  string group = 4;
+
+  // 所有者 UID。
+  string uid = 5;
+
+  // 所属组 GID。
+  string gid = 6;
+
+  // 扩展名，例如 .txt。
+  string extension = 7;
+
+  // 文件内容；仅 GetFile 返回，且受大小限制。
+  string content = 8;
+
+  // 文件大小，单位字节。
+  int64 size = 9;
+
+  // 是否为目录。
+  bool is_dir = 10;
+
+  // 是否为符号链接。
+  bool is_symlink = 11;
+
+  // 是否为隐藏文件。
+  bool is_hidden = 12;
+
+  // 符号链接目标。
+  string link_path = 13;
+
+  // 文件类型。
+  string type = 14;
+
+  // 权限字符串，例如 -rw-r--r--。
+  string mode = 15;
+
+  // MIME 类型。
+  string mime_type = 16;
+
+  // 修改时间，RFC3339 格式。
+  string update_time = 17;
+
+  // 修改时间，RFC3339 格式（与 update_time 同源，保留旧字段名）。
+  string mod_time = 18;
+
+  // 子条目；仅在展开目录树时返回。
+  repeated FileEntry items = 19;
+
+  // 收藏 ID；未收藏为 0。
+  uint32 favorite_id = 20;
+
+  // 分享码；未分享为空。
+  string share_code = 21;
+
+  // 是否只追加写入。
+  bool is_append_only = 22;
+
+  // 是否不可修改。
+  bool is_immutable = 23;
+}
+
+// ChangeFileModeRequest 是权限修改参数。
+message ChangeFileModeRequest {
+  // 目标路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 权限位，例如 0644 的十进制表示 420。
+  int64 mode = 2 [(buf.validate.field).int64.gte = 0];
+
+  // 是否递归处理子目录。
+  bool sub = 3;
+}
+
+// ChangeFileModeResponse 是权限修改结果，无业务字段。
+message ChangeFileModeResponse {}
+
+// CompressFilesRequest 是压缩参数。
+message CompressFilesRequest {
+  // 待压缩的路径列表。
+  repeated string files = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 目标目录。
+  string dst = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 压缩格式，例如 tar.gz、zip、tar。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 压缩包文件名。
+  string name = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 是否覆盖同名压缩包。
+  bool replace = 5;
+
+  // 加密密码；为空表示不加密。
+  string secret = 6;
+
+  // 前端生成的任务 ID，用于轮询进度。
+  string task_id = 7;
+}
+
+// CompressFilesResponse 是压缩任务启动结果。
+message CompressFilesResponse {
+  // 任务 ID，与请求中的 task_id 一致。
+  string task_id = 1;
+}
+
+// DeleteFilesRequest 是删除文件/目录参数。
+message DeleteFilesRequest {
+  // 目标路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 是否为目录。
+  bool is_dir = 2;
+
+  // 是否强制删除（跳过回收站或忽略占用）。
+  bool force_delete = 3;
+}
+
+// DeleteFilesResponse 是删除结果，无业务字段。
+message DeleteFilesResponse {}
+
+// ChangeFileNameRequest 是重命名参数。
+message ChangeFileNameRequest {
+  // 原路径。
+  string old_name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 新路径。
+  string new_name = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// ChangeFileNameResponse 是重命名结果，无业务字段。
+message ChangeFileNameResponse {}
+
+// DecompressFilesRequest 是解压参数。
+message DecompressFilesRequest {
+  // 压缩包路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 目标目录。
+  string dst = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 压缩格式，例如 tar.gz、zip。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 解压密码；为空表示无密码。
+  string secret = 4;
+
+  // 前端生成的任务 ID。
+  string task_id = 5;
+}
+
+// DecompressFilesResponse 是解压任务启动结果。
+message DecompressFilesResponse {
+  // 任务 ID。
+  string task_id = 1;
+}
+
+// SearchFavoritesRequest 是收藏夹查询参数。
+message SearchFavoritesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+}
+
+// SearchFavoritesResponse 是收藏夹列表结果。
+message SearchFavoritesResponse {
+  // 当前页的收藏条目。
+  repeated FavoriteEntry items = 1;
+
+  // 符合条件的条目总数。
+  int64 total = 2;
+}
+
+// FavoriteEntry 是一条收藏记录。
+message FavoriteEntry {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 名称。
+  string name = 2;
+
+  // 路径。
+  string path = 3;
+
+  // 类型。
+  string type = 4;
+
+  // 是否为目录。
+  bool is_dir = 5;
+
+  // 是否为文本文件。
+  bool is_txt = 6;
+}
+
+// RestoreRecycleRequest 是回收站还原参数。
+message RestoreRecycleRequest {
+  // 来源：trash 或 legacy。
+  string from = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 回收站中的名称。
+  string r_name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 目标名称。
+  string name = 3;
+}
+
+// RestoreRecycleResponse 是还原结果，无业务字段。
+message RestoreRecycleResponse {}
+
+// SearchRecycleRequest 是回收站分页查询参数。
+message SearchRecycleRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+}
+
+// SearchRecycleResponse 是回收站列表结果。
+message SearchRecycleResponse {
+  // 当前页的回收站条目。
+  repeated RecycleEntry items = 1;
+
+  // 符合条件的条目总数。
+  int64 total = 2;
+}
+
+// RecycleEntry 是回收站中的一条记录。
+message RecycleEntry {
+  // 名称。
+  string name = 1;
+
+  // 大小，单位字节。
+  int64 size = 2;
+
+  // 类型。
+  string type = 3;
+
+  // 删除时间，RFC3339 格式。
+  string delete_time = 4;
+
+  // 原始名称。
+  string r_name = 5;
+
+  // 原路径。
+  string source_path = 6;
+
+  // 是否为目录。
+  bool is_dir = 7;
+
+  // 来源。
+  string from = 8;
+}
+
+// AddFavoriteRequest 是添加收藏参数。
+message AddFavoriteRequest {
+  // 文件路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// AddFavoriteResponse 是添加结果，无业务字段。
+message AddFavoriteResponse {}
+
+// DeleteFavoriteRequest 是删除收藏参数。
+message DeleteFavoriteRequest {
+  // 收藏记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteFavoriteResponse 是删除结果，无业务字段。
+message DeleteFavoriteResponse {}
+
+// SearchFileHistoryRequest 是文件历史查询参数。
+message SearchFileHistoryRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 文件路径。
+  string path = 3;
+
+  // 范围：current 或 all。
+  string scope = 4 [(buf.validate.field).string = {
+    in: [
+      "current",
+      "all"
+    ]
+  }];
+
+  // 操作类型。
+  string operation = 5;
+}
+
+// SearchFileHistoryResponse 是文件历史列表结果。
+message SearchFileHistoryResponse {
+  // 当前页的历史记录。
+  repeated FileHistoryEntry items = 1;
+
+  // 符合条件的记录总数。
+  int64 total = 2;
+}
+
+// FileHistoryEntry 是一条文件历史记录。
+message FileHistoryEntry {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 文件 ID。
+  string file_id = 2;
+
+  // 路径。
+  string path = 3;
+
+  // 当前路径。
+  string current_path = 4;
+
+  // 文件名。
+  string file_name = 5;
+
+  // 扩展名。
+  string extension = 6;
+
+  // 操作类型。
+  string operation = 7;
+
+  // 是否已删除。
+  bool deleted = 8;
+
+  // 内容大小，单位字节。
+  int64 content_size = 9;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 10;
+
+  // 更新时间，RFC3339 格式。
+  string updated_at = 11;
+}

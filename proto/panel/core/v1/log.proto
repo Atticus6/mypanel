@@ -1,0 +1,197 @@
+// panel/core/v1/log.proto 定义控制面登录日志与操作日志的 RPC。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// LogService 负责登录日志与操作日志的查询和清理。
+service LogService {
+  // 分页查询登录日志。
+  rpc SearchLoginLogs(SearchLoginLogsRequest) returns (SearchLoginLogsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询操作日志。
+  rpc SearchOperationLogs(SearchOperationLogsRequest) returns (SearchOperationLogsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 清空指定类型的日志。
+  rpc CleanLogs(CleanLogsRequest) returns (CleanLogsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清空日志"
+      audit_action_en: "Clean logs"
+    };
+  }
+}
+
+// SearchLoginLogsRequest 是登录日志查询参数。
+message SearchLoginLogsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 关键字（IP、用户名、地址）。
+  string info = 3;
+
+  // 状态过滤。
+  string status = 4;
+
+  // 开始时间，RFC3339 格式。
+  string start_time = 5;
+
+  // 结束时间，RFC3339 格式。
+  string end_time = 6;
+}
+
+// LoginLogEntry 是一条登录日志。
+message LoginLogEntry {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 来源 IP。
+  string ip = 2;
+
+  // 用户名。
+  string user = 3;
+
+  // 归属地。
+  string address = 4;
+
+  // 浏览器标识。
+  string agent = 5;
+
+  // 状态。
+  string status = 6;
+
+  // 说明。
+  string message = 7;
+
+  // 时间，RFC3339 格式。
+  string created_at = 8;
+}
+
+// SearchLoginLogsResponse 是登录日志列表。
+message SearchLoginLogsResponse {
+  // 日志列表。
+  repeated LoginLogEntry items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// SearchOperationLogsRequest 是操作日志查询参数。
+message SearchOperationLogsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 来源过滤。
+  string source = 3;
+
+  // 状态过滤。
+  string status = 4;
+
+  // 节点过滤。
+  string node = 5;
+
+  // 操作描述过滤。
+  string operation = 6;
+}
+
+// OperationLogEntry 是一条操作日志。
+message OperationLogEntry {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 来源。
+  string source = 2;
+
+  // 用户名。
+  string user = 3;
+
+  // API Key ID。
+  string api_key_id = 4;
+
+  // API Key 名称。
+  string api_key_name = 5;
+
+  // 认证方式。
+  string auth_method = 6;
+
+  // 节点。
+  string node = 7;
+
+  // 来源 IP。
+  string ip = 8;
+
+  // 请求路径。
+  string path = 9;
+
+  // 请求方法。
+  string method = 10;
+
+  // User-Agent。
+  string user_agent = 11;
+
+  // 耗时，单位毫秒。
+  int64 latency_ms = 12;
+
+  // 状态。
+  string status = 13;
+
+  // 说明。
+  string message = 14;
+
+  // 中文详情。
+  string detail_zh = 15;
+
+  // 英文详情。
+  string detail_en = 16;
+
+  // 时间，RFC3339 格式。
+  string created_at = 17;
+}
+
+// SearchOperationLogsResponse 是操作日志列表。
+message SearchOperationLogsResponse {
+  // 日志列表。
+  repeated OperationLogEntry items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// CleanLogsRequest 是日志清理参数。
+message CleanLogsRequest {
+  // 日志类型：login 或 operation。
+  string log_type = 1 [(buf.validate.field).string = {
+    in: [
+      "login",
+      "operation"
+    ]
+  }];
+}
+
+// CleanLogsResponse 是清理结果，无业务字段。
+message CleanLogsResponse {}

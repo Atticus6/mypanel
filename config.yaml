@@ -25,3 +25,14 @@ debug: false
 
 # 优雅退出的最长等待时间，给未结束的流式 RPC 留出收尾时间。
 shutdown_timeout: "5s"
+
+# 面板数据目录：core/agent 的数据库、日志、密钥都写在其下。
+# 指向已有 1Panel 安装目录时（例如 /opt），可直接复用原有数据。
+data_dir: "./data"
+
+# 首次启动创建的管理员账号；已有数据库时不会覆盖。
+admin_user: "admin"
+
+# 首次启动创建的管理员密码；留空则随机生成并在启动日志里打印一次。
+# 生产环境请用环境变量 MYPANEL_ADMIN_PASSWORD 或 config.local.yaml 配置。
+admin_password: ""

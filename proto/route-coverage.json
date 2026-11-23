@@ -1,0 +1,5468 @@
+{
+  "generatedFrom": "../1Panel",
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/ai/accounts",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/counts",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/delete",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/models",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/models/create",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/models/delete",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/models/discover",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/models/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/models/verify-model",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/ai/accounts/providers",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/accounts/verify",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/bind",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/channels",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/create",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/delete",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/md/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/md/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/agent/unbind",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/batch/install",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/batch/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/batch/skill/install",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/batch/upgrade",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/delete",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/dingtalk/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/dingtalk/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/discord/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/discord/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/feishu/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/feishu/switch",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/feishu/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/pairing/approve",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/qqbot/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/qqbot/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/telegram/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/telegram/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/wecom/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/wecom/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/weixin/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/channel/weixin/login",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/config-file/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/config-file/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/delete",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/delete/check",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/hermes/chat/sessions",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/hermes/chat/sessions/delete",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/hermes/chat/sessions/rename",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/model/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/model/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/other/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/other/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/overview",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugin/check",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugin/install",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugin/uninstall",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugin/upgrade",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugins/install",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugins/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugins/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/plugins/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/remark",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/security/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/security/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/skills/install",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/skills/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/skills/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/skills/uninstall",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/skills/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/token/reset",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/website/bind",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/agents/website/unbind",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/domain/bind",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/domain/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/domain/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/ai/gpu/load",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/ai/gpu/options",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/gpu/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/domain/bind",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/ai/mcp/domain/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/domain/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/server",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/server/connection/test",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/server/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/server/detail",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/server/op",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/server/status/sync",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/mcp/server/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/ollama/close",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/ollama/model",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/ollama/model/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/ollama/model/load",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/ollama/model/recreate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/ai/ollama/model/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/alert/clams/list",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/config/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/config/info",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/config/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/config/status",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/config/test",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/config/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/cronjob/list",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/del",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/alert/disks/list",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/logs/clean",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/logs/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/search",
+      "target": "panel.agent.v1.AlertService.Page",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "Page",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/alert/status",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/alert/update",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/:key",
+      "target": "panel.agent.v1.AppService.GetApp",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetApp",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/apps/checkupdate",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/detail/:appId/:version/:type",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/detail/node/:appKey/:version",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/details/:id",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/icon/:key",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/ignored/cancel",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/ignored/detail",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/install",
+      "target": "panel.agent.v1.AppService.Install",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "Install",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/check",
+      "target": "panel.agent.v1.AppService.CheckInstalled",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "CheckInstalled",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/conf",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/config/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/conninfo",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/installed/delete/check/:appInstallId",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/ignore",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/installed/info/:appInstallId",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/installed/list",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/loadport",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/op",
+      "target": "panel.agent.v1.AppService.Operate",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "Operate",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/apps/installed/params/:appInstallId",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/params/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/port/change",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/search",
+      "target": "panel.agent.v1.AppService.SearchInstalled",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "SearchInstalled",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/sort/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/sync",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/installed/update/versions",
+      "target": "panel.agent.v1.AppService.UpdateVersions",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "UpdateVersions",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/apps/search",
+      "target": "panel.agent.v1.AppService.SearchApps",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "SearchApps",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/apps/services/:key",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/sync/local",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/apps/sync/remote",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/apps/tags",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/backup",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/buckets",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/backups/check/{name}",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/conn/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/del",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/backups/local",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/backups/options",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/record/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/record/description/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/record/download",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/record/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/record/search/bycronjob",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/record/size",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/recover",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/recover/byupload",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/refresh/token",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/search",
+      "target": "panel.agent.v1.BackupService.Search",
+      "service": "panel.agent.v1.BackupService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/backups/search/files",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/backups/upload",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/clean/log",
+      "target": "panel.agent.v1.ContainerService.CleanLogs",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CleanLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/commit",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose/clean/log",
+      "target": "panel.agent.v1.ContainerService.CleanComposeLogs",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CleanComposeLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose/env",
+      "target": "panel.agent.v1.ContainerService.GetComposeEnv",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "GetComposeEnv",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose/operate",
+      "target": "panel.agent.v1.ContainerService.OperateCompose",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "OperateCompose",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose/pin",
+      "target": "panel.agent.v1.ContainerService.PinCompose",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "PinCompose",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose/search",
+      "target": "panel.agent.v1.ContainerService.SearchCompose",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SearchCompose",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose/test",
+      "target": "panel.agent.v1.ContainerService.TestCompose",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "TestCompose",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/compose/update",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/daemonjson",
+      "target": "panel.agent.v1.ContainerService.GetDaemonJson",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "GetDaemonJson",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/daemonjson/file",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/daemonjson/update",
+      "target": "panel.agent.v1.ContainerService.UpdateDaemonJson",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateDaemonJson",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/daemonjson/update/byfile",
+      "target": "panel.agent.v1.ContainerService.UpdateDaemonJsonByFile",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateDaemonJsonByFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/docker/operate",
+      "target": "panel.agent.v1.ContainerService.OperateDocker",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "OperateDocker",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/docker/status",
+      "target": "panel.agent.v1.ContainerService.GetDockerStatus",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "GetDockerStatus",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/download/log",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/files/content",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/files/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/files/download",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/files/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/files/size",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/files/upload",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/image",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/image/all",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/build",
+      "target": "panel.agent.v1.ContainerService.BuildImage",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "BuildImage",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/load",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/pull",
+      "target": "panel.agent.v1.ContainerService.PullImages",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "PullImages",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/push",
+      "target": "panel.agent.v1.ContainerService.PushImage",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "PushImage",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/remote/search",
+      "target": "panel.agent.v1.ContainerService.SearchRemoteImages",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SearchRemoteImages",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/remove",
+      "target": "panel.agent.v1.ContainerService.RemoveImages",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "RemoveImages",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/save",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/search",
+      "target": "panel.agent.v1.ContainerService.SearchImages",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SearchImages",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/image/tag",
+      "target": "panel.agent.v1.ContainerService.TagImage",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "TagImage",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/info",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/inspect",
+      "target": "panel.agent.v1.ContainerService.Inspect",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "Inspect",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/ipv6option/update",
+      "target": "panel.agent.v1.ContainerService.UpdateIpv6Option",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateIpv6Option",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/item/stats",
+      "target": "panel.agent.v1.ContainerService.GetContainerItemStats",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "GetContainerItemStats",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/limit",
+      "target": "panel.agent.v1.ContainerService.GetLimit",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "GetLimit",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/list",
+      "target": "panel.agent.v1.ContainerService.ListContainers",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListContainers",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/list/byimage",
+      "target": "panel.agent.v1.ContainerService.ListContainersByImage",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListContainersByImage",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/list/stats",
+      "target": "panel.agent.v1.ContainerService.GetContainerStats",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "GetContainerStats",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/logoption/update",
+      "target": "panel.agent.v1.ContainerService.UpdateLogOption",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateLogOption",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/network",
+      "target": "panel.agent.v1.ContainerService.ListNetworks",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListNetworks",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/network",
+      "target": "panel.agent.v1.ContainerService.CreateNetwork",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CreateNetwork",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/network/del",
+      "target": "panel.agent.v1.ContainerService.DeleteNetworks",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "DeleteNetworks",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/network/search",
+      "target": "panel.agent.v1.ContainerService.SearchNetworks",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SearchNetworks",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/operate",
+      "target": "panel.agent.v1.ContainerService.OperateContainers",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "OperateContainers",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/prune",
+      "target": "panel.agent.v1.ContainerService.Prune",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "Prune",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/rename",
+      "target": "panel.agent.v1.ContainerService.RenameContainer",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "RenameContainer",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/repo",
+      "target": "panel.agent.v1.ContainerService.ListRepos",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListRepos",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/repo",
+      "target": "panel.agent.v1.ContainerService.CreateRepo",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CreateRepo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/repo/del",
+      "target": "panel.agent.v1.ContainerService.DeleteRepo",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "DeleteRepo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/repo/search",
+      "target": "panel.agent.v1.ContainerService.SearchImageRepos",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SearchImageRepos",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/repo/status",
+      "target": "panel.agent.v1.ContainerService.CheckRepoStatus",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CheckRepoStatus",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/repo/update",
+      "target": "panel.agent.v1.ContainerService.UpdateRepo",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateRepo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/search",
+      "target": "panel.agent.v1.ContainerService.Search",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/search/log",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/containers/stats/:id",
+      "target": "panel.agent.v1.ContainerService.SampleContainerStats",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SampleContainerStats",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/status",
+      "target": "panel.agent.v1.ContainerService.Status",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "Status",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/template",
+      "target": "panel.agent.v1.ContainerService.ListTemplates",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListTemplates",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/template",
+      "target": "panel.agent.v1.ContainerService.CreateTemplate",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CreateTemplate",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/template/batch",
+      "target": "panel.agent.v1.ContainerService.BatchTemplates",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "BatchTemplates",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/template/del",
+      "target": "panel.agent.v1.ContainerService.DeleteTemplates",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "DeleteTemplates",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/template/search",
+      "target": "panel.agent.v1.ContainerService.SearchComposeTemplates",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SearchComposeTemplates",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/template/update",
+      "target": "panel.agent.v1.ContainerService.UpdateTemplate",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateTemplate",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/upgrade",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/containers/users",
+      "target": "panel.agent.v1.ContainerService.GetContainerUsers",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "GetContainerUsers",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/containers/volume",
+      "target": "panel.agent.v1.ContainerService.ListVolumes",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListVolumes",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/volume",
+      "target": "panel.agent.v1.ContainerService.CreateVolume",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CreateVolume",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/volume/del",
+      "target": "panel.agent.v1.ContainerService.DeleteVolumes",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "DeleteVolumes",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/containers/volume/search",
+      "target": "panel.agent.v1.ContainerService.SearchVolumes",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "SearchVolumes",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/generate",
+      "target": "panel.core.v1.AuthService.GenerateAPIKey",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "GenerateAPIKey",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/keys/create",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/keys/delete",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/keys/reveal",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/keys/revoke",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/keys/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/keys/status",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/keys/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/api/update",
+      "target": "panel.core.v1.AuthService.UpdateAPIConfig",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "UpdateAPIConfig",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/auth/captcha",
+      "target": "panel.core.v1.AuthService.Captcha",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "Captcha",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/auth/current",
+      "target": "panel.core.v1.AuthService.Current",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "Current",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/current/update",
+      "target": "panel.core.v1.AuthService.UpdateCurrentUser",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "UpdateCurrentUser",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/expired/reset",
+      "target": "panel.core.v1.AuthService.ResetExpiredPassword",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "ResetExpiredPassword",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/login",
+      "target": "panel.core.v1.AuthService.Login",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "Login",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/logout",
+      "target": "panel.core.v1.AuthService.Logout",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "Logout",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/mfa",
+      "target": "panel.core.v1.AuthService.GetMFA",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "GetMFA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/mfa/bind",
+      "target": "panel.core.v1.AuthService.BindMFA",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "BindMFA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/mfa/close",
+      "target": "panel.core.v1.AuthService.CloseMFA",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "CloseMFA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/mfalogin",
+      "target": "panel.core.v1.AuthService.MFALogin",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "MFALogin",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/passkey/begin",
+      "target": "panel.core.v1.AuthService.PasskeyBeginLogin",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "PasskeyBeginLogin",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/passkey/del",
+      "target": "panel.core.v1.AuthService.PasskeyDelete",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "PasskeyDelete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/passkey/finish",
+      "target": "panel.core.v1.AuthService.PasskeyFinishLogin",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "PasskeyFinishLogin",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/auth/passkey/list",
+      "target": "panel.core.v1.AuthService.PasskeyList",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "PasskeyList",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/passkey/register/begin",
+      "target": "panel.core.v1.AuthService.PasskeyRegisterBegin",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "PasskeyRegisterBegin",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/auth/passkey/register/finish",
+      "target": "panel.core.v1.AuthService.PasskeyRegisterFinish",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "PasskeyRegisterFinish",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/auth/setting",
+      "target": "panel.core.v1.AuthService.GetLoginSetting",
+      "service": "panel.core.v1.AuthService",
+      "rpc": "GetLoginSetting",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/backups",
+      "target": "panel.core.v1.BackupsService.Create",
+      "service": "panel.core.v1.BackupsService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/backups/client/:clientType",
+      "target": "panel.core.v1.BackupsService.GetClientInfo",
+      "service": "panel.core.v1.BackupsService",
+      "rpc": "GetClientInfo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/backups/del",
+      "target": "panel.core.v1.BackupsService.Delete",
+      "service": "panel.core.v1.BackupsService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/backups/refresh/token",
+      "target": "panel.core.v1.BackupsService.RefreshToken",
+      "service": "panel.core.v1.BackupsService",
+      "rpc": "RefreshToken",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/backups/update",
+      "target": "panel.core.v1.BackupsService.Update",
+      "service": "panel.core.v1.BackupsService",
+      "rpc": "Update",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands",
+      "target": "panel.core.v1.CommandService.Create",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/del",
+      "target": "panel.core.v1.CommandService.Delete",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/export",
+      "target": "panel.core.v1.CommandService.Export",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "Export",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/import",
+      "target": "panel.core.v1.CommandService.Import",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "Import",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/list",
+      "target": "panel.core.v1.CommandService.List",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "List",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/search",
+      "target": "panel.core.v1.CommandService.Search",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/tree",
+      "target": "panel.core.v1.CommandService.Tree",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "Tree",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/update",
+      "target": "panel.core.v1.CommandService.Update",
+      "service": "panel.core.v1.CommandService",
+      "rpc": "Update",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/commands/upload",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/groups",
+      "target": "panel.core.v1.GroupService.Create",
+      "service": "panel.core.v1.GroupService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/groups/del",
+      "target": "panel.core.v1.GroupService.Delete",
+      "service": "panel.core.v1.GroupService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/groups/search",
+      "target": "panel.core.v1.GroupService.List",
+      "service": "panel.core.v1.GroupService",
+      "rpc": "List",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/groups/update",
+      "target": "panel.core.v1.GroupService.Update",
+      "service": "panel.core.v1.GroupService",
+      "rpc": "Update",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/hosts/diagnostics/goroutines",
+      "target": "panel.core.v1.DiagnosticsService.Goroutines",
+      "service": "panel.core.v1.DiagnosticsService",
+      "rpc": "Goroutines",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/hosts/diagnostics/profiles",
+      "target": "panel.core.v1.DiagnosticsService.CreateProfile",
+      "service": "panel.core.v1.DiagnosticsService",
+      "rpc": "CreateProfile",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/hosts/diagnostics/summary",
+      "target": "panel.core.v1.DiagnosticsService.Summary",
+      "service": "panel.core.v1.DiagnosticsService",
+      "rpc": "Summary",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/logs/clean",
+      "target": "panel.core.v1.LogService.CleanLogs",
+      "service": "panel.core.v1.LogService",
+      "rpc": "CleanLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/logs/login",
+      "target": "panel.core.v1.LogService.SearchLoginLogs",
+      "service": "panel.core.v1.LogService",
+      "rpc": "SearchLoginLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/logs/operation",
+      "target": "panel.core.v1.LogService.SearchOperationLogs",
+      "service": "panel.core.v1.LogService",
+      "rpc": "SearchOperationLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/script",
+      "target": "panel.core.v1.ScriptService.Create",
+      "service": "panel.core.v1.ScriptService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/script/del",
+      "target": "panel.core.v1.ScriptService.Delete",
+      "service": "panel.core.v1.ScriptService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/script/run",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/core/script/search",
+      "target": "panel.core.v1.ScriptService.Search",
+      "service": "panel.core.v1.ScriptService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/script/sync",
+      "target": "panel.core.v1.ScriptService.Sync",
+      "service": "panel.core.v1.ScriptService",
+      "rpc": "Sync",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/script/update",
+      "target": "panel.core.v1.ScriptService.Update",
+      "service": "panel.core.v1.ScriptService",
+      "rpc": "Update",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/apps/store/config",
+      "target": "panel.core.v1.SettingService.GetAppStoreConfig",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetAppStoreConfig",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/apps/store/update",
+      "target": "panel.core.v1.SettingService.UpdateAppStoreConfig",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateAppStoreConfig",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/bind/update",
+      "target": "panel.core.v1.SettingService.UpdateBindInfo",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateBindInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/file/download",
+      "target": "panel.core.v1.SettingService.GetFileDownloadPreference",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetFileDownloadPreference",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/file/download",
+      "target": "panel.core.v1.SettingService.UpdateFileDownloadPreference",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateFileDownloadPreference",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/interface",
+      "target": "panel.core.v1.SettingService.GetInterface",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetInterface",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/memo",
+      "target": "panel.core.v1.SettingService.GetMemo",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetMemo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/memo",
+      "target": "panel.core.v1.SettingService.UpdateMemo",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateMemo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/menu/default",
+      "target": "panel.core.v1.SettingService.DefaultMenu",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "DefaultMenu",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/menu/update",
+      "target": "panel.core.v1.SettingService.UpdateMenu",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateMenu",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/port/update",
+      "target": "panel.core.v1.SettingService.UpdatePort",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdatePort",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/proxy/update",
+      "target": "panel.core.v1.SettingService.UpdateProxy",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateProxy",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/search",
+      "target": "panel.core.v1.SettingService.GetInfo",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/search/available",
+      "target": "panel.core.v1.SettingService.GetSystemAvailable",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetSystemAvailable",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/search/base",
+      "target": "panel.core.v1.SettingService.GetBaseInfo",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetBaseInfo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/ssl/download",
+      "target": "panel.core.v1.SettingService.DownloadSSL",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "DownloadSSL",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/ssl/info",
+      "target": "panel.core.v1.SettingService.GetSSLInfo",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetSSLInfo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/ssl/reload",
+      "target": "panel.core.v1.SettingService.ReloadSSL",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "ReloadSSL",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/ssl/update",
+      "target": "panel.core.v1.SettingService.UpdateSSL",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateSSL",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/terminal/search",
+      "target": "panel.core.v1.SettingService.GetTerminal",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetTerminal",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/terminal/update",
+      "target": "panel.core.v1.SettingService.UpdateTerminal",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateTerminal",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/update",
+      "target": "panel.core.v1.SettingService.UpdateSetting",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "UpdateSetting",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/upgrade",
+      "target": "panel.core.v1.SettingService.GetUpgradeInfo",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetUpgradeInfo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/upgrade",
+      "target": "panel.core.v1.SettingService.Upgrade",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "Upgrade",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/core/settings/upgrade/notes",
+      "target": "panel.core.v1.SettingService.GetUpgradeNotes",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "GetUpgradeNotes",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/core/settings/upgrade/releases",
+      "target": "panel.core.v1.SettingService.ListReleases",
+      "service": "panel.core.v1.SettingService",
+      "rpc": "ListReleases",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/export",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/group/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/handle",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/import",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/load/info",
+      "target": "panel.agent.v1.CronjobService.Get",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "Get",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/next",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/records/clean",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/records/log",
+      "target": "panel.agent.v1.CronjobService.LoadRecordLog",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "LoadRecordLog",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/cronjobs/script/options",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/search",
+      "target": "panel.agent.v1.CronjobService.Search",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/search/records",
+      "target": "panel.agent.v1.CronjobService.SearchRecords",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "SearchRecords",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/status",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/stop",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/cronjobs/update",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/app/launcher",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/dashboard/app/launcher/option",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/dashboard/app/launcher/show",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/base/:ioOption/:netOption",
+      "target": "panel.agent.v1.DashboardService.BaseInfo",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "BaseInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/base/os",
+      "target": "panel.agent.v1.DashboardService.GetOsInfo",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "GetOsInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/current/:ioOption/:netOption",
+      "target": "panel.agent.v1.DashboardService.CurrentInfo",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "CurrentInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/current/node",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/current/top/cpu",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/current/top/mem",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/dashboard/quick/change",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/quick/directory",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/dashboard/quick/directory",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/dashboard/quick/directory/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/dashboard/quick/directory/update",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/dashboard/quick/option",
+      "target": "panel.agent.v1.DashboardService.QuickJumps",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "QuickJumps",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/dashboard/system/restart/:operation",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/change/access",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/change/password",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/common/info",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/common/load/file",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/common/update/conf",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/db",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/databases/db/:name",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/db/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/db/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/db/del/check",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/databases/db/item/:type",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/databases/db/list/:type",
+      "target": "panel.agent.v1.DatabaseService.List",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "List",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/db/search",
+      "target": "panel.agent.v1.DatabaseService.SearchRemote",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "SearchRemote",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/db/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/del/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/description/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/format/options",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/grants",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/grants/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/grants/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/grants/summary",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/load",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/bind",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/del/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/description",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/load",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/password",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/privileges",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/privileges/change",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/root/password",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/mongodb/search",
+      "target": "panel.agent.v1.DatabaseService.SearchMongoDB",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "SearchMongoDB",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/:database/load",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/bind",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/del/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/description",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/password",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/privileges",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/pg/search",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/databases/redis/check",
+      "target": "panel.agent.v1.DatabaseService.CheckRedisCli",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "CheckRedisCli",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/redis/conf",
+      "target": "panel.agent.v1.DatabaseService.GetRedisConf",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "GetRedisConf",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/redis/conf/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/redis/install/cli",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/redis/password",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/redis/persistence/conf",
+      "target": "panel.agent.v1.DatabaseService.GetRedisPersistenceConf",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "GetRedisPersistenceConf",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/redis/persistence/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/redis/status",
+      "target": "panel.agent.v1.DatabaseService.GetRedisStatus",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "GetRedisStatus",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/remote",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/status",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/users",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/users/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/users/password",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/users/password/save",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/users/search",
+      "target": "panel.agent.v1.DatabaseService.ListMySQLUsers",
+      "service": "panel.agent.v1.DatabaseService",
+      "rpc": "ListMySQLUsers",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/databases/users/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/variables",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/databases/variables/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/ai-search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/batch/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/batch/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/batch/role",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/chunkdownload",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/chunkupload",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/compress",
+      "target": "panel.agent.v1.FileService.Compress",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "Compress",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/compress/stop",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/content",
+      "target": "panel.agent.v1.FileService.GetFile",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/convert",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/convert/log",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/decompress",
+      "target": "panel.agent.v1.FileService.DeCompress",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "DeCompress",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/decompress/stop",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/del",
+      "target": "panel.agent.v1.FileService.Delete",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/depth/size",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/download",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/favorite",
+      "target": "panel.agent.v1.FileService.AddFavorite",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "AddFavorite",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/favorite/del",
+      "target": "panel.agent.v1.FileService.DeleteFavorite",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "DeleteFavorite",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/favorite/search",
+      "target": "panel.agent.v1.FileService.SearchFavorites",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SearchFavorites",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/history/content",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/history/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/history/restore",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/history/search",
+      "target": "panel.agent.v1.FileService.SearchHistory",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SearchHistory",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/mode",
+      "target": "panel.agent.v1.FileService.ChangeMode",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ChangeMode",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/mount",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/move",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/move/stop",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/owner",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/preview",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/read/{type}",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/recycle/clear",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/recycle/reduce",
+      "target": "panel.agent.v1.FileService.RestoreRecycle",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "RestoreRecycle",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/recycle/search",
+      "target": "panel.agent.v1.FileService.SearchRecycle",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SearchRecycle",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/files/recycle/status",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/remark",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/remarks",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/rename",
+      "target": "panel.agent.v1.FileService.ChangeName",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ChangeName",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/files/save",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/search",
+      "target": "panel.agent.v1.FileService.ListFiles",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ListFiles",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/files/share/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/share/create",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/share/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/share/detail",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/share/download",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/share/info",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/share/qrcode",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/share/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/size",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/tree",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/upload",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/upload/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/user/group",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/wget",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/wget/process",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/files/wget/process/keys",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/wget/process/remove",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/files/wget/stop",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/groups",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/groups/del",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/groups/search",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/groups/update",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/health/check",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts",
+      "target": "panel.agent.v1.HostService.Create",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/components/{name}",
+      "target": "panel.agent.v1.HostService.CheckComponent",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "CheckComponent",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/del",
+      "target": "panel.agent.v1.HostService.DeleteHosts",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "DeleteHosts",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/diagnostics/goroutines",
+      "target": "panel.agent.v1.HostService.GetDiagnosticsGoroutines",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "GetDiagnosticsGoroutines",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/diagnostics/profiles",
+      "target": "panel.agent.v1.HostService.CreateDiagnosticsProfile",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "CreateDiagnosticsProfile",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/diagnostics/summary",
+      "target": "panel.agent.v1.HostService.GetDiagnosticsSummary",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "GetDiagnosticsSummary",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/disks",
+      "target": "panel.agent.v1.HostService.GetDisks",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "GetDisks",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/disks/mount",
+      "target": "panel.agent.v1.HostService.MountDisk",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "MountDisk",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/disks/partition",
+      "target": "panel.agent.v1.HostService.PartitionDisk",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "PartitionDisk",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/disks/unmount",
+      "target": "panel.agent.v1.HostService.UnmountDisk",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "UnmountDisk",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/base",
+      "target": "panel.agent.v1.FirewallService.BaseInfo",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "BaseInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/firewall/docker/endpoints",
+      "target": "panel.agent.v1.FirewallService.ListDockerEndpoints",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "ListDockerEndpoints",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/docker/operate",
+      "target": "panel.agent.v1.FirewallService.OperateDocker",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "OperateDocker",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/docker/policies/batch",
+      "target": "panel.agent.v1.FirewallService.UpsertDockerPolicies",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "UpsertDockerPolicies",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/docker/policies/delete/batch",
+      "target": "panel.agent.v1.FirewallService.DeleteDockerPolicies",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "DeleteDockerPolicies",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/firewall/docker/ports",
+      "target": "panel.agent.v1.FirewallService.ListDockerPorts",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "ListDockerPorts",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/family/operate",
+      "target": "panel.agent.v1.FirewallService.OperateFamily",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "OperateFamily",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/filter/operate",
+      "target": "panel.agent.v1.FirewallService.OperateFilterChain",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "OperateFilterChain",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/forward/base",
+      "target": "panel.agent.v1.FirewallService.GetForwardBase",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "GetForwardBase",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/forward/enable",
+      "target": "panel.agent.v1.FirewallService.EnableForwarding",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "EnableForwarding",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/forward/operate",
+      "target": "panel.agent.v1.FirewallService.OperateForwardRules",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "OperateForwardRules",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/forward/search",
+      "target": "panel.agent.v1.FirewallService.SearchForwardRules",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "SearchForwardRules",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/operate",
+      "target": "panel.agent.v1.FirewallService.Operate",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "Operate",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/rules",
+      "target": "panel.agent.v1.FirewallService.CreateRules",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "CreateRules",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/firewall/rules/backups",
+      "target": "panel.agent.v1.FirewallService.ListRuleBackups",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "ListRuleBackups",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/rules/delete",
+      "target": "panel.agent.v1.FirewallService.DeleteRules",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "DeleteRules",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/rules/native/detail",
+      "target": "panel.agent.v1.FirewallService.GetNativeDetail",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "GetNativeDetail",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/rules/reorder",
+      "target": "panel.agent.v1.FirewallService.ReorderRule",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "ReorderRule",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/rules/reset",
+      "target": "panel.agent.v1.FirewallService.ResetRules",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "ResetRules",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/rules/search",
+      "target": "panel.agent.v1.FirewallService.Inventory",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "Inventory",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/rules/update",
+      "target": "panel.agent.v1.FirewallService.UpdateRule",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "UpdateRule",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/firewall/settings",
+      "target": "panel.agent.v1.FirewallService.GetSettings",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "GetSettings",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/settings/ipv6",
+      "target": "panel.agent.v1.FirewallService.OperateIPv6",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "OperateIPv6",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/settings/operate",
+      "target": "panel.agent.v1.FirewallService.OperateBackend",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "OperateBackend",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/settings/whitelist",
+      "target": "panel.agent.v1.FirewallService.CreateWhitelist",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "CreateWhitelist",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/settings/whitelist/delete",
+      "target": "panel.agent.v1.FirewallService.DeleteWhitelist",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "DeleteWhitelist",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/firewall/settings/whitelist/update",
+      "target": "panel.agent.v1.FirewallService.UpdateWhitelist",
+      "service": "panel.agent.v1.FirewallService",
+      "rpc": "UpdateWhitelist",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/info",
+      "target": "panel.agent.v1.HostService.Get",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "Get",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/monitor/clean",
+      "target": "panel.agent.v1.MonitorService.Clean",
+      "service": "panel.agent.v1.MonitorService",
+      "rpc": "Clean",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/monitor/iooptions",
+      "target": "panel.agent.v1.MonitorService.ListIOOptions",
+      "service": "panel.agent.v1.MonitorService",
+      "rpc": "ListIOOptions",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/monitor/netoptions",
+      "target": "panel.agent.v1.MonitorService.ListNetworkOptions",
+      "service": "panel.agent.v1.MonitorService",
+      "rpc": "ListNetworkOptions",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/monitor/search",
+      "target": "panel.agent.v1.MonitorService.Search",
+      "service": "panel.agent.v1.MonitorService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/monitor/setting",
+      "target": "panel.agent.v1.MonitorService.GetSetting",
+      "service": "panel.agent.v1.MonitorService",
+      "rpc": "GetSetting",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/monitor/setting/update",
+      "target": "panel.agent.v1.MonitorService.UpdateSetting",
+      "service": "panel.agent.v1.MonitorService",
+      "rpc": "UpdateSetting",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/search",
+      "target": "panel.agent.v1.HostService.Search",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/cert",
+      "target": "panel.agent.v1.SSHService.CreateCert",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "CreateCert",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/cert/delete",
+      "target": "panel.agent.v1.SSHService.DeleteCerts",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "DeleteCerts",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/cert/search",
+      "target": "panel.agent.v1.SSHService.SearchCerts",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "SearchCerts",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/cert/sync",
+      "target": "panel.agent.v1.SSHService.SyncCerts",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "SyncCerts",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/cert/update",
+      "target": "panel.agent.v1.SSHService.UpdateCert",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "UpdateCert",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/file",
+      "target": "panel.agent.v1.SSHService.LoadFile",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "LoadFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/file/update",
+      "target": "panel.agent.v1.SSHService.UpdateFile",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "UpdateFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/log",
+      "target": "panel.agent.v1.SSHService.SearchLogs",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "SearchLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/log/clean",
+      "target": "panel.agent.v1.SSHService.CleanLogs",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "CleanLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/log/export",
+      "target": "panel.agent.v1.SSHService.ExportLogs",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "ExportLogs",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/operate",
+      "target": "panel.agent.v1.SSHService.Operate",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "Operate",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/search",
+      "target": "panel.agent.v1.SSHService.GetInfo",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "GetInfo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/ssh/update",
+      "target": "panel.agent.v1.SSHService.Update",
+      "service": "panel.agent.v1.SSHService",
+      "rpc": "Update",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/terminal/container",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/terminal/local",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/terminal/sessions/close",
+      "target": "panel.agent.v1.TerminalService.CloseSession",
+      "service": "panel.agent.v1.TerminalService",
+      "rpc": "CloseSession",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/terminal/sessions/closeAll",
+      "target": "panel.agent.v1.TerminalService.CloseAllSessions",
+      "service": "panel.agent.v1.TerminalService",
+      "rpc": "CloseAllSessions",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/terminal/sessions/search",
+      "target": "panel.agent.v1.TerminalService.ListSessions",
+      "service": "panel.agent.v1.TerminalService",
+      "rpc": "ListSessions",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/terminal/ssh",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/test/byid",
+      "target": "panel.agent.v1.HostService.TestByID",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "TestByID",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/test/byinfo",
+      "target": "panel.agent.v1.HostService.TestByInfo",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "TestByInfo",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/config/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/config/set",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/init",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/status",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/hosts/tool/supervisor/process",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/supervisor/process",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/supervisor/process/file",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tool/supervisor/process/file/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/tree",
+      "target": "panel.agent.v1.HostService.Tree",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "Tree",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/update",
+      "target": "panel.agent.v1.HostService.UpdateHost",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "UpdateHost",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/hosts/update/group",
+      "target": "panel.agent.v1.HostService.UpdateHostGroup",
+      "service": "panel.agent.v1.HostService",
+      "rpc": "UpdateHostGroup",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/logs/system/files",
+      "target": "panel.agent.v1.LogService.ListSystemFiles",
+      "service": "panel.agent.v1.LogService",
+      "rpc": "ListSystemFiles",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/logs/system/read",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/logs/system/services",
+      "target": "panel.agent.v1.LogService.ListRunningServices",
+      "service": "panel.agent.v1.LogService",
+      "rpc": "ListRunningServices",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/logs/system/status",
+      "target": "panel.agent.v1.LogService.SystemStatus",
+      "service": "panel.agent.v1.LogService",
+      "rpc": "SystemStatus",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/logs/tasks/executing/count",
+      "target": "panel.agent.v1.TaskService.CountExecuting",
+      "service": "panel.agent.v1.TaskService",
+      "rpc": "CountExecuting",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/logs/tasks/read",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/logs/tasks/search",
+      "target": "panel.agent.v1.TaskService.Search",
+      "service": "panel.agent.v1.TaskService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/openresty",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/openresty/build",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/openresty/file",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/openresty/https",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/openresty/https",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/openresty/modules",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/openresty/modules/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/openresty/scope",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/openresty/status",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/openresty/update",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/process/listening",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/process/stop",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/process/ws",
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/process/{pid}",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/:id",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/installed/delete/check/:id",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/node/modules",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/node/modules/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/node/package",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/php/:id/extensions",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/config",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/php/config/:id",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/php/container/:id",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/container/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/detail",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/import",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/install",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/push",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/uninstall",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/extensions/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/file",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/fpm/config",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/php/fpm/config/:id",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/php/fpm/status/:id",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/php/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/remark",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/supervisor/process",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/runtimes/supervisor/process/:id",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/supervisor/process/file",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/sync",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/runtimes/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/settings/basedir",
+      "target": "panel.agent.v1.AgentSettingService.GetBaseDir",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetBaseDir",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/description/save",
+      "target": "panel.agent.v1.AgentSettingService.SaveDescription",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "SaveDescription",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/file-history/search",
+      "target": "panel.agent.v1.AgentSettingService.GetFileHistory",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetFileHistory",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/file-history/update",
+      "target": "panel.agent.v1.AgentSettingService.UpdateFileHistory",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "UpdateFileHistory",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/files/ai/search",
+      "target": "panel.agent.v1.AgentSettingService.GetFileAI",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetFileAI",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/files/ai/update",
+      "target": "panel.agent.v1.AgentSettingService.UpdateFileAI",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "UpdateFileAI",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/search",
+      "target": "panel.agent.v1.AgentSettingService.GetInfo",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/settings/search/available",
+      "target": "panel.agent.v1.AgentSettingService.GetSystemAvailable",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetSystemAvailable",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot",
+      "target": "panel.agent.v1.SnapshotService.Create",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot/del",
+      "target": "panel.agent.v1.SnapshotService.Delete",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot/description/update",
+      "target": "panel.agent.v1.SnapshotService.UpdateDescription",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "UpdateDescription",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot/import",
+      "target": "panel.agent.v1.SnapshotService.Import",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "Import",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/settings/snapshot/load",
+      "target": "panel.agent.v1.SnapshotService.LoadData",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "LoadData",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot/recover",
+      "target": "panel.agent.v1.SnapshotService.Recover",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "Recover",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot/recreate",
+      "target": "panel.agent.v1.SnapshotService.Recreate",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "Recreate",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot/rollback",
+      "target": "panel.agent.v1.SnapshotService.Rollback",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "Rollback",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/snapshot/search",
+      "target": "panel.agent.v1.SnapshotService.Search",
+      "service": "panel.agent.v1.SnapshotService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/ssh",
+      "target": "panel.agent.v1.AgentSettingService.SaveLocalConn",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "SaveLocalConn",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/ssh/check",
+      "target": "panel.agent.v1.AgentSettingService.TestLocalConn",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "TestLocalConn",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/ssh/check/info",
+      "target": "panel.agent.v1.AgentSettingService.TestConnByInfo",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "TestConnByInfo",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/settings/ssh/conn",
+      "target": "panel.agent.v1.AgentSettingService.GetLocalConn",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetLocalConn",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/ssh/default",
+      "target": "panel.agent.v1.AgentSettingService.SetDefaultConn",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "SetDefaultConn",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/terminal/ai/search",
+      "target": "panel.agent.v1.AgentSettingService.GetTerminalAI",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetTerminalAI",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/terminal/ai/update",
+      "target": "panel.agent.v1.AgentSettingService.UpdateTerminalAI",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "UpdateTerminalAI",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/settings/update",
+      "target": "panel.agent.v1.AgentSettingService.UpdateSetting",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "UpdateSetting",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/settings/website/dir",
+      "target": "panel.agent.v1.AgentSettingService.GetWebsiteDir",
+      "service": "panel.agent.v1.AgentSettingService",
+      "rpc": "GetWebsiteDir",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/base",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/file/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/file/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/handle",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/record/clean",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/record/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/status/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clam/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/clean",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/base",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/check/dns",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/conf",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/update/byconf",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/update/conf",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/update/host",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/update/passwd",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/device/update/swap",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/toolbox/device/users",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/toolbox/device/zone/options",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/toolbox/fail2ban/base",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/toolbox/fail2ban/load/conf",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/fail2ban/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/fail2ban/operate/sshd",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/fail2ban/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/fail2ban/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/fail2ban/update/byconf",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/ftp",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/toolbox/ftp/base",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/ftp/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/ftp/log/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/ftp/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/ftp/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/ftp/sync",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/ftp/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/toolbox/scan",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/console",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/vms/console/ws",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/disks/resize",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/vms/environment",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/environment/enable",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/health/check",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/info",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/iso",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/iso/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/iso/import/start",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/iso/import/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/iso/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/iso/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/iso/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/networks",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/vms/networks/bridges",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/networks/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/vms/networks/interfaces",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/networks/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/networks/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/operate",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/orphans/clean",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/orphans/scan",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/rename",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/snapshots",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/snapshots/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/snapshots/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/snapshots/recover",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/stats",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/storages",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/storages/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/storages/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/storages/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/sync",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/templates",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/templates/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/templates/list",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/vms/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites",
+      "target": "panel.agent.v1.WebsiteService.Create",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/:id",
+      "target": "panel.agent.v1.WebsiteService.GetWebsite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetWebsite",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/:id/config/:type",
+      "target": "panel.agent.v1.WebsiteService.GetNginxFile",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetNginxFile",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/:id/https",
+      "target": "panel.agent.v1.WebsiteService.GetHTTPS",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetHTTPS",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/:id/https",
+      "target": "panel.agent.v1.WebsiteService.UpdateHTTPS",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateHTTPS",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/acme",
+      "target": "panel.agent.v1.WebsiteSSLService.CreateACME",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "CreateACME",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/acme/del",
+      "target": "panel.agent.v1.WebsiteSSLService.DeleteACME",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "DeleteACME",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/acme/search",
+      "target": "panel.agent.v1.WebsiteSSLService.SearchACMEAccounts",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "SearchACMEAccounts",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/acme/update",
+      "target": "panel.agent.v1.WebsiteSSLService.UpdateACME",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "UpdateACME",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/auths",
+      "target": "panel.agent.v1.WebsiteService.GetAuth",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetAuth",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/auths/path",
+      "target": "panel.agent.v1.WebsiteService.GetPathAuth",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetPathAuth",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/auths/path/update",
+      "target": "panel.agent.v1.WebsiteService.UpdatePathAuth",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdatePathAuth",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/auths/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateAuth",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateAuth",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/batch/group",
+      "target": "panel.agent.v1.WebsiteService.BatchGroup",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "BatchGroup",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/batch/operate",
+      "target": "panel.agent.v1.WebsiteService.BatchOperate",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "BatchOperate",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/batch/ssl",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca",
+      "target": "panel.agent.v1.WebsiteSSLService.CreateCA",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "CreateCA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca/del",
+      "target": "panel.agent.v1.WebsiteSSLService.DeleteCA",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "DeleteCA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca/download",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca/import",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca/obtain",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca/renew",
+      "target": "panel.agent.v1.WebsiteSSLService.RenewCA",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "RenewCA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca/search",
+      "target": "panel.agent.v1.WebsiteSSLService.SearchCA",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "SearchCA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ca/upload",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/websites/ca/{id}",
+      "target": "panel.agent.v1.WebsiteSSLService.GetCA",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "GetCA",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/check",
+      "target": "panel.agent.v1.WebsiteService.Check",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "Check",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/config",
+      "target": "panel.agent.v1.WebsiteService.GetNginxScopeConfig",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetNginxScopeConfig",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/config/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateNginxScopeConfig",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateNginxScopeConfig",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/cors/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateCors",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateCors",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/cors/{id}",
+      "target": "panel.agent.v1.WebsiteService.GetCors",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetCors",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/crosssite",
+      "target": "panel.agent.v1.WebsiteService.OperateCrossSite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "OperateCrossSite",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/databases",
+      "target": "panel.agent.v1.WebsiteService.ListDatabases",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ListDatabases",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/databases",
+      "target": "panel.agent.v1.WebsiteService.ChangeDatabase",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ChangeDatabase",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/default/html/:type",
+      "target": "panel.agent.v1.WebsiteService.GetDefaultHtml",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetDefaultHtml",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/default/html/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateDefaultHtml",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateDefaultHtml",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/default/server",
+      "target": "panel.agent.v1.WebsiteService.ChangeDefault",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ChangeDefault",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/del",
+      "target": "panel.agent.v1.WebsiteService.Delete",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/dir",
+      "target": "panel.agent.v1.WebsiteService.GetSiteDir",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetSiteDir",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/dir/permission",
+      "target": "panel.agent.v1.WebsiteService.UpdateSitePermission",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateSitePermission",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/dir/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateSiteDir",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateSiteDir",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/dns",
+      "target": "panel.agent.v1.WebsiteService.CreateDNSAccount",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "CreateDNSAccount",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/dns/del",
+      "target": "panel.agent.v1.WebsiteService.DeleteDNSAccount",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "DeleteDNSAccount",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/dns/search",
+      "target": "panel.agent.v1.WebsiteSSLService.SearchDNSAccounts",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "SearchDNSAccounts",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/dns/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateDNSAccount",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateDNSAccount",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/domains",
+      "target": "panel.agent.v1.WebsiteService.CreateDomains",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "CreateDomains",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/domains/:websiteId",
+      "target": "panel.agent.v1.WebsiteService.ListDomains",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ListDomains",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/domains/del",
+      "target": "panel.agent.v1.WebsiteService.DeleteDomain",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "DeleteDomain",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/domains/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateDomain",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateDomain",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/exec/composer",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/group/change",
+      "target": "panel.agent.v1.WebsiteService.ChangeGroup",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ChangeGroup",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/lbs/create",
+      "target": "panel.agent.v1.WebsiteService.CreateLoadBalance",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "CreateLoadBalance",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/lbs/del",
+      "target": "panel.agent.v1.WebsiteService.DeleteLoadBalance",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "DeleteLoadBalance",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/lbs/file",
+      "target": "panel.agent.v1.WebsiteService.UpdateLoadBalanceFile",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateLoadBalanceFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/lbs/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateLoadBalance",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateLoadBalance",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/leech",
+      "target": "panel.agent.v1.WebsiteService.GetAntiLeech",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetAntiLeech",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/leech/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateAntiLeech",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateAntiLeech",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/list",
+      "target": "panel.agent.v1.WebsiteService.List",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "List",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/log/operate",
+      "target": "panel.agent.v1.WebsiteService.OperateLog",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "OperateLog",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/log/search",
+      "target": "panel.agent.v1.WebsiteService.GetLog",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetLog",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/nginx/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateNginxFile",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateNginxFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/operate",
+      "target": "panel.agent.v1.WebsiteService.OperateWebsite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "OperateWebsite",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/options",
+      "target": "panel.agent.v1.WebsiteService.Options",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "Options",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/php/version",
+      "target": "panel.agent.v1.WebsiteService.ChangePHPVersion",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ChangePHPVersion",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/proxies",
+      "target": "panel.agent.v1.WebsiteService.GetProxies",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetProxies",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/proxies/delete",
+      "target": "panel.agent.v1.WebsiteService.DeleteProxy",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "DeleteProxy",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/proxies/file",
+      "target": "panel.agent.v1.WebsiteService.UpdateProxyFile",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateProxyFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/proxies/status",
+      "target": "panel.agent.v1.WebsiteService.UpdateProxyStatus",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateProxyStatus",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/proxies/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateProxy",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateProxy",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/proxy/clear",
+      "target": "panel.agent.v1.WebsiteService.ClearProxyCache",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ClearProxyCache",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/proxy/config",
+      "target": "panel.agent.v1.WebsiteService.UpdateProxyCache",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateProxyCache",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/proxy/config/{id}",
+      "target": "panel.agent.v1.WebsiteService.GetProxyCache",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetProxyCache",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/realip/config",
+      "target": "panel.agent.v1.WebsiteService.UpdateRealIP",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateRealIP",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/realip/config/{id}",
+      "target": "panel.agent.v1.WebsiteService.GetRealIP",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetRealIP",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/redirect",
+      "target": "panel.agent.v1.WebsiteService.GetRedirect",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetRedirect",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/redirect/file",
+      "target": "panel.agent.v1.WebsiteService.UpdateRedirectFile",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateRedirectFile",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/redirect/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateRedirect",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateRedirect",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/resource/{id}",
+      "target": "panel.agent.v1.WebsiteService.GetResource",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetResource",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/rewrite",
+      "target": "panel.agent.v1.WebsiteService.GetRewrite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetRewrite",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/rewrite/custom",
+      "target": "panel.agent.v1.WebsiteService.ListCustomRewrite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ListCustomRewrite",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/rewrite/custom",
+      "target": "panel.agent.v1.WebsiteService.OperateCustomRewrite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "OperateCustomRewrite",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/rewrite/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateRewrite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateRewrite",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/search",
+      "target": "panel.agent.v1.WebsiteService.Search",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl",
+      "target": "panel.agent.v1.WebsiteSSLService.Create",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "Create",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/ssl/:id",
+      "target": "panel.agent.v1.WebsiteSSLService.GetByID",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "GetByID",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/del",
+      "target": "panel.agent.v1.WebsiteSSLService.Delete",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "Delete",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/download",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/import",
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/list",
+      "target": "panel.agent.v1.WebsiteSSLService.List",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "List",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/obtain",
+      "target": "panel.agent.v1.WebsiteSSLService.Apply",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "Apply",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/push",
+      "target": "panel.agent.v1.WebsiteSSLService.Push",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "Push",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/resolve",
+      "target": "panel.agent.v1.WebsiteSSLService.GetDNSResolve",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "GetDNSResolve",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/search",
+      "target": "panel.agent.v1.WebsiteSSLService.Search",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "Search",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/update",
+      "target": "panel.agent.v1.WebsiteSSLService.Update",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "Update",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/upload",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/ssl/upload/file",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "GET",
+      "path": "/websites/ssl/website/:websiteId",
+      "target": "panel.agent.v1.WebsiteSSLService.GetByWebsite",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "GetByWebsite",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/stream/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateStream",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateStream",
+      "covered": true
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/outputs",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/outputs/del",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/outputs/get",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/outputs/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/preview",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/search",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/update",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/templates/upload",
+      "excluded": true,
+      "covered": false
+    },
+    {
+      "method": "POST",
+      "path": "/websites/update",
+      "target": "panel.agent.v1.WebsiteService.UpdateWebsite",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "UpdateWebsite",
+      "covered": true
+    },
+    {
+      "method": "GET",
+      "path": "/websites/{id}/lbs",
+      "target": "panel.agent.v1.WebsiteService.GetLoadBalances",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "GetLoadBalances",
+      "covered": true
+    }
+  ]
+}

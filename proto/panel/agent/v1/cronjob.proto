@@ -1,0 +1,265 @@
+// panel/agent/v1/cronjob.proto 定义计划任务相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// CronjobService 对应 1Panel 的计划任务域。
+service CronjobService {
+  // 分页查询计划任务。
+  rpc Search(SearchCronjobsRequest) returns (SearchCronjobsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询任务执行记录。
+  rpc SearchRecords(SearchCronjobRecordsRequest) returns (SearchCronjobRecordsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取一次执行的日志内容。
+  rpc LoadRecordLog(LoadCronjobRecordLogRequest) returns (CronjobRecordLog) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按 ID 查询计划任务详情。
+  rpc Get(GetCronjobRequest) returns (Cronjob) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchCronjobsRequest 是计划任务列表查询参数。
+message SearchCronjobsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 任务名称关键字。
+  string info = 3 [(buf.validate.field).string.max_len = 64];
+
+  // 分组 ID 列表，为空表示全部。
+  repeated uint32 group_ids = 4;
+
+  // 排序字段：name、status、createdAt。
+  string order_by = 5 [(buf.validate.field).string = {
+    in: [
+      "",
+      "name",
+      "status",
+      "createdAt"
+    ]
+  }];
+
+  // 排序方向：null、ascending、descending。
+  string order = 6 [(buf.validate.field).string = {
+    in: [
+      "",
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+}
+
+// SearchCronjobsResponse 是计划任务列表结果。
+message SearchCronjobsResponse {
+  // 当前页的任务列表。
+  repeated Cronjob items = 1;
+
+  // 符合条件的任务总数。
+  int64 total = 2;
+}
+
+// GetCronjobRequest 是任务详情查询参数。
+message GetCronjobRequest {
+  // 任务 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// Cronjob 是计划任务展示信息。
+message Cronjob {
+  // 任务 ID。
+  uint32 id = 1;
+
+  // 任务名称。
+  string name = 2;
+
+  // 任务类型，例如 shell、backup、snapshot。
+  string type = 3;
+
+  // 所属分组 ID。
+  uint32 group_id = 4;
+
+  // 是否自定义 cron 表达式。
+  bool spec_custom = 5;
+
+  // cron 表达式。
+  string spec = 6;
+
+  // 执行器。
+  string executor = 7;
+
+  // 执行命令。
+  string command = 8;
+
+  // 容器名；仅容器内执行时有值。
+  string container_name = 9;
+
+  // 脚本模式。
+  string script_mode = 10;
+
+  // 脚本内容。
+  string script = 11;
+
+  // 执行用户。
+  string user = 12;
+
+  // 脚本库 ID；未使用脚本库为 0。
+  uint32 script_id = 13;
+
+  // 关联网站主域名。
+  string website = 14;
+
+  // 关联应用 ID。
+  string app_id = 15;
+
+  // 数据库类型。
+  string db_type = 16;
+
+  // 数据库名称。
+  string db_name = 17;
+
+  // 备份源目录。
+  string source_dir = 18;
+
+  // 保留份数。
+  uint64 retain_copies = 19;
+
+  // 重试次数。
+  uint32 retry_times = 20;
+
+  // 超时时间，单位秒。
+  uint32 timeout = 21;
+
+  // 是否忽略错误。
+  bool ignore_err = 22;
+
+  // 任务状态：Enable=启用，Disable=停用。
+  string status = 23;
+
+  // 是否正在执行。
+  bool is_executing = 24;
+
+  // 最近一次执行状态。
+  string last_record_status = 25;
+
+  // 最近一次执行时间，RFC3339 格式；从未执行时为空。
+  string last_record_time = 26;
+
+  // 告警发送次数。
+  uint32 alert_count = 27;
+
+  // 告警触发模式。
+  string alert_trigger_mode = 28;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 29;
+}
+
+// SearchCronjobRecordsRequest 是执行记录查询参数。
+message SearchCronjobRecordsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 任务 ID。
+  uint32 cronjob_id = 3 [(buf.validate.field).uint32.gt = 0];
+
+  // 状态过滤：Success、Failed、Running。
+  string status = 4 [(buf.validate.field).string.max_len = 32];
+
+  // 开始时间，RFC3339 格式；为空表示不限制。
+  string start_time = 5;
+
+  // 结束时间，RFC3339 格式；为空表示不限制。
+  string end_time = 6;
+}
+
+// SearchCronjobRecordsResponse 是执行记录列表结果。
+message SearchCronjobRecordsResponse {
+  // 当前页的记录列表。
+  repeated CronjobRecord items = 1;
+
+  // 符合条件的记录总数。
+  int64 total = 2;
+}
+
+// CronjobRecord 是一次任务执行记录。
+message CronjobRecord {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 任务 ID。
+  uint32 cronjob_id = 2;
+
+  // 关联任务 ID。
+  string task_id = 3;
+
+  // 开始时间，RFC3339 格式。
+  string start_time = 4;
+
+  // 日志文件路径。
+  string records = 5;
+
+  // 状态：Success、Failed、Running。
+  string status = 6;
+
+  // 状态说明。
+  string message = 7;
+
+  // 目标路径。
+  string target_path = 8;
+
+  // 耗时，单位秒。
+  int32 interval = 9;
+
+  // 备份文件。
+  string file = 10;
+}
+
+// LoadCronjobRecordLogRequest 是执行日志查询参数。
+message LoadCronjobRecordLogRequest {
+  // 记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// CronjobRecordLog 是一次执行的日志内容。
+message CronjobRecordLog {
+  // 日志内容；文件不存在时为空。
+  string content = 1;
+}

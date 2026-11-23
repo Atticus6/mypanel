@@ -1,0 +1,106 @@
+// panel/agent/v1/task.proto 定义任务中心相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// TaskService 对应 1Panel 的任务中心域。
+service TaskService {
+  // 分页查询任务记录。
+  rpc Search(SearchTasksRequest) returns (SearchTasksResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 统计正在执行的任务数量。
+  rpc CountExecuting(CountExecutingTasksRequest) returns (CountExecutingTasksResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchTasksRequest 是任务列表查询参数。
+message SearchTasksRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 状态过滤：Running、Success、Failed、Waiting。
+  string status = 3 [(buf.validate.field).string.max_len = 32];
+
+  // 任务类型过滤。
+  string type = 4 [(buf.validate.field).string.max_len = 64];
+
+  // 任务 ID 过滤。
+  string task_id = 5 [(buf.validate.field).string.max_len = 64];
+}
+
+// SearchTasksResponse 是任务列表结果。
+message SearchTasksResponse {
+  // 当前页的任务列表。
+  repeated Task items = 1;
+
+  // 符合条件的任务总数。
+  int64 total = 2;
+}
+
+// Task 是一条任务记录。
+message Task {
+  // 任务 ID。
+  string id = 1;
+
+  // 任务名称。
+  string name = 2;
+
+  // 任务类型。
+  string type = 3;
+
+  // 操作名称。
+  string operate = 4;
+
+  // 日志文件路径。
+  string log_file = 5;
+
+  // 状态：Running、Success、Failed、Waiting。
+  string status = 6;
+
+  // 错误信息。
+  string error_msg = 7;
+
+  // 关联操作日志 ID。
+  uint32 operation_log_id = 8;
+
+  // 关联资源 ID。
+  uint32 resource_id = 9;
+
+  // 当前步骤。
+  string current_step = 10;
+
+  // 结束时间，RFC3339 格式；未结束时为空。
+  string end_at = 11;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 12;
+}
+
+// CountExecutingTasksRequest 是执行中任务统计请求，无业务字段。
+message CountExecutingTasksRequest {}
+
+// CountExecutingTasksResponse 是执行中任务数量。
+message CountExecutingTasksResponse {
+  // 执行中的任务数。
+  int64 count = 1;
+}

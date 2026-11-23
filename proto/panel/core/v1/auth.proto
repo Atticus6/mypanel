@@ -1,0 +1,558 @@
+// panel/core/v1/auth.proto 定义面板登录、会话与当前用户相关的 RPC。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// AuthService 负责登录、登出、验证码、MFA、Passkey 与当前用户信息。
+service AuthService {
+  // 用户名密码登录；启用 MFA 时返回 mfa_status 与 mfa_session，
+  // 由客户端继续调用 MFALogin 完成二次验证。
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (panel.common.v1.policy) = {
+      public: true
+      csrf_exempt: true
+      audit_action_zh: "登录"
+      audit_action_en: "Login"
+    };
+  }
+
+  // 使用 MFA 会话与动态验证码完成登录。
+  rpc MFALogin(MFALoginRequest) returns (LoginResponse) {
+    option (panel.common.v1.policy) = {
+      public: true
+      csrf_exempt: true
+      audit_action_zh: "MFA 登录"
+      audit_action_en: "MFA login"
+    };
+  }
+
+  // 退出登录并清空会话。
+  rpc Logout(LogoutRequest) returns (LogoutResponse) {
+    option (panel.common.v1.policy) = {
+      csrf_exempt: true
+      audit_action_zh: "登出"
+      audit_action_en: "Logout"
+    };
+  }
+
+  // 获取登录页需要的图形验证码。
+  rpc Captcha(CaptchaRequest) returns (CaptchaResponse) {
+    option (panel.common.v1.policy) = {
+      public: true
+      no_audit: true
+      read_only: true
+    };
+  }
+
+  // 读取登录页所需的公开设置（面板名称、主题、是否需要验证码等）。
+  rpc GetLoginSetting(GetLoginSettingRequest) returns (LoginSetting) {
+    option (panel.common.v1.policy) = {
+      public: true
+      no_audit: true
+      read_only: true
+    };
+  }
+
+  // 查询当前登录用户信息，路由守卫用它判断会话是否有效。
+  rpc Current(CurrentRequest) returns (CurrentUser) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+      read_only: true
+    };
+  }
+
+  // 开始 Passkey 登录，返回 WebAuthn 断言参数。
+  rpc PasskeyBeginLogin(PasskeyBeginLoginRequest) returns (PasskeyBeginResponse) {
+    option (panel.common.v1.policy) = {
+      public: true
+      csrf_exempt: true
+      audit_action_zh: "Passkey 登录"
+      audit_action_en: "Passkey login"
+    };
+  }
+
+  // 完成 Passkey 登录，服务端校验断言并建立会话。
+  rpc PasskeyFinishLogin(PasskeyFinishLoginRequest) returns (LoginResponse) {
+    option (panel.common.v1.policy) = {
+      public: true
+      csrf_exempt: true
+      audit_action_zh: "Passkey 登录"
+      audit_action_en: "Passkey login"
+    };
+  }
+
+  // 列出当前用户已注册的 Passkey。
+  rpc PasskeyList(PasskeyListRequest) returns (PasskeyListResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+      read_only: true
+    };
+  }
+
+  // 删除一个已注册的 Passkey。
+  rpc PasskeyDelete(PasskeyDeleteRequest) returns (PasskeyDeleteResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除 Passkey"
+      audit_action_en: "Delete passkey"
+    };
+  }
+  // 生成（或重新生成）当前账号的 API 接口密钥。
+  rpc GenerateAPIKey(GenerateAPIKeyRequest) returns (GenerateAPIKeyResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "生成 API 密钥"
+      audit_action_en: "Generate API key"
+    };
+  }
+
+  // 修改当前账号的 API 接口配置（白名单、可信代理、有效期）。
+  rpc UpdateAPIConfig(UpdateAPIConfigRequest) returns (UpdateAPIConfigResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 API 配置"
+      audit_action_en: "Update API config"
+    };
+  }
+
+  // 开始 Passkey 注册，返回 WebAuthn 创建参数。
+  rpc PasskeyRegisterBegin(PasskeyRegisterBeginRequest) returns (PasskeyBeginResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "注册 Passkey"
+      audit_action_en: "Register passkey"
+    };
+  }
+
+  // 完成 Passkey 注册；会话 ID 通过 Passkey-Session 请求头传递。
+  rpc PasskeyRegisterFinish(PasskeyRegisterFinishRequest) returns (PasskeyRegisterFinishResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "注册 Passkey"
+      audit_action_en: "Register passkey"
+    };
+  }
+
+  // 生成 MFA 绑定用的密钥与二维码。
+  rpc GetMFA(GetMFARequest) returns (MFASetup) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "生成 MFA 密钥"
+      audit_action_en: "Generate MFA secret"
+    };
+  }
+
+  // 校验动态码并绑定 MFA。
+  rpc BindMFA(BindMFARequest) returns (BindMFAResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "绑定 MFA"
+      audit_action_en: "Bind MFA"
+    };
+  }
+
+  // 关闭 MFA。
+  rpc CloseMFA(CloseMFARequest) returns (CloseMFAResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "关闭 MFA"
+      audit_action_en: "Close MFA"
+    };
+  }
+
+  // 修改当前用户的名称或密码。
+  rpc UpdateCurrentUser(UpdateCurrentUserRequest) returns (UpdateCurrentUserResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改当前用户"
+      audit_action_en: "Update current user"
+    };
+  }
+
+  // 密码过期后重置密码。
+  rpc ResetExpiredPassword(ResetExpiredPasswordRequest) returns (ResetExpiredPasswordResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "重置过期密码"
+      audit_action_en: "Reset expired password"
+    };
+  }
+
+}
+
+// LoginRequest 是用户名密码登录的入参。
+message LoginRequest {
+  // 登录用户名，1-64 个字符。
+  string name = 1 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 64
+  }];
+
+  // 登录密码密文（前端用 RSA + AES 加密后的 base64 串），服务端不做回显。
+  // 长度上限按密文信封留足空间，明文长度由服务端解密后按密码策略校验。
+  string password = 2 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 4096
+  }];
+
+  // 图形验证码内容；不需要验证码时为空。
+  string captcha = 3;
+
+  // 图形验证码 ID，与 captcha 成对使用。
+  string captcha_id = 4;
+
+  // 界面语言代码，决定服务端错误文案与用户语言偏好。
+  string language = 5 [(buf.validate.field).string = {
+    in: [
+      "zh",
+      "en",
+      "zh-Hant",
+      "ko",
+      "ja",
+      "ru",
+      "ms",
+      "pt-BR",
+      "tr",
+      "es-ES",
+      "fa",
+      "lo"
+    ]
+  }];
+
+  // 外部身份源标识；本地登录时为空。
+  string auth_source = 6;
+
+  // 安全入口，Base64 编码；未开启安全入口时为空。
+  string entrance_code = 7;
+}
+
+// LoginResponse 是登录成功后返回的会话信息。
+message LoginResponse {
+  // 登录用户名。
+  string name = 1;
+
+  // 用户角色，例如 ADMIN。
+  string role = 2;
+
+  // 会话令牌；浏览器场景下同时通过 Cookie 下发。
+  string token = 3;
+
+  // MFA 状态：enable=已开启，disable=未开启。
+  string mfa_status = 4;
+
+  // 待完成的 MFA 会话 ID；mfa_status=enable 时非空。
+  string mfa_session = 5;
+}
+
+// MFALoginRequest 是 MFA 二次验证的入参。
+message MFALoginRequest {
+  // MFA 会话 ID，由 Login 返回。
+  string session_id = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 动态验证码，6 位数字。
+  string code = 2 [(buf.validate.field).string = {
+    min_len: 6
+    max_len: 8
+  }];
+
+  // 安全入口，Base64 编码；未开启安全入口时为空。
+  string entrance_code = 3;
+}
+
+// LogoutRequest 是登出请求，无业务字段。
+message LogoutRequest {}
+
+// LogoutResponse 描述登出结果及需要浏览器跳转的外部身份源动作。
+message LogoutResponse {
+  // 外部身份源登出跳转；为空表示无需跳转。
+  AuthNavigation saml2_navigation = 1;
+}
+
+// AuthNavigation 描述一次浏览器跳转（302 或自动提交表单）。
+message AuthNavigation {
+  // 绑定方式：redirect=302 跳转，post=自动提交表单。
+  string binding = 1;
+
+  // 302 跳转目标地址。
+  string redirect_url = 2;
+
+  // 表单提交目标地址。
+  string post_url = 3;
+
+  // 表单字段键值对。
+  map<string, string> fields = 4;
+}
+
+// CaptchaRequest 是获取验证码的请求，无业务字段。
+message CaptchaRequest {}
+
+// CaptchaResponse 返回验证码 ID 与图片地址。
+message CaptchaResponse {
+  // 验证码 ID，登录时需要回传。
+  string captcha_id = 1;
+
+  // 验证码图片地址，可直接作为 img src 使用。
+  string image_path = 2;
+}
+
+// GetLoginSettingRequest 是读取登录页设置的请求，无业务字段。
+message GetLoginSettingRequest {}
+
+// LoginSetting 是登录页展示所需的公开设置。
+message LoginSetting {
+  // 是否演示模式；演示模式下禁止写操作。
+  bool is_demo = 1;
+
+  // 是否为国际化版本。
+  bool is_intl = 2;
+
+  // 是否离线环境。
+  bool is_offline = 3;
+
+  // 是否为企业版。
+  bool is_enterprise = 4;
+
+  // 是否为专业版产品（迁移后固定为 false）。
+  bool is_master_product_pro = 5;
+
+  // 当前语言代码。
+  string language = 6;
+
+  // 菜单展示方式：tabs=页签，collapse=折叠。
+  string menu_tabs = 7;
+
+  // 菜单是否手风琴模式。
+  string menu_accordion = 8;
+
+  // 是否启用面板缓存。
+  string panel_cache = 9;
+
+  // 面板名称，展示在登录页标题。
+  string panel_name = 10;
+
+  // 主题名称。
+  string theme = 11;
+
+  // 当前 IP 是否需要图形验证码。
+  bool need_captcha = 12;
+
+  // 是否启用 Passkey 登录。
+  bool passkey_setting = 13;
+}
+
+// CurrentRequest 是查询当前用户的请求，无业务字段。
+message CurrentRequest {}
+
+// CurrentUser 是当前登录用户及其权限信息。
+message CurrentUser {
+  // 用户名。
+  string name = 1;
+
+  // MFA 状态：enable=已开启，disable=未开启。
+  string mfa_status = 2;
+
+  // MFA 刷新间隔，单位为秒。
+  int32 mfa_interval = 3;
+
+  // 密码复杂度设置，JSON 字符串。
+  string complexity_setting = 4;
+
+  // 外部身份源类型；本地用户为空。
+  string auth_source = 5;
+
+  // 外部身份源启用状态。
+  string auth_source_status = 6;
+
+  // API 接口启用状态：enable=启用，disable=禁用。
+  string api_interface_status = 7;
+
+  // 当前 API Key；未启用时为空。
+  string api_key = 8;
+
+  // API 白名单 IP，逗号分隔。
+  string ip_white_list = 9;
+
+  // API 可信代理 IP，逗号分隔。
+  string api_trusted_proxies = 10;
+
+  // API Key 有效期，单位为小时。
+  int32 api_key_validity_time = 11;
+
+  // 用户角色，例如 ADMIN。
+  string role = 12;
+
+  // 权限码列表，前端据此控制菜单可见性。
+  repeated string permissions = 13;
+
+  // 多节点场景下的节点角色；单进程迁移后为空。
+  repeated CurrentUserNodeRole node_roles = 14;
+}
+
+// CurrentUserNodeRole 描述用户在某个节点上的角色。
+message CurrentUserNodeRole {
+  // 节点 ID。
+  uint32 node_id = 1;
+
+  // 节点名称。
+  string node_name = 2;
+
+  // 角色 ID。
+  uint32 role_id = 3;
+
+  // 角色名称。
+  string role_name = 4;
+}
+
+// PasskeyBeginLoginRequest 是开始 Passkey 登录的请求。
+message PasskeyBeginLoginRequest {
+  // 安全入口，Base64 编码；未开启安全入口时为空。
+  string entrance_code = 1;
+}
+
+// PasskeyBeginResponse 返回 WebAuthn 断言参数。
+message PasskeyBeginResponse {
+  // WebAuthn 会话 ID，完成登录时需要回传。
+  string session_id = 1;
+
+  // WebAuthn 公共参数，JSON 结构，由浏览器 navigator.credentials 使用。
+  string public_key = 2;
+}
+
+// PasskeyFinishLoginRequest 是完成 Passkey 登录的请求。
+message PasskeyFinishLoginRequest {
+  // WebAuthn 会话 ID，由 PasskeyBeginLogin 返回。
+  string session_id = 1;
+
+  // 安全入口，Base64 编码；未开启安全入口时为空。
+  string entrance_code = 2;
+}
+
+// PasskeyListRequest 是查询 Passkey 列表的请求，无业务字段。
+message PasskeyListRequest {}
+
+// PasskeyListResponse 是当前用户的 Passkey 列表。
+message PasskeyListResponse {
+  // Passkey 条目列表。
+  repeated PasskeyInfo items = 1;
+}
+
+// PasskeyInfo 描述一个已注册的 Passkey。
+message PasskeyInfo {
+  // Passkey ID。
+  string id = 1;
+
+  // 展示名称，由注册时指定。
+  string name = 2;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 3;
+
+  // 最近使用时间，RFC3339 格式；从未使用时为空。
+  string last_used_at = 4;
+}
+
+// PasskeyDeleteRequest 是删除 Passkey 的请求。
+message PasskeyDeleteRequest {
+  // 要删除的 Passkey ID。
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// PasskeyDeleteResponse 是删除 Passkey 的结果，无业务字段。
+message PasskeyDeleteResponse {}
+
+// GenerateAPIKeyRequest 是生成 API 密钥参数，无业务字段。
+message GenerateAPIKeyRequest {}
+
+// GenerateAPIKeyResponse 是生成的密钥。
+message GenerateAPIKeyResponse {
+  // 新的 API 密钥明文，只在本次响应中出现。
+  string api_key = 1;
+}
+
+// UpdateAPIConfigRequest 是 API 配置更新参数。
+message UpdateAPIConfigRequest {
+  // IP 白名单，英文逗号分隔。
+  string ip_white_list = 1;
+
+  // API 可信代理，英文逗号分隔。
+  string api_trusted_proxies = 2;
+
+  // 时间戳有效期（分钟），0 表示不校验。
+  int32 api_key_validity_time = 3;
+}
+
+// UpdateAPIConfigResponse 是更新结果，无业务字段。
+message UpdateAPIConfigResponse {}
+
+// PasskeyRegisterBeginRequest 是 Passkey 注册参数。
+message PasskeyRegisterBeginRequest {
+  // 密钥名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// PasskeyRegisterFinishRequest 是 Passkey 注册确认参数，无业务字段。
+message PasskeyRegisterFinishRequest {}
+
+// PasskeyRegisterFinishResponse 是注册结果，无业务字段。
+message PasskeyRegisterFinishResponse {}
+
+// GetMFARequest 是 MFA 密钥生成参数。
+message GetMFARequest {
+  // 显示在认证器里的标题。
+  string title = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 动态码刷新间隔（秒）。
+  int32 interval = 2 [(buf.validate.field).int32.gt = 0];
+}
+
+// MFASetup 是 MFA 绑定信息。
+message MFASetup {
+  // 密钥。
+  string secret = 1;
+
+  // 二维码图片（data URL）。
+  string qr_image = 2;
+}
+
+// BindMFARequest 是 MFA 绑定参数。
+message BindMFARequest {
+  // 密钥。
+  string secret = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 动态码。
+  string code = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 动态码刷新间隔（秒）。
+  int32 interval = 3 [(buf.validate.field).int32.gt = 0];
+}
+
+// BindMFAResponse 是绑定结果，无业务字段。
+message BindMFAResponse {}
+
+// CloseMFARequest 是关闭 MFA 参数，无业务字段。
+message CloseMFARequest {}
+
+// CloseMFAResponse 是关闭结果，无业务字段。
+message CloseMFAResponse {}
+
+// UpdateCurrentUserRequest 是当前用户修改参数。
+message UpdateCurrentUserRequest {
+  // 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 新密码；留空表示不修改。
+  string password = 2;
+
+  // 旧密码；修改密码时必填。
+  string old_password = 3;
+}
+
+// UpdateCurrentUserResponse 是修改结果，无业务字段。
+message UpdateCurrentUserResponse {}
+
+// ResetExpiredPasswordRequest 是过期密码重置参数。
+message ResetExpiredPasswordRequest {
+  // 旧密码。
+  string old_password = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 新密码。
+  string new_password = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// ResetExpiredPasswordResponse 是重置结果，无业务字段。
+message ResetExpiredPasswordResponse {}

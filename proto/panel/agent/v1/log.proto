@@ -1,0 +1,71 @@
+// panel/agent/v1/log.proto 定义系统日志相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "panel/common/v1/options.proto";
+
+// LogService 对应 1Panel 的日志域。
+service LogService {
+  // 列出可读的系统日志文件。
+  rpc ListSystemFiles(ListSystemFilesRequest) returns (ListSystemFilesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出正在运行的系统服务。
+  rpc ListRunningServices(ListRunningServicesRequest) returns (ListRunningServicesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取系统日志能力与状态。
+  rpc SystemStatus(SystemStatusRequest) returns (SystemLogStatus) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// ListSystemFilesRequest 是日志文件列表请求，无业务字段。
+message ListSystemFilesRequest {}
+
+// ListSystemFilesResponse 是日志文件日期列表。
+message ListSystemFilesResponse {
+  // 可读的日志文件（按日期命名）。
+  repeated string files = 1;
+}
+
+// ListRunningServicesRequest 是运行中服务列表请求，无业务字段。
+message ListRunningServicesRequest {}
+
+// ListRunningServicesResponse 是运行中的系统服务列表。
+message ListRunningServicesResponse {
+  // 服务名列表。
+  repeated string services = 1;
+}
+
+// SystemStatusRequest 是系统日志状态请求，无业务字段。
+message SystemStatusRequest {}
+
+// SystemLogStatus 是系统日志能力说明。
+message SystemLogStatus {
+  // 日志来源，例如 journalctl、syslog。
+  string source = 1;
+
+  // 日志来源版本。
+  string version = 2;
+
+  // 是否支持关键字过滤。
+  bool keyword_filter_supported = 3;
+
+  // 状态说明。
+  string message = 4;
+}

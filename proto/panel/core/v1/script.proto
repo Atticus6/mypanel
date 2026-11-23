@@ -1,0 +1,177 @@
+// panel/core/v1/script.proto 定义脚本库的 RPC。
+//
+// 脚本执行（/core/script/run）是 WebSocket 通道，不在这里定义。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// ScriptService 负责脚本库的增删改查与同步。
+service ScriptService {
+  // 分页查询脚本。
+  rpc Search(SearchScriptsRequest) returns (SearchScriptsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建脚本。
+  rpc Create(CreateScriptRequest) returns (CreateScriptResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建脚本"
+      audit_action_en: "Create script"
+    };
+  }
+
+  // 修改脚本。
+  rpc Update(UpdateScriptRequest) returns (UpdateScriptResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改脚本"
+      audit_action_en: "Update script"
+    };
+  }
+
+  // 批量删除脚本。
+  rpc Delete(DeleteScriptsRequest) returns (DeleteScriptsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除脚本"
+      audit_action_en: "Delete script"
+    };
+  }
+
+  // 同步脚本到应用商店脚本目录。
+  rpc Sync(SyncScriptsRequest) returns (SyncScriptsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "同步脚本"
+      audit_action_en: "Sync scripts"
+    };
+  }
+}
+
+// SearchScriptsRequest 是脚本查询参数。
+message SearchScriptsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 分组 ID。
+  uint32 group_id = 3;
+
+  // 关键字。
+  string info = 4;
+}
+
+// ScriptEntry 是一条脚本记录。
+message ScriptEntry {
+  // 脚本 ID。
+  uint32 id = 1;
+
+  // 名称。
+  string name = 2;
+
+  // 是否交互式脚本。
+  bool is_interactive = 3;
+
+  // 标签。
+  string lable = 4;
+
+  // 脚本内容。
+  string script = 5;
+
+  // 分组 ID 列表。
+  repeated uint32 group_list = 6;
+
+  // 分组名称列表。
+  repeated string group_belong = 7;
+
+  // 是否系统内置。
+  bool is_system = 8;
+
+  // 描述。
+  string description = 9;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 10;
+}
+
+// SearchScriptsResponse 是脚本列表。
+message SearchScriptsResponse {
+  // 脚本列表。
+  repeated ScriptEntry items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// CreateScriptRequest 是创建脚本参数。
+message CreateScriptRequest {
+  // 是否交互式脚本。
+  bool is_interactive = 1;
+
+  // 名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 脚本内容。
+  string script = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 分组 ID，逗号分隔。
+  string groups = 4;
+
+  // 描述。
+  string description = 5;
+}
+
+// CreateScriptResponse 是创建结果，无业务字段。
+message CreateScriptResponse {}
+
+// UpdateScriptRequest 是修改脚本参数。
+message UpdateScriptRequest {
+  // 脚本 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否交互式脚本。
+  bool is_interactive = 2;
+
+  // 名称。
+  string name = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 脚本内容。
+  string script = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 分组 ID，逗号分隔。
+  string groups = 5;
+
+  // 描述。
+  string description = 6;
+}
+
+// UpdateScriptResponse 是修改结果，无业务字段。
+message UpdateScriptResponse {}
+
+// DeleteScriptsRequest 是批量删除参数。
+message DeleteScriptsRequest {
+  // 脚本 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteScriptsResponse 是删除结果，无业务字段。
+message DeleteScriptsResponse {}
+
+// SyncScriptsRequest 是同步参数。
+message SyncScriptsRequest {
+  // 同步任务 ID。
+  string task_id = 1;
+}
+
+// SyncScriptsResponse 是同步结果，无业务字段。
+message SyncScriptsResponse {}

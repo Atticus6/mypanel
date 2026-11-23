@@ -1,0 +1,833 @@
+// panel/core/v1/setting.proto 定义面板系统设置相关的 RPC。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// SettingService 负责面板自身配置：基础设置、终端外观、默认菜单、
+// 端口与绑定地址、SSL、升级与备忘录。
+service SettingService {
+  // 读取面板完整设置；字段与 1Panel 的 SettingInfo 一一对应，
+  // 未在消息中声明的字段会被丢弃。
+  rpc GetInfo(GetSettingInfoRequest) returns (SettingInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取登录后立即需要的精简设置；不要求密码未过期。
+  rpc GetBaseInfo(GetSettingBaseInfoRequest) returns (SettingBaseInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取终端外观设置。
+  rpc GetTerminal(GetTerminalRequest) returns (TerminalInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新终端外观设置；未填写的字段保持原值。
+  rpc UpdateTerminal(UpdateTerminalRequest) returns (UpdateTerminalResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改终端设置"
+      audit_action_en: "Update terminal setting"
+    };
+  }
+
+  // 更新单个设置项，key 必须是面板已知的设置键。
+  rpc UpdateSetting(UpdateSettingRequest) returns (UpdateSettingResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改系统设置"
+      audit_action_en: "Update system setting"
+    };
+  }
+
+  // 读取本机可用的访问地址，供绑定地址下拉框使用。
+  rpc GetInterface(GetInterfaceRequest) returns (InterfaceAddresses) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取仪表盘备忘录。
+  rpc GetMemo(GetMemoRequest) returns (Memo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新仪表盘备忘录。
+  rpc UpdateMemo(UpdateMemoRequest) returns (UpdateMemoResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新仪表盘备忘录"
+      audit_action_en: "Update dashboard memo"
+    };
+  }
+
+  // 读取当前用户的文件下载命名偏好。
+  rpc GetFileDownloadPreference(GetFileDownloadPreferenceRequest) returns (FileDownloadPreference) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新当前用户的文件下载命名偏好。
+  rpc UpdateFileDownloadPreference(UpdateFileDownloadPreferenceRequest) returns (UpdateFileDownloadPreferenceResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改文件下载方式"
+      audit_action_en: "Update file download preference"
+    };
+  }
+
+  // 修改面板监听端口。
+  rpc UpdatePort(UpdatePortRequest) returns (UpdatePortResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改面板端口"
+      audit_action_en: "Update panel port"
+    };
+  }
+
+  // 修改面板绑定地址与 IPv6 开关。
+  rpc UpdateBindInfo(UpdateBindInfoRequest) returns (UpdateBindInfoResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改面板绑定地址"
+      audit_action_en: "Update panel bind address"
+    };
+  }
+
+  // 读取面板 HTTPS 证书信息。
+  rpc GetSSLInfo(GetSSLInfoRequest) returns (SSLInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新面板 HTTPS 配置。
+  rpc UpdateSSL(UpdateSSLRequest) returns (UpdateSSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改面板 HTTPS"
+      audit_action_en: "Update panel HTTPS"
+    };
+  }
+
+  // 重新加载面板 HTTPS 证书，仅允许本机调用。
+  rpc ReloadSSL(ReloadSSLRequest) returns (ReloadSSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "重载面板 HTTPS"
+      audit_action_en: "Reload panel HTTPS"
+    };
+  }
+
+  // 下载面板当前使用的证书文件，内容以 base64 返回。
+  rpc DownloadSSL(DownloadSSLRequest) returns (SSLFile) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取升级信息：当前版本、最新版本与更新说明。
+  rpc GetUpgradeInfo(GetUpgradeInfoRequest) returns (UpgradeInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 执行面板升级。
+  rpc Upgrade(UpgradeRequest) returns (UpgradeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "升级面板"
+      audit_action_en: "Upgrade panel"
+    };
+  }
+
+  // 读取指定版本的更新说明。
+  rpc GetUpgradeNotes(GetUpgradeNotesRequest) returns (UpgradeNotes) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取全部版本说明列表。
+  rpc ListReleases(ListReleasesRequest) returns (ListReleasesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取应用商店行为配置。
+  rpc GetAppStoreConfig(GetAppStoreConfigRequest) returns (AppStoreConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新应用商店行为配置的单项开关。
+  rpc UpdateAppStoreConfig(UpdateAppStoreConfigRequest) returns (UpdateAppStoreConfigResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改应用商店配置"
+      audit_action_en: "Update app store config"
+    };
+  }
+
+  // 更新菜单相关设置项（隐藏菜单、菜单布局等）。
+  rpc UpdateMenu(UpdateMenuRequest) returns (UpdateMenuResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改菜单设置"
+      audit_action_en: "Update menu setting"
+    };
+  }
+
+  // 重置菜单为默认布局。
+  rpc DefaultMenu(DefaultMenuRequest) returns (DefaultMenuResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "初始化菜单"
+      audit_action_en: "Reset menu"
+    };
+  }
+
+  // 更新服务器代理配置。
+  rpc UpdateProxy(UpdateProxyRequest) returns (UpdateProxyResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改服务器代理"
+      audit_action_en: "Update server proxy"
+    };
+  }
+
+  // 探测面板是否可用；用于前端在长时间请求后确认服务仍在。
+  rpc GetSystemAvailable(GetSystemAvailableRequest) returns (GetSystemAvailableResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// GetSettingInfoRequest 是完整设置查询参数，无业务字段。
+message GetSettingInfoRequest {}
+
+// SettingInfo 是面板完整设置。
+message SettingInfo {
+  // 面板版本号。
+  string system_version = 1;
+
+  // 开发者模式开关：Enable 或 Disable。
+  string developer_mode = 2;
+
+  // 升级时保留的备份份数。
+  string upgrade_backup_copies = 3;
+
+  // 会话超时时间。
+  string session_timeout = 4;
+
+  // 面板监听端口。
+  string port = 5;
+
+  // 是否启用 IPv6。
+  string ipv6 = 6;
+
+  // 绑定地址。
+  string bind_address = 7;
+
+  // 面板名称。
+  string panel_name = 8;
+
+  // 版本类型：社区版或专业版。
+  string edition = 9;
+
+  // 主题。
+  string theme = 10;
+
+  // 菜单是否以标签页方式展示。
+  string menu_tabs = 11;
+
+  // 菜单是否手风琴模式。
+  string menu_accordion = 12;
+
+  // 是否启用面板缓存。
+  string panel_cache = 13;
+
+  // 界面语言。
+  string language = 14;
+
+  // 文档来源。
+  string doc_source = 15;
+
+  // 面板地址的端口部分。
+  string server_port = 16;
+
+  // HTTPS 开关：Enable、Disable 或 Mux。
+  string ssl = 17;
+
+  // 证书来源类型。
+  string ssl_type = 18;
+
+  // 绑定域名。
+  string bind_domain = 19;
+
+  // 允许访问的 IP 列表。
+  string allow_ips = 20;
+
+  // 安全入口后缀。
+  string security_entrance = 21;
+
+  // Passkey 允许的可信代理地址。
+  string passkey_trusted_proxies = 37;
+
+  // IP 白名单允许的可信代理地址。
+  string allow_ip_trusted_proxies = 38;
+
+  // 是否显示仪表盘备忘录。
+  string dashboard_memo_visible = 22;
+
+  // 是否显示简化节点信息。
+  string dashboard_simple_node_visible = 23;
+
+  // 密码有效期天数。
+  string expiration_days = 24;
+
+  // 密码复杂度校验开关。
+  string complexity_verification = 25;
+
+  // 应用商店数据版本。
+  string app_store_version = 26;
+
+  // 应用商店数据最后修改时间。
+  string app_store_last_modified = 27;
+
+  // 应用商店同步状态。
+  string app_store_sync_status = 28;
+
+  // 被隐藏的菜单列表。
+  string hide_menu = 29;
+
+  // 无需认证即可访问的地址。
+  string no_auth_setting = 30;
+
+  // 代理地址。
+  string proxy_url = 31;
+
+  // 代理类型。
+  string proxy_type = 32;
+
+  // 代理端口。
+  string proxy_port = 33;
+
+  // 代理用户名。
+  string proxy_user = 34;
+
+  // 代理密码。
+  string proxy_passwd = 35;
+
+  // 是否保留原有代理密码。
+  string proxy_passwd_keep = 36;
+}
+
+// GetSettingBaseInfoRequest 是精简设置查询参数，无业务字段。
+message GetSettingBaseInfoRequest {}
+
+// SettingBaseInfo 是登录后立即需要的设置。
+message SettingBaseInfo {
+  // 面板版本号。
+  string system_version = 1;
+
+  // 开发者模式开关。
+  string developer_mode = 2;
+
+  // 升级时保留的备份份数。
+  string upgrade_backup_copies = 3;
+
+  // 面板监听端口。
+  string port = 4;
+
+  // 是否启用 IPv6。
+  string ipv6 = 5;
+
+  // 绑定地址。
+  string bind_address = 6;
+
+  // 面板名称。
+  string panel_name = 7;
+
+  // 版本类型。
+  string edition = 8;
+
+  // 主题。
+  string theme = 9;
+
+  // 菜单是否以标签页方式展示。
+  string menu_tabs = 10;
+
+  // 菜单是否手风琴模式。
+  string menu_accordion = 11;
+
+  // 是否启用面板缓存。
+  string panel_cache = 12;
+
+  // 界面语言。
+  string language = 13;
+
+  // 被隐藏的菜单列表。
+  string hide_menu = 14;
+
+  // 文档来源。
+  string doc_source = 15;
+
+  // 面板地址的端口部分。
+  string server_port = 16;
+
+  // 安全入口后缀。
+  string security_entrance = 17;
+
+  // 密码复杂度校验开关。
+  string complexity_verification = 18;
+
+  // 无需认证即可访问的地址。
+  string no_auth_setting = 19;
+
+  // 代理类型。
+  string proxy_type = 20;
+
+  // 是否启用代理。
+  bool proxy_enabled = 21;
+
+  // 脚本同步状态。
+  string script_sync = 22;
+
+  // 是否显示仪表盘备忘录。
+  string dashboard_memo_visible = 23;
+
+  // 是否显示简化节点信息。
+  string dashboard_simple_node_visible = 24;
+}
+
+// GetTerminalRequest 是终端设置查询参数，无业务字段。
+message GetTerminalRequest {}
+
+// TerminalInfo 是终端外观设置。
+message TerminalInfo {
+  // 是否显示终端按钮。
+  string show_terminal_button = 1;
+
+  // 行高。
+  string line_height = 2;
+
+  // 字间距。
+  string letter_spacing = 3;
+
+  // 字号。
+  string font_size = 4;
+
+  // 字体。
+  string font_family = 5;
+
+  // 背景色。
+  string background_color = 6;
+
+  // 前景色。
+  string foreground_color = 7;
+
+  // 光标是否闪烁。
+  string cursor_blink = 8;
+
+  // 光标样式。
+  string cursor_style = 9;
+
+  // 回滚缓冲区行数。
+  string scrollback = 10;
+
+  // 滚动灵敏度。
+  string scroll_sensitivity = 11;
+}
+
+// UpdateTerminalRequest 是终端设置更新参数；空字符串表示保持原值。
+message UpdateTerminalRequest {
+  // 是否显示终端按钮：Enable 或 Disable。
+  string show_terminal_button = 1;
+
+  // 行高。
+  string line_height = 2;
+
+  // 字间距。
+  string letter_spacing = 3;
+
+  // 字号。
+  string font_size = 4;
+
+  // 字体。
+  string font_family = 5;
+
+  // 背景色。
+  string background_color = 6;
+
+  // 前景色。
+  string foreground_color = 7;
+
+  // 光标是否闪烁。
+  string cursor_blink = 8;
+
+  // 光标样式。
+  string cursor_style = 9;
+
+  // 回滚缓冲区行数。
+  string scrollback = 10;
+
+  // 滚动灵敏度。
+  string scroll_sensitivity = 11;
+}
+
+// UpdateTerminalResponse 是更新结果，无业务字段。
+message UpdateTerminalResponse {}
+
+// UpdateSettingRequest 是单项设置更新参数。
+message UpdateSettingRequest {
+  // 设置键，必须是面板已知的设置键。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 设置值。
+  string value = 2;
+}
+
+// UpdateSettingResponse 是更新结果，无业务字段。
+message UpdateSettingResponse {}
+
+// GetInterfaceRequest 是访问地址查询参数，无业务字段。
+message GetInterfaceRequest {}
+
+// InterfaceAddresses 是本机可用访问地址。
+message InterfaceAddresses {
+  // 地址列表。
+  repeated string addrs = 1;
+}
+
+// GetMemoRequest 是备忘录查询参数，无业务字段。
+message GetMemoRequest {}
+
+// Memo 是仪表盘备忘录内容。
+message Memo {
+  // 备忘录文本。
+  string content = 1;
+}
+
+// UpdateMemoRequest 是备忘录更新参数。
+message UpdateMemoRequest {
+  // 备忘录文本。
+  string content = 1;
+}
+
+// UpdateMemoResponse 是更新结果，无业务字段。
+message UpdateMemoResponse {}
+
+// GetFileDownloadPreferenceRequest 是下载偏好查询参数，无业务字段。
+message GetFileDownloadPreferenceRequest {}
+
+// FileDownloadPreference 是文件下载命名偏好。
+message FileDownloadPreference {
+  // 是否使用服务端文件名。
+  bool use_server_filename = 1;
+}
+
+// UpdateFileDownloadPreferenceRequest 是下载偏好更新参数。
+message UpdateFileDownloadPreferenceRequest {
+  // 是否使用服务端文件名。
+  bool use_server_filename = 1;
+}
+
+// UpdateFileDownloadPreferenceResponse 是更新结果，无业务字段。
+message UpdateFileDownloadPreferenceResponse {}
+
+// UpdatePortRequest 是端口更新参数。
+message UpdatePortRequest {
+  // 新端口，取值范围 1-65535。
+  uint32 port = 1 [(buf.validate.field).uint32 = {
+    gt: 0
+    lt: 65536
+  }];
+}
+
+// UpdatePortResponse 是更新结果，无业务字段。
+message UpdatePortResponse {}
+
+// UpdateBindInfoRequest 是绑定地址更新参数。
+message UpdateBindInfoRequest {
+  // 是否启用 IPv6：Enable 或 Disable。
+  string ipv6 = 1 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+
+  // 绑定地址。
+  string bind_address = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateBindInfoResponse 是更新结果，无业务字段。
+message UpdateBindInfoResponse {}
+
+// GetSystemAvailableRequest 是可用性探测参数，无业务字段。
+message GetSystemAvailableRequest {}
+
+// GetSystemAvailableResponse 是可用性探测结果，无业务字段。
+message GetSystemAvailableResponse {}
+
+// GetSSLInfoRequest 是证书信息查询参数，无业务字段。
+message GetSSLInfoRequest {}
+
+// SSLInfo 是面板当前的 HTTPS 证书信息。
+message SSLInfo {
+  // 绑定的域名。
+  string domain = 1;
+
+  // 证书到期时间。
+  string timeout = 2;
+
+  // 证书根路径。
+  string root_path = 3;
+
+  // 证书内容。
+  string cert = 4;
+
+  // 私钥内容。
+  string key = 5;
+
+  // 证书记录 ID。
+  uint32 ssl_id = 6;
+}
+
+// UpdateSSLRequest 是面板 HTTPS 更新参数。
+message UpdateSSLRequest {
+  // 证书来源：self、select、import、import-paste、import-local。
+  string ssl_type = 1 [(buf.validate.field).string = {
+    in: [
+      "self",
+      "select",
+      "import",
+      "import-paste",
+      "import-local"
+    ]
+  }];
+
+  // 绑定的域名。
+  string domain = 2;
+
+  // HTTPS 开关：Enable、Disable 或 Mux。
+  string ssl = 3 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable",
+      "Mux"
+    ]
+  }];
+
+  // 证书内容。
+  string cert = 4;
+
+  // 私钥内容。
+  string key = 5;
+
+  // 已有证书记录 ID。
+  uint32 ssl_id = 6;
+}
+
+// UpdateSSLResponse 是更新结果，无业务字段。
+message UpdateSSLResponse {}
+
+// ReloadSSLRequest 是证书重载参数，无业务字段。
+message ReloadSSLRequest {}
+
+// ReloadSSLResponse 是重载结果，无业务字段。
+message ReloadSSLResponse {}
+
+// DownloadSSLRequest 是证书下载参数，无业务字段。
+message DownloadSSLRequest {}
+
+// SSLFile 是证书文件内容。
+message SSLFile {
+  // 文件名。
+  string filename = 1;
+
+  // 文件内容，base64 编码。
+  string content_base64 = 2;
+}
+
+// GetUpgradeInfoRequest 是升级信息查询参数，无业务字段。
+message GetUpgradeInfoRequest {}
+
+// UpgradeInfo 是升级信息。
+message UpgradeInfo {
+  // 测试版本。
+  string test_version = 1;
+
+  // 可升级到的新版本。
+  string new_version = 2;
+
+  // 最新版本。
+  string latest_version = 3;
+
+  // 版本说明。
+  string release_note = 4;
+}
+
+// UpgradeRequest 是升级参数。
+message UpgradeRequest {
+  // 目标版本。
+  string version = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpgradeResponse 是升级请求结果，无业务字段。
+message UpgradeResponse {}
+
+// GetUpgradeNotesRequest 是版本说明查询参数。
+message GetUpgradeNotesRequest {
+  // 版本号。
+  string version = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpgradeNotes 是单个版本的更新说明。
+message UpgradeNotes {
+  // 说明正文。
+  string content = 1;
+}
+
+// ListReleasesRequest 是版本说明列表查询参数，无业务字段。
+message ListReleasesRequest {}
+
+// ListReleasesResponse 是版本说明列表。
+message ListReleasesResponse {
+  // 版本说明列表。
+  repeated ReleaseNote items = 1;
+}
+
+// ReleaseNote 是一个版本的说明。
+message ReleaseNote {
+  // 版本号。
+  string version = 1;
+
+  // 发布时间。
+  string created_at = 2;
+
+  // 正文。
+  string content = 3;
+
+  // 新增条目数。
+  int32 new_count = 4;
+
+  // 优化条目数。
+  int32 optimization_count = 5;
+
+  // 修复条目数。
+  int32 fix_count = 6;
+}
+
+// GetAppStoreConfigRequest 是应用商店配置查询参数，无业务字段。
+message GetAppStoreConfigRequest {}
+
+// AppStoreConfig 是应用商店行为配置。
+message AppStoreConfig {
+  // 卸载时是否删除镜像。
+  string uninstall_delete_image = 1;
+
+  // 升级前是否备份。
+  string upgrade_backup = 2;
+
+  // 升级后是否删除旧镜像。
+  string upgrade_delete_image = 3;
+
+  // 卸载时是否删除备份。
+  string uninstall_delete_backup = 4;
+
+  // 安装时是否允许使用随机端口。
+  string install_allow_port = 5;
+}
+
+// UpdateAppStoreConfigRequest 是应用商店配置更新参数。
+message UpdateAppStoreConfigRequest {
+  // 配置项名称。
+  string scope = 1 [(buf.validate.field).string = {
+    in: [
+      "UninstallDeleteImage",
+      "UpgradeBackup",
+      "UpgradeDeleteImage",
+      "UninstallDeleteBackup",
+      "InstallAllowPort"
+    ]
+  }];
+
+  // 开关状态：Enable 或 Disable。
+  string status = 2 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+}
+
+// UpdateAppStoreConfigResponse 是更新结果，无业务字段。
+message UpdateAppStoreConfigResponse {}
+
+// UpdateMenuRequest 是菜单设置更新参数。
+message UpdateMenuRequest {
+  // 设置键。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 设置值。
+  string value = 2;
+}
+
+// UpdateMenuResponse 是更新结果，无业务字段。
+message UpdateMenuResponse {}
+
+// DefaultMenuRequest 是菜单重置参数，无业务字段。
+message DefaultMenuRequest {}
+
+// DefaultMenuResponse 是重置结果，无业务字段。
+message DefaultMenuResponse {}
+
+// UpdateProxyRequest 是服务器代理更新参数。
+message UpdateProxyRequest {
+  // 代理地址。
+  string proxy_url = 1;
+
+  // 代理类型。
+  string proxy_type = 2;
+
+  // 代理端口。
+  string proxy_port = 3;
+
+  // 代理用户名。
+  string proxy_user = 4;
+
+  // 代理密码，前端以 base64 传输。
+  string proxy_passwd = 5;
+
+  // 是否保留原有密码。
+  string proxy_passwd_keep = 6;
+
+  // 是否让 Docker 也走代理。
+  bool proxy_docker = 7;
+
+  // 是否重启 Docker。
+  bool with_docker_restart = 8;
+}
+
+// UpdateProxyResponse 是更新结果，无业务字段。
+message UpdateProxyResponse {}

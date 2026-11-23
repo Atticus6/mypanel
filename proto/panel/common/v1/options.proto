@@ -1,0 +1,38 @@
+// panel/common/v1/options.proto 定义 RPC 方法级策略注解，
+// 供鉴权、CSRF、审计等拦截器在运行时查表使用。
+syntax = "proto3";
+
+package panel.common.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/common/v1;commonv1";
+
+import "google/protobuf/descriptor.proto";
+
+// MethodPolicy 描述一个 RPC 方法的访问策略。
+//
+// 未显式声明时按最严格的默认值处理（需要登录、需要 CSRF、需要审计），
+// 避免新增接口忘记标注而意外放开权限。
+message MethodPolicy {
+  // 是否允许未登录访问；登录、验证码等公开接口置为 true。
+  bool public = 1;
+
+  // 是否跳过 CSRF 校验；仅用于登录、登出等尚无有效 Token 的接口。
+  bool csrf_exempt = 2;
+
+  // 是否跳过操作日志审计；查询类接口可以置为 true。
+  bool no_audit = 3;
+
+  // 操作日志中的动作名称（中文）。
+  string audit_action_zh = 4;
+
+  // 操作日志中的动作名称（英文）。
+  string audit_action_en = 5;
+
+  // 是否为只读方法；只读方法在演示模式下仍然放行。
+  bool read_only = 6;
+}
+
+extend google.protobuf.MethodOptions {
+  // policy 挂载在 rpc 方法上，声明该方法的鉴权与审计策略。
+  MethodPolicy policy = 50001;
+}

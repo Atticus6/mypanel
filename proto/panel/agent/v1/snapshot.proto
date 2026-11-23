@@ -1,0 +1,395 @@
+// panel/agent/v1/snapshot.proto 定义系统快照（面板与应用数据的打包备份）的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// SnapshotService 负责系统快照的创建、导入、恢复、回滚与查询。
+service SnapshotService {
+  // 读取可备份的数据树，供创建快照时勾选。
+  rpc LoadData(LoadSnapshotDataRequest) returns (SnapshotData) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建系统快照；实际执行是异步任务，接口只返回受理结果。
+  rpc Create(CreateSnapshotRequest) returns (CreateSnapshotResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建系统快照"
+      audit_action_en: "Create system snapshot"
+    };
+  }
+
+  // 重试创建失败或中断的快照。
+  rpc Recreate(RecreateSnapshotRequest) returns (RecreateSnapshotResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "重试创建快照"
+      audit_action_en: "Recreate snapshot"
+    };
+  }
+
+  // 从备份账号导入已有快照文件。
+  rpc Import(ImportSnapshotRequest) returns (ImportSnapshotResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导入系统快照"
+      audit_action_en: "Import system snapshot"
+    };
+  }
+
+  // 修改快照描述。
+  rpc UpdateDescription(UpdateSnapshotDescriptionRequest) returns (UpdateSnapshotDescriptionResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改快照描述"
+      audit_action_en: "Update snapshot description"
+    };
+  }
+
+  // 批量删除快照；可选同时删除备份文件。
+  rpc Delete(DeleteSnapshotsRequest) returns (DeleteSnapshotsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除系统快照"
+      audit_action_en: "Delete system snapshot"
+    };
+  }
+
+  // 从快照恢复面板数据。
+  rpc Recover(RecoverSnapshotRequest) returns (RecoverSnapshotResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "从快照恢复"
+      audit_action_en: "Recover from snapshot"
+    };
+  }
+
+  // 从快照回滚应用数据。
+  rpc Rollback(RollbackSnapshotRequest) returns (RollbackSnapshotResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "从快照回滚"
+      audit_action_en: "Rollback from snapshot"
+    };
+  }
+
+  // 分页查询快照列表。
+  rpc Search(SearchSnapshotsRequest) returns (SearchSnapshotsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// LoadSnapshotDataRequest 是数据树查询参数，无业务字段。
+message LoadSnapshotDataRequest {}
+
+// SnapshotData 是可备份的数据树。
+message SnapshotData {
+  // 应用数据。
+  repeated DataTree app_data = 1;
+
+  // 备份数据。
+  repeated DataTree backup_data = 2;
+
+  // 面板数据。
+  repeated DataTree panel_data = 3;
+
+  // 是否包含 Docker 配置。
+  bool with_docker_conf = 4;
+
+  // 是否包含监控数据。
+  bool with_monitor_data = 5;
+
+  // 是否包含登录日志。
+  bool with_login_log = 6;
+
+  // 是否包含操作日志。
+  bool with_operation_log = 7;
+
+  // 是否包含系统日志。
+  bool with_system_log = 8;
+
+  // 是否包含任务日志。
+  bool with_task_log = 9;
+
+  // 忽略的文件列表。
+  repeated string ignore_files = 10;
+}
+
+// DataTree 是一棵可勾选的数据树节点。
+message DataTree {
+  // 节点 ID。
+  string id = 1;
+
+  // 显示名。
+  string label = 2;
+
+  // 业务 key。
+  string key = 3;
+
+  // 名称。
+  string name = 4;
+
+  // 是否为本机数据。
+  bool is_local = 5;
+
+  // 数据大小，单位字节。
+  uint64 size = 6;
+
+  // 是否默认勾选。
+  bool is_check = 7;
+
+  // 是否禁止勾选。
+  bool is_disable = 8;
+
+  // 数据路径。
+  string path = 9;
+
+  // 关联条目 ID。
+  string relation_item_id = 10;
+
+  // 子节点。
+  repeated DataTree children = 11;
+}
+
+// CreateSnapshotRequest 是创建快照参数。
+message CreateSnapshotRequest {
+  // 前端生成的任务 ID。
+  string task_id = 1;
+
+  // 备份来源账号 ID，多个以英文逗号分隔。
+  string source_account_ids = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 下载账号 ID。
+  uint32 download_account_id = 3 [(buf.validate.field).uint32.gt = 0];
+
+  // 描述，最多 256 字符。
+  string description = 4 [(buf.validate.field).string.max_len = 256];
+
+  // 应用数据。
+  repeated DataTree app_data = 5;
+
+  // 备份数据。
+  repeated DataTree backup_data = 6;
+
+  // 面板数据。
+  repeated DataTree panel_data = 7;
+
+  // 是否包含 Docker 配置。
+  bool with_docker_conf = 8;
+
+  // 是否包含监控数据。
+  bool with_monitor_data = 9;
+
+  // 是否包含登录日志。
+  bool with_login_log = 10;
+
+  // 是否包含操作日志。
+  bool with_operation_log = 11;
+
+  // 是否包含系统日志。
+  bool with_system_log = 12;
+
+  // 是否包含任务日志。
+  bool with_task_log = 13;
+
+  // 忽略的文件列表。
+  repeated string ignore_files = 14;
+}
+
+// CreateSnapshotResponse 是创建结果，无业务字段。
+message CreateSnapshotResponse {}
+
+// RecreateSnapshotRequest 是重试创建参数。
+message RecreateSnapshotRequest {
+  // 快照 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// RecreateSnapshotResponse 是重试结果，无业务字段。
+message RecreateSnapshotResponse {}
+
+// ImportSnapshotRequest 是导入快照参数。
+message ImportSnapshotRequest {
+  // 备份账号 ID。
+  uint32 backup_account_id = 1;
+
+  // 快照文件名列表。
+  repeated string names = 2;
+
+  // 描述，最多 256 字符。
+  string description = 3 [(buf.validate.field).string.max_len = 256];
+}
+
+// ImportSnapshotResponse 是导入结果，无业务字段。
+message ImportSnapshotResponse {}
+
+// UpdateSnapshotDescriptionRequest 是描述更新参数。
+message UpdateSnapshotDescriptionRequest {
+  // 快照 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 新描述，最多 256 字符。
+  string description = 2 [(buf.validate.field).string.max_len = 256];
+}
+
+// UpdateSnapshotDescriptionResponse 是更新结果，无业务字段。
+message UpdateSnapshotDescriptionResponse {}
+
+// DeleteSnapshotsRequest 是批量删除参数。
+message DeleteSnapshotsRequest {
+  // 快照 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 是否同时删除备份文件。
+  bool delete_with_file = 2;
+}
+
+// DeleteSnapshotsResponse 是删除结果，无业务字段。
+message DeleteSnapshotsResponse {}
+
+// RecoverSnapshotRequest 是恢复参数。
+message RecoverSnapshotRequest {
+  // 快照 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否从备份账号重新下载。
+  bool re_download = 2;
+
+  // 前端生成的任务 ID。
+  string task_id = 3;
+
+  // 备份包密码。
+  string secret = 4;
+}
+
+// RecoverSnapshotResponse 是恢复结果，无业务字段。
+message RecoverSnapshotResponse {}
+
+// RollbackSnapshotRequest 是回滚参数。
+message RollbackSnapshotRequest {
+  // 快照 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否回滚到新环境。
+  bool is_new = 2;
+
+  // 是否从备份账号重新下载。
+  bool re_download = 3;
+
+  // 前端生成的任务 ID。
+  string task_id = 4;
+
+  // 备份包密码。
+  string secret = 5;
+}
+
+// RollbackSnapshotResponse 是回滚结果，无业务字段。
+message RollbackSnapshotResponse {}
+
+// SearchSnapshotsRequest 是快照分页查询参数。
+message SearchSnapshotsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 名称模糊搜索。
+  string info = 3;
+
+  // 排序字段：name 或 createdAt。
+  string order_by = 4 [(buf.validate.field).string = {
+    in: [
+      "name",
+      "createdAt"
+    ]
+  }];
+
+  // 排序方向：null、ascending、descending。
+  string order = 5 [(buf.validate.field).string = {
+    in: [
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+}
+
+// SearchSnapshotsResponse 是快照列表结果。
+message SearchSnapshotsResponse {
+  // 当前页的快照。
+  repeated SnapshotInfo items = 1;
+
+  // 符合条件的总数。
+  int64 total = 2;
+}
+
+// SnapshotInfo 是一条快照记录。
+message SnapshotInfo {
+  // 快照 ID。
+  uint32 id = 1;
+
+  // 快照名称。
+  string name = 2;
+
+  // 描述。
+  string description = 3;
+
+  // 来源备份账号名称列表。
+  repeated string source_accounts = 4;
+
+  // 下载账号名称。
+  string download_account = 5;
+
+  // 状态。
+  string status = 6;
+
+  // 状态说明。
+  string message = 7;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 8;
+
+  // 面板版本。
+  string version = 9;
+
+  // 备份大小，单位字节。
+  int64 size = 10;
+
+  // 创建任务 ID。
+  string task_id = 11;
+
+  // 恢复任务 ID。
+  string task_recover_id = 12;
+
+  // 回滚任务 ID。
+  string task_rollback_id = 13;
+
+  // 中断步骤。
+  string interrupt_step = 14;
+
+  // 恢复状态。
+  string recover_status = 15;
+
+  // 恢复说明。
+  string recover_message = 16;
+
+  // 上次恢复时间。
+  string last_recovered_at = 17;
+
+  // 回滚状态。
+  string rollback_status = 18;
+
+  // 回滚说明。
+  string rollback_message = 19;
+
+  // 上次回滚时间。
+  string last_rollbacked_at = 20;
+}

@@ -1,0 +1,455 @@
+// panel/agent/v1/app.proto 定义应用商店与已安装应用相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// AppService 对应 1Panel 的应用商店域。
+service AppService {
+  // 按 key 查询应用信息（含版本与标签）。
+  rpc GetApp(GetAppRequest) returns (AppDetail) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 安装应用前检查是否已存在同名安装。
+  rpc CheckInstalled(CheckInstalledAppRequest) returns (AppInstalledCheck) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 安装应用（异步，返回安装记录）。
+  rpc Install(InstallAppRequest) returns (InstalledApp) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "安装应用"
+      audit_action_en: "Install app"
+    };
+  }
+
+  // 分页查询应用商店列表。
+  rpc SearchApps(SearchAppsRequest) returns (SearchAppsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 查询已安装应用可升级的版本列表。
+  rpc UpdateVersions(UpdateVersionsRequest) returns (UpdateVersionsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 执行已安装应用操作（启动、停止、重启、升级、删除等）。
+  rpc Operate(OperateAppRequest) returns (OperateAppResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作应用"
+      audit_action_en: "Operate app"
+    };
+  }
+
+  // 分页查询已安装应用。
+  rpc SearchInstalled(SearchInstalledAppsRequest) returns (SearchInstalledAppsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchAppsRequest 是应用商店查询参数。
+message SearchAppsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 应用名称关键字。
+  string name = 3 [(buf.validate.field).string.max_len = 64];
+
+  // 应用类型，例如 app、runtime、website。
+  string type = 4 [(buf.validate.field).string.max_len = 64];
+
+  // 标签键列表。
+  repeated string tags = 5;
+
+  // 是否只返回推荐应用。
+  bool recommend = 6;
+
+  // 资源来源过滤：remote、local、custom、all。
+  string resource = 7 [(buf.validate.field).string.max_len = 32];
+
+  // 是否按当前 CPU 架构过滤。
+  bool show_current_arch = 8;
+}
+
+// SearchAppsResponse 是应用商店列表结果。
+message SearchAppsResponse {
+  // 当前页的应用列表。
+  repeated AppItem items = 1;
+
+  // 符合条件的应用总数。
+  int64 total = 2;
+}
+
+// AppItem 是应用商店里的一个应用。
+message AppItem {
+  // 应用 ID。
+  uint32 id = 1;
+
+  // 应用名称。
+  string name = 2;
+
+  // 应用键，例如 redis。
+  string key = 3;
+
+  // 图标 URL。
+  string icon = 4;
+
+  // 简介。
+  string description = 5;
+
+  // 状态。
+  string status = 6;
+
+  // 是否已安装。
+  bool installed = 7;
+
+  // 安装数量上限。
+  int32 limit = 8;
+
+  // 标签名称列表。
+  repeated string tags = 9;
+
+  // 是否支持 GPU。
+  bool gpu_support = 10;
+
+  // 推荐顺序。
+  int32 recommend = 11;
+
+  // 应用类型。
+  string type = 12;
+
+  // 是否支持批量安装。
+  bool batch_install_support = 13;
+}
+
+// SearchInstalledAppsRequest 是已安装应用查询参数。
+message SearchInstalledAppsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 应用名称关键字。
+  string name = 3 [(buf.validate.field).string.max_len = 64];
+
+  // 应用类型过滤。
+  string type = 4 [(buf.validate.field).string.max_len = 64];
+
+  // 标签键列表。
+  repeated string tags = 5;
+
+  // 只查询可升级的应用。
+  bool update = 6;
+
+  // 只查询未使用的应用。
+  bool unused = 7;
+
+  // 是否返回全部。
+  bool all = 8;
+}
+
+// SearchInstalledAppsResponse 是已安装应用列表结果。
+message SearchInstalledAppsResponse {
+  // 当前页的已安装应用。
+  repeated InstalledApp items = 1;
+
+  // 符合条件的应用总数。
+  int64 total = 2;
+}
+
+// InstalledApp 是一个已安装应用。
+message InstalledApp {
+  // 安装 ID。
+  uint32 id = 1;
+
+  // 安装名称。
+  string name = 2;
+
+  // 应用 ID。
+  uint32 app_id = 3;
+
+  // 应用详情 ID。
+  uint32 app_detail_id = 4;
+
+  // 版本。
+  string version = 5;
+
+  // 安装状态。
+  string status = 6;
+
+  // 状态说明。
+  string message = 7;
+
+  // HTTP 端口。
+  int32 http_port = 8;
+
+  // HTTPS 端口。
+  int32 https_port = 9;
+
+  // 安装目录。
+  string path = 10;
+
+  // 是否可升级。
+  bool can_update = 11;
+
+  // 图标 URL。
+  string icon = 12;
+
+  // 应用名称。
+  string app_name = 13;
+
+  // 应用键。
+  string app_key = 14;
+
+  // 应用类型。
+  string app_type = 15;
+
+  // 容器状态。
+  string app_status = 16;
+
+  // Web UI 地址。
+  string web_ui = 17;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 18;
+
+  // 是否收藏。
+  bool favorite = 19;
+
+  // 容器名。
+  string container = 20;
+
+  // 排序序号。
+  int32 sort_order = 21;
+}
+
+// UpdateVersionsRequest 是升级版本查询参数。
+message UpdateVersionsRequest {
+  // 应用安装 ID。
+  uint32 app_install_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 指定版本；为空表示列出全部可升级版本。
+  string update_version = 2;
+
+  // 是否加载 Compose 预览；未设置时按服务端默认。
+  optional bool load_compose = 3;
+}
+
+// UpdateVersionsResponse 是可升级版本列表。
+message UpdateVersionsResponse {
+  // 版本列表。
+  repeated AppVersion items = 1;
+}
+
+// AppVersion 是一个可升级版本。
+message AppVersion {
+  // 版本号。
+  string version = 1;
+
+  // 应用详情 ID。
+  uint32 detail_id = 2;
+
+  // 该版本的 Compose 内容预览；未请求时为空。
+  string docker_compose = 3;
+
+  // 是否检测到旧版飞书配置。
+  bool feishu_legacy = 4;
+
+  // 是否已配置飞书。
+  bool feishu_configured = 5;
+}
+
+// GetAppRequest 是应用查询参数。
+message GetAppRequest {
+  // 应用 key。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// AppDetail 是应用详情摘要。
+message AppDetail {
+  // 应用 ID。
+  uint32 id = 1;
+
+  // 应用名称。
+  string name = 2;
+
+  // 应用 key。
+  string key = 3;
+
+  // 图标 URL。
+  string icon = 4;
+
+  // 简介。
+  string description = 5;
+
+  // ReadMe 内容。
+  string readme = 6;
+
+  // 可用版本列表。
+  repeated string versions = 7;
+
+  // 标签名称列表。
+  repeated string tags = 8;
+
+  // 是否已安装。
+  bool installed = 9;
+
+  // 应用类型。
+  string type = 10;
+
+  // 状态。
+  string status = 11;
+
+  // 推荐顺序。
+  int32 recommend = 12;
+
+  // 安装数量上限。
+  int32 limit = 13;
+}
+
+// CheckInstalledAppRequest 是安装前检查参数。
+message CheckInstalledAppRequest {
+  // 应用 key。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 计划使用的安装名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// AppInstalledCheck 是安装检查结果。
+message AppInstalledCheck {
+  // 关联任务 ID。
+  string task_id = 1;
+
+  // 是否已存在。
+  bool is_exist = 2;
+
+  // 安装名称。
+  string name = 3;
+
+  // 应用名称。
+  string app = 4;
+
+  // 版本。
+  string version = 5;
+
+  // 状态。
+  string status = 6;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 7;
+
+  // 最近备份时间。
+  string last_backup_at = 8;
+
+  // 安装 ID。
+  uint32 app_install_id = 9;
+
+  // 容器名。
+  string container_name = 10;
+
+  // 安装目录。
+  string install_path = 11;
+
+  // HTTP 端口。
+  int32 http_port = 12;
+
+  // HTTPS 端口。
+  int32 https_port = 13;
+
+  // 网站目录。
+  string website_dir = 14;
+}
+
+// InstallAppRequest 是安装应用参数。
+message InstallAppRequest {
+  // 应用详情 ID。
+  uint32 app_detail_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 安装名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 服务名映射。
+  map<string, string> services = 3;
+
+  // 前端生成的任务 ID。
+  string task_id = 4;
+
+  // 安装参数的 JSON 字符串。
+  string params_json = 5;
+}
+
+// OperateAppRequest 是已安装应用操作参数。
+message OperateAppRequest {
+  // 安装 ID。
+  uint32 install_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 操作类型：start、stop、restart、upgrade、delete、sync、favorite 等。
+  string operate = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 升级目标详情 ID。
+  uint32 detail_id = 3;
+
+  // 升级前是否备份。
+  bool backup = 4;
+
+  // 升级是否拉取镜像。
+  bool pull_image = 5;
+
+  // 是否删除镜像。
+  bool delete_image = 6;
+
+  // 覆盖用的 Compose 内容。
+  string docker_compose = 7;
+
+  // 前端生成的任务 ID。
+  string task_id = 8;
+
+  // 是否强制删除。
+  bool force_delete = 9;
+
+  // 删除时是否同时删除备份。
+  bool delete_backup = 10;
+
+  // 删除时是否同时删除数据库。
+  bool delete_db = 11;
+
+  // 是否收藏。
+  bool favorite = 12;
+
+  // 备份记录 ID。
+  uint32 backup_id = 13;
+}
+
+// OperateAppResponse 是操作结果，无业务字段。
+message OperateAppResponse {}

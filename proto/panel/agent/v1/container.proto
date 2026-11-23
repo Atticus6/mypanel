@@ -1,0 +1,1828 @@
+// panel/agent/v1/container.proto 定义容器管理相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// ContainerService 对应 1Panel 的容器管理域。
+service ContainerService {
+  // 分页查询容器。
+  rpc Search(SearchContainersRequest) returns (SearchContainersResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取容器、镜像、网络、卷的数量统计。
+  rpc Status(ContainerStatusRequest) returns (ContainerStatus) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询镜像。
+  rpc SearchImages(SearchImagesRequest) returns (SearchImagesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询网络。
+  rpc SearchNetworks(SearchNetworksRequest) returns (SearchNetworksResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出容器（不分页，仅名称与状态）。
+  rpc ListContainers(ListContainersRequest) returns (ContainerOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按镜像列出容器。
+  rpc ListContainersByImage(ListContainersByImageRequest) returns (ContainerOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出容器内可用的运行用户。
+  rpc GetContainerUsers(GetContainerUsersRequest) returns (ContainerUsers) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 批量读取容器资源占用。
+  rpc GetContainerStats(GetContainerStatsRequest) returns (ContainerStatsList) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取单个容器的资源占用。
+  rpc GetContainerItemStats(GetContainerItemStatsRequest) returns (ContainerItemStats) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 采样一次容器实时指标（CPU、内存、IO、网络）。
+  rpc SampleContainerStats(SampleContainerStatsRequest) returns (ContainerStatsSample) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取 Docker 服务状态。
+  rpc GetDockerStatus(GetDockerStatusRequest) returns (DockerStatus) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 启停或重启 Docker 服务。
+  rpc OperateDocker(OperateDockerRequest) returns (OperateDockerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作 Docker"
+      audit_action_en: "Operate Docker"
+    };
+  }
+
+  // 拉取镜像。
+  rpc PullImages(PullImagesRequest) returns (PullImagesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "拉取镜像"
+      audit_action_en: "Pull image"
+    };
+  }
+
+  // 推送镜像到仓库。
+  rpc PushImage(PushImageRequest) returns (PushImageResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "推送镜像"
+      audit_action_en: "Push image"
+    };
+  }
+
+  // 构建镜像。
+  rpc BuildImage(BuildImageRequest) returns (BuildImageResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "构建镜像"
+      audit_action_en: "Build image"
+    };
+  }
+
+  // 搜索 Docker Hub 镜像。
+  rpc SearchRemoteImages(SearchRemoteImagesRequest) returns (SearchRemoteImagesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取 daemon.json 配置。
+  rpc GetDaemonJson(GetDaemonJsonRequest) returns (DaemonJsonConf) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改 daemon.json 的单项配置并重启 Docker。
+  rpc UpdateDaemonJson(UpdateDaemonJsonRequest) returns (UpdateDaemonJsonResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 Docker 配置"
+      audit_action_en: "Update Docker config"
+    };
+  }
+
+  // 按文件方式替换 daemon.json。
+  rpc UpdateDaemonJsonByFile(UpdateDaemonJsonByFileRequest) returns (UpdateDaemonJsonByFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "替换 Docker 配置文件"
+      audit_action_en: "Replace Docker config file"
+    };
+  }
+
+  // 修改 Docker 日志轮转配置。
+  rpc UpdateLogOption(UpdateDockerLogOptionRequest) returns (UpdateDockerLogOptionResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 Docker 日志配置"
+      audit_action_en: "Update Docker log option"
+    };
+  }
+
+  // 修改 Docker IPv6 配置。
+  rpc UpdateIpv6Option(UpdateDockerIpv6OptionRequest) returns (UpdateDockerIpv6OptionResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 Docker IPv6 配置"
+      audit_action_en: "Update Docker IPv6 option"
+    };
+  }
+
+  // 列出全部 Compose 模板。
+  rpc ListTemplates(ListComposeTemplatesRequest) returns (ComposeTemplates) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建 Compose 模板。
+  rpc CreateTemplate(CreateComposeTemplateRequest) returns (CreateComposeTemplateResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建 Compose 模板"
+      audit_action_en: "Create compose template"
+    };
+  }
+
+  // 修改 Compose 模板。
+  rpc UpdateTemplate(UpdateComposeTemplateRequest) returns (UpdateComposeTemplateResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 Compose 模板"
+      audit_action_en: "Update compose template"
+    };
+  }
+
+  // 批量删除 Compose 模板。
+  rpc DeleteTemplates(DeleteComposeTemplatesRequest) returns (DeleteComposeTemplatesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除 Compose 模板"
+      audit_action_en: "Delete compose template"
+    };
+  }
+
+  // 批量导入 Compose 模板。
+  rpc BatchTemplates(BatchComposeTemplatesRequest) returns (BatchComposeTemplatesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导入 Compose 模板"
+      audit_action_en: "Import compose templates"
+    };
+  }
+
+  // 列出镜像仓库（选项视图）。
+  rpc ListRepos(ListImageReposRequest) returns (ImageRepoOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建镜像仓库。
+  rpc CreateRepo(CreateImageRepoRequest) returns (CreateImageRepoResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建镜像仓库"
+      audit_action_en: "Create image repo"
+    };
+  }
+
+  // 修改镜像仓库。
+  rpc UpdateRepo(UpdateImageRepoRequest) returns (UpdateImageRepoResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改镜像仓库"
+      audit_action_en: "Update image repo"
+    };
+  }
+
+  // 删除镜像仓库。
+  rpc DeleteRepo(DeleteImageRepoRequest) returns (DeleteImageRepoResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除镜像仓库"
+      audit_action_en: "Delete image repo"
+    };
+  }
+
+  // 检查镜像仓库连通性（执行登录）。
+  rpc CheckRepoStatus(CheckImageRepoStatusRequest) returns (CheckImageRepoStatusResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "检查镜像仓库"
+      audit_action_en: "Check image repo"
+    };
+  }
+
+  // 读取 Docker 资源限制（CPU/内存）。
+  rpc GetLimit(GetContainerLimitRequest) returns (ContainerLimit) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 批量操作容器（启停、重启、删除等）。
+  rpc OperateContainers(OperateContainersRequest) returns (OperateContainersResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作容器"
+      audit_action_en: "Operate containers"
+    };
+  }
+
+  // 重命名容器。
+  rpc RenameContainer(RenameContainerRequest) returns (RenameContainerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "重命名容器"
+      audit_action_en: "Rename container"
+    };
+  }
+
+  // 清理容器及其关联资源。
+  rpc Prune(PruneContainersRequest) returns (PruneContainersResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清理容器资源"
+      audit_action_en: "Prune container resources"
+    };
+  }
+
+  // 清理容器日志文件。
+  rpc CleanLogs(CleanContainerLogsRequest) returns (CleanContainerLogsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清理容器日志"
+      audit_action_en: "Clean container logs"
+    };
+  }
+
+  // 列出网络（不分页）。
+  rpc ListNetworks(ListNetworksRequest) returns (ContainerOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建网络。
+  rpc CreateNetwork(CreateNetworkRequest) returns (CreateNetworkResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建网络"
+      audit_action_en: "Create network"
+    };
+  }
+
+  // 批量删除网络。
+  rpc DeleteNetworks(DeleteNetworksRequest) returns (DeleteNetworksResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除网络"
+      audit_action_en: "Delete network"
+    };
+  }
+
+  // 列出卷（不分页）。
+  rpc ListVolumes(ListVolumesRequest) returns (ContainerOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建卷。
+  rpc CreateVolume(CreateVolumeRequest) returns (CreateVolumeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建卷"
+      audit_action_en: "Create volume"
+    };
+  }
+
+  // 批量删除卷。
+  rpc DeleteVolumes(DeleteVolumesRequest) returns (DeleteVolumesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除卷"
+      audit_action_en: "Delete volume"
+    };
+  }
+
+  // 删除镜像。
+  rpc RemoveImages(RemoveImagesRequest) returns (RemoveImagesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除镜像"
+      audit_action_en: "Remove image"
+    };
+  }
+
+  // 给镜像打标签。
+  rpc TagImage(TagImageRequest) returns (TagImageResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "镜像打标签"
+      audit_action_en: "Tag image"
+    };
+  }
+
+  // 读取 Compose 的 .env 文件内容。
+  rpc GetComposeEnv(GetComposeEnvRequest) returns (ComposeEnv) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 校验 Compose 文件。
+  rpc TestCompose(TestComposeRequest) returns (TestComposeResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+    };
+  }
+
+  // 启停或删除 Compose 项目。
+  rpc OperateCompose(OperateComposeRequest) returns (OperateComposeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作 Compose"
+      audit_action_en: "Operate compose"
+    };
+  }
+
+  // 置顶/取消置顶 Compose 项目。
+  rpc PinCompose(PinComposeRequest) returns (PinComposeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "置顶 Compose"
+      audit_action_en: "Pin compose"
+    };
+  }
+
+  // 清理 Compose 日志。
+  rpc CleanComposeLogs(CleanComposeLogsRequest) returns (CleanComposeLogsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清理 Compose 日志"
+      audit_action_en: "Clean compose logs"
+    };
+  }
+
+  // 查看容器/镜像/网络/卷的原始 inspect 信息。
+  rpc Inspect(ContainerInspectRequest) returns (ContainerInspectResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询镜像仓库。
+  rpc SearchImageRepos(SearchImageReposRequest) returns (SearchImageReposResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询 Compose 模板。
+  rpc SearchComposeTemplates(SearchComposeTemplatesRequest) returns (SearchComposeTemplatesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询 Compose 项目。
+  rpc SearchCompose(SearchComposeRequest) returns (SearchComposeResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询卷。
+  rpc SearchVolumes(SearchVolumesRequest) returns (SearchVolumesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// SearchContainersRequest 是容器列表查询参数。
+message SearchContainersRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 容器名称关键字。
+  string name = 3 [(buf.validate.field).string.max_len = 128];
+
+  // 状态过滤：all、created、running、paused、restarting、removing、exited、dead。
+  string state = 4 [(buf.validate.field).string = {
+    in: [
+      "",
+      "all",
+      "created",
+      "running",
+      "paused",
+      "restarting",
+      "removing",
+      "exited",
+      "dead"
+    ]
+  }];
+
+  // Docker label 过滤表达式。
+  string filters = 5;
+
+  // 排序字段：name、createdAt、state。
+  string order_by = 6 [(buf.validate.field).string = {
+    in: [
+      "",
+      "name",
+      "createdAt",
+      "state"
+    ]
+  }];
+
+  // 排序方向：null、ascending、descending。
+  string order = 7 [(buf.validate.field).string = {
+    in: [
+      "",
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+
+  // 是否排除应用商店安装的容器。
+  bool exclude_app_store = 8;
+}
+
+// SearchContainersResponse 是容器列表结果。
+message SearchContainersResponse {
+  // 当前页的容器列表。
+  repeated Container items = 1;
+
+  // 符合条件的容器总数。
+  int64 total = 2;
+}
+
+// Container 是容器展示信息。
+message Container {
+  // 容器 ID。
+  string container_id = 1;
+
+  // 容器名称。
+  string name = 2;
+
+  // 镜像 ID。
+  string image_id = 3;
+
+  // 镜像名称。
+  string image_name = 4;
+
+  // 创建时间，RFC3339 格式。
+  string create_time = 5;
+
+  // 容器状态：running、exited 等。
+  string state = 6;
+
+  // 已运行时长。
+  string run_time = 7;
+
+  // 所属网络。
+  repeated string network = 8;
+
+  // 端口映射。
+  repeated string ports = 9;
+
+  // 是否来自应用商店。
+  bool is_from_app = 10;
+
+  // 是否来自 Compose。
+  bool is_from_compose = 11;
+
+  // 关联应用名称。
+  string app_name = 12;
+
+  // 关联应用安装名称。
+  string app_install_name = 13;
+
+  // 关联网站域名。
+  repeated string websites = 14;
+
+  // 是否置顶。
+  bool is_pinned = 15;
+
+  // 备注。
+  string description = 16;
+
+  // 是否有镜像更新。
+  bool has_update = 17;
+
+  // 最新版本。
+  string latest_version = 18;
+
+  // 目标镜像。
+  string target_image = 19;
+}
+
+// ContainerStatusRequest 是状态统计查询参数。
+message ContainerStatusRequest {
+  // 是否只统计容器（跳过镜像/网络/卷），用于列表页顶部标签。
+  bool containers_only = 1;
+}
+
+// ContainerStatus 是容器相关资源数量统计。
+message ContainerStatus {
+  // created 状态容器数。
+  int32 created = 1;
+
+  // running 状态容器数。
+  int32 running = 2;
+
+  // paused 状态容器数。
+  int32 paused = 3;
+
+  // restarting 状态容器数。
+  int32 restarting = 4;
+
+  // removing 状态容器数。
+  int32 removing = 5;
+
+  // exited 状态容器数。
+  int32 exited = 6;
+
+  // dead 状态容器数。
+  int32 dead = 7;
+
+  // 容器总数。
+  int32 container_count = 8;
+
+  // Compose 数量。
+  int32 compose_count = 9;
+
+  // Compose 模板数量。
+  int32 compose_template_count = 10;
+
+  // 镜像数量。
+  int32 image_count = 11;
+
+  // 网络数量。
+  int32 network_count = 12;
+
+  // 卷数量。
+  int32 volume_count = 13;
+
+  // 镜像仓库数量。
+  int32 repo_count = 14;
+}
+
+// SearchImagesRequest 是镜像列表查询参数。
+message SearchImagesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 镜像名关键字。
+  string name = 3 [(buf.validate.field).string.max_len = 128];
+
+  // 排序字段：size、tags、createdAt、isUsed。
+  string order_by = 4 [(buf.validate.field).string = {
+    in: [
+      "",
+      "size",
+      "tags",
+      "createdAt",
+      "isUsed"
+    ]
+  }];
+
+  // 排序方向：null、ascending、descending。
+  string order = 5 [(buf.validate.field).string = {
+    in: [
+      "",
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+}
+
+// SearchImagesResponse 是镜像列表结果。
+message SearchImagesResponse {
+  // 当前页的镜像列表。
+  repeated Image items = 1;
+
+  // 符合条件的镜像总数。
+  int64 total = 2;
+}
+
+// Image 是一个 Docker 镜像。
+message Image {
+  // 镜像 ID。
+  string id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 是否被容器使用。
+  bool is_used = 3;
+
+  // 镜像标签。
+  repeated string tags = 4;
+
+  // 镜像大小，单位字节。
+  int64 size = 5;
+
+  // 是否置顶。
+  bool is_pinned = 6;
+
+  // 备注。
+  string description = 7;
+}
+
+// SearchNetworksRequest 是网络列表查询参数。
+message SearchNetworksRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 网络名关键字。
+  string info = 3 [(buf.validate.field).string.max_len = 128];
+}
+
+// SearchNetworksResponse 是网络列表结果。
+message SearchNetworksResponse {
+  // 当前页的网络列表。
+  repeated Network items = 1;
+
+  // 符合条件的网络总数。
+  int64 total = 2;
+}
+
+// Network 是一个 Docker 网络。
+message Network {
+  // 网络 ID。
+  string id = 1;
+
+  // 网络名称。
+  string name = 2;
+
+  // 标签列表，格式 key=value。
+  repeated string labels = 3;
+
+  // 驱动。
+  string driver = 4;
+
+  // IPAM 驱动。
+  string ipam_driver = 5;
+
+  // 子网。
+  string subnet = 6;
+
+  // 网关。
+  string gateway = 7;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 8;
+
+  // 是否可附加。
+  bool attachable = 9;
+}
+
+// SearchVolumesRequest 是卷列表查询参数。
+message SearchVolumesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 卷名关键字。
+  string info = 3 [(buf.validate.field).string.max_len = 128];
+}
+
+// SearchVolumesResponse 是卷列表结果。
+message SearchVolumesResponse {
+  // 当前页的卷列表。
+  repeated Volume items = 1;
+
+  // 符合条件的卷总数。
+  int64 total = 2;
+}
+
+// Volume 是一个 Docker 卷。
+message Volume {
+  // 卷名称。
+  string name = 1;
+
+  // 标签。
+  repeated VolumeOption labels = 2;
+
+  // 驱动。
+  string driver = 3;
+
+  // 挂载点。
+  string mountpoint = 4;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 5;
+
+  // 驱动参数。
+  repeated VolumeOption options = 6;
+}
+
+// VolumeOption 是键值对参数。
+message VolumeOption {
+  // 键。
+  string key = 1;
+
+  // 值。
+  string value = 2;
+}
+
+// SearchComposeRequest 是 Compose 项目查询参数。
+message SearchComposeRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 项目名关键字。
+  string info = 3 [(buf.validate.field).string.max_len = 128];
+}
+
+// SearchComposeResponse 是 Compose 项目列表结果。
+message SearchComposeResponse {
+  // 当前页的项目列表。
+  repeated ComposeProject items = 1;
+
+  // 符合条件的项目总数。
+  int64 total = 2;
+}
+
+// ComposeProject 是一个 Compose 项目。
+message ComposeProject {
+  // 项目名称。
+  string name = 1;
+
+  // 创建时间。
+  string created_at = 2;
+
+  // 创建来源。
+  string created_by = 3;
+
+  // 容器数量。
+  int32 container_count = 4;
+
+  // 运行中容器数量。
+  int32 running_count = 5;
+
+  // Compose 文件路径。
+  string config_file = 6;
+
+  // 工作目录。
+  string workdir = 7;
+
+  // Compose 文件是否存在。
+  bool compose_file_exists = 8;
+
+  // 是否置顶。
+  bool is_pinned = 9;
+
+  // 项目路径。
+  string path = 10;
+
+  // 项目下的容器。
+  repeated ComposeContainer containers = 11;
+
+  // 环境变量内容。
+  string env = 12;
+}
+
+// ComposeContainer 是 Compose 项目下的一个容器。
+message ComposeContainer {
+  // 容器 ID。
+  string container_id = 1;
+
+  // 容器名称。
+  string name = 2;
+
+  // 创建时间。
+  string create_time = 3;
+
+  // 状态。
+  string state = 4;
+
+  // 端口映射。
+  repeated string ports = 5;
+}
+
+// SearchImageReposRequest 是镜像仓库查询参数。
+message SearchImageReposRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 仓库名关键字。
+  string info = 3 [(buf.validate.field).string.max_len = 128];
+}
+
+// SearchImageReposResponse 是镜像仓库列表结果。
+message SearchImageReposResponse {
+  // 当前页的仓库列表。
+  repeated ImageRepo items = 1;
+
+  // 符合条件的仓库总数。
+  int64 total = 2;
+}
+
+// ImageRepo 是一个镜像仓库。
+message ImageRepo {
+  // 仓库 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 仓库名称。
+  string name = 3;
+
+  // 仓库地址。
+  string download_url = 4;
+
+  // 协议，例如 https。
+  string protocol = 5;
+
+  // 用户名。
+  string username = 6;
+
+  // 是否需要认证。
+  bool auth = 7;
+
+  // 连接状态。
+  string status = 8;
+
+  // 状态说明。
+  string message = 9;
+}
+
+// SearchComposeTemplatesRequest 是 Compose 模板查询参数。
+message SearchComposeTemplatesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 模板名关键字。
+  string info = 3 [(buf.validate.field).string.max_len = 128];
+}
+
+// SearchComposeTemplatesResponse 是 Compose 模板列表结果。
+message SearchComposeTemplatesResponse {
+  // 当前页的模板列表。
+  repeated ComposeTemplate items = 1;
+
+  // 符合条件的模板总数。
+  int64 total = 2;
+}
+
+// ComposeTemplate 是一个 Compose 模板。
+message ComposeTemplate {
+  // 模板 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 模板名称。
+  string name = 3;
+
+  // 描述。
+  string description = 4;
+
+  // Compose 内容。
+  string content = 5;
+}
+
+// ContainerInspectRequest 是 inspect 查询参数。
+message ContainerInspectRequest {
+  // 资源 ID 或名称。
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 资源类型：container、image、network、volume。
+  string type = 2 [(buf.validate.field).string = {
+    in: [
+      "container",
+      "image",
+      "network",
+      "volume"
+    ]
+  }];
+
+  // 详情类型（部分资源使用）。
+  string detail = 3;
+}
+
+// ContainerInspectResponse 是 inspect 的 JSON 内容。
+message ContainerInspectResponse {
+  // JSON 字符串。
+  string content = 1;
+}
+
+// GetContainerLimitRequest 是资源限制查询参数，无业务字段。
+message GetContainerLimitRequest {}
+
+// ContainerLimit 是 Docker 资源限制。
+message ContainerLimit {
+  // CPU 核数。
+  int32 cpu = 1;
+
+  // 内存上限，单位字节。
+  uint64 memory = 2;
+}
+
+// OperateContainersRequest 是批量容器操作参数。
+message OperateContainersRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 容器名列表。
+  repeated string names = 2 [(buf.validate.field).repeated.min_items = 1];
+
+  // 操作：up、start、stop、restart、kill、pause、unpause、remove。
+  string operation = 3 [(buf.validate.field).string = {
+    in: [
+      "up",
+      "start",
+      "stop",
+      "restart",
+      "kill",
+      "pause",
+      "unpause",
+      "remove"
+    ]
+  }];
+}
+
+// OperateContainersResponse 是操作结果，无业务字段。
+message OperateContainersResponse {}
+
+// RenameContainerRequest 是重命名参数。
+message RenameContainerRequest {
+  // 原名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 新名称。
+  string new_name = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// RenameContainerResponse 是重命名结果，无业务字段。
+message RenameContainerResponse {}
+
+// PruneContainersRequest 是清理参数。
+message PruneContainersRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 清理类型：container、image、volume、network、buildcache。
+  string prune_type = 2 [(buf.validate.field).string = {
+    in: [
+      "container",
+      "image",
+      "volume",
+      "network",
+      "buildcache"
+    ]
+  }];
+
+  // 是否清理所有未使用镜像。
+  bool with_tag_all = 3;
+}
+
+// PruneContainersResponse 是清理结果，无业务字段。
+message PruneContainersResponse {}
+
+// CleanContainerLogsRequest 是日志清理参数。
+message CleanContainerLogsRequest {
+  // 容器或 Compose 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// CleanContainerLogsResponse 是清理结果，无业务字段。
+message CleanContainerLogsResponse {}
+
+// ListNetworksRequest 是网络列表查询参数，无业务字段。
+message ListNetworksRequest {}
+
+// ListVolumesRequest 是卷列表查询参数，无业务字段。
+message ListVolumesRequest {}
+
+// ContainerOptions 是名称列表。
+message ContainerOptions {
+  // 名称列表。
+  repeated string items = 1;
+}
+
+// AuxAddress 是网络的辅助地址映射。
+message AuxAddress {
+  // 键。
+  string key = 1;
+
+  // 值。
+  string value = 2;
+}
+
+// CreateNetworkRequest 是创建网络参数。
+message CreateNetworkRequest {
+  // 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 驱动。
+  string driver = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 驱动选项。
+  repeated string options = 3;
+
+  // 是否启用 IPv4。
+  bool ipv4 = 4;
+
+  // IPv4 子网。
+  string subnet = 5;
+
+  // IPv4 网关。
+  string gateway = 6;
+
+  // IPv4 地址范围。
+  string ip_range = 7;
+
+  // IPv4 辅助地址。
+  repeated AuxAddress aux_address = 8;
+
+  // 是否启用 IPv6。
+  bool ipv6 = 9;
+
+  // IPv6 子网。
+  string subnet_v6 = 10;
+
+  // IPv6 网关。
+  string gateway_v6 = 11;
+
+  // IPv6 地址范围。
+  string ip_range_v6 = 12;
+
+  // IPv6 辅助地址。
+  repeated AuxAddress aux_address_v6 = 13;
+
+  // 标签。
+  repeated string labels = 14;
+
+  // 是否可附加。
+  bool attachable = 15;
+}
+
+// CreateNetworkResponse 是创建结果，无业务字段。
+message CreateNetworkResponse {}
+
+// DeleteNetworksRequest 是批量删除网络参数。
+message DeleteNetworksRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 网络名称列表。
+  repeated string names = 2 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteNetworksResponse 是删除结果，无业务字段。
+message DeleteNetworksResponse {}
+
+// CreateVolumeRequest 是创建卷参数。
+message CreateVolumeRequest {
+  // 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 驱动。
+  string driver = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 驱动选项。
+  repeated string options = 3;
+
+  // 标签。
+  repeated string labels = 4;
+}
+
+// CreateVolumeResponse 是创建结果，无业务字段。
+message CreateVolumeResponse {}
+
+// DeleteVolumesRequest 是批量删除卷参数。
+message DeleteVolumesRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 卷名称列表。
+  repeated string names = 2 [(buf.validate.field).repeated.min_items = 1];
+
+  // 是否强制删除。
+  bool force = 3;
+}
+
+// DeleteVolumesResponse 是删除结果，无业务字段。
+message DeleteVolumesResponse {}
+
+// RemoveImagesRequest 是删除镜像参数。
+message RemoveImagesRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 镜像 ID 或名称列表。
+  repeated string names = 2 [(buf.validate.field).repeated.min_items = 1];
+
+  // 是否强制删除。
+  bool force = 3;
+}
+
+// RemoveImagesResponse 是删除结果，无业务字段。
+message RemoveImagesResponse {}
+
+// TagImageRequest 是镜像打标签参数。
+message TagImageRequest {
+  // 源镜像 ID。
+  string source_id = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 新标签列表。
+  repeated string tags = 2 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// TagImageResponse 是打标签结果，无业务字段。
+message TagImageResponse {}
+
+// GetComposeEnvRequest 是 Compose 环境文件查询参数。
+message GetComposeEnvRequest {
+  // Compose 项目名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ComposeEnv 是 .env 文件内容。
+message ComposeEnv {
+  // 内容。
+  string content = 1;
+}
+
+// TestComposeRequest 是 Compose 校验参数。
+message TestComposeRequest {
+  // Compose 内容。
+  string content = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 项目路径。
+  string path = 2;
+}
+
+// TestComposeResponse 是校验结果。
+message TestComposeResponse {
+  // 是否通过。
+  bool ok = 1;
+}
+
+// OperateComposeRequest 是 Compose 操作参数。
+message OperateComposeRequest {
+  // 项目名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 项目路径。
+  string path = 2;
+
+  // 操作：up、start、restart、stop、down、delete、rebuild。
+  string operation = 3 [(buf.validate.field).string = {
+    in: [
+      "up",
+      "start",
+      "restart",
+      "stop",
+      "down",
+      "delete",
+      "rebuild"
+    ]
+  }];
+
+  // 是否同时处理 compose 文件。
+  bool with_file = 4;
+
+  // 是否强制。
+  bool force = 5;
+}
+
+// OperateComposeResponse 是操作结果，无业务字段。
+message OperateComposeResponse {}
+
+// PinComposeRequest 是置顶参数。
+message PinComposeRequest {
+  // 项目名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 是否置顶。
+  bool is_pinned = 2;
+}
+
+// PinComposeResponse 是置顶结果，无业务字段。
+message PinComposeResponse {}
+
+// CleanComposeLogsRequest 是 Compose 日志清理参数。
+message CleanComposeLogsRequest {
+  // 项目名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 日志路径。
+  string path = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 详情路径。
+  string detail_path = 3;
+}
+
+// CleanComposeLogsResponse 是清理结果，无业务字段。
+message CleanComposeLogsResponse {}
+
+// ListComposeTemplatesRequest 是模板列表查询参数，无业务字段。
+message ListComposeTemplatesRequest {}
+
+// ComposeTemplateInfo 是一条 Compose 模板。
+message ComposeTemplateInfo {
+  // 模板 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 名称。
+  string name = 3;
+
+  // 描述。
+  string description = 4;
+
+  // 内容。
+  string content = 5;
+}
+
+// ComposeTemplates 是模板列表。
+message ComposeTemplates {
+  // 模板列表。
+  repeated ComposeTemplateInfo items = 1;
+}
+
+// CreateComposeTemplateRequest 是创建模板参数。
+message CreateComposeTemplateRequest {
+  // 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 描述。
+  string description = 2;
+
+  // 内容。
+  string content = 3;
+}
+
+// CreateComposeTemplateResponse 是创建结果，无业务字段。
+message CreateComposeTemplateResponse {}
+
+// UpdateComposeTemplateRequest 是修改模板参数。
+message UpdateComposeTemplateRequest {
+  // 模板 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 描述。
+  string description = 2;
+
+  // 内容。
+  string content = 3;
+}
+
+// UpdateComposeTemplateResponse 是修改结果，无业务字段。
+message UpdateComposeTemplateResponse {}
+
+// DeleteComposeTemplatesRequest 是批量删除参数。
+message DeleteComposeTemplatesRequest {
+  // 模板 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteComposeTemplatesResponse 是删除结果，无业务字段。
+message DeleteComposeTemplatesResponse {}
+
+// BatchComposeTemplatesRequest 是批量导入参数。
+message BatchComposeTemplatesRequest {
+  // 待导入模板。
+  repeated CreateComposeTemplateRequest templates = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// BatchComposeTemplatesResponse 是导入结果，无业务字段。
+message BatchComposeTemplatesResponse {}
+
+// ListImageReposRequest 是仓库列表查询参数，无业务字段。
+message ListImageReposRequest {}
+
+// ImageRepoOption 是一个镜像仓库选项。
+message ImageRepoOption {
+  // 仓库 ID。
+  uint32 id = 1;
+
+  // 名称。
+  string name = 2;
+}
+
+// ImageRepoOptions 是仓库选项列表。
+message ImageRepoOptions {
+  // 仓库列表。
+  repeated ImageRepoOption items = 1;
+}
+
+// CreateImageRepoRequest 是创建仓库参数。
+message CreateImageRepoRequest {
+  // 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 下载地址。
+  string download_url = 2;
+
+  // 协议。
+  string protocol = 3;
+
+  // 用户名。
+  string username = 4;
+
+  // 密码。
+  string password = 5;
+
+  // 是否需要认证。
+  bool auth = 6;
+}
+
+// CreateImageRepoResponse 是创建结果，无业务字段。
+message CreateImageRepoResponse {}
+
+// UpdateImageRepoRequest 是修改仓库参数。
+message UpdateImageRepoRequest {
+  // 仓库 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 下载地址。
+  string download_url = 2;
+
+  // 协议。
+  string protocol = 3;
+
+  // 用户名。
+  string username = 4;
+
+  // 密码。
+  string password = 5;
+
+  // 是否需要认证。
+  bool auth = 6;
+}
+
+// UpdateImageRepoResponse 是修改结果，无业务字段。
+message UpdateImageRepoResponse {}
+
+// DeleteImageRepoRequest 是删除仓库参数。
+message DeleteImageRepoRequest {
+  // 仓库 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteImageRepoResponse 是删除结果，无业务字段。
+message DeleteImageRepoResponse {}
+
+// CheckImageRepoStatusRequest 是仓库检查参数。
+message CheckImageRepoStatusRequest {
+  // 仓库 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// CheckImageRepoStatusResponse 是检查结果，无业务字段。
+message CheckImageRepoStatusResponse {}
+
+// GetDockerStatusRequest 是 Docker 状态查询参数，无业务字段。
+message GetDockerStatusRequest {}
+
+// DockerStatus 是 Docker 服务状态。
+message DockerStatus {
+  // 是否运行中。
+  bool is_active = 1;
+
+  // 是否已安装。
+  bool is_exist = 2;
+}
+
+// OperateDockerRequest 是 Docker 操作参数。
+message OperateDockerRequest {
+  // 操作：start、restart、stop。
+  string operation = 1 [(buf.validate.field).string = {
+    in: [
+      "start",
+      "restart",
+      "stop"
+    ]
+  }];
+}
+
+// OperateDockerResponse 是操作结果，无业务字段。
+message OperateDockerResponse {}
+
+// PullImagesRequest 是拉取镜像参数。
+message PullImagesRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 仓库 ID。
+  uint32 repo_id = 2;
+
+  // 镜像名列表。
+  repeated string image_name = 3 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// PullImagesResponse 是拉取结果，无业务字段。
+message PullImagesResponse {}
+
+// PushImageRequest 是推送镜像参数。
+message PushImageRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 仓库 ID。
+  uint32 repo_id = 2 [(buf.validate.field).uint32.gt = 0];
+
+  // 标签名。
+  string tag_name = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 镜像名。
+  string name = 4 [(buf.validate.field).string.min_len = 1];
+}
+
+// PushImageResponse 是推送结果，无业务字段。
+message PushImageResponse {}
+
+// BuildImageRequest 是构建镜像参数。
+message BuildImageRequest {
+  // 任务 ID。
+  string task_id = 1;
+
+  // 构建来源：edit 或 path。
+  string from = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 镜像名。
+  string name = 3 [(buf.validate.field).string.min_len = 1];
+
+  // Dockerfile 内容。
+  string dockerfile = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 标签列表。
+  repeated string tags = 5;
+
+  // 构建参数。
+  repeated string args = 6;
+}
+
+// BuildImageResponse 是构建结果，无业务字段。
+message BuildImageResponse {}
+
+// SearchRemoteImagesRequest 是远程搜索参数。
+message SearchRemoteImagesRequest {
+  // 关键字。
+  string query = 1 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 256
+  }];
+
+  // 页码，从 1 开始。
+  int32 page = 2 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 3 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+}
+
+// RemoteImage 是一条远程镜像。
+message RemoteImage {
+  // 名称。
+  string name = 1;
+
+  // 描述。
+  string description = 2;
+}
+
+// SearchRemoteImagesResponse 是远程搜索结果。
+message SearchRemoteImagesResponse {
+  // 镜像列表。
+  repeated RemoteImage items = 1;
+
+  // 总数。
+  int64 total = 2;
+
+  // 是否需要代理才能访问 Docker Hub。
+  bool proxy_required = 3;
+}
+
+// GetDaemonJsonRequest 是配置查询参数，无业务字段。
+message GetDaemonJsonRequest {}
+
+// DaemonJsonConf 是 daemon.json 配置。
+message DaemonJsonConf {
+  // 是否启用 NVIDIA 运行时。
+  bool nvidia = 1;
+
+  // 是否支持 NVIDIA。
+  bool nvidia_supported = 2;
+
+  // 是否为 Swarm 模式。
+  bool is_swarm = 3;
+
+  // Docker 版本。
+  string version = 4;
+
+  // 镜像加速地址。
+  repeated string registry_mirrors = 5;
+
+  // 非安全仓库地址。
+  repeated string insecure_registries = 6;
+
+  // 是否启用 live-restore。
+  bool live_restore = 7;
+
+  // 是否管理 iptables。
+  bool iptables = 8;
+
+  // Cgroup 驱动。
+  string cgroup_driver = 9;
+
+  // 是否启用 IPv6。
+  bool ipv6 = 10;
+
+  // IPv6 固定网段。
+  string fixed_cidr_v6 = 11;
+
+  // 是否启用 ip6tables。
+  bool ip6_tables = 12;
+
+  // 是否启用实验特性。
+  bool experimental = 13;
+
+  // 单个日志文件大小。
+  string log_max_size = 14;
+
+  // 日志文件保留个数。
+  string log_max_file = 15;
+}
+
+// UpdateDaemonJsonRequest 是配置更新参数。
+message UpdateDaemonJsonRequest {
+  // 配置键。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 配置值。
+  string value = 2;
+}
+
+// UpdateDaemonJsonResponse 是更新结果，无业务字段。
+message UpdateDaemonJsonResponse {}
+
+// UpdateDaemonJsonByFileRequest 是按文件替换配置参数。
+message UpdateDaemonJsonByFileRequest {
+  // 已上传文件路径。
+  string file = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateDaemonJsonByFileResponse 是替换结果，无业务字段。
+message UpdateDaemonJsonByFileResponse {}
+
+// UpdateDockerLogOptionRequest 是日志配置更新参数。
+message UpdateDockerLogOptionRequest {
+  // 单个日志文件大小。
+  string log_max_size = 1;
+
+  // 日志文件保留个数。
+  string log_max_file = 2;
+}
+
+// UpdateDockerLogOptionResponse 是更新结果，无业务字段。
+message UpdateDockerLogOptionResponse {}
+
+// UpdateDockerIpv6OptionRequest 是 IPv6 配置更新参数。
+message UpdateDockerIpv6OptionRequest {
+  // IPv6 固定网段。
+  string fixed_cidr_v6 = 1;
+
+  // 是否启用 ip6tables。
+  bool ip6_tables = 2;
+
+  // 是否启用实验特性。
+  bool experimental = 3;
+}
+
+// UpdateDockerIpv6OptionResponse 是更新结果，无业务字段。
+message UpdateDockerIpv6OptionResponse {}
+
+// ListContainersRequest 是容器列表查询参数，无业务字段。
+message ListContainersRequest {}
+
+// ListContainersByImageRequest 是按镜像查询参数。
+message ListContainersByImageRequest {
+  // 镜像名。
+  string image = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetContainerUsersRequest 是容器用户查询参数。
+message GetContainerUsersRequest {
+  // 容器名。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ContainerUsers 是容器内用户列表。
+message ContainerUsers {
+  // 用户名列表。
+  repeated string items = 1;
+}
+
+// GetContainerStatsRequest 是批量资源占用查询参数。
+message GetContainerStatsRequest {
+  // 容器 ID 列表；为空表示全部。
+  repeated string ids = 1;
+}
+
+// ContainerStatsItem 是一个容器的资源占用。
+message ContainerStatsItem {
+  // 容器 ID。
+  string container_id = 1;
+
+  // 容器名。
+  string container_name = 2;
+
+  // CPU 总占用。
+  uint64 cpu_total_usage = 3;
+
+  // 系统 CPU 总时间。
+  uint64 system_usage = 4;
+
+  // CPU 百分比。
+  double cpu_percent = 5;
+
+  // 每核占用。
+  int32 percpu_usage = 6;
+
+  // 内存缓存。
+  uint64 memory_cache = 7;
+
+  // 内存占用。
+  uint64 memory_usage = 8;
+
+  // 内存上限。
+  uint64 memory_limit = 9;
+
+  // 内存百分比。
+  double memory_percent = 10;
+}
+
+// ContainerStatsList 是批量资源占用结果。
+message ContainerStatsList {
+  // 结果列表。
+  repeated ContainerStatsItem items = 1;
+}
+
+// GetContainerItemStatsRequest 是单容器占用查询参数。
+message GetContainerItemStatsRequest {
+  // 容器名。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ContainerItemStats 是容器磁盘占用与可回收空间。
+message ContainerItemStats {
+  // 容器可写层大小。
+  int64 size_rw = 1;
+
+  // 根文件系统大小。
+  int64 size_root_fs = 2;
+
+  // 容器占用。
+  int64 container_usage = 3;
+
+  // 容器可回收。
+  int64 container_reclaimable = 4;
+
+  // 镜像占用。
+  int64 image_usage = 5;
+
+  // 镜像可回收。
+  int64 image_reclaimable = 6;
+
+  // 卷占用。
+  int64 volume_usage = 7;
+
+  // 卷可回收。
+  int64 volume_reclaimable = 8;
+
+  // 构建缓存占用。
+  int64 build_cache_usage = 9;
+
+  // 构建缓存可回收。
+  int64 build_cache_reclaimable = 10;
+}
+
+// SampleContainerStatsRequest 是实时指标采样参数。
+message SampleContainerStatsRequest {
+  // 容器 ID。
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ContainerStatsSample 是一次实时指标采样。
+message ContainerStatsSample {
+  // CPU 百分比。
+  double cpu_percent = 1;
+
+  // 内存占用。
+  double memory = 2;
+
+  // 缓存占用。
+  double cache = 3;
+
+  // 读取速率。
+  double io_read = 4;
+
+  // 写入速率。
+  double io_write = 5;
+
+  // 网络接收速率。
+  double network_rx = 6;
+
+  // 网络发送速率。
+  double network_tx = 7;
+
+  // 采样时间，RFC3339 格式。
+  string shot_time = 8;
+}

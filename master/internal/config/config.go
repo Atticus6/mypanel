@@ -55,6 +55,15 @@ type Config struct {
 	// ShutdownTimeout 是优雅退出的最长等待时间，
 	// 对应 shutdown_timeout / MYPANEL_SHUTDOWN_TIMEOUT。
 	ShutdownTimeout time.Duration
+	// DataDir 是面板数据目录，数据库、日志与密钥都写在其下，
+	// 对应 data_dir / MYPANEL_DATA_DIR。
+	DataDir string
+	// AdminUser 是首次启动时创建的管理员用户名，
+	// 对应 admin_user / MYPANEL_ADMIN_USER。
+	AdminUser string
+	// AdminPassword 是首次启动时创建的管理员密码；为空时随机生成并打印一次，
+	// 对应 admin_password / MYPANEL_ADMIN_PASSWORD。
+	AdminPassword string
 	// ConfigFile 记录实际加载的配置文件路径，为空表示没加载文件。
 	// 仅用于启动日志，便于排查「配置没生效」这类问题。
 	ConfigFile string
@@ -69,6 +78,9 @@ var defaults = map[string]any{
 	"web_dir":          "",
 	"debug":            false,
 	"shutdown_timeout": "5s",
+	"data_dir":         "./data",
+	"admin_user":       "admin",
+	"admin_password":   "",
 }
 
 // Options 控制 Load 的行为。
@@ -108,6 +120,9 @@ func Load(v *viper.Viper, opts Options) (Config, error) {
 	cfg.Addr = v.GetString("addr")
 	cfg.WebDir = v.GetString("web_dir")
 	cfg.Debug = v.GetBool("debug")
+	cfg.DataDir = v.GetString("data_dir")
+	cfg.AdminUser = v.GetString("admin_user")
+	cfg.AdminPassword = v.GetString("admin_password")
 
 	// 时长单独解析：viper 的 GetDuration 对非法值会静默返回 0，
 	// 这里显式报错，避免「配错了却按 0 超时运行」这种隐蔽问题。
@@ -209,6 +224,9 @@ func mergeLocalOverride(v *viper.Viper, dir string) error {
 func (c Config) validate() error {
 	if strings.TrimSpace(c.Addr) == "" {
 		return fmt.Errorf("addr 不能为空")
+	}
+	if strings.TrimSpace(c.DataDir) == "" {
+		return fmt.Errorf("data_dir 不能为空")
 	}
 	if strings.TrimSpace(c.WebDir) != "" {
 		if _, err := os.Stat(c.WebDir); err != nil {

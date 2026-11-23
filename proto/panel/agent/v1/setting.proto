@@ -1,0 +1,505 @@
+// panel/agent/v1/setting.proto 定义数据面 agent 自身的系统设置 RPC。
+//
+// 这些设置只影响本机 agent（数据目录、监控、回收站、文件历史、描述等），
+// 与面板自身的设置（panel.core.v1.SettingService）分属两个模块。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// AgentSettingService 负责 agent 侧系统设置的读写。
+service AgentSettingService {
+  // 读取 agent 系统设置。
+  rpc GetInfo(GetAgentSettingInfoRequest) returns (AgentSettingInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新 agent 系统设置中的单项。
+  rpc UpdateSetting(UpdateAgentSettingRequest) returns (UpdateAgentSettingResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改系统设置"
+      audit_action_en: "Update system setting"
+    };
+  }
+
+  // 读取 agent 数据目录。
+  rpc GetBaseDir(GetBaseDirRequest) returns (DirectoryPath) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取网站根目录。
+  rpc GetWebsiteDir(GetWebsiteDirRequest) returns (DirectoryPath) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取终端 AI 设置。
+  rpc GetTerminalAI(GetTerminalAIRequest) returns (TerminalAISetting) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新终端 AI 设置。
+  rpc UpdateTerminalAI(UpdateTerminalAIRequest) returns (UpdateTerminalAIResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改终端 AI 设置"
+      audit_action_en: "Update terminal AI setting"
+    };
+  }
+
+  // 读取文件管理 AI 设置。
+  rpc GetFileAI(GetFileAIRequest) returns (FileAISetting) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新文件管理 AI 设置。
+  rpc UpdateFileAI(UpdateFileAIRequest) returns (UpdateFileAIResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改文件管理 AI 设置"
+      audit_action_en: "Update file manage AI setting"
+    };
+  }
+
+  // 读取文件历史版本设置。
+  rpc GetFileHistory(GetFileHistorySettingRequest) returns (FileHistorySetting) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新文件历史版本设置。
+  rpc UpdateFileHistory(UpdateFileHistorySettingRequest) returns (UpdateFileHistorySettingResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改文件历史设置"
+      audit_action_en: "Update file history setting"
+    };
+  }
+
+  // 保存资源描述（容器、应用等通用描述字段）。
+  rpc SaveDescription(SaveDescriptionRequest) returns (SaveDescriptionResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改资源描述"
+      audit_action_en: "Save resource description"
+    };
+  }
+
+  // 读取本地终端保存的连接信息。
+  rpc GetLocalConn(GetLocalConnRequest) returns (LocalSSHConn) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 设置本地终端默认连接开关。
+  rpc SetDefaultConn(SetDefaultConnRequest) returns (SetDefaultConnResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "设置本地终端默认连接"
+      audit_action_en: "Set local terminal default connection"
+    };
+  }
+
+  // 使用请求中的连接信息测试本地终端是否可用。
+  rpc TestConnByInfo(TestLocalConnInfoRequest) returns (TestLocalConnResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+    };
+  }
+
+  // 使用已保存的连接信息测试本地终端是否可用。
+  rpc TestLocalConn(TestLocalConnRequest) returns (TestLocalConnResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+    };
+  }
+
+  // 保存本地终端连接信息。
+  rpc SaveLocalConn(SaveLocalConnRequest) returns (SaveLocalConnResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "保存本地终端连接"
+      audit_action_en: "Save local terminal connection"
+    };
+  }
+
+  // 探测 agent 是否可用。
+  rpc GetSystemAvailable(GetAgentAvailableRequest) returns (GetAgentAvailableResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// GetAgentSettingInfoRequest 是 agent 设置查询参数，无业务字段。
+message GetAgentSettingInfoRequest {}
+
+// AgentSettingInfo 是 agent 系统设置。
+message AgentSettingInfo {
+  // Docker socket 路径。
+  string docker_sock_path = 1;
+
+  // agent 版本号。
+  string system_version = 2;
+
+  // 服务器 IP。
+  string system_ip = 3;
+
+  // 本机时间。
+  string local_time = 4;
+
+  // 时区。
+  string time_zone = 5;
+
+  // NTP 服务器。
+  string ntp_site = 6;
+
+  // 默认网络。
+  string default_network = 7;
+
+  // 默认 IO 调度。
+  string default_io = 8;
+
+  // 上次清理时间。
+  string last_clean_time = 9;
+
+  // 上次清理大小。
+  string last_clean_size = 10;
+
+  // 上次清理范围。
+  string last_clean_data = 11;
+
+  // 监控开关。
+  string monitor_status = 12;
+
+  // 监控采集间隔。
+  string monitor_interval = 13;
+
+  // 监控数据保留天数。
+  string monitor_store_days = 14;
+
+  // 应用商店数据版本。
+  string app_store_version = 15;
+
+  // 应用商店数据最后修改时间。
+  string app_store_last_modified = 16;
+
+  // 应用商店同步状态。
+  string app_store_sync_status = 17;
+
+  // 回收站开关。
+  string file_recycle_bin = 18;
+
+  // 是否展示本地 SSH 连接。
+  string local_ssh_conn_show = 19;
+
+  // 防火墙端口白名单。
+  string firewall_port_white_list = 20;
+}
+
+// UpdateAgentSettingRequest 是 agent 设置更新参数。
+message UpdateAgentSettingRequest {
+  // 设置键，只允许 SystemIP、DockerSockPath、FileRecycleBin。
+  string key = 1 [(buf.validate.field).string = {
+    in: [
+      "SystemIP",
+      "DockerSockPath",
+      "FileRecycleBin"
+    ]
+  }];
+
+  // 设置值。
+  string value = 2;
+}
+
+// UpdateAgentSettingResponse 是更新结果，无业务字段。
+message UpdateAgentSettingResponse {}
+
+// GetBaseDirRequest 是数据目录查询参数，无业务字段。
+message GetBaseDirRequest {}
+
+// GetWebsiteDirRequest 是网站目录查询参数，无业务字段。
+message GetWebsiteDirRequest {}
+
+// DirectoryPath 是一个目录路径。
+message DirectoryPath {
+  // 绝对路径。
+  string path = 1;
+}
+
+// GetTerminalAIRequest 是终端 AI 设置查询参数，无业务字段。
+message GetTerminalAIRequest {}
+
+// TerminalAISetting 是终端 AI 设置。
+message TerminalAISetting {
+  // AI 开关。
+  string ai_status = 1;
+
+  // 绑定的 AI 账号 ID。
+  string ai_account_id = 2;
+
+  // 唤醒前缀。
+  string ai_prefix = 3;
+
+  // 风险命令列表。
+  string ai_risk_commands = 4;
+
+  // 默认风险命令列表。
+  string ai_risk_commands_default = 5;
+}
+
+// UpdateTerminalAIRequest 是终端 AI 设置更新参数。
+message UpdateTerminalAIRequest {
+  // AI 开关：Enable 或 Disable。
+  string ai_status = 1;
+
+  // 绑定的 AI 账号 ID。
+  string ai_account_id = 2;
+
+  // 唤醒前缀，只允许 @ai、#ai、/ai。
+  string ai_prefix = 3 [(buf.validate.field).string = {
+    in: [
+      "@ai",
+      "#ai",
+      "/ai"
+    ]
+  }];
+
+  // 风险命令列表。
+  string ai_risk_commands = 4;
+}
+
+// UpdateTerminalAIResponse 是更新结果，无业务字段。
+message UpdateTerminalAIResponse {}
+
+// GetFileAIRequest 是文件管理 AI 设置查询参数，无业务字段。
+message GetFileAIRequest {}
+
+// FileAISetting 是文件管理 AI 设置。
+message FileAISetting {
+  // AI 开关。
+  string ai_status = 1;
+
+  // 绑定的 AI 账号 ID。
+  string ai_account_id = 2;
+}
+
+// UpdateFileAIRequest 是文件管理 AI 设置更新参数。
+message UpdateFileAIRequest {
+  // AI 开关：Enable 或 Disable。
+  string ai_status = 1;
+
+  // 绑定的 AI 账号 ID。
+  string ai_account_id = 2;
+}
+
+// UpdateFileAIResponse 是更新结果，无业务字段。
+message UpdateFileAIResponse {}
+
+// GetFileHistorySettingRequest 是文件历史设置查询参数，无业务字段。
+message GetFileHistorySettingRequest {}
+
+// FileHistorySetting 是文件历史版本设置。
+message FileHistorySetting {
+  // 是否启用：Enable 或 Disable。
+  string enable = 1;
+
+  // 单文件最大保留份数。
+  int32 max_per_path = 2;
+
+  // 磁盘配额，单位 MB。
+  int32 disk_quota_mb = 3;
+}
+
+// UpdateFileHistorySettingRequest 是文件历史设置更新参数。
+message UpdateFileHistorySettingRequest {
+  // 是否启用：Enable 或 Disable。
+  string enable = 1 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+
+  // 单文件最大保留份数，0-1000。
+  int32 max_per_path = 2 [(buf.validate.field).int32 = {
+    gte: 0
+    lte: 1000
+  }];
+
+  // 磁盘配额，单位 MB，0-1048576。
+  int32 disk_quota_mb = 3 [(buf.validate.field).int32 = {
+    gte: 0
+    lte: 1048576
+  }];
+}
+
+// UpdateFileHistorySettingResponse 是更新结果，无业务字段。
+message UpdateFileHistorySettingResponse {}
+
+// SaveDescriptionRequest 是资源描述保存参数。
+message SaveDescriptionRequest {
+  // 资源 ID。
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 资源类型。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 细分类型。
+  string detail_type = 3;
+
+  // 是否置顶。
+  bool is_pinned = 4;
+
+  // 描述内容。
+  string description = 5;
+}
+
+// SaveDescriptionResponse 是保存结果，无业务字段。
+message SaveDescriptionResponse {}
+
+// GetAgentAvailableRequest 是可用性探测参数，无业务字段。
+message GetAgentAvailableRequest {}
+
+// GetAgentAvailableResponse 是可用性探测结果，无业务字段。
+message GetAgentAvailableResponse {}
+
+// GetLocalConnRequest 是本地连接查询参数，无业务字段。
+message GetLocalConnRequest {}
+
+// LocalSSHConn 是本地终端保存的连接信息。
+message LocalSSHConn {
+  // 地址。
+  string addr = 1;
+
+  // SSH 端口。
+  uint32 port = 2;
+
+  // 用户名。
+  string user = 3;
+
+  // 认证方式：password 或 key。
+  string auth_mode = 4;
+
+  // 密码。
+  string password = 5;
+
+  // 私钥。
+  string private_key = 6;
+
+  // 私钥口令。
+  string pass_phrase = 7;
+
+  // 是否展示本地连接：Enable 或 Disable。
+  string local_ssh_conn_show = 8;
+}
+
+// SetDefaultConnRequest 是默认连接开关参数。
+message SetDefaultConnRequest {
+  // 状态：Enable 或 Disable。
+  string default_conn = 1 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+
+  // 关闭时是否清空已保存的连接信息。
+  bool with_reset = 2;
+}
+
+// SetDefaultConnResponse 是设置结果，无业务字段。
+message SetDefaultConnResponse {}
+
+// TestLocalConnInfoRequest 是临时连接信息测试参数。
+message TestLocalConnInfoRequest {
+  // 地址。
+  string addr = 1 [(buf.validate.field).string.min_len = 1];
+
+  // SSH 端口，1-65535。
+  uint32 port = 2 [(buf.validate.field).uint32 = {
+    gt: 0
+    lt: 65536
+  }];
+
+  // 用户名。
+  string user = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 认证方式。
+  string auth_mode = 4 [(buf.validate.field).string = {
+    in: [
+      "password",
+      "key"
+    ]
+  }];
+
+  // 密码（明文）。
+  string password = 5;
+
+  // 私钥（明文）。
+  string private_key = 6;
+
+  // 私钥口令。
+  string pass_phrase = 7;
+}
+
+// TestLocalConnRequest 是已保存连接测试参数，无业务字段。
+message TestLocalConnRequest {}
+
+// TestLocalConnResponse 是连通性测试结果。
+message TestLocalConnResponse {
+  // 是否连接成功。
+  bool ok = 1;
+}
+
+// SaveLocalConnRequest 是保存本地连接参数。
+message SaveLocalConnRequest {
+  // 地址。
+  string addr = 1 [(buf.validate.field).string.min_len = 1];
+
+  // SSH 端口，1-65535。
+  uint32 port = 2 [(buf.validate.field).uint32 = {
+    gt: 0
+    lt: 65536
+  }];
+
+  // 用户名。
+  string user = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 认证方式。
+  string auth_mode = 4 [(buf.validate.field).string = {
+    in: [
+      "password",
+      "key"
+    ]
+  }];
+
+  // 密码（明文）。
+  string password = 5;
+
+  // 私钥（明文）。
+  string private_key = 6;
+
+  // 私钥口令。
+  string pass_phrase = 7;
+}
+
+// SaveLocalConnResponse 是保存结果，无业务字段。
+message SaveLocalConnResponse {}

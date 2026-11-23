@@ -7,19 +7,24 @@ npm相关的命令都使用bun 包括bunx
 
 ## 外观与主题
 
-Ask me what look and feel this app should have. Run `bunx @astryxdesign/cli theme list`, install the closest theme package, and run `theme add <slug>`; use `--package` when owners share a slug. Import `themes` and `defaultThemeSlug` from the generated module once and pass `themes[defaultThemeSlug]` to `<Theme>`. Customize with `defineTheme({extends: importedTheme, ...})`. Use `theme eject` only when I ask for an independent source fork. Default to neutral if I have no preference, and show me the result before moving on.
+前端沿用 1Panel 的 **Vue 3 + Element Plus** 外观，主题变量与样式入口在 `web/src/styles/`。
+换主题色、Logo、favicon 通过面板设置页完成，不要另起一套设计系统。
+页面结构以现有 1Panel 组件为准，新增 UI 优先复用 `web/src/components/` 里的组件。
 
 ## 仓库结构
 
 | 目录 | 作用 |
 | --- | --- |
 | `proto/` | 独立 Go module `mypanel/proto`，存放 `.proto` 与 buf 配置，**同时**产出 Go 与 TS 代码 |
-| `master/` | 控制面：Connect/gRPC 服务端 + 托管 web 前端 |
+| `master/` | 单进程服务端：Connect/gRPC + 托管 web；`internal/core`、`internal/agent` 为 1Panel 控制面/数据面代码 |
 | `node/` | 数据面 agent（目前为占位） |
-| `web/` | 前端，TanStack Router + Vite + React |
+| `web/` | 前端，Vue 3 + Element Plus + Vite + Pinia Colada |
 | `scripts/` | `gen.sh`（代码生成）、`build.sh`（构建） |
 
-`go.work` 同时包含 `master`、`node`、`proto` 三个 module。**新增 Go module 必须同步加进 `go.work`**，否则 `go build ./...` 找不到它。
+`go.work` 同时包含 `master`、`master/internal/core`、`master/internal/agent`、`node`、`proto` 五个 module。**新增 Go module 必须同步加进 `go.work`**，否则 `go build ./...` 找不到它。
+
+`master/internal/core`（`mypanel/core`）与 `master/internal/agent`（`mypanel/agent`）保持独立 module 与独立数据库连接，
+只共享进程与 HTTP server；它们之间**不允许互相 import**，未来拆分回双进程时只需把 agent 移到 `node/`。
 
 ## 注释规范
 
@@ -62,7 +67,10 @@ master/
   internal/app/            wire 依赖图（app.go）+ 注入点（wire.go）
     wire_gen.go            wire 生成，勿手改
   internal/server/         gin 路由 + SPA/gzip
-  internal/panel/          业务实现
+  internal/bootstrap/      单进程初始化 core/agent
+  internal/transport/      Connect adapter、拦截器、策略
+  internal/core/           1Panel 控制面（独立 module mypanel/core）
+  internal/agent/          1Panel 数据面（独立 module mypanel/agent）
   internal/webdist/        前端 embed
 ```
 
@@ -74,13 +82,13 @@ master/
 RPC 处理器作为普通 `http.Handler` 挂进 gin：
 
 ```go
-panelPath, panelHandler := panelv1connect.NewPanelServiceHandler(svc)
+authPath, authHandler := corev1connect.NewAuthServiceHandler(authServer, handlerOpts...)
 // 必须用通配：生成的是「服务前缀」，内部再按完整 procedure 分发
-r.Any(panelPath+"*filepath", gin.WrapH(panelHandler))
+r.Any(authPath+"*filepath", gin.WrapH(authHandler))
 ```
 
 **踩过的坑**：`r.Any(panelPath, ...)` 是精确匹配，而 `panelPath` 形如
-`/panel.v1.PanelService/`，导致所有 RPC 落到 NoRoute。必须加 `*filepath`。
+`/panel.core.v1.AuthService/`，导致所有 RPC 落到 NoRoute。必须加 `*filepath`。
 reflection 的路径同理。
 
 日志用自定义 slog 中间件，不用 `gin.Logger()`（它输出带 ANSI 的文本，
@@ -120,6 +128,9 @@ reflection 的路径同理。
 | `web_dir` | `MYPANEL_WEB_DIR` | 空（用内置前端） |
 | `debug` | `MYPANEL_DEBUG` | `false` |
 | `shutdown_timeout` | `MYPANEL_SHUTDOWN_TIMEOUT` | `5s` |
+| `data_dir` | `MYPANEL_DATA_DIR` | `./data` |
+| `admin_user` | `MYPANEL_ADMIN_USER` | `admin` |
+| `admin_password` | `MYPANEL_ADMIN_PASSWORD` | 空（随机生成并打印一次） |
 
 **YAML 文件**：`config.yaml` 入库作为默认值；个人改动写 `config.local.yaml`
 （已 gitignore，只在同目录存在时自动叠一层）。查找顺序是
@@ -142,7 +153,7 @@ reflection 的路径同理。
 ```bash
 ./scripts/build.sh                 # 构建前端 → 同步进 embed 目录 → 编译 bin/master
 ./bin/master -addr :8080           # 生产模式：SPA 与 /rpc 同源
-cd web && bun --bun run dev        # 开发模式：:3000，/rpc 代理到 :8080
+cd web && bun --bun run dev        # 开发模式：:4004，/rpc、/api/v2 代理到 :8080
 ```
 
 前端产物会被复制到 `master/internal/webdist/dist/` 供 `//go:embed` 使用。
@@ -154,8 +165,8 @@ cd web && bun --bun run dev        # 开发模式：:3000，/rpc 代理到 :8080
 master 对文本类静态资源（`.js` / `.css` / `.html` / `.json` / `.svg` / `.map` 等）
 按 `Accept-Encoding` 做 gzip，实现在 `spaHandler` / `shouldGzip`。
 
-- 前端产物里 CSS 有 300KB+（Astryx 是全量样式，**没有分组件 CSS，无法按需引入**），
-  gzip 后约 50KB，不压缩等于每次冷启动多传 260KB。
+- 前端产物里 CSS 有数百 KB（Element Plus 全量样式 + 业务样式），
+  gzip 后能压到几十 KB，不压缩等于每次冷启动多传几百 KB。
 - 图片、字体、视频不压缩——它们本身已是压缩格式。
 - Range 请求不压缩（与整体压缩语义冲突）。
 
@@ -177,7 +188,7 @@ gofmt -l master           # 必须无输出
 
 - 测试与源码同包（`package server`），文件名 `*_test.go`。
 - 表驱动优先；用例名用中文描述场景。
-- **不要在测试里依赖真实时钟或网络**。`panel.Service` 的 `Now` 字段就是为了注入时间。
+- **不要在测试里依赖真实时钟或网络**。时间相关逻辑用可注入的时钟或固定时间戳。
 - 需要 HTTP 层时用 `net/http/httptest` + `fstest.MapFS`，不要起真实端口。
 - 流式 RPC（`Watch`）的 `connect.ServerStream` 没有导出构造器，
   只能通过 `httptest.NewServer` + 生成的 client 做端到端测试，或把纯逻辑抽成函数单独测。
@@ -192,151 +203,68 @@ cd web && bun test        # 或 bun run test
 ```
 
 - 文件名 `*.test.ts`，放在被测文件同目录。
-- 只测**纯函数与纯逻辑**。不测 React 组件的渲染细节，不搭 DOM 环境。
-  需要测的行为先从组件里抽成纯函数（参考 `src/lib/format.ts`）。
-- `#/*` 路径别名在 `bun test` 下可用，直接 import。
+- 只测**纯函数与纯逻辑**。不测 Vue 组件的渲染细节，不搭 DOM 环境。
+  需要测的行为先从组件里抽成纯函数（参考 `src/lib/rpc/create-rpc.ts`）。
+- `@/*` 路径别名在 `bun test` 下可用（见 `tsconfig.json`）。
 - 断言用 `expect`，避免 `toBeTruthy()` 这类模糊断言，写清期望的具体值。
 - 不写「跑通就算过」的空测试，也不为了覆盖率造无意义用例。
 
 ## UI 组件与主题
 
-界面统一用 **Astryx**（`@astryxdesign/core`，Meta 开源的 React 19 设计系统），
-当前主题是 **Neutral**。
-
-### 基本用法
-
-组件按需从各自入口导入，不要从根入口批量导入：
-
-```tsx
-import { Button } from '@astryxdesign/core/Button'
-import { Card } from '@astryxdesign/core/Card'
-import { Heading } from '@astryxdesign/core/Heading'
-import { VStack } from '@astryxdesign/core/VStack'
-import { Text } from '@astryxdesign/core/Text'
-
-<VStack gap={4}>
-  <Heading level={2}>标题</Heading>
-  <Text type="supporting">说明文字</Text>
-  <Button label="保存" variant="primary" />
-</VStack>
-```
-
-查组件文档用 CLI，不要靠猜 props：
-
-```bash
-bunx @astryxdesign/cli component <Name>    # 加 --dense 精简输出
-bunx @astryxdesign/cli component           # 列出全部 174 个组件
-bunx @astryxdesign/cli docs <topic>        # tokens / color / styling 等
-bunx @astryxdesign/cli search <关键词>
-```
-
-### 布局
-
-用 `VStack` / `HStack`，不要手写 flex：
-
-- `gap` / `padding` 传**数字字面量**：`gap={4}`，不要 `gap="4"`。
-- 交叉轴对齐是 **`vAlign`**（不是 `alignItems`）；主轴是 `hAlign` 或 `justify`。
-- 需要拉伸的项用 `StackItem size="fill"`，不要加 margin。
-
-### 排版
-
-- 正文用 `Text`，标题用 `Heading level={1..6}`。**不要用原生 `<p>` / `<h1>`**，
-  否则拿不到主题的排版 token。
-- `Text` 的样式属性叫 **`type`**（`body` / `label` / `supporting` / `code` …），
-  不是 `variant`。
-- 提示文字用 `type="supporting"`（自动用次要色）。
-
-### 颜色与间距
-
-一律用 CSS 变量，**不要写死 hex 或 px**：
-
-| 用途 | token |
-| --- | --- |
-| 页面底色 | `--color-background-body` |
-| 卡片底色 | `--color-background-card` |
-| 主文字 | `--color-text-primary` |
-| 次要文字 | `--color-text-secondary` |
-| 边框 | `--color-border` |
-| 间距 | `--spacing-1` … `--spacing-12`（`--spacing-4` = 1rem） |
-
-**不要给 CSS 变量加回退值**（如 `var(--color-text-primary, #000)`）。
-token 名写错时会静默用错颜色，不如直接不生效来得容易发现。
-
-### 状态提示
-
-- 错误/警告用 `Banner`（`status="error"` + `title` + `description`），不要自己拼红色文字。
-- 短标签用 `Badge`，不要用带背景色的 `Text`。
-
-### 主题与全局样式
-
-- 主题由 `src/astryx-themes.ts`（CLI 生成，**不要手改**）提供，
-  在 `src/main.tsx` 用 `<Theme theme={themes[defaultThemeSlug]} mode="system">` 包裹。
-- `mode="system"` 跟随系统深浅色，Astryx 会把 `data-theme` 同步到 `<html>`。
-- 换主题：`bunx @astryxdesign/cli theme add <slug>` 然后改 `defaultThemeSlug`。
-- `src/styles.css` 用 `@layer reset, astryx-base, app` 声明层序，
-  自己的样式放 `@layer app`，避免覆盖组件样式。
-
-### 关于 StyleX
-
-Astryx 与 StyleX 深度集成，但 **本项目没有启用 StyleX 编译器**，
-所以不要用 `xstyle` prop（需要额外构建配置）。布局用 `VStack`/`HStack`，
-自定义样式写进 `src/styles.css` 的 `@layer app`。
-
-## 前端 RPC 调用
-
-用 `#/lib/rpc` 导出的 `rpc` 对象，写法类似 tRPC：
-
-```ts
-import { rpc } from '#/lib/rpc'
-
-const { data } = rpc.hello.useQuery({ name: 'atticus' })      // data: HelloResponse | undefined
-const hello = rpc.hello.useSuspenseQuery({ name: 'atticus' }) // hello.data: HelloResponse
-await rpc.hello({ name: 'atticus' })                          // 直接调用
-rpc.hello.useMutation().mutate({ name: 'x' })                 // 变更，入参即请求体
-```
-
-**不要手写请求/响应类型，也不要为新方法加包装。** 类型由
-`createRpc`（`src/lib/rpc-proxy.ts`）从生成的 service 描述符推导，
-proto 加方法后 `rpc` 上自动出现，一行模板代码都不用写。
-
-每个 unary 方法上都挂齐了这些入口：
-
-| 入口 | 用途 |
-| --- | --- |
-| `rpc.<M>(input)` | 直接调用，返回 Promise |
-| `rpc.<M>.useQuery(input, opts?)` | 普通查询，`data` 可能为 undefined |
-| `rpc.<M>.useSuspenseQuery(input, opts?)` | Suspense 查询，`data` 必定有值 |
-| `rpc.<M>.useInfiniteQuery(fn, opts)` | 无限查询 |
-| `rpc.<M>.useSuspenseInfiniteQuery(fn, opts)` | Suspense 无限查询 |
-| `rpc.<M>.useMutation(opts?)` | 变更，`mutate(input)` 的入参即请求体 |
-| `rpc.<M>.queryOptions(input, opts?)` | 供 `useQueries` / `prefetchQuery` 使用 |
-| `rpc.<M>.infiniteQueryOptions(fn, opts)` | 无限查询版的 options |
+界面统一用 **Element Plus**（`element-plus`），图标用 `@element-plus/icons-vue`，
+页面语言用 `vue-i18n`（`web/src/lang/`）。
 
 约定：
 
-- 只有 unary 方法出现在 `rpc` 上；流式方法（如 `watch`）不能套 `useQuery`，
-  类型层已排除，误用会在编译期报错。流式调用直接用 `panelClient`。
-- 默认 `queryKey` 为 `[服务全限定名, 方法名, 入参]`，入参变化会自动重新请求。
-  需要自定义时传 `queryKey` 覆盖。
-- **无限查询的入参是「pageParam → 请求体」的函数**，不是请求体本身。
-  gRPC 没有统一的游标字段名，所以由调用方决定游标放哪个字段：
+- 组件按需自动导入：`unplugin-vue-components` + `unplugin-auto-import` 已在 `vite.config.ts` 配好，
+  `ref` / `reactive` / `onMounted` 等无需手写 import；类型由根目录生成的 `auto-imports.d.ts` 提供。
+- 布局用 Element Plus 的栅格与 `LayoutContent` 等既有容器，不要手写一套新的布局体系。
+- 颜色、间距优先用 `web/src/styles/` 里的变量与工具类；不要把颜色写死在新页面里。
+- 提示与错误用 `MsgSuccess` / `MsgError`（`@/utils/message`），不要自己拼弹窗。
+- 空状态、加载态复用 1Panel 现有组件（`components/` 下），保持交互一致。
 
+## 前端 RPC 调用
+
+数据层统一走 `@/lib/rpc` 暴露的 `rpc` 对象，风格类似 tRPC：
+
+```ts
+import { rpc } from '@/lib/rpc'
+
+const { data, isLoading } = rpc.website.search.useQuery({ page: 1, pageSize: 20 })
+const detail = await rpc.website.get.useSuspenseQuery({ id: 1 })   // 需要 await
+const { mutateAsync } = rpc.website.delete.useMutation()
+const website = await rpc.website.get({ id: 1 })                   // 直接调用
+```
+
+要点：
+
+- **`rpc` 由生成的 service descriptor 推导，禁止手写包装。**
+  `web/src/lib/rpc/index.ts` 只登记 descriptor；方法名、入参/出参类型、
+  `useQuery` / `useMutation` / `useInfiniteQuery` / `validate` 全部由 `createRpc` 泛型生成。
+  新增 proto 方法后重新 `./scripts/gen.sh` 即可使用，不要新增 `useXxxQuery` 文件。
+- 查询用 Pinia Colada：`useQuery` / `useSuspenseQuery` / `useMutation` / `useInfiniteQuery`。
+  不要引入 TanStack Query，也不要在页面里直接写 `fetch('/rpc/...')`。
+- `useSuspenseQuery` 在 Vue 里是异步 composable，**必须 `await`**，
+  并配合外层 `<Suspense>` 或 `onErrorCaptured` 处理失败。
+- 变更后按 key 失效缓存：
   ```ts
-  rpc.listEvents.useInfiniteQuery((pageToken: string) => ({ pageToken, pageSize: 5 }), {
-    initialPageParam: '',
-    getNextPageParam: (last) => last.nextPageToken || undefined, // 空值 = 没有下一页
-  })
+  const cache = useQueryCache()
+  await cache.invalidateQueries({ key: rpc.website.search.key({ page: 1 }) })
   ```
-
-  由于函数无法参与 key 序列化，无限查询的默认 key 只含服务名与方法名。
-  查询依赖外部条件时**必须自行传 `queryKey`**，否则条件变化不会触发重新请求。
-- `useQuery` 等 hook 依赖 `QueryClientProvider`，已在 `src/main.tsx` 挂好。
-- 用 `useSuspenseQuery` 时记得在组件树上层放 `<Suspense>` 边界
-  （参考 `src/components/HelloPanel.tsx`）。
+- 表单提交前可以先用同一套 proto 规则校验：
+  ```ts
+  const result = rpc.website.create.validate(form)
+  if (result.kind !== 'invalid') { /* 通过 */ }
+  ```
+  失败时按 `result.violations[].fieldPath` 调用 `formRef.setFieldError`。
+- 类型直接从 `@/gen/...` 导入，不再维护 `api/interface`；迁移期间旧类型可以暂时保留，
+  但新代码不要新增手写 DTO。
+- 流式与文件传输是例外：容器日志用 server-stream 异步迭代，终端用 WebSocket，
+  大文件走 `/files/*` 二进制通道。
 
 ## 其它约定
 
-- 提交前跑一遍：`go vet ./master/... && go test ./master/... && cd web && bunx tsc --noEmit && bun test`。
+- 提交前跑一遍：`go vet ./master/... && go test ./master/... && gofmt -l master && cd web && bun run type-check && bun test && bun run build`。
 - 不要提交 `.bin/`、`bin/`、`node_modules/`、`.DS_Store`。
 - 日志用 `log/slog` 结构化输出，字段名英文小写。
 - 前端与后端同源，**不要引入 CORS 配置**；开发期靠 vite proxy 解决。

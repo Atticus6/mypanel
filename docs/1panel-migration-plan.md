@@ -2161,3 +2161,89 @@ bun run build
 | `AGENTS.md` | 更新前端技术栈与目录说明 |
 | `scripts/gen.sh` | 扩展为多 proto 包生成 |
 | `scripts/build.sh` | 改为构建 Vue 前端 |
+
+---
+
+## 附录 G：实施进展与偏差（持续更新）
+
+> 更新时间：2026-11-23
+
+### 已落地
+
+| 项 | 状态 |
+| --- | --- |
+| 1Panel core/agent 复制 | 完成，独立 module `mypanel/core`、`mypanel/agent` |
+| 单进程启动骨架 | 完成（core → agent 固定顺序，`data_dir` 注入） |
+| Connect/gRPC + 策略注解 + Protovalidate | 完成 |
+| 前端 Vue 整体替换 + Pinia Colada `createRpc` | 完成（hook 全部由 `web/src/gen` 推导） |
+| 页面迁移 | 登录、终端主机、首页、文件、计划任务、容器、MySQL、PostgreSQL、告警、应用商店、已安装应用、备份账号、SSL、防火墙状态、任务中心 |
+| 文件上传/下载 | `/files/upload`、`/files/download` + 一次性票据 |
+| 终端 WebSocket | `/ws/terminal`（会话校验 + terminal auth lease） |
+| MCP | `/mcp`（POST/GET/DELETE） |
+| RPC 门禁 | `scripts/check-rpc-coverage.sh`（策略注解、注册表一致性、HTTP 白名单） |
+| 模块删除 | VM 全部后端；Toolbox/AI/runtime/template 的外部 API 与路由 |
+| core 系统设置 | `panel.core.v1.SettingService`（26 个方法）：完整/精简设置、终端外观、单项与菜单设置、访问地址、备忘录、下载偏好、端口与绑定地址、HTTPS 证书与重载、升级信息与版本说明、应用商店配置、服务器代理 |
+| Website 配置 | 26 个方法：搜索/创建/删除、Nginx 指令级配置、代理缓存、负载均衡读写、真实 IP、默认站点、HTTPS |
+| File 能力 | 回收站查询与还原、收藏增删查、文件历史 |
+| agent 系统设置 | `panel.agent.v1.AgentSettingService`（12 个方法）：系统设置、数据目录、网站目录、终端/文件 AI 设置、文件历史设置、资源描述、可用性探测 |
+| 系统快照 | `panel.agent.v1.SnapshotService`（9 个方法）：数据树、创建、重试、导入、描述、删除、恢复、回滚、分页查询 |
+| 主机管理扩展 | `HostService` 增至 17 个方法：主机增删改、连通性测试、组件检查、磁盘分区/挂载/卸载、运行时诊断 |
+| 终端会话 | `panel.agent.v1.TerminalService`（3 个方法）：会话列表、单个关闭、全部关闭；数据流仍走 `/ws/terminal` |
+| 控制面诊断 | `panel.core.v1.DiagnosticsService`（3 个方法），与 agent 侧共用同一组 proto 消息 |
+| 防火墙 | `FirewallService` 扩到 27 个方法：生命周期、转发规则、过滤链、规则增删改排序、设置与白名单、后端切换、IPv6/地址族、Docker 端口防护、规则备份 |
+| SSH 管理 | `panel.agent.v1.SSHService`（13 个方法）：SSH 状态/启停/配置、配置文读写、密钥生成修改同步删除、登录日志查询导出清理 |
+| 本地终端连接 | `AgentSettingService` 增至 17 个方法：本地连接读取/保存/连通性测试/默认开关 |
+| 主机监控 | `panel.agent.v1.MonitorService`（6 个方法）：监控数据查询、采集设置读写、历史清理、磁盘与网卡选项 |
+| Website 管理 | `WebsiteService` 增至 47 个方法：详情/列表/选项、启停、基础信息、预检查、分组迁移与批量操作、PHP 版本、跨站访问、CORS、站点目录与权限、自定义伪静态 |
+| 证书与 CA | `WebsiteSSLService` 增至 21 个方法：证书查询/创建/修改/签发/DNS 解析/删除/推送，CA 查询/创建/删除/续签，ACME 账号创建/修改/删除 |
+| 控制面日志 | `panel.core.v1.LogService`（3 个方法）：登录日志、操作日志、日志清理 |
+| 脚本库 | `panel.core.v1.ScriptService`（5 个方法）：查询/创建/修改/删除/同步；脚本执行仍走 WebSocket |
+| 快速命令 | `panel.core.v1.CommandService`（8 个方法）：分页/列表/树、增删改、导入导出；CSV 上传保留 HTTP |
+| 通用分组 | `panel.core.v1.GroupService`（4 个方法）：按类型列出、增删改，被命令库/计划任务/主机共用 |
+| 备份账号 | `panel.core.v1.BackupsService`（5 个方法）：增删改、OAuth 令牌刷新、客户端信息；备份文件操作仍走 agent 的 BackupService |
+| API 密钥 | `AuthService` 增 2 个方法：`GenerateAPIKey`、`UpdateAPIConfig`；多密钥管理（`/core/auth/api/keys/*`）依赖 xpack，已剔除 |
+| 容器查询 | `ContainerService` 增 6 个方法：容器名列表、按镜像查容器、容器内用户、批量/单项资源占用、实时指标采样；日志实时流（SSE）保留原通道 |
+| 容器镜像与 Docker | `ContainerService` 增 11 个方法：Docker 状态/启停、镜像拉取/推送/构建/远程搜索、daemon.json 读写替换、日志与 IPv6 配置 |
+| 容器模板与仓库 | `ContainerService` 增 10 个方法：Compose 模板增删改批量导入、镜像仓库增删改与连通性检查 |
+| 容器管理 | `ContainerService` 增至 37 个方法：资源限制、容器批量操作/重命名/清理、网络与卷增删查、镜像删除与打标签、Compose 环境/校验/操作/置顶/日志清理 |
+| 认证收尾 | `AuthService` 增 7 个方法：Passkey 注册 begin/finish、MFA 生成/绑定/关闭、当前用户修改、过期密码重置；17 条 `/core/auth/*` 路由全部建立映射 |
+| 代理与域名 | `WebsiteService` 增至 69 个方法：反向代理新增/文件/删除/状态/缓存清理、访问认证与路径认证、重定向文件、四层代理、关联资源、域名增删改、DNS 账号、数据库绑定、负载均衡文件、日志开关 |
+| 多节点接口清理 | 前端 `listNodeOptions`/`listAllSimpleNodes`/`updateNodeFavorite` 已改为本地单节点实现，不再请求 xpack 的 `/core/nodes*` |
+
+### 当前进度（2026-11-23）
+
+| 指标 | 数值 |
+| --- | --- |
+| proto RPC 方法数 | 356 |
+| 精确路由覆盖 | 351 / 830（剔除 260，未映射 219） |
+| 已迁移页面与对话框 | 约 320 个 |
+
+`web/src/api/modules/setting.ts`、`firewall.ts`、`host.ts` 已整体删除：面板设置、agent 设置与系统快照全部走 RPC。
+
+证书/CA 的文件上传与下载（`/websites/ssl/upload*`、`/websites/ssl/download`、`/websites/ca/upload`、`/websites/ca/download`）
+保留 HTTP 二进制通道，已列入剔除前缀；其余证书与 CA 接口全部走 RPC。
+
+容器文件浏览与镜像导入导出、日志下载、daemon.json 文件操作同样是二进制/流式通道，
+已随 `containers/files*`、`image/load|save`、`download/log`、`daemonjson/file` 一并列入剔除前缀。
+
+脚本执行（`/core/script/run`）与终端数据流一样属于 WebSocket 通道；命令 CSV 上传
+（`/core/commands/upload`）是 multipart 二进制通道，两者都已列入剔除前缀并注明原因。
+
+终端数据流（`/hosts/terminal/local|ssh|container`）与 Toolbox（`/hosts/tool/*`）已显式列入
+`manifest.yaml` 的 `excluded_prefixes`，不再算作未映射。`-update-manifest` 现在会保留现有剔除前缀，
+避免重新生成 routes 时把人工决策丢掉。
+
+覆盖率工具会把 `:id` 与 `{id}` 视为同一种路径参数（`normalizeRouteKey`），并对未命中任何基线路由的
+映射打印警告——此前这种写法差异会让部分映射静默失效，覆盖率被低估。
+
+覆盖率权威命令：`./scripts/check-rpc-coverage.sh`；映射维护在 `master/cmd/rpc-coverage/main.go` 的 `overrides`，
+快照 `proto/route-coverage.json` 随映射一起更新。
+
+### 与原文的偏差
+
+1. **OIDC / SAML 不适用**：当前 1Panel 社区版源码（`v2.5.1`）中没有 `oidc` / `saml2` 的 handler，相关能力位于未开源的 enterprise/xpack 目录。剔除 xpack 后这些端点不存在，白名单中保留路径仅为将来接入 IdP 预留，不能凭空实现。
+2. **多 API Key 管理不实现**：`/core/auth/api/keys/*`（9 条）依赖 xpack 的 `APIKeyOwnerProvider`；社区版 `authHelper` 未实现该接口，调用会直接返回 `ErrApiConfigStatusInvalid`。只保留 legacy 的生成密钥与配置更新两个接口。
+3. **AI service 层未完全删除**：AI 的 API 与路由已删，但 OpenClaw/Ollama 的应用安装与升级钩子仍依赖 `app/service/agents_*.go`、`ai_gateway_*.go` 中的函数。彻底删除需要一并重写应用商店的 AI 应用安装/升级流程，单独提交。
+4. **Toolbox 底层能力保留**：`device_clean`、`FTP` 被计划任务与网站模块复用，只删除了 Toolbox 的 API 与路由。
+5. **多节点能力不保留**：单进程下固定本地节点，`CurrentNode` 透传已移除。
+

@@ -9,6 +9,7 @@ package main
 
 import (
 	"context"
+	"crypto/rand"
 	"flag"
 	"io/fs"
 	"log/slog"
@@ -17,6 +18,7 @@ import (
 	"syscall"
 
 	"mypanel/master/internal/app"
+	"mypanel/master/internal/bootstrap"
 	"mypanel/master/internal/config"
 	"mypanel/master/internal/webdist"
 )
@@ -59,8 +61,37 @@ func main() {
 		"addr", cfg.Addr,
 		"web_dir", cfg.WebDir,
 		"debug", cfg.Debug,
+		"data_dir", config.ResolvePath(cfg.DataDir),
 		"shutdown_timeout", cfg.ShutdownTimeout.String(),
 	)
+
+	adminPassword := cfg.AdminPassword
+	if adminPassword == "" {
+		// 空密码会让所有请求都能登录，必须显式生成一个并打印一次。
+		adminPassword = randomPassword()
+		logger.Warn("admin_password 未配置，已生成随机密码，请立即记录并修改", "password", adminPassword)
+	}
+	if err := bootstrap.InitCore(bootstrap.CoreOptions{
+		DataDir:       cfg.DataDir,
+		Version:       version,
+		AdminUser:     cfg.AdminUser,
+		AdminPassword: adminPassword,
+		Mode:          "stable",
+		Language:      "zh",
+	}); err != nil {
+		logger.Error("init core", "err", err)
+		os.Exit(1)
+	}
+	// agent 的部分迁移会读 core 的设置，所以顺序必须是 core → agent。
+	if err := bootstrap.InitAgent(bootstrap.AgentOptions{
+		DataDir:  cfg.DataDir,
+		Version:  version,
+		Mode:     "stable",
+		Language: "zh",
+	}); err != nil {
+		logger.Error("init agent", "err", err)
+		os.Exit(1)
+	}
 
 	webFS, err := resolveWebFS(cfg.WebDir)
 	if err != nil {
@@ -90,6 +121,19 @@ func main() {
 		logger.Error("run", "err", err)
 		os.Exit(1)
 	}
+}
+
+// randomPassword 生成 16 位随机密码，用于未配置 admin_password 的首次启动。
+func randomPassword() string {
+	const alphabet = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+	buf := make([]byte, 16)
+	if _, err := rand.Read(buf); err != nil {
+		return "1panel-please-change"
+	}
+	for i := range buf {
+		buf[i] = alphabet[int(buf[i])%len(alphabet)]
+	}
+	return string(buf)
 }
 
 // isFlagSet 判断某个 flag 是否被显式指定。

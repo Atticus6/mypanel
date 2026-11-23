@@ -1,0 +1,160 @@
+// panel/core/v1/backup.proto 定义控制面备份账号的 RPC。
+//
+// 这里只管理「备份账号」（对象存储、OneDrive 等）的连接信息；
+// 备份文件的产生与恢复属于数据面，走 agent 的 BackupService。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// BackupsService 负责备份账号的增删改与 OAuth 客户端信息。
+service BackupsService {
+  // 创建备份账号。
+  rpc Create(CreateBackupRequest) returns (CreateBackupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建备份账号"
+      audit_action_en: "Create backup account"
+    };
+  }
+
+  // 修改备份账号。
+  rpc Update(UpdateBackupRequest) returns (UpdateBackupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改备份账号"
+      audit_action_en: "Update backup account"
+    };
+  }
+
+  // 删除备份账号。
+  rpc Delete(DeleteBackupRequest) returns (DeleteBackupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除备份账号"
+      audit_action_en: "Delete backup account"
+    };
+  }
+
+  // 刷新 OAuth 类型的访问令牌。
+  rpc RefreshToken(RefreshBackupTokenRequest) returns (RefreshBackupTokenResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "刷新备份令牌"
+      audit_action_en: "Refresh backup token"
+    };
+  }
+
+  // 读取 OAuth 客户端信息，供前端展示回调地址。
+  rpc GetClientInfo(GetBackupClientInfoRequest) returns (BackupClientInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// CreateBackupRequest 是创建备份账号参数。
+message CreateBackupRequest {
+  // 名称。
+  string name = 1;
+
+  // 类型，例如 S3、OneDrive、SFTP。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 是否公开可读。
+  bool is_public = 3;
+
+  // 存储桶。
+  string bucket = 4;
+
+  // Access Key。
+  string access_key = 5;
+
+  // 凭据。
+  string credential = 6;
+
+  // 备份目录。
+  string backup_path = 7;
+
+  // 各类型特有的参数（JSON），例如区域、端点。
+  string vars = 8 [(buf.validate.field).string.min_len = 1];
+
+  // 是否记住授权信息。
+  bool remember_auth = 9;
+}
+
+// CreateBackupResponse 是创建结果，无业务字段。
+message CreateBackupResponse {}
+
+// UpdateBackupRequest 是修改备份账号参数。
+message UpdateBackupRequest {
+  // 账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2;
+
+  // 类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 是否公开可读。
+  bool is_public = 4;
+
+  // 存储桶。
+  string bucket = 5;
+
+  // Access Key。
+  string access_key = 6;
+
+  // 凭据。
+  string credential = 7;
+
+  // 备份目录。
+  string backup_path = 8;
+
+  // 各类型特有的参数（JSON）。
+  string vars = 9 [(buf.validate.field).string.min_len = 1];
+
+  // 是否记住授权信息。
+  bool remember_auth = 10;
+}
+
+// UpdateBackupResponse 是修改结果，无业务字段。
+message UpdateBackupResponse {}
+
+// DeleteBackupRequest 是删除备份账号参数。
+message DeleteBackupRequest {
+  // 账号名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// DeleteBackupResponse 是删除结果，无业务字段。
+message DeleteBackupResponse {}
+
+// RefreshBackupTokenRequest 是令牌刷新参数。
+message RefreshBackupTokenRequest {
+  // 账号名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// RefreshBackupTokenResponse 是刷新结果，无业务字段。
+message RefreshBackupTokenResponse {}
+
+// GetBackupClientInfoRequest 是客户端信息查询参数。
+message GetBackupClientInfoRequest {
+  // 客户端类型，例如 onedrive、google。
+  string client_type = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// BackupClientInfo 是 OAuth 客户端信息。
+message BackupClientInfo {
+  // 客户端 ID。
+  string client_id = 1;
+
+  // 客户端密钥。
+  string client_secret = 2;
+
+  // 回调地址。
+  string redirect_uri = 3;
+}

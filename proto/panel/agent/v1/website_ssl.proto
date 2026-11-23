@@ -1,0 +1,743 @@
+// panel/agent/v1/website_ssl.proto 定义网站证书相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// WebsiteSSLService 对应 1Panel 的证书管理域。
+service WebsiteSSLService {
+  // 分页查询 DNS 账号。
+  rpc SearchDNSAccounts(SearchDNSAccountsRequest) returns (SearchDNSAccountsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询 ACME 账号。
+  rpc SearchACMEAccounts(SearchACMEAccountsRequest) returns (SearchACMEAccountsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询证书。
+  rpc Search(SearchSSLRequest) returns (SearchSSLResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按账号列出证书（不分页）。
+  rpc List(ListSSLRequest) returns (ListSSLResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按 ID 读取证书。
+  rpc GetByID(GetSSLRequest) returns (WebsiteSSL) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取网站绑定的证书。
+  rpc GetByWebsite(GetWebsiteSSLRequest) returns (WebsiteSSL) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建证书记录；apply=true 时立即申请。
+  rpc Create(CreateSSLRequest) returns (CreateSSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建证书"
+      audit_action_en: "Create certificate"
+    };
+  }
+
+  // 修改证书配置。
+  rpc Update(UpdateSSLRequest) returns (UpdateSSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改证书"
+      audit_action_en: "Update certificate"
+    };
+  }
+
+  // 为证书申请/续期签发。
+  rpc Apply(ApplySSLRequest) returns (ApplySSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "签发证书"
+      audit_action_en: "Apply certificate"
+    };
+  }
+
+  // 读取证书需要的 DNS 解析记录。
+  rpc GetDNSResolve(GetDNSResolveRequest) returns (GetDNSResolveResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 删除证书。
+  rpc Delete(DeleteSSLRequest) returns (DeleteSSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除证书"
+      audit_action_en: "Delete certificate"
+    };
+  }
+
+  // 把证书推送到网站目录或节点。
+  rpc Push(PushSSLRequest) returns (PushSSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "推送证书"
+      audit_action_en: "Push certificate"
+    };
+  }
+
+  // 分页查询 CA 记录。
+  rpc SearchCA(SearchCARequest) returns (SearchCAResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按 ID 读取 CA 记录。
+  rpc GetCA(GetCARequest) returns (CADetail) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建自签 CA。
+  rpc CreateCA(CreateCARequest) returns (CreateCAResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建 CA"
+      audit_action_en: "Create CA"
+    };
+  }
+
+  // 删除 CA。
+  rpc DeleteCA(DeleteCARequest) returns (DeleteCAResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除 CA"
+      audit_action_en: "Delete CA"
+    };
+  }
+
+  // 用 CA 续签已有证书。
+  rpc RenewCA(RenewCARequest) returns (RenewCAResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "CA 续签证书"
+      audit_action_en: "Renew certificate with CA"
+    };
+  }
+
+  // 创建 ACME 账号。
+  rpc CreateACME(CreateACMEAccountRequest) returns (CreateACMEAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建 ACME 账号"
+      audit_action_en: "Create ACME account"
+    };
+  }
+
+  // 修改 ACME 账号的代理设置。
+  rpc UpdateACME(UpdateACMEAccountRequest) returns (UpdateACMEAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改 ACME 账号"
+      audit_action_en: "Update ACME account"
+    };
+  }
+
+  // 删除 ACME 账号。
+  rpc DeleteACME(DeleteACMEAccountRequest) returns (DeleteACMEAccountResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除 ACME 账号"
+      audit_action_en: "Delete ACME account"
+    };
+  }
+}
+
+// SearchSSLRequest 是证书列表查询参数。
+message SearchSSLRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // ACME 账号 ID 过滤。
+  string acme_account_id = 3;
+
+  // 域名关键字。
+  string domain = 4 [(buf.validate.field).string.max_len = 255];
+
+  // 排序字段：created_at、updated_at、expire_date。
+  string order_by = 5 [(buf.validate.field).string = {
+    in: [
+      "",
+      "created_at",
+      "updated_at",
+      "expire_date"
+    ]
+  }];
+
+  // 排序方向：null、ascending、descending。
+  string order = 6 [(buf.validate.field).string = {
+    in: [
+      "",
+      "null",
+      "ascending",
+      "descending"
+    ]
+  }];
+}
+
+// SearchSSLResponse 是证书列表结果。
+message SearchSSLResponse {
+  // 当前页的证书列表。
+  repeated WebsiteSSL items = 1;
+
+  // 符合条件的证书总数。
+  int64 total = 2;
+}
+
+// WebsiteSSL 是一张证书（不含私钥与证书正文）。
+message WebsiteSSL {
+  // 证书 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 主域名。
+  string primary_domain = 3;
+
+  // 包含的域名，逗号分隔。
+  string domains = 4;
+
+  // 申请方式：manual=手动上传，dns=DNS 验证，http=HTTP 验证。
+  string type = 5;
+
+  // 签发机构。
+  string provider = 6;
+
+  // 组织名称。
+  string organization = 7;
+
+  // 是否自动续期。
+  bool auto_renew = 8;
+
+  // 到期时间，RFC3339 格式。
+  string expire_date = 9;
+
+  // 生效时间，RFC3339 格式。
+  string start_date = 10;
+
+  // 状态：Ready=正常，ExpireSoon=即将过期，Expired=已过期，ApplyError=申请失败。
+  string status = 11;
+
+  // 状态说明。
+  string message = 12;
+
+  // 密钥类型，例如 RSA2048、ECC256。
+  string key_type = 13;
+
+  // 是否推送证书到目录。
+  bool push_dir = 14;
+
+  // 推送目录。
+  string dir = 15;
+
+  // 备注。
+  string description = 16;
+
+  // 是否跳过 DNS 校验。
+  bool skip_dns = 17;
+}
+
+// SearchDNSAccountsRequest 是 DNS 账号列表查询参数。
+message SearchDNSAccountsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+}
+
+// SearchDNSAccountsResponse 是 DNS 账号列表结果。
+message SearchDNSAccountsResponse {
+  // 当前页的账号列表。
+  repeated DNSAccount items = 1;
+
+  // 符合条件的账号总数。
+  int64 total = 2;
+}
+
+// DNSAccount 是一个 DNS 服务商账号（不含密钥）。
+message DNSAccount {
+  // 账号 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 账号名称。
+  string name = 3;
+
+  // 服务商类型，例如 aliyun、cloudflare。
+  string type = 4;
+}
+
+// SearchACMEAccountsRequest 是 ACME 账号列表查询参数。
+message SearchACMEAccountsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+}
+
+// SearchACMEAccountsResponse 是 ACME 账号列表结果。
+message SearchACMEAccountsResponse {
+  // 当前页的账号列表。
+  repeated ACMEAccount items = 1;
+
+  // 符合条件的账号总数。
+  int64 total = 2;
+}
+
+// ACMEAccount 是一个 ACME 账号（不含私钥）。
+message ACMEAccount {
+  // 账号 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 邮箱。
+  string email = 3;
+
+  // ACME 服务地址。
+  string url = 4;
+
+  // 账号类型。
+  string type = 5;
+
+  // 密钥类型。
+  string key_type = 6;
+
+  // 是否使用代理。
+  bool use_proxy = 7;
+
+  // CA 目录地址。
+  string ca_dir_url = 8;
+
+  // 是否使用 EAB。
+  bool use_eab = 9;
+}
+
+// ListSSLRequest 是按账号列证书的参数。
+message ListSSLRequest {
+  // ACME 账号 ID；0 表示全部。
+  string acme_account_id = 1;
+}
+
+// ListSSLResponse 是证书列表。
+message ListSSLResponse {
+  // 证书列表。
+  repeated WebsiteSSL items = 1;
+}
+
+// GetSSLRequest 是按 ID 查证书的参数。
+message GetSSLRequest {
+  // 证书 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// GetWebsiteSSLRequest 是查网站绑定证书的参数。
+message GetWebsiteSSLRequest {
+  // 网站 ID。
+  uint32 website_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// CreateSSLRequest 是创建证书参数。
+message CreateSSLRequest {
+  // 主域名。
+  string primary_domain = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 附加域名，逗号分隔。
+  string other_domains = 2;
+
+  // 申请方式。
+  string provider = 3 [(buf.validate.field).string.min_len = 1];
+
+  // ACME 账号 ID。
+  uint32 acme_account_id = 4 [(buf.validate.field).uint32.gt = 0];
+
+  // DNS 账号 ID。
+  uint32 dns_account_id = 5;
+
+  // 是否自动续期。
+  bool auto_renew = 6;
+
+  // 密钥类型。
+  string key_type = 7;
+
+  // 是否立即申请。
+  bool apply = 8;
+
+  // 是否推送证书到目录。
+  bool push_dir = 9;
+
+  // 推送目录。
+  string dir = 10;
+
+  // 备注。
+  string description = 11;
+
+  // 是否禁用 CNAME 校验。
+  bool disable_cname = 12;
+
+  // 是否跳过 DNS 校验。
+  bool skip_dns = 13;
+}
+
+// CreateSSLResponse 是创建结果。
+message CreateSSLResponse {
+  // 创建后的证书 ID。
+  uint32 id = 1;
+}
+
+// UpdateSSLRequest 是修改证书参数。
+message UpdateSSLRequest {
+  // 证书 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否自动续期。
+  bool auto_renew = 2;
+
+  // 备注。
+  string description = 3;
+
+  // 主域名。
+  string primary_domain = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 附加域名。
+  string other_domains = 5;
+
+  // 申请方式。
+  string provider = 6 [(buf.validate.field).string.min_len = 1];
+
+  // ACME 账号 ID。
+  uint32 acme_account_id = 7;
+
+  // DNS 账号 ID。
+  uint32 dns_account_id = 8;
+
+  // 密钥类型。
+  string key_type = 9;
+
+  // 是否立即申请。
+  bool apply = 10;
+
+  // 是否推送证书到目录。
+  bool push_dir = 11;
+
+  // 推送目录。
+  string dir = 12;
+
+  // 是否禁用 CNAME 校验。
+  bool disable_cname = 13;
+
+  // 是否跳过 DNS 校验。
+  bool skip_dns = 14;
+}
+
+// UpdateSSLResponse 是修改结果，无业务字段。
+message UpdateSSLResponse {}
+
+// ApplySSLRequest 是申请/续期参数。
+message ApplySSLRequest {
+  // 证书 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否跳过 DNS 校验。
+  bool skip_dns_check = 2;
+
+  // 指定的 NS 服务器。
+  repeated string nameservers = 3;
+}
+
+// ApplySSLResponse 是申请结果，无业务字段。
+message ApplySSLResponse {}
+
+// GetDNSResolveRequest 是 DNS 解析查询参数。
+message GetDNSResolveRequest {
+  // ACME 账号 ID。
+  uint32 acme_account_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 证书 ID。
+  uint32 website_ssl_id = 2 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DNSResolveRecord 是一条待添加的解析记录。
+message DNSResolveRecord {
+  // 解析值。
+  string resolve = 1;
+
+  // 记录值。
+  string value = 2;
+
+  // 域名。
+  string domain = 3;
+
+  // 错误信息。
+  string err = 4;
+}
+
+// GetDNSResolveResponse 是解析记录列表。
+message GetDNSResolveResponse {
+  // 记录列表。
+  repeated DNSResolveRecord items = 1;
+}
+
+// DeleteSSLRequest 是删除证书参数。
+message DeleteSSLRequest {
+  // 证书 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteSSLResponse 是删除结果，无业务字段。
+message DeleteSSLResponse {}
+
+// PushSSLRequest 是推送证书参数。
+message PushSSLRequest {
+  // 证书 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否推送到节点。
+  bool push_node = 2;
+
+  // 节点列表，逗号分隔。
+  string nodes = 3;
+
+  // 任务 ID。
+  string task_id = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 是否同步。
+  bool sync = 5;
+}
+
+// PushSSLResponse 是推送结果，无业务字段。
+message PushSSLResponse {}
+
+// SearchCARequest 是 CA 分页查询参数。
+message SearchCARequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+}
+
+// SearchCAResponse 是 CA 列表结果。
+message SearchCAResponse {
+  // CA 列表。
+  repeated CADetail items = 1;
+
+  // 总数。
+  int64 total = 2;
+}
+
+// CADetail 是一条 CA 记录。
+message CADetail {
+  // CA ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 名称。
+  string name = 3;
+
+  // 密钥类型。
+  string key_type = 4;
+
+  // CSR。
+  string csr = 5;
+
+  // 通用名称。
+  string common_name = 6;
+
+  // 国家。
+  string country = 7;
+
+  // 组织。
+  string organization = 8;
+
+  // 组织单位。
+  string organization_uint = 9;
+
+  // 省份。
+  string province = 10;
+
+  // 城市。
+  string city = 11;
+}
+
+// GetCARequest 是按 ID 查 CA 的参数。
+message GetCARequest {
+  // CA ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// CreateCARequest 是创建 CA 参数。
+message CreateCARequest {
+  // 通用名称。
+  string common_name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 国家。
+  string country = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 组织。
+  string organization = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 组织单位。
+  string organization_uint = 4;
+
+  // 名称。
+  string name = 5 [(buf.validate.field).string.min_len = 1];
+
+  // 密钥类型。
+  string key_type = 6 [(buf.validate.field).string = {
+    in: [
+      "EC256",
+      "EC384",
+      "RSA2048",
+      "RSA3072",
+      "RSA4096",
+      "RSA8192"
+    ]
+  }];
+
+  // 省份。
+  string province = 7;
+
+  // 城市。
+  string city = 8;
+}
+
+// CreateCAResponse 是创建结果，无业务字段。
+message CreateCAResponse {}
+
+// DeleteCARequest 是删除 CA 参数。
+message DeleteCARequest {
+  // CA ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteCAResponse 是删除结果，无业务字段。
+message DeleteCAResponse {}
+
+// RenewCARequest 是 CA 续签参数。
+message RenewCARequest {
+  // 待续签证书 ID。
+  uint32 ssl_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// RenewCAResponse 是续签结果，无业务字段。
+message RenewCAResponse {}
+
+// CreateACMEAccountRequest 是创建 ACME 账号参数。
+message CreateACMEAccountRequest {
+  // 邮箱。
+  string email = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 类型：letsencrypt、zerossl、buypass、google、custom。
+  string type = 2 [(buf.validate.field).string = {
+    in: [
+      "letsencrypt",
+      "zerossl",
+      "buypass",
+      "google",
+      "custom"
+    ]
+  }];
+
+  // 密钥类型。
+  string key_type = 3 [(buf.validate.field).string = {
+    in: [
+      "EC256",
+      "EC384",
+      "RSA2048",
+      "RSA3072",
+      "RSA4096",
+      "RSA8192"
+    ]
+  }];
+
+  // EAB KID。
+  string eab_kid = 4;
+
+  // EAB HMAC 密钥。
+  string eab_hmac_key = 5;
+
+  // 是否使用代理。
+  bool use_proxy = 6;
+
+  // 自定义 CA 目录 URL。
+  string ca_dir_url = 7;
+
+  // 是否启用 EAB。
+  bool use_eab = 8;
+}
+
+// CreateACMEAccountResponse 是创建结果，无业务字段。
+message CreateACMEAccountResponse {}
+
+// UpdateACMEAccountRequest 是修改 ACME 账号参数。
+message UpdateACMEAccountRequest {
+  // 账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否使用代理。
+  bool use_proxy = 2;
+}
+
+// UpdateACMEAccountResponse 是修改结果，无业务字段。
+message UpdateACMEAccountResponse {}
+
+// DeleteACMEAccountRequest 是删除 ACME 账号参数。
+message DeleteACMEAccountRequest {
+  // 账号 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteACMEAccountResponse 是删除结果，无业务字段。
+message DeleteACMEAccountResponse {}

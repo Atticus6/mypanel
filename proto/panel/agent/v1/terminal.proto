@@ -1,0 +1,88 @@
+// panel/agent/v1/terminal.proto 定义终端会话管理 RPC。
+//
+// 终端数据流本身仍走 WebSocket（/ws/terminal），这里只负责会话列表与关闭，
+// 两者共用同一套终端身份请求头（用户 ID + 登录会话 ID）。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// TerminalService 负责终端会话的查询与关闭。
+service TerminalService {
+  // 列出当前用户、当前登录会话下的终端会话。
+  rpc ListSessions(ListTerminalSessionsRequest) returns (ListTerminalSessionsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 关闭指定终端会话。
+  rpc CloseSession(CloseTerminalSessionRequest) returns (CloseTerminalSessionResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+    };
+  }
+
+  // 关闭当前登录会话下的全部终端会话。
+  rpc CloseAllSessions(CloseAllTerminalSessionsRequest) returns (CloseAllTerminalSessionsResponse) {
+    option (panel.common.v1.policy) = {
+      no_audit: true
+    };
+  }
+}
+
+// ListTerminalSessionsRequest 是会话列表查询参数，无业务字段。
+message ListTerminalSessionsRequest {}
+
+// ListTerminalSessionsResponse 是终端会话列表。
+message ListTerminalSessionsResponse {
+  // 会话列表，按创建时间升序。
+  repeated TerminalSession items = 1;
+}
+
+// TerminalSession 是一个终端会话。
+message TerminalSession {
+  // 会话 ID。
+  string id = 1;
+
+  // 会话类型：local、ssh、container。
+  string kind = 2;
+
+  // 标题。
+  string title = 3;
+
+  // 是否长期驻留（断开后可重连）。
+  bool persistent = 4;
+
+  // 关联主机 ID；0 表示本机或容器。
+  uint32 host_id = 5;
+
+  // 当前是否有客户端连接。
+  bool attached = 6;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 7;
+
+  // 断开时间，RFC3339 格式；未断开时为空。
+  string detached_at = 8;
+}
+
+// CloseTerminalSessionRequest 是关闭会话参数。
+message CloseTerminalSessionRequest {
+  // 会话 ID。
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// CloseTerminalSessionResponse 是关闭结果，无业务字段。
+message CloseTerminalSessionResponse {}
+
+// CloseAllTerminalSessionsRequest 是批量关闭参数，无业务字段。
+message CloseAllTerminalSessionsRequest {}
+
+// CloseAllTerminalSessionsResponse 是批量关闭结果，无业务字段。
+message CloseAllTerminalSessionsResponse {}

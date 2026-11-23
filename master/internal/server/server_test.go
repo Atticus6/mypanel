@@ -28,23 +28,37 @@ func postJSON(t *testing.T, h http.Handler, path, body string) *httptest.Respons
 	return rec
 }
 
-func TestPingIsMountedAtRootAndRPCPrefix(t *testing.T) {
-	h := newTestServer(t, nil)
+func TestServiceHandlerIsMountedAtRootAndRPCPrefix(t *testing.T) {
+	fake := RPCService{
+		Name: "test.v1.FakeService",
+		Path: "/test.v1.FakeService/",
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			_, _ = w.Write([]byte(`{"ok":true,"path":"` + r.URL.Path + `"}`))
+		}),
+	}
+	h := New(Options{
+		WebFS:    nil,
+		Logger:   slog.New(slog.NewTextHandler(io.Discard, nil)),
+		Services: []RPCService{fake},
+	})
 
+	// 同一个 handler 必须同时挂在根路径（原生 gRPC/反射）与 /rpc（浏览器）下。
 	for _, path := range []string{
-		"/panel.v1.PanelService/Ping",
-		RPCPrefix + "/panel.v1.PanelService/Ping",
+		"/test.v1.FakeService/Ping",
+		RPCPrefix + "/test.v1.FakeService/Ping",
 	} {
 		t.Run(path, func(t *testing.T) {
-			rec := postJSON(t, h, path, `{"message":"hi"}`)
+			rec := postJSON(t, h, path, `{}`)
 			if rec.Code != http.StatusOK {
 				t.Fatalf("status = %d, want 200 (body %q)", rec.Code, rec.Body.String())
 			}
-			if got := rec.Body.String(); !strings.Contains(got, `"message":"hi"`) {
-				t.Fatalf("body = %q, want echoed message", got)
+			if got := rec.Body.String(); !strings.Contains(got, `"ok":true`) {
+				t.Fatalf("body = %q, want fake handler response", got)
 			}
-			if !strings.Contains(rec.Body.String(), `"version":"test"`) {
-				t.Fatalf("body = %q, want version", rec.Body.String())
+			// /rpc 前缀在转发前必须剥掉，否则生成 handler 无法匹配 procedure。
+			if got := rec.Body.String(); strings.Contains(got, RPCPrefix+"/test") {
+				t.Fatalf("path = %q, want stripped prefix", got)
 			}
 		})
 	}

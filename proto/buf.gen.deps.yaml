@@ -1,0 +1,12 @@
+version: v2
+# 只为 TypeScript 生成被 import 的依赖（buf.validate 等）。
+#
+# protoc-gen-es 默认不生成依赖文件，但生成的 auth_pb.ts 会 import
+# gen/buf/validate/validate_pb.ts；缺了它类型检查直接报模块不存在。
+# 单独的模板可以避免让 Go 也生成一份重复的 validate.pb.go。
+plugins:
+  - local: protoc-gen-es
+    out: ../web/src/gen
+    opt:
+      - target=ts
+      - import_extension=none

@@ -1,0 +1,62 @@
+package transport
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	agentapi "mypanel/agent/app/api/v2"
+	coreglobal "mypanel/core/global"
+	coreinitrouter "mypanel/core/init/router"
+	psession "mypanel/core/init/session/psession"
+	terminalsession "mypanel/core/utils/terminal_session"
+)
+
+// MCPHandler 返回 /mcp 的处理器（POST/GET/DELETE）。
+func MCPHandler() gin.HandlerFunc {
+	return coreinitrouter.MCPTransportHandler()
+}
+
+// TerminalWSHandler 返回 /ws/terminal 的 WebSocket 处理器。
+//
+// 1Panel 原本由 core 反向代理到 agent，并在代理层注入 X-Panel-User-* 头。
+// 单进程下没有代理，所以这里先跑 core 的会话中间件，再从会话推导终端身份，
+// 写入同样的转发头，最后复用 agent 现有的 PTY 处理逻辑。
+func TerminalWSHandler() gin.HandlerFunc {
+	api := agentapi.BaseApi{}
+	return func(c *gin.Context) {
+		// 这里不能用 middleware.SessionAuth：它按 1Panel 的 HTTP 信封返回 200，
+		// 而 WebSocket 握手失败必须是真正的 401，客户端才会停止重连。
+		if coreglobal.SESSION == nil {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "message": "ErrNotLogin"})
+			return
+		}
+		session, err := coreglobal.SESSION.Get(c)
+		if err != nil || session.ID == "" || session.Name == "" {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "message": "ErrNotLogin"})
+			return
+		}
+		c.Set(psession.GinContextSessionUserKey, session)
+
+		identity, ok := terminalsession.FromContext(c)
+		if !ok {
+			// 未登录或会话失效：不升级 WebSocket，直接返回未认证。
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"code":    http.StatusUnauthorized,
+				"message": "ErrNotLogin",
+			})
+			return
+		}
+		terminalsession.SetForwardedHeaders(c, identity)
+
+		// kind 由前端指定：local（默认）、ssh、container。
+		switch c.Query("kind") {
+		case "ssh":
+			api.WsHostSSH(c)
+		case "container":
+			api.WsContainerTerminal(c)
+		default:
+			api.WsLocalTerminal(c)
+		}
+	}
+}

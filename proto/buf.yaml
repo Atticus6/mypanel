@@ -1,7 +1,24 @@
 version: v2
 modules:
   - path: .
+deps:
+  - buf.build/bufbuild/protovalidate
 lint:
-  use: []
+  use:
+    - STANDARD
+    - COMMENT_FIELD
+    - COMMENT_MESSAGE
+    - COMMENT_ENUM
+    - COMMENT_ENUM_VALUE
+    - COMMENT_SERVICE
+    - COMMENT_RPC
+    - COMMENT_ONEOF
+  except:
+    # 多个登录入口（密码、MFA、Passkey）返回同构的会话信息，
+    # 复用 LoginResponse 比复制三份同字段消息更利于前后端对齐。
+    - RPC_REQUEST_RESPONSE_UNIQUE
+    - RPC_REQUEST_STANDARD_NAME
+    - RPC_RESPONSE_STANDARD_NAME
 breaking:
-  use: []
+  use:
+    - FILE

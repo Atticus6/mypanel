@@ -1,0 +1,112 @@
+// panel/core/v1/group.proto 定义通用分组的 RPC。
+//
+// 分组被命令库、计划任务、主机等多个模块复用，这里只按 type 区分。
+syntax = "proto3";
+
+package panel.core.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/core/v1;corev1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// GroupService 负责通用分组的增删改查。
+service GroupService {
+  // 按类型列出分组。
+  rpc List(ListGroupsRequest) returns (ListGroupsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建分组。
+  rpc Create(CreateGroupRequest) returns (CreateGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建分组"
+      audit_action_en: "Create group"
+    };
+  }
+
+  // 修改分组。
+  rpc Update(UpdateGroupRequest) returns (UpdateGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改分组"
+      audit_action_en: "Update group"
+    };
+  }
+
+  // 删除分组。
+  rpc Delete(DeleteGroupRequest) returns (DeleteGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除分组"
+      audit_action_en: "Delete group"
+    };
+  }
+}
+
+// GroupEntry 是一个分组。
+message GroupEntry {
+  // 分组 ID。
+  uint32 id = 1;
+
+  // 名称。
+  string name = 2;
+
+  // 类型。
+  string type = 3;
+
+  // 是否默认分组。
+  bool is_default = 4;
+}
+
+// ListGroupsRequest 是分组列表查询参数。
+message ListGroupsRequest {
+  // 分组类型，例如 command、cronjob、host、script。
+  string type = 1;
+}
+
+// ListGroupsResponse 是分组列表。
+message ListGroupsResponse {
+  // 分组列表。
+  repeated GroupEntry items = 1;
+}
+
+// CreateGroupRequest 是创建分组参数。
+message CreateGroupRequest {
+  // 名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 类型。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// CreateGroupResponse 是创建结果，无业务字段。
+message CreateGroupResponse {}
+
+// UpdateGroupRequest 是修改分组参数。
+message UpdateGroupRequest {
+  // 分组 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 是否设为默认分组。
+  bool is_default = 4;
+}
+
+// UpdateGroupResponse 是修改结果，无业务字段。
+message UpdateGroupResponse {}
+
+// DeleteGroupRequest 是删除分组参数。
+message DeleteGroupRequest {
+  // 分组 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteGroupResponse 是删除结果，无业务字段。
+message DeleteGroupResponse {}
