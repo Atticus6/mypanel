@@ -15,8 +15,8 @@
 <script lang="ts" setup>
 import GroupSelect from '@/views/website/website/components/group/index.vue';
 
-import { batchSetGroup } from '@/api/modules/website';
 import { Rules } from '@/global/form-rules';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { FormInstance } from 'element-plus';
@@ -49,7 +49,8 @@ const submit = async () => {
         loading.value = false;
         return;
     }
-    batchSetGroup(form)
+    rpc.website
+        .batchGroup({ ids: form.ids, groupId: form.groupID })
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
             open.value = false;

@@ -901,8 +901,32 @@ message UpdateRedirectRequest {
   // 配置名称。
   string name = 2 [(buf.validate.field).string.min_len = 1];
 
-  // 配置内容。
-  string content = 3 [(buf.validate.field).string.min_len = 1];
+  // 适用域名列表。
+  repeated string domains = 3;
+
+  // 是否保留原始路径。
+  bool keep_path = 4;
+
+  // 是否启用。
+  bool enable = 5;
+
+  // 重定向类型，例如 domain。
+  string type = 6;
+
+  // 重定向状态码，例如 301。
+  string redirect = 7;
+
+  // 匹配路径。
+  string path = 8;
+
+  // 目标地址。
+  string target = 9;
+
+  // 操作类型：create、edit、delete、enable 或 disable。
+  string operate = 10 [(buf.validate.field).string.min_len = 1];
+
+  // 是否只重定向根路径。
+  bool redirect_root = 11;
 }
 
 // UpdateRedirectResponse 是保存结果，无业务字段。

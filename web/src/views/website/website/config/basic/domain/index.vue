@@ -35,7 +35,6 @@
 <script lang="ts" setup>
 import Domain from './create/index.vue';
 import { Website } from '@/api/interface/website';
-import { listDomains } from '@/api/modules/website';
 import { computed, onMounted, ref } from 'vue';
 import i18n from '@/lang';
 import { Promotion } from '@element-plus/icons-vue';
@@ -111,9 +110,10 @@ const deleteWebsiteDomain = async (row: Website.Domain) => {
 
 const search = (id: number) => {
     loading.value = true;
-    listDomains(id)
+    rpc.website
+        .listDomains({ websiteId: id })
         .then((res) => {
-            data.value = res.data;
+            data.value = res.items;
         })
         .finally(() => {
             loading.value = false;

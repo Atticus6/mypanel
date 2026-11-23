@@ -64,7 +64,6 @@
 </template>
 <script lang="ts" setup>
 import { Website } from '@/api/interface/website';
-import { getDirConfig, updateWebsiteDir, updateWebsiteDirPermission } from '@/api/modules/website';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { routerToFileWithPath } from '@/utils/router';
@@ -131,7 +130,11 @@ const submit = async (formEl: FormInstance | undefined) => {
             return;
         }
         loading.value = true;
-        updateWebsiteDir(update)
+        rpc.website
+            .updateSiteDir({
+                id: update.id,
+                siteDir: update.siteDir,
+            })
             .then(() => {
                 MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
                 search();
@@ -147,7 +150,12 @@ const submitPermission = async () => {
         return;
     }
     loading.value = true;
-    updateWebsiteDirPermission(updatePermission)
+    rpc.website
+        .updateSitePermission({
+            id: updatePermission.id,
+            user: updatePermission.user,
+            group: updatePermission.group,
+        })
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
             search();
@@ -163,9 +171,14 @@ const initData = () => {
 
 const getConfig = async () => {
     try {
-        const res = await getDirConfig({ id: props.id });
-        dirs.value = res.data.dirs;
-        dirConfig.value = res.data;
+        const res = await rpc.website.getSiteDir({ id: props.id });
+        dirs.value = res.dirs;
+        dirConfig.value = {
+            dirs: res.dirs,
+            user: res.user,
+            userGroup: res.group,
+            msg: '',
+        };
     } catch (error) {}
 };
 

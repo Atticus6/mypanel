@@ -340,5 +340,6 @@ func caFromDTO(item agentresp.WebsiteCADTO) *agentv1.CADetail {
 		OrganizationUint: item.OrganizationUint,
 		Province:         item.Province,
 		City:             item.City,
+		PrivateKey:       item.PrivateKey,
 	}
 }

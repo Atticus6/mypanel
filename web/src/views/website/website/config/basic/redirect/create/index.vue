@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts" setup>
-import { listDomains, operateRedirectConfig, getRedirectConfig } from '@/api/modules/website';
+import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { FormInstance } from 'element-plus';
@@ -130,7 +130,20 @@ const submit = async (formEl: FormInstance | undefined) => {
             return;
         }
         loading.value = true;
-        operateRedirectConfig(redirect.value)
+        rpc.website
+            .updateRedirect({
+                websiteId: redirect.value.websiteID,
+                name: redirect.value.name,
+                domains: redirect.value.domains || [],
+                keepPath: redirect.value.keepPath ?? false,
+                enable: redirect.value.enable ?? false,
+                type: redirect.value.type || 'domain',
+                redirect: redirect.value.redirect || '301',
+                path: redirect.value.path || '',
+                target: redirect.value.target || '',
+                operate: redirect.value.operate || 'create',
+                redirectRoot: redirect.value.redirectRoot ?? false,
+            })
             .then(() => {
                 if (redirect.value.operate == 'create') {
                     MsgSuccess(i18n.global.t('commons.msg.createSuccess'));
@@ -148,27 +161,28 @@ const submit = async (formEl: FormInstance | undefined) => {
 const getDomains = async () => {
     try {
         loading.value = true;
-        const res = await getRedirectConfig({ websiteID: redirect.value.websiteID });
+        const res = await rpc.website.getRedirect({ id: redirect.value.websiteID });
         let oldDomains = [];
-        if (res.data) {
-            for (const old of res.data) {
+        if (res.items) {
+            for (const old of res.items) {
                 if (old.type == 'domain') {
                     oldDomains = oldDomains.concat(old.domains);
                 }
             }
         }
-        listDomains(redirect.value.websiteID)
+        rpc.website
+            .listDomains({ websiteId: redirect.value.websiteID })
             .then((domainRes) => {
-                if (domainRes.data) {
+                if (domainRes.items) {
                     if (oldDomains.length > 0) {
-                        for (const data of domainRes.data) {
+                        for (const data of domainRes.items) {
                             if (oldDomains.indexOf(data.domain) > -1) {
                                 continue;
                             }
                             domains.value.push(data);
                         }
                     } else {
-                        domains.value = domainRes.data || [];
+                        domains.value = domainRes.items || [];
                     }
                 }
             })

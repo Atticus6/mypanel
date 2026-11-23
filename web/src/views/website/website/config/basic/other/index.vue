@@ -32,7 +32,6 @@
 <script lang="ts" setup>
 import GroupSelect from '@/views/website/website/components/group/index.vue';
 
-import { updateWebsite } from '@/api/modules/website';
 import { Rules } from '@/global/form-rules';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { FormInstance } from 'element-plus';
@@ -76,7 +75,16 @@ const submit = async (formEl: FormInstance | undefined) => {
             return;
         }
         loading.value = true;
-        updateWebsite(form)
+        rpc.website
+            .updateWebsite({
+                id: form.id,
+                primaryDomain: form.primaryDomain,
+                remark: form.remark,
+                websiteGroupId: form.webSiteGroupId,
+                expireDate: '',
+                ipv6: form.IPV6,
+                favorite: form.favorite,
+            })
             .then(() => {
                 MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
                 search();
@@ -87,13 +95,13 @@ const submit = async (formEl: FormInstance | undefined) => {
     });
 };
 const search = async () => {
-    (rpc.website.getWebsite({ id: websiteId.value }) as Promise<any>).then((res) => {
-        form.primaryDomain = res.data.primaryDomain;
-        form.remark = res.data.remark;
-        form.webSiteGroupId = res.data.webSiteGroupId;
-        form.IPV6 = res.data.IPV6;
-        form.alias = res.data.alias;
-        form.favorite = res.data.favorite;
+    rpc.website.getWebsite({ id: websiteId.value }).then((res) => {
+        form.primaryDomain = res.primaryDomain;
+        form.remark = res.remark;
+        form.webSiteGroupId = res.websiteGroupId;
+        form.IPV6 = res.ipv6;
+        form.alias = res.alias;
+        form.favorite = res.favorite;
     });
 };
 

@@ -4,1564 +4,1547 @@
 // @generated from file panel/agent/v1/dashboard.proto (package panel.agent.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from '@bufbuild/protobuf/codegenv2';
-import { fileDesc, messageDesc, serviceDesc } from '@bufbuild/protobuf/codegenv2';
-import { file_buf_validate_validate } from '../../../buf/validate/validate_pb';
-import { file_panel_common_v1_options } from '../../common/v1/options_pb';
-import type { Message } from '@bufbuild/protobuf';
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
+import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
+import { file_buf_validate_validate } from "../../../buf/validate/validate_pb";
+import { file_panel_common_v1_options } from "../../common/v1/options_pb";
+import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file panel/agent/v1/dashboard.proto.
  */
-export const file_panel_agent_v1_dashboard: GenFile =
-    /*@__PURE__*/
-    fileDesc(
-        'Ch5wYW5lbC9hZ2VudC92MS9kYXNoYm9hcmQucHJvdG8SDnBhbmVsLmFnZW50LnYxIg8KDU9zSW5mb1JlcXVlc3QilgEKBk9zSW5mbxIKCgJvcxgBIAEoCRIQCghwbGF0Zm9ybRgCIAEoCRIXCg9wbGF0Zm9ybV9mYW1pbHkYAyABKAkSEwoLa2VybmVsX2FyY2gYBCABKAkSFgoOa2VybmVsX3ZlcnNpb24YBSABKAkSFQoNcHJldHR5X2Rpc3RybxgGIAEoCRIRCglkaXNrX3NpemUYByABKAMiSgoPQmFzZUluZm9SZXF1ZXN0EhoKCWlvX29wdGlvbhgBIAEoCUIHukgEcgIYEBIbCgpuZXRfb3B0aW9uGAIgASgJQge6SARyAhgQIrsECg1EYXNoYm9hcmRCYXNlEhYKDndlYnNpdGVfbnVtYmVyGAEgASgFEhQKDGFnZW50X251bWJlchgCIAEoBRIXCg9kYXRhYmFzZV9udW1iZXIYAyABKAUSFgoOY3JvbmpvYl9udW1iZXIYBCABKAUSHAoUYXBwX2luc3RhbGxlZF9udW1iZXIYBSABKAUSEAoIaG9zdG5hbWUYBiABKAkSCgoCb3MYByABKAkSEAoIcGxhdGZvcm0YCCABKAkSFwoPcGxhdGZvcm1fZmFtaWx5GAkgASgJEhgKEHBsYXRmb3JtX3ZlcnNpb24YCiABKAkSFQoNcHJldHR5X2Rpc3RybxgLIAEoCRITCgtrZXJuZWxfYXJjaBgMIAEoCRIWCg5rZXJuZWxfdmVyc2lvbhgNIAEoCRIdChV2aXJ0dWFsaXphdGlvbl9zeXN0ZW0YDiABKAkSEgoKaXBfdjRfYWRkchgPIAEoCRIUCgxzeXN0ZW1fcHJveHkYECABKAkSEQoJY3B1X2NvcmVzGBEgASgFEhkKEWNwdV9sb2dpY2FsX2NvcmVzGBIgASgFEhYKDmNwdV9tb2RlbF9uYW1lGBMgASgJEg8KB2NwdV9taHoYFCABKAESLgoLcXVpY2tfanVtcHMYFSADKAsyGS5wYW5lbC5hZ2VudC52MS5RdWlja0p1bXASNgoMY3VycmVudF9pbmZvGBYgASgLMiAucGFuZWwuYWdlbnQudjEuRGFzaGJvYXJkQ3VycmVudCJNChJDdXJyZW50SW5mb1JlcXVlc3QSGgoJaW9fb3B0aW9uGAEgASgJQge6SARyAhgQEhsKCm5ldF9vcHRpb24YAiABKAlCB7pIBHICGBAisgYKEERhc2hib2FyZEN1cnJlbnQSDgoGdXB0aW1lGAEgASgEEhkKEXRpbWVfc2luY2VfdXB0aW1lGAIgASgJEjEKDHJ1bm5pbmdfdGltZRgDIAEoCzIbLnBhbmVsLmFnZW50LnYxLlJ1bm5pbmdUaW1lEg0KBXByb2NzGAQgASgEEg0KBWxvYWQxGAUgASgBEg0KBWxvYWQ1GAYgASgBEg4KBmxvYWQxNRgHIAEoARIaChJsb2FkX3VzYWdlX3BlcmNlbnQYCCABKAESEwoLY3B1X3BlcmNlbnQYCSADKAESGAoQY3B1X3VzZWRfcGVyY2VudBgKIAEoARIQCghjcHVfdXNlZBgLIAEoARIRCgljcHVfdG90YWwYDCABKAUSHAoUY3B1X2RldGFpbGVkX3BlcmNlbnQYDSADKAESFAoMbWVtb3J5X3RvdGFsGA4gASgEEhMKC21lbW9yeV91c2VkGA8gASgEEhMKC21lbW9yeV9mcmVlGBAgASgEEhQKDG1lbW9yeV9zaGFyZBgRIAEoBBIUCgxtZW1vcnlfY2FjaGUYEiABKAQSGAoQbWVtb3J5X2F2YWlsYWJsZRgTIAEoBBIbChNtZW1vcnlfdXNlZF9wZXJjZW50GBQgASgBEhkKEXN3YXBfbWVtb3J5X3RvdGFsGBUgASgEEh0KFXN3YXBfbWVtb3J5X2F2YWlsYWJsZRgWIAEoBBIYChBzd2FwX21lbW9yeV91c2VkGBcgASgEEiAKGHN3YXBfbWVtb3J5X3VzZWRfcGVyY2VudBgYIAEoARIVCg1pb19yZWFkX2J5dGVzGBkgASgEEhYKDmlvX3dyaXRlX2J5dGVzGBogASgEEhAKCGlvX2NvdW50GBsgASgEEhQKDGlvX3JlYWRfdGltZRgcIAEoBBIVCg1pb193cml0ZV90aW1lGB0gASgEEisKCWRpc2tfZGF0YRgeIAMoCzIYLnBhbmVsLmFnZW50LnYxLkRpc2tJbmZvEhYKDm5ldF9ieXRlc19zZW50GB8gASgEEhYKDm5ldF9ieXRlc19yZWN2GCAgASgEEhEKCXNob3RfdGltZRghIAEoCSJMCgtSdW5uaW5nVGltZRIMCgRkYXlzGAEgASgEEg0KBWhvdXJzGAIgASgEEg8KB21pbnV0ZXMYAyABKAQSDwoHc2Vjb25kcxgEIAEoBCLUAQoIRGlza0luZm8SDAoEcGF0aBgBIAEoCRIMCgR0eXBlGAIgASgJEg4KBmRldmljZRgDIAEoCRINCgV0b3RhbBgEIAEoBBIMCgRmcmVlGAUgASgEEgwKBHVzZWQYBiABKAQSFAoMdXNlZF9wZXJjZW50GAcgASgBEhQKDGlub2Rlc190b3RhbBgIIAEoBBITCgtpbm9kZXNfdXNlZBgJIAEoBBITCgtpbm9kZXNfZnJlZRgKIAEoBBIbChNpbm9kZXNfdXNlZF9wZXJjZW50GAsgASgBIhMKEVF1aWNrSnVtcHNSZXF1ZXN0Ij4KElF1aWNrSnVtcHNSZXNwb25zZRIoCgVpdGVtcxgBIAMoCzIZLnBhbmVsLmFnZW50LnYxLlF1aWNrSnVtcCKHAQoJUXVpY2tKdW1wEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSDQoFYWxpYXMYAyABKAkSDQoFdGl0bGUYBCABKAkSDgoGZGV0YWlsGAUgASgJEhEKCXJlY29tbWVuZBgGIAEoBRIPCgdpc19zaG93GAcgASgIEg4KBnJvdXRlchgIIAEoCSIXChVHZXRBcHBMYXVuY2hlclJlcXVlc3QiQgoPQXBwTGF1bmNoZXJMaXN0Ei8KBWl0ZW1zGAEgAygLMiAucGFuZWwuYWdlbnQudjEuQXBwTGF1bmNoZXJFbnRyeSK/AQoQQXBwTGF1bmNoZXJFbnRyeRILCgNrZXkYASABKAkSDAoEdHlwZRgCIAEoCRIMCgRuYW1lGAMgASgJEgwKBGljb24YBCABKAkSDQoFbGltaXQYBSABKAUSEwoLZGVzY3JpcHRpb24YBiABKAkSEQoJcmVjb21tZW5kGAcgASgFEhIKCmlzX2luc3RhbGwYCCABKAgSFAoMaXNfcmVjb21tZW5kGAkgASgIEhMKC2RldGFpbF9qc29uGAogASgJIisKGUdldExhdW5jaGVyT3B0aW9uc1JlcXVlc3QSDgoGZmlsdGVyGAEgASgJIkAKD0xhdW5jaGVyT3B0aW9ucxItCgVpdGVtcxgBIAMoCzIeLnBhbmVsLmFnZW50LnYxLkxhdW5jaGVyT3B0aW9uIi4KDkxhdW5jaGVyT3B0aW9uEgsKA2tleRgBIAEoCRIPCgdpc19zaG93GAIgASgIIj0KFlNldExhdW5jaGVyU2hvd1JlcXVlc3QSFAoDa2V5GAEgASgJQge6SARyAhABEg0KBXZhbHVlGAIgASgJIhkKF1NldExhdW5jaGVyU2hvd1Jlc3BvbnNlIhcKFUdldE5vZGVDdXJyZW50UmVxdWVzdCKMAwoLTm9kZUN1cnJlbnQSDQoFbG9hZDEYASABKAESDQoFbG9hZDUYAiABKAESDgoGbG9hZDE1GAMgASgBEhoKEmxvYWRfdXNhZ2VfcGVyY2VudBgEIAEoARIYChBjcHVfdXNlZF9wZXJjZW50GAUgASgBEhAKCGNwdV91c2VkGAYgASgBEhEKCWNwdV90b3RhbBgHIAEoBRIcChRjcHVfZGV0YWlsZWRfcGVyY2VudBgIIAMoARIUCgxtZW1vcnlfdG90YWwYCSABKAQSGAoQbWVtb3J5X2F2YWlsYWJsZRgKIAEoBBITCgttZW1vcnlfdXNlZBgLIAEoBBIbChNtZW1vcnlfdXNlZF9wZXJjZW50GAwgASgBEhkKEXN3YXBfbWVtb3J5X3RvdGFsGA0gASgEEh0KFXN3YXBfbWVtb3J5X2F2YWlsYWJsZRgOIAEoBBIYChBzd2FwX21lbW9yeV91c2VkGA8gASgEEiAKGHN3YXBfbWVtb3J5X3VzZWRfcGVyY2VudBgQIAEoASISChBHZXRUb3BDUFVSZXF1ZXN0IhIKEEdldFRvcE1lbVJlcXVlc3QiOQoMVG9wUHJvY2Vzc2VzEikKBWl0ZW1zGAEgAygLMhoucGFuZWwuYWdlbnQudjEuVG9wUHJvY2VzcyJjCgpUb3BQcm9jZXNzEgwKBG5hbWUYASABKAkSCwoDcGlkGAIgASgFEg8KB3BlcmNlbnQYAyABKAESDgoGbWVtb3J5GAQgASgEEgsKA2NtZBgFIAEoCRIMCgR1c2VyGAYgASgJIjYKFkNoYW5nZVF1aWNrSnVtcFJlcXVlc3QSHAoLcXVpY2tzX2pzb24YASABKAlCB7pIBHICEAEiGQoXQ2hhbmdlUXVpY2tKdW1wUmVzcG9uc2UiHAoaR2V0UXVpY2tEaXJlY3Rvcmllc1JlcXVlc3QiQQoQUXVpY2tEaXJlY3RvcmllcxItCgVpdGVtcxgBIAMoCzIeLnBhbmVsLmFnZW50LnYxLlF1aWNrRGlyZWN0b3J5IkkKDlF1aWNrRGlyZWN0b3J5EgoKAmlkGAEgASgNEgwKBHBhdGgYAiABKAkSDQoFYWxpYXMYAyABKAkSDgoGbGVnYWN5GAQgASgIIkMKG0NyZWF0ZVF1aWNrRGlyZWN0b3J5UmVxdWVzdBIVCgRwYXRoGAEgASgJQge6SARyAhABEg0KBWFsaWFzGAIgASgJImgKG1VwZGF0ZVF1aWNrRGlyZWN0b3J5UmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgABIVCgRwYXRoGAIgASgJQge6SARyAhABEg0KBWFsaWFzGAMgASgJEg4KBmxlZ2FjeRgEIAEoCCJCChtEZWxldGVRdWlja0RpcmVjdG9yeVJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAASDgoGbGVnYWN5GAIgASgIIh4KHERlbGV0ZVF1aWNrRGlyZWN0b3J5UmVzcG9uc2UiMgoUU3lzdGVtUmVzdGFydFJlcXVlc3QSGgoJb3BlcmF0aW9uGAEgASgJQge6SARyAhABIhcKFVN5c3RlbVJlc3RhcnRSZXNwb25zZTLKDgoQRGFzaGJvYXJkU2VydmljZRJMCglHZXRPc0luZm8SHS5wYW5lbC5hZ2VudC52MS5Pc0luZm9SZXF1ZXN0GhYucGFuZWwuYWdlbnQudjEuT3NJbmZvIgiKtRgEGAEwARJUCghCYXNlSW5mbxIfLnBhbmVsLmFnZW50LnYxLkJhc2VJbmZvUmVxdWVzdBodLnBhbmVsLmFnZW50LnYxLkRhc2hib2FyZEJhc2UiCIq1GAQYATABEl0KC0N1cnJlbnRJbmZvEiIucGFuZWwuYWdlbnQudjEuQ3VycmVudEluZm9SZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuRGFzaGJvYXJkQ3VycmVudCIIirUYBBgBMAESXQoKUXVpY2tKdW1wcxIhLnBhbmVsLmFnZW50LnYxLlF1aWNrSnVtcHNSZXF1ZXN0GiIucGFuZWwuYWdlbnQudjEuUXVpY2tKdW1wc1Jlc3BvbnNlIgiKtRgEGAEwARJiCg5HZXRBcHBMYXVuY2hlchIlLnBhbmVsLmFnZW50LnYxLkdldEFwcExhdW5jaGVyUmVxdWVzdBofLnBhbmVsLmFnZW50LnYxLkFwcExhdW5jaGVyTGlzdCIIirUYBBgBMAESagoSR2V0TGF1bmNoZXJPcHRpb25zEikucGFuZWwuYWdlbnQudjEuR2V0TGF1bmNoZXJPcHRpb25zUmVxdWVzdBofLnBhbmVsLmFnZW50LnYxLkxhdW5jaGVyT3B0aW9ucyIIirUYBBgBMAESlQEKD1NldExhdW5jaGVyU2hvdxImLnBhbmVsLmFnZW50LnYxLlNldExhdW5jaGVyU2hvd1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5TZXRMYXVuY2hlclNob3dSZXNwb25zZSIxirUYLSIY6K6+572u6aaW6aG15bqU55So5pi+56S6KhFTZXQgbGF1bmNoZXIgc2hvdxJeCg5HZXROb2RlQ3VycmVudBIlLnBhbmVsLmFnZW50LnYxLkdldE5vZGVDdXJyZW50UmVxdWVzdBobLnBhbmVsLmFnZW50LnYxLk5vZGVDdXJyZW50IgiKtRgEGAEwARJVCglHZXRUb3BDUFUSIC5wYW5lbC5hZ2VudC52MS5HZXRUb3BDUFVSZXF1ZXN0GhwucGFuZWwuYWdlbnQudjEuVG9wUHJvY2Vzc2VzIgiKtRgEGAEwARJVCglHZXRUb3BNZW0SIC5wYW5lbC5hZ2VudC52MS5HZXRUb3BNZW1SZXF1ZXN0GhwucGFuZWwuYWdlbnQudjEuVG9wUHJvY2Vzc2VzIgiKtRgEGAEwARKPAQoPQ2hhbmdlUXVpY2tKdW1wEiYucGFuZWwuYWdlbnQudjEuQ2hhbmdlUXVpY2tKdW1wUmVxdWVzdBonLnBhbmVsLmFnZW50LnYxLkNoYW5nZVF1aWNrSnVtcFJlc3BvbnNlIiuKtRgnIhLkv67mlLnlv6vpgJ/ot7PovawqEUNoYW5nZSBxdWljayBqdW1wEm0KE0dldFF1aWNrRGlyZWN0b3JpZXMSKi5wYW5lbC5hZ2VudC52MS5HZXRRdWlja0RpcmVjdG9yaWVzUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLlF1aWNrRGlyZWN0b3JpZXMiCIq1GAQYATABEpUBChRDcmVhdGVRdWlja0RpcmVjdG9yeRIrLnBhbmVsLmFnZW50LnYxLkNyZWF0ZVF1aWNrRGlyZWN0b3J5UmVxdWVzdBoeLnBhbmVsLmFnZW50LnYxLlF1aWNrRGlyZWN0b3J5IjCKtRgsIhLmlrDlu7rlv6vmjbfnm67lvZUqFkNyZWF0ZSBxdWljayBkaXJlY3RvcnkSlQEKFFVwZGF0ZVF1aWNrRGlyZWN0b3J5EisucGFuZWwuYWdlbnQudjEuVXBkYXRlUXVpY2tEaXJlY3RvcnlSZXF1ZXN0Gh4ucGFuZWwuYWdlbnQudjEuUXVpY2tEaXJlY3RvcnkiMIq1GCwiEuabtOaWsOW/q+aNt+ebruW9lSoWVXBkYXRlIHF1aWNrIGRpcmVjdG9yeRKjAQoURGVsZXRlUXVpY2tEaXJlY3RvcnkSKy5wYW5lbC5hZ2VudC52MS5EZWxldGVRdWlja0RpcmVjdG9yeVJlcXVlc3QaLC5wYW5lbC5hZ2VudC52MS5EZWxldGVRdWlja0RpcmVjdG9yeVJlc3BvbnNlIjCKtRgsIhLliKDpmaTlv6vmjbfnm67lvZUqFkRlbGV0ZSBxdWljayBkaXJlY3RvcnkShgEKDVN5c3RlbVJlc3RhcnQSJC5wYW5lbC5hZ2VudC52MS5TeXN0ZW1SZXN0YXJ0UmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLlN5c3RlbVJlc3RhcnRSZXNwb25zZSIoirUYJCIS5pON5L2c5Li75py655S15rqQKg5SZXN0YXJ0IHN5c3RlbUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM',
-        [file_buf_validate_validate, file_panel_common_v1_options],
-    );
+export const file_panel_agent_v1_dashboard: GenFile = /*@__PURE__*/
+  fileDesc("Ch5wYW5lbC9hZ2VudC92MS9kYXNoYm9hcmQucHJvdG8SDnBhbmVsLmFnZW50LnYxIg8KDU9zSW5mb1JlcXVlc3QilgEKBk9zSW5mbxIKCgJvcxgBIAEoCRIQCghwbGF0Zm9ybRgCIAEoCRIXCg9wbGF0Zm9ybV9mYW1pbHkYAyABKAkSEwoLa2VybmVsX2FyY2gYBCABKAkSFgoOa2VybmVsX3ZlcnNpb24YBSABKAkSFQoNcHJldHR5X2Rpc3RybxgGIAEoCRIRCglkaXNrX3NpemUYByABKAMiSgoPQmFzZUluZm9SZXF1ZXN0EhoKCWlvX29wdGlvbhgBIAEoCUIHukgEcgIYEBIbCgpuZXRfb3B0aW9uGAIgASgJQge6SARyAhgQIrsECg1EYXNoYm9hcmRCYXNlEhYKDndlYnNpdGVfbnVtYmVyGAEgASgFEhQKDGFnZW50X251bWJlchgCIAEoBRIXCg9kYXRhYmFzZV9udW1iZXIYAyABKAUSFgoOY3JvbmpvYl9udW1iZXIYBCABKAUSHAoUYXBwX2luc3RhbGxlZF9udW1iZXIYBSABKAUSEAoIaG9zdG5hbWUYBiABKAkSCgoCb3MYByABKAkSEAoIcGxhdGZvcm0YCCABKAkSFwoPcGxhdGZvcm1fZmFtaWx5GAkgASgJEhgKEHBsYXRmb3JtX3ZlcnNpb24YCiABKAkSFQoNcHJldHR5X2Rpc3RybxgLIAEoCRITCgtrZXJuZWxfYXJjaBgMIAEoCRIWCg5rZXJuZWxfdmVyc2lvbhgNIAEoCRIdChV2aXJ0dWFsaXphdGlvbl9zeXN0ZW0YDiABKAkSEgoKaXBfdjRfYWRkchgPIAEoCRIUCgxzeXN0ZW1fcHJveHkYECABKAkSEQoJY3B1X2NvcmVzGBEgASgFEhkKEWNwdV9sb2dpY2FsX2NvcmVzGBIgASgFEhYKDmNwdV9tb2RlbF9uYW1lGBMgASgJEg8KB2NwdV9taHoYFCABKAESLgoLcXVpY2tfanVtcHMYFSADKAsyGS5wYW5lbC5hZ2VudC52MS5RdWlja0p1bXASNgoMY3VycmVudF9pbmZvGBYgASgLMiAucGFuZWwuYWdlbnQudjEuRGFzaGJvYXJkQ3VycmVudCJNChJDdXJyZW50SW5mb1JlcXVlc3QSGgoJaW9fb3B0aW9uGAEgASgJQge6SARyAhgQEhsKCm5ldF9vcHRpb24YAiABKAlCB7pIBHICGBAisgYKEERhc2hib2FyZEN1cnJlbnQSDgoGdXB0aW1lGAEgASgEEhkKEXRpbWVfc2luY2VfdXB0aW1lGAIgASgJEjEKDHJ1bm5pbmdfdGltZRgDIAEoCzIbLnBhbmVsLmFnZW50LnYxLlJ1bm5pbmdUaW1lEg0KBXByb2NzGAQgASgEEg0KBWxvYWQxGAUgASgBEg0KBWxvYWQ1GAYgASgBEg4KBmxvYWQxNRgHIAEoARIaChJsb2FkX3VzYWdlX3BlcmNlbnQYCCABKAESEwoLY3B1X3BlcmNlbnQYCSADKAESGAoQY3B1X3VzZWRfcGVyY2VudBgKIAEoARIQCghjcHVfdXNlZBgLIAEoARIRCgljcHVfdG90YWwYDCABKAUSHAoUY3B1X2RldGFpbGVkX3BlcmNlbnQYDSADKAESFAoMbWVtb3J5X3RvdGFsGA4gASgEEhMKC21lbW9yeV91c2VkGA8gASgEEhMKC21lbW9yeV9mcmVlGBAgASgEEhQKDG1lbW9yeV9zaGFyZBgRIAEoBBIUCgxtZW1vcnlfY2FjaGUYEiABKAQSGAoQbWVtb3J5X2F2YWlsYWJsZRgTIAEoBBIbChNtZW1vcnlfdXNlZF9wZXJjZW50GBQgASgBEhkKEXN3YXBfbWVtb3J5X3RvdGFsGBUgASgEEh0KFXN3YXBfbWVtb3J5X2F2YWlsYWJsZRgWIAEoBBIYChBzd2FwX21lbW9yeV91c2VkGBcgASgEEiAKGHN3YXBfbWVtb3J5X3VzZWRfcGVyY2VudBgYIAEoARIVCg1pb19yZWFkX2J5dGVzGBkgASgEEhYKDmlvX3dyaXRlX2J5dGVzGBogASgEEhAKCGlvX2NvdW50GBsgASgEEhQKDGlvX3JlYWRfdGltZRgcIAEoBBIVCg1pb193cml0ZV90aW1lGB0gASgEEisKCWRpc2tfZGF0YRgeIAMoCzIYLnBhbmVsLmFnZW50LnYxLkRpc2tJbmZvEhYKDm5ldF9ieXRlc19zZW50GB8gASgEEhYKDm5ldF9ieXRlc19yZWN2GCAgASgEEhEKCXNob3RfdGltZRghIAEoCSJMCgtSdW5uaW5nVGltZRIMCgRkYXlzGAEgASgEEg0KBWhvdXJzGAIgASgEEg8KB21pbnV0ZXMYAyABKAQSDwoHc2Vjb25kcxgEIAEoBCLUAQoIRGlza0luZm8SDAoEcGF0aBgBIAEoCRIMCgR0eXBlGAIgASgJEg4KBmRldmljZRgDIAEoCRINCgV0b3RhbBgEIAEoBBIMCgRmcmVlGAUgASgEEgwKBHVzZWQYBiABKAQSFAoMdXNlZF9wZXJjZW50GAcgASgBEhQKDGlub2Rlc190b3RhbBgIIAEoBBITCgtpbm9kZXNfdXNlZBgJIAEoBBITCgtpbm9kZXNfZnJlZRgKIAEoBBIbChNpbm9kZXNfdXNlZF9wZXJjZW50GAsgASgBIhMKEVF1aWNrSnVtcHNSZXF1ZXN0Ij4KElF1aWNrSnVtcHNSZXNwb25zZRIoCgVpdGVtcxgBIAMoCzIZLnBhbmVsLmFnZW50LnYxLlF1aWNrSnVtcCKHAQoJUXVpY2tKdW1wEgoKAmlkGAEgASgNEgwKBG5hbWUYAiABKAkSDQoFYWxpYXMYAyABKAkSDQoFdGl0bGUYBCABKAkSDgoGZGV0YWlsGAUgASgJEhEKCXJlY29tbWVuZBgGIAEoBRIPCgdpc19zaG93GAcgASgIEg4KBnJvdXRlchgIIAEoCSIXChVHZXRBcHBMYXVuY2hlclJlcXVlc3QiQgoPQXBwTGF1bmNoZXJMaXN0Ei8KBWl0ZW1zGAEgAygLMiAucGFuZWwuYWdlbnQudjEuQXBwTGF1bmNoZXJFbnRyeSK/AQoQQXBwTGF1bmNoZXJFbnRyeRILCgNrZXkYASABKAkSDAoEdHlwZRgCIAEoCRIMCgRuYW1lGAMgASgJEgwKBGljb24YBCABKAkSDQoFbGltaXQYBSABKAUSEwoLZGVzY3JpcHRpb24YBiABKAkSEQoJcmVjb21tZW5kGAcgASgFEhIKCmlzX2luc3RhbGwYCCABKAgSFAoMaXNfcmVjb21tZW5kGAkgASgIEhMKC2RldGFpbF9qc29uGAogASgJIisKGUdldExhdW5jaGVyT3B0aW9uc1JlcXVlc3QSDgoGZmlsdGVyGAEgASgJIkAKD0xhdW5jaGVyT3B0aW9ucxItCgVpdGVtcxgBIAMoCzIeLnBhbmVsLmFnZW50LnYxLkxhdW5jaGVyT3B0aW9uIi4KDkxhdW5jaGVyT3B0aW9uEgsKA2tleRgBIAEoCRIPCgdpc19zaG93GAIgASgIIj0KFlNldExhdW5jaGVyU2hvd1JlcXVlc3QSFAoDa2V5GAEgASgJQge6SARyAhABEg0KBXZhbHVlGAIgASgJIhkKF1NldExhdW5jaGVyU2hvd1Jlc3BvbnNlIhcKFUdldE5vZGVDdXJyZW50UmVxdWVzdCKMAwoLTm9kZUN1cnJlbnQSDQoFbG9hZDEYASABKAESDQoFbG9hZDUYAiABKAESDgoGbG9hZDE1GAMgASgBEhoKEmxvYWRfdXNhZ2VfcGVyY2VudBgEIAEoARIYChBjcHVfdXNlZF9wZXJjZW50GAUgASgBEhAKCGNwdV91c2VkGAYgASgBEhEKCWNwdV90b3RhbBgHIAEoBRIcChRjcHVfZGV0YWlsZWRfcGVyY2VudBgIIAMoARIUCgxtZW1vcnlfdG90YWwYCSABKAQSGAoQbWVtb3J5X2F2YWlsYWJsZRgKIAEoBBITCgttZW1vcnlfdXNlZBgLIAEoBBIbChNtZW1vcnlfdXNlZF9wZXJjZW50GAwgASgBEhkKEXN3YXBfbWVtb3J5X3RvdGFsGA0gASgEEh0KFXN3YXBfbWVtb3J5X2F2YWlsYWJsZRgOIAEoBBIYChBzd2FwX21lbW9yeV91c2VkGA8gASgEEiAKGHN3YXBfbWVtb3J5X3VzZWRfcGVyY2VudBgQIAEoASISChBHZXRUb3BDUFVSZXF1ZXN0IhIKEEdldFRvcE1lbVJlcXVlc3QiOQoMVG9wUHJvY2Vzc2VzEikKBWl0ZW1zGAEgAygLMhoucGFuZWwuYWdlbnQudjEuVG9wUHJvY2VzcyJjCgpUb3BQcm9jZXNzEgwKBG5hbWUYASABKAkSCwoDcGlkGAIgASgFEg8KB3BlcmNlbnQYAyABKAESDgoGbWVtb3J5GAQgASgEEgsKA2NtZBgFIAEoCRIMCgR1c2VyGAYgASgJIjYKFkNoYW5nZVF1aWNrSnVtcFJlcXVlc3QSHAoLcXVpY2tzX2pzb24YASABKAlCB7pIBHICEAEiGQoXQ2hhbmdlUXVpY2tKdW1wUmVzcG9uc2UiHAoaR2V0UXVpY2tEaXJlY3Rvcmllc1JlcXVlc3QiQQoQUXVpY2tEaXJlY3RvcmllcxItCgVpdGVtcxgBIAMoCzIeLnBhbmVsLmFnZW50LnYxLlF1aWNrRGlyZWN0b3J5IkkKDlF1aWNrRGlyZWN0b3J5EgoKAmlkGAEgASgNEgwKBHBhdGgYAiABKAkSDQoFYWxpYXMYAyABKAkSDgoGbGVnYWN5GAQgASgIIkMKG0NyZWF0ZVF1aWNrRGlyZWN0b3J5UmVxdWVzdBIVCgRwYXRoGAEgASgJQge6SARyAhABEg0KBWFsaWFzGAIgASgJImgKG1VwZGF0ZVF1aWNrRGlyZWN0b3J5UmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgABIVCgRwYXRoGAIgASgJQge6SARyAhABEg0KBWFsaWFzGAMgASgJEg4KBmxlZ2FjeRgEIAEoCCJCChtEZWxldGVRdWlja0RpcmVjdG9yeVJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAASDgoGbGVnYWN5GAIgASgIIh4KHERlbGV0ZVF1aWNrRGlyZWN0b3J5UmVzcG9uc2UiMgoUU3lzdGVtUmVzdGFydFJlcXVlc3QSGgoJb3BlcmF0aW9uGAEgASgJQge6SARyAhABIhcKFVN5c3RlbVJlc3RhcnRSZXNwb25zZTLKDgoQRGFzaGJvYXJkU2VydmljZRJMCglHZXRPc0luZm8SHS5wYW5lbC5hZ2VudC52MS5Pc0luZm9SZXF1ZXN0GhYucGFuZWwuYWdlbnQudjEuT3NJbmZvIgiKtRgEGAEwARJUCghCYXNlSW5mbxIfLnBhbmVsLmFnZW50LnYxLkJhc2VJbmZvUmVxdWVzdBodLnBhbmVsLmFnZW50LnYxLkRhc2hib2FyZEJhc2UiCIq1GAQYATABEl0KC0N1cnJlbnRJbmZvEiIucGFuZWwuYWdlbnQudjEuQ3VycmVudEluZm9SZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuRGFzaGJvYXJkQ3VycmVudCIIirUYBBgBMAESXQoKUXVpY2tKdW1wcxIhLnBhbmVsLmFnZW50LnYxLlF1aWNrSnVtcHNSZXF1ZXN0GiIucGFuZWwuYWdlbnQudjEuUXVpY2tKdW1wc1Jlc3BvbnNlIgiKtRgEGAEwARJiCg5HZXRBcHBMYXVuY2hlchIlLnBhbmVsLmFnZW50LnYxLkdldEFwcExhdW5jaGVyUmVxdWVzdBofLnBhbmVsLmFnZW50LnYxLkFwcExhdW5jaGVyTGlzdCIIirUYBBgBMAESagoSR2V0TGF1bmNoZXJPcHRpb25zEikucGFuZWwuYWdlbnQudjEuR2V0TGF1bmNoZXJPcHRpb25zUmVxdWVzdBofLnBhbmVsLmFnZW50LnYxLkxhdW5jaGVyT3B0aW9ucyIIirUYBBgBMAESlQEKD1NldExhdW5jaGVyU2hvdxImLnBhbmVsLmFnZW50LnYxLlNldExhdW5jaGVyU2hvd1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5TZXRMYXVuY2hlclNob3dSZXNwb25zZSIxirUYLSIY6K6+572u6aaW6aG15bqU55So5pi+56S6KhFTZXQgbGF1bmNoZXIgc2hvdxJeCg5HZXROb2RlQ3VycmVudBIlLnBhbmVsLmFnZW50LnYxLkdldE5vZGVDdXJyZW50UmVxdWVzdBobLnBhbmVsLmFnZW50LnYxLk5vZGVDdXJyZW50IgiKtRgEGAEwARJVCglHZXRUb3BDUFUSIC5wYW5lbC5hZ2VudC52MS5HZXRUb3BDUFVSZXF1ZXN0GhwucGFuZWwuYWdlbnQudjEuVG9wUHJvY2Vzc2VzIgiKtRgEGAEwARJVCglHZXRUb3BNZW0SIC5wYW5lbC5hZ2VudC52MS5HZXRUb3BNZW1SZXF1ZXN0GhwucGFuZWwuYWdlbnQudjEuVG9wUHJvY2Vzc2VzIgiKtRgEGAEwARKPAQoPQ2hhbmdlUXVpY2tKdW1wEiYucGFuZWwuYWdlbnQudjEuQ2hhbmdlUXVpY2tKdW1wUmVxdWVzdBonLnBhbmVsLmFnZW50LnYxLkNoYW5nZVF1aWNrSnVtcFJlc3BvbnNlIiuKtRgnIhLkv67mlLnlv6vpgJ/ot7PovawqEUNoYW5nZSBxdWljayBqdW1wEm0KE0dldFF1aWNrRGlyZWN0b3JpZXMSKi5wYW5lbC5hZ2VudC52MS5HZXRRdWlja0RpcmVjdG9yaWVzUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLlF1aWNrRGlyZWN0b3JpZXMiCIq1GAQYATABEpUBChRDcmVhdGVRdWlja0RpcmVjdG9yeRIrLnBhbmVsLmFnZW50LnYxLkNyZWF0ZVF1aWNrRGlyZWN0b3J5UmVxdWVzdBoeLnBhbmVsLmFnZW50LnYxLlF1aWNrRGlyZWN0b3J5IjCKtRgsIhLmlrDlu7rlv6vmjbfnm67lvZUqFkNyZWF0ZSBxdWljayBkaXJlY3RvcnkSlQEKFFVwZGF0ZVF1aWNrRGlyZWN0b3J5EisucGFuZWwuYWdlbnQudjEuVXBkYXRlUXVpY2tEaXJlY3RvcnlSZXF1ZXN0Gh4ucGFuZWwuYWdlbnQudjEuUXVpY2tEaXJlY3RvcnkiMIq1GCwiEuabtOaWsOW/q+aNt+ebruW9lSoWVXBkYXRlIHF1aWNrIGRpcmVjdG9yeRKjAQoURGVsZXRlUXVpY2tEaXJlY3RvcnkSKy5wYW5lbC5hZ2VudC52MS5EZWxldGVRdWlja0RpcmVjdG9yeVJlcXVlc3QaLC5wYW5lbC5hZ2VudC52MS5EZWxldGVRdWlja0RpcmVjdG9yeVJlc3BvbnNlIjCKtRgsIhLliKDpmaTlv6vmjbfnm67lvZUqFkRlbGV0ZSBxdWljayBkaXJlY3RvcnkShgEKDVN5c3RlbVJlc3RhcnQSJC5wYW5lbC5hZ2VudC52MS5TeXN0ZW1SZXN0YXJ0UmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLlN5c3RlbVJlc3RhcnRSZXNwb25zZSIoirUYJCIS5pON5L2c5Li75py655S15rqQKg5SZXN0YXJ0IHN5c3RlbUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM", [file_buf_validate_validate, file_panel_common_v1_options]);
 
 /**
  * OsInfoRequest 是系统信息查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.OsInfoRequest
  */
-export type OsInfoRequest = Message<'panel.agent.v1.OsInfoRequest'> & {};
+export type OsInfoRequest = Message<"panel.agent.v1.OsInfoRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.OsInfoRequest.
  * Use `create(OsInfoRequestSchema)` to create a new message.
  */
-export const OsInfoRequestSchema: GenMessage<OsInfoRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 0);
+export const OsInfoRequestSchema: GenMessage<OsInfoRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 0);
 
 /**
  * OsInfo 是操作系统与磁盘概况。
  *
  * @generated from message panel.agent.v1.OsInfo
  */
-export type OsInfo = Message<'panel.agent.v1.OsInfo'> & {
-    /**
-     * 操作系统名称，例如 linux、darwin。
-     *
-     * @generated from field: string os = 1;
-     */
-    os: string;
+export type OsInfo = Message<"panel.agent.v1.OsInfo"> & {
+  /**
+   * 操作系统名称，例如 linux、darwin。
+   *
+   * @generated from field: string os = 1;
+   */
+  os: string;
 
-    /**
-     * 发行版名称，例如 Ubuntu。
-     *
-     * @generated from field: string platform = 2;
-     */
-    platform: string;
+  /**
+   * 发行版名称，例如 Ubuntu。
+   *
+   * @generated from field: string platform = 2;
+   */
+  platform: string;
 
-    /**
-     * 发行版家族，例如 debian。
-     *
-     * @generated from field: string platform_family = 3;
-     */
-    platformFamily: string;
+  /**
+   * 发行版家族，例如 debian。
+   *
+   * @generated from field: string platform_family = 3;
+   */
+  platformFamily: string;
 
-    /**
-     * 内核架构，例如 amd64、arm64。
-     *
-     * @generated from field: string kernel_arch = 4;
-     */
-    kernelArch: string;
+  /**
+   * 内核架构，例如 amd64、arm64。
+   *
+   * @generated from field: string kernel_arch = 4;
+   */
+  kernelArch: string;
 
-    /**
-     * 内核版本。
-     *
-     * @generated from field: string kernel_version = 5;
-     */
-    kernelVersion: string;
+  /**
+   * 内核版本。
+   *
+   * @generated from field: string kernel_version = 5;
+   */
+  kernelVersion: string;
 
-    /**
-     * 易读的发行版描述。
-     *
-     * @generated from field: string pretty_distro = 6;
-     */
-    prettyDistro: string;
+  /**
+   * 易读的发行版描述。
+   *
+   * @generated from field: string pretty_distro = 6;
+   */
+  prettyDistro: string;
 
-    /**
-     * 数据目录所在磁盘的剩余空间，单位字节。
-     *
-     * @generated from field: int64 disk_size = 7;
-     */
-    diskSize: bigint;
+  /**
+   * 数据目录所在磁盘的剩余空间，单位字节。
+   *
+   * @generated from field: int64 disk_size = 7;
+   */
+  diskSize: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.OsInfo.
  * Use `create(OsInfoSchema)` to create a new message.
  */
-export const OsInfoSchema: GenMessage<OsInfo> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_dashboard, 1);
+export const OsInfoSchema: GenMessage<OsInfo> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 1);
 
 /**
  * BaseInfoRequest 是首页基础信息查询参数。
  *
  * @generated from message panel.agent.v1.BaseInfoRequest
  */
-export type BaseInfoRequest = Message<'panel.agent.v1.BaseInfoRequest'> & {
-    /**
-     * 磁盘 IO 的采样方式，例如 all、read、write；为空使用服务端默认值。
-     *
-     * @generated from field: string io_option = 1;
-     */
-    ioOption: string;
+export type BaseInfoRequest = Message<"panel.agent.v1.BaseInfoRequest"> & {
+  /**
+   * 磁盘 IO 的采样方式，例如 all、read、write；为空使用服务端默认值。
+   *
+   * @generated from field: string io_option = 1;
+   */
+  ioOption: string;
 
-    /**
-     * 网络流量的采样方式，例如 all、sent、recv；为空使用服务端默认值。
-     *
-     * @generated from field: string net_option = 2;
-     */
-    netOption: string;
+  /**
+   * 网络流量的采样方式，例如 all、sent、recv；为空使用服务端默认值。
+   *
+   * @generated from field: string net_option = 2;
+   */
+  netOption: string;
 };
 
 /**
  * Describes the message panel.agent.v1.BaseInfoRequest.
  * Use `create(BaseInfoRequestSchema)` to create a new message.
  */
-export const BaseInfoRequestSchema: GenMessage<BaseInfoRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 2);
+export const BaseInfoRequestSchema: GenMessage<BaseInfoRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 2);
 
 /**
  * DashboardBase 是首页基础信息。
  *
  * @generated from message panel.agent.v1.DashboardBase
  */
-export type DashboardBase = Message<'panel.agent.v1.DashboardBase'> & {
-    /**
-     * 网站数量。
-     *
-     * @generated from field: int32 website_number = 1;
-     */
-    websiteNumber: number;
+export type DashboardBase = Message<"panel.agent.v1.DashboardBase"> & {
+  /**
+   * 网站数量。
+   *
+   * @generated from field: int32 website_number = 1;
+   */
+  websiteNumber: number;
 
-    /**
-     * 节点数量。
-     *
-     * @generated from field: int32 agent_number = 2;
-     */
-    agentNumber: number;
+  /**
+   * 节点数量。
+   *
+   * @generated from field: int32 agent_number = 2;
+   */
+  agentNumber: number;
 
-    /**
-     * 数据库数量。
-     *
-     * @generated from field: int32 database_number = 3;
-     */
-    databaseNumber: number;
+  /**
+   * 数据库数量。
+   *
+   * @generated from field: int32 database_number = 3;
+   */
+  databaseNumber: number;
 
-    /**
-     * 计划任务数量。
-     *
-     * @generated from field: int32 cronjob_number = 4;
-     */
-    cronjobNumber: number;
+  /**
+   * 计划任务数量。
+   *
+   * @generated from field: int32 cronjob_number = 4;
+   */
+  cronjobNumber: number;
 
-    /**
-     * 已安装应用数量。
-     *
-     * @generated from field: int32 app_installed_number = 5;
-     */
-    appInstalledNumber: number;
+  /**
+   * 已安装应用数量。
+   *
+   * @generated from field: int32 app_installed_number = 5;
+   */
+  appInstalledNumber: number;
 
-    /**
-     * 主机名。
-     *
-     * @generated from field: string hostname = 6;
-     */
-    hostname: string;
+  /**
+   * 主机名。
+   *
+   * @generated from field: string hostname = 6;
+   */
+  hostname: string;
 
-    /**
-     * 操作系统名称。
-     *
-     * @generated from field: string os = 7;
-     */
-    os: string;
+  /**
+   * 操作系统名称。
+   *
+   * @generated from field: string os = 7;
+   */
+  os: string;
 
-    /**
-     * 发行版名称。
-     *
-     * @generated from field: string platform = 8;
-     */
-    platform: string;
+  /**
+   * 发行版名称。
+   *
+   * @generated from field: string platform = 8;
+   */
+  platform: string;
 
-    /**
-     * 发行版家族。
-     *
-     * @generated from field: string platform_family = 9;
-     */
-    platformFamily: string;
+  /**
+   * 发行版家族。
+   *
+   * @generated from field: string platform_family = 9;
+   */
+  platformFamily: string;
 
-    /**
-     * 发行版版本。
-     *
-     * @generated from field: string platform_version = 10;
-     */
-    platformVersion: string;
+  /**
+   * 发行版版本。
+   *
+   * @generated from field: string platform_version = 10;
+   */
+  platformVersion: string;
 
-    /**
-     * 易读的发行版描述。
-     *
-     * @generated from field: string pretty_distro = 11;
-     */
-    prettyDistro: string;
+  /**
+   * 易读的发行版描述。
+   *
+   * @generated from field: string pretty_distro = 11;
+   */
+  prettyDistro: string;
 
-    /**
-     * 内核架构。
-     *
-     * @generated from field: string kernel_arch = 12;
-     */
-    kernelArch: string;
+  /**
+   * 内核架构。
+   *
+   * @generated from field: string kernel_arch = 12;
+   */
+  kernelArch: string;
 
-    /**
-     * 内核版本。
-     *
-     * @generated from field: string kernel_version = 13;
-     */
-    kernelVersion: string;
+  /**
+   * 内核版本。
+   *
+   * @generated from field: string kernel_version = 13;
+   */
+  kernelVersion: string;
 
-    /**
-     * 虚拟化信息（JSON 字符串）。
-     *
-     * @generated from field: string virtualization_system = 14;
-     */
-    virtualizationSystem: string;
+  /**
+   * 虚拟化信息（JSON 字符串）。
+   *
+   * @generated from field: string virtualization_system = 14;
+   */
+  virtualizationSystem: string;
 
-    /**
-     * 出站 IPv4 地址。
-     *
-     * @generated from field: string ip_v4_addr = 15;
-     */
-    ipV4Addr: string;
+  /**
+   * 出站 IPv4 地址。
+   *
+   * @generated from field: string ip_v4_addr = 15;
+   */
+  ipV4Addr: string;
 
-    /**
-     * 系统代理。
-     *
-     * @generated from field: string system_proxy = 16;
-     */
-    systemProxy: string;
+  /**
+   * 系统代理。
+   *
+   * @generated from field: string system_proxy = 16;
+   */
+  systemProxy: string;
 
-    /**
-     * 物理 CPU 核数。
-     *
-     * @generated from field: int32 cpu_cores = 17;
-     */
-    cpuCores: number;
+  /**
+   * 物理 CPU 核数。
+   *
+   * @generated from field: int32 cpu_cores = 17;
+   */
+  cpuCores: number;
 
-    /**
-     * 逻辑 CPU 核数。
-     *
-     * @generated from field: int32 cpu_logical_cores = 18;
-     */
-    cpuLogicalCores: number;
+  /**
+   * 逻辑 CPU 核数。
+   *
+   * @generated from field: int32 cpu_logical_cores = 18;
+   */
+  cpuLogicalCores: number;
 
-    /**
-     * CPU 型号。
-     *
-     * @generated from field: string cpu_model_name = 19;
-     */
-    cpuModelName: string;
+  /**
+   * CPU 型号。
+   *
+   * @generated from field: string cpu_model_name = 19;
+   */
+  cpuModelName: string;
 
-    /**
-     * CPU 主频，单位 MHz。
-     *
-     * @generated from field: double cpu_mhz = 20;
-     */
-    cpuMhz: number;
+  /**
+   * CPU 主频，单位 MHz。
+   *
+   * @generated from field: double cpu_mhz = 20;
+   */
+  cpuMhz: number;
 
-    /**
-     * 首页快捷入口。
-     *
-     * @generated from field: repeated panel.agent.v1.QuickJump quick_jumps = 21;
-     */
-    quickJumps: QuickJump[];
+  /**
+   * 首页快捷入口。
+   *
+   * @generated from field: repeated panel.agent.v1.QuickJump quick_jumps = 21;
+   */
+  quickJumps: QuickJump[];
 
-    /**
-     * 当前负载。
-     *
-     * @generated from field: panel.agent.v1.DashboardCurrent current_info = 22;
-     */
-    currentInfo?: DashboardCurrent | undefined;
+  /**
+   * 当前负载。
+   *
+   * @generated from field: panel.agent.v1.DashboardCurrent current_info = 22;
+   */
+  currentInfo?: DashboardCurrent | undefined;
 };
 
 /**
  * Describes the message panel.agent.v1.DashboardBase.
  * Use `create(DashboardBaseSchema)` to create a new message.
  */
-export const DashboardBaseSchema: GenMessage<DashboardBase> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 3);
+export const DashboardBaseSchema: GenMessage<DashboardBase> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 3);
 
 /**
  * CurrentInfoRequest 是当前负载查询参数。
  *
  * @generated from message panel.agent.v1.CurrentInfoRequest
  */
-export type CurrentInfoRequest = Message<'panel.agent.v1.CurrentInfoRequest'> & {
-    /**
-     * 磁盘 IO 的采样方式；为空使用服务端默认值。
-     *
-     * @generated from field: string io_option = 1;
-     */
-    ioOption: string;
+export type CurrentInfoRequest = Message<"panel.agent.v1.CurrentInfoRequest"> & {
+  /**
+   * 磁盘 IO 的采样方式；为空使用服务端默认值。
+   *
+   * @generated from field: string io_option = 1;
+   */
+  ioOption: string;
 
-    /**
-     * 网络流量的采样方式；为空使用服务端默认值。
-     *
-     * @generated from field: string net_option = 2;
-     */
-    netOption: string;
+  /**
+   * 网络流量的采样方式；为空使用服务端默认值。
+   *
+   * @generated from field: string net_option = 2;
+   */
+  netOption: string;
 };
 
 /**
  * Describes the message panel.agent.v1.CurrentInfoRequest.
  * Use `create(CurrentInfoRequestSchema)` to create a new message.
  */
-export const CurrentInfoRequestSchema: GenMessage<CurrentInfoRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 4);
+export const CurrentInfoRequestSchema: GenMessage<CurrentInfoRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 4);
 
 /**
  * DashboardCurrent 是当前负载快照。
  *
  * @generated from message panel.agent.v1.DashboardCurrent
  */
-export type DashboardCurrent = Message<'panel.agent.v1.DashboardCurrent'> & {
-    /**
-     * 系统运行时长，单位秒。
-     *
-     * @generated from field: uint64 uptime = 1;
-     */
-    uptime: bigint;
+export type DashboardCurrent = Message<"panel.agent.v1.DashboardCurrent"> & {
+  /**
+   * 系统运行时长，单位秒。
+   *
+   * @generated from field: uint64 uptime = 1;
+   */
+  uptime: bigint;
 
-    /**
-     * 运行时长的人读格式，例如 3 days。
-     *
-     * @generated from field: string time_since_uptime = 2;
-     */
-    timeSinceUptime: string;
+  /**
+   * 运行时长的人读格式，例如 3 days。
+   *
+   * @generated from field: string time_since_uptime = 2;
+   */
+  timeSinceUptime: string;
 
-    /**
-     * 运行时长拆分为天/时/分/秒。
-     *
-     * @generated from field: panel.agent.v1.RunningTime running_time = 3;
-     */
-    runningTime?: RunningTime | undefined;
+  /**
+   * 运行时长拆分为天/时/分/秒。
+   *
+   * @generated from field: panel.agent.v1.RunningTime running_time = 3;
+   */
+  runningTime?: RunningTime | undefined;
 
-    /**
-     * 进程数量。
-     *
-     * @generated from field: uint64 procs = 4;
-     */
-    procs: bigint;
+  /**
+   * 进程数量。
+   *
+   * @generated from field: uint64 procs = 4;
+   */
+  procs: bigint;
 
-    /**
-     * 1 分钟平均负载。
-     *
-     * @generated from field: double load1 = 5;
-     */
-    load1: number;
+  /**
+   * 1 分钟平均负载。
+   *
+   * @generated from field: double load1 = 5;
+   */
+  load1: number;
 
-    /**
-     * 5 分钟平均负载。
-     *
-     * @generated from field: double load5 = 6;
-     */
-    load5: number;
+  /**
+   * 5 分钟平均负载。
+   *
+   * @generated from field: double load5 = 6;
+   */
+  load5: number;
 
-    /**
-     * 15 分钟平均负载。
-     *
-     * @generated from field: double load15 = 7;
-     */
-    load15: number;
+  /**
+   * 15 分钟平均负载。
+   *
+   * @generated from field: double load15 = 7;
+   */
+  load15: number;
 
-    /**
-     * 负载使用率百分比。
-     *
-     * @generated from field: double load_usage_percent = 8;
-     */
-    loadUsagePercent: number;
+  /**
+   * 负载使用率百分比。
+   *
+   * @generated from field: double load_usage_percent = 8;
+   */
+  loadUsagePercent: number;
 
-    /**
-     * 每个核心的 CPU 使用率百分比。
-     *
-     * @generated from field: repeated double cpu_percent = 9;
-     */
-    cpuPercent: number[];
+  /**
+   * 每个核心的 CPU 使用率百分比。
+   *
+   * @generated from field: repeated double cpu_percent = 9;
+   */
+  cpuPercent: number[];
 
-    /**
-     * CPU 总体使用率百分比。
-     *
-     * @generated from field: double cpu_used_percent = 10;
-     */
-    cpuUsedPercent: number;
+  /**
+   * CPU 总体使用率百分比。
+   *
+   * @generated from field: double cpu_used_percent = 10;
+   */
+  cpuUsedPercent: number;
 
-    /**
-     * CPU 使用量（核）。
-     *
-     * @generated from field: double cpu_used = 11;
-     */
-    cpuUsed: number;
+  /**
+   * CPU 使用量（核）。
+   *
+   * @generated from field: double cpu_used = 11;
+   */
+  cpuUsed: number;
 
-    /**
-     * CPU 总核数。
-     *
-     * @generated from field: int32 cpu_total = 12;
-     */
-    cpuTotal: number;
+  /**
+   * CPU 总核数。
+   *
+   * @generated from field: int32 cpu_total = 12;
+   */
+  cpuTotal: number;
 
-    /**
-     * 每个核心的详细使用率百分比。
-     *
-     * @generated from field: repeated double cpu_detailed_percent = 13;
-     */
-    cpuDetailedPercent: number[];
+  /**
+   * 每个核心的详细使用率百分比。
+   *
+   * @generated from field: repeated double cpu_detailed_percent = 13;
+   */
+  cpuDetailedPercent: number[];
 
-    /**
-     * 内存总量，单位字节。
-     *
-     * @generated from field: uint64 memory_total = 14;
-     */
-    memoryTotal: bigint;
+  /**
+   * 内存总量，单位字节。
+   *
+   * @generated from field: uint64 memory_total = 14;
+   */
+  memoryTotal: bigint;
 
-    /**
-     * 已用内存，单位字节。
-     *
-     * @generated from field: uint64 memory_used = 15;
-     */
-    memoryUsed: bigint;
+  /**
+   * 已用内存，单位字节。
+   *
+   * @generated from field: uint64 memory_used = 15;
+   */
+  memoryUsed: bigint;
 
-    /**
-     * 空闲内存，单位字节。
-     *
-     * @generated from field: uint64 memory_free = 16;
-     */
-    memoryFree: bigint;
+  /**
+   * 空闲内存，单位字节。
+   *
+   * @generated from field: uint64 memory_free = 16;
+   */
+  memoryFree: bigint;
 
-    /**
-     * 共享内存，单位字节。
-     *
-     * @generated from field: uint64 memory_shard = 17;
-     */
-    memoryShard: bigint;
+  /**
+   * 共享内存，单位字节。
+   *
+   * @generated from field: uint64 memory_shard = 17;
+   */
+  memoryShard: bigint;
 
-    /**
-     * 缓存内存，单位字节。
-     *
-     * @generated from field: uint64 memory_cache = 18;
-     */
-    memoryCache: bigint;
+  /**
+   * 缓存内存，单位字节。
+   *
+   * @generated from field: uint64 memory_cache = 18;
+   */
+  memoryCache: bigint;
 
-    /**
-     * 可用内存，单位字节。
-     *
-     * @generated from field: uint64 memory_available = 19;
-     */
-    memoryAvailable: bigint;
+  /**
+   * 可用内存，单位字节。
+   *
+   * @generated from field: uint64 memory_available = 19;
+   */
+  memoryAvailable: bigint;
 
-    /**
-     * 内存使用率百分比。
-     *
-     * @generated from field: double memory_used_percent = 20;
-     */
-    memoryUsedPercent: number;
+  /**
+   * 内存使用率百分比。
+   *
+   * @generated from field: double memory_used_percent = 20;
+   */
+  memoryUsedPercent: number;
 
-    /**
-     * 交换分区总量，单位字节。
-     *
-     * @generated from field: uint64 swap_memory_total = 21;
-     */
-    swapMemoryTotal: bigint;
+  /**
+   * 交换分区总量，单位字节。
+   *
+   * @generated from field: uint64 swap_memory_total = 21;
+   */
+  swapMemoryTotal: bigint;
 
-    /**
-     * 交换分区可用量，单位字节。
-     *
-     * @generated from field: uint64 swap_memory_available = 22;
-     */
-    swapMemoryAvailable: bigint;
+  /**
+   * 交换分区可用量，单位字节。
+   *
+   * @generated from field: uint64 swap_memory_available = 22;
+   */
+  swapMemoryAvailable: bigint;
 
-    /**
-     * 交换分区已用量，单位字节。
-     *
-     * @generated from field: uint64 swap_memory_used = 23;
-     */
-    swapMemoryUsed: bigint;
+  /**
+   * 交换分区已用量，单位字节。
+   *
+   * @generated from field: uint64 swap_memory_used = 23;
+   */
+  swapMemoryUsed: bigint;
 
-    /**
-     * 交换分区使用率百分比。
-     *
-     * @generated from field: double swap_memory_used_percent = 24;
-     */
-    swapMemoryUsedPercent: number;
+  /**
+   * 交换分区使用率百分比。
+   *
+   * @generated from field: double swap_memory_used_percent = 24;
+   */
+  swapMemoryUsedPercent: number;
 
-    /**
-     * 磁盘读取字节数。
-     *
-     * @generated from field: uint64 io_read_bytes = 25;
-     */
-    ioReadBytes: bigint;
+  /**
+   * 磁盘读取字节数。
+   *
+   * @generated from field: uint64 io_read_bytes = 25;
+   */
+  ioReadBytes: bigint;
 
-    /**
-     * 磁盘写入字节数。
-     *
-     * @generated from field: uint64 io_write_bytes = 26;
-     */
-    ioWriteBytes: bigint;
+  /**
+   * 磁盘写入字节数。
+   *
+   * @generated from field: uint64 io_write_bytes = 26;
+   */
+  ioWriteBytes: bigint;
 
-    /**
-     * 磁盘 IO 次数。
-     *
-     * @generated from field: uint64 io_count = 27;
-     */
-    ioCount: bigint;
+  /**
+   * 磁盘 IO 次数。
+   *
+   * @generated from field: uint64 io_count = 27;
+   */
+  ioCount: bigint;
 
-    /**
-     * 磁盘读取耗时，单位毫秒。
-     *
-     * @generated from field: uint64 io_read_time = 28;
-     */
-    ioReadTime: bigint;
+  /**
+   * 磁盘读取耗时，单位毫秒。
+   *
+   * @generated from field: uint64 io_read_time = 28;
+   */
+  ioReadTime: bigint;
 
-    /**
-     * 磁盘写入耗时，单位毫秒。
-     *
-     * @generated from field: uint64 io_write_time = 29;
-     */
-    ioWriteTime: bigint;
+  /**
+   * 磁盘写入耗时，单位毫秒。
+   *
+   * @generated from field: uint64 io_write_time = 29;
+   */
+  ioWriteTime: bigint;
 
-    /**
-     * 各挂载点的磁盘使用情况。
-     *
-     * @generated from field: repeated panel.agent.v1.DiskInfo disk_data = 30;
-     */
-    diskData: DiskInfo[];
+  /**
+   * 各挂载点的磁盘使用情况。
+   *
+   * @generated from field: repeated panel.agent.v1.DiskInfo disk_data = 30;
+   */
+  diskData: DiskInfo[];
 
-    /**
-     * 网络发送字节数。
-     *
-     * @generated from field: uint64 net_bytes_sent = 31;
-     */
-    netBytesSent: bigint;
+  /**
+   * 网络发送字节数。
+   *
+   * @generated from field: uint64 net_bytes_sent = 31;
+   */
+  netBytesSent: bigint;
 
-    /**
-     * 网络接收字节数。
-     *
-     * @generated from field: uint64 net_bytes_recv = 32;
-     */
-    netBytesRecv: bigint;
+  /**
+   * 网络接收字节数。
+   *
+   * @generated from field: uint64 net_bytes_recv = 32;
+   */
+  netBytesRecv: bigint;
 
-    /**
-     * 采样时间，RFC3339 格式；前端据此计算两次采样之间的增量。
-     *
-     * @generated from field: string shot_time = 33;
-     */
-    shotTime: string;
+  /**
+   * 采样时间，RFC3339 格式；前端据此计算两次采样之间的增量。
+   *
+   * @generated from field: string shot_time = 33;
+   */
+  shotTime: string;
 };
 
 /**
  * Describes the message panel.agent.v1.DashboardCurrent.
  * Use `create(DashboardCurrentSchema)` to create a new message.
  */
-export const DashboardCurrentSchema: GenMessage<DashboardCurrent> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 5);
+export const DashboardCurrentSchema: GenMessage<DashboardCurrent> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 5);
 
 /**
  * RunningTime 把运行时长拆成天/时/分/秒。
  *
  * @generated from message panel.agent.v1.RunningTime
  */
-export type RunningTime = Message<'panel.agent.v1.RunningTime'> & {
-    /**
-     * 天数。
-     *
-     * @generated from field: uint64 days = 1;
-     */
-    days: bigint;
+export type RunningTime = Message<"panel.agent.v1.RunningTime"> & {
+  /**
+   * 天数。
+   *
+   * @generated from field: uint64 days = 1;
+   */
+  days: bigint;
 
-    /**
-     * 小时数。
-     *
-     * @generated from field: uint64 hours = 2;
-     */
-    hours: bigint;
+  /**
+   * 小时数。
+   *
+   * @generated from field: uint64 hours = 2;
+   */
+  hours: bigint;
 
-    /**
-     * 分钟数。
-     *
-     * @generated from field: uint64 minutes = 3;
-     */
-    minutes: bigint;
+  /**
+   * 分钟数。
+   *
+   * @generated from field: uint64 minutes = 3;
+   */
+  minutes: bigint;
 
-    /**
-     * 秒数。
-     *
-     * @generated from field: uint64 seconds = 4;
-     */
-    seconds: bigint;
+  /**
+   * 秒数。
+   *
+   * @generated from field: uint64 seconds = 4;
+   */
+  seconds: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.RunningTime.
  * Use `create(RunningTimeSchema)` to create a new message.
  */
-export const RunningTimeSchema: GenMessage<RunningTime> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_dashboard, 6);
+export const RunningTimeSchema: GenMessage<RunningTime> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 6);
 
 /**
  * DiskInfo 是一个挂载点的磁盘使用情况。
  *
  * @generated from message panel.agent.v1.DiskInfo
  */
-export type DiskInfo = Message<'panel.agent.v1.DiskInfo'> & {
-    /**
-     * 挂载路径。
-     *
-     * @generated from field: string path = 1;
-     */
-    path: string;
+export type DiskInfo = Message<"panel.agent.v1.DiskInfo"> & {
+  /**
+   * 挂载路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
 
-    /**
-     * 文件系统类型。
-     *
-     * @generated from field: string type = 2;
-     */
-    type: string;
+  /**
+   * 文件系统类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
 
-    /**
-     * 设备名。
-     *
-     * @generated from field: string device = 3;
-     */
-    device: string;
+  /**
+   * 设备名。
+   *
+   * @generated from field: string device = 3;
+   */
+  device: string;
 
-    /**
-     * 总容量，单位字节。
-     *
-     * @generated from field: uint64 total = 4;
-     */
-    total: bigint;
+  /**
+   * 总容量，单位字节。
+   *
+   * @generated from field: uint64 total = 4;
+   */
+  total: bigint;
 
-    /**
-     * 可用容量，单位字节。
-     *
-     * @generated from field: uint64 free = 5;
-     */
-    free: bigint;
+  /**
+   * 可用容量，单位字节。
+   *
+   * @generated from field: uint64 free = 5;
+   */
+  free: bigint;
 
-    /**
-     * 已用容量，单位字节。
-     *
-     * @generated from field: uint64 used = 6;
-     */
-    used: bigint;
+  /**
+   * 已用容量，单位字节。
+   *
+   * @generated from field: uint64 used = 6;
+   */
+  used: bigint;
 
-    /**
-     * 使用率百分比。
-     *
-     * @generated from field: double used_percent = 7;
-     */
-    usedPercent: number;
+  /**
+   * 使用率百分比。
+   *
+   * @generated from field: double used_percent = 7;
+   */
+  usedPercent: number;
 
-    /**
-     * inode 总数。
-     *
-     * @generated from field: uint64 inodes_total = 8;
-     */
-    inodesTotal: bigint;
+  /**
+   * inode 总数。
+   *
+   * @generated from field: uint64 inodes_total = 8;
+   */
+  inodesTotal: bigint;
 
-    /**
-     * 已用 inode 数。
-     *
-     * @generated from field: uint64 inodes_used = 9;
-     */
-    inodesUsed: bigint;
+  /**
+   * 已用 inode 数。
+   *
+   * @generated from field: uint64 inodes_used = 9;
+   */
+  inodesUsed: bigint;
 
-    /**
-     * 可用 inode 数。
-     *
-     * @generated from field: uint64 inodes_free = 10;
-     */
-    inodesFree: bigint;
+  /**
+   * 可用 inode 数。
+   *
+   * @generated from field: uint64 inodes_free = 10;
+   */
+  inodesFree: bigint;
 
-    /**
-     * inode 使用率百分比。
-     *
-     * @generated from field: double inodes_used_percent = 11;
-     */
-    inodesUsedPercent: number;
+  /**
+   * inode 使用率百分比。
+   *
+   * @generated from field: double inodes_used_percent = 11;
+   */
+  inodesUsedPercent: number;
 };
 
 /**
  * Describes the message panel.agent.v1.DiskInfo.
  * Use `create(DiskInfoSchema)` to create a new message.
  */
-export const DiskInfoSchema: GenMessage<DiskInfo> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_dashboard, 7);
+export const DiskInfoSchema: GenMessage<DiskInfo> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 7);
 
 /**
  * QuickJumpsRequest 是快捷入口查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.QuickJumpsRequest
  */
-export type QuickJumpsRequest = Message<'panel.agent.v1.QuickJumpsRequest'> & {};
+export type QuickJumpsRequest = Message<"panel.agent.v1.QuickJumpsRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.QuickJumpsRequest.
  * Use `create(QuickJumpsRequestSchema)` to create a new message.
  */
-export const QuickJumpsRequestSchema: GenMessage<QuickJumpsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 8);
+export const QuickJumpsRequestSchema: GenMessage<QuickJumpsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 8);
 
 /**
  * QuickJumpsResponse 是首页快捷入口列表。
  *
  * @generated from message panel.agent.v1.QuickJumpsResponse
  */
-export type QuickJumpsResponse = Message<'panel.agent.v1.QuickJumpsResponse'> & {
-    /**
-     * 快捷入口列表。
-     *
-     * @generated from field: repeated panel.agent.v1.QuickJump items = 1;
-     */
-    items: QuickJump[];
+export type QuickJumpsResponse = Message<"panel.agent.v1.QuickJumpsResponse"> & {
+  /**
+   * 快捷入口列表。
+   *
+   * @generated from field: repeated panel.agent.v1.QuickJump items = 1;
+   */
+  items: QuickJump[];
 };
 
 /**
  * Describes the message panel.agent.v1.QuickJumpsResponse.
  * Use `create(QuickJumpsResponseSchema)` to create a new message.
  */
-export const QuickJumpsResponseSchema: GenMessage<QuickJumpsResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 9);
+export const QuickJumpsResponseSchema: GenMessage<QuickJumpsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 9);
 
 /**
  * QuickJump 是一个快捷入口。
  *
  * @generated from message panel.agent.v1.QuickJump
  */
-export type QuickJump = Message<'panel.agent.v1.QuickJump'> & {
-    /**
-     * 入口 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type QuickJump = Message<"panel.agent.v1.QuickJump"> & {
+  /**
+   * 入口 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 名称。
-     *
-     * @generated from field: string name = 2;
-     */
-    name: string;
+  /**
+   * 名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
 
-    /**
-     * 别名。
-     *
-     * @generated from field: string alias = 3;
-     */
-    alias: string;
+  /**
+   * 别名。
+   *
+   * @generated from field: string alias = 3;
+   */
+  alias: string;
 
-    /**
-     * 标题。
-     *
-     * @generated from field: string title = 4;
-     */
-    title: string;
+  /**
+   * 标题。
+   *
+   * @generated from field: string title = 4;
+   */
+  title: string;
 
-    /**
-     * 说明。
-     *
-     * @generated from field: string detail = 5;
-     */
-    detail: string;
+  /**
+   * 说明。
+   *
+   * @generated from field: string detail = 5;
+   */
+  detail: string;
 
-    /**
-     * 推荐顺序。
-     *
-     * @generated from field: int32 recommend = 6;
-     */
-    recommend: number;
+  /**
+   * 推荐顺序。
+   *
+   * @generated from field: int32 recommend = 6;
+   */
+  recommend: number;
 
-    /**
-     * 是否显示。
-     *
-     * @generated from field: bool is_show = 7;
-     */
-    isShow: boolean;
+  /**
+   * 是否显示。
+   *
+   * @generated from field: bool is_show = 7;
+   */
+  isShow: boolean;
 
-    /**
-     * 前端路由。
-     *
-     * @generated from field: string router = 8;
-     */
-    router: string;
+  /**
+   * 前端路由。
+   *
+   * @generated from field: string router = 8;
+   */
+  router: string;
 };
 
 /**
  * Describes the message panel.agent.v1.QuickJump.
  * Use `create(QuickJumpSchema)` to create a new message.
  */
-export const QuickJumpSchema: GenMessage<QuickJump> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_dashboard, 10);
+export const QuickJumpSchema: GenMessage<QuickJump> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 10);
 
 /**
  * GetAppLauncherRequest 是启动器列表查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.GetAppLauncherRequest
  */
-export type GetAppLauncherRequest = Message<'panel.agent.v1.GetAppLauncherRequest'> & {};
+export type GetAppLauncherRequest = Message<"panel.agent.v1.GetAppLauncherRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.GetAppLauncherRequest.
  * Use `create(GetAppLauncherRequestSchema)` to create a new message.
  */
-export const GetAppLauncherRequestSchema: GenMessage<GetAppLauncherRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 11);
+export const GetAppLauncherRequestSchema: GenMessage<GetAppLauncherRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 11);
 
 /**
  * AppLauncherList 是启动器列表结果。
  *
  * @generated from message panel.agent.v1.AppLauncherList
  */
-export type AppLauncherList = Message<'panel.agent.v1.AppLauncherList'> & {
-    /**
-     * 启动器条目。
-     *
-     * @generated from field: repeated panel.agent.v1.AppLauncherEntry items = 1;
-     */
-    items: AppLauncherEntry[];
+export type AppLauncherList = Message<"panel.agent.v1.AppLauncherList"> & {
+  /**
+   * 启动器条目。
+   *
+   * @generated from field: repeated panel.agent.v1.AppLauncherEntry items = 1;
+   */
+  items: AppLauncherEntry[];
 };
 
 /**
  * Describes the message panel.agent.v1.AppLauncherList.
  * Use `create(AppLauncherListSchema)` to create a new message.
  */
-export const AppLauncherListSchema: GenMessage<AppLauncherList> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 12);
+export const AppLauncherListSchema: GenMessage<AppLauncherList> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 12);
 
 /**
  * AppLauncherEntry 是一个启动器条目。
  *
  * @generated from message panel.agent.v1.AppLauncherEntry
  */
-export type AppLauncherEntry = Message<'panel.agent.v1.AppLauncherEntry'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 1;
-     */
-    key: string;
+export type AppLauncherEntry = Message<"panel.agent.v1.AppLauncherEntry"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
 
-    /**
-     * 应用类型。
-     *
-     * @generated from field: string type = 2;
-     */
-    type: string;
+  /**
+   * 应用类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
 
-    /**
-     * 展示名称。
-     *
-     * @generated from field: string name = 3;
-     */
-    name: string;
+  /**
+   * 展示名称。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
 
-    /**
-     * 图标。
-     *
-     * @generated from field: string icon = 4;
-     */
-    icon: string;
+  /**
+   * 图标。
+   *
+   * @generated from field: string icon = 4;
+   */
+  icon: string;
 
-    /**
-     * 安装数量上限。
-     *
-     * @generated from field: int32 limit = 5;
-     */
-    limit: number;
+  /**
+   * 安装数量上限。
+   *
+   * @generated from field: int32 limit = 5;
+   */
+  limit: number;
 
-    /**
-     * 简介。
-     *
-     * @generated from field: string description = 6;
-     */
-    description: string;
+  /**
+   * 简介。
+   *
+   * @generated from field: string description = 6;
+   */
+  description: string;
 
-    /**
-     * 推荐顺序。
-     *
-     * @generated from field: int32 recommend = 7;
-     */
-    recommend: number;
+  /**
+   * 推荐顺序。
+   *
+   * @generated from field: int32 recommend = 7;
+   */
+  recommend: number;
 
-    /**
-     * 是否已安装。
-     *
-     * @generated from field: bool is_install = 8;
-     */
-    isInstall: boolean;
+  /**
+   * 是否已安装。
+   *
+   * @generated from field: bool is_install = 8;
+   */
+  isInstall: boolean;
 
-    /**
-     * 是否推荐。
-     *
-     * @generated from field: bool is_recommend = 9;
-     */
-    isRecommend: boolean;
+  /**
+   * 是否推荐。
+   *
+   * @generated from field: bool is_recommend = 9;
+   */
+  isRecommend: boolean;
 
-    /**
-     * 版本详情的 JSON 字符串。
-     *
-     * @generated from field: string detail_json = 10;
-     */
-    detailJson: string;
+  /**
+   * 版本详情的 JSON 字符串。
+   *
+   * @generated from field: string detail_json = 10;
+   */
+  detailJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.AppLauncherEntry.
  * Use `create(AppLauncherEntrySchema)` to create a new message.
  */
-export const AppLauncherEntrySchema: GenMessage<AppLauncherEntry> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 13);
+export const AppLauncherEntrySchema: GenMessage<AppLauncherEntry> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 13);
 
 /**
  * GetLauncherOptionsRequest 是启动器可选项查询参数。
  *
  * @generated from message panel.agent.v1.GetLauncherOptionsRequest
  */
-export type GetLauncherOptionsRequest = Message<'panel.agent.v1.GetLauncherOptionsRequest'> & {
-    /**
-     * 关键字过滤。
-     *
-     * @generated from field: string filter = 1;
-     */
-    filter: string;
+export type GetLauncherOptionsRequest = Message<"panel.agent.v1.GetLauncherOptionsRequest"> & {
+  /**
+   * 关键字过滤。
+   *
+   * @generated from field: string filter = 1;
+   */
+  filter: string;
 };
 
 /**
  * Describes the message panel.agent.v1.GetLauncherOptionsRequest.
  * Use `create(GetLauncherOptionsRequestSchema)` to create a new message.
  */
-export const GetLauncherOptionsRequestSchema: GenMessage<GetLauncherOptionsRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 14);
+export const GetLauncherOptionsRequestSchema: GenMessage<GetLauncherOptionsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 14);
 
 /**
  * LauncherOptions 是启动器可选项列表。
  *
  * @generated from message panel.agent.v1.LauncherOptions
  */
-export type LauncherOptions = Message<'panel.agent.v1.LauncherOptions'> & {
-    /**
-     * 可选项。
-     *
-     * @generated from field: repeated panel.agent.v1.LauncherOption items = 1;
-     */
-    items: LauncherOption[];
+export type LauncherOptions = Message<"panel.agent.v1.LauncherOptions"> & {
+  /**
+   * 可选项。
+   *
+   * @generated from field: repeated panel.agent.v1.LauncherOption items = 1;
+   */
+  items: LauncherOption[];
 };
 
 /**
  * Describes the message panel.agent.v1.LauncherOptions.
  * Use `create(LauncherOptionsSchema)` to create a new message.
  */
-export const LauncherOptionsSchema: GenMessage<LauncherOptions> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 15);
+export const LauncherOptionsSchema: GenMessage<LauncherOptions> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 15);
 
 /**
  * LauncherOption 是一个启动器可选项。
  *
  * @generated from message panel.agent.v1.LauncherOption
  */
-export type LauncherOption = Message<'panel.agent.v1.LauncherOption'> & {
-    /**
-     * 应用 key。
-     *
-     * @generated from field: string key = 1;
-     */
-    key: string;
+export type LauncherOption = Message<"panel.agent.v1.LauncherOption"> & {
+  /**
+   * 应用 key。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
 
-    /**
-     * 是否显示。
-     *
-     * @generated from field: bool is_show = 2;
-     */
-    isShow: boolean;
+  /**
+   * 是否显示。
+   *
+   * @generated from field: bool is_show = 2;
+   */
+  isShow: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.LauncherOption.
  * Use `create(LauncherOptionSchema)` to create a new message.
  */
-export const LauncherOptionSchema: GenMessage<LauncherOption> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 16);
+export const LauncherOptionSchema: GenMessage<LauncherOption> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 16);
 
 /**
  * SetLauncherShowRequest 是启动器显示状态修改参数。
  *
  * @generated from message panel.agent.v1.SetLauncherShowRequest
  */
-export type SetLauncherShowRequest = Message<'panel.agent.v1.SetLauncherShowRequest'> & {
-    /**
-     * 设置项 key。
-     *
-     * @generated from field: string key = 1;
-     */
-    key: string;
+export type SetLauncherShowRequest = Message<"panel.agent.v1.SetLauncherShowRequest"> & {
+  /**
+   * 设置项 key。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
 
-    /**
-     * 设置值。
-     *
-     * @generated from field: string value = 2;
-     */
-    value: string;
+  /**
+   * 设置值。
+   *
+   * @generated from field: string value = 2;
+   */
+  value: string;
 };
 
 /**
  * Describes the message panel.agent.v1.SetLauncherShowRequest.
  * Use `create(SetLauncherShowRequestSchema)` to create a new message.
  */
-export const SetLauncherShowRequestSchema: GenMessage<SetLauncherShowRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 17);
+export const SetLauncherShowRequestSchema: GenMessage<SetLauncherShowRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 17);
 
 /**
  * SetLauncherShowResponse 是修改结果，无业务字段。
  *
  * @generated from message panel.agent.v1.SetLauncherShowResponse
  */
-export type SetLauncherShowResponse = Message<'panel.agent.v1.SetLauncherShowResponse'> & {};
+export type SetLauncherShowResponse = Message<"panel.agent.v1.SetLauncherShowResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.SetLauncherShowResponse.
  * Use `create(SetLauncherShowResponseSchema)` to create a new message.
  */
-export const SetLauncherShowResponseSchema: GenMessage<SetLauncherShowResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 18);
+export const SetLauncherShowResponseSchema: GenMessage<SetLauncherShowResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 18);
 
 /**
  * GetNodeCurrentRequest 是节点负载查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.GetNodeCurrentRequest
  */
-export type GetNodeCurrentRequest = Message<'panel.agent.v1.GetNodeCurrentRequest'> & {};
+export type GetNodeCurrentRequest = Message<"panel.agent.v1.GetNodeCurrentRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.GetNodeCurrentRequest.
  * Use `create(GetNodeCurrentRequestSchema)` to create a new message.
  */
-export const GetNodeCurrentRequestSchema: GenMessage<GetNodeCurrentRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 19);
+export const GetNodeCurrentRequestSchema: GenMessage<GetNodeCurrentRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 19);
 
 /**
  * NodeCurrent 是当前节点的负载信息。
  *
  * @generated from message panel.agent.v1.NodeCurrent
  */
-export type NodeCurrent = Message<'panel.agent.v1.NodeCurrent'> & {
-    /**
-     * 1 分钟负载。
-     *
-     * @generated from field: double load1 = 1;
-     */
-    load1: number;
+export type NodeCurrent = Message<"panel.agent.v1.NodeCurrent"> & {
+  /**
+   * 1 分钟负载。
+   *
+   * @generated from field: double load1 = 1;
+   */
+  load1: number;
 
-    /**
-     * 5 分钟负载。
-     *
-     * @generated from field: double load5 = 2;
-     */
-    load5: number;
+  /**
+   * 5 分钟负载。
+   *
+   * @generated from field: double load5 = 2;
+   */
+  load5: number;
 
-    /**
-     * 15 分钟负载。
-     *
-     * @generated from field: double load15 = 3;
-     */
-    load15: number;
+  /**
+   * 15 分钟负载。
+   *
+   * @generated from field: double load15 = 3;
+   */
+  load15: number;
 
-    /**
-     * 负载百分比。
-     *
-     * @generated from field: double load_usage_percent = 4;
-     */
-    loadUsagePercent: number;
+  /**
+   * 负载百分比。
+   *
+   * @generated from field: double load_usage_percent = 4;
+   */
+  loadUsagePercent: number;
 
-    /**
-     * CPU 使用率。
-     *
-     * @generated from field: double cpu_used_percent = 5;
-     */
-    cpuUsedPercent: number;
+  /**
+   * CPU 使用率。
+   *
+   * @generated from field: double cpu_used_percent = 5;
+   */
+  cpuUsedPercent: number;
 
-    /**
-     * 已用 CPU。
-     *
-     * @generated from field: double cpu_used = 6;
-     */
-    cpuUsed: number;
+  /**
+   * 已用 CPU。
+   *
+   * @generated from field: double cpu_used = 6;
+   */
+  cpuUsed: number;
 
-    /**
-     * CPU 核心数。
-     *
-     * @generated from field: int32 cpu_total = 7;
-     */
-    cpuTotal: number;
+  /**
+   * CPU 核心数。
+   *
+   * @generated from field: int32 cpu_total = 7;
+   */
+  cpuTotal: number;
 
-    /**
-     * 各核心使用率。
-     *
-     * @generated from field: repeated double cpu_detailed_percent = 8;
-     */
-    cpuDetailedPercent: number[];
+  /**
+   * 各核心使用率。
+   *
+   * @generated from field: repeated double cpu_detailed_percent = 8;
+   */
+  cpuDetailedPercent: number[];
 
-    /**
-     * 内存总量，单位字节。
-     *
-     * @generated from field: uint64 memory_total = 9;
-     */
-    memoryTotal: bigint;
+  /**
+   * 内存总量，单位字节。
+   *
+   * @generated from field: uint64 memory_total = 9;
+   */
+  memoryTotal: bigint;
 
-    /**
-     * 可用内存，单位字节。
-     *
-     * @generated from field: uint64 memory_available = 10;
-     */
-    memoryAvailable: bigint;
+  /**
+   * 可用内存，单位字节。
+   *
+   * @generated from field: uint64 memory_available = 10;
+   */
+  memoryAvailable: bigint;
 
-    /**
-     * 已用内存，单位字节。
-     *
-     * @generated from field: uint64 memory_used = 11;
-     */
-    memoryUsed: bigint;
+  /**
+   * 已用内存，单位字节。
+   *
+   * @generated from field: uint64 memory_used = 11;
+   */
+  memoryUsed: bigint;
 
-    /**
-     * 内存使用率。
-     *
-     * @generated from field: double memory_used_percent = 12;
-     */
-    memoryUsedPercent: number;
+  /**
+   * 内存使用率。
+   *
+   * @generated from field: double memory_used_percent = 12;
+   */
+  memoryUsedPercent: number;
 
-    /**
-     * Swap 总量，单位字节。
-     *
-     * @generated from field: uint64 swap_memory_total = 13;
-     */
-    swapMemoryTotal: bigint;
+  /**
+   * Swap 总量，单位字节。
+   *
+   * @generated from field: uint64 swap_memory_total = 13;
+   */
+  swapMemoryTotal: bigint;
 
-    /**
-     * 可用 Swap，单位字节。
-     *
-     * @generated from field: uint64 swap_memory_available = 14;
-     */
-    swapMemoryAvailable: bigint;
+  /**
+   * 可用 Swap，单位字节。
+   *
+   * @generated from field: uint64 swap_memory_available = 14;
+   */
+  swapMemoryAvailable: bigint;
 
-    /**
-     * 已用 Swap，单位字节。
-     *
-     * @generated from field: uint64 swap_memory_used = 15;
-     */
-    swapMemoryUsed: bigint;
+  /**
+   * 已用 Swap，单位字节。
+   *
+   * @generated from field: uint64 swap_memory_used = 15;
+   */
+  swapMemoryUsed: bigint;
 
-    /**
-     * Swap 使用率。
-     *
-     * @generated from field: double swap_memory_used_percent = 16;
-     */
-    swapMemoryUsedPercent: number;
+  /**
+   * Swap 使用率。
+   *
+   * @generated from field: double swap_memory_used_percent = 16;
+   */
+  swapMemoryUsedPercent: number;
 };
 
 /**
  * Describes the message panel.agent.v1.NodeCurrent.
  * Use `create(NodeCurrentSchema)` to create a new message.
  */
-export const NodeCurrentSchema: GenMessage<NodeCurrent> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_dashboard, 20);
+export const NodeCurrentSchema: GenMessage<NodeCurrent> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 20);
 
 /**
  * GetTopCPURequest 是 CPU 进程列表查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.GetTopCPURequest
  */
-export type GetTopCPURequest = Message<'panel.agent.v1.GetTopCPURequest'> & {};
+export type GetTopCPURequest = Message<"panel.agent.v1.GetTopCPURequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.GetTopCPURequest.
  * Use `create(GetTopCPURequestSchema)` to create a new message.
  */
-export const GetTopCPURequestSchema: GenMessage<GetTopCPURequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 21);
+export const GetTopCPURequestSchema: GenMessage<GetTopCPURequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 21);
 
 /**
  * GetTopMemRequest 是内存进程列表查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.GetTopMemRequest
  */
-export type GetTopMemRequest = Message<'panel.agent.v1.GetTopMemRequest'> & {};
+export type GetTopMemRequest = Message<"panel.agent.v1.GetTopMemRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.GetTopMemRequest.
  * Use `create(GetTopMemRequestSchema)` to create a new message.
  */
-export const GetTopMemRequestSchema: GenMessage<GetTopMemRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 22);
+export const GetTopMemRequestSchema: GenMessage<GetTopMemRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 22);
 
 /**
  * TopProcesses 是占用资源最高的进程列表。
  *
  * @generated from message panel.agent.v1.TopProcesses
  */
-export type TopProcesses = Message<'panel.agent.v1.TopProcesses'> & {
-    /**
-     * 进程列表。
-     *
-     * @generated from field: repeated panel.agent.v1.TopProcess items = 1;
-     */
-    items: TopProcess[];
+export type TopProcesses = Message<"panel.agent.v1.TopProcesses"> & {
+  /**
+   * 进程列表。
+   *
+   * @generated from field: repeated panel.agent.v1.TopProcess items = 1;
+   */
+  items: TopProcess[];
 };
 
 /**
  * Describes the message panel.agent.v1.TopProcesses.
  * Use `create(TopProcessesSchema)` to create a new message.
  */
-export const TopProcessesSchema: GenMessage<TopProcesses> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 23);
+export const TopProcessesSchema: GenMessage<TopProcesses> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 23);
 
 /**
  * TopProcess 是一个进程的资源占用。
  *
  * @generated from message panel.agent.v1.TopProcess
  */
-export type TopProcess = Message<'panel.agent.v1.TopProcess'> & {
-    /**
-     * 进程名。
-     *
-     * @generated from field: string name = 1;
-     */
-    name: string;
+export type TopProcess = Message<"panel.agent.v1.TopProcess"> & {
+  /**
+   * 进程名。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
 
-    /**
-     * 进程 PID。
-     *
-     * @generated from field: int32 pid = 2;
-     */
-    pid: number;
+  /**
+   * 进程 PID。
+   *
+   * @generated from field: int32 pid = 2;
+   */
+  pid: number;
 
-    /**
-     * 占用百分比。
-     *
-     * @generated from field: double percent = 3;
-     */
-    percent: number;
+  /**
+   * 占用百分比。
+   *
+   * @generated from field: double percent = 3;
+   */
+  percent: number;
 
-    /**
-     * 内存占用，单位字节。
-     *
-     * @generated from field: uint64 memory = 4;
-     */
-    memory: bigint;
+  /**
+   * 内存占用，单位字节。
+   *
+   * @generated from field: uint64 memory = 4;
+   */
+  memory: bigint;
 
-    /**
-     * 命令行。
-     *
-     * @generated from field: string cmd = 5;
-     */
-    cmd: string;
+  /**
+   * 命令行。
+   *
+   * @generated from field: string cmd = 5;
+   */
+  cmd: string;
 
-    /**
-     * 运行用户。
-     *
-     * @generated from field: string user = 6;
-     */
-    user: string;
+  /**
+   * 运行用户。
+   *
+   * @generated from field: string user = 6;
+   */
+  user: string;
 };
 
 /**
  * Describes the message panel.agent.v1.TopProcess.
  * Use `create(TopProcessSchema)` to create a new message.
  */
-export const TopProcessSchema: GenMessage<TopProcess> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_dashboard, 24);
+export const TopProcessSchema: GenMessage<TopProcess> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 24);
 
 /**
  * ChangeQuickJumpRequest 是快速跳转修改参数。
  *
  * @generated from message panel.agent.v1.ChangeQuickJumpRequest
  */
-export type ChangeQuickJumpRequest = Message<'panel.agent.v1.ChangeQuickJumpRequest'> & {
-    /**
-     * 快速跳转可见性设置的 JSON 字符串。
-     *
-     * @generated from field: string quicks_json = 1;
-     */
-    quicksJson: string;
+export type ChangeQuickJumpRequest = Message<"panel.agent.v1.ChangeQuickJumpRequest"> & {
+  /**
+   * 快速跳转可见性设置的 JSON 字符串。
+   *
+   * @generated from field: string quicks_json = 1;
+   */
+  quicksJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.ChangeQuickJumpRequest.
  * Use `create(ChangeQuickJumpRequestSchema)` to create a new message.
  */
-export const ChangeQuickJumpRequestSchema: GenMessage<ChangeQuickJumpRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 25);
+export const ChangeQuickJumpRequestSchema: GenMessage<ChangeQuickJumpRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 25);
 
 /**
  * ChangeQuickJumpResponse 是修改结果，无业务字段。
  *
  * @generated from message panel.agent.v1.ChangeQuickJumpResponse
  */
-export type ChangeQuickJumpResponse = Message<'panel.agent.v1.ChangeQuickJumpResponse'> & {};
+export type ChangeQuickJumpResponse = Message<"panel.agent.v1.ChangeQuickJumpResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.ChangeQuickJumpResponse.
  * Use `create(ChangeQuickJumpResponseSchema)` to create a new message.
  */
-export const ChangeQuickJumpResponseSchema: GenMessage<ChangeQuickJumpResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 26);
+export const ChangeQuickJumpResponseSchema: GenMessage<ChangeQuickJumpResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 26);
 
 /**
  * GetQuickDirectoriesRequest 是快捷目录查询参数，无业务字段。
  *
  * @generated from message panel.agent.v1.GetQuickDirectoriesRequest
  */
-export type GetQuickDirectoriesRequest = Message<'panel.agent.v1.GetQuickDirectoriesRequest'> & {};
+export type GetQuickDirectoriesRequest = Message<"panel.agent.v1.GetQuickDirectoriesRequest"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.GetQuickDirectoriesRequest.
  * Use `create(GetQuickDirectoriesRequestSchema)` to create a new message.
  */
-export const GetQuickDirectoriesRequestSchema: GenMessage<GetQuickDirectoriesRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 27);
+export const GetQuickDirectoriesRequestSchema: GenMessage<GetQuickDirectoriesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 27);
 
 /**
  * QuickDirectories 是快捷目录列表。
  *
  * @generated from message panel.agent.v1.QuickDirectories
  */
-export type QuickDirectories = Message<'panel.agent.v1.QuickDirectories'> & {
-    /**
-     * 目录列表。
-     *
-     * @generated from field: repeated panel.agent.v1.QuickDirectory items = 1;
-     */
-    items: QuickDirectory[];
+export type QuickDirectories = Message<"panel.agent.v1.QuickDirectories"> & {
+  /**
+   * 目录列表。
+   *
+   * @generated from field: repeated panel.agent.v1.QuickDirectory items = 1;
+   */
+  items: QuickDirectory[];
 };
 
 /**
  * Describes the message panel.agent.v1.QuickDirectories.
  * Use `create(QuickDirectoriesSchema)` to create a new message.
  */
-export const QuickDirectoriesSchema: GenMessage<QuickDirectories> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 28);
+export const QuickDirectoriesSchema: GenMessage<QuickDirectories> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 28);
 
 /**
  * QuickDirectory 是一个快捷目录。
  *
  * @generated from message panel.agent.v1.QuickDirectory
  */
-export type QuickDirectory = Message<'panel.agent.v1.QuickDirectory'> & {
-    /**
-     * 记录 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type QuickDirectory = Message<"panel.agent.v1.QuickDirectory"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 目录路径。
-     *
-     * @generated from field: string path = 2;
-     */
-    path: string;
+  /**
+   * 目录路径。
+   *
+   * @generated from field: string path = 2;
+   */
+  path: string;
 
-    /**
-     * 别名。
-     *
-     * @generated from field: string alias = 3;
-     */
-    alias: string;
+  /**
+   * 别名。
+   *
+   * @generated from field: string alias = 3;
+   */
+  alias: string;
 
-    /**
-     * 是否为历史遗留记录。
-     *
-     * @generated from field: bool legacy = 4;
-     */
-    legacy: boolean;
+  /**
+   * 是否为历史遗留记录。
+   *
+   * @generated from field: bool legacy = 4;
+   */
+  legacy: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.QuickDirectory.
  * Use `create(QuickDirectorySchema)` to create a new message.
  */
-export const QuickDirectorySchema: GenMessage<QuickDirectory> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 29);
+export const QuickDirectorySchema: GenMessage<QuickDirectory> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 29);
 
 /**
  * CreateQuickDirectoryRequest 是新建快捷目录参数。
  *
  * @generated from message panel.agent.v1.CreateQuickDirectoryRequest
  */
-export type CreateQuickDirectoryRequest = Message<'panel.agent.v1.CreateQuickDirectoryRequest'> & {
-    /**
-     * 目录路径。
-     *
-     * @generated from field: string path = 1;
-     */
-    path: string;
+export type CreateQuickDirectoryRequest = Message<"panel.agent.v1.CreateQuickDirectoryRequest"> & {
+  /**
+   * 目录路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
 
-    /**
-     * 目录别名。
-     *
-     * @generated from field: string alias = 2;
-     */
-    alias: string;
+  /**
+   * 目录别名。
+   *
+   * @generated from field: string alias = 2;
+   */
+  alias: string;
 };
 
 /**
  * Describes the message panel.agent.v1.CreateQuickDirectoryRequest.
  * Use `create(CreateQuickDirectoryRequestSchema)` to create a new message.
  */
-export const CreateQuickDirectoryRequestSchema: GenMessage<CreateQuickDirectoryRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 30);
+export const CreateQuickDirectoryRequestSchema: GenMessage<CreateQuickDirectoryRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 30);
 
 /**
  * UpdateQuickDirectoryRequest 是更新快捷目录参数。
  *
  * @generated from message panel.agent.v1.UpdateQuickDirectoryRequest
  */
-export type UpdateQuickDirectoryRequest = Message<'panel.agent.v1.UpdateQuickDirectoryRequest'> & {
-    /**
-     * 记录 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type UpdateQuickDirectoryRequest = Message<"panel.agent.v1.UpdateQuickDirectoryRequest"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 目录路径。
-     *
-     * @generated from field: string path = 2;
-     */
-    path: string;
+  /**
+   * 目录路径。
+   *
+   * @generated from field: string path = 2;
+   */
+  path: string;
 
-    /**
-     * 目录别名。
-     *
-     * @generated from field: string alias = 3;
-     */
-    alias: string;
+  /**
+   * 目录别名。
+   *
+   * @generated from field: string alias = 3;
+   */
+  alias: string;
 
-    /**
-     * 是否为历史遗留记录。
-     *
-     * @generated from field: bool legacy = 4;
-     */
-    legacy: boolean;
+  /**
+   * 是否为历史遗留记录。
+   *
+   * @generated from field: bool legacy = 4;
+   */
+  legacy: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateQuickDirectoryRequest.
  * Use `create(UpdateQuickDirectoryRequestSchema)` to create a new message.
  */
-export const UpdateQuickDirectoryRequestSchema: GenMessage<UpdateQuickDirectoryRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 31);
+export const UpdateQuickDirectoryRequestSchema: GenMessage<UpdateQuickDirectoryRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 31);
 
 /**
  * DeleteQuickDirectoryRequest 是删除快捷目录参数。
  *
  * @generated from message panel.agent.v1.DeleteQuickDirectoryRequest
  */
-export type DeleteQuickDirectoryRequest = Message<'panel.agent.v1.DeleteQuickDirectoryRequest'> & {
-    /**
-     * 记录 ID。
-     *
-     * @generated from field: uint32 id = 1;
-     */
-    id: number;
+export type DeleteQuickDirectoryRequest = Message<"panel.agent.v1.DeleteQuickDirectoryRequest"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
 
-    /**
-     * 是否为历史遗留记录。
-     *
-     * @generated from field: bool legacy = 2;
-     */
-    legacy: boolean;
+  /**
+   * 是否为历史遗留记录。
+   *
+   * @generated from field: bool legacy = 2;
+   */
+  legacy: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.DeleteQuickDirectoryRequest.
  * Use `create(DeleteQuickDirectoryRequestSchema)` to create a new message.
  */
-export const DeleteQuickDirectoryRequestSchema: GenMessage<DeleteQuickDirectoryRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 32);
+export const DeleteQuickDirectoryRequestSchema: GenMessage<DeleteQuickDirectoryRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 32);
 
 /**
  * DeleteQuickDirectoryResponse 是删除结果，无业务字段。
  *
  * @generated from message panel.agent.v1.DeleteQuickDirectoryResponse
  */
-export type DeleteQuickDirectoryResponse = Message<'panel.agent.v1.DeleteQuickDirectoryResponse'> & {};
+export type DeleteQuickDirectoryResponse = Message<"panel.agent.v1.DeleteQuickDirectoryResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.DeleteQuickDirectoryResponse.
  * Use `create(DeleteQuickDirectoryResponseSchema)` to create a new message.
  */
-export const DeleteQuickDirectoryResponseSchema: GenMessage<DeleteQuickDirectoryResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 33);
+export const DeleteQuickDirectoryResponseSchema: GenMessage<DeleteQuickDirectoryResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 33);
 
 /**
  * SystemRestartRequest 是电源操作参数。
  *
  * @generated from message panel.agent.v1.SystemRestartRequest
  */
-export type SystemRestartRequest = Message<'panel.agent.v1.SystemRestartRequest'> & {
-    /**
-     * 操作类型，例如 reboot、shutdown。
-     *
-     * @generated from field: string operation = 1;
-     */
-    operation: string;
+export type SystemRestartRequest = Message<"panel.agent.v1.SystemRestartRequest"> & {
+  /**
+   * 操作类型，例如 reboot、shutdown。
+   *
+   * @generated from field: string operation = 1;
+   */
+  operation: string;
 };
 
 /**
  * Describes the message panel.agent.v1.SystemRestartRequest.
  * Use `create(SystemRestartRequestSchema)` to create a new message.
  */
-export const SystemRestartRequestSchema: GenMessage<SystemRestartRequest> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 34);
+export const SystemRestartRequestSchema: GenMessage<SystemRestartRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 34);
 
 /**
  * SystemRestartResponse 是操作结果，无业务字段。
  *
  * @generated from message panel.agent.v1.SystemRestartResponse
  */
-export type SystemRestartResponse = Message<'panel.agent.v1.SystemRestartResponse'> & {};
+export type SystemRestartResponse = Message<"panel.agent.v1.SystemRestartResponse"> & {
+};
 
 /**
  * Describes the message panel.agent.v1.SystemRestartResponse.
  * Use `create(SystemRestartResponseSchema)` to create a new message.
  */
-export const SystemRestartResponseSchema: GenMessage<SystemRestartResponse> =
-    /*@__PURE__*/
-    messageDesc(file_panel_agent_v1_dashboard, 35);
+export const SystemRestartResponseSchema: GenMessage<SystemRestartResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_dashboard, 35);
 
 /**
  * DashboardService 对应 1Panel 的首页概览域。
@@ -1569,164 +1552,166 @@ export const SystemRestartResponseSchema: GenMessage<SystemRestartResponse> =
  * @generated from service panel.agent.v1.DashboardService
  */
 export const DashboardService: GenService<{
-    /**
-     * 读取操作系统与磁盘概况。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.GetOsInfo
-     */
-    getOsInfo: {
-        methodKind: 'unary';
-        input: typeof OsInfoRequestSchema;
-        output: typeof OsInfoSchema;
-    };
-    /**
-     * 读取首页基础信息（主机、CPU、当前负载、快捷入口）。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.BaseInfo
-     */
-    baseInfo: {
-        methodKind: 'unary';
-        input: typeof BaseInfoRequestSchema;
-        output: typeof DashboardBaseSchema;
-    };
-    /**
-     * 读取当前负载（CPU、内存、磁盘 IO、网络流量）。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.CurrentInfo
-     */
-    currentInfo: {
-        methodKind: 'unary';
-        input: typeof CurrentInfoRequestSchema;
-        output: typeof DashboardCurrentSchema;
-    };
-    /**
-     * 读取首页快捷入口配置。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.QuickJumps
-     */
-    quickJumps: {
-        methodKind: 'unary';
-        input: typeof QuickJumpsRequestSchema;
-        output: typeof QuickJumpsResponseSchema;
-    };
-    /**
-     * 列出首页应用启动器。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.GetAppLauncher
-     */
-    getAppLauncher: {
-        methodKind: 'unary';
-        input: typeof GetAppLauncherRequestSchema;
-        output: typeof AppLauncherListSchema;
-    };
-    /**
-     * 列出可添加到启动器的应用。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.GetLauncherOptions
-     */
-    getLauncherOptions: {
-        methodKind: 'unary';
-        input: typeof GetLauncherOptionsRequestSchema;
-        output: typeof LauncherOptionsSchema;
-    };
-    /**
-     * 设置启动器应用的显示状态。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.SetLauncherShow
-     */
-    setLauncherShow: {
-        methodKind: 'unary';
-        input: typeof SetLauncherShowRequestSchema;
-        output: typeof SetLauncherShowResponseSchema;
-    };
-    /**
-     * 读取当前节点负载信息。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.GetNodeCurrent
-     */
-    getNodeCurrent: {
-        methodKind: 'unary';
-        input: typeof GetNodeCurrentRequestSchema;
-        output: typeof NodeCurrentSchema;
-    };
-    /**
-     * 读取 CPU 占用最高的进程。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.GetTopCPU
-     */
-    getTopCPU: {
-        methodKind: 'unary';
-        input: typeof GetTopCPURequestSchema;
-        output: typeof TopProcessesSchema;
-    };
-    /**
-     * 读取内存占用最高的进程。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.GetTopMem
-     */
-    getTopMem: {
-        methodKind: 'unary';
-        input: typeof GetTopMemRequestSchema;
-        output: typeof TopProcessesSchema;
-    };
-    /**
-     * 修改首页快速跳转的显示状态。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.ChangeQuickJump
-     */
-    changeQuickJump: {
-        methodKind: 'unary';
-        input: typeof ChangeQuickJumpRequestSchema;
-        output: typeof ChangeQuickJumpResponseSchema;
-    };
-    /**
-     * 列出快捷目录。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.GetQuickDirectories
-     */
-    getQuickDirectories: {
-        methodKind: 'unary';
-        input: typeof GetQuickDirectoriesRequestSchema;
-        output: typeof QuickDirectoriesSchema;
-    };
-    /**
-     * 新建快捷目录。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.CreateQuickDirectory
-     */
-    createQuickDirectory: {
-        methodKind: 'unary';
-        input: typeof CreateQuickDirectoryRequestSchema;
-        output: typeof QuickDirectorySchema;
-    };
-    /**
-     * 更新快捷目录。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.UpdateQuickDirectory
-     */
-    updateQuickDirectory: {
-        methodKind: 'unary';
-        input: typeof UpdateQuickDirectoryRequestSchema;
-        output: typeof QuickDirectorySchema;
-    };
-    /**
-     * 删除快捷目录。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.DeleteQuickDirectory
-     */
-    deleteQuickDirectory: {
-        methodKind: 'unary';
-        input: typeof DeleteQuickDirectoryRequestSchema;
-        output: typeof DeleteQuickDirectoryResponseSchema;
-    };
-    /**
-     * 重启或关闭系统。
-     *
-     * @generated from rpc panel.agent.v1.DashboardService.SystemRestart
-     */
-    systemRestart: {
-        methodKind: 'unary';
-        input: typeof SystemRestartRequestSchema;
-        output: typeof SystemRestartResponseSchema;
-    };
-}> = /*@__PURE__*/ serviceDesc(file_panel_agent_v1_dashboard, 0);
+  /**
+   * 读取操作系统与磁盘概况。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.GetOsInfo
+   */
+  getOsInfo: {
+    methodKind: "unary";
+    input: typeof OsInfoRequestSchema;
+    output: typeof OsInfoSchema;
+  },
+  /**
+   * 读取首页基础信息（主机、CPU、当前负载、快捷入口）。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.BaseInfo
+   */
+  baseInfo: {
+    methodKind: "unary";
+    input: typeof BaseInfoRequestSchema;
+    output: typeof DashboardBaseSchema;
+  },
+  /**
+   * 读取当前负载（CPU、内存、磁盘 IO、网络流量）。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.CurrentInfo
+   */
+  currentInfo: {
+    methodKind: "unary";
+    input: typeof CurrentInfoRequestSchema;
+    output: typeof DashboardCurrentSchema;
+  },
+  /**
+   * 读取首页快捷入口配置。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.QuickJumps
+   */
+  quickJumps: {
+    methodKind: "unary";
+    input: typeof QuickJumpsRequestSchema;
+    output: typeof QuickJumpsResponseSchema;
+  },
+  /**
+   * 列出首页应用启动器。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.GetAppLauncher
+   */
+  getAppLauncher: {
+    methodKind: "unary";
+    input: typeof GetAppLauncherRequestSchema;
+    output: typeof AppLauncherListSchema;
+  },
+  /**
+   * 列出可添加到启动器的应用。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.GetLauncherOptions
+   */
+  getLauncherOptions: {
+    methodKind: "unary";
+    input: typeof GetLauncherOptionsRequestSchema;
+    output: typeof LauncherOptionsSchema;
+  },
+  /**
+   * 设置启动器应用的显示状态。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.SetLauncherShow
+   */
+  setLauncherShow: {
+    methodKind: "unary";
+    input: typeof SetLauncherShowRequestSchema;
+    output: typeof SetLauncherShowResponseSchema;
+  },
+  /**
+   * 读取当前节点负载信息。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.GetNodeCurrent
+   */
+  getNodeCurrent: {
+    methodKind: "unary";
+    input: typeof GetNodeCurrentRequestSchema;
+    output: typeof NodeCurrentSchema;
+  },
+  /**
+   * 读取 CPU 占用最高的进程。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.GetTopCPU
+   */
+  getTopCPU: {
+    methodKind: "unary";
+    input: typeof GetTopCPURequestSchema;
+    output: typeof TopProcessesSchema;
+  },
+  /**
+   * 读取内存占用最高的进程。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.GetTopMem
+   */
+  getTopMem: {
+    methodKind: "unary";
+    input: typeof GetTopMemRequestSchema;
+    output: typeof TopProcessesSchema;
+  },
+  /**
+   * 修改首页快速跳转的显示状态。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.ChangeQuickJump
+   */
+  changeQuickJump: {
+    methodKind: "unary";
+    input: typeof ChangeQuickJumpRequestSchema;
+    output: typeof ChangeQuickJumpResponseSchema;
+  },
+  /**
+   * 列出快捷目录。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.GetQuickDirectories
+   */
+  getQuickDirectories: {
+    methodKind: "unary";
+    input: typeof GetQuickDirectoriesRequestSchema;
+    output: typeof QuickDirectoriesSchema;
+  },
+  /**
+   * 新建快捷目录。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.CreateQuickDirectory
+   */
+  createQuickDirectory: {
+    methodKind: "unary";
+    input: typeof CreateQuickDirectoryRequestSchema;
+    output: typeof QuickDirectorySchema;
+  },
+  /**
+   * 更新快捷目录。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.UpdateQuickDirectory
+   */
+  updateQuickDirectory: {
+    methodKind: "unary";
+    input: typeof UpdateQuickDirectoryRequestSchema;
+    output: typeof QuickDirectorySchema;
+  },
+  /**
+   * 删除快捷目录。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.DeleteQuickDirectory
+   */
+  deleteQuickDirectory: {
+    methodKind: "unary";
+    input: typeof DeleteQuickDirectoryRequestSchema;
+    output: typeof DeleteQuickDirectoryResponseSchema;
+  },
+  /**
+   * 重启或关闭系统。
+   *
+   * @generated from rpc panel.agent.v1.DashboardService.SystemRestart
+   */
+  systemRestart: {
+    methodKind: "unary";
+    input: typeof SystemRestartRequestSchema;
+    output: typeof SystemRestartResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_panel_agent_v1_dashboard, 0);
+

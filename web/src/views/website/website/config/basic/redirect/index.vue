@@ -50,7 +50,6 @@
 
 <script lang="ts" setup>
 import { Website } from '@/api/interface/website';
-import { operateRedirectConfig } from '@/api/modules/website';
 import { rpc } from '@/lib/rpc';
 import { computed, onMounted, ref } from 'vue';
 import Create from './create/index.vue';
@@ -138,6 +137,20 @@ const openEditFile = (proxyConfig: Website.RedirectConfig) => {
     });
 };
 
+const toRedirectRequest = (item: Website.RedirectConfig) => ({
+    websiteId: item.websiteID,
+    name: item.name,
+    domains: item.domains || [],
+    keepPath: item.keepPath ?? false,
+    enable: item.enable ?? false,
+    type: item.type || 'domain',
+    redirect: item.redirect || '301',
+    path: item.path || '',
+    target: item.target || '',
+    operate: item.operate || 'update',
+    redirectRoot: item.redirectRoot ?? false,
+});
+
 const deleteProxy = async (redirectConfig: Website.RedirectConfig) => {
     redirectConfig.operate = 'delete';
     opRef.value.acceptParams({
@@ -147,14 +160,15 @@ const deleteProxy = async (redirectConfig: Website.RedirectConfig) => {
             i18n.global.t('website.redirect'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: operateRedirectConfig,
+        api: (params: Website.RedirectConfig) => rpc.website.updateRedirect(toRedirectRequest(params)),
         params: redirectConfig,
     });
 };
 
 const submit = async (redirectConfig: Website.RedirectConfig) => {
     loading.value = true;
-    await operateRedirectConfig(redirectConfig)
+    await rpc.website
+        .updateRedirect(toRedirectRequest(redirectConfig))
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
             search();

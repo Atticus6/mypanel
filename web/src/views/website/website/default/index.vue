@@ -54,7 +54,6 @@
 </template>
 <script lang="ts" setup>
 import { Website } from '@/api/interface/website';
-import { changeDefaultServer } from '@/api/modules/website';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { nextTick, reactive, ref } from 'vue';
@@ -160,7 +159,8 @@ const submit = () => {
 
 const submitDefaultServer = () => {
     loading.value = true;
-    changeDefaultServer({ id: defaultId.value })
+    rpc.website
+        .changeDefault({ id: defaultId.value })
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
             handleClose();

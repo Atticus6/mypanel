@@ -54,7 +54,7 @@
 <script lang="ts" setup>
 import { readCachedPageSize } from '@/utils/panel-cache';
 import { Website } from '@/api/interface/website';
-import { deleteCA, downloadCAFile } from '@/api/modules/website';
+import { downloadCAFile } from '@/api/modules/website';
 import i18n from '@/lang';
 import { onMounted, reactive, ref, toRef } from 'vue';
 import { useSearchState } from '@/utils/search-reset';
@@ -133,7 +133,7 @@ const deleteca = async (row: any) => {
             i18n.global.t('ssl.ca'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: deleteCA,
+        api: (params: { id: number }) => rpc.ssl.deleteCA({ id: params.id }),
         params: { id: row.id },
     });
 };

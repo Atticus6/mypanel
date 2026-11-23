@@ -120,7 +120,6 @@
 import { Website } from '@/api/interface/website';
 import { dateFormatSimple } from '@/utils/date';
 import { getProvider } from '@/utils/ssl';
-import { listLocalNodeSSL } from '@/api/modules/website';
 import { reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
@@ -180,8 +179,8 @@ const acceptParams = async (params: DialogProps): Promise<void> => {
 
     if (params.sslInfo?.sslID) {
         form.sslID = params.sslInfo.sslID;
-        const ssls = await listLocalNodeSSL({});
-        sslList.value = ssls.data || [];
+        const ssls = await rpc.ssl.list({});
+        sslList.value = ssls.items || [];
         changeSSl(params.sslInfo?.sslID);
     } else {
         loadSSLs();
@@ -191,8 +190,8 @@ const acceptParams = async (params: DialogProps): Promise<void> => {
 const emit = defineEmits<{ (e: 'search'): void }>();
 
 const loadSSLs = async () => {
-    const res = await listLocalNodeSSL({});
-    sslList.value = res.data || [];
+    const res = await rpc.ssl.list({});
+    sslList.value = res.items || [];
 };
 
 const changeSSl = (sslid: number) => {

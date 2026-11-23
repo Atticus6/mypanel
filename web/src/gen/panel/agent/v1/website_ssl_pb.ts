@@ -4,1736 +4,1774 @@
 // @generated from file panel/agent/v1/website_ssl.proto (package panel.agent.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
-import { file_buf_validate_validate } from "../../../buf/validate/validate_pb";
-import { file_panel_common_v1_options } from "../../common/v1/options_pb";
-import type { Message } from "@bufbuild/protobuf";
+import type { GenFile, GenMessage, GenService } from '@bufbuild/protobuf/codegenv2';
+import { fileDesc, messageDesc, serviceDesc } from '@bufbuild/protobuf/codegenv2';
+import { file_buf_validate_validate } from '../../../buf/validate/validate_pb';
+import { file_panel_common_v1_options } from '../../common/v1/options_pb';
+import type { Message } from '@bufbuild/protobuf';
 
 /**
  * Describes the file panel/agent/v1/website_ssl.proto.
  */
-export const file_panel_agent_v1_website_ssl: GenFile = /*@__PURE__*/
-  fileDesc("CiBwYW5lbC9hZ2VudC92MS93ZWJzaXRlX3NzbC5wcm90bxIOcGFuZWwuYWdlbnQudjEi7wEKEFNlYXJjaFNTTFJlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIXCg9hY21lX2FjY291bnRfaWQYAyABKAkSGAoGZG9tYWluGAQgASgJQgi6SAVyAxj/ARI+CghvcmRlcl9ieRgFIAEoCUIsukgpcidSAFIKY3JlYXRlZF9hdFIKdXBkYXRlZF9hdFILZXhwaXJlX2RhdGUSMwoFb3JkZXIYBiABKAlCJLpIIXIfUgBSBG51bGxSCWFzY2VuZGluZ1IKZGVzY2VuZGluZyJNChFTZWFyY2hTU0xSZXNwb25zZRIpCgVpdGVtcxgBIAMoCzIaLnBhbmVsLmFnZW50LnYxLldlYnNpdGVTU0wSDQoFdG90YWwYAiABKAMiwQIKCldlYnNpdGVTU0wSCgoCaWQYASABKA0SEgoKY3JlYXRlZF9hdBgCIAEoCRIWCg5wcmltYXJ5X2RvbWFpbhgDIAEoCRIPCgdkb21haW5zGAQgASgJEgwKBHR5cGUYBSABKAkSEAoIcHJvdmlkZXIYBiABKAkSFAoMb3JnYW5pemF0aW9uGAcgASgJEhIKCmF1dG9fcmVuZXcYCCABKAgSEwoLZXhwaXJlX2RhdGUYCSABKAkSEgoKc3RhcnRfZGF0ZRgKIAEoCRIOCgZzdGF0dXMYCyABKAkSDwoHbWVzc2FnZRgMIAEoCRIQCghrZXlfdHlwZRgNIAEoCRIQCghwdXNoX2RpchgOIAEoCBILCgNkaXIYDyABKAkSEwoLZGVzY3JpcHRpb24YECABKAkSEAoIc2tpcF9kbnMYESABKAgiTwoYU2VhcmNoRE5TQWNjb3VudHNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAEiVQoZU2VhcmNoRE5TQWNjb3VudHNSZXNwb25zZRIpCgVpdGVtcxgBIAMoCzIaLnBhbmVsLmFnZW50LnYxLkROU0FjY291bnQSDQoFdG90YWwYAiABKAMiSAoKRE5TQWNjb3VudBIKCgJpZBgBIAEoDRISCgpjcmVhdGVk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D1NlYXJjaENBUmVxdWVzdBIVCgRwYWdlGAEgASgFQge6SAQaAigBEhwKCXBhZ2Vfc2l6ZRgCIAEoBUIJukgGGgQYZCgBIkoKEFNlYXJjaENBUmVzcG9uc2USJwoFaXRlbXMYASADKAsyGC5wYW5lbC5hZ2VudC52MS5DQURldGFpbBINCgV0b3RhbBgCIAEoAyLOAQoIQ0FEZXRhaWwSCgoCaWQYASABKA0SEgoKY3JlYXRlZF9hdBgCIAEoCRIMCgRuYW1lGAMgASgJEhAKCGtleV90eXBlGAQgASgJEgsKA2NzchgFIAEoCRITCgtjb21tb25fbmFtZRgGIAEoCRIPCgdjb3VudHJ5GAcgASgJEhQKDG9yZ2FuaXphdGlvbhgIIAEoCRIZChFvcmdhbml6YXRpb25fdWludBgJIAEoCRIQCghwcm92aW5jZRgKIAEoCRIMCgRjaXR5GAsgASgJIiMKDEdldENBUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACKFAgoPQ3JlYXRlQ0FSZXF1ZXN0EhwKC2NvbW1vbl9uYW1lGAEgASgJQge6SARyAhABEhgKB2NvdW50cnkYAiABKAlCB7pIBHICEAESHQoMb3JnYW5pemF0aW9uGAMgASgJQge6SARyAhABEhkKEW9yZ2FuaXphdGlvbl91aW50GAQgASgJEhUKBG5hbWUYBSABKAlCB7pIBHICEAESSQoIa2V5X3R5cGUYBiABKAlCN7pINHIyUgVFQzI1NlIFRUMzODRSB1JTQTIwNDhSB1JTQTMwNzJSB1JTQTQwOTZSB1JTQTgxOTISEAoIcHJvdmluY2UYByABKAkSDAoEY2l0eRgIIAEoCSISChBDcmVhdGVDQVJlc3BvbnNlIiYKD0RlbGV0ZUNBUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACISChBEZWxldGVDQVJlc3BvbnNlIikKDlJlbmV3Q0FSZXF1ZXN0EhcKBnNzbF9pZBgBIAEoDUIHukgEKgIgACIRCg9SZW5ld0NBUmVzcG9uc2UioAIKGENyZWF0ZUFDTUVBY2NvdW50UmVxdWVzdBIWCgVlbWFpbBgBIAEoCUIHukgEcgIQARJCCgR0eXBlGAIgASgJQjS6SDFyL1ILbGV0c2VuY3J5cHRSB3plcm9zc2xSB2J1eXBhc3NSBmdvb2dsZVIGY3VzdG9tEkkKCGtleV90eXBlGAMgASgJQje6SDRyMlIFRUMyNTZSBUVDMzg0UgdSU0EyMDQ4UgdSU0EzMDcyUgdSU0E0MDk2UgdSU0E4MTkyEg8KB2VhYl9raWQYBCABKAkSFAoMZWFiX2htYWNfa2V5GAUgASgJEhEKCXVzZV9wcm94eRgGIAEoCBISCgpjYV9kaXJfdXJsGAcgASgJEg8KB3VzZV9lYWIYCCABKAgiGwoZQ3JlYXRlQUNNRUFjY291bnRSZXNwb25zZSJCChhVcGRhdGVBQ01FQWNjb3VudFJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAASEQoJdXNlX3Byb3h5GAIgASgIIhsKGVVwZGF0ZUFDTUVBY2NvdW50UmVzcG9uc2UiLwoYRGVsZXRlQUNNRUFjY291bnRSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIhsKGURlbGV0ZUFDTUVBY2NvdW50UmVzcG9uc2UikwIKD09idGFpbkNBUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgABIYCgdkb21haW5zGAIgASgJQge6SARyAhABEhkKCGtleV90eXBlGAMgASgJQge6SARyAhABEhUKBHRpbWUYBCABKAVCB7pIBBoCIAASFQoEdW5pdBgFIAEoCUIHukgEcgIQARIQCghwdXNoX2RpchgGIAEoCBILCgNkaXIYByABKAkSEgoKYXV0b19yZW5ldxgIIAEoCBINCgVyZW5ldxgJIAEoCBIOCgZzc2xfaWQYCiABKA0SEwoLZGVzY3JpcHRpb24YCyABKAkSEgoKZXhlY19zaGVsbBgMIAEoCBINCgVzaGVsbBgNIAEoCSI6ChBPYnRhaW5DQVJlc3BvbnNlEg4KBnNzbF9pZBgBIAEoDRIWCg5wcmltYXJ5X2RvbWFpbhgCIAEoCSKsAQoPSW1wb3J0Q0FSZXF1ZXN0EhgKBG5hbWUYASABKAlCCrpIB3IFEAEYgAESIQoEdHlwZRgCIAEoCUITukgQcg5SBXBhc3RlUgVsb2NhbBITCgtjZXJ0aWZpY2F0ZRgDIAEoCRITCgtwcml2YXRlX2tleRgEIAEoCRIYChBjZXJ0aWZpY2F0ZV9wYXRoGAUgASgJEhgKEHByaXZhdGVfa2V5X3BhdGgYBiABKAkiEgoQSW1wb3J0Q0FSZXNwb25zZSIxChBJbXBvcnRTU0xSZXF1ZXN0Eh0KDHBheWxvYWRfanNvbhgBIAEoCUIHukgEcgIQASITChFJbXBvcnRTU0xSZXNwb25zZTLCFAoRV2Vic2l0ZVNTTFNlcnZpY2UScgoRU2VhcmNoRE5TQWNjb3VudHMSKC5wYW5lbC5hZ2VudC52MS5TZWFyY2hETlNBY2NvdW50c1JlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5TZWFyY2hETlNBY2NvdW50c1Jlc3BvbnNlIgiKtRgEGAEwARJ1ChJTZWFyY2hBQ01FQWNjb3VudHMSKS5wYW5lbC5hZ2VudC52MS5TZWFyY2hBQ01FQWNjb3VudHNSZXF1ZXN0GioucGFuZWwuYWdlbnQudjEuU2VhcmNoQUNNRUFjY291bnRzUmVzcG9uc2UiCIq1GAQYATABElcKBlNlYXJjaBIgLnBhbmVsLmFnZW50LnYxLlNlYXJjaFNTTFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5TZWFyY2hTU0xSZXNwb25zZSIIirUYBBgBMAESUQoETGlzdBIeLnBhbmVsLmFnZW50LnYxLkxpc3RTU0xSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuTGlzdFNTTFJlc3BvbnNlIgiKtRgEGAEwARJOCgdHZXRCeUlEEh0ucGFuZWwuYWdlbnQudjEuR2V0U1NMUmVxdWVzdBoaLnBhbmVsLmFnZW50LnYxLldlYnNpdGVTU0wiCIq1GAQYATABEloKDEdldEJ5V2Vic2l0ZRIkLnBhbmVsLmFnZW50LnYxLkdldFdlYnNpdGVTU0xSZXF1ZXN0GhoucGFuZWwuYWdlbnQudjEuV2Vic2l0ZVNTTCIIirUYBBgBMAESdQoGQ3JlYXRlEiAucGFuZWwuYWdlbnQudjEuQ3JlYXRlU1NMUmVxdWVzdBohLnBhbmVsLmFnZW50LnYxLkNyZWF0ZVNTTFJlc3BvbnNlIiaKtRgiIgzliJvlu7ror4HkuaYqEkNyZWF0ZSBjZXJ0aWZpY2F0ZRJ1CgZVcGRhdGUSIC5wYW5lbC5hZ2VudC52MS5VcGRhdGVTU0xSZXF1ZXN0GiEucGFuZWwuYWdlbnQudjEuVXBkYXRlU1NMUmVzcG9uc2UiJoq1GCIiDOS/ruaUueivgeS5pioSVXBkYXRlIGNlcnRpZmljYXRlEnEKBUFwcGx5Eh8ucGFuZWwuYWdlbnQudjEuQXBwbHlTU0xSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuQXBwbHlTU0xSZXNwb25zZSIlirUYISIM562+5Y+R6K+B5LmmKhFBcHBseSBjZXJ0aWZpY2F0ZRJmCg1HZXRETlNSZXNvbHZlEiQucGFuZWwuYWdlbnQudjEuR2V0RE5TUmVzb2x2ZVJlcXVlc3QaJS5wYW5lbC5hZ2VudC52MS5HZXRETlNSZXNvbHZlUmVzcG9uc2UiCIq1GAQYATABEnUKBkRlbGV0ZRIgLnBhbmVsLmFnZW50LnYxLkRlbGV0ZVNTTFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5EZWxldGVTU0xSZXNwb25zZSImirUYIiIM5Yig6Zmk6K+B5LmmKhJEZWxldGUgY2VydGlmaWNhdGUSbQoEUHVzaBIeLnBhbmVsLmFnZW50LnYxLlB1c2hTU0xSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuUHVzaFNTTFJlc3BvbnNlIiSKtRggIgzmjqjpgIHor4HkuaYqEFB1c2ggY2VydGlmaWNhdGUSVwoIU2VhcmNoQ0ESHy5wYW5lbC5hZ2VudC52MS5TZWFyY2hDQVJlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5TZWFyY2hDQVJlc3BvbnNlIgiKtRgEGAEwARJJCgVHZXRDQRIcLnBhbmVsLmFnZW50LnYxLkdldENBUmVxdWVzdBoYLnBhbmVsLmFnZW50LnYxLkNBRGV0YWlsIgiKtRgEGAEwARJpCghDcmVhdGVDQRIfLnBhbmVsLmFnZW50LnYxLkNyZWF0ZUNBUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLkNyZWF0ZUNBUmVzcG9uc2UiGoq1GBYiCeWIm+W7uiBDQSoJQ3JlYXRlIENBEmkKCERlbGV0ZUNBEh8ucGFuZWwuYWdlbnQudjEuRGVsZXRlQ0FSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuRGVsZXRlQ0FSZXNwb25zZSIairUYFiIJ5Yig6ZmkIENBKglEZWxldGUgQ0ESfAoHUmVuZXdDQRIeLnBhbmVsLmFnZW50LnYxLlJlbmV3Q0FSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuUmVuZXdDQVJlc3BvbnNlIjCKtRgsIg9DQSDnu63nrb7or4HkuaYqGVJlbmV3IGNlcnRpZmljYXRlIHdpdGggQ0ESkAEKCkNyZWF0ZUFDTUUSKC5wYW5lbC5hZ2VudC52MS5DcmVhdGVBQ01FQWNjb3VudFJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5DcmVhdGVBQ01FQWNjb3VudFJlc3BvbnNlIi2KtRgpIhLliJvlu7ogQUNNRSDotKblj7cqE0NyZWF0ZSBBQ01FIGFjY291bnQSkAEKClVwZGF0ZUFDTUUSKC5wYW5lbC5hZ2VudC52MS5VcGRhdGVBQ01FQWNjb3VudFJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5VcGRhdGVBQ01FQWNjb3VudFJlc3BvbnNlIi2KtRgpIhLkv67mlLkgQUNNRSDotKblj7cqE1VwZGF0ZSBBQ01FIGFjY291bnQSkAEKCkRlbGV0ZUFDTUUSKC5wYW5lbC5hZ2VudC52MS5EZWxldGVBQ01FQWNjb3VudFJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5EZWxldGVBQ01FQWNjb3VudFJlc3BvbnNlIi2KtRgpIhLliKDpmaQgQUNNRSDotKblj7cqE0RlbGV0ZSBBQ01FIGFjY291bnQSgQEKCE9idGFpbkNBEh8ucGFuZWwuYWdlbnQudjEuT2J0YWluQ0FSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuT2J0YWluQ0FSZXNwb25zZSIyirUYLiIV562+5Y+R6Ieq562+5ZCN6K+B5LmmKhVPYnRhaW4gQ0EgY2VydGlmaWNhdGUSgQEKCEltcG9ydENBEh8ucGFuZWwuYWdlbnQudjEuSW1wb3J0Q0FSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuSW1wb3J0Q0FSZXNwb25zZSIyirUYLiIV5a+85YWl6Ieq562+5ZCN6K+B5LmmKhVJbXBvcnQgQ0EgY2VydGlmaWNhdGUSgQEKCUltcG9ydFNTTBIgLnBhbmVsLmFnZW50LnYxLkltcG9ydFNTTFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5JbXBvcnRTU0xSZXNwb25zZSIvirUYKyIR5a+85YWlIFNTTCDor4HkuaYqFkltcG9ydCBTU0wgY2VydGlmaWNhdGVCLVorbXlwYW5lbC9wcm90by9nZW4vZ28vcGFuZWwvYWdlbnQvdjE7YWdlbnR2MWIGcHJvdG8z", [file_buf_validate_validate, file_panel_common_v1_options]);
+export const file_panel_agent_v1_website_ssl: GenFile =
+    /*@__PURE__*/
+    fileDesc(
+        'CiBwYW5lbC9hZ2VudC92MS93ZWJzaXRlX3NzbC5wcm90bxIOcGFuZWwuYWdlbnQudjEi7wEKEFNlYXJjaFNTTFJlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIXCg9hY21lX2FjY291bnRfaWQYAyABKAkSGAoGZG9tYWluGAQgASgJQgi6SAVyAxj/ARI+CghvcmRlcl9ieRgFIAEoCUIsukgpcidSAFIKY3JlYXRlZF9hdFIKdXBkYXRlZF9hdFILZXhwaXJlX2RhdGUSMwoFb3JkZXIYBiABKAlCJLpIIXIfUgBSBG51bGxSCWFzY2VuZGluZ1IKZGVzY2VuZGluZyJNChFTZWFyY2hTU0xSZXNwb25zZRIpCgVpdGVtcxgBIAMoCzIaLnBhbmVsLmFnZW50LnYxLldlYnNpdGVTU0wSDQoFdG90YWwYAiABKAMiwQIKCldlYnNpdGVTU0wSCgoCaWQYASABKA0SEgoKY3JlYXRlZF9hdBgCIAEoCRIWCg5wcmltYXJ5X2RvbWFpbhgDIAEoCRIPCgdkb21haW5zGAQgASgJEgwKBHR5cGUYBSABKAkSEAoIcHJvdmlkZXIYBiABKAkSFAoMb3JnYW5pemF0aW9uGAcgASgJEhIKCmF1dG9fcmVuZXcYCCABKAgSEwoLZXhwaXJlX2RhdGUYCSABKAkSEgoKc3RhcnRfZGF0ZRgKIAEoCRIOCgZzdGF0dXMYCyABKAkSDwoHbWVzc2FnZRgMIAEoCRIQCghrZXlfdHlwZRgNIAEoCRIQCghwdXNoX2RpchgOIAEoCBILCgNkaXIYDyABKAkSEwoLZGVzY3JpcHRpb24YECABKAkSEAoIc2tpcF9kbnMYESABKAgiTwoYU2VhcmNoRE5TQWNjb3VudHNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAEiVQoZU2VhcmNoRE5TQWNjb3VudHNSZXNwb25zZRIpCgVpdGVtcxgBIAMoCzIaLnBhbmVsLmFnZW50LnYxLkROU0FjY291bnQSDQoFdG90YWwYAiABKAMiSAoKRE5TQWNjb3VudBIKCgJpZBgBIAEoDRISCgpjcmVhdGVkX2F0GAIgASgJEgwKBG5hbWUYAyABKAkSDAoEdHlwZRgEIAEoCSJQChlTZWFyY2hBQ01FQWNjb3VudHNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAEiVwoaU2VhcmNoQUNNRUFjY291bnRzUmVzcG9uc2USKgoFaXRlbXMYASADKAsyGy5wYW5lbC5hZ2VudC52MS5BQ01FQWNjb3VudBINCgV0b3RhbBgCIAEoAyKhAQoLQUNNRUFjY291bnQSCgoCaWQYASABKA0SEgoKY3JlYXRlZF9hdBgCIAEoCRINCgVlbWFpbBgDIAEoCRILCgN1cmwYBCABKAkSDAoEdHlwZRgFIAEoCRIQCghrZXlfdHlwZRgGIAEoCRIRCgl1c2VfcHJveHkYByABKAgSEgoKY2FfZGlyX3VybBgIIAEoCRIPCgd1c2VfZWFiGAkgASgIIikKDkxpc3RTU0xSZXF1ZXN0EhcKD2FjbWVfYWNjb3VudF9pZBgBIAEoCSI8Cg9MaXN0U1NMUmVzcG9uc2USKQoFaXRlbXMYASADKAsyGi5wYW5lbC5hZ2VudC52MS5XZWJzaXRlU1NMIiQKDUdldFNTTFJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAAiMwoUR2V0V2Vic2l0ZVNTTFJlcXVlc3QSGwoKd2Vic2l0ZV9pZBgBIAEoDUIHukgEKgIgACKxAgoQQ3JlYXRlU1NMUmVxdWVzdBIfCg5wcmltYXJ5X2RvbWFpbhgBIAEoCUIHukgEcgIQARIVCg1vdGhlcl9kb21haW5zGAIgASgJEhkKCHByb3ZpZGVyGAMgASgJQge6SARyAhABEiAKD2FjbWVfYWNjb3VudF9pZBgEIAEoDUIHukgEKgIgABIWCg5kbnNfYWNjb3VudF9pZBgFIAEoDRISCgphdXRvX3JlbmV3GAYgASgIEhAKCGtleV90eXBlGAcgASgJEg0KBWFwcGx5GAggASgIEhAKCHB1c2hfZGlyGAkgASgIEgsKA2RpchgKIAEoCRITCgtkZXNjcmlwdGlvbhgLIAEoCRIVCg1kaXNhYmxlX2NuYW1lGAwgASgIEhAKCHNraXBfZG5zGA0gASgIIh8KEUNyZWF0ZVNTTFJlc3BvbnNlEgoKAmlkGAEgASgNIr0CChBVcGRhdGVTU0xSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAEhIKCmF1dG9fcmVuZXcYAiABKAgSEwoLZGVzY3JpcHRpb24YAyABKAkSHwoOcHJpbWFyeV9kb21haW4YBCABKAlCB7pIBHICEAESFQoNb3RoZXJfZG9tYWlucxgFIAEoCRIZCghwcm92aWRlchgGIAEoCUIHukgEcgIQARIXCg9hY21lX2FjY291bnRfaWQYByABKA0SFgoOZG5zX2FjY291bnRfaWQYCCABKA0SEAoIa2V5X3R5cGUYCSABKAkSDQoFYXBwbHkYCiABKAgSEAoIcHVzaF9kaXIYCyABKAgSCwoDZGlyGAwgASgJEhUKDWRpc2FibGVfY25hbWUYDSABKAgSEAoIc2tpcF9kbnMYDiABKAgiEwoRVXBkYXRlU1NMUmVzcG9uc2UiUwoPQXBwbHlTU0xSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAEhYKDnNraXBfZG5zX2NoZWNrGAIgASgIEhMKC25hbWVzZXJ2ZXJzGAMgAygJIhIKEEFwcGx5U1NMUmVzcG9uc2UiWQoUR2V0RE5TUmVzb2x2ZVJlcXVlc3QSIAoPYWNtZV9hY2NvdW50X2lkGAEgASgNQge6SAQqAiAAEh8KDndlYnNpdGVfc3NsX2lkGAIgASgNQge6SAQqAiAAIk8KEEROU1Jlc29sdmVSZWNvcmQSDwoHcmVzb2x2ZRgBIAEoCRINCgV2YWx1ZRgCIAEoCRIOCgZkb21haW4YAyABKAkSCwoDZXJyGAQgASgJIkgKFUdldEROU1Jlc29sdmVSZXNwb25zZRIvCgVpdGVtcxgBIAMoCzIgLnBhbmVsLmFnZW50LnYxLkROU1Jlc29sdmVSZWNvcmQiKQoQRGVsZXRlU1NMUmVxdWVzdBIVCgNpZHMYASADKA1CCLpIBZIBAggBIhMKEURlbGV0ZVNTTFJlc3BvbnNlIm8KDlB1c2hTU0xSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAEhEKCXB1c2hfbm9kZRgCIAEoCBINCgVub2RlcxgDIAEoCRIYCgd0YXNrX2lkGAQgASgJQge6SARyAhABEgwKBHN5bmMYBSABKAgiEQoPUHVzaFNTTFJlc3BvbnNlIkYKD1NlYXJjaENBUmVxdWVzdBIVCgRwYWdlGAEgASgFQge6SAQaAigBEhwKCXBhZ2Vfc2l6ZRgCIAEoBUIJukgGGgQYZCgBIkoKEFNlYXJjaENBUmVzcG9uc2USJwoFaXRlbXMYASADKAsyGC5wYW5lbC5hZ2VudC52MS5DQURldGFpbBINCgV0b3RhbBgCIAEoAyLjAQoIQ0FEZXRhaWwSCgoCaWQYASABKA0SEgoKY3JlYXRlZF9hdBgCIAEoCRIMCgRuYW1lGAMgASgJEhAKCGtleV90eXBlGAQgASgJEgsKA2NzchgFIAEoCRITCgtjb21tb25fbmFtZRgGIAEoCRIPCgdjb3VudHJ5GAcgASgJEhQKDG9yZ2FuaXphdGlvbhgIIAEoCRIZChFvcmdhbml6YXRpb25fdWludBgJIAEoCRIQCghwcm92aW5jZRgKIAEoCRIMCgRjaXR5GAsgASgJEhMKC3ByaXZhdGVfa2V5GAwgASgJIiMKDEdldENBUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACKFAgoPQ3JlYXRlQ0FSZXF1ZXN0EhwKC2NvbW1vbl9uYW1lGAEgASgJQge6SARyAhABEhgKB2NvdW50cnkYAiABKAlCB7pIBHICEAESHQoMb3JnYW5pemF0aW9uGAMgASgJQge6SARyAhABEhkKEW9yZ2FuaXphdGlvbl91aW50GAQgASgJEhUKBG5hbWUYBSABKAlCB7pIBHICEAESSQoIa2V5X3R5cGUYBiABKAlCN7pINHIyUgVFQzI1NlIFRUMzODRSB1JTQTIwNDhSB1JTQTMwNzJSB1JTQTQwOTZSB1JTQTgxOTISEAoIcHJvdmluY2UYByABKAkSDAoEY2l0eRgIIAEoCSISChBDcmVhdGVDQVJlc3BvbnNlIiYKD0RlbGV0ZUNBUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACISChBEZWxldGVDQVJlc3BvbnNlIikKDlJlbmV3Q0FSZXF1ZXN0EhcKBnNzbF9pZBgBIAEoDUIHukgEKgIgACIRCg9SZW5ld0NBUmVzcG9uc2UioAIKGENyZWF0ZUFDTUVBY2NvdW50UmVxdWVzdBIWCgVlbWFpbBgBIAEoCUIHukgEcgIQARJCCgR0eXBlGAIgASgJQjS6SDFyL1ILbGV0c2VuY3J5cHRSB3plcm9zc2xSB2J1eXBhc3NSBmdvb2dsZVIGY3VzdG9tEkkKCGtleV90eXBlGAMgASgJQje6SDRyMlIFRUMyNTZSBUVDMzg0UgdSU0EyMDQ4UgdSU0EzMDcyUgdSU0E0MDk2UgdSU0E4MTkyEg8KB2VhYl9raWQYBCABKAkSFAoMZWFiX2htYWNfa2V5GAUgASgJEhEKCXVzZV9wcm94eRgGIAEoCBISCgpjYV9kaXJfdXJsGAcgASgJEg8KB3VzZV9lYWIYCCABKAgiGwoZQ3JlYXRlQUNNRUFjY291bnRSZXNwb25zZSJCChhVcGRhdGVBQ01FQWNjb3VudFJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAASEQoJdXNlX3Byb3h5GAIgASgIIhsKGVVwZGF0ZUFDTUVBY2NvdW50UmVzcG9uc2UiLwoYRGVsZXRlQUNNRUFjY291bnRSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIhsKGURlbGV0ZUFDTUVBY2NvdW50UmVzcG9uc2UikwIKD09idGFpbkNBUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgABIYCgdkb21haW5zGAIgASgJQge6SARyAhABEhkKCGtleV90eXBlGAMgASgJQge6SARyAhABEhUKBHRpbWUYBCABKAVCB7pIBBoCIAASFQoEdW5pdBgFIAEoCUIHukgEcgIQARIQCghwdXNoX2RpchgGIAEoCBILCgNkaXIYByABKAkSEgoKYXV0b19yZW5ldxgIIAEoCBINCgVyZW5ldxgJIAEoCBIOCgZzc2xfaWQYCiABKA0SEwoLZGVzY3JpcHRpb24YCyABKAkSEgoKZXhlY19zaGVsbBgMIAEoCBINCgVzaGVsbBgNIAEoCSI6ChBPYnRhaW5DQVJlc3BvbnNlEg4KBnNzbF9pZBgBIAEoDRIWCg5wcmltYXJ5X2RvbWFpbhgCIAEoCSKsAQoPSW1wb3J0Q0FSZXF1ZXN0EhgKBG5hbWUYASABKAlCCrpIB3IFEAEYgAESIQoEdHlwZRgCIAEoCUITukgQcg5SBXBhc3RlUgVsb2NhbBITCgtjZXJ0aWZpY2F0ZRgDIAEoCRITCgtwcml2YXRlX2tleRgEIAEoCRIYChBjZXJ0aWZpY2F0ZV9wYXRoGAUgASgJEhgKEHByaXZhdGVfa2V5X3BhdGgYBiABKAkiEgoQSW1wb3J0Q0FSZXNwb25zZSIxChBJbXBvcnRTU0xSZXF1ZXN0Eh0KDHBheWxvYWRfanNvbhgBIAEoCUIHukgEcgIQASITChFJbXBvcnRTU0xSZXNwb25zZTLCFAoRV2Vic2l0ZVNTTFNlcnZpY2UScgoRU2VhcmNoRE5TQWNjb3VudHMSKC5wYW5lbC5hZ2VudC52MS5TZWFyY2hETlNBY2NvdW50c1JlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5TZWFyY2hETlNBY2NvdW50c1Jlc3BvbnNlIgiKtRgEGAEwARJ1ChJTZWFyY2hBQ01FQWNjb3VudHMSKS5wYW5lbC5hZ2VudC52MS5TZWFyY2hBQ01FQWNjb3VudHNSZXF1ZXN0GioucGFuZWwuYWdlbnQudjEuU2VhcmNoQUNNRUFjY291bnRzUmVzcG9uc2UiCIq1GAQYATABElcKBlNlYXJjaBIgLnBhbmVsLmFnZW50LnYxLlNlYXJjaFNTTFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5TZWFyY2hTU0xSZXNwb25zZSIIirUYBBgBMAESUQoETGlzdBIeLnBhbmVsLmFnZW50LnYxLkxpc3RTU0xSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuTGlzdFNTTFJlc3BvbnNlIgiKtRgEGAEwARJOCgdHZXRCeUlEEh0ucGFuZWwuYWdlbnQudjEuR2V0U1NMUmVxdWVzdBoaLnBhbmVsLmFnZW50LnYxLldlYnNpdGVTU0wiCIq1GAQYATABEloKDEdldEJ5V2Vic2l0ZRIkLnBhbmVsLmFnZW50LnYxLkdldFdlYnNpdGVTU0xSZXF1ZXN0GhoucGFuZWwuYWdlbnQudjEuV2Vic2l0ZVNTTCIIirUYBBgBMAESdQoGQ3JlYXRlEiAucGFuZWwuYWdlbnQudjEuQ3JlYXRlU1NMUmVxdWVzdBohLnBhbmVsLmFnZW50LnYxLkNyZWF0ZVNTTFJlc3BvbnNlIiaKtRgiIgzliJvlu7ror4HkuaYqEkNyZWF0ZSBjZXJ0aWZpY2F0ZRJ1CgZVcGRhdGUSIC5wYW5lbC5hZ2VudC52MS5VcGRhdGVTU0xSZXF1ZXN0GiEucGFuZWwuYWdlbnQudjEuVXBkYXRlU1NMUmVzcG9uc2UiJoq1GCIiDOS/ruaUueivgeS5pioSVXBkYXRlIGNlcnRpZmljYXRlEnEKBUFwcGx5Eh8ucGFuZWwuYWdlbnQudjEuQXBwbHlTU0xSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuQXBwbHlTU0xSZXNwb25zZSIlirUYISIM562+5Y+R6K+B5LmmKhFBcHBseSBjZXJ0aWZpY2F0ZRJmCg1HZXRETlNSZXNvbHZlEiQucGFuZWwuYWdlbnQudjEuR2V0RE5TUmVzb2x2ZVJlcXVlc3QaJS5wYW5lbC5hZ2VudC52MS5HZXRETlNSZXNvbHZlUmVzcG9uc2UiCIq1GAQYATABEnUKBkRlbGV0ZRIgLnBhbmVsLmFnZW50LnYxLkRlbGV0ZVNTTFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5EZWxldGVTU0xSZXNwb25zZSImirUYIiIM5Yig6Zmk6K+B5LmmKhJEZWxldGUgY2VydGlmaWNhdGUSbQoEUHVzaBIeLnBhbmVsLmFnZW50LnYxLlB1c2hTU0xSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuUHVzaFNTTFJlc3BvbnNlIiSKtRggIgzmjqjpgIHor4HkuaYqEFB1c2ggY2VydGlmaWNhdGUSVwoIU2VhcmNoQ0ESHy5wYW5lbC5hZ2VudC52MS5TZWFyY2hDQVJlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5TZWFyY2hDQVJlc3BvbnNlIgiKtRgEGAEwARJJCgVHZXRDQRIcLnBhbmVsLmFnZW50LnYxLkdldENBUmVxdWVzdBoYLnBhbmVsLmFnZW50LnYxLkNBRGV0YWlsIgiKtRgEGAEwARJpCghDcmVhdGVDQRIfLnBhbmVsLmFnZW50LnYxLkNyZWF0ZUNBUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLkNyZWF0ZUNBUmVzcG9uc2UiGoq1GBYiCeWIm+W7uiBDQSoJQ3JlYXRlIENBEmkKCERlbGV0ZUNBEh8ucGFuZWwuYWdlbnQudjEuRGVsZXRlQ0FSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuRGVsZXRlQ0FSZXNwb25zZSIairUYFiIJ5Yig6ZmkIENBKglEZWxldGUgQ0ESfAoHUmVuZXdDQRIeLnBhbmVsLmFnZW50LnYxLlJlbmV3Q0FSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuUmVuZXdDQVJlc3BvbnNlIjCKtRgsIg9DQSDnu63nrb7or4HkuaYqGVJlbmV3IGNlcnRpZmljYXRlIHdpdGggQ0ESkAEKCkNyZWF0ZUFDTUUSKC5wYW5lbC5hZ2VudC52MS5DcmVhdGVBQ01FQWNjb3VudFJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5DcmVhdGVBQ01FQWNjb3VudFJlc3BvbnNlIi2KtRgpIhLliJvlu7ogQUNNRSDotKblj7cqE0NyZWF0ZSBBQ01FIGFjY291bnQSkAEKClVwZGF0ZUFDTUUSKC5wYW5lbC5hZ2VudC52MS5VcGRhdGVBQ01FQWNjb3VudFJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5VcGRhdGVBQ01FQWNjb3VudFJlc3BvbnNlIi2KtRgpIhLkv67mlLkgQUNNRSDotKblj7cqE1VwZGF0ZSBBQ01FIGFjY291bnQSkAEKCkRlbGV0ZUFDTUUSKC5wYW5lbC5hZ2VudC52MS5EZWxldGVBQ01FQWNjb3VudFJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5EZWxldGVBQ01FQWNjb3VudFJlc3BvbnNlIi2KtRgpIhLliKDpmaQgQUNNRSDotKblj7cqE0RlbGV0ZSBBQ01FIGFjY291bnQSgQEKCE9idGFpbkNBEh8ucGFuZWwuYWdlbnQudjEuT2J0YWluQ0FSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuT2J0YWluQ0FSZXNwb25zZSIyirUYLiIV562+5Y+R6Ieq562+5ZCN6K+B5LmmKhVPYnRhaW4gQ0EgY2VydGlmaWNhdGUSgQEKCEltcG9ydENBEh8ucGFuZWwuYWdlbnQudjEuSW1wb3J0Q0FSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuSW1wb3J0Q0FSZXNwb25zZSIyirUYLiIV5a+85YWl6Ieq562+5ZCN6K+B5LmmKhVJbXBvcnQgQ0EgY2VydGlmaWNhdGUSgQEKCUltcG9ydFNTTBIgLnBhbmVsLmFnZW50LnYxLkltcG9ydFNTTFJlcXVlc3QaIS5wYW5lbC5hZ2VudC52MS5JbXBvcnRTU0xSZXNwb25zZSIvirUYKyIR5a+85YWlIFNTTCDor4HkuaYqFkltcG9ydCBTU0wgY2VydGlmaWNhdGVCLVorbXlwYW5lbC9wcm90by9nZW4vZ28vcGFuZWwvYWdlbnQvdjE7YWdlbnR2MWIGcHJvdG8z',
+        [file_buf_validate_validate, file_panel_common_v1_options],
+    );
 
 /**
  * SearchSSLRequest 是证书列表查询参数。
  *
  * @generated from message panel.agent.v1.SearchSSLRequest
  */
-export type SearchSSLRequest = Message<"panel.agent.v1.SearchSSLRequest"> & {
-  /**
-   * 页码，从 1 开始。
-   *
-   * @generated from field: int32 page = 1;
-   */
-  page: number;
+export type SearchSSLRequest = Message<'panel.agent.v1.SearchSSLRequest'> & {
+    /**
+     * 页码，从 1 开始。
+     *
+     * @generated from field: int32 page = 1;
+     */
+    page: number;
 
-  /**
-   * 每页条数，最大 100。
-   *
-   * @generated from field: int32 page_size = 2;
-   */
-  pageSize: number;
+    /**
+     * 每页条数，最大 100。
+     *
+     * @generated from field: int32 page_size = 2;
+     */
+    pageSize: number;
 
-  /**
-   * ACME 账号 ID 过滤。
-   *
-   * @generated from field: string acme_account_id = 3;
-   */
-  acmeAccountId: string;
+    /**
+     * ACME 账号 ID 过滤。
+     *
+     * @generated from field: string acme_account_id = 3;
+     */
+    acmeAccountId: string;
 
-  /**
-   * 域名关键字。
-   *
-   * @generated from field: string domain = 4;
-   */
-  domain: string;
+    /**
+     * 域名关键字。
+     *
+     * @generated from field: string domain = 4;
+     */
+    domain: string;
 
-  /**
-   * 排序字段：created_at、updated_at、expire_date。
-   *
-   * @generated from field: string order_by = 5;
-   */
-  orderBy: string;
+    /**
+     * 排序字段：created_at、updated_at、expire_date。
+     *
+     * @generated from field: string order_by = 5;
+     */
+    orderBy: string;
 
-  /**
-   * 排序方向：null、ascending、descending。
-   *
-   * @generated from field: string order = 6;
-   */
-  order: string;
+    /**
+     * 排序方向：null、ascending、descending。
+     *
+     * @generated from field: string order = 6;
+     */
+    order: string;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchSSLRequest.
  * Use `create(SearchSSLRequestSchema)` to create a new message.
  */
-export const SearchSSLRequestSchema: GenMessage<SearchSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 0);
+export const SearchSSLRequestSchema: GenMessage<SearchSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 0);
 
 /**
  * SearchSSLResponse 是证书列表结果。
  *
  * @generated from message panel.agent.v1.SearchSSLResponse
  */
-export type SearchSSLResponse = Message<"panel.agent.v1.SearchSSLResponse"> & {
-  /**
-   * 当前页的证书列表。
-   *
-   * @generated from field: repeated panel.agent.v1.WebsiteSSL items = 1;
-   */
-  items: WebsiteSSL[];
+export type SearchSSLResponse = Message<'panel.agent.v1.SearchSSLResponse'> & {
+    /**
+     * 当前页的证书列表。
+     *
+     * @generated from field: repeated panel.agent.v1.WebsiteSSL items = 1;
+     */
+    items: WebsiteSSL[];
 
-  /**
-   * 符合条件的证书总数。
-   *
-   * @generated from field: int64 total = 2;
-   */
-  total: bigint;
+    /**
+     * 符合条件的证书总数。
+     *
+     * @generated from field: int64 total = 2;
+     */
+    total: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchSSLResponse.
  * Use `create(SearchSSLResponseSchema)` to create a new message.
  */
-export const SearchSSLResponseSchema: GenMessage<SearchSSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 1);
+export const SearchSSLResponseSchema: GenMessage<SearchSSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 1);
 
 /**
  * WebsiteSSL 是一张证书（不含私钥与证书正文）。
  *
  * @generated from message panel.agent.v1.WebsiteSSL
  */
-export type WebsiteSSL = Message<"panel.agent.v1.WebsiteSSL"> & {
-  /**
-   * 证书 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type WebsiteSSL = Message<'panel.agent.v1.WebsiteSSL'> & {
+    /**
+     * 证书 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 创建时间，RFC3339 格式。
-   *
-   * @generated from field: string created_at = 2;
-   */
-  createdAt: string;
+    /**
+     * 创建时间，RFC3339 格式。
+     *
+     * @generated from field: string created_at = 2;
+     */
+    createdAt: string;
 
-  /**
-   * 主域名。
-   *
-   * @generated from field: string primary_domain = 3;
-   */
-  primaryDomain: string;
+    /**
+     * 主域名。
+     *
+     * @generated from field: string primary_domain = 3;
+     */
+    primaryDomain: string;
 
-  /**
-   * 包含的域名，逗号分隔。
-   *
-   * @generated from field: string domains = 4;
-   */
-  domains: string;
+    /**
+     * 包含的域名，逗号分隔。
+     *
+     * @generated from field: string domains = 4;
+     */
+    domains: string;
 
-  /**
-   * 申请方式：manual=手动上传，dns=DNS 验证，http=HTTP 验证。
-   *
-   * @generated from field: string type = 5;
-   */
-  type: string;
+    /**
+     * 申请方式：manual=手动上传，dns=DNS 验证，http=HTTP 验证。
+     *
+     * @generated from field: string type = 5;
+     */
+    type: string;
 
-  /**
-   * 签发机构。
-   *
-   * @generated from field: string provider = 6;
-   */
-  provider: string;
+    /**
+     * 签发机构。
+     *
+     * @generated from field: string provider = 6;
+     */
+    provider: string;
 
-  /**
-   * 组织名称。
-   *
-   * @generated from field: string organization = 7;
-   */
-  organization: string;
+    /**
+     * 组织名称。
+     *
+     * @generated from field: string organization = 7;
+     */
+    organization: string;
 
-  /**
-   * 是否自动续期。
-   *
-   * @generated from field: bool auto_renew = 8;
-   */
-  autoRenew: boolean;
+    /**
+     * 是否自动续期。
+     *
+     * @generated from field: bool auto_renew = 8;
+     */
+    autoRenew: boolean;
 
-  /**
-   * 到期时间，RFC3339 格式。
-   *
-   * @generated from field: string expire_date = 9;
-   */
-  expireDate: string;
+    /**
+     * 到期时间，RFC3339 格式。
+     *
+     * @generated from field: string expire_date = 9;
+     */
+    expireDate: string;
 
-  /**
-   * 生效时间，RFC3339 格式。
-   *
-   * @generated from field: string start_date = 10;
-   */
-  startDate: string;
+    /**
+     * 生效时间，RFC3339 格式。
+     *
+     * @generated from field: string start_date = 10;
+     */
+    startDate: string;
 
-  /**
-   * 状态：Ready=正常，ExpireSoon=即将过期，Expired=已过期，ApplyError=申请失败。
-   *
-   * @generated from field: string status = 11;
-   */
-  status: string;
+    /**
+     * 状态：Ready=正常，ExpireSoon=即将过期，Expired=已过期，ApplyError=申请失败。
+     *
+     * @generated from field: string status = 11;
+     */
+    status: string;
 
-  /**
-   * 状态说明。
-   *
-   * @generated from field: string message = 12;
-   */
-  message: string;
+    /**
+     * 状态说明。
+     *
+     * @generated from field: string message = 12;
+     */
+    message: string;
 
-  /**
-   * 密钥类型，例如 RSA2048、ECC256。
-   *
-   * @generated from field: string key_type = 13;
-   */
-  keyType: string;
+    /**
+     * 密钥类型，例如 RSA2048、ECC256。
+     *
+     * @generated from field: string key_type = 13;
+     */
+    keyType: string;
 
-  /**
-   * 是否推送证书到目录。
-   *
-   * @generated from field: bool push_dir = 14;
-   */
-  pushDir: boolean;
+    /**
+     * 是否推送证书到目录。
+     *
+     * @generated from field: bool push_dir = 14;
+     */
+    pushDir: boolean;
 
-  /**
-   * 推送目录。
-   *
-   * @generated from field: string dir = 15;
-   */
-  dir: string;
+    /**
+     * 推送目录。
+     *
+     * @generated from field: string dir = 15;
+     */
+    dir: string;
 
-  /**
-   * 备注。
-   *
-   * @generated from field: string description = 16;
-   */
-  description: string;
+    /**
+     * 备注。
+     *
+     * @generated from field: string description = 16;
+     */
+    description: string;
 
-  /**
-   * 是否跳过 DNS 校验。
-   *
-   * @generated from field: bool skip_dns = 17;
-   */
-  skipDns: boolean;
+    /**
+     * 是否跳过 DNS 校验。
+     *
+     * @generated from field: bool skip_dns = 17;
+     */
+    skipDns: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.WebsiteSSL.
  * Use `create(WebsiteSSLSchema)` to create a new message.
  */
-export const WebsiteSSLSchema: GenMessage<WebsiteSSL> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 2);
+export const WebsiteSSLSchema: GenMessage<WebsiteSSL> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_website_ssl, 2);
 
 /**
  * SearchDNSAccountsRequest 是 DNS 账号列表查询参数。
  *
  * @generated from message panel.agent.v1.SearchDNSAccountsRequest
  */
-export type SearchDNSAccountsRequest = Message<"panel.agent.v1.SearchDNSAccountsRequest"> & {
-  /**
-   * 页码，从 1 开始。
-   *
-   * @generated from field: int32 page = 1;
-   */
-  page: number;
+export type SearchDNSAccountsRequest = Message<'panel.agent.v1.SearchDNSAccountsRequest'> & {
+    /**
+     * 页码，从 1 开始。
+     *
+     * @generated from field: int32 page = 1;
+     */
+    page: number;
 
-  /**
-   * 每页条数，最大 100。
-   *
-   * @generated from field: int32 page_size = 2;
-   */
-  pageSize: number;
+    /**
+     * 每页条数，最大 100。
+     *
+     * @generated from field: int32 page_size = 2;
+     */
+    pageSize: number;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchDNSAccountsRequest.
  * Use `create(SearchDNSAccountsRequestSchema)` to create a new message.
  */
-export const SearchDNSAccountsRequestSchema: GenMessage<SearchDNSAccountsRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 3);
+export const SearchDNSAccountsRequestSchema: GenMessage<SearchDNSAccountsRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 3);
 
 /**
  * SearchDNSAccountsResponse 是 DNS 账号列表结果。
  *
  * @generated from message panel.agent.v1.SearchDNSAccountsResponse
  */
-export type SearchDNSAccountsResponse = Message<"panel.agent.v1.SearchDNSAccountsResponse"> & {
-  /**
-   * 当前页的账号列表。
-   *
-   * @generated from field: repeated panel.agent.v1.DNSAccount items = 1;
-   */
-  items: DNSAccount[];
+export type SearchDNSAccountsResponse = Message<'panel.agent.v1.SearchDNSAccountsResponse'> & {
+    /**
+     * 当前页的账号列表。
+     *
+     * @generated from field: repeated panel.agent.v1.DNSAccount items = 1;
+     */
+    items: DNSAccount[];
 
-  /**
-   * 符合条件的账号总数。
-   *
-   * @generated from field: int64 total = 2;
-   */
-  total: bigint;
+    /**
+     * 符合条件的账号总数。
+     *
+     * @generated from field: int64 total = 2;
+     */
+    total: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchDNSAccountsResponse.
  * Use `create(SearchDNSAccountsResponseSchema)` to create a new message.
  */
-export const SearchDNSAccountsResponseSchema: GenMessage<SearchDNSAccountsResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 4);
+export const SearchDNSAccountsResponseSchema: GenMessage<SearchDNSAccountsResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 4);
 
 /**
  * DNSAccount 是一个 DNS 服务商账号（不含密钥）。
  *
  * @generated from message panel.agent.v1.DNSAccount
  */
-export type DNSAccount = Message<"panel.agent.v1.DNSAccount"> & {
-  /**
-   * 账号 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type DNSAccount = Message<'panel.agent.v1.DNSAccount'> & {
+    /**
+     * 账号 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 创建时间，RFC3339 格式。
-   *
-   * @generated from field: string created_at = 2;
-   */
-  createdAt: string;
+    /**
+     * 创建时间，RFC3339 格式。
+     *
+     * @generated from field: string created_at = 2;
+     */
+    createdAt: string;
 
-  /**
-   * 账号名称。
-   *
-   * @generated from field: string name = 3;
-   */
-  name: string;
+    /**
+     * 账号名称。
+     *
+     * @generated from field: string name = 3;
+     */
+    name: string;
 
-  /**
-   * 服务商类型，例如 aliyun、cloudflare。
-   *
-   * @generated from field: string type = 4;
-   */
-  type: string;
+    /**
+     * 服务商类型，例如 aliyun、cloudflare。
+     *
+     * @generated from field: string type = 4;
+     */
+    type: string;
 };
 
 /**
  * Describes the message panel.agent.v1.DNSAccount.
  * Use `create(DNSAccountSchema)` to create a new message.
  */
-export const DNSAccountSchema: GenMessage<DNSAccount> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 5);
+export const DNSAccountSchema: GenMessage<DNSAccount> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_website_ssl, 5);
 
 /**
  * SearchACMEAccountsRequest 是 ACME 账号列表查询参数。
  *
  * @generated from message panel.agent.v1.SearchACMEAccountsRequest
  */
-export type SearchACMEAccountsRequest = Message<"panel.agent.v1.SearchACMEAccountsRequest"> & {
-  /**
-   * 页码，从 1 开始。
-   *
-   * @generated from field: int32 page = 1;
-   */
-  page: number;
+export type SearchACMEAccountsRequest = Message<'panel.agent.v1.SearchACMEAccountsRequest'> & {
+    /**
+     * 页码，从 1 开始。
+     *
+     * @generated from field: int32 page = 1;
+     */
+    page: number;
 
-  /**
-   * 每页条数，最大 100。
-   *
-   * @generated from field: int32 page_size = 2;
-   */
-  pageSize: number;
+    /**
+     * 每页条数，最大 100。
+     *
+     * @generated from field: int32 page_size = 2;
+     */
+    pageSize: number;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchACMEAccountsRequest.
  * Use `create(SearchACMEAccountsRequestSchema)` to create a new message.
  */
-export const SearchACMEAccountsRequestSchema: GenMessage<SearchACMEAccountsRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 6);
+export const SearchACMEAccountsRequestSchema: GenMessage<SearchACMEAccountsRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 6);
 
 /**
  * SearchACMEAccountsResponse 是 ACME 账号列表结果。
  *
  * @generated from message panel.agent.v1.SearchACMEAccountsResponse
  */
-export type SearchACMEAccountsResponse = Message<"panel.agent.v1.SearchACMEAccountsResponse"> & {
-  /**
-   * 当前页的账号列表。
-   *
-   * @generated from field: repeated panel.agent.v1.ACMEAccount items = 1;
-   */
-  items: ACMEAccount[];
+export type SearchACMEAccountsResponse = Message<'panel.agent.v1.SearchACMEAccountsResponse'> & {
+    /**
+     * 当前页的账号列表。
+     *
+     * @generated from field: repeated panel.agent.v1.ACMEAccount items = 1;
+     */
+    items: ACMEAccount[];
 
-  /**
-   * 符合条件的账号总数。
-   *
-   * @generated from field: int64 total = 2;
-   */
-  total: bigint;
+    /**
+     * 符合条件的账号总数。
+     *
+     * @generated from field: int64 total = 2;
+     */
+    total: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchACMEAccountsResponse.
  * Use `create(SearchACMEAccountsResponseSchema)` to create a new message.
  */
-export const SearchACMEAccountsResponseSchema: GenMessage<SearchACMEAccountsResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 7);
+export const SearchACMEAccountsResponseSchema: GenMessage<SearchACMEAccountsResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 7);
 
 /**
  * ACMEAccount 是一个 ACME 账号（不含私钥）。
  *
  * @generated from message panel.agent.v1.ACMEAccount
  */
-export type ACMEAccount = Message<"panel.agent.v1.ACMEAccount"> & {
-  /**
-   * 账号 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type ACMEAccount = Message<'panel.agent.v1.ACMEAccount'> & {
+    /**
+     * 账号 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 创建时间，RFC3339 格式。
-   *
-   * @generated from field: string created_at = 2;
-   */
-  createdAt: string;
+    /**
+     * 创建时间，RFC3339 格式。
+     *
+     * @generated from field: string created_at = 2;
+     */
+    createdAt: string;
 
-  /**
-   * 邮箱。
-   *
-   * @generated from field: string email = 3;
-   */
-  email: string;
+    /**
+     * 邮箱。
+     *
+     * @generated from field: string email = 3;
+     */
+    email: string;
 
-  /**
-   * ACME 服务地址。
-   *
-   * @generated from field: string url = 4;
-   */
-  url: string;
+    /**
+     * ACME 服务地址。
+     *
+     * @generated from field: string url = 4;
+     */
+    url: string;
 
-  /**
-   * 账号类型。
-   *
-   * @generated from field: string type = 5;
-   */
-  type: string;
+    /**
+     * 账号类型。
+     *
+     * @generated from field: string type = 5;
+     */
+    type: string;
 
-  /**
-   * 密钥类型。
-   *
-   * @generated from field: string key_type = 6;
-   */
-  keyType: string;
+    /**
+     * 密钥类型。
+     *
+     * @generated from field: string key_type = 6;
+     */
+    keyType: string;
 
-  /**
-   * 是否使用代理。
-   *
-   * @generated from field: bool use_proxy = 7;
-   */
-  useProxy: boolean;
+    /**
+     * 是否使用代理。
+     *
+     * @generated from field: bool use_proxy = 7;
+     */
+    useProxy: boolean;
 
-  /**
-   * CA 目录地址。
-   *
-   * @generated from field: string ca_dir_url = 8;
-   */
-  caDirUrl: string;
+    /**
+     * CA 目录地址。
+     *
+     * @generated from field: string ca_dir_url = 8;
+     */
+    caDirUrl: string;
 
-  /**
-   * 是否使用 EAB。
-   *
-   * @generated from field: bool use_eab = 9;
-   */
-  useEab: boolean;
+    /**
+     * 是否使用 EAB。
+     *
+     * @generated from field: bool use_eab = 9;
+     */
+    useEab: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.ACMEAccount.
  * Use `create(ACMEAccountSchema)` to create a new message.
  */
-export const ACMEAccountSchema: GenMessage<ACMEAccount> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 8);
+export const ACMEAccountSchema: GenMessage<ACMEAccount> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_website_ssl, 8);
 
 /**
  * ListSSLRequest 是按账号列证书的参数。
  *
  * @generated from message panel.agent.v1.ListSSLRequest
  */
-export type ListSSLRequest = Message<"panel.agent.v1.ListSSLRequest"> & {
-  /**
-   * ACME 账号 ID；0 表示全部。
-   *
-   * @generated from field: string acme_account_id = 1;
-   */
-  acmeAccountId: string;
+export type ListSSLRequest = Message<'panel.agent.v1.ListSSLRequest'> & {
+    /**
+     * ACME 账号 ID；0 表示全部。
+     *
+     * @generated from field: string acme_account_id = 1;
+     */
+    acmeAccountId: string;
 };
 
 /**
  * Describes the message panel.agent.v1.ListSSLRequest.
  * Use `create(ListSSLRequestSchema)` to create a new message.
  */
-export const ListSSLRequestSchema: GenMessage<ListSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 9);
+export const ListSSLRequestSchema: GenMessage<ListSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 9);
 
 /**
  * ListSSLResponse 是证书列表。
  *
  * @generated from message panel.agent.v1.ListSSLResponse
  */
-export type ListSSLResponse = Message<"panel.agent.v1.ListSSLResponse"> & {
-  /**
-   * 证书列表。
-   *
-   * @generated from field: repeated panel.agent.v1.WebsiteSSL items = 1;
-   */
-  items: WebsiteSSL[];
+export type ListSSLResponse = Message<'panel.agent.v1.ListSSLResponse'> & {
+    /**
+     * 证书列表。
+     *
+     * @generated from field: repeated panel.agent.v1.WebsiteSSL items = 1;
+     */
+    items: WebsiteSSL[];
 };
 
 /**
  * Describes the message panel.agent.v1.ListSSLResponse.
  * Use `create(ListSSLResponseSchema)` to create a new message.
  */
-export const ListSSLResponseSchema: GenMessage<ListSSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 10);
+export const ListSSLResponseSchema: GenMessage<ListSSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 10);
 
 /**
  * GetSSLRequest 是按 ID 查证书的参数。
  *
  * @generated from message panel.agent.v1.GetSSLRequest
  */
-export type GetSSLRequest = Message<"panel.agent.v1.GetSSLRequest"> & {
-  /**
-   * 证书 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type GetSSLRequest = Message<'panel.agent.v1.GetSSLRequest'> & {
+    /**
+     * 证书 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.GetSSLRequest.
  * Use `create(GetSSLRequestSchema)` to create a new message.
  */
-export const GetSSLRequestSchema: GenMessage<GetSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 11);
+export const GetSSLRequestSchema: GenMessage<GetSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 11);
 
 /**
  * GetWebsiteSSLRequest 是查网站绑定证书的参数。
  *
  * @generated from message panel.agent.v1.GetWebsiteSSLRequest
  */
-export type GetWebsiteSSLRequest = Message<"panel.agent.v1.GetWebsiteSSLRequest"> & {
-  /**
-   * 网站 ID。
-   *
-   * @generated from field: uint32 website_id = 1;
-   */
-  websiteId: number;
+export type GetWebsiteSSLRequest = Message<'panel.agent.v1.GetWebsiteSSLRequest'> & {
+    /**
+     * 网站 ID。
+     *
+     * @generated from field: uint32 website_id = 1;
+     */
+    websiteId: number;
 };
 
 /**
  * Describes the message panel.agent.v1.GetWebsiteSSLRequest.
  * Use `create(GetWebsiteSSLRequestSchema)` to create a new message.
  */
-export const GetWebsiteSSLRequestSchema: GenMessage<GetWebsiteSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 12);
+export const GetWebsiteSSLRequestSchema: GenMessage<GetWebsiteSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 12);
 
 /**
  * CreateSSLRequest 是创建证书参数。
  *
  * @generated from message panel.agent.v1.CreateSSLRequest
  */
-export type CreateSSLRequest = Message<"panel.agent.v1.CreateSSLRequest"> & {
-  /**
-   * 主域名。
-   *
-   * @generated from field: string primary_domain = 1;
-   */
-  primaryDomain: string;
+export type CreateSSLRequest = Message<'panel.agent.v1.CreateSSLRequest'> & {
+    /**
+     * 主域名。
+     *
+     * @generated from field: string primary_domain = 1;
+     */
+    primaryDomain: string;
 
-  /**
-   * 附加域名，逗号分隔。
-   *
-   * @generated from field: string other_domains = 2;
-   */
-  otherDomains: string;
+    /**
+     * 附加域名，逗号分隔。
+     *
+     * @generated from field: string other_domains = 2;
+     */
+    otherDomains: string;
 
-  /**
-   * 申请方式。
-   *
-   * @generated from field: string provider = 3;
-   */
-  provider: string;
+    /**
+     * 申请方式。
+     *
+     * @generated from field: string provider = 3;
+     */
+    provider: string;
 
-  /**
-   * ACME 账号 ID。
-   *
-   * @generated from field: uint32 acme_account_id = 4;
-   */
-  acmeAccountId: number;
+    /**
+     * ACME 账号 ID。
+     *
+     * @generated from field: uint32 acme_account_id = 4;
+     */
+    acmeAccountId: number;
 
-  /**
-   * DNS 账号 ID。
-   *
-   * @generated from field: uint32 dns_account_id = 5;
-   */
-  dnsAccountId: number;
+    /**
+     * DNS 账号 ID。
+     *
+     * @generated from field: uint32 dns_account_id = 5;
+     */
+    dnsAccountId: number;
 
-  /**
-   * 是否自动续期。
-   *
-   * @generated from field: bool auto_renew = 6;
-   */
-  autoRenew: boolean;
+    /**
+     * 是否自动续期。
+     *
+     * @generated from field: bool auto_renew = 6;
+     */
+    autoRenew: boolean;
 
-  /**
-   * 密钥类型。
-   *
-   * @generated from field: string key_type = 7;
-   */
-  keyType: string;
+    /**
+     * 密钥类型。
+     *
+     * @generated from field: string key_type = 7;
+     */
+    keyType: string;
 
-  /**
-   * 是否立即申请。
-   *
-   * @generated from field: bool apply = 8;
-   */
-  apply: boolean;
+    /**
+     * 是否立即申请。
+     *
+     * @generated from field: bool apply = 8;
+     */
+    apply: boolean;
 
-  /**
-   * 是否推送证书到目录。
-   *
-   * @generated from field: bool push_dir = 9;
-   */
-  pushDir: boolean;
+    /**
+     * 是否推送证书到目录。
+     *
+     * @generated from field: bool push_dir = 9;
+     */
+    pushDir: boolean;
 
-  /**
-   * 推送目录。
-   *
-   * @generated from field: string dir = 10;
-   */
-  dir: string;
+    /**
+     * 推送目录。
+     *
+     * @generated from field: string dir = 10;
+     */
+    dir: string;
 
-  /**
-   * 备注。
-   *
-   * @generated from field: string description = 11;
-   */
-  description: string;
+    /**
+     * 备注。
+     *
+     * @generated from field: string description = 11;
+     */
+    description: string;
 
-  /**
-   * 是否禁用 CNAME 校验。
-   *
-   * @generated from field: bool disable_cname = 12;
-   */
-  disableCname: boolean;
+    /**
+     * 是否禁用 CNAME 校验。
+     *
+     * @generated from field: bool disable_cname = 12;
+     */
+    disableCname: boolean;
 
-  /**
-   * 是否跳过 DNS 校验。
-   *
-   * @generated from field: bool skip_dns = 13;
-   */
-  skipDns: boolean;
+    /**
+     * 是否跳过 DNS 校验。
+     *
+     * @generated from field: bool skip_dns = 13;
+     */
+    skipDns: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.CreateSSLRequest.
  * Use `create(CreateSSLRequestSchema)` to create a new message.
  */
-export const CreateSSLRequestSchema: GenMessage<CreateSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 13);
+export const CreateSSLRequestSchema: GenMessage<CreateSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 13);
 
 /**
  * CreateSSLResponse 是创建结果。
  *
  * @generated from message panel.agent.v1.CreateSSLResponse
  */
-export type CreateSSLResponse = Message<"panel.agent.v1.CreateSSLResponse"> & {
-  /**
-   * 创建后的证书 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type CreateSSLResponse = Message<'panel.agent.v1.CreateSSLResponse'> & {
+    /**
+     * 创建后的证书 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.CreateSSLResponse.
  * Use `create(CreateSSLResponseSchema)` to create a new message.
  */
-export const CreateSSLResponseSchema: GenMessage<CreateSSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 14);
+export const CreateSSLResponseSchema: GenMessage<CreateSSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 14);
 
 /**
  * UpdateSSLRequest 是修改证书参数。
  *
  * @generated from message panel.agent.v1.UpdateSSLRequest
  */
-export type UpdateSSLRequest = Message<"panel.agent.v1.UpdateSSLRequest"> & {
-  /**
-   * 证书 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type UpdateSSLRequest = Message<'panel.agent.v1.UpdateSSLRequest'> & {
+    /**
+     * 证书 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 是否自动续期。
-   *
-   * @generated from field: bool auto_renew = 2;
-   */
-  autoRenew: boolean;
+    /**
+     * 是否自动续期。
+     *
+     * @generated from field: bool auto_renew = 2;
+     */
+    autoRenew: boolean;
 
-  /**
-   * 备注。
-   *
-   * @generated from field: string description = 3;
-   */
-  description: string;
+    /**
+     * 备注。
+     *
+     * @generated from field: string description = 3;
+     */
+    description: string;
 
-  /**
-   * 主域名。
-   *
-   * @generated from field: string primary_domain = 4;
-   */
-  primaryDomain: string;
+    /**
+     * 主域名。
+     *
+     * @generated from field: string primary_domain = 4;
+     */
+    primaryDomain: string;
 
-  /**
-   * 附加域名。
-   *
-   * @generated from field: string other_domains = 5;
-   */
-  otherDomains: string;
+    /**
+     * 附加域名。
+     *
+     * @generated from field: string other_domains = 5;
+     */
+    otherDomains: string;
 
-  /**
-   * 申请方式。
-   *
-   * @generated from field: string provider = 6;
-   */
-  provider: string;
+    /**
+     * 申请方式。
+     *
+     * @generated from field: string provider = 6;
+     */
+    provider: string;
 
-  /**
-   * ACME 账号 ID。
-   *
-   * @generated from field: uint32 acme_account_id = 7;
-   */
-  acmeAccountId: number;
+    /**
+     * ACME 账号 ID。
+     *
+     * @generated from field: uint32 acme_account_id = 7;
+     */
+    acmeAccountId: number;
 
-  /**
-   * DNS 账号 ID。
-   *
-   * @generated from field: uint32 dns_account_id = 8;
-   */
-  dnsAccountId: number;
+    /**
+     * DNS 账号 ID。
+     *
+     * @generated from field: uint32 dns_account_id = 8;
+     */
+    dnsAccountId: number;
 
-  /**
-   * 密钥类型。
-   *
-   * @generated from field: string key_type = 9;
-   */
-  keyType: string;
+    /**
+     * 密钥类型。
+     *
+     * @generated from field: string key_type = 9;
+     */
+    keyType: string;
 
-  /**
-   * 是否立即申请。
-   *
-   * @generated from field: bool apply = 10;
-   */
-  apply: boolean;
+    /**
+     * 是否立即申请。
+     *
+     * @generated from field: bool apply = 10;
+     */
+    apply: boolean;
 
-  /**
-   * 是否推送证书到目录。
-   *
-   * @generated from field: bool push_dir = 11;
-   */
-  pushDir: boolean;
+    /**
+     * 是否推送证书到目录。
+     *
+     * @generated from field: bool push_dir = 11;
+     */
+    pushDir: boolean;
 
-  /**
-   * 推送目录。
-   *
-   * @generated from field: string dir = 12;
-   */
-  dir: string;
+    /**
+     * 推送目录。
+     *
+     * @generated from field: string dir = 12;
+     */
+    dir: string;
 
-  /**
-   * 是否禁用 CNAME 校验。
-   *
-   * @generated from field: bool disable_cname = 13;
-   */
-  disableCname: boolean;
+    /**
+     * 是否禁用 CNAME 校验。
+     *
+     * @generated from field: bool disable_cname = 13;
+     */
+    disableCname: boolean;
 
-  /**
-   * 是否跳过 DNS 校验。
-   *
-   * @generated from field: bool skip_dns = 14;
-   */
-  skipDns: boolean;
+    /**
+     * 是否跳过 DNS 校验。
+     *
+     * @generated from field: bool skip_dns = 14;
+     */
+    skipDns: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateSSLRequest.
  * Use `create(UpdateSSLRequestSchema)` to create a new message.
  */
-export const UpdateSSLRequestSchema: GenMessage<UpdateSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 15);
+export const UpdateSSLRequestSchema: GenMessage<UpdateSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 15);
 
 /**
  * UpdateSSLResponse 是修改结果，无业务字段。
  *
  * @generated from message panel.agent.v1.UpdateSSLResponse
  */
-export type UpdateSSLResponse = Message<"panel.agent.v1.UpdateSSLResponse"> & {
-};
+export type UpdateSSLResponse = Message<'panel.agent.v1.UpdateSSLResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.UpdateSSLResponse.
  * Use `create(UpdateSSLResponseSchema)` to create a new message.
  */
-export const UpdateSSLResponseSchema: GenMessage<UpdateSSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 16);
+export const UpdateSSLResponseSchema: GenMessage<UpdateSSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 16);
 
 /**
  * ApplySSLRequest 是申请/续期参数。
  *
  * @generated from message panel.agent.v1.ApplySSLRequest
  */
-export type ApplySSLRequest = Message<"panel.agent.v1.ApplySSLRequest"> & {
-  /**
-   * 证书 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type ApplySSLRequest = Message<'panel.agent.v1.ApplySSLRequest'> & {
+    /**
+     * 证书 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 是否跳过 DNS 校验。
-   *
-   * @generated from field: bool skip_dns_check = 2;
-   */
-  skipDnsCheck: boolean;
+    /**
+     * 是否跳过 DNS 校验。
+     *
+     * @generated from field: bool skip_dns_check = 2;
+     */
+    skipDnsCheck: boolean;
 
-  /**
-   * 指定的 NS 服务器。
-   *
-   * @generated from field: repeated string nameservers = 3;
-   */
-  nameservers: string[];
+    /**
+     * 指定的 NS 服务器。
+     *
+     * @generated from field: repeated string nameservers = 3;
+     */
+    nameservers: string[];
 };
 
 /**
  * Describes the message panel.agent.v1.ApplySSLRequest.
  * Use `create(ApplySSLRequestSchema)` to create a new message.
  */
-export const ApplySSLRequestSchema: GenMessage<ApplySSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 17);
+export const ApplySSLRequestSchema: GenMessage<ApplySSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 17);
 
 /**
  * ApplySSLResponse 是申请结果，无业务字段。
  *
  * @generated from message panel.agent.v1.ApplySSLResponse
  */
-export type ApplySSLResponse = Message<"panel.agent.v1.ApplySSLResponse"> & {
-};
+export type ApplySSLResponse = Message<'panel.agent.v1.ApplySSLResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.ApplySSLResponse.
  * Use `create(ApplySSLResponseSchema)` to create a new message.
  */
-export const ApplySSLResponseSchema: GenMessage<ApplySSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 18);
+export const ApplySSLResponseSchema: GenMessage<ApplySSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 18);
 
 /**
  * GetDNSResolveRequest 是 DNS 解析查询参数。
  *
  * @generated from message panel.agent.v1.GetDNSResolveRequest
  */
-export type GetDNSResolveRequest = Message<"panel.agent.v1.GetDNSResolveRequest"> & {
-  /**
-   * ACME 账号 ID。
-   *
-   * @generated from field: uint32 acme_account_id = 1;
-   */
-  acmeAccountId: number;
+export type GetDNSResolveRequest = Message<'panel.agent.v1.GetDNSResolveRequest'> & {
+    /**
+     * ACME 账号 ID。
+     *
+     * @generated from field: uint32 acme_account_id = 1;
+     */
+    acmeAccountId: number;
 
-  /**
-   * 证书 ID。
-   *
-   * @generated from field: uint32 website_ssl_id = 2;
-   */
-  websiteSslId: number;
+    /**
+     * 证书 ID。
+     *
+     * @generated from field: uint32 website_ssl_id = 2;
+     */
+    websiteSslId: number;
 };
 
 /**
  * Describes the message panel.agent.v1.GetDNSResolveRequest.
  * Use `create(GetDNSResolveRequestSchema)` to create a new message.
  */
-export const GetDNSResolveRequestSchema: GenMessage<GetDNSResolveRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 19);
+export const GetDNSResolveRequestSchema: GenMessage<GetDNSResolveRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 19);
 
 /**
  * DNSResolveRecord 是一条待添加的解析记录。
  *
  * @generated from message panel.agent.v1.DNSResolveRecord
  */
-export type DNSResolveRecord = Message<"panel.agent.v1.DNSResolveRecord"> & {
-  /**
-   * 解析值。
-   *
-   * @generated from field: string resolve = 1;
-   */
-  resolve: string;
+export type DNSResolveRecord = Message<'panel.agent.v1.DNSResolveRecord'> & {
+    /**
+     * 解析值。
+     *
+     * @generated from field: string resolve = 1;
+     */
+    resolve: string;
 
-  /**
-   * 记录值。
-   *
-   * @generated from field: string value = 2;
-   */
-  value: string;
+    /**
+     * 记录值。
+     *
+     * @generated from field: string value = 2;
+     */
+    value: string;
 
-  /**
-   * 域名。
-   *
-   * @generated from field: string domain = 3;
-   */
-  domain: string;
+    /**
+     * 域名。
+     *
+     * @generated from field: string domain = 3;
+     */
+    domain: string;
 
-  /**
-   * 错误信息。
-   *
-   * @generated from field: string err = 4;
-   */
-  err: string;
+    /**
+     * 错误信息。
+     *
+     * @generated from field: string err = 4;
+     */
+    err: string;
 };
 
 /**
  * Describes the message panel.agent.v1.DNSResolveRecord.
  * Use `create(DNSResolveRecordSchema)` to create a new message.
  */
-export const DNSResolveRecordSchema: GenMessage<DNSResolveRecord> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 20);
+export const DNSResolveRecordSchema: GenMessage<DNSResolveRecord> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 20);
 
 /**
  * GetDNSResolveResponse 是解析记录列表。
  *
  * @generated from message panel.agent.v1.GetDNSResolveResponse
  */
-export type GetDNSResolveResponse = Message<"panel.agent.v1.GetDNSResolveResponse"> & {
-  /**
-   * 记录列表。
-   *
-   * @generated from field: repeated panel.agent.v1.DNSResolveRecord items = 1;
-   */
-  items: DNSResolveRecord[];
+export type GetDNSResolveResponse = Message<'panel.agent.v1.GetDNSResolveResponse'> & {
+    /**
+     * 记录列表。
+     *
+     * @generated from field: repeated panel.agent.v1.DNSResolveRecord items = 1;
+     */
+    items: DNSResolveRecord[];
 };
 
 /**
  * Describes the message panel.agent.v1.GetDNSResolveResponse.
  * Use `create(GetDNSResolveResponseSchema)` to create a new message.
  */
-export const GetDNSResolveResponseSchema: GenMessage<GetDNSResolveResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 21);
+export const GetDNSResolveResponseSchema: GenMessage<GetDNSResolveResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 21);
 
 /**
  * DeleteSSLRequest 是删除证书参数。
  *
  * @generated from message panel.agent.v1.DeleteSSLRequest
  */
-export type DeleteSSLRequest = Message<"panel.agent.v1.DeleteSSLRequest"> & {
-  /**
-   * 证书 ID 列表。
-   *
-   * @generated from field: repeated uint32 ids = 1;
-   */
-  ids: number[];
+export type DeleteSSLRequest = Message<'panel.agent.v1.DeleteSSLRequest'> & {
+    /**
+     * 证书 ID 列表。
+     *
+     * @generated from field: repeated uint32 ids = 1;
+     */
+    ids: number[];
 };
 
 /**
  * Describes the message panel.agent.v1.DeleteSSLRequest.
  * Use `create(DeleteSSLRequestSchema)` to create a new message.
  */
-export const DeleteSSLRequestSchema: GenMessage<DeleteSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 22);
+export const DeleteSSLRequestSchema: GenMessage<DeleteSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 22);
 
 /**
  * DeleteSSLResponse 是删除结果，无业务字段。
  *
  * @generated from message panel.agent.v1.DeleteSSLResponse
  */
-export type DeleteSSLResponse = Message<"panel.agent.v1.DeleteSSLResponse"> & {
-};
+export type DeleteSSLResponse = Message<'panel.agent.v1.DeleteSSLResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.DeleteSSLResponse.
  * Use `create(DeleteSSLResponseSchema)` to create a new message.
  */
-export const DeleteSSLResponseSchema: GenMessage<DeleteSSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 23);
+export const DeleteSSLResponseSchema: GenMessage<DeleteSSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 23);
 
 /**
  * PushSSLRequest 是推送证书参数。
  *
  * @generated from message panel.agent.v1.PushSSLRequest
  */
-export type PushSSLRequest = Message<"panel.agent.v1.PushSSLRequest"> & {
-  /**
-   * 证书 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type PushSSLRequest = Message<'panel.agent.v1.PushSSLRequest'> & {
+    /**
+     * 证书 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 是否推送到节点。
-   *
-   * @generated from field: bool push_node = 2;
-   */
-  pushNode: boolean;
+    /**
+     * 是否推送到节点。
+     *
+     * @generated from field: bool push_node = 2;
+     */
+    pushNode: boolean;
 
-  /**
-   * 节点列表，逗号分隔。
-   *
-   * @generated from field: string nodes = 3;
-   */
-  nodes: string;
+    /**
+     * 节点列表，逗号分隔。
+     *
+     * @generated from field: string nodes = 3;
+     */
+    nodes: string;
 
-  /**
-   * 任务 ID。
-   *
-   * @generated from field: string task_id = 4;
-   */
-  taskId: string;
+    /**
+     * 任务 ID。
+     *
+     * @generated from field: string task_id = 4;
+     */
+    taskId: string;
 
-  /**
-   * 是否同步。
-   *
-   * @generated from field: bool sync = 5;
-   */
-  sync: boolean;
+    /**
+     * 是否同步。
+     *
+     * @generated from field: bool sync = 5;
+     */
+    sync: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.PushSSLRequest.
  * Use `create(PushSSLRequestSchema)` to create a new message.
  */
-export const PushSSLRequestSchema: GenMessage<PushSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 24);
+export const PushSSLRequestSchema: GenMessage<PushSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 24);
 
 /**
  * PushSSLResponse 是推送结果，无业务字段。
  *
  * @generated from message panel.agent.v1.PushSSLResponse
  */
-export type PushSSLResponse = Message<"panel.agent.v1.PushSSLResponse"> & {
-};
+export type PushSSLResponse = Message<'panel.agent.v1.PushSSLResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.PushSSLResponse.
  * Use `create(PushSSLResponseSchema)` to create a new message.
  */
-export const PushSSLResponseSchema: GenMessage<PushSSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 25);
+export const PushSSLResponseSchema: GenMessage<PushSSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 25);
 
 /**
  * SearchCARequest 是 CA 分页查询参数。
  *
  * @generated from message panel.agent.v1.SearchCARequest
  */
-export type SearchCARequest = Message<"panel.agent.v1.SearchCARequest"> & {
-  /**
-   * 页码，从 1 开始。
-   *
-   * @generated from field: int32 page = 1;
-   */
-  page: number;
+export type SearchCARequest = Message<'panel.agent.v1.SearchCARequest'> & {
+    /**
+     * 页码，从 1 开始。
+     *
+     * @generated from field: int32 page = 1;
+     */
+    page: number;
 
-  /**
-   * 每页条数，最大 100。
-   *
-   * @generated from field: int32 page_size = 2;
-   */
-  pageSize: number;
+    /**
+     * 每页条数，最大 100。
+     *
+     * @generated from field: int32 page_size = 2;
+     */
+    pageSize: number;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchCARequest.
  * Use `create(SearchCARequestSchema)` to create a new message.
  */
-export const SearchCARequestSchema: GenMessage<SearchCARequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 26);
+export const SearchCARequestSchema: GenMessage<SearchCARequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 26);
 
 /**
  * SearchCAResponse 是 CA 列表结果。
  *
  * @generated from message panel.agent.v1.SearchCAResponse
  */
-export type SearchCAResponse = Message<"panel.agent.v1.SearchCAResponse"> & {
-  /**
-   * CA 列表。
-   *
-   * @generated from field: repeated panel.agent.v1.CADetail items = 1;
-   */
-  items: CADetail[];
+export type SearchCAResponse = Message<'panel.agent.v1.SearchCAResponse'> & {
+    /**
+     * CA 列表。
+     *
+     * @generated from field: repeated panel.agent.v1.CADetail items = 1;
+     */
+    items: CADetail[];
 
-  /**
-   * 总数。
-   *
-   * @generated from field: int64 total = 2;
-   */
-  total: bigint;
+    /**
+     * 总数。
+     *
+     * @generated from field: int64 total = 2;
+     */
+    total: bigint;
 };
 
 /**
  * Describes the message panel.agent.v1.SearchCAResponse.
  * Use `create(SearchCAResponseSchema)` to create a new message.
  */
-export const SearchCAResponseSchema: GenMessage<SearchCAResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 27);
+export const SearchCAResponseSchema: GenMessage<SearchCAResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 27);
 
 /**
  * CADetail 是一条 CA 记录。
  *
  * @generated from message panel.agent.v1.CADetail
  */
-export type CADetail = Message<"panel.agent.v1.CADetail"> & {
-  /**
-   * CA ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type CADetail = Message<'panel.agent.v1.CADetail'> & {
+    /**
+     * CA ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 创建时间，RFC3339 格式。
-   *
-   * @generated from field: string created_at = 2;
-   */
-  createdAt: string;
+    /**
+     * 创建时间，RFC3339 格式。
+     *
+     * @generated from field: string created_at = 2;
+     */
+    createdAt: string;
 
-  /**
-   * 名称。
-   *
-   * @generated from field: string name = 3;
-   */
-  name: string;
+    /**
+     * 名称。
+     *
+     * @generated from field: string name = 3;
+     */
+    name: string;
 
-  /**
-   * 密钥类型。
-   *
-   * @generated from field: string key_type = 4;
-   */
-  keyType: string;
+    /**
+     * 密钥类型。
+     *
+     * @generated from field: string key_type = 4;
+     */
+    keyType: string;
 
-  /**
-   * CSR。
-   *
-   * @generated from field: string csr = 5;
-   */
-  csr: string;
+    /**
+     * CSR。
+     *
+     * @generated from field: string csr = 5;
+     */
+    csr: string;
 
-  /**
-   * 通用名称。
-   *
-   * @generated from field: string common_name = 6;
-   */
-  commonName: string;
+    /**
+     * 通用名称。
+     *
+     * @generated from field: string common_name = 6;
+     */
+    commonName: string;
 
-  /**
-   * 国家。
-   *
-   * @generated from field: string country = 7;
-   */
-  country: string;
+    /**
+     * 国家。
+     *
+     * @generated from field: string country = 7;
+     */
+    country: string;
 
-  /**
-   * 组织。
-   *
-   * @generated from field: string organization = 8;
-   */
-  organization: string;
+    /**
+     * 组织。
+     *
+     * @generated from field: string organization = 8;
+     */
+    organization: string;
 
-  /**
-   * 组织单位。
-   *
-   * @generated from field: string organization_uint = 9;
-   */
-  organizationUint: string;
+    /**
+     * 组织单位。
+     *
+     * @generated from field: string organization_uint = 9;
+     */
+    organizationUint: string;
 
-  /**
-   * 省份。
-   *
-   * @generated from field: string province = 10;
-   */
-  province: string;
+    /**
+     * 省份。
+     *
+     * @generated from field: string province = 10;
+     */
+    province: string;
 
-  /**
-   * 城市。
-   *
-   * @generated from field: string city = 11;
-   */
-  city: string;
+    /**
+     * 城市。
+     *
+     * @generated from field: string city = 11;
+     */
+    city: string;
+
+    /**
+     * 私钥内容；仅详情接口返回，用于展示与导出。
+     *
+     * @generated from field: string private_key = 12;
+     */
+    privateKey: string;
 };
 
 /**
  * Describes the message panel.agent.v1.CADetail.
  * Use `create(CADetailSchema)` to create a new message.
  */
-export const CADetailSchema: GenMessage<CADetail> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 28);
+export const CADetailSchema: GenMessage<CADetail> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_website_ssl, 28);
 
 /**
  * GetCARequest 是按 ID 查 CA 的参数。
  *
  * @generated from message panel.agent.v1.GetCARequest
  */
-export type GetCARequest = Message<"panel.agent.v1.GetCARequest"> & {
-  /**
-   * CA ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type GetCARequest = Message<'panel.agent.v1.GetCARequest'> & {
+    /**
+     * CA ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.GetCARequest.
  * Use `create(GetCARequestSchema)` to create a new message.
  */
-export const GetCARequestSchema: GenMessage<GetCARequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 29);
+export const GetCARequestSchema: GenMessage<GetCARequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 29);
 
 /**
  * CreateCARequest 是创建 CA 参数。
  *
  * @generated from message panel.agent.v1.CreateCARequest
  */
-export type CreateCARequest = Message<"panel.agent.v1.CreateCARequest"> & {
-  /**
-   * 通用名称。
-   *
-   * @generated from field: string common_name = 1;
-   */
-  commonName: string;
+export type CreateCARequest = Message<'panel.agent.v1.CreateCARequest'> & {
+    /**
+     * 通用名称。
+     *
+     * @generated from field: string common_name = 1;
+     */
+    commonName: string;
 
-  /**
-   * 国家。
-   *
-   * @generated from field: string country = 2;
-   */
-  country: string;
+    /**
+     * 国家。
+     *
+     * @generated from field: string country = 2;
+     */
+    country: string;
 
-  /**
-   * 组织。
-   *
-   * @generated from field: string organization = 3;
-   */
-  organization: string;
+    /**
+     * 组织。
+     *
+     * @generated from field: string organization = 3;
+     */
+    organization: string;
 
-  /**
-   * 组织单位。
-   *
-   * @generated from field: string organization_uint = 4;
-   */
-  organizationUint: string;
+    /**
+     * 组织单位。
+     *
+     * @generated from field: string organization_uint = 4;
+     */
+    organizationUint: string;
 
-  /**
-   * 名称。
-   *
-   * @generated from field: string name = 5;
-   */
-  name: string;
+    /**
+     * 名称。
+     *
+     * @generated from field: string name = 5;
+     */
+    name: string;
 
-  /**
-   * 密钥类型。
-   *
-   * @generated from field: string key_type = 6;
-   */
-  keyType: string;
+    /**
+     * 密钥类型。
+     *
+     * @generated from field: string key_type = 6;
+     */
+    keyType: string;
 
-  /**
-   * 省份。
-   *
-   * @generated from field: string province = 7;
-   */
-  province: string;
+    /**
+     * 省份。
+     *
+     * @generated from field: string province = 7;
+     */
+    province: string;
 
-  /**
-   * 城市。
-   *
-   * @generated from field: string city = 8;
-   */
-  city: string;
+    /**
+     * 城市。
+     *
+     * @generated from field: string city = 8;
+     */
+    city: string;
 };
 
 /**
  * Describes the message panel.agent.v1.CreateCARequest.
  * Use `create(CreateCARequestSchema)` to create a new message.
  */
-export const CreateCARequestSchema: GenMessage<CreateCARequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 30);
+export const CreateCARequestSchema: GenMessage<CreateCARequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 30);
 
 /**
  * CreateCAResponse 是创建结果，无业务字段。
  *
  * @generated from message panel.agent.v1.CreateCAResponse
  */
-export type CreateCAResponse = Message<"panel.agent.v1.CreateCAResponse"> & {
-};
+export type CreateCAResponse = Message<'panel.agent.v1.CreateCAResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.CreateCAResponse.
  * Use `create(CreateCAResponseSchema)` to create a new message.
  */
-export const CreateCAResponseSchema: GenMessage<CreateCAResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 31);
+export const CreateCAResponseSchema: GenMessage<CreateCAResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 31);
 
 /**
  * DeleteCARequest 是删除 CA 参数。
  *
  * @generated from message panel.agent.v1.DeleteCARequest
  */
-export type DeleteCARequest = Message<"panel.agent.v1.DeleteCARequest"> & {
-  /**
-   * CA ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type DeleteCARequest = Message<'panel.agent.v1.DeleteCARequest'> & {
+    /**
+     * CA ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.DeleteCARequest.
  * Use `create(DeleteCARequestSchema)` to create a new message.
  */
-export const DeleteCARequestSchema: GenMessage<DeleteCARequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 32);
+export const DeleteCARequestSchema: GenMessage<DeleteCARequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 32);
 
 /**
  * DeleteCAResponse 是删除结果，无业务字段。
  *
  * @generated from message panel.agent.v1.DeleteCAResponse
  */
-export type DeleteCAResponse = Message<"panel.agent.v1.DeleteCAResponse"> & {
-};
+export type DeleteCAResponse = Message<'panel.agent.v1.DeleteCAResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.DeleteCAResponse.
  * Use `create(DeleteCAResponseSchema)` to create a new message.
  */
-export const DeleteCAResponseSchema: GenMessage<DeleteCAResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 33);
+export const DeleteCAResponseSchema: GenMessage<DeleteCAResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 33);
 
 /**
  * RenewCARequest 是 CA 续签参数。
  *
  * @generated from message panel.agent.v1.RenewCARequest
  */
-export type RenewCARequest = Message<"panel.agent.v1.RenewCARequest"> & {
-  /**
-   * 待续签证书 ID。
-   *
-   * @generated from field: uint32 ssl_id = 1;
-   */
-  sslId: number;
+export type RenewCARequest = Message<'panel.agent.v1.RenewCARequest'> & {
+    /**
+     * 待续签证书 ID。
+     *
+     * @generated from field: uint32 ssl_id = 1;
+     */
+    sslId: number;
 };
 
 /**
  * Describes the message panel.agent.v1.RenewCARequest.
  * Use `create(RenewCARequestSchema)` to create a new message.
  */
-export const RenewCARequestSchema: GenMessage<RenewCARequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 34);
+export const RenewCARequestSchema: GenMessage<RenewCARequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 34);
 
 /**
  * RenewCAResponse 是续签结果，无业务字段。
  *
  * @generated from message panel.agent.v1.RenewCAResponse
  */
-export type RenewCAResponse = Message<"panel.agent.v1.RenewCAResponse"> & {
-};
+export type RenewCAResponse = Message<'panel.agent.v1.RenewCAResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.RenewCAResponse.
  * Use `create(RenewCAResponseSchema)` to create a new message.
  */
-export const RenewCAResponseSchema: GenMessage<RenewCAResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 35);
+export const RenewCAResponseSchema: GenMessage<RenewCAResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 35);
 
 /**
  * CreateACMEAccountRequest 是创建 ACME 账号参数。
  *
  * @generated from message panel.agent.v1.CreateACMEAccountRequest
  */
-export type CreateACMEAccountRequest = Message<"panel.agent.v1.CreateACMEAccountRequest"> & {
-  /**
-   * 邮箱。
-   *
-   * @generated from field: string email = 1;
-   */
-  email: string;
+export type CreateACMEAccountRequest = Message<'panel.agent.v1.CreateACMEAccountRequest'> & {
+    /**
+     * 邮箱。
+     *
+     * @generated from field: string email = 1;
+     */
+    email: string;
 
-  /**
-   * 类型：letsencrypt、zerossl、buypass、google、custom。
-   *
-   * @generated from field: string type = 2;
-   */
-  type: string;
+    /**
+     * 类型：letsencrypt、zerossl、buypass、google、custom。
+     *
+     * @generated from field: string type = 2;
+     */
+    type: string;
 
-  /**
-   * 密钥类型。
-   *
-   * @generated from field: string key_type = 3;
-   */
-  keyType: string;
+    /**
+     * 密钥类型。
+     *
+     * @generated from field: string key_type = 3;
+     */
+    keyType: string;
 
-  /**
-   * EAB KID。
-   *
-   * @generated from field: string eab_kid = 4;
-   */
-  eabKid: string;
+    /**
+     * EAB KID。
+     *
+     * @generated from field: string eab_kid = 4;
+     */
+    eabKid: string;
 
-  /**
-   * EAB HMAC 密钥。
-   *
-   * @generated from field: string eab_hmac_key = 5;
-   */
-  eabHmacKey: string;
+    /**
+     * EAB HMAC 密钥。
+     *
+     * @generated from field: string eab_hmac_key = 5;
+     */
+    eabHmacKey: string;
 
-  /**
-   * 是否使用代理。
-   *
-   * @generated from field: bool use_proxy = 6;
-   */
-  useProxy: boolean;
+    /**
+     * 是否使用代理。
+     *
+     * @generated from field: bool use_proxy = 6;
+     */
+    useProxy: boolean;
 
-  /**
-   * 自定义 CA 目录 URL。
-   *
-   * @generated from field: string ca_dir_url = 7;
-   */
-  caDirUrl: string;
+    /**
+     * 自定义 CA 目录 URL。
+     *
+     * @generated from field: string ca_dir_url = 7;
+     */
+    caDirUrl: string;
 
-  /**
-   * 是否启用 EAB。
-   *
-   * @generated from field: bool use_eab = 8;
-   */
-  useEab: boolean;
+    /**
+     * 是否启用 EAB。
+     *
+     * @generated from field: bool use_eab = 8;
+     */
+    useEab: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.CreateACMEAccountRequest.
  * Use `create(CreateACMEAccountRequestSchema)` to create a new message.
  */
-export const CreateACMEAccountRequestSchema: GenMessage<CreateACMEAccountRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 36);
+export const CreateACMEAccountRequestSchema: GenMessage<CreateACMEAccountRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 36);
 
 /**
  * CreateACMEAccountResponse 是创建结果，无业务字段。
  *
  * @generated from message panel.agent.v1.CreateACMEAccountResponse
  */
-export type CreateACMEAccountResponse = Message<"panel.agent.v1.CreateACMEAccountResponse"> & {
-};
+export type CreateACMEAccountResponse = Message<'panel.agent.v1.CreateACMEAccountResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.CreateACMEAccountResponse.
  * Use `create(CreateACMEAccountResponseSchema)` to create a new message.
  */
-export const CreateACMEAccountResponseSchema: GenMessage<CreateACMEAccountResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 37);
+export const CreateACMEAccountResponseSchema: GenMessage<CreateACMEAccountResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 37);
 
 /**
  * UpdateACMEAccountRequest 是修改 ACME 账号参数。
  *
  * @generated from message panel.agent.v1.UpdateACMEAccountRequest
  */
-export type UpdateACMEAccountRequest = Message<"panel.agent.v1.UpdateACMEAccountRequest"> & {
-  /**
-   * 账号 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type UpdateACMEAccountRequest = Message<'panel.agent.v1.UpdateACMEAccountRequest'> & {
+    /**
+     * 账号 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 是否使用代理。
-   *
-   * @generated from field: bool use_proxy = 2;
-   */
-  useProxy: boolean;
+    /**
+     * 是否使用代理。
+     *
+     * @generated from field: bool use_proxy = 2;
+     */
+    useProxy: boolean;
 };
 
 /**
  * Describes the message panel.agent.v1.UpdateACMEAccountRequest.
  * Use `create(UpdateACMEAccountRequestSchema)` to create a new message.
  */
-export const UpdateACMEAccountRequestSchema: GenMessage<UpdateACMEAccountRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 38);
+export const UpdateACMEAccountRequestSchema: GenMessage<UpdateACMEAccountRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 38);
 
 /**
  * UpdateACMEAccountResponse 是修改结果，无业务字段。
  *
  * @generated from message panel.agent.v1.UpdateACMEAccountResponse
  */
-export type UpdateACMEAccountResponse = Message<"panel.agent.v1.UpdateACMEAccountResponse"> & {
-};
+export type UpdateACMEAccountResponse = Message<'panel.agent.v1.UpdateACMEAccountResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.UpdateACMEAccountResponse.
  * Use `create(UpdateACMEAccountResponseSchema)` to create a new message.
  */
-export const UpdateACMEAccountResponseSchema: GenMessage<UpdateACMEAccountResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 39);
+export const UpdateACMEAccountResponseSchema: GenMessage<UpdateACMEAccountResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 39);
 
 /**
  * DeleteACMEAccountRequest 是删除 ACME 账号参数。
  *
  * @generated from message panel.agent.v1.DeleteACMEAccountRequest
  */
-export type DeleteACMEAccountRequest = Message<"panel.agent.v1.DeleteACMEAccountRequest"> & {
-  /**
-   * 账号 ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type DeleteACMEAccountRequest = Message<'panel.agent.v1.DeleteACMEAccountRequest'> & {
+    /**
+     * 账号 ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 };
 
 /**
  * Describes the message panel.agent.v1.DeleteACMEAccountRequest.
  * Use `create(DeleteACMEAccountRequestSchema)` to create a new message.
  */
-export const DeleteACMEAccountRequestSchema: GenMessage<DeleteACMEAccountRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 40);
+export const DeleteACMEAccountRequestSchema: GenMessage<DeleteACMEAccountRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 40);
 
 /**
  * DeleteACMEAccountResponse 是删除结果，无业务字段。
  *
  * @generated from message panel.agent.v1.DeleteACMEAccountResponse
  */
-export type DeleteACMEAccountResponse = Message<"panel.agent.v1.DeleteACMEAccountResponse"> & {
-};
+export type DeleteACMEAccountResponse = Message<'panel.agent.v1.DeleteACMEAccountResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.DeleteACMEAccountResponse.
  * Use `create(DeleteACMEAccountResponseSchema)` to create a new message.
  */
-export const DeleteACMEAccountResponseSchema: GenMessage<DeleteACMEAccountResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 41);
+export const DeleteACMEAccountResponseSchema: GenMessage<DeleteACMEAccountResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 41);
 
 /**
  * ObtainCARequest 是自签名证书签发参数。
  *
  * @generated from message panel.agent.v1.ObtainCARequest
  */
-export type ObtainCARequest = Message<"panel.agent.v1.ObtainCARequest"> & {
-  /**
-   * CA ID。
-   *
-   * @generated from field: uint32 id = 1;
-   */
-  id: number;
+export type ObtainCARequest = Message<'panel.agent.v1.ObtainCARequest'> & {
+    /**
+     * CA ID。
+     *
+     * @generated from field: uint32 id = 1;
+     */
+    id: number;
 
-  /**
-   * 域名列表。
-   *
-   * @generated from field: string domains = 2;
-   */
-  domains: string;
+    /**
+     * 域名列表。
+     *
+     * @generated from field: string domains = 2;
+     */
+    domains: string;
 
-  /**
-   * 密钥类型，例如 EC256、RSA2048。
-   *
-   * @generated from field: string key_type = 3;
-   */
-  keyType: string;
+    /**
+     * 密钥类型，例如 EC256、RSA2048。
+     *
+     * @generated from field: string key_type = 3;
+     */
+    keyType: string;
 
-  /**
-   * 有效期长度。
-   *
-   * @generated from field: int32 time = 4;
-   */
-  time: number;
+    /**
+     * 有效期长度。
+     *
+     * @generated from field: int32 time = 4;
+     */
+    time: number;
 
-  /**
-   * 有效期单位。
-   *
-   * @generated from field: string unit = 5;
-   */
-  unit: string;
+    /**
+     * 有效期单位。
+     *
+     * @generated from field: string unit = 5;
+     */
+    unit: string;
 
-  /**
-   * 是否推送到目录。
-   *
-   * @generated from field: bool push_dir = 6;
-   */
-  pushDir: boolean;
+    /**
+     * 是否推送到目录。
+     *
+     * @generated from field: bool push_dir = 6;
+     */
+    pushDir: boolean;
 
-  /**
-   * 推送目录。
-   *
-   * @generated from field: string dir = 7;
-   */
-  dir: string;
+    /**
+     * 推送目录。
+     *
+     * @generated from field: string dir = 7;
+     */
+    dir: string;
 
-  /**
-   * 是否自动续期。
-   *
-   * @generated from field: bool auto_renew = 8;
-   */
-  autoRenew: boolean;
+    /**
+     * 是否自动续期。
+     *
+     * @generated from field: bool auto_renew = 8;
+     */
+    autoRenew: boolean;
 
-  /**
-   * 是否为续签。
-   *
-   * @generated from field: bool renew = 9;
-   */
-  renew: boolean;
+    /**
+     * 是否为续签。
+     *
+     * @generated from field: bool renew = 9;
+     */
+    renew: boolean;
 
-  /**
-   * 关联 SSL ID。
-   *
-   * @generated from field: uint32 ssl_id = 10;
-   */
-  sslId: number;
+    /**
+     * 关联 SSL ID。
+     *
+     * @generated from field: uint32 ssl_id = 10;
+     */
+    sslId: number;
 
-  /**
-   * 描述。
-   *
-   * @generated from field: string description = 11;
-   */
-  description: string;
+    /**
+     * 描述。
+     *
+     * @generated from field: string description = 11;
+     */
+    description: string;
 
-  /**
-   * 是否执行脚本。
-   *
-   * @generated from field: bool exec_shell = 12;
-   */
-  execShell: boolean;
+    /**
+     * 是否执行脚本。
+     *
+     * @generated from field: bool exec_shell = 12;
+     */
+    execShell: boolean;
 
-  /**
-   * 签发后执行的脚本。
-   *
-   * @generated from field: string shell = 13;
-   */
-  shell: string;
+    /**
+     * 签发后执行的脚本。
+     *
+     * @generated from field: string shell = 13;
+     */
+    shell: string;
 };
 
 /**
  * Describes the message panel.agent.v1.ObtainCARequest.
  * Use `create(ObtainCARequestSchema)` to create a new message.
  */
-export const ObtainCARequestSchema: GenMessage<ObtainCARequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 42);
+export const ObtainCARequestSchema: GenMessage<ObtainCARequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 42);
 
 /**
  * ObtainCAResponse 是签发结果。
  *
  * @generated from message panel.agent.v1.ObtainCAResponse
  */
-export type ObtainCAResponse = Message<"panel.agent.v1.ObtainCAResponse"> & {
-  /**
-   * 生成的证书 ID。
-   *
-   * @generated from field: uint32 ssl_id = 1;
-   */
-  sslId: number;
+export type ObtainCAResponse = Message<'panel.agent.v1.ObtainCAResponse'> & {
+    /**
+     * 生成的证书 ID。
+     *
+     * @generated from field: uint32 ssl_id = 1;
+     */
+    sslId: number;
 
-  /**
-   * 主域名。
-   *
-   * @generated from field: string primary_domain = 2;
-   */
-  primaryDomain: string;
+    /**
+     * 主域名。
+     *
+     * @generated from field: string primary_domain = 2;
+     */
+    primaryDomain: string;
 };
 
 /**
  * Describes the message panel.agent.v1.ObtainCAResponse.
  * Use `create(ObtainCAResponseSchema)` to create a new message.
  */
-export const ObtainCAResponseSchema: GenMessage<ObtainCAResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 43);
+export const ObtainCAResponseSchema: GenMessage<ObtainCAResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 43);
 
 /**
  * ImportCARequest 是自签名证书导入参数。
  *
  * @generated from message panel.agent.v1.ImportCARequest
  */
-export type ImportCARequest = Message<"panel.agent.v1.ImportCARequest"> & {
-  /**
-   * 证书名称。
-   *
-   * @generated from field: string name = 1;
-   */
-  name: string;
+export type ImportCARequest = Message<'panel.agent.v1.ImportCARequest'> & {
+    /**
+     * 证书名称。
+     *
+     * @generated from field: string name = 1;
+     */
+    name: string;
 
-  /**
-   * 导入方式：paste 或 local。
-   *
-   * @generated from field: string type = 2;
-   */
-  type: string;
+    /**
+     * 导入方式：paste 或 local。
+     *
+     * @generated from field: string type = 2;
+     */
+    type: string;
 
-  /**
-   * 证书内容；paste 方式必填。
-   *
-   * @generated from field: string certificate = 3;
-   */
-  certificate: string;
+    /**
+     * 证书内容；paste 方式必填。
+     *
+     * @generated from field: string certificate = 3;
+     */
+    certificate: string;
 
-  /**
-   * 私钥内容；paste 方式必填。
-   *
-   * @generated from field: string private_key = 4;
-   */
-  privateKey: string;
+    /**
+     * 私钥内容；paste 方式必填。
+     *
+     * @generated from field: string private_key = 4;
+     */
+    privateKey: string;
 
-  /**
-   * 证书文件路径；local 方式必填。
-   *
-   * @generated from field: string certificate_path = 5;
-   */
-  certificatePath: string;
+    /**
+     * 证书文件路径；local 方式必填。
+     *
+     * @generated from field: string certificate_path = 5;
+     */
+    certificatePath: string;
 
-  /**
-   * 私钥文件路径；local 方式必填。
-   *
-   * @generated from field: string private_key_path = 6;
-   */
-  privateKeyPath: string;
+    /**
+     * 私钥文件路径；local 方式必填。
+     *
+     * @generated from field: string private_key_path = 6;
+     */
+    privateKeyPath: string;
 };
 
 /**
  * Describes the message panel.agent.v1.ImportCARequest.
  * Use `create(ImportCARequestSchema)` to create a new message.
  */
-export const ImportCARequestSchema: GenMessage<ImportCARequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 44);
+export const ImportCARequestSchema: GenMessage<ImportCARequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 44);
 
 /**
  * ImportCAResponse 是导入结果，无业务字段。
  *
  * @generated from message panel.agent.v1.ImportCAResponse
  */
-export type ImportCAResponse = Message<"panel.agent.v1.ImportCAResponse"> & {
-};
+export type ImportCAResponse = Message<'panel.agent.v1.ImportCAResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.ImportCAResponse.
  * Use `create(ImportCAResponseSchema)` to create a new message.
  */
-export const ImportCAResponseSchema: GenMessage<ImportCAResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 45);
+export const ImportCAResponseSchema: GenMessage<ImportCAResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 45);
 
 /**
  * ImportSSLRequest 是主节点证书导入参数。
@@ -1742,36 +1780,37 @@ export const ImportCAResponseSchema: GenMessage<ImportCAResponse> = /*@__PURE__*
  *
  * @generated from message panel.agent.v1.ImportSSLRequest
  */
-export type ImportSSLRequest = Message<"panel.agent.v1.ImportSSLRequest"> & {
-  /**
-   * WebsiteSSL 模型的 JSON 字符串。
-   *
-   * @generated from field: string payload_json = 1;
-   */
-  payloadJson: string;
+export type ImportSSLRequest = Message<'panel.agent.v1.ImportSSLRequest'> & {
+    /**
+     * WebsiteSSL 模型的 JSON 字符串。
+     *
+     * @generated from field: string payload_json = 1;
+     */
+    payloadJson: string;
 };
 
 /**
  * Describes the message panel.agent.v1.ImportSSLRequest.
  * Use `create(ImportSSLRequestSchema)` to create a new message.
  */
-export const ImportSSLRequestSchema: GenMessage<ImportSSLRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 46);
+export const ImportSSLRequestSchema: GenMessage<ImportSSLRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 46);
 
 /**
  * ImportSSLResponse 是导入结果，无业务字段。
  *
  * @generated from message panel.agent.v1.ImportSSLResponse
  */
-export type ImportSSLResponse = Message<"panel.agent.v1.ImportSSLResponse"> & {
-};
+export type ImportSSLResponse = Message<'panel.agent.v1.ImportSSLResponse'> & {};
 
 /**
  * Describes the message panel.agent.v1.ImportSSLResponse.
  * Use `create(ImportSSLResponseSchema)` to create a new message.
  */
-export const ImportSSLResponseSchema: GenMessage<ImportSSLResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_website_ssl, 47);
+export const ImportSSLResponseSchema: GenMessage<ImportSSLResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_website_ssl, 47);
 
 /**
  * WebsiteSSLService 对应 1Panel 的证书管理域。
@@ -1779,236 +1818,234 @@ export const ImportSSLResponseSchema: GenMessage<ImportSSLResponse> = /*@__PURE_
  * @generated from service panel.agent.v1.WebsiteSSLService
  */
 export const WebsiteSSLService: GenService<{
-  /**
-   * 分页查询 DNS 账号。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.SearchDNSAccounts
-   */
-  searchDNSAccounts: {
-    methodKind: "unary";
-    input: typeof SearchDNSAccountsRequestSchema;
-    output: typeof SearchDNSAccountsResponseSchema;
-  },
-  /**
-   * 分页查询 ACME 账号。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.SearchACMEAccounts
-   */
-  searchACMEAccounts: {
-    methodKind: "unary";
-    input: typeof SearchACMEAccountsRequestSchema;
-    output: typeof SearchACMEAccountsResponseSchema;
-  },
-  /**
-   * 分页查询证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.Search
-   */
-  search: {
-    methodKind: "unary";
-    input: typeof SearchSSLRequestSchema;
-    output: typeof SearchSSLResponseSchema;
-  },
-  /**
-   * 按账号列出证书（不分页）。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.List
-   */
-  list: {
-    methodKind: "unary";
-    input: typeof ListSSLRequestSchema;
-    output: typeof ListSSLResponseSchema;
-  },
-  /**
-   * 按 ID 读取证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.GetByID
-   */
-  getByID: {
-    methodKind: "unary";
-    input: typeof GetSSLRequestSchema;
-    output: typeof WebsiteSSLSchema;
-  },
-  /**
-   * 读取网站绑定的证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.GetByWebsite
-   */
-  getByWebsite: {
-    methodKind: "unary";
-    input: typeof GetWebsiteSSLRequestSchema;
-    output: typeof WebsiteSSLSchema;
-  },
-  /**
-   * 创建证书记录；apply=true 时立即申请。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.Create
-   */
-  create: {
-    methodKind: "unary";
-    input: typeof CreateSSLRequestSchema;
-    output: typeof CreateSSLResponseSchema;
-  },
-  /**
-   * 修改证书配置。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.Update
-   */
-  update: {
-    methodKind: "unary";
-    input: typeof UpdateSSLRequestSchema;
-    output: typeof UpdateSSLResponseSchema;
-  },
-  /**
-   * 为证书申请/续期签发。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.Apply
-   */
-  apply: {
-    methodKind: "unary";
-    input: typeof ApplySSLRequestSchema;
-    output: typeof ApplySSLResponseSchema;
-  },
-  /**
-   * 读取证书需要的 DNS 解析记录。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.GetDNSResolve
-   */
-  getDNSResolve: {
-    methodKind: "unary";
-    input: typeof GetDNSResolveRequestSchema;
-    output: typeof GetDNSResolveResponseSchema;
-  },
-  /**
-   * 删除证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.Delete
-   */
-  delete: {
-    methodKind: "unary";
-    input: typeof DeleteSSLRequestSchema;
-    output: typeof DeleteSSLResponseSchema;
-  },
-  /**
-   * 把证书推送到网站目录或节点。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.Push
-   */
-  push: {
-    methodKind: "unary";
-    input: typeof PushSSLRequestSchema;
-    output: typeof PushSSLResponseSchema;
-  },
-  /**
-   * 分页查询 CA 记录。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.SearchCA
-   */
-  searchCA: {
-    methodKind: "unary";
-    input: typeof SearchCARequestSchema;
-    output: typeof SearchCAResponseSchema;
-  },
-  /**
-   * 按 ID 读取 CA 记录。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.GetCA
-   */
-  getCA: {
-    methodKind: "unary";
-    input: typeof GetCARequestSchema;
-    output: typeof CADetailSchema;
-  },
-  /**
-   * 创建自签 CA。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.CreateCA
-   */
-  createCA: {
-    methodKind: "unary";
-    input: typeof CreateCARequestSchema;
-    output: typeof CreateCAResponseSchema;
-  },
-  /**
-   * 删除 CA。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.DeleteCA
-   */
-  deleteCA: {
-    methodKind: "unary";
-    input: typeof DeleteCARequestSchema;
-    output: typeof DeleteCAResponseSchema;
-  },
-  /**
-   * 用 CA 续签已有证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.RenewCA
-   */
-  renewCA: {
-    methodKind: "unary";
-    input: typeof RenewCARequestSchema;
-    output: typeof RenewCAResponseSchema;
-  },
-  /**
-   * 创建 ACME 账号。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.CreateACME
-   */
-  createACME: {
-    methodKind: "unary";
-    input: typeof CreateACMEAccountRequestSchema;
-    output: typeof CreateACMEAccountResponseSchema;
-  },
-  /**
-   * 修改 ACME 账号的代理设置。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.UpdateACME
-   */
-  updateACME: {
-    methodKind: "unary";
-    input: typeof UpdateACMEAccountRequestSchema;
-    output: typeof UpdateACMEAccountResponseSchema;
-  },
-  /**
-   * 删除 ACME 账号。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.DeleteACME
-   */
-  deleteACME: {
-    methodKind: "unary";
-    input: typeof DeleteACMEAccountRequestSchema;
-    output: typeof DeleteACMEAccountResponseSchema;
-  },
-  /**
-   * 签发自签名 CA 证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.ObtainCA
-   */
-  obtainCA: {
-    methodKind: "unary";
-    input: typeof ObtainCARequestSchema;
-    output: typeof ObtainCAResponseSchema;
-  },
-  /**
-   * 导入自签名 CA 证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.ImportCA
-   */
-  importCA: {
-    methodKind: "unary";
-    input: typeof ImportCARequestSchema;
-    output: typeof ImportCAResponseSchema;
-  },
-  /**
-   * 导入主节点 SSL 证书。
-   *
-   * @generated from rpc panel.agent.v1.WebsiteSSLService.ImportSSL
-   */
-  importSSL: {
-    methodKind: "unary";
-    input: typeof ImportSSLRequestSchema;
-    output: typeof ImportSSLResponseSchema;
-  },
-}> = /*@__PURE__*/
-  serviceDesc(file_panel_agent_v1_website_ssl, 0);
-
+    /**
+     * 分页查询 DNS 账号。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.SearchDNSAccounts
+     */
+    searchDNSAccounts: {
+        methodKind: 'unary';
+        input: typeof SearchDNSAccountsRequestSchema;
+        output: typeof SearchDNSAccountsResponseSchema;
+    };
+    /**
+     * 分页查询 ACME 账号。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.SearchACMEAccounts
+     */
+    searchACMEAccounts: {
+        methodKind: 'unary';
+        input: typeof SearchACMEAccountsRequestSchema;
+        output: typeof SearchACMEAccountsResponseSchema;
+    };
+    /**
+     * 分页查询证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.Search
+     */
+    search: {
+        methodKind: 'unary';
+        input: typeof SearchSSLRequestSchema;
+        output: typeof SearchSSLResponseSchema;
+    };
+    /**
+     * 按账号列出证书（不分页）。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.List
+     */
+    list: {
+        methodKind: 'unary';
+        input: typeof ListSSLRequestSchema;
+        output: typeof ListSSLResponseSchema;
+    };
+    /**
+     * 按 ID 读取证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.GetByID
+     */
+    getByID: {
+        methodKind: 'unary';
+        input: typeof GetSSLRequestSchema;
+        output: typeof WebsiteSSLSchema;
+    };
+    /**
+     * 读取网站绑定的证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.GetByWebsite
+     */
+    getByWebsite: {
+        methodKind: 'unary';
+        input: typeof GetWebsiteSSLRequestSchema;
+        output: typeof WebsiteSSLSchema;
+    };
+    /**
+     * 创建证书记录；apply=true 时立即申请。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.Create
+     */
+    create: {
+        methodKind: 'unary';
+        input: typeof CreateSSLRequestSchema;
+        output: typeof CreateSSLResponseSchema;
+    };
+    /**
+     * 修改证书配置。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.Update
+     */
+    update: {
+        methodKind: 'unary';
+        input: typeof UpdateSSLRequestSchema;
+        output: typeof UpdateSSLResponseSchema;
+    };
+    /**
+     * 为证书申请/续期签发。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.Apply
+     */
+    apply: {
+        methodKind: 'unary';
+        input: typeof ApplySSLRequestSchema;
+        output: typeof ApplySSLResponseSchema;
+    };
+    /**
+     * 读取证书需要的 DNS 解析记录。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.GetDNSResolve
+     */
+    getDNSResolve: {
+        methodKind: 'unary';
+        input: typeof GetDNSResolveRequestSchema;
+        output: typeof GetDNSResolveResponseSchema;
+    };
+    /**
+     * 删除证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.Delete
+     */
+    delete: {
+        methodKind: 'unary';
+        input: typeof DeleteSSLRequestSchema;
+        output: typeof DeleteSSLResponseSchema;
+    };
+    /**
+     * 把证书推送到网站目录或节点。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.Push
+     */
+    push: {
+        methodKind: 'unary';
+        input: typeof PushSSLRequestSchema;
+        output: typeof PushSSLResponseSchema;
+    };
+    /**
+     * 分页查询 CA 记录。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.SearchCA
+     */
+    searchCA: {
+        methodKind: 'unary';
+        input: typeof SearchCARequestSchema;
+        output: typeof SearchCAResponseSchema;
+    };
+    /**
+     * 按 ID 读取 CA 记录。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.GetCA
+     */
+    getCA: {
+        methodKind: 'unary';
+        input: typeof GetCARequestSchema;
+        output: typeof CADetailSchema;
+    };
+    /**
+     * 创建自签 CA。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.CreateCA
+     */
+    createCA: {
+        methodKind: 'unary';
+        input: typeof CreateCARequestSchema;
+        output: typeof CreateCAResponseSchema;
+    };
+    /**
+     * 删除 CA。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.DeleteCA
+     */
+    deleteCA: {
+        methodKind: 'unary';
+        input: typeof DeleteCARequestSchema;
+        output: typeof DeleteCAResponseSchema;
+    };
+    /**
+     * 用 CA 续签已有证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.RenewCA
+     */
+    renewCA: {
+        methodKind: 'unary';
+        input: typeof RenewCARequestSchema;
+        output: typeof RenewCAResponseSchema;
+    };
+    /**
+     * 创建 ACME 账号。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.CreateACME
+     */
+    createACME: {
+        methodKind: 'unary';
+        input: typeof CreateACMEAccountRequestSchema;
+        output: typeof CreateACMEAccountResponseSchema;
+    };
+    /**
+     * 修改 ACME 账号的代理设置。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.UpdateACME
+     */
+    updateACME: {
+        methodKind: 'unary';
+        input: typeof UpdateACMEAccountRequestSchema;
+        output: typeof UpdateACMEAccountResponseSchema;
+    };
+    /**
+     * 删除 ACME 账号。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.DeleteACME
+     */
+    deleteACME: {
+        methodKind: 'unary';
+        input: typeof DeleteACMEAccountRequestSchema;
+        output: typeof DeleteACMEAccountResponseSchema;
+    };
+    /**
+     * 签发自签名 CA 证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.ObtainCA
+     */
+    obtainCA: {
+        methodKind: 'unary';
+        input: typeof ObtainCARequestSchema;
+        output: typeof ObtainCAResponseSchema;
+    };
+    /**
+     * 导入自签名 CA 证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.ImportCA
+     */
+    importCA: {
+        methodKind: 'unary';
+        input: typeof ImportCARequestSchema;
+        output: typeof ImportCAResponseSchema;
+    };
+    /**
+     * 导入主节点 SSL 证书。
+     *
+     * @generated from rpc panel.agent.v1.WebsiteSSLService.ImportSSL
+     */
+    importSSL: {
+        methodKind: 'unary';
+        input: typeof ImportSSLRequestSchema;
+        output: typeof ImportSSLResponseSchema;
+    };
+}> = /*@__PURE__*/ serviceDesc(file_panel_agent_v1_website_ssl, 0);

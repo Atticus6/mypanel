@@ -103,7 +103,6 @@
 </template>
 
 <script setup lang="ts">
-import { listDomains } from '@/api/modules/website';
 import { rpc } from '@/lib/rpc';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { FormInstance } from 'element-plus';
@@ -185,9 +184,10 @@ const initDomainList = (domainsStr: string) => {
 
 const changeEnable = (enable: boolean) => {
     if (enable) {
-        listDomains(id.value)
+        rpc.website
+            .listDomains({ websiteId: id.value })
             .then((res) => {
-                const domains = res.data || [];
+                const domains = res.items || [];
                 let serverNameStr = '';
                 for (const param of domains) {
                     serverNameStr = serverNameStr + param.domain + '\n';
@@ -249,19 +249,20 @@ const update = async (enable: boolean) => {
     form.enable = enable;
     loading.value = true;
     form.websiteID = id.value;
-    await rpc.website.updateAntiLeech({
-        websiteId: id.value,
-        enable: form.enable,
-        extends: form.extends,
-        return: form.return,
-        serverNames: form.serverNames,
-        cache: form.cache,
-        cacheTime: form.cacheTime,
-        cacheUint: form.cacheUint,
-        noneRef: form.noneRef,
-        logEnable: form.logEnable,
-        blocked: form.blocked,
-    })
+    await rpc.website
+        .updateAntiLeech({
+            websiteId: id.value,
+            enable: form.enable,
+            extends: form.extends,
+            return: form.return,
+            serverNames: form.serverNames,
+            cache: form.cache,
+            cacheTime: form.cacheTime,
+            cacheUint: form.cacheUint,
+            noneRef: form.noneRef,
+            logEnable: form.logEnable,
+            blocked: form.blocked,
+        })
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
             search();

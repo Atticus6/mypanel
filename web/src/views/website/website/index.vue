@@ -353,7 +353,6 @@ import BatchSetHttps from '@/views/website/website/batch-op/https.vue';
 
 import i18n from '@/lang';
 import { toRef, onMounted, reactive, ref, computed } from 'vue';
-import { batchOperate, searchWebsites, updateWebsite } from '@/api/modules/website';
 import { Website } from '@/api/interface/website';
 import { App } from '@/api/interface/app';
 import { ElMessageBox } from 'element-plus';
@@ -498,14 +497,21 @@ const search = async () => {
     req.pageSize = paginationConfig.pageSize;
 
     loading.value = true;
-    await searchWebsites(req)
-        .then((res) => {
-            data.value = res.data.items;
-            paginationConfig.total = res.data.total;
-        })
-        .finally(() => {
-            loading.value = false;
+    try {
+        const res = await rpc.website.search({
+            page: req.page,
+            pageSize: req.pageSize,
+            name: req.name,
+            orderBy: req.orderBy,
+            order: req.order,
+            websiteGroupId: req.websiteGroupId,
+            type: req.type,
         });
+        data.value = res.items;
+        paginationConfig.total = Number(res.total);
+    } finally {
+        loading.value = false;
+    }
 };
 
 const listGroup = async (searchOnReset = true) => {
@@ -596,20 +602,20 @@ const updateWebsitConfig = (row: any) => {
     if (reqDate == '2006-01-02') {
         reqDate = '9999-12-31';
     }
-    const req = {
-        id: row.id,
-        primaryDomain: row.primaryDomain,
-        remark: row.remark,
-        webSiteGroupId: row.webSiteGroupId,
-        expireDate: reqDate,
-        IPV6: row.IPV6,
-        favorite: row.favorite,
-    };
-
-    rpc.website.updateWebsite(req as any).then(() => {
-        MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
-        search();
-    });
+    rpc.website
+        .updateWebsite({
+            id: row.id,
+            primaryDomain: row.primaryDomain ?? '',
+            remark: row.remark ?? '',
+            websiteGroupId: Number(row.websiteGroupId ?? row.webSiteGroupId ?? 0),
+            expireDate: reqDate,
+            ipv6: !!(row.ipv6 ?? row.IPV6),
+            favorite: !!row.favorite,
+        })
+        .then(() => {
+            MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
+            search();
+        });
 };
 
 const buttons = [
@@ -732,7 +738,12 @@ const batchOp = () => {
             opRef.value.acceptParams({
                 names: names,
                 title: i18n.global.t('website.batchOperate'),
-                api: batchOperate,
+                api: (params: typeof batchReq) =>
+                    rpc.website.batchOperate({
+                        ids: params.ids,
+                        operate: params.operate,
+                        taskId: params.taskID,
+                    }),
                 msg: i18n.global.t('website.batchOperateHelper', [i18n.global.t('commons.button.' + batchReq.operate)]),
                 params: batchReq,
                 noMsg: true,

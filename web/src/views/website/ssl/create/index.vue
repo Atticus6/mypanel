@@ -230,7 +230,6 @@
 
 <script lang="ts" setup>
 import { Website } from '@/api/interface/website';
-import { searchDnsAccount } from '@/api/modules/website';
 import { Rules, checkMaxLength, checkNumberRange } from '@/global/form-rules';
 import FileList from '@/components/file-list/index.vue';
 import i18n from '@/lang';
@@ -459,10 +458,10 @@ const getAcmeAccounts = async () => {
 };
 
 const getDnsAccounts = async () => {
-    const res = await searchDnsAccount(dnsReq);
-    dnsAccounts.value = res.data.items || [];
+    const res = await rpc.ssl.searchDNSAccounts({ page: dnsReq.page, pageSize: dnsReq.pageSize });
+    dnsAccounts.value = (res.items || []) as any;
     if (dnsAccounts.value.length > 0 && ssl.value.dnsAccountId == undefined) {
-        ssl.value.dnsAccountId = res.data.items[0].id;
+        ssl.value.dnsAccountId = res.items[0].id;
     }
 };
 

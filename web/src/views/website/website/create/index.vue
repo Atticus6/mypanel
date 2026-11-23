@@ -449,7 +449,6 @@ import WebsiteSSL from '@/views/website/website/components/website-ssl/index.vue
 import LoadBalanceForm from '@/views/website/website/config/basic/load-balance/form/index.vue';
 
 import { App } from '@/api/interface/app';
-import { getDirConfig, searchTemplateOutputs } from '@/api/modules/website';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
@@ -819,10 +818,9 @@ const listAcmeAccount = () => {
     });
 };
 
+// 模板能力已剔除，不再拉取模板产物，保持下拉数据为空。
 const listTemplateOutputs = () => {
-    searchTemplateOutputs({ page: 1, pageSize: 1000, templateID: 0 }).then((res) => {
-        templateOutputs.value = res.data.items || [];
-    });
+    templateOutputs.value = [];
 };
 
 const changeSSl = (sslid?: number) => {
@@ -1175,10 +1173,10 @@ const listWebsites = async () => {
 
 const getDir = async (websiteID: number) => {
     try {
-        const res = await getDirConfig({ id: websiteID });
-        dirs.value = res.data.dirs;
-        if (res.data.dirs.length > 0) {
-            website.value.siteDir = res.data.dirs[0];
+        const res = await rpc.website.getSiteDir({ id: websiteID });
+        dirs.value = res.dirs;
+        if (res.dirs.length > 0) {
+            website.value.siteDir = res.dirs[0];
         }
     } catch (error) {}
 };

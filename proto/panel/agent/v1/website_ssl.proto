@@ -634,6 +634,9 @@ message CADetail {
 
   // 城市。
   string city = 11;
+
+  // 私钥内容；仅详情接口返回，用于展示与导出。
+  string private_key = 12;
 }
 
 // GetCARequest 是按 ID 查 CA 的参数。

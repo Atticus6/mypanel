@@ -70,7 +70,6 @@
 </template>
 
 <script setup lang="ts">
-import { deleteLoadBalance } from '@/api/modules/website';
 import { rpc } from '@/lib/rpc';
 import { onMounted, ref } from 'vue';
 import Operate from './operate/index.vue';
@@ -144,8 +143,12 @@ const deleteLb = async (row: Website.NginxUpstream) => {
             i18n.global.t('website.loadBalance'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: deleteLoadBalance,
-        params: { websiteID: props.id, name: row.name },
+        api: (params: { websiteId?: number; id?: number; name: string }) =>
+            rpc.website.deleteLoadBalance({
+                websiteId: params.websiteId ?? params.id ?? 0,
+                name: params.name,
+            }),
+        params: { id: props.id, name: row.name },
     });
 };
 

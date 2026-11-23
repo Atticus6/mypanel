@@ -557,10 +557,18 @@ func (s *WebsiteServer) UpdateRedirect(
 	_ context.Context,
 	req *connect.Request[agentv1.UpdateRedirectRequest],
 ) (*connect.Response[agentv1.UpdateRedirectResponse], error) {
-	if err := s.service.UpdateRedirectFile(request.NginxRedirectUpdate{
-		WebsiteID: uint(req.Msg.GetWebsiteId()),
-		Name:      req.Msg.GetName(),
-		Content:   req.Msg.GetContent(),
+	if err := s.service.OperateRedirect(request.NginxRedirectReq{
+		WebsiteID:    uint(req.Msg.GetWebsiteId()),
+		Name:         req.Msg.GetName(),
+		Domains:      req.Msg.GetDomains(),
+		KeepPath:     req.Msg.GetKeepPath(),
+		Enable:       req.Msg.GetEnable(),
+		Type:         req.Msg.GetType(),
+		Redirect:     req.Msg.GetRedirect(),
+		Path:         req.Msg.GetPath(),
+		Target:       req.Msg.GetTarget(),
+		Operate:      req.Msg.GetOperate(),
+		RedirectRoot: req.Msg.GetRedirectRoot(),
 	}); err != nil {
 		return nil, errmap.FromMsgKey("ErrInternalServer", err)
 	}

@@ -1967,7 +1967,9 @@ type CADetail struct {
 	// 省份。
 	Province string `protobuf:"bytes,10,opt,name=province,proto3" json:"province,omitempty"`
 	// 城市。
-	City          string `protobuf:"bytes,11,opt,name=city,proto3" json:"city,omitempty"`
+	City string `protobuf:"bytes,11,opt,name=city,proto3" json:"city,omitempty"`
+	// 私钥内容；仅详情接口返回，用于展示与导出。
+	PrivateKey    string `protobuf:"bytes,12,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2075,6 +2077,13 @@ func (x *CADetail) GetProvince() string {
 func (x *CADetail) GetCity() string {
 	if x != nil {
 		return x.City
+	}
+	return ""
+}
+
+func (x *CADetail) GetPrivateKey() string {
+	if x != nil {
+		return x.PrivateKey
 	}
 	return ""
 }
@@ -3328,7 +3337,7 @@ const file_panel_agent_v1_website_ssl_proto_rawDesc = "" +
 	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\"X\n" +
 	"\x10SearchCAResponse\x12.\n" +
 	"\x05items\x18\x01 \x03(\v2\x18.panel.agent.v1.CADetailR\x05items\x12\x14\n" +
-	"\x05total\x18\x02 \x01(\x03R\x05total\"\xb6\x02\n" +
+	"\x05total\x18\x02 \x01(\x03R\x05total\"\xd7\x02\n" +
 	"\bCADetail\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x1d\n" +
 	"\n" +
@@ -3343,7 +3352,9 @@ const file_panel_agent_v1_website_ssl_proto_rawDesc = "" +
 	"\x11organization_uint\x18\t \x01(\tR\x10organizationUint\x12\x1a\n" +
 	"\bprovince\x18\n" +
 	" \x01(\tR\bprovince\x12\x12\n" +
-	"\x04city\x18\v \x01(\tR\x04city\"'\n" +
+	"\x04city\x18\v \x01(\tR\x04city\x12\x1f\n" +
+	"\vprivate_key\x18\f \x01(\tR\n" +
+	"privateKey\"'\n" +
 	"\fGetCARequest\x12\x17\n" +
 	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\xd9\x02\n" +
 	"\x0fCreateCARequest\x12(\n" +

@@ -28,7 +28,6 @@
 
 <script lang="ts" setup>
 import { Website } from '@/api/interface/website';
-import { renewSSLByCA } from '@/api/modules/website';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { ref } from 'vue';
@@ -56,7 +55,7 @@ const submit = async () => {
     loading.value = true;
     try {
         if (ssl.value.provider == 'selfSigned') {
-            await renewSSLByCA({ SSLID: ssl.value.id });
+            await rpc.ssl.renewCA({ sslId: ssl.value.id });
         } else {
             await rpc.ssl.apply({ id: ssl.value.id });
         }

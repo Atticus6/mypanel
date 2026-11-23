@@ -1384,8 +1384,24 @@ type UpdateRedirectRequest struct {
 	WebsiteId uint32 `protobuf:"varint,1,opt,name=website_id,json=websiteId,proto3" json:"website_id,omitempty"`
 	// 配置名称。
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	// 配置内容。
-	Content       string `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
+	// 适用域名列表。
+	Domains []string `protobuf:"bytes,3,rep,name=domains,proto3" json:"domains,omitempty"`
+	// 是否保留原始路径。
+	KeepPath bool `protobuf:"varint,4,opt,name=keep_path,json=keepPath,proto3" json:"keep_path,omitempty"`
+	// 是否启用。
+	Enable bool `protobuf:"varint,5,opt,name=enable,proto3" json:"enable,omitempty"`
+	// 重定向类型，例如 domain。
+	Type string `protobuf:"bytes,6,opt,name=type,proto3" json:"type,omitempty"`
+	// 重定向状态码，例如 301。
+	Redirect string `protobuf:"bytes,7,opt,name=redirect,proto3" json:"redirect,omitempty"`
+	// 匹配路径。
+	Path string `protobuf:"bytes,8,opt,name=path,proto3" json:"path,omitempty"`
+	// 目标地址。
+	Target string `protobuf:"bytes,9,opt,name=target,proto3" json:"target,omitempty"`
+	// 操作类型：create、edit、delete、enable 或 disable。
+	Operate string `protobuf:"bytes,10,opt,name=operate,proto3" json:"operate,omitempty"`
+	// 是否只重定向根路径。
+	RedirectRoot  bool `protobuf:"varint,11,opt,name=redirect_root,json=redirectRoot,proto3" json:"redirect_root,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1434,11 +1450,67 @@ func (x *UpdateRedirectRequest) GetName() string {
 	return ""
 }
 
-func (x *UpdateRedirectRequest) GetContent() string {
+func (x *UpdateRedirectRequest) GetDomains() []string {
 	if x != nil {
-		return x.Content
+		return x.Domains
+	}
+	return nil
+}
+
+func (x *UpdateRedirectRequest) GetKeepPath() bool {
+	if x != nil {
+		return x.KeepPath
+	}
+	return false
+}
+
+func (x *UpdateRedirectRequest) GetEnable() bool {
+	if x != nil {
+		return x.Enable
+	}
+	return false
+}
+
+func (x *UpdateRedirectRequest) GetType() string {
+	if x != nil {
+		return x.Type
 	}
 	return ""
+}
+
+func (x *UpdateRedirectRequest) GetRedirect() string {
+	if x != nil {
+		return x.Redirect
+	}
+	return ""
+}
+
+func (x *UpdateRedirectRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *UpdateRedirectRequest) GetTarget() string {
+	if x != nil {
+		return x.Target
+	}
+	return ""
+}
+
+func (x *UpdateRedirectRequest) GetOperate() string {
+	if x != nil {
+		return x.Operate
+	}
+	return ""
+}
+
+func (x *UpdateRedirectRequest) GetRedirectRoot() bool {
+	if x != nil {
+		return x.RedirectRoot
+	}
+	return false
 }
 
 // UpdateRedirectResponse 是保存结果，无业务字段。
@@ -9966,12 +10038,21 @@ const file_panel_agent_v1_website_proto_rawDesc = "" +
 	"\tfile_path\x18\n" +
 	" \x01(\tR\bfilePath\x12\x18\n" +
 	"\acontent\x18\v \x01(\tR\acontent\x12#\n" +
-	"\rredirect_root\x18\f \x01(\bR\fredirectRoot\"\x7f\n" +
+	"\rredirect_root\x18\f \x01(\bR\fredirectRoot\"\xcf\x02\n" +
 	"\x15UpdateRedirectRequest\x12&\n" +
 	"\n" +
 	"website_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\twebsiteId\x12\x1b\n" +
-	"\x04name\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04name\x12!\n" +
-	"\acontent\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\acontent\"\x18\n" +
+	"\x04name\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04name\x12\x18\n" +
+	"\adomains\x18\x03 \x03(\tR\adomains\x12\x1b\n" +
+	"\tkeep_path\x18\x04 \x01(\bR\bkeepPath\x12\x16\n" +
+	"\x06enable\x18\x05 \x01(\bR\x06enable\x12\x12\n" +
+	"\x04type\x18\x06 \x01(\tR\x04type\x12\x1a\n" +
+	"\bredirect\x18\a \x01(\tR\bredirect\x12\x12\n" +
+	"\x04path\x18\b \x01(\tR\x04path\x12\x16\n" +
+	"\x06target\x18\t \x01(\tR\x06target\x12!\n" +
+	"\aoperate\x18\n" +
+	" \x01(\tB\a\xbaH\x04r\x02\x10\x01R\aoperate\x12#\n" +
+	"\rredirect_root\x18\v \x01(\bR\fredirectRoot\"\x18\n" +
 	"\x16UpdateRedirectResponse\"1\n" +
 	"\x16GetWebsiteHTTPSRequest\x12\x17\n" +
 	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\xa1\x03\n" +
