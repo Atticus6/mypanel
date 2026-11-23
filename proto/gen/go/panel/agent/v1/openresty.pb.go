@@ -167,9 +167,15 @@ func (x *GetOpenrestyConfigByScopeRequest) GetWebsiteId() uint32 {
 type OpenrestyParams struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// 配置项。
-	Items         []*OpenrestyParam `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	Items []*OpenrestyParam `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	// brotli 指令由面板托管而非写在 nginx.conf 中。
+	ManagedExternally bool `protobuf:"varint,4,opt,name=managed_externally,json=managedExternally,proto3" json:"managed_externally,omitempty"`
+	// 托管文件尚未被 nginx 加载。
+	ManagedPending bool `protobuf:"varint,5,opt,name=managed_pending,json=managedPending,proto3" json:"managed_pending,omitempty"`
+	// 当前环境不支持托管 brotli 配置。
+	ManagedUnavailable bool `protobuf:"varint,6,opt,name=managed_unavailable,json=managedUnavailable,proto3" json:"managed_unavailable,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *OpenrestyParams) Reset() {
@@ -207,6 +213,27 @@ func (x *OpenrestyParams) GetItems() []*OpenrestyParam {
 		return x.Items
 	}
 	return nil
+}
+
+func (x *OpenrestyParams) GetManagedExternally() bool {
+	if x != nil {
+		return x.ManagedExternally
+	}
+	return false
+}
+
+func (x *OpenrestyParams) GetManagedPending() bool {
+	if x != nil {
+		return x.ManagedPending
+	}
+	return false
+}
+
+func (x *OpenrestyParams) GetManagedUnavailable() bool {
+	if x != nil {
+		return x.ManagedUnavailable
+	}
+	return false
 }
 
 // OpenrestyParam 是一个配置项。
@@ -1327,9 +1354,12 @@ const file_panel_agent_v1_openresty_proto_rawDesc = "" +
 	" GetOpenrestyConfigByScopeRequest\x12\x1d\n" +
 	"\x05scope\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x05scope\x12\x1d\n" +
 	"\n" +
-	"website_id\x18\x02 \x01(\rR\twebsiteId\"G\n" +
+	"website_id\x18\x02 \x01(\rR\twebsiteId\"\xd0\x01\n" +
 	"\x0fOpenrestyParams\x124\n" +
-	"\x05items\x18\x01 \x03(\v2\x1e.panel.agent.v1.OpenrestyParamR\x05items\"T\n" +
+	"\x05items\x18\x01 \x03(\v2\x1e.panel.agent.v1.OpenrestyParamR\x05items\x12-\n" +
+	"\x12managed_externally\x18\x04 \x01(\bR\x11managedExternally\x12'\n" +
+	"\x0fmanaged_pending\x18\x05 \x01(\bR\x0emanagedPending\x12/\n" +
+	"\x13managed_unavailable\x18\x06 \x01(\bR\x12managedUnavailable\"T\n" +
 	"\x0eOpenrestyParam\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
 	"\x06params\x18\x02 \x03(\tR\x06params\x12\x16\n" +

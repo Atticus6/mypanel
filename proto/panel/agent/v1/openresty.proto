@@ -113,6 +113,15 @@ message GetOpenrestyConfigByScopeRequest {
 message OpenrestyParams {
   // 配置项。
   repeated OpenrestyParam items = 1;
+
+  // brotli 指令由面板托管而非写在 nginx.conf 中。
+  bool managed_externally = 4;
+
+  // 托管文件尚未被 nginx 加载。
+  bool managed_pending = 5;
+
+  // 当前环境不支持托管 brotli 配置。
+  bool managed_unavailable = 6;
 }
 
 // OpenrestyParam 是一个配置项。

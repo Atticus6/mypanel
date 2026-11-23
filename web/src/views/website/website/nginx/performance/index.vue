@@ -384,7 +384,9 @@ const getBrotliParams = async () => {
         return;
     }
     const res = await rpc.openresty.getConfigByScope({ scope: 'brotli', websiteId: 0 });
-    // proto 的 GetConfigByScope 只返回 items，brotli 的托管状态不再随响应下发
+    brotliManagedExternally.value = res.managedExternally;
+    brotliManagedPending.value = res.managedPending;
+    brotliManagedUnavailable.value = res.managedUnavailable;
     for (const param of res.items) {
         if (param.params.length === 0) {
             continue;

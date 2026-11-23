@@ -49,16 +49,19 @@ func (s *OpenrestyServer) GetConfigByScope(
 	if err != nil {
 		return nil, errmap.FromMsgKey("ErrInternalServer", err)
 	}
-	params, _ := data.([]response.NginxParam)
-	items := make([]*agentv1.OpenrestyParam, 0, len(params))
-	for _, item := range params {
-		items = append(items, &agentv1.OpenrestyParam{
-			Name:   item.Name,
-			Params: item.Params,
-			Source: item.Source,
-		})
+	result := &agentv1.OpenrestyParams{}
+	switch typed := data.(type) {
+	case []response.NginxParam:
+		result.Items = fromNginxParams(typed)
+	case *response.NginxBrotliRes:
+		if typed != nil {
+			result.Items = fromNginxParams(typed.Params)
+			result.ManagedExternally = typed.ManagedExternally
+			result.ManagedPending = typed.ManagedPending
+			result.ManagedUnavailable = typed.ManagedUnavailable
+		}
 	}
-	return connect.NewResponse(&agentv1.OpenrestyParams{Items: items}), nil
+	return connect.NewResponse(result), nil
 }
 
 // UpdateConfigByScope 按作用域更新配置项。
@@ -215,4 +218,17 @@ func (s *OpenrestyServer) GetDefaultHTTPSStatus(
 		Https:              status.Https,
 		SslRejectHandshake: status.SSLRejectHandshake,
 	}), nil
+}
+
+// fromNginxParams 把服务层配置参数转成 proto。
+func fromNginxParams(params []response.NginxParam) []*agentv1.OpenrestyParam {
+	items := make([]*agentv1.OpenrestyParam, 0, len(params))
+	for _, item := range params {
+		items = append(items, &agentv1.OpenrestyParam{
+			Name:   item.Name,
+			Params: item.Params,
+			Source: item.Source,
+		})
+	}
+	return items
 }
