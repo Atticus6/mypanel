@@ -46,7 +46,7 @@ import AppIcon from '@/views/app-store/installed/app/icon.vue';
 import AppHeader from '@/views/app-store/installed/app/header.vue';
 import AppInfo from '@/views/app-store/installed/app/info.vue';
 
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 
 interface Props {
     installed: App.AppInstalled;

@@ -406,7 +406,7 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted, computed } from 'vue';
 import { ElForm } from 'element-plus';
-import { Alert } from '@/api/interface/alert';
+import { Alert } from '@/types/alert';
 import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';

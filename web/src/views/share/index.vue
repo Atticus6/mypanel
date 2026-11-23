@@ -40,7 +40,7 @@
 
 <script lang="ts" setup>
 import { rpc } from '@/lib/rpc';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import i18n, { loadLocaleMessages } from '@/lang';
 import { buildFileShareDownloadUrl, getFileSharePasswordFromHash, removeFileSharePasswordFromHash } from '@/utils/file';
 import { dateFormat } from '@/utils/date';

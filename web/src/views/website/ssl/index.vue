@@ -230,7 +230,7 @@ import Detail from './detail/index.vue';
 import { dateFormat } from '@/utils/date';
 import { getProvider } from '@/utils/ssl';
 import i18n from '@/lang';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import SSLUpload from './upload/index.vue';
 import Apply from './apply/index.vue';

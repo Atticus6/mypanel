@@ -181,7 +181,7 @@ import AllowIPsSetting from '@/views/setting/safe/allowips/index.vue';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { Setting } from '@/api/interface/setting';
+import { Setting } from '@/types/setting';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 
 const { entrance, isLogin, isMobile } = useGlobalStore();

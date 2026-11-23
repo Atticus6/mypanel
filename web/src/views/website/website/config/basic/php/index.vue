@@ -55,8 +55,8 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
-import { Runtime } from '@/api/interface/runtime';
-import { Website } from '@/api/interface/website';
+import { Runtime } from '@/types/runtime';
+import { Website } from '@/types/website';
 
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';

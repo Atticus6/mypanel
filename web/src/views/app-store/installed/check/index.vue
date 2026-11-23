@@ -47,7 +47,7 @@
     </DialogPro>
 </template>
 <script lang="ts" setup>
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';

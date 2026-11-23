@@ -304,10 +304,10 @@
 
 <script lang="ts" setup>
 import { useSearchState } from '@/utils/search-reset';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import { TABLE_TOOLTIP_OPTIONS, type FuTableOperationButton } from '@/components/table/shared';
 import { buildHostRuleExport } from './transfer';
-import { Process } from '@/api/interface/process';
+import { Process } from '@/types/process';
 import i18n from '@/lang';
 import { getCurrentDateFormatted } from '@/utils/date';
 import { downloadWithContent } from '@/utils/file';

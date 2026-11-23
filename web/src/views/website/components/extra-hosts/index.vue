@@ -31,7 +31,7 @@
 import { reactive } from 'vue';
 import { FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
-import { Runtime } from '@/api/interface/runtime';
+import { Runtime } from '@/types/runtime';
 
 const props = defineProps({
     extraHosts: {

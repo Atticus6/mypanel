@@ -141,7 +141,7 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { getRandomStr } from '@/utils/id';
 import { Rules } from '@/global/form-rules';
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { getDBName, getLabel, getDescription } from '@/utils/app-store';
 import { rpc } from '@/lib/rpc';
 

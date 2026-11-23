@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import { readCachedPageSize } from '@/utils/panel-cache';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { useSearchState } from '@/utils/search-reset';

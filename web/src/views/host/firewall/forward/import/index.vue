@@ -96,7 +96,7 @@ import { MsgError } from '@/utils/message';
 import i18n from '@/lang';
 import { getErrorMessage } from '@/utils/misc';
 import { isAxiosError } from 'axios';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import { normalizeForwardRuleImport, parseForwardRuleImport } from '../transfer';
 import { FIREWALL_BATCH_LIMIT, FIREWALL_IMPORT_MAX_SIZE } from '@/views/host/firewall/utils/validation';
 import { Document } from '@element-plus/icons-vue';

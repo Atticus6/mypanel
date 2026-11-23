@@ -58,7 +58,7 @@ import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { FormInstance } from 'element-plus';
 import { ref } from 'vue';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { MsgSuccess } from '@/utils/message';
 
 const initData = () => ({

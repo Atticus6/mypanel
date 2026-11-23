@@ -86,7 +86,7 @@ import { useSearchState } from '@/utils/search-reset';
 import { toRef, reactive, ref } from 'vue';
 import { dateFormat, getCurrentDateFormatted } from '@/utils/date';
 import { downloadWithContent } from '@/utils/file';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import DetailDialog from '@/views/container/template/detail/index.vue';
 import ImportDialog from '@/views/container/template/import/index.vue';
 import OperatorDialog from '@/views/container/template/operator/index.vue';

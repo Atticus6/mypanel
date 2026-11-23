@@ -62,7 +62,7 @@ import { getErrorMessage } from '@/utils/misc';
 import { isAxiosError } from 'axios';
 import { ElForm } from 'element-plus';
 import { MsgError } from '@/utils/message';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import { deepCopy } from '@/utils/misc';
 import { isValidAddressForFamily, isValidPortRange, normalizePortRange } from '@/views/host/firewall/utils/validation';
 import { rpc } from '@/lib/rpc';

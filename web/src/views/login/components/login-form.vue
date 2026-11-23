@@ -248,7 +248,7 @@
 import { applyPanelCacheSettings } from '@/utils/panel-cache';
 import { ref, reactive, onMounted, onBeforeUnmount, computed, nextTick } from 'vue';
 import type { ElForm } from 'element-plus';
-import type { Login as LoginModel } from '@/api/interface/auth';
+import type { Login as LoginModel } from '@/types/auth';
 import { MenuStore, TabsStore } from '@/store';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useI18n } from 'vue-i18n';

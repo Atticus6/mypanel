@@ -391,3 +391,25 @@ func TestMCPEndpointMounted(t *testing.T) {
 		t.Fatal("/mcp 返回 404，路由器未挂载")
 	}
 }
+
+// TestContainerLogsRequiresLogin 验证容器日志 SSE 通道在未登录时返回 401。
+func TestContainerLogsRequiresLogin(t *testing.T) {
+	setupSingleProcess(t)
+
+	handler := server.New(server.Options{
+		Logger:        slog.New(slog.NewTextHandler(io.Discard, nil)),
+		Services:      transport.Services(),
+		ContainerLogs: transport.ContainerLogsHandler(),
+	})
+	ts := httptest.NewServer(handler)
+	defer ts.Close()
+
+	resp, err := http.Get(ts.URL + "/api/v2/containers/search/log?container=missing")
+	if err != nil {
+		t.Fatalf("GET container logs: %v", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusUnauthorized {
+		t.Fatalf("status = %d, 期望 401", resp.StatusCode)
+	}
+}

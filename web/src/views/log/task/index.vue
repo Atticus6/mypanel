@@ -61,7 +61,7 @@ import LogRouter from '@/views/log/router/index.vue';
 import { dateFormat } from '@/utils/date';
 import { rpc } from '@/lib/rpc';
 import { onMounted, reactive, ref } from 'vue';
-import { Log } from '@/api/interface/log';
+import { Log } from '@/types/log';
 import TaskLog from '@/components/log/task/index.vue';
 import bus from '@/global/bus';
 import { translateTaskText } from '@/utils/task';

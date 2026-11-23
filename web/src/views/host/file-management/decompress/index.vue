@@ -88,8 +88,8 @@
 <script setup lang="ts">
 import i18n from '@/lang';
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-import { File } from '@/api/interface/file';
-import { Log } from '@/api/interface/log';
+import { File } from '@/types/file';
+import { Log } from '@/types/log';
 import { FormInstance, FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';

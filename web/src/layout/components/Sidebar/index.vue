@@ -67,7 +67,7 @@ import { MenuStore } from '@/store';
 import { loadMenuList } from '@/utils/menu';
 import PrimaryMenu from '@/assets/images/menu-bg.svg?component';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import type { Login } from '@/api/interface/auth';
+import type { Login } from '@/types/auth';
 
 const route = useRoute();
 const router = useRouter();

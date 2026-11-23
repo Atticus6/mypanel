@@ -23,7 +23,7 @@ import { FormInstance } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index.vue';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 

@@ -38,7 +38,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import DiskRouter from '@/views/host/disk-management/index.vue';
 import DiskCard from '@/views/host/disk-management/components/disk-card.vue';
 import Partition from '@/views/host/disk-management/partition/index.vue';

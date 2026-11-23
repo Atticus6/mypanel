@@ -235,7 +235,7 @@ import { dateFormat } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { ElForm } from 'element-plus';
 import i18n from '@/lang';
-import { Setting } from '@/api/interface/setting';
+import { Setting } from '@/types/setting';
 import TaskLog from '@/components/log/task/index.vue';
 import RecoverStatus from '@/views/setting/snapshot/status/index.vue';
 import SnapshotImport from '@/views/setting/snapshot/import/index.vue';

@@ -226,7 +226,7 @@ import i18n from '@/lang';
 import MonitorRouter from '@/views/host/monitor/index.vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { shortcuts } from '@/utils/shortcuts';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { rpc } from '@/lib/rpc';
 
 const { defaultIO, defaultNetwork, isMobile } = useGlobalStore();

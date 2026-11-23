@@ -240,7 +240,7 @@ import AccountAddress from '@/views/ai/components/account-address/index.vue';
 import GPUConfig from '@/views/ai/components/gpu-config/index.vue';
 import Diff from '@/views/app-store/installed/upgrade/diff/index.vue';
 
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { computed, nextTick, onBeforeUnmount, reactive, ref } from 'vue';
 import { FormInstance } from 'element-plus';
 import { Rules, checkNumberRange } from '@/global/form-rules';
@@ -248,7 +248,7 @@ import { MsgError, MsgSuccess } from '@/utils/message';
 import { getLabel } from '@/utils/app-store';
 import { splitHttp, checkIpV4V6, checkDomain } from '@/utils/validate';
 import i18n from '@/lang';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 

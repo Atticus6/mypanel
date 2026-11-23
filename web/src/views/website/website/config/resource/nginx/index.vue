@@ -10,7 +10,7 @@
 
 import { rpc } from '@/lib/rpc';
 import { computed, onMounted, ref } from 'vue';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index.vue';

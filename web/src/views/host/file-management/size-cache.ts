@@ -1,4 +1,4 @@
-import type { File } from '@/api/interface/file';
+import type { File } from '@/types/file';
 
 type FileSizeItem = Pick<File.File, 'path' | 'size' | 'isDir'> & Partial<Pick<File.File, 'dirSize'>>;
 

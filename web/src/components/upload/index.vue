@@ -140,7 +140,7 @@ import { newUUID } from '@/utils/id';
 import { transferTimeToSecond } from '@/utils/validate';
 import i18n from '@/lang';
 import { UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile, genFileId } from 'element-plus';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import { chunkUploadFileData } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { MsgError, MsgSuccess } from '@/utils/message';

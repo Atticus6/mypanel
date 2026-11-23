@@ -96,7 +96,7 @@
 
 <script lang="ts" setup>
 import { rpc } from '@/lib/rpc';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import type { FileShareInfo as FileShareInfoMessage } from '@/gen/panel/agent/v1/file_pb';
 import { CopyDocument, Download, Picture } from '@element-plus/icons-vue';
 import i18n from '@/lang';

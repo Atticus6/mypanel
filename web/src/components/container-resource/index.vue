@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Container } from '@/api/interface/container';
+import type { Container } from '@/types/container';
 import { computeCPU, computeSizeForDocker } from '@/utils/size';
 import SvgIcon from '@/components/svg-icon/svg-icon.vue';
 defineProps<{ stats: Container.ContainerListStats }>();

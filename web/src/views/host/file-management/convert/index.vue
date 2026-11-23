@@ -140,7 +140,7 @@ import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { readCachedPageSize } from '@/utils/panel-cache';
 import i18n from '@/lang';
 import { reactive, ref } from 'vue';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import FileList from '@/components/file-list/index.vue';
 import { Plus } from '@element-plus/icons-vue';
 import { MsgWarning, MsgSuccess } from '@/utils/message';

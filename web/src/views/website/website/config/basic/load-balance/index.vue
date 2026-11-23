@@ -74,7 +74,7 @@ import { rpc } from '@/lib/rpc';
 import { onMounted, ref } from 'vue';
 import Operate from './operate/index.vue';
 import i18n from '@/lang';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { getAlgorithms } from '@/global/mimetype';
 import File from './file/index.vue';
 

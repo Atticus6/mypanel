@@ -85,7 +85,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import i18n from '@/lang';
 import { MsgError } from '@/utils/message';
 import { formatHostAddress, inferAddressFamily } from '@/views/host/firewall/utils/validation';

@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import FileRole from '@/components/file-role/index.vue';

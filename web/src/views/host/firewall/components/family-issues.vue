@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { WarningFilled } from '@element-plus/icons-vue';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import TaskLog from '@/components/log/task/index.vue';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';

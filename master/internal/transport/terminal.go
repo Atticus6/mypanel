@@ -60,3 +60,24 @@ func TerminalWSHandler() gin.HandlerFunc {
 		}
 	}
 }
+
+// ContainerLogsHandler 返回容器日志 SSE 处理器。
+//
+// /containers/search/log 是 SSE 流，不能走 Connect/gRPC；单进程下直接复用 agent
+// 已有的流式实现，并在入口处复用 core 会话，避免绕过登录鉴权。
+func ContainerLogsHandler() gin.HandlerFunc {
+	api := agentapi.BaseApi{}
+	return func(c *gin.Context) {
+		if coreglobal.SESSION == nil {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "message": "ErrNotLogin"})
+			return
+		}
+		session, err := coreglobal.SESSION.Get(c)
+		if err != nil || session.ID == "" || session.Name == "" {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "message": "ErrNotLogin"})
+			return
+		}
+		c.Set(psession.GinContextSessionUserKey, session)
+		api.ContainerStreamLogs(c)
+	}
+}

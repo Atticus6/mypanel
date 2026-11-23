@@ -1,4 +1,4 @@
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import { inferAddressFamily, isValidAddressForFamily, normalizePortRange } from '../utils/validation';
 
 export const normalizeForwardRuleImport = (value: unknown): Firewall.RuleForward => {

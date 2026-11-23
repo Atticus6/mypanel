@@ -66,7 +66,7 @@ import i18n from '@/lang';
 import { FormInstance } from 'element-plus';
 import { ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 
 const redirectForm = ref<FormInstance>();
 const rules = ref({

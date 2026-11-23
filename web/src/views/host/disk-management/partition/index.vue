@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';

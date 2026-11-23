@@ -56,7 +56,7 @@
 <script lang="ts" setup>
 import i18n from '@/lang';
 import { ref } from 'vue';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import { getIcon } from '@/utils/file';
 import { rpc } from '@/lib/rpc';
 import { MsgSuccess, MsgWarning } from '@/utils/message';

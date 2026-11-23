@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Nginx } from '@/api/interface/nginx';
+import { Nginx } from '@/types/nginx';
 import { rpc } from '@/lib/rpc';
 import { onMounted, ref } from 'vue';
 

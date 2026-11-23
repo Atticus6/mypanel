@@ -52,7 +52,7 @@
 <script lang="ts" setup>
 import { FormInstance } from 'element-plus';
 import { onBeforeUnmount, ref } from 'vue';
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import bus from '@/global/bus';

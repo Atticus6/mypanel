@@ -57,15 +57,16 @@ func provideLogger(cfg Config) *slog.Logger {
 func provideHandler(cfg Config, services []server.RPCService) http.Handler {
 	upload, download := transport.FileHandlers()
 	return server.New(server.Options{
-		Version:      cfg.Version,
-		WebFS:        cfg.WebFS,
-		Logger:       cfg.Logger,
-		Debug:        cfg.Debug,
-		Services:     services,
-		FileUpload:   upload,
-		FileDownload: download,
-		TerminalWS:   transport.TerminalWSHandler(),
-		MCPHandler:   transport.MCPHandler(),
+		Version:       cfg.Version,
+		WebFS:         cfg.WebFS,
+		Logger:        cfg.Logger,
+		Debug:         cfg.Debug,
+		Services:      services,
+		FileUpload:    upload,
+		FileDownload:  download,
+		TerminalWS:    transport.TerminalWSHandler(),
+		MCPHandler:    transport.MCPHandler(),
+		ContainerLogs: transport.ContainerLogsHandler(),
 	})
 }
 

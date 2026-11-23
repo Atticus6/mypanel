@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { ResultData } from '@/api/interface';
+import { ResultData } from '@/types';
 import { ResultEnum } from '@/enums/http-enum';
 import { checkStatus } from './helper/check-status';
 import router from '@/routers';

@@ -353,7 +353,7 @@ import Confirm from '@/views/container/container/operate/confirm.vue';
 import Volume from '@/views/container/container/operate/volume.vue';
 import Network from '@/views/container/container/operate/network.vue';
 import ExtraHosts from '@/views/website/components/extra-hosts/index.vue';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { MsgError } from '@/utils/message';
 import TaskLog from '@/components/log/task/index.vue';
 import { checkIpV4V6, checkPort } from '@/utils/validate';

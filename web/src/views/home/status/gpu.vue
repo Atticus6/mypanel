@@ -107,7 +107,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { ArrowDown, ArrowRight, ArrowUp } from '@element-plus/icons-vue';
-import { Dashboard } from '@/api/interface/dashboard';
+import { Dashboard } from '@/types/dashboard';
 import { computeSizeForDocker } from '@/utils/size';
 import i18n from '@/lang';
 

@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { ref, onMounted } from 'vue';
 import { rpc } from '@/lib/rpc';
 const tmpNetworks = ref<Array<Container.ContainerNetwork>>([]);

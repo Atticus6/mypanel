@@ -154,7 +154,7 @@ import type { FormInstance, FormItemRule, FormRules } from 'element-plus';
 import { Base64 } from 'js-base64';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { Rules } from '@/global/form-rules';
 import { copyText } from '@/utils/clipboard';
 import { MsgError } from '@/utils/message';

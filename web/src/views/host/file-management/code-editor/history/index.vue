@@ -230,7 +230,7 @@ import { computeSize } from '@/utils/size';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 import type { FileHistoryEntry } from '@/gen/panel/agent/v1/file_pb';
-import { Setting } from '@/api/interface/setting';
+import { Setting } from '@/types/setting';
 import { loadMonacoLanguageSupport, setupMonacoEnvironment } from '@/utils/monaco';
 import { ElMessageBox, type FormInstance, type FormRules } from 'element-plus';
 import { Languages } from '@/global/mimetype';

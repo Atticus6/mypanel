@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { useSearchState } from '@/utils/search-reset';
-import { Command } from '@/api/interface/command';
+import { Command } from '@/types/command';
 import GroupDialog from '@/components/group/index.vue';
 import OperateDialog from '@/views/terminal/command/operate/index.vue';
 import ImportDialog from '@/views/terminal/command/import/index.vue';

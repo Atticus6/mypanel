@@ -126,7 +126,7 @@ import FireStatus from '@/views/host/firewall/status/index.vue';
 import RuleReset from '@/views/host/firewall/components/rule-reset.vue';
 import TaskLog from '@/components/log/task/index.vue';
 import { toRef, onMounted, reactive, ref } from 'vue';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import { buildForwardRuleExport } from './transfer';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';

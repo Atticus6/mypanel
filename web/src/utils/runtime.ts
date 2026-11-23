@@ -1,4 +1,4 @@
-import { Runtime } from '@/api/interface/runtime';
+import { Runtime } from '@/types/runtime';
 
 export function disabledButton(row: Runtime.Runtime, type: string): boolean {
     switch (type) {

@@ -87,7 +87,7 @@ import { transSpecToStr } from './../helper';
 import { genFileId, UploadFile, UploadFiles, UploadProps, UploadRawFile } from 'element-plus';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { Cronjob } from '@/api/interface/cronjob';
+import { Cronjob } from '@/types/cronjob';
 import { rpc } from '@/lib/rpc';
 
 const emit = defineEmits<{ (e: 'search'): void }>();

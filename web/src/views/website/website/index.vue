@@ -353,14 +353,14 @@ import BatchSetHttps from '@/views/website/website/batch-op/https.vue';
 
 import i18n from '@/lang';
 import { toRef, onMounted, reactive, ref, computed } from 'vue';
-import { Website } from '@/api/interface/website';
-import { App } from '@/api/interface/app';
+import { Website } from '@/types/website';
+import { App } from '@/types/app';
 import { ElMessageBox } from 'element-plus';
 import { dateFormatSimple } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useI18n } from 'vue-i18n';
-import { Group } from '@/api/interface/group';
+import { Group } from '@/types/group';
 import { getWebsiteTypes } from '@/global/mimetype';
 import { routerToFileWithPath, routerToNameWithParams, routerToNameWithQuery } from '@/utils/router';
 import { useGlobalStore } from '@/composables/useGlobalStore';

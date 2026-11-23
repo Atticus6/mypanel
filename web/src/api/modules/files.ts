@@ -1,4 +1,4 @@
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import http from '@/api';
 import { AxiosRequestConfig } from 'axios';
 import { TimeoutEnum } from '@/enums/http-enum';

@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { getAge } from '@/utils/date';
 import { toLink } from '@/utils/browser';
 interface Props {

@@ -166,7 +166,7 @@
 
 <script lang="ts" setup>
 import { computed, nextTick, reactive, ref } from 'vue';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import i18n from '@/lang';
 import { MsgError, MsgWarning } from '@/utils/message';
 import { getErrorMessage } from '@/utils/misc';

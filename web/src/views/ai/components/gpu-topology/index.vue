@@ -85,7 +85,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { InfoFilled } from '@element-plus/icons-vue';
-import { AI } from '@/api/interface/ai';
+import { AI } from '@/types/ai';
 
 const props = withDefaults(
     defineProps<{ devices: AI.ModelGPUDevice[]; nodes: AI.ModelNUMANode[]; selectable?: boolean; cards?: boolean }>(),

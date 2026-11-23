@@ -229,7 +229,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { Rules, checkMaxLength, checkNumberRange } from '@/global/form-rules';
 import FileList from '@/components/file-list/index.vue';
 import i18n from '@/lang';

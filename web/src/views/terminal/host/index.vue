@@ -77,7 +77,7 @@ import OperateDialog from '@/views/terminal/host/operate/index.vue';
 import { rpc } from '@/lib/rpc';
 import { toRef, reactive, ref } from 'vue';
 import i18n from '@/lang';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { MsgSuccess } from '@/utils/message';
 
 const loading = ref();

@@ -246,7 +246,7 @@ import i18n from '@/lang';
 import { FormInstance } from 'element-plus';
 import { ref, watch } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { Units } from '@/global/mimetype';
 import { isDomain } from '@/utils/validate';
 import { Delete, Plus } from '@element-plus/icons-vue';

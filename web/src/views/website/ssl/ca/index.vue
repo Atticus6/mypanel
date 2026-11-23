@@ -53,7 +53,7 @@
 
 <script lang="ts" setup>
 import { readCachedPageSize } from '@/utils/panel-cache';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { downloadCAFile } from '@/api/modules/website';
 import i18n from '@/lang';
 import { onMounted, reactive, ref, toRef } from 'vue';

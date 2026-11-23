@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { FormInstance } from 'element-plus';
-import { AI } from '@/api/interface/ai';
+import { AI } from '@/types/ai';
 import { saveGPUGroup } from '@/api/modules/ai';
 import GPUConfig from '@/views/ai/components/gpu-config/index.vue';
 import DrawerPro from '@/components/drawer-pro/index.vue';

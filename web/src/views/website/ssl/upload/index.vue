@@ -99,7 +99,7 @@ import { FormInstance } from 'element-plus';
 import FileList from '@/components/file-list/index.vue';
 import { defineAsyncComponent, ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 
 const { isMaster, isXpackOrEE } = useGlobalStore();

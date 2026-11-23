@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 import { ElForm } from 'element-plus';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { reactive, ref } from 'vue';

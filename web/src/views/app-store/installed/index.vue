@@ -161,7 +161,7 @@ import Sortable from 'sortablejs';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
 import { ElMessageBox } from 'element-plus';
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { jumpToPath } from '@/utils/router';
 import { useRouter } from 'vue-router';
 import { MsgSuccess } from '@/utils/message';

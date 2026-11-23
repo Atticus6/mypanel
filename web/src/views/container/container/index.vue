@@ -480,7 +480,7 @@ import DockerStatus from '@/views/container/docker-status/index.vue';
 import ContainerLogDialog from '@/components/log/container-drawer/index.vue';
 import Status from '@/components/status/index.vue';
 import { toRef, computed, onMounted, onActivated, onBeforeUnmount, onDeactivated, reactive, ref, watch } from 'vue';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { rpc } from '@/lib/rpc';
 import { toContainerView } from '@/lib/rpc/container';
 import i18n from '@/lang';

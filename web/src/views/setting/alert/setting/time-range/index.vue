@@ -69,7 +69,7 @@ import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { FormInstance } from 'element-plus';
 import { rpc } from '@/lib/rpc';
-import { Alert } from '@/api/interface/alert';
+import { Alert } from '@/types/alert';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 
 const emit = defineEmits<{ (e: 'search'): void }>();

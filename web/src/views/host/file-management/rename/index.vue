@@ -29,7 +29,7 @@ import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 

@@ -53,7 +53,7 @@
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { readCachedPageSize } from '@/utils/panel-cache';
 import Create from './create/index.vue';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import { onMounted, reactive, ref, toRef } from 'vue';
 import i18n from '@/lang';

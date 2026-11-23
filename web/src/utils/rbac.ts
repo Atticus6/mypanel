@@ -1,5 +1,5 @@
 import { rpc } from '@/lib/rpc';
-import { Login } from '@/api/interface/auth';
+import { Login } from '@/types/auth';
 import { getEnterpriseUserInfo } from '@/extensions/xpack';
 import type { RouteMeta } from 'vue-router';
 import { GlobalStore } from '@/store';

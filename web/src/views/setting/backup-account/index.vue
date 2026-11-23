@@ -128,7 +128,7 @@ import { toRef, onMounted, ref } from 'vue';
 import { rpc } from '@/lib/rpc';
 import Operate from '@/views/setting/backup-account/operate/index.vue';
 import DetailShow from '@/components/detail-show/index.vue';
-import { Backup } from '@/api/interface/backup';
+import { Backup } from '@/types/backup';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { Base64 } from 'js-base64';

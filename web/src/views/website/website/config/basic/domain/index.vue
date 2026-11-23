@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import Domain from './create/index.vue';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { computed, onMounted, ref } from 'vue';
 import i18n from '@/lang';
 import { Promotion } from '@element-plus/icons-vue';

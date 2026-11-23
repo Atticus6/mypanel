@@ -1,5 +1,5 @@
 import http, { type RequestConfig } from '@/api';
-import { Container } from '../interface/container';
+import { Container } from '../../types/container';
 import { TimeoutEnum } from '@/enums/http-enum';
 
 // 以下接口是二进制流、WebSocket 相关或已剔除能力的通道，保留 HTTP 实现。

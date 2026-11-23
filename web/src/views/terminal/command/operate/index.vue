@@ -57,7 +57,7 @@ import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { Command } from '@/api/interface/command';
+import { Command } from '@/types/command';
 import { rpc } from '@/lib/rpc';
 
 const loading = ref();

@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import HttpsConfig from '@/views/website/website/components/https/index.vue';
 
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import { FormInstance } from 'element-plus';
 import { Rules } from '@/global/form-rules';

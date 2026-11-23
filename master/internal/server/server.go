@@ -46,6 +46,8 @@ type Options struct {
 	TerminalWS gin.HandlerFunc
 	// MCPHandler 是 /mcp 的处理器；为 nil 时不注册。
 	MCPHandler gin.HandlerFunc
+	// ContainerLogs 是容器日志 SSE 处理器；为 nil 时不注册。
+	ContainerLogs gin.HandlerFunc
 	// Services 是要挂载的 Connect 服务集合。
 	//
 	// 每个服务同时挂载在根路径与 /rpc 前缀下，见 RPCPrefix 的说明。
@@ -114,6 +116,11 @@ func New(opts Options) http.Handler {
 		r.POST("/mcp", opts.MCPHandler)
 		r.GET("/mcp", opts.MCPHandler)
 		r.DELETE("/mcp", opts.MCPHandler)
+	}
+
+	// 容器日志是 SSE 流，保留 HTTP 通道；前端仍用原生 EventSource。
+	if opts.ContainerLogs != nil {
+		r.GET("/api/v2/containers/search/log", opts.ContainerLogs)
 	}
 
 	// 终端是唯一保留的双向流通道：浏览器端 Connect 不能可靠承载 PTY。

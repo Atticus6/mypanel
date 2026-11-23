@@ -170,7 +170,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { dateFormat } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { computeSize2 } from '@/utils/size';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import Pull from '@/views/container/image/pull/index.vue';
 import RemoteSearch from '@/views/container/image/remote/index.vue';
 import Tag from '@/views/container/image/tag/index.vue';

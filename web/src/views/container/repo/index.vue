@@ -64,7 +64,7 @@ import { useSearchState } from '@/utils/search-reset';
 import OperatorDialog from '@/views/container/repo/operator/index.vue';
 import { toRef, reactive, ref } from 'vue';
 import { dateFormat } from '@/utils/date';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { rpc } from '@/lib/rpc';
 import DockerStatus from '@/views/container/docker-status/index.vue';
 import i18n from '@/lang';

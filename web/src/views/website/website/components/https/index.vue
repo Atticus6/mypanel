@@ -150,7 +150,7 @@ import { computed, watch, onMounted, ref } from 'vue';
 import { getAccountName } from '@/utils/ssl';
 import { dateFormatSimple } from '@/utils/date';
 import WebsiteSSL from '@/views/website/website/components/website-ssl/index.vue';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 
 type SSLItem = Website.SSL & { organization?: string };

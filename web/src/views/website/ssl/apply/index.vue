@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { ref } from 'vue';

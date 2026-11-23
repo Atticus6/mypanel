@@ -110,7 +110,7 @@ import { ElMessageBox } from 'element-plus';
 import i18n from '@/lang';
 import { routerToFileWithPath } from '@/utils/router';
 import FileList from '@/components/file-list/index.vue';
-import { Dashboard } from '@/api/interface/dashboard';
+import { Dashboard } from '@/types/dashboard';
 import { rpc } from '@/lib/rpc';
 
 defineProps<{ count: string; disabled: boolean }>();

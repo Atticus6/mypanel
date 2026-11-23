@@ -99,7 +99,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { dateFormat } from '@/utils/date';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { Alert } from '@/api/interface/alert';
+import { Alert } from '@/types/alert';
 import { SyncAlertInfo, SyncAlertAll, SyncOfflineAlert, resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { rpc } from '@/lib/rpc';
 import { ElMessageBox } from 'element-plus';

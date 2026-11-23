@@ -520,7 +520,7 @@ import QuickDirectories from '@/views/home/quick/directories.vue';
 import CardWithHeader from '@/components/card-with-header/index.vue';
 import MarkDownEditor from '@/components/mkdown-editor/index.vue';
 import i18n from '@/lang';
-import { Dashboard } from '@/api/interface/dashboard';
+import { Dashboard } from '@/types/dashboard';
 import { dateFormatForSecond, formatUptime } from '@/utils/date';
 import { computeSize, computeSizeFromKBs } from '@/utils/size';
 import { jumpToPath } from '@/utils/router';
@@ -540,7 +540,7 @@ import { MsgSuccess } from '@/utils/message';
 import { useCan } from '@/composables/useMenuManagePermission';
 import { readPages } from '@/utils/pagination';
 import { loadExtensionComponent } from '@/extensions/optional';
-import type { ReqPage, ResPage, ResultData } from '@/api/interface';
+import type { ReqPage, ResPage, ResultData } from '@/types';
 const router = useRouter();
 import { useGlobalStore } from '@/composables/useGlobalStore';
 const {

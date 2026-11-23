@@ -26,7 +26,7 @@ import { FormInstance, FormRules } from 'element-plus';
 import { CompressExtension, CompressType } from '@/enums/files';
 import { computed, reactive, ref } from 'vue';
 import { downloadFile } from '@/api/modules/files';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import { Rules } from '@/global/form-rules';
 
 interface DownloadProps {

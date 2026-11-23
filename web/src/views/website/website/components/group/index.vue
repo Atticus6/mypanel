@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue';
-import { Group } from '@/api/interface/group';
+import { Group } from '@/types/group';
 import { rpc } from '@/lib/rpc';
 
 const props = defineProps({

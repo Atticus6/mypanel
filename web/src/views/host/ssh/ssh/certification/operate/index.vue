@@ -120,7 +120,7 @@
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { ElForm, genFileId, UploadFile, UploadProps, UploadRawFile } from 'element-plus';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';
 import { getRandomStr } from '@/utils/id';

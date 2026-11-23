@@ -1,6 +1,6 @@
 import i18n from '@/lang';
 import { compareVersion } from '@/utils/version';
-import type { AI } from '@/api/interface/ai';
+import type { AI } from '@/types/ai';
 
 const openclawHTTPSVersion = '2026.3.13';
 const openclawHTTPVersion = '2026.3.23';

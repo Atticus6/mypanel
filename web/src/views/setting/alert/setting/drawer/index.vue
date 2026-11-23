@@ -163,7 +163,7 @@ import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { rpc } from '@/lib/rpc';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { Alert } from '@/api/interface/alert';
+import { Alert } from '@/types/alert';
 import CustomWebhookForm from './custom-webhook-form.vue';
 import {
     CustomWebhookValidationIssue,

@@ -94,7 +94,7 @@
 </template>
 <script lang="ts" setup>
 import { readCachedPageSize } from '@/utils/panel-cache';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import Operate from '@/views/host/ssh/ssh/certification/operate/index.vue';

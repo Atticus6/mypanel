@@ -1,4 +1,4 @@
-import { Setting } from '@/api/interface/setting';
+import { Setting } from '@/types/setting';
 import { GlobalStore } from '@/store';
 
 export const changeToLocal = async () => {

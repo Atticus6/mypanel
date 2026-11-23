@@ -108,7 +108,7 @@ import { computed, ref } from 'vue';
 import i18n from '@/lang';
 import { Document, FolderOpened } from '@element-plus/icons-vue';
 import DialogPro from '@/components/dialog-pro/index.vue';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import TaskLog from '@/components/log/task/index.vue';
 import { GlobalStore } from '@/store';
 import { downloadFile } from '@/utils/file';

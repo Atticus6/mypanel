@@ -117,7 +117,7 @@
     <FileList ref="certFileRef" @choose="getCertPath" />
 </template>
 <script lang="ts" setup>
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { dateFormatSimple } from '@/utils/date';
 import { getProvider } from '@/utils/ssl';
 import { reactive, ref } from 'vue';
@@ -126,7 +126,7 @@ import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import { ElMessageBox, FormInstance } from 'element-plus';
-import { Setting } from '@/api/interface/setting';
+import { Setting } from '@/types/setting';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 const { entrance, isLogin } = useGlobalStore();
 

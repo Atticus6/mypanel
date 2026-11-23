@@ -162,7 +162,7 @@ import SendTimeRange from '@/views/setting/alert/setting/time-range/index.vue';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import AlertDrawer from '@/views/setting/alert/setting/drawer/index.vue';
-import { Alert } from '@/api/interface/alert';
+import { Alert } from '@/types/alert';
 import { formatCustomWebhookDetails, formatCustomWebhookSafeSummary } from './drawer/custom-webhook';
 import { getAlertConfigDisplayName, rawSecretValue } from './drawer/secret-field';
 

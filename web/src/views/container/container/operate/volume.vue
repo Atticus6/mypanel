@@ -83,7 +83,7 @@
 
 <script lang="ts" setup>
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { ref, onMounted } from 'vue';
 import { rpc } from '@/lib/rpc';
 const tmpVolumes = ref([]);

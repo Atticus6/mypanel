@@ -271,7 +271,7 @@ import Import from '@/views/cronjob/cronjob/import/index.vue';
 import { toRef, onMounted, ref, toRefs } from 'vue';
 import { exportCronjob } from '@/api/modules/cronjob';
 import i18n from '@/lang';
-import { Cronjob } from '@/api/interface/cronjob';
+import { Cronjob } from '@/types/cronjob';
 import GroupDialog from '@/components/group/index.vue';
 import { ElMessageBox } from 'element-plus';
 import { MsgSuccess } from '@/utils/message';

@@ -538,7 +538,7 @@ import Backups from '@/components/backup/index.vue';
 import Uploads from '@/components/upload/index.vue';
 import DockerStatus from '@/views/container/docker-status/index.vue';
 import i18n from '@/lang';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { routerToFileWithPath } from '@/utils/router';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';

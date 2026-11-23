@@ -94,7 +94,7 @@
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import { ElMessageBox, type CheckboxValueType, type FormInstance } from 'element-plus';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { Rules } from '@/global/form-rules';
 import { newUUID } from '@/utils/id';
 import i18n from '@/lang';

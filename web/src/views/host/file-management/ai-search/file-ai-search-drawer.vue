@@ -490,7 +490,7 @@ import { Folder } from '@element-plus/icons-vue';
 import { fileAiSearch } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { pageAgentAccounts } from '@/api/modules/ai';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { MsgSuccess, MsgWarning } from '@/utils/message';

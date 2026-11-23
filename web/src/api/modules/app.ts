@@ -1,4 +1,4 @@
-import { App } from '../interface/app';
+import { App } from '../../types/app';
 import { resolveAppIconUrl } from '@/utils/app-icon';
 
 // 应用图标是二进制响应（PNG 或 302），保留 HTTP 通道。

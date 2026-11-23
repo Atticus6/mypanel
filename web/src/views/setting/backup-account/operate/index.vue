@@ -424,7 +424,7 @@ import { ref, watch, computed, onUnmounted } from 'vue';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
-import { Backup } from '@/api/interface/backup';
+import { Backup } from '@/types/backup';
 import FileList from '@/components/file-list/index.vue';
 import { cities } from './../helper';
 import { dateFormat } from '@/utils/date';

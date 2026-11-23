@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import { FormInstance, FormRules } from 'element-plus';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';

@@ -23,7 +23,7 @@
     </DialogPro>
 </template>
 <script lang="ts" setup>
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { routerToName } from '@/utils/router';
 import { ref } from 'vue';
 

@@ -71,7 +71,7 @@
 
 <script lang="ts" setup>
 import { useSearchState } from '@/utils/search-reset';
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { toRef, onMounted, reactive, ref } from 'vue';
 import {
     syncCutomAppStore,

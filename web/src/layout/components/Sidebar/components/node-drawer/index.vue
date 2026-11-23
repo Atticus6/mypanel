@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { Setting } from '@/api/interface/setting';
+import { Setting } from '@/types/setting';
 import DrawerPro from '@/components/drawer-pro/index.vue';
 import i18n from '@/lang';
 import { computed, ref, watch } from 'vue';

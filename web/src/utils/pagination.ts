@@ -1,4 +1,4 @@
-import type { ReqPage, ResPage, ResultData } from '@/api/interface';
+import type { ReqPage, ResPage, ResultData } from '@/types';
 
 export async function readPages<T>(search: (page: ReqPage) => Promise<ResultData<ResPage<T>>>) {
     const items: T[] = [];

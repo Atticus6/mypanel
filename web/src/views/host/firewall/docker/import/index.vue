@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import { parseDockerPolicyImport } from '../transfer';
 import i18n from '@/lang';
 import { MsgError } from '@/utils/message';

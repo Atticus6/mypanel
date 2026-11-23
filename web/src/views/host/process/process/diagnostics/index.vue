@@ -137,7 +137,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 import { downloadFile } from '@/utils/file';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { computeSize } from '@/utils/size';
 import i18n from '@/lang';

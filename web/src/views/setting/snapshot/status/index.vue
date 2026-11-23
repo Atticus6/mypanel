@@ -124,7 +124,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Setting } from '@/api/interface/setting';
+import { Setting } from '@/types/setting';
 import { ElMessageBox } from 'element-plus';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';

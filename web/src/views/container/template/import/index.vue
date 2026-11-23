@@ -77,7 +77,7 @@ import { genFileId, UploadFile, UploadFiles, UploadProps, UploadRawFile } from '
 import { MsgError, MsgSuccess } from '@/utils/message';
 import DetailDialog from '@/views/container/template/detail/index.vue';
 import i18n from '@/lang';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { rpc } from '@/lib/rpc';
 
 const emit = defineEmits<{ (e: 'search'): void }>();

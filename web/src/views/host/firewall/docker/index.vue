@@ -230,7 +230,7 @@ import DockerGuardImport from '@/views/host/firewall/docker/import/index.vue';
 import RuleReset from '@/views/host/firewall/components/rule-reset.vue';
 import TaskLog from '@/components/log/task/index.vue';
 import RuleInitialize from '@/views/host/firewall/components/rule-initialize.vue';
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import { buildDockerPolicyExport } from './transfer';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';

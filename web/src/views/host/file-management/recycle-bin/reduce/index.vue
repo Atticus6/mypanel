@@ -31,7 +31,7 @@ import { getIcon } from '@/utils/file';
 import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 
 const open = ref(false);
 const em = defineEmits(['close']);

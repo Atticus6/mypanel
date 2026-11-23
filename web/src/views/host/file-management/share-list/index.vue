@@ -27,7 +27,7 @@
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { readCachedPageSize } from '@/utils/panel-cache';
 import { rpc } from '@/lib/rpc';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import i18n from '@/lang';
 import { dateFormat as formatDateTime } from '@/utils/date';
 import { computed, reactive, ref } from 'vue';

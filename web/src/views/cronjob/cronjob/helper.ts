@@ -1,4 +1,4 @@
-import { Cronjob } from '@/api/interface/cronjob';
+import { Cronjob } from '@/types/cronjob';
 import i18n from '@/lang';
 import { loadZero } from '@/utils/date';
 export const specOptions = [

@@ -1,4 +1,4 @@
-import { CommonModel, ReqPage } from '@/api/interface';
+import { CommonModel, ReqPage } from '@/types';
 import type { CronjobAlertTriggerMode } from '@/utils/cronjob-alert';
 
 export namespace Alert {

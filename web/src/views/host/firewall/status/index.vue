@@ -201,7 +201,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import i18n from '@/lang';
 import NoSuchService from '@/components/layout-content/no-such-service.vue';
 import DialogPro from '@/components/dialog-pro/index.vue';

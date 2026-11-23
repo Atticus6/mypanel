@@ -103,7 +103,7 @@ import { toRef, reactive, ref } from 'vue';
 import { dateFormat } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { rpc } from '@/lib/rpc';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import TaskLog from '@/components/log/task/index.vue';
 import i18n from '@/lang';
 import { ElMessageBox } from 'element-plus';

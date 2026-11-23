@@ -158,13 +158,13 @@
 
 <script lang="ts" setup>
 import { expandInvalidFormSection } from '@/components/form-section';
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 import { FormInstance, FormRules } from 'element-plus';
 import { ref, watch } from 'vue';
 import Params from '../params/index.vue';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import CodemirrorPro from '@/components/codemirror-pro/index.vue';
 import { computeSizeFromMB } from '@/utils/size';
 import { useGlobalStore } from '@/composables/useGlobalStore';

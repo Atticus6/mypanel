@@ -303,7 +303,7 @@
 import { computed, defineAsyncComponent, onBeforeUnmount, ref, watch } from 'vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import GPUTopology from '@/views/ai/components/gpu-topology/index.vue';
-import { AI } from '@/api/interface/ai';
+import { AI } from '@/types/ai';
 import { loadModelGPUDevices, listGPUGroups } from '@/api/modules/ai';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';

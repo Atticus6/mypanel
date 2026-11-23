@@ -346,7 +346,7 @@
 </template>
 
 <script setup lang="ts">
-import { Dashboard } from '@/api/interface/dashboard';
+import { Dashboard } from '@/types/dashboard';
 import { computeSize } from '@/utils/size';
 import i18n from '@/lang';
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue';

@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 import NoSuchService from '@/components/layout-content/no-such-service.vue';
 import FamilyIssues from '@/views/host/firewall/components/family-issues.vue';
 import i18n from '@/lang';

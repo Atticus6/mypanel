@@ -53,7 +53,7 @@
     </DrawerPro>
 </template>
 <script lang="ts" setup>
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { nextTick, reactive, ref } from 'vue';

@@ -65,7 +65,7 @@
 import { onMounted, ref, toRef } from 'vue';
 import CodemirrorPro from '@/components/codemirror-pro/index.vue';
 import { checkNumberRange } from '@/global/form-rules';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import { rpc } from '@/lib/rpc';
 
 const props = withDefaults(

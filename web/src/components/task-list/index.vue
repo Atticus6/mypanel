@@ -58,7 +58,7 @@ import NodeSelect from '@/components/node-select/index.vue';
 
 import { dateFormat } from '@/utils/date';
 import { reactive, ref } from 'vue';
-import { Log } from '@/api/interface/log';
+import { Log } from '@/types/log';
 import bus from '@/global/bus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { translateTaskText } from '@/utils/task';

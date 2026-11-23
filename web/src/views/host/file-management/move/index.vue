@@ -113,7 +113,7 @@
 
 <script lang="ts" setup>
 import { rpc } from '@/lib/rpc';
-import { Log } from '@/api/interface/log';
+import { Log } from '@/types/log';
 import TaskLog from '@/components/log/task/index.vue';
 import FileList from '@/components/file-list/index.vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';

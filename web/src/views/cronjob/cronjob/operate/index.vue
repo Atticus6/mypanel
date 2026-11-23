@@ -790,10 +790,10 @@ import { reactive, ref, computed, onMounted } from 'vue';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
-import { Cronjob } from '@/api/interface/cronjob';
+import { Cronjob } from '@/types/cronjob';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useRouter } from 'vue-router';
-import { Alert } from '@/api/interface/alert';
+import { Alert } from '@/types/alert';
 import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import {
     loadDefaultSpec,

@@ -172,7 +172,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { Nginx } from '@/api/interface/nginx';
+import { Nginx } from '@/types/nginx';
 import { rpc } from '@/lib/rpc';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import i18n from '@/lang';

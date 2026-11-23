@@ -26,7 +26,7 @@ import { ref } from 'vue';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import LoadBalanceForm from '@/views/website/website/config/basic/load-balance/form/index.vue';
 
 interface LoadBalanceOperate {

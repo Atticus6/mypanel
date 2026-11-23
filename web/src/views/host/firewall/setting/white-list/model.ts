@@ -1,6 +1,6 @@
 import { normalizePortRange } from '@/views/host/firewall/utils/validation';
 
-import type { Firewall } from '@/api/interface/firewall';
+import type { Firewall } from '@/types/firewall';
 
 export type WhiteListProtocol = 'tcp' | 'udp';
 export type WhiteListType = 'panel' | 'ssh';

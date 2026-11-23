@@ -103,9 +103,9 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { toMonitorChartSeries } from '@/lib/rpc/monitor';
 import { getGPUOptions, loadGPUMonitor } from '@/api/modules/ai';
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import { rpc } from '@/lib/rpc';
-import { AI } from '@/api/interface/ai';
+import { AI } from '@/types/ai';
 import { shortcuts } from '@/utils/shortcuts';
 import { dateFormatForName } from '@/utils/date';
 import { exportMonitorTables, MonitorExportTable } from '@/utils/monitor-export';

@@ -52,7 +52,7 @@
 import { reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
-import { Cronjob } from '@/api/interface/cronjob';
+import { Cronjob } from '@/types/cronjob';
 import { MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';

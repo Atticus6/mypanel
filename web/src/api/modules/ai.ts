@@ -1,4 +1,4 @@
-import type { AI } from '@/api/interface/ai';
+import type { AI } from '@/types/ai';
 
 // AI / 模型 / MCP / Agent 能力已随 xpack 一并剔除。
 // 这里保留少量返回空数据的本地桩，避免通用组件（GPU 配置、监控导出等）

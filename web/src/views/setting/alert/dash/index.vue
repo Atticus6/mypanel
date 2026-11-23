@@ -169,7 +169,7 @@ import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { ElMessageBox } from 'element-plus';
 import AddTask from '@/views/setting/alert/dash/task/index.vue';
-import { Alert } from '@/api/interface/alert';
+import { Alert } from '@/types/alert';
 import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { rpc } from '@/lib/rpc';
 import {

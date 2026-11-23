@@ -1,6 +1,6 @@
 import http from '@/api';
-import { Website } from '../interface/website';
-import { File } from '../interface/file';
+import { Website } from '../../types/website';
+import { File } from '../../types/file';
 import { TimeoutEnum } from '@/enums/http-enum';
 
 // 以下接口是二进制上传/下载通道，保留 HTTP 实现，不迁移到 RPC。

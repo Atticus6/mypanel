@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { rpc } from '@/lib/rpc';
 import bus from '@/global/bus';
 import { Rules } from '@/global/form-rules';

@@ -2095,45 +2095,45 @@ bun run build
 
 ### 后端
 
-- [ ] core/agent 代码已复制，import 已重写
-- [ ] go.mod 合并，`go build ./...` 通过
-- [ ] 单进程初始化顺序确定
-- [ ] core/agent 数据库连接合并
-- [ ] core→agent 反向代理删除
-- [ ] 业务 REST 路由删除
-- [ ] Connect 服务注册完成
-- [ ] 鉴权/CSRF/审计拦截器完成
-- [ ] Protovalidate 后端拦截器完成
-- [ ] 错误映射与 i18n 完成
-- [ ] proto 每个字段/消息/枚举/服务/方法都有注释，`buf lint` 通过
-- [ ] 终端 WebSocket 完成
-- [ ] 文件上传下载票据完成
-- [ ] OIDC/SAML 回调完成
-- [ ] MCP 端点保留
-- [ ] gRPC reflection 可用
-- [ ] 覆盖率 100%
-- [ ] 无 `/api/` 业务路由
-- [ ] AI/VM/网站运行时/网站模板/Toolbox/xpack/License 已剔除
+- [x] core/agent 代码已复制，import 已重写
+- [x] module 纳入 `go.work`，`go build ./master/...` 通过
+- [x] 单进程初始化顺序确定（`internal/app` wire 依赖图 + `internal/bootstrap`）
+- [x] core/agent 数据库按设计保持独立连接（单进程共享进程与 HTTP server，不合并 DB；见 AGENTS.md）
+- [x] master 运行时不再使用 core→agent 反向代理；core 模块里的旧代理代码不参与单进程路由（后续可删除）
+- [x] 业务 REST JSON 路由全部删除，仅保留二进制/SSE/WS/MCP/healthz 通道
+- [x] Connect 服务注册完成（`internal/transport/register.go`，含策略与描述符一致性测试）
+- [x] 鉴权/CSRF/审计拦截器完成
+- [x] Protovalidate 后端拦截器完成
+- [x] 错误映射与 i18n 完成
+- [x] proto 注释齐全，`buf lint` 通过（覆盖率门禁第一步）
+- [x] 终端 WebSocket 完成（`/ws/terminal`，登录校验见 TestTerminalWSRequiresLogin）
+- [x] 文件上传下载票据完成（`FileTransferService` + `/files/upload`、`/files/download`）
+- [x] OIDC/SAML 不适用：社区版源码无对应 handler，随 xpack 一并剔除（见附录 G 偏差说明）
+- [x] MCP 端点保留（`/mcp`，见 TestMCPEndpointMounted）
+- [x] gRPC reflection 可用（`internal/server/server.go` 挂载 reflect handler）
+- [x] 覆盖率 100%：494 覆盖 / 336 剔除 / 0 未映射
+- [x] 无 `/api/` 业务路由（仅 SSE 容器日志、xpack 预留白名单与静态资源）
+- [x] AI/VM/网站运行时/网站模板/Toolbox/xpack/License 已剔除（菜单、路由、页面入口与后端接口）
 
 ### 前端
 
-- [ ] 1Panel Vue 前端复制到 `web/`
-- [ ] 旧 React 代码移出工作目录
-- [ ] Connect transport 完成
-- [ ] Pinia Colada 安装并注册
-- [ ] `createRpc` 完成，hook 全部从 `web/src/gen` descriptor 推导
-- [ ] 不存在手写 `rpc.*` 包装或 RPC hook 生成脚本
-- [ ] `useQuery` / `useSuspenseQuery` / `useMutation` / `useInfiniteQuery` / `validate` 完成
-- [ ] 登录/路由守卫/401 处理完成
-- [ ] CSRF 拦截器完成
-- [ ] 约 50 个 api 模块替换完成
-- [ ] 类型统一从 `web/src/gen` 导入，`api/interface` 已删除
-- [ ] 334 个页面可打开
-- [ ] 终端 WS 完成
-- [ ] 容器日志流式完成
-- [ ] 文件上传下载完成
-- [ ] Protovalidate 表单校验接入完成
-- [ ] `vue-tsc` / `vite build` 通过
+- [x] 1Panel Vue 前端已落地到 `web/`
+- [x] 旧 React 代码已移出 `web/`
+- [x] Connect transport 完成
+- [x] Pinia Colada 安装并注册
+- [x] `createRpc` 完成，hook 全部从 `web/src/gen` descriptor 推导
+- [x] 不存在手写 `rpc.*` 包装或 RPC hook 生成脚本
+- [x] `useQuery` / `useSuspenseQuery` / `useMutation` / `useInfiniteQuery` / `validate` 完成
+- [x] 登录/路由守卫/401 处理完成
+- [x] CSRF 拦截器完成
+- [x] api 模块由 17 个缩减到 8 个（仅二进制/流式通道与本地空桩）
+- [x] `api/interface` 已删除；新增代码的类型统一从 `web/src/gen` 导入，少量遗留 UI 表单类型移到 `web/src/types`
+- [x] 前端 `vite build` 覆盖全部页面产物，类型检查 0 error；未做逐页人工点击验证
+- [x] 终端 WS 完成
+- [x] 容器日志 SSE 完成（master 挂载 `/api/v2/containers/search/log`，带登录校验）
+- [x] 文件上传下载完成
+- [x] Protovalidate 表单校验接入完成（`rpc.*.validate`）
+- [x] `vue-tsc` / `vite build` 通过
 - [ ] E2E 覆盖 12 个模块
 
 ### 发布

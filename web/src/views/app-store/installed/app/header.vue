@@ -157,7 +157,7 @@
 </template>
 
 <script lang="ts" setup>
-import { App } from '@/api/interface/app';
+import { App } from '@/types/app';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 
 const { isAdminOrNodeAdmin } = useGlobalStore();

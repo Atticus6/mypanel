@@ -185,7 +185,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Host } from '@/api/interface/host';
+import { Host } from '@/types/host';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';

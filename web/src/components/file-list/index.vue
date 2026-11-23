@@ -193,7 +193,7 @@
 </template>
 
 <script lang="ts" setup>
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 import { rpc } from '@/lib/rpc';
 import { computed, nextTick, reactive, ref } from 'vue';
 import i18n from '@/lang';

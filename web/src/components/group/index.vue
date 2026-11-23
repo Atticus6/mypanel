@@ -66,7 +66,7 @@
 import { ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { Group } from '@/api/interface/group';
+import { Group } from '@/types/group';
 import { Rules } from '@/global/form-rules';
 import { FormInstance } from 'element-plus';
 import { rpc } from '@/lib/rpc';

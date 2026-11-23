@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import { FormInstance } from 'element-plus';

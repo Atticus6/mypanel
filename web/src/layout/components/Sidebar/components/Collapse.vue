@@ -92,7 +92,7 @@ import router from '@/routers';
 import { loadProductProFromDB } from '@/utils/xpack';
 import { routerToNameWithQuery } from '@/utils/router';
 import { changeToLocal, listNodes, setDefaultNodeInfo } from '@/utils/node';
-import { Login } from '@/api/interface/auth';
+import { Login } from '@/types/auth';
 import { syncAuthInfo } from '@/utils/rbac';
 import UserInfo from './user-info/index.vue';
 import NodeDrawer from './node-drawer/index.vue';

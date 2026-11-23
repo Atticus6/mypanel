@@ -87,7 +87,7 @@
 <script lang="ts" setup>
 import { ref, nextTick, computed } from 'vue';
 import { rpc } from '@/lib/rpc';
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { routerToNameWithParams } from '@/utils/router';
 import { Rules } from '@/global/form-rules';
 import { GetPunyCodeDomain, isPunycoded } from '@/utils/misc';

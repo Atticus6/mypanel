@@ -38,7 +38,7 @@ import { reactive, ref } from 'vue';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
-import { Container } from '@/api/interface/container';
+import { Container } from '@/types/container';
 import TaskLog from '@/components/log/task/index.vue';
 import { MsgSuccess } from '@/utils/message';
 import { newUUID } from '@/utils/id';

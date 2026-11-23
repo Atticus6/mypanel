@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Website } from '@/api/interface/website';
+import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import { computed, onMounted, ref } from 'vue';
 import i18n from '@/lang';

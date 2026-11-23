@@ -1,4 +1,4 @@
-import { Firewall } from '@/api/interface/firewall';
+import { Firewall } from '@/types/firewall';
 
 export const buildHostRuleExport = (items: Firewall.InventoryItem[]) =>
     items

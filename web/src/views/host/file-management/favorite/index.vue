@@ -26,7 +26,7 @@ import { readCachedPageSize } from '@/utils/panel-cache';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { reactive, ref } from 'vue';
-import { File } from '@/api/interface/file';
+import { File } from '@/types/file';
 
 const paginationConfig = reactive({
     cacheSizeKey: 'favorite-page-size',

@@ -259,7 +259,7 @@
 import { panelCacheKey, writePanelCache, readCachedPageSize } from '@/utils/panel-cache';
 import { reactive, ref } from 'vue';
 import { useMediaQuery } from '@vueuse/core';
-import { Cronjob } from '@/api/interface/cronjob';
+import { Cronjob } from '@/types/cronjob';
 import type { CronjobRecord } from '@/gen/panel/agent/v1/cronjob_pb';
 import { rpc } from '@/lib/rpc';
 import { dateFormat } from '@/utils/date';

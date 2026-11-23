@@ -110,7 +110,7 @@
 import { panelCacheKey, writePanelCache, readCachedPageSize } from '@/utils/panel-cache';
 import { useSearchState } from '@/utils/search-reset';
 import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-import { Log } from '@/api/interface/log';
+import { Log } from '@/types/log';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { shortcuts } from '@/utils/shortcuts';
