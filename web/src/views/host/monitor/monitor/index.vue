@@ -218,6 +218,19 @@
 </template>
 
 <script setup lang="ts">
+export interface MonitorData {
+    param: string;
+    date: Array<Date>;
+    value: Array<any>;
+}
+
+export interface MonitorSearch {
+    param: string;
+    io: string;
+    network: string;
+    startTime: Date;
+    endTime: Date;
+}
 import { ref, reactive, onMounted, watch } from 'vue';
 import { toMonitorChartSeries } from '@/lib/rpc/monitor';
 import { computeSize, computeSizeFromKBs } from '@/utils/size';
@@ -226,7 +239,6 @@ import i18n from '@/lang';
 import MonitorRouter from '@/views/host/monitor/index.vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { shortcuts } from '@/utils/shortcuts';
-import { Host } from '@/types/host';
 import { rpc } from '@/lib/rpc';
 
 const { defaultIO, defaultNetwork, isMobile } = useGlobalStore();
@@ -314,7 +326,7 @@ watch(isMobile, () => {
 });
 
 const searchTime = ref();
-const searchInfo = reactive<Host.MonitorSearch>({
+const searchInfo = reactive<MonitorSearch>({
     param: '',
     io: '',
     network: '',
@@ -457,7 +469,7 @@ const setChartLoading = (param: string, value: boolean) => {
     }
 };
 
-function initLoadCharts(item: Host.MonitorData) {
+function initLoadCharts(item: MonitorData) {
     let itemLoadDate = item.date.length === 0 ? loadEmptyDate(timeRangeLoad.value) : item.date;
     let loadDate = itemLoadDate.map(function (item: any) {
         return dateFormatWithoutYear(item);
@@ -519,7 +531,7 @@ function initLoadCharts(item: Host.MonitorData) {
     };
 }
 
-function initCPUCharts(baseDate: any, items: Host.MonitorData) {
+function initCPUCharts(baseDate: any, items: MonitorData) {
     let data = items.value.map(function (item: any) {
         return { value: item.cpu.toFixed(2), top: item.topCPUItems, unit: '%' };
     });
@@ -545,7 +557,7 @@ function initCPUCharts(baseDate: any, items: Host.MonitorData) {
     };
 }
 
-function initMemCharts(baseDate: any, items: Host.MonitorData) {
+function initMemCharts(baseDate: any, items: MonitorData) {
     let data = items.value.map(function (item: any) {
         return { value: item.memory.toFixed(2), top: item.topMemItems };
     });
@@ -571,7 +583,7 @@ function initMemCharts(baseDate: any, items: Host.MonitorData) {
     };
 }
 
-function initNetCharts(item: Host.MonitorData) {
+function initNetCharts(item: MonitorData) {
     let networkDate = item.date.length === 0 ? loadEmptyDate(timeRangeNetwork.value) : item.date;
     let date = networkDate.map(function (item: any) {
         return dateFormatWithoutYear(item);
@@ -614,7 +626,7 @@ function initNetCharts(item: Host.MonitorData) {
     };
 }
 
-function initIOCharts(item: Host.MonitorData) {
+function initIOCharts(item: MonitorData) {
     let itemIODate = item.date?.length === 0 ? loadEmptyDate(timeRangeIO.value) : item.date;
     let ioDate = itemIODate.map(function (item: any) {
         return dateFormatWithoutYear(item);

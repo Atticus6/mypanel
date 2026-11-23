@@ -60,11 +60,20 @@
 </template>
 
 <script lang="ts" setup>
+export interface RepoInfo {
+    id: number;
+    createdAt?: string;
+    name: string;
+    downloadUrl: string;
+    protocol: string;
+    username: string;
+    password: string;
+    auth: boolean;
+}
 import { useSearchState } from '@/utils/search-reset';
 import OperatorDialog from '@/views/container/repo/operator/index.vue';
 import { toRef, reactive, ref } from 'vue';
 import { dateFormat } from '@/utils/date';
-import { Container } from '@/types/container';
 import { rpc } from '@/lib/rpc';
 import DockerStatus from '@/views/container/docker-status/index.vue';
 import i18n from '@/lang';
@@ -115,7 +124,7 @@ const search = async () => {
 const dialogRef = ref();
 const onOpenDialog = async (
     title: string,
-    rowData: Partial<Container.RepoInfo> = {
+    rowData: Partial<RepoInfo> = {
         auth: true,
         protocol: 'http',
     },
@@ -127,7 +136,7 @@ const onOpenDialog = async (
     dialogRef.value!.acceptParams(params);
 };
 
-const onDelete = async (row: Container.RepoInfo) => {
+const onDelete = async (row: RepoInfo) => {
     currentRepo.value = row.id;
     if (row.protocol === 'http') {
         let params = {
@@ -162,7 +171,7 @@ const submitDelete = async () => {
         });
 };
 
-const onCheckConn = async (row: Container.RepoInfo) => {
+const onCheckConn = async (row: RepoInfo) => {
     loading.value = true;
     await rpc.container.checkRepoStatus({ id: row.id })
         .then(() => {
@@ -178,30 +187,30 @@ const buttons = [
     {
         label: i18n.global.t('commons.button.sync'),
         permission: true,
-        disabled: (row: Container.RepoInfo) => {
+        disabled: (row: RepoInfo) => {
             return row.id === 1;
         },
-        click: (row: Container.RepoInfo) => {
+        click: (row: RepoInfo) => {
             onCheckConn(row);
         },
     },
     {
         label: i18n.global.t('commons.button.edit'),
         permission: true,
-        disabled: (row: Container.RepoInfo) => {
+        disabled: (row: RepoInfo) => {
             return row.id === 1;
         },
-        click: (row: Container.RepoInfo) => {
+        click: (row: RepoInfo) => {
             onOpenDialog('edit', row);
         },
     },
     {
         label: i18n.global.t('commons.button.delete'),
         permission: true,
-        disabled: (row: Container.RepoInfo) => {
+        disabled: (row: RepoInfo) => {
             return row.id === 1;
         },
-        click: (row: Container.RepoInfo) => {
+        click: (row: RepoInfo) => {
             onDelete(row);
         },
     },

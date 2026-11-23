@@ -75,7 +75,32 @@
 </template>
 
 <script setup lang="ts">
-import { Setting } from '@/types/setting';
+interface Locale {
+    zh: string;
+    en: string;
+    'zh-Hant': string;
+    ja: string;
+    ms: string;
+    'pt-br': string;
+    ru: string;
+    ko: string;
+    tr: string;
+    'es-es': string;
+    fa: string;
+    lo: string;
+}
+export interface NodeItemBase {
+    id: number;
+    groupID?: number;
+    groupBelong?: string;
+    addr: string;
+    status: string;
+    version: string;
+    isXpack: boolean;
+    isBound: boolean;
+    isFavorite?: boolean;
+    name: string;
+}
 import DrawerPro from '@/components/drawer-pro/index.vue';
 import i18n from '@/lang';
 import { computed, ref, watch } from 'vue';
@@ -83,7 +108,7 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 
 const { isAdmin } = useGlobalStore();
 
-type NodeItem = Setting.NodeItem & {
+type NodeItem = NodeItemBase & {
     group?: string;
 };
 

@@ -150,6 +150,22 @@
 </template>
 
 <script lang="ts" setup>
+type AlertConfigInfo = any;
+type AlertConfigUpdateReq = any;
+
+export interface CommonConfig {
+    isOffline?: string;
+    alertDailyNum?: number;
+    alertSendTimeRange?: string;
+}
+
+export interface CommonAlertConfig {
+    id?: number;
+    type: string;
+    title: string;
+    status: string;
+    config: CommonConfig;
+}
 import { toRef } from 'vue';
 import { useSearchState } from '@/utils/search-reset';
 import { computed, onMounted, reactive, ref } from 'vue';
@@ -162,7 +178,6 @@ import SendTimeRange from '@/views/setting/alert/setting/time-range/index.vue';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import AlertDrawer from '@/views/setting/alert/setting/drawer/index.vue';
-import { Alert } from '@/types/alert';
 import { formatCustomWebhookDetails, formatCustomWebhookSafeSummary } from './drawer/custom-webhook';
 import { getAlertConfigDisplayName, rawSecretValue } from './drawer/secret-field';
 
@@ -175,7 +190,7 @@ const sendTimeRangeValue = ref();
 const sendTimeRange = ref();
 const alertFormRef = ref();
 
-const allConfigs = ref<Alert.AlertConfigInfo[]>([]);
+const allConfigs = ref<AlertConfigInfo[]>([]);
 const expandedIds = ref<Set<number>>(new Set());
 const toggleDetail = (id: number) => {
     const next = new Set(expandedIds.value);
@@ -187,7 +202,7 @@ const toggleDetail = (id: number) => {
     expandedIds.value = next;
 };
 
-const defaultCommonConfig: Alert.CommonAlertConfig = {
+const defaultCommonConfig: CommonAlertConfig = {
     id: undefined,
     type: 'common',
     title: 'xpack.alert.commonConfig',
@@ -204,10 +219,10 @@ const defaultCommonConfig: Alert.CommonAlertConfig = {
         isOffline: 'Disable',
     },
 };
-const commonConfig = ref<Alert.CommonAlertConfig>({ ...defaultCommonConfig });
+const commonConfig = ref<CommonAlertConfig>({ ...defaultCommonConfig });
 const isInitialized = ref(false);
 
-const config = ref<Alert.AlertConfigUpdateReq>({
+const config = ref<AlertConfigUpdateReq>({
     id: 0,
     type: '',
     title: '',
@@ -230,7 +245,7 @@ useSearchState(
     { onRevisit: () => search() },
 );
 
-const parseConfig = <T extends object>(raw: Alert.AlertConfigInfo, fallback: T): T => {
+const parseConfig = <T extends object>(raw: AlertConfigInfo, fallback: T): T => {
     try {
         const parsed = JSON.parse(raw.config || '{}');
         return { ...fallback, ...parsed };
@@ -239,7 +254,7 @@ const parseConfig = <T extends object>(raw: Alert.AlertConfigInfo, fallback: T):
     }
 };
 
-function getDisplayName(row: Alert.AlertConfigInfo): string {
+function getDisplayName(row: AlertConfigInfo): string {
     try {
         const cfg = JSON.parse(row.config || '{}') as Record<string, unknown>;
         return getAlertConfigDisplayName(row.type, cfg);
@@ -248,7 +263,7 @@ function getDisplayName(row: Alert.AlertConfigInfo): string {
     }
 }
 
-function getConfigDetails(row: Alert.AlertConfigInfo): string {
+function getConfigDetails(row: AlertConfigInfo): string {
     try {
         const cfg = JSON.parse(row.config || '{}');
         if (row.type === 'email') {
@@ -287,7 +302,7 @@ function maskString(s: string, visibleLen = 3): string {
     return s.slice(0, visibleLen) + '***';
 }
 
-function getConfigSummary(row: Alert.AlertConfigInfo): string {
+function getConfigSummary(row: AlertConfigInfo): string {
     try {
         const cfg = JSON.parse(row.config || '{}');
         if (row.type === 'email') {
@@ -358,7 +373,7 @@ const searchConfigs = async () => {
                 excludeTypes: resolveAlertConfigExcludeTypes(),
             }),
         ]);
-        const commonFound = configRes.items.find((s: Alert.AlertConfigInfo) => s.type === 'common');
+        const commonFound = configRes.items.find((s: AlertConfigInfo) => s.type === 'common');
         if (commonFound) {
             const parsedConfig = parseConfig(commonFound, defaultCommonConfig.config);
             commonConfig.value = {
@@ -451,7 +466,7 @@ const onChangeOffline = async () => {
     }
 };
 
-const onStatusChange = async (row: Alert.AlertConfigInfo) => {
+const onStatusChange = async (row: AlertConfigInfo) => {
     try {
         await rpc.alert.updateAlertConfigStatus({
             id: row.id!,
@@ -464,7 +479,7 @@ const onStatusChange = async (row: Alert.AlertConfigInfo) => {
     }
 };
 
-const isStatusChangeDisabled = (row: Alert.AlertConfigInfo): boolean => {
+const isStatusChangeDisabled = (row: AlertConfigInfo): boolean => {
     return !isProductPro.value && ['weCom', 'dingTalk', 'feiShu', 'sms'].includes(row.type);
 };
 
@@ -483,7 +498,7 @@ const onCreate = () => {
     alertDrawerRef.value.acceptParams({ type: 'email' });
 };
 
-const openEditDrawer = (row: Alert.AlertConfigInfo) => {
+const openEditDrawer = (row: AlertConfigInfo) => {
     if (!row.updatedAt) {
         MsgError(i18n.global.t('xpack.alert.alertConfigChanged'));
         return;
@@ -506,17 +521,17 @@ const buttons = computed(() => [
     {
         label: i18n.global.t('commons.button.edit'),
         permission: true,
-        click: (row: Alert.AlertConfigInfo) => {
+        click: (row: AlertConfigInfo) => {
             openEditDrawer(row);
         },
-        disabled: (row: Alert.AlertConfigInfo) =>
+        disabled: (row: AlertConfigInfo) =>
             !row.updatedAt ||
             ((isIntl.value || !isProductPro.value) && ['weCom', 'dingTalk', 'feiShu', 'sms'].includes(row.type)),
     },
     {
         label: i18n.global.t('commons.button.delete'),
         permission: true,
-        click: (row: Alert.AlertConfigInfo) => {
+        click: (row: AlertConfigInfo) => {
             onDelete(row.id!);
         },
     },

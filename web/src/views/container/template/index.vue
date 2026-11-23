@@ -1,3 +1,6 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { ComposeTemplateSchema } from '@/gen/panel/agent/v1/container_pb';
 <template>
     <div v-loading="loading">
         <docker-status
@@ -82,11 +85,21 @@
 </template>
 
 <script lang="ts" setup>
+export type TemplateInfo = Init<typeof ComposeTemplateSchema>;
+export interface RepoInfo {
+    id: number;
+    createdAt?: string;
+    name: string;
+    downloadUrl: string;
+    protocol: string;
+    username: string;
+    password: string;
+    auth: boolean;
+}
 import { useSearchState } from '@/utils/search-reset';
 import { toRef, reactive, ref } from 'vue';
 import { dateFormat, getCurrentDateFormatted } from '@/utils/date';
 import { downloadWithContent } from '@/utils/file';
-import { Container } from '@/types/container';
 import DetailDialog from '@/views/container/template/detail/index.vue';
 import ImportDialog from '@/views/container/template/import/index.vue';
 import OperatorDialog from '@/views/container/template/operator/index.vue';
@@ -139,7 +152,7 @@ const search = async () => {
         });
 };
 
-const onOpenDetail = async (row: Container.TemplateInfo) => {
+const onOpenDetail = async (row: TemplateInfo) => {
     detailRef.value.acceptParams({ content: row.content });
 };
 
@@ -156,7 +169,7 @@ const onExport = () => {
             cancelButtonText: i18n.global.t('commons.button.cancel'),
         },
     ).then(async () => {
-        const exportData = selects.value.map((item: Container.TemplateInfo) => ({
+        const exportData = selects.value.map((item: TemplateInfo) => ({
             name: item.name,
             description: item.description,
             content: item.content,
@@ -169,7 +182,7 @@ const onExport = () => {
 
 const onOpenDialog = async (
     title: string,
-    rowData: Partial<Container.TemplateInfo> = {
+    rowData: Partial<TemplateInfo> = {
         name: '',
         content: '',
         description: '',
@@ -182,14 +195,14 @@ const onOpenDialog = async (
     dialogRef.value!.acceptParams(params);
 };
 
-const onBatchDelete = async (row: Container.RepoInfo | null) => {
+const onBatchDelete = async (row: RepoInfo | null) => {
     let ids = [];
     let names = [];
     if (row) {
         names.push(row.name);
         ids.push(row.id);
     } else {
-        selects.value.forEach((item: Container.RepoInfo) => {
+        selects.value.forEach((item: RepoInfo) => {
             names.push(item.name);
             ids.push(item.id);
         });
@@ -210,20 +223,20 @@ const buttons = [
     {
         label: i18n.global.t('commons.button.edit'),
         permission: true,
-        disabled: (row: Container.RepoInfo) => {
+        disabled: (row: RepoInfo) => {
             return row.downloadUrl === 'docker.io';
         },
-        click: (row: Container.RepoInfo) => {
+        click: (row: RepoInfo) => {
             onOpenDialog('edit', row);
         },
     },
     {
         label: i18n.global.t('commons.button.delete'),
         permission: true,
-        disabled: (row: Container.RepoInfo) => {
+        disabled: (row: RepoInfo) => {
             return row.downloadUrl === 'docker.io';
         },
-        click: (row: Container.RepoInfo) => {
+        click: (row: RepoInfo) => {
             onBatchDelete(row);
         },
     },

@@ -1,3 +1,6 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { ContainerLimitSchema } from '@/gen/panel/agent/v1/container_pb';
 <template>
     <div>
         <LayoutContent
@@ -345,6 +348,63 @@
 </template>
 
 <script lang="ts" setup>
+
+export type ResourceLimit = Omit<Init<typeof ContainerLimitSchema>, 'memory'> & { memory: number }
+export interface ExtraHost {
+    hostname: string;
+    ip: string;
+}
+export interface Port {
+    host: string;
+    hostIP: string;
+    containerPort: string;
+    hostPort: string;
+    protocol: string;
+}
+export interface ContainerNetwork {
+    network: string;
+    ipv4: string;
+    ipv6: string;
+    macAddr: string;
+    links?: Array<string>;
+    aliases?: Array<string>;
+    driverOpts?: Record<string, string>;
+    gwPriority?: number;
+    linkLocalIPs?: Array<string>;
+}
+
+export interface ContainerHelper {
+    taskID: string;
+    name: string;
+    image: string;
+    imageInput: boolean;
+    forcePull: boolean;
+    networks: Array<ContainerNetwork>;
+    hostname: string;
+    domainName: string;
+    dns: Array<string>;
+    cmdStr: string;
+    entrypointStr: string;
+    memoryItem: number;
+    cmd: Array<string>;
+    workingDir: string;
+    user: string;
+    openStdin: boolean;
+    tty: boolean;
+    entrypoint: Array<string>;
+    publishAllPorts: boolean;
+    exposedPorts: Array<Port>;
+    nanoCPUs: number;
+    cpuShares: number;
+    memory: number;
+    volumes: Array<Volume>;
+    extraHosts: Array<ExtraHost>;
+    privileged: boolean;
+    autoRemove: boolean;
+    labels: Array<string>;
+    env: Array<string>;
+    restartPolicy: string;
+}
 import { reactive, ref } from 'vue';
 import { Rules, checkFloatNumberRange, checkNumberRange } from '@/global/form-rules';
 import i18n from '@/lang';
@@ -353,7 +413,6 @@ import Confirm from '@/views/container/container/operate/confirm.vue';
 import Volume from '@/views/container/container/operate/volume.vue';
 import Network from '@/views/container/container/operate/network.vue';
 import ExtraHosts from '@/views/website/components/extra-hosts/index.vue';
-import { Container } from '@/types/container';
 import { MsgError } from '@/utils/message';
 import TaskLog from '@/components/log/task/index.vue';
 import { checkIpV4V6, checkPort } from '@/utils/validate';
@@ -371,7 +430,7 @@ const isCreate = ref();
 const confirmRef = ref();
 const volumeRef = ref();
 const networkRef = ref();
-const form = reactive<Container.ContainerHelper>({
+const form = reactive<ContainerHelper>({
     taskID: '',
     name: '',
     image: '',
@@ -473,7 +532,7 @@ const search = async () => {
 
 const taskLogRef = ref();
 const images = ref();
-const limits = ref<Container.ResourceLimit>({
+const limits = ref<ResourceLimit>({
     cpu: null as number,
     memory: null as number,
 });
@@ -661,7 +720,7 @@ const checkPortValid = () => {
     return true;
 };
 
-const isFromApp = (rowData: Container.ContainerHelper) => {
+const isFromApp = (rowData: ContainerHelper) => {
     if (rowData && rowData.labels) {
         return rowData.labels.indexOf('createdBy=Apps') > -1;
     }

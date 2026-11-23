@@ -49,17 +49,28 @@
 </template>
 
 <script lang="ts" setup>
+
+export interface ScriptInfo {
+    id: number;
+    name: string;
+    script: string;
+    groups: string;
+    isInteractive: boolean;
+    groupList: Array<number>;
+    groupBelong: Array<string>;
+    description: string;
+    createdAt: Date;
+}
 import { reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
-import { Cronjob } from '@/types/cronjob';
 import { MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 
 interface DialogProps {
     title: string;
-    rowData?: Cronjob.ScriptInfo;
+    rowData?: ScriptInfo;
     getTableList?: () => Promise<any>;
 }
 const title = ref<string>('');

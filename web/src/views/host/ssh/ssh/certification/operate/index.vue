@@ -117,10 +117,20 @@
 </template>
 
 <script lang="ts" setup>
+export interface RootCertInfo {
+    id: number;
+    createAt: Date;
+    name: string;
+    mode: string;
+    encryptionMode: string;
+    passPhrase: string;
+    description: string;
+    publicKey: string;
+    privateKey: string;
+}
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { ElForm, genFileId, UploadFile, UploadProps, UploadRawFile } from 'element-plus';
-import { Host } from '@/types/host';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';
 import { getRandomStr } from '@/utils/id';
@@ -129,7 +139,7 @@ import { rpc } from '@/lib/rpc';
 
 interface DialogProps {
     title: string;
-    rowData?: Host.RootCertInfo;
+    rowData?: RootCertInfo;
 }
 const title = ref<string>('');
 const drawerVisible = ref(false);

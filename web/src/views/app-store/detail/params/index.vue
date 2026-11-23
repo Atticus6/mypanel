@@ -1,3 +1,6 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { AppServiceItemSchema } from '@/gen/panel/agent/v1/app_pb';
 <template>
     <div v-for="(p, index) in paramObjs" :key="index">
         <el-form-item :label="getLabel(p)" :prop="p.prop">
@@ -138,15 +141,51 @@
     </div>
 </template>
 <script lang="ts" setup>
+
+export type AppService = Init<typeof AppServiceItemSchema> & { config?: object }
+
+export interface FromFieldChild extends FromField {
+    services: App.AppService[];
+}
+
+export interface ServiceParam {
+    label: '';
+    value: '';
+    from?: '';
+}
+
+export interface FromField {
+    type: string;
+    labelZh: string;
+    labelEn: string;
+    required: boolean;
+    default: any;
+    envKey: string;
+    key?: string;
+    values?: ServiceParam[];
+    child?: FromFieldChild;
+    params?: FromParam[];
+    multiple?: boolean;
+    allowCreate?: boolean;
+    label: Locale;
+    description: Locale;
+}
+
+
+export interface FromParam {
+    type: string;
+    key: string;
+    value: string;
+    envKey: string;
+}
 import { computed, onMounted, reactive, ref } from 'vue';
 import { getRandomStr } from '@/utils/id';
 import { Rules } from '@/global/form-rules';
-import { App } from '@/types/app';
 import { getDBName, getLabel, getDescription } from '@/utils/app-store';
 import { rpc } from '@/lib/rpc';
 
-interface ParamObj extends App.FromField {
-    services: App.AppService[];
+interface ParamObj extends FromField {
+    services: AppService[];
     prop: string;
     disabled: false;
     childProp: string;
@@ -274,7 +313,7 @@ const getServices = async (childKey: string, key: string | undefined, pObj: Para
     if (pObj.services.length > 0) {
         form[childKey] = pObj.services[0].value;
         if (pObj.params) {
-            pObj.params.forEach((param: App.FromParam) => {
+            pObj.params.forEach((param: FromParam) => {
                 if (param.key === key) {
                     form[param.envKey] = param.value;
                 }
@@ -284,7 +323,7 @@ const getServices = async (childKey: string, key: string | undefined, pObj: Para
     }
 };
 
-const changeService = (value: string, services: App.AppService[]) => {
+const changeService = (value: string, services: AppService[]) => {
     services.forEach((item) => {
         if (item.value === value && item.config) {
             Object.entries(item.config).forEach(([k, v]) => {

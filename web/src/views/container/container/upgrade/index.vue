@@ -1,3 +1,6 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { ContainerSchema } from '@/gen/panel/agent/v1/container_pb';
 <template>
     <DrawerPro
         v-model="visible"
@@ -92,9 +95,32 @@
 </template>
 
 <script lang="ts" setup>
+export interface ContainerNetwork {
+    network: string;
+    ipv4: string;
+    ipv6: string;
+    macAddr: string;
+    links?: Array<string>;
+    aliases?: Array<string>;
+    driverOpts?: Record<string, string>;
+    gwPriority?: number;
+    linkLocalIPs?: Array<string>;
+}
+
+export type ContainerInfo = Omit<Init<typeof ContainerSchema>, 'network'> & {
+    containerID?: string;
+    network: Array<ContainerNetwork>;
+    hasLoad: boolean;
+    cpuPercent: number;
+    memoryPercent: number;
+}
+
+export interface ContainerOption {
+    name: string;
+    state: string;
+}
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import { ElMessageBox, type CheckboxValueType, type FormInstance } from 'element-plus';
-import { Container } from '@/types/container';
 import { Rules } from '@/global/form-rules';
 import { newUUID } from '@/utils/id';
 import i18n from '@/lang';
@@ -109,7 +135,7 @@ interface UpgradeGroup {
     availableVersion: string;
     names: string[];
     appNames: string[];
-    options: Container.ContainerOption[];
+    options: ContainerOption[];
     taskID: string;
     state: 'draft' | 'submitting' | 'submitted' | 'failed' | 'unknown';
     taskStatus: string;
@@ -146,7 +172,7 @@ let generation = 0;
 let operateNode = '';
 const canSubmit = computed(() => form.groups.some((group) => group.names.length > 0 && isGroupEditable(group)));
 
-const acceptParams = async (props: DialogProps | Container.ContainerInfo[]) => {
+const acceptParams = async (props: DialogProps | ContainerInfo[]) => {
     if (loading.value) return;
     isBatch.value = Array.isArray(props);
     const containers = Array.isArray(props)

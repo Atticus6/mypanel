@@ -1,6 +1,15 @@
-import { Cronjob } from '@/types/cronjob';
 import i18n from '@/lang';
 import { loadZero } from '@/utils/date';
+
+export interface SpecObj {
+    specType: string;
+    week: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+}
+
 export const specOptions = [
     { label: i18n.global.t('cronjob.perMonth'), value: 'perMonth' },
     { label: i18n.global.t('cronjob.perWeek'), value: 'perWeek' },
@@ -43,7 +52,7 @@ function loadWeek(i: number) {
 }
 
 export function loadDefaultSpec(type: string) {
-    let item = {} as Cronjob.SpecObj;
+    let item = {} as SpecObj;
     item.week = 0;
     item.day = 0;
     item.hour = 0;

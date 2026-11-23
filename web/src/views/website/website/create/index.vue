@@ -1,3 +1,6 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { WebsiteSSLSchema } from '@/gen/panel/agent/v1/website_ssl_pb';
 <template>
     <DrawerPro v-model="open" :header="$t('commons.button.create')" size="60%" @close="handleClose">
         <div v-loading="loading" :class="{ mask: !versionExist }">
@@ -439,6 +442,106 @@
 </template>
 
 <script lang="ts" setup>
+export interface CommonModel {
+id: number;
+createdAt?: string;
+updatedAt?: string;
+}
+
+export type SSL = Init<typeof WebsiteSSLSchema> & {
+    privateKey?: string;
+    pem?: string;
+    otherDomains?: string;
+    certURL?: string;
+    issuerName?: string;
+    acmeAccountId?: number;
+    websites?: Website.Website[];
+    dnsAccountId?: number;
+    nameserver1?: string;
+    nameserver2?: string;
+    disableCNAME?: boolean;
+    skipDNS?: boolean;
+    execShell?: boolean;
+    shell?: string;
+    pushNode?: boolean;
+    nodes?: string;
+    privateKeyPath?: string;
+    certPath?: string;
+    isIP?: boolean;
+}
+export type SSLDTO = SSL & { logPath: string }
+export interface TemplateOutput {
+    id: number;
+    createdAt?: string;
+    updatedAt?: string;
+    name: string;
+    templateID: number;
+    templateType: string;
+    variableValues: string;
+    outputPath: string;
+}
+
+export interface ReqPage {
+page: number;
+pageSize: number;
+}
+export interface ExtraHost {
+    hostname: string;
+    ip: string;
+}
+export interface Volume {
+    type: string;
+    sourceDir: string;
+    containerDir: string;
+    mode: string;
+}
+export interface Environment {
+    key: string;
+    value: string;
+}
+export interface ExposedPort {
+    hostPort: number;
+    containerPort: number;
+    hostIP: string;
+    protocol: string;
+}
+export interface Runtime extends CommonModel {
+    name: string;
+    appDetailID: number;
+    image: string;
+    workDir: string;
+    dockerCompose: string;
+    env: string;
+    params: string;
+    type: string;
+    resource: string;
+    version: string;
+    status: string;
+    codeDir: string;
+    port: string;
+    appID: number;
+    remark: string;
+}
+export interface RuntimeDTO extends Runtime {
+    appParams: App.InstallParams[];
+    appID: number;
+    source?: string;
+    path?: string;
+    exposedPorts?: ExposedPort[];
+    environments?: Environment[];
+    volumes?: Volume[];
+    extraHosts?: ExtraHost[];
+    container: string;
+}
+
+export interface RuntimeReq extends ReqPage {
+    name?: string;
+    status?: string;
+    type?: string;
+}
+export interface TemplateOutputDTO extends TemplateOutput {
+    templateName: string;
+}
 import AppInstallForm from '@/views/app-store/detail/form/index.vue';
 import SSLAlert from '@/views/website/website/create/site-alert/index.vue';
 import DomainCreate from '@/views/website/website/domain-create/index.vue';
@@ -455,19 +558,17 @@ import { rpc } from '@/lib/rpc';
 import { ElForm, FormInstance } from 'element-plus';
 import { reactive, ref, watch } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { Runtime } from '@/types/runtime';
 import { getRandomStr } from '@/utils/id';
 import { getRuntimeLabel } from '@/utils/app-store';
 import { dateFormatSimple } from '@/utils/date';
 import { v4 as uuidv4 } from 'uuid';
 import { getAccountName } from '@/utils/ssl';
-import { Website } from '@/types/website';
 import { getWebsiteTypes } from '@/global/mimetype';
 import { compareVersion } from '@/utils/version';
 import type { InstalledApp } from '@/gen/panel/agent/v1/app_pb';
 defineOptions({ name: 'CreateWebSite' });
 
-type SSLItem = Website.SSLDTO & {
+type SSLItem = SSLDTO & {
     organization?: string;
     acmeAccount?: {
         email?: string;
@@ -580,7 +681,7 @@ const appReq = reactive({
 const apps = ref<App.AppItem[]>([]);
 const preCheckRef = ref();
 const staticPath = ref('');
-const templateOutputs = ref<Website.TemplateOutputDTO[]>([]);
+const templateOutputs = ref<TemplateOutputDTO[]>([]);
 const runtimeResource = ref('appstore');
 const initRuntimeReq = () => ({
     page: 1,
@@ -588,8 +689,8 @@ const initRuntimeReq = () => ({
     status: 'Running',
     type: 'php',
 });
-const runtimeReq = ref<Runtime.RuntimeReq>(initRuntimeReq());
-const runtimes = ref<Runtime.RuntimeDTO[]>([]);
+const runtimeReq = ref<RuntimeReq>(initRuntimeReq());
+const runtimes = ref<RuntimeDTO[]>([]);
 const versionExist = ref(true);
 const em = defineEmits(['close']);
 const taskLog = ref();

@@ -149,12 +149,22 @@
 </template>
 
 <script lang="ts" setup>
+export interface RootCertInfo {
+    id: number;
+    createAt: Date;
+    name: string;
+    mode: string;
+    encryptionMode: string;
+    passPhrase: string;
+    description: string;
+    publicKey: string;
+    privateKey: string;
+}
 import { computed, reactive, ref } from 'vue';
 import type { FormInstance, FormItemRule, FormRules } from 'element-plus';
 import { Base64 } from 'js-base64';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { Host } from '@/types/host';
 import { Rules } from '@/global/form-rules';
 import { copyText } from '@/utils/clipboard';
 import { MsgError } from '@/utils/message';
@@ -165,7 +175,7 @@ const open = ref(false);
 const loading = ref(false);
 const showScriptPreview = ref(false);
 const vscodeConnectInfoForm = ref<FormInstance>();
-const certOptions = ref<Host.RootCertInfo[]>([]);
+const certOptions = ref<RootCertInfo[]>([]);
 
 interface DialogProps {
     path: string;
@@ -412,7 +422,7 @@ const loadDialogData = async () => {
     loading.value = false;
 };
 
-const formatCertLabel = (item: Host.RootCertInfo) => {
+const formatCertLabel = (item: RootCertInfo) => {
     const desc = item.description?.trim();
     return desc ? `${item.name} (${item.encryptionMode}) - ${desc}` : `${item.name} (${item.encryptionMode})`;
 };

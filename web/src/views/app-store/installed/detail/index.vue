@@ -1,3 +1,6 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { UpdateInstalledConfigRequestSchema } from '@/gen/panel/agent/v1/app_pb';
 <template>
     <DrawerPro
         v-model="open"
@@ -235,12 +238,57 @@
     </DrawerPro>
 </template>
 <script lang="ts" setup>
+
+export type AppConfigUpdate = Init<typeof UpdateInstalledConfigRequestSchema> & {
+    installID: number;
+    webUI: string;
+}
+
+export interface AppConfig {
+    gpu?: AI.ModelGPUConfig;
+    appKey: string;
+    name: string;
+    httpPort: number;
+    syncModelAccount: boolean;
+    modelAccountBaseURLType: string;
+    modelAccountBaseURL: string;
+    params: InstallParams[];
+    rawCompose?: string;
+    isEdit?: boolean;
+    cpuQuota: number;
+    memoryLimit: number;
+    memoryUnit: string;
+    containerName: string;
+    allowPort: boolean;
+    dockerCompose: string;
+    hostMode?: boolean;
+    type: string;
+    webUI: string;
+    specifyIP: string;
+    restartPolicy: string;
+}
+
+
+export interface InstallParams {
+    labelZh: string;
+    labelEn: string;
+    value: any;
+    edit: boolean;
+    key: string;
+    rule: string;
+    type: string;
+    values?: any;
+    showValue?: string;
+    required?: boolean;
+    multiple?: boolean;
+    label: Locale;
+    showPassword: boolean;
+}
 import { expandInvalidFormSection } from '@/components/form-section';
 import AccountAddress from '@/views/ai/components/account-address/index.vue';
 import GPUConfig from '@/views/ai/components/gpu-config/index.vue';
 import Diff from '@/views/app-store/installed/upgrade/diff/index.vue';
 
-import { App } from '@/types/app';
 import { computed, nextTick, onBeforeUnmount, reactive, ref } from 'vue';
 import { FormInstance } from 'element-plus';
 import { Rules, checkNumberRange } from '@/global/form-rules';
@@ -262,7 +310,7 @@ const paramData = ref<ParamProps>({
     app: {},
 });
 
-interface EditForm extends App.InstallParams {
+interface EditForm extends InstallParams {
     default: any;
 }
 
@@ -300,7 +348,7 @@ const showModelGPU = computed(() => props.modelGPU && appKey.value === 'ollama')
 const accountRef = ref<InstanceType<typeof AccountAddress>>();
 const syncSectionRef = ref<HTMLDetailsElement>();
 const gpuRef = ref<InstanceType<typeof GPUConfig>>();
-const appConfigUpdate = ref<App.AppConfigUpdate>({
+const appConfigUpdate = ref<AppConfigUpdate>({
     installID: 0,
     webUI: '',
 });
@@ -398,7 +446,7 @@ const get = async () => {
         loading.value = true;
         const res = await rpc.app.getInstalledParams({ appInstallId: Number(paramData.value.id) });
         // 容器相关字段随应用定义变化，服务端以 JSON 透传，这里合并回原 AppConfig 形状。
-        const config: App.AppConfig = Object.assign(
+        const config: AppConfig = Object.assign(
             {
                 appKey: res.appKey,
                 name: res.name,

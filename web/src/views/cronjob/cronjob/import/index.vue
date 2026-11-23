@@ -82,12 +82,61 @@
 </template>
 
 <script lang="ts" setup>
+import type { CronjobAlertTriggerMode } from '@/utils/cronjob-alert';
+export interface TransHelper {
+    name: string;
+    detailName: string;
+}
+export interface URLItem {
+    url: string;
+    header: string;
+}
+
+export interface CronjobTrans {
+    name: string;
+    type: string;
+    specCustom: boolean;
+    spec: string;
+    group: string;
+
+    executor: string;
+    scriptMode: string;
+    script: string;
+    command: string;
+    containerName: string;
+    user: string;
+    url: string;
+    urlItems?: Array<URLItem>;
+
+    scriptName: string;
+    apps: Array<TransHelper>;
+    websites: Array<string>;
+    dbType: string;
+    dbNames: Array<TransHelper>;
+
+    exclusionRules: string;
+
+    isDir: boolean;
+    sourceDir: string;
+
+    retainCopies: number;
+    retryTimes: number;
+    timeout: number;
+    ignoreErr: boolean;
+    snapshotRule: string;
+    secret: string;
+
+    sourceAccounts: Array<string>;
+    downloadAccount: string;
+
+    alertCount: number;
+    alertTriggerMode?: CronjobAlertTriggerMode;
+}
 import { ref } from 'vue';
 import { transSpecToStr } from './../helper';
 import { genFileId, UploadFile, UploadFiles, UploadProps, UploadRawFile } from 'element-plus';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { Cronjob } from '@/types/cronjob';
 import { rpc } from '@/lib/rpc';
 
 const emit = defineEmits<{ (e: 'search'): void }>();
@@ -125,7 +174,7 @@ const fileOnChange = (_uploadFile: UploadFile, uploadFiles: UploadFiles) => {
     reader.onload = (e) => {
         try {
             const content = e.target.result as string;
-            const parsed = JSON.parse(content) as Cronjob.CronjobTrans;
+            const parsed = JSON.parse(content) as CronjobTrans;
             if (!Array.isArray(parsed)) {
                 MsgError(i18n.global.t('commons.msg.errImportFormat'));
                 loading.value = false;

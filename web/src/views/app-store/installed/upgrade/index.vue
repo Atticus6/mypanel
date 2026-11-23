@@ -125,12 +125,17 @@
     <TaskLog ref="taskLogRef" />
 </template>
 <script lang="ts" setup>
+export interface AgentFeishuTransition {
+    confirmed: boolean;
+    streaming: boolean;
+    groupSessionScope: string;
+    requireMention: string;
+}
 import Diff from './diff/index.vue';
 import TaskLog from '@/components/log/task/index.vue';
 import CodemirrorPro from '@/components/codemirror-pro/index.vue';
 
 import { App } from '@/types/app';
-import { AI } from '@/types/ai';
 import FeishuTransition from '@/views/ai/agents/agent/config/tabs/channels/components/feishu-transition.vue';
 import { rpc } from '@/lib/rpc';
 import { isOpenclawCurrentHTTPVersion, isOpenclawHTTPSWindowVersion } from '@/utils/agent';
@@ -163,11 +168,11 @@ const operateReq = reactive({
     version: '',
     dockerCompose: '',
     taskID: '',
-    feishuTransition: undefined as AI.AgentFeishuTransition | undefined,
+    feishuTransition: undefined as AgentFeishuTransition | undefined,
 });
 const feishuLegacy = ref(false);
 const feishuConfigured = ref(false);
-const feishuTransition = reactive<AI.AgentFeishuTransition>({
+const feishuTransition = reactive<AgentFeishuTransition>({
     confirmed: false,
     streaming: false,
     groupSessionScope: 'group',

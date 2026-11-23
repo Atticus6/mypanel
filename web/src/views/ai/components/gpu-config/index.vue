@@ -300,10 +300,45 @@
 </template>
 
 <script setup lang="ts">
+export interface GPUGroup {
+    description: string;
+    id: number;
+    name: string;
+    imageType: string;
+    revision: number;
+    gpu: ModelGPUConfig;
+    deployments: string[];
+}
+
+export interface ModelGPUConfig {
+    group?: { id: number; name: string; revision: number };
+    numa?: { mode: 'off' | 'auto' | 'manual'; nodes: number[] };
+    mode: 'all' | 'count' | 'devices';
+    count?: number;
+    error?: string;
+    enabled: boolean;
+    deviceIDs: string[];
+    capabilities: string[];
+}
+
+export interface ModelGPUDevice {
+    index?: number;
+    id: string;
+    name: string;
+    type: string;
+    uuid?: string;
+    numaNode?: number;
+    available: boolean;
+}
+
+export interface ModelNUMANode {
+    id: number;
+    cpus: string;
+    memory: boolean;
+}
 import { computed, defineAsyncComponent, onBeforeUnmount, ref, watch } from 'vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import GPUTopology from '@/views/ai/components/gpu-topology/index.vue';
-import { AI } from '@/types/ai';
 import { loadModelGPUDevices, listGPUGroups } from '@/api/modules/ai';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -316,15 +351,15 @@ const props = withDefaults(defineProps<{ imageType?: string; collapsed?: boolean
 const GroupOperate = defineAsyncComponent(() => import('@/views/ai/gpu/groups/operate/index.vue'));
 const groupEditorVisible = ref(false);
 const { currentNode } = useGlobalStore();
-const model = defineModel<AI.ModelGPUConfig>({ required: true });
+const model = defineModel<ModelGPUConfig>({ required: true });
 const sectionRef = ref<HTMLDetailsElement>();
 const loading = ref(false);
 const gpuWarnings = ref<string[]>([]);
-const gpuDevices = ref<AI.ModelGPUDevice[]>();
+const gpuDevices = ref<ModelGPUDevice[]>();
 const hasMultipleGPUs = computed(() => (gpuDevices.value?.length || 0) > 1);
-const numaNodes = ref<AI.ModelNUMANode[]>([]);
+const numaNodes = ref<ModelNUMANode[]>([]);
 const numaBound = computed(() => Boolean(model.value.numa && model.value.numa.mode !== 'off'));
-const groups = ref<AI.GPUGroup[]>([]);
+const groups = ref<GPUGroup[]>([]);
 const groupsFailed = ref(false);
 const selectionMode = ref<'group' | 'custom'>('custom');
 const gpuSource = computed(() => (selectionMode.value === 'group' ? 'group' : model.value.mode));
@@ -380,7 +415,7 @@ const groupRules = [
         trigger: 'change',
     },
 ];
-const changeSource = (source: 'group' | AI.ModelGPUConfig['mode']) => {
+const changeSource = (source: 'group' | ModelGPUConfig['mode']) => {
     if (source === 'group') {
         selectionMode.value = 'group';
         return;

@@ -83,19 +83,33 @@
 </template>
 
 <script setup lang="ts">
+export interface ModelGPUDevice {
+    index?: number;
+    id: string;
+    name: string;
+    type: string;
+    uuid?: string;
+    numaNode?: number;
+    available: boolean;
+}
+
+export interface ModelNUMANode {
+    id: number;
+    cpus: string;
+    memory: boolean;
+}
 import { computed } from 'vue';
 import { InfoFilled } from '@element-plus/icons-vue';
-import { AI } from '@/types/ai';
 
 const props = withDefaults(
-    defineProps<{ devices: AI.ModelGPUDevice[]; nodes: AI.ModelNUMANode[]; selectable?: boolean; cards?: boolean }>(),
+    defineProps<{ devices: ModelGPUDevice[]; nodes: ModelNUMANode[]; selectable?: boolean; cards?: boolean }>(),
     { selectable: false, cards: false },
 );
 const selected = defineModel<string[]>({ default: () => [] });
 const showTopology = computed(() => props.nodes.length > 1 || (props.nodes.length === 1 && props.devices.length > 1));
 const sections = computed(() => {
     if (!showTopology.value) return props.devices.length ? [{ devices: props.devices }] : [];
-    const result: { id?: number; node?: AI.ModelNUMANode; devices: AI.ModelGPUDevice[] }[] = props.nodes.map(
+    const result: { id?: number; node?: ModelNUMANode; devices: ModelGPUDevice[] }[] = props.nodes.map(
         (node) => ({
             id: node.id,
             node,
@@ -110,7 +124,7 @@ const missingDevices = computed(() => selected.value.filter((id) => !props.devic
 const toggleDevice = (id: string, checked: boolean) => {
     selected.value = checked ? [...new Set([...selected.value, id])] : selected.value.filter((value) => value !== id);
 };
-const toggleNode = (devices: AI.ModelGPUDevice[], checked: boolean) => {
+const toggleNode = (devices: ModelGPUDevice[], checked: boolean) => {
     const ids = devices.filter((device) => device.available).map((device) => device.id);
     selected.value = checked
         ? [...new Set([...selected.value, ...ids])]

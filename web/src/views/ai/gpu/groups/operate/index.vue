@@ -63,9 +63,38 @@
 </template>
 
 <script setup lang="ts">
+export interface GPUGroup {
+    description: string;
+    id: number;
+    name: string;
+    imageType: string;
+    revision: number;
+    gpu: ModelGPUConfig;
+    deployments: string[];
+}
+
+export interface ModelGPUConfig {
+    group?: { id: number; name: string; revision: number };
+    numa?: { mode: 'off' | 'auto' | 'manual'; nodes: number[] };
+    mode: 'all' | 'count' | 'devices';
+    count?: number;
+    error?: string;
+    enabled: boolean;
+    deviceIDs: string[];
+    capabilities: string[];
+}
+
+export interface ModelGPUDevice {
+    index?: number;
+    id: string;
+    name: string;
+    type: string;
+    uuid?: string;
+    numaNode?: number;
+    available: boolean;
+}
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { FormInstance } from 'element-plus';
-import { AI } from '@/types/ai';
 import { saveGPUGroup } from '@/api/modules/ai';
 import GPUConfig from '@/views/ai/components/gpu-config/index.vue';
 import DrawerPro from '@/components/drawer-pro/index.vue';
@@ -75,9 +104,9 @@ import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 
 const props = defineProps<{
-    group?: AI.GPUGroup;
-    groups: AI.GPUGroup[];
-    devices: AI.ModelGPUDevice[];
+    group?: GPUGroup;
+    groups: GPUGroup[];
+    devices: ModelGPUDevice[];
     imageType?: string;
 }>();
 const visible = defineModel<boolean>('visible', { required: true });
@@ -97,7 +126,7 @@ const vendorOptions = computed(() =>
 const saving = ref(false);
 const formRef = ref<FormInstance>();
 const gpuRef = ref<InstanceType<typeof GPUConfig>>();
-const emptyGPU = (): AI.ModelGPUConfig => ({
+const emptyGPU = (): ModelGPUConfig => ({
     enabled: true,
     mode: 'devices',
     deviceIDs: [],
@@ -111,7 +140,7 @@ const form = ref(
               name: props.group.name,
               description: props.group.description || '',
               imageType: props.group.imageType,
-              gpu: JSON.parse(JSON.stringify(props.group.gpu)) as AI.ModelGPUConfig,
+              gpu: JSON.parse(JSON.stringify(props.group.gpu)) as ModelGPUConfig,
           }
         : {
               id: 0,

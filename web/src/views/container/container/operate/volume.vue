@@ -82,14 +82,19 @@
 </template>
 
 <script lang="ts" setup>
+export interface Volume {
+    type: string;
+    sourceDir: string;
+    containerDir: string;
+    mode: string;
+}
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { Container } from '@/types/container';
 import { ref, onMounted } from 'vue';
 import { rpc } from '@/lib/rpc';
 const tmpVolumes = ref([]);
 const volumeOptions = ref();
 const props = defineProps({
-    volumes: { type: Array<Container.Volume>, default: [] },
+    volumes: { type: Array<Volume>, default: [] },
 });
 watch(
     () => props.volumes,

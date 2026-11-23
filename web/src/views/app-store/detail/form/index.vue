@@ -157,8 +157,60 @@
 </template>
 
 <script lang="ts" setup>
+interface Locale {
+    zh: string;
+    en: string;
+    'zh-Hant': string;
+    ja: string;
+    ms: string;
+    'pt-br': string;
+    ru: string;
+    ko: string;
+    tr: string;
+    'es-es': string;
+    fa: string;
+    lo: string;
+}
+import type { App } from '@/types/app';
+
+export interface FromParam {
+    type: string;
+    key: string;
+    value: string;
+    envKey: string;
+}
+
+export interface FromFieldChild extends FromField {
+    services: App.AppService[];
+}
+
+export interface ServiceParam {
+    label: '';
+    value: '';
+    from?: '';
+}
+
+export interface FromField {
+    type: string;
+    labelZh: string;
+    labelEn: string;
+    required: boolean;
+    default: any;
+    envKey: string;
+    key?: string;
+    values?: ServiceParam[];
+    child?: FromFieldChild;
+    params?: FromParam[];
+    multiple?: boolean;
+    allowCreate?: boolean;
+    label: Locale;
+    description: Locale;
+}
+
+export interface AppParams {
+    formFields: FromField[];
+}
 import { expandInvalidFormSection } from '@/components/form-section';
-import { App } from '@/types/app';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 import { FormInstance, FormRules } from 'element-plus';
@@ -218,7 +270,7 @@ const paramKey = ref(1);
 const isHostMode = ref(false);
 const memoryRequired = ref(0);
 const gpuSupport = ref(false);
-const installParams = ref<App.AppParams>();
+const installParams = ref<AppParams>();
 const oldMemory = ref<number>(0);
 const showParams = ref(false);
 const currentApp = ref<any>({});
@@ -363,7 +415,7 @@ const getMasterAppInstall = async (appInstallID: number) => {
     } catch (error) {}
 };
 
-const addMasterParams = (appParams: App.AppParams) => {
+const addMasterParams = (appParams: AppParams) => {
     for (const key in appParams.formFields) {
         const field = appParams.formFields[key];
         if (field?.envKey === 'MASTER_ROOT_PASSWORD') {

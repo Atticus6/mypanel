@@ -54,8 +54,17 @@
 </template>
 
 <script setup lang="ts">
+
+export interface ReqPage {
+page: number;
+pageSize: number;
+}
+export interface RuntimeReq extends ReqPage {
+    name?: string;
+    status?: string;
+    type?: string;
+}
 import { onMounted, reactive, ref } from 'vue';
-import { Runtime } from '@/types/runtime';
 import { Website } from '@/types/website';
 
 import i18n from '@/lang';
@@ -69,7 +78,7 @@ const props = defineProps({
     },
 });
 
-const runtimeReq = reactive<Runtime.RuntimeReq>({ page: 1, pageSize: 200, type: 'php' });
+const runtimeReq = reactive<RuntimeReq>({ page: 1, pageSize: 200, type: 'php' });
 const versionReq = reactive<Website.PHPVersionChange>({
     websiteID: undefined,
     runtimeID: undefined,

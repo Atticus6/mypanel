@@ -28,14 +28,17 @@
 </template>
 
 <script setup lang="ts">
+export interface ExtraHost {
+    hostname: string;
+    ip: string;
+}
 import { reactive } from 'vue';
 import { FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
-import { Runtime } from '@/types/runtime';
 
 const props = defineProps({
     extraHosts: {
-        type: Array<Runtime.ExtraHost>,
+        type: Array<ExtraHost>,
         required: true,
     },
 });

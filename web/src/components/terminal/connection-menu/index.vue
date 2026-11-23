@@ -85,13 +85,24 @@
 </template>
 
 <script setup lang="ts">
+export interface NodeItem {
+    id: number;
+    groupID?: number;
+    groupBelong?: string;
+    addr: string;
+    status: string;
+    version: string;
+    isXpack: boolean;
+    isBound: boolean;
+    isFavorite?: boolean;
+    name: string;
+}
 import { computed, nextTick, ref, watch } from 'vue';
 import { ElTree } from 'element-plus';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { MsgError } from '@/utils/message';
 import type { Host } from '@/types/host';
-import type { Setting } from '@/types/setting';
 import HostDialog from '@/components/terminal/host-create.vue';
 import type { TerminalConnectionOptions } from './types';
 import { rpc } from '@/lib/rpc';
@@ -121,14 +132,14 @@ interface ConnectionTreeItem {
     label: string;
     kind: 'group' | 'node' | 'host';
     children?: ConnectionTreeItem[];
-    node?: Setting.NodeItem;
+    node?: NodeItem;
     wsID?: number;
 }
 
 const hostTree = ref<Array<Host.HostTree>>([]);
 const treeRef = ref<InstanceType<typeof ElTree>>();
 const connectionFilter = ref('');
-const nodes = ref<Setting.NodeItem[]>([]);
+const nodes = ref<NodeItem[]>([]);
 const loadingConnections = ref(false);
 const connecting = ref(false);
 const connectionTree = computed<ConnectionTreeItem[]>(() => {

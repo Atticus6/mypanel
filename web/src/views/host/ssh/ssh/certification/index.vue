@@ -93,8 +93,18 @@
     </div>
 </template>
 <script lang="ts" setup>
+export interface RootCertInfo {
+    id: number;
+    createAt: Date;
+    name: string;
+    mode: string;
+    encryptionMode: string;
+    passPhrase: string;
+    description: string;
+    publicKey: string;
+    privateKey: string;
+}
 import { readCachedPageSize } from '@/utils/panel-cache';
-import { Host } from '@/types/host';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import Operate from '@/views/host/ssh/ssh/certification/operate/index.vue';
@@ -145,7 +155,7 @@ const onCopy = async (content: string) => {
 const dialogRef = ref();
 const onOpenDialog = async (
     title: string,
-    rowData: Partial<Host.RootCertInfo> = {
+    rowData: Partial<RootCertInfo> = {
         mode: 'generate',
         encryptionMode: 'ed25519',
     },
@@ -157,7 +167,7 @@ const onOpenDialog = async (
     dialogRef.value!.acceptParams(params);
 };
 
-const onDownload = async (row: Host.RootCertInfo, type: string) => {
+const onDownload = async (row: RootCertInfo, type: string) => {
     let name = row.name;
     let content;
     if (type === 'publicKey') {
@@ -216,7 +226,7 @@ const onSync = async () => {
     });
 };
 
-const onDelete = async (row: Host.RootCertInfo | null) => {
+const onDelete = async (row: RootCertInfo | null) => {
     let names = [];
     let ids = [];
     forceDelete.value = false;
@@ -264,13 +274,13 @@ const buttons = [
         label: i18n.global.t('commons.button.edit'),
         permission: true,
         nodeAdmin: true,
-        click: (row: Host.RootCertInfo) => {
+        click: (row: RootCertInfo) => {
             onOpenDialog('edit', row);
         },
     },
     {
         label: i18n.global.t('commons.button.view'),
-        click: (row: Host.RootCertInfo) => {
+        click: (row: RootCertInfo) => {
             currentRow.value = row;
             connOpen.value = true;
         },
@@ -279,7 +289,7 @@ const buttons = [
         label: i18n.global.t('commons.button.delete'),
         permission: true,
         nodeAdmin: true,
-        click: (row: Host.RootCertInfo) => {
+        click: (row: RootCertInfo) => {
             onDelete(row);
         },
     },

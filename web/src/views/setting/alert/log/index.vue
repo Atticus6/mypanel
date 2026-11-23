@@ -1,3 +1,6 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { AlertLogEntrySchema , AlertSchema                                                                                                                                                               } from '@/gen/panel/agent/v1/alert_pb';
 <template>
     <div>
         <LayoutContent :title="$t('xpack.alert.logs')" v-loading="loading">
@@ -92,6 +95,35 @@
 </template>
 
 <script lang="ts" setup>
+export type AlertInfo = Omit<Init<typeof AlertSchema>, '$typeName' | '$unknown'> & {
+    type: string;
+    title: string;
+    subType: string;
+    interval: number;
+    sendMethod: string[];
+    alertTriggerMode?: CronjobAlertTriggerMode;
+}
+
+export type AlertLog = Init<typeof AlertLogEntrySchema> & {
+    alertDetail: AlertDetail;
+    alertRule: AlertInfo;
+}
+export interface AlertDetail {
+    type: string;
+    subType?: string;
+    licenseId: string;
+    title: string;
+    project: string;
+    method: string;
+    params: { index: string; key: string; value: string }[] | string;
+}
+
+
+export interface CommonConfig {
+    isOffline?: string;
+    alertDailyNum?: number;
+    alertSendTimeRange?: string;
+}
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { toRef } from 'vue';
 import { useSearchState } from '@/utils/search-reset';
@@ -99,7 +131,6 @@ import { onMounted, reactive, ref } from 'vue';
 import { dateFormat } from '@/utils/date';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { Alert } from '@/types/alert';
 import { SyncAlertInfo, SyncAlertAll, SyncOfflineAlert, resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { rpc } from '@/lib/rpc';
 import { ElMessageBox } from 'element-plus';
@@ -112,7 +143,7 @@ const { t } = i18n.global;
 const loading = ref(false);
 const data = ref();
 const isOffline = ref('Disable');
-const configMap = ref<Map<string, Alert.AlertConfigInfo>>(new Map());
+const configMap = ref<Map<string, AlertConfigInfo>>(new Map());
 
 const loadConfigMap = async () => {
     try {
@@ -121,7 +152,7 @@ const loadConfigMap = async () => {
             pageSize: 1000,
             excludeTypes: resolveAlertConfigExcludeTypes(),
         });
-        const map = new Map<string, Alert.AlertConfigInfo>();
+        const map = new Map<string, AlertConfigInfo>();
         for (const c of res.items || []) {
             map.set(String(c.id), c);
         }
@@ -167,10 +198,10 @@ const buttons = [
     {
         label: i18n.global.t('commons.button.sync'),
         permission: true,
-        click: function (row: Alert.AlertLog) {
+        click: function (row: AlertLog) {
             syncAlert(row);
         },
-        disabled: (row: Alert.AlertLog) => {
+        disabled: (row: AlertLog) => {
             const isSms = row.method
                 .split(',')
                 .filter(Boolean)
@@ -196,7 +227,7 @@ const statusConfig = (row) => {
     return statusMap[row.status] || statusMap['default'];
 };
 
-const syncAlert = (row: Alert.AlertLog) => {
+const syncAlert = (row: AlertLog) => {
     ElMessageBox.confirm(t('xpack.alert.syncAlertInfoMsg'), t('xpack.alert.syncAlertInfo'), {
         confirmButtonText: t('commons.button.confirm'),
         cancelButtonText: t('commons.button.cancel'),
@@ -211,7 +242,7 @@ const syncAlert = (row: Alert.AlertLog) => {
     });
 };
 
-const formatMessage = (row: Alert.AlertDetail) => {
+const formatMessage = (row: AlertDetail) => {
     const type = row.type === 'cronJob' ? row.subType : row.type;
     if (cronjobAlertTypes.includes(type)) {
         const title =
@@ -248,7 +279,7 @@ const formatMessage = (row: Alert.AlertDetail) => {
     return messageTemplates[type] ? messageTemplates[type]() : '';
 };
 
-const formatMethod = (row: Alert.AlertLog) => {
+const formatMethod = (row: AlertLog) => {
     if (!row.method) return '-';
 
     const formatMethodPart = (method: string) => {
@@ -299,7 +330,7 @@ const formatMethod = (row: Alert.AlertLog) => {
         .join('｜')}」`;
 };
 
-const formatCount = (row: Alert.AlertInfo) => {
+const formatCount = (row: AlertInfo) => {
     return resourceTypes.includes(row.type) || row.type === 'cronJob' || row.type === 'clams'
         ? t('xpack.alert.daily', [row.count])
         : t('xpack.alert.cumulative', [row.count]);
@@ -373,7 +404,7 @@ const searchAlertInfo = async () => {
         try {
             const res = await rpc.alert.getAlertConfig({ excludeTypes: resolveAlertConfigExcludeTypes() });
             const commonFound = res.items.find((s: any) => s.type === 'common');
-            const config: Alert.CommonConfig = JSON.parse(commonFound.config);
+            const config: CommonConfig = JSON.parse(commonFound.config);
             isOffline.value = config.isOffline;
         } finally {
             loading.value = false;
@@ -390,3 +421,6 @@ onMounted(async () => {
     await search();
 });
 </script>
+
+type AlertConfigInfo = any;
+type AlertConfigUpdateReq = any;

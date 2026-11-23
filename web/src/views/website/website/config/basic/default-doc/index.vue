@@ -14,7 +14,13 @@
 </template>
 
 <script lang="ts" setup>
-import { Website } from '@/types/website';
+
+export interface NginxConfigReq {
+    operate: string;
+    websiteId: number;
+    scope: string;
+    params?: any;
+}
 import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import { FormInstance } from 'element-plus';
@@ -71,7 +77,7 @@ const submit = async (formEl: FormInstance | undefined) => {
     });
 };
 
-const search = (req: Website.NginxConfigReq) => {
+const search = (req: NginxConfigReq) => {
     loading.value = true;
     rpc.website.getNginxScopeConfig({ websiteId: req.websiteId, scope: req.scope })
         .then((res) => {

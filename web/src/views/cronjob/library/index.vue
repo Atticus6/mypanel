@@ -139,6 +139,26 @@
 </template>
 
 <script setup lang="ts">
+
+export interface ScriptInfo {
+    id: number;
+    name: string;
+    script: string;
+    groups: string;
+    isInteractive: boolean;
+    groupList: Array<number>;
+    groupBelong: Array<string>;
+    description: string;
+    createdAt: Date;
+}
+
+export interface ScriptOperate {
+    id: number;
+    name: string;
+    script: string;
+    groups: string;
+    description: string;
+}
 import { InfoFilled } from '@element-plus/icons-vue';
 import { useSearchState } from '@/utils/search-reset';
 import { dateFormat, getCurrentDateFormatted } from '@/utils/date';
@@ -149,7 +169,6 @@ import TaskLog from '@/components/log/task/index.vue';
 import OperateDialog from '@/views/cronjob/library/operate/index.vue';
 import TerminalDialog from '@/views/cronjob/library/run/index.vue';
 import { toRef, onMounted, reactive, ref } from 'vue';
-import { Cronjob } from '@/types/cronjob';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import CodemirrorDrawer from '@/components/codemirror-pro/drawer.vue';
@@ -192,7 +211,7 @@ const onOpenGroupDialog = () => {
 const dialogRef = ref();
 const onOpenDialog = async (
     title: string,
-    rowData: Partial<Cronjob.ScriptOperate> = {
+    rowData: Partial<ScriptOperate> = {
         name: '',
     },
 ) => {
@@ -212,7 +231,7 @@ const showScript = async (row: any) => {
     myDetail.value!.acceptParams(param);
 };
 
-const onDelete = async (row: Cronjob.ScriptInfo | null) => {
+const onDelete = async (row: ScriptInfo | null) => {
     let names = [];
     let ids = [];
     if (row) {
@@ -340,7 +359,7 @@ const buttons = [
         disabled: () => {
             return !isAdminOrNodeAdmin.value;
         },
-        click: (row: Cronjob.ScriptInfo) => {
+        click: (row: ScriptInfo) => {
             ElMessageBox.confirm(
                 i18n.global.t('cronjob.library.handleHelper', [
                     currentNode.value === 'local' ? globalStore.getMasterAlias() : currentNode.value,
@@ -364,8 +383,8 @@ const buttons = [
         disabled: (row: any) => {
             return !row.isSystem;
         },
-        click: (row: Cronjob.ScriptInfo) => {
-            let item = deepCopy(row) as Cronjob.ScriptInfo;
+        click: (row: ScriptInfo) => {
+            let item = deepCopy(row) as ScriptInfo;
             item.id = 0;
             item.name += '-' + getCurrentDateFormatted();
             item.groupList = row.groupList || [];
@@ -380,7 +399,7 @@ const buttons = [
         disabled: (row: any) => {
             return row.isSystem;
         },
-        click: (row: Cronjob.ScriptInfo) => {
+        click: (row: ScriptInfo) => {
             onOpenDialog('edit', row);
         },
     },
@@ -391,7 +410,7 @@ const buttons = [
         disabled: (row: any) => {
             return row.isSystem;
         },
-        click: (row: Cronjob.ScriptInfo) => {
+        click: (row: ScriptInfo) => {
             onDelete(row);
         },
     },

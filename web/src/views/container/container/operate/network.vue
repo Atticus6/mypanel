@@ -51,13 +51,23 @@
 </template>
 
 <script lang="ts" setup>
-import { Container } from '@/types/container';
+export interface ContainerNetwork {
+    network: string;
+    ipv4: string;
+    ipv6: string;
+    macAddr: string;
+    links?: Array<string>;
+    aliases?: Array<string>;
+    driverOpts?: Record<string, string>;
+    gwPriority?: number;
+    linkLocalIPs?: Array<string>;
+}
 import { ref, onMounted } from 'vue';
 import { rpc } from '@/lib/rpc';
-const tmpNetworks = ref<Array<Container.ContainerNetwork>>([]);
+const tmpNetworks = ref<Array<ContainerNetwork>>([]);
 const networkOptions = ref();
 const props = defineProps({
-    networks: { type: Array<Container.ContainerNetwork>, default: [] },
+    networks: { type: Array<ContainerNetwork>, default: [] },
 });
 watch(
     () => props.networks,
@@ -77,7 +87,7 @@ const loadNetworkOptions = async () => {
     networkOptions.value = res.items;
 };
 const handleNetworksAdd = () => {
-    const item: Container.ContainerNetwork = {
+    const item: ContainerNetwork = {
         network: 'bridge',
         ipv4: '',
         ipv6: '',
@@ -93,7 +103,7 @@ const handleNetworksAdd = () => {
 const handleNetworksDelete = (index: number) => {
     tmpNetworks.value.splice(index, 1);
 };
-const changeNetwork = (row: Container.ContainerNetwork) => {
+const changeNetwork = (row: ContainerNetwork) => {
     row.ipv4 = '';
     row.ipv6 = '';
     row.macAddr = '';
@@ -103,7 +113,7 @@ const changeNetwork = (row: Container.ContainerNetwork) => {
     row.gwPriority = 0;
     row.linkLocalIPs = [];
 };
-const isIpDisabled = (row: Container.ContainerNetwork) => {
+const isIpDisabled = (row: ContainerNetwork) => {
     return row.network === 'none' || row.network === 'host' || row.network === 'bridge';
 };
 

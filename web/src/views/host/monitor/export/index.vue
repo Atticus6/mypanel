@@ -100,12 +100,78 @@
 </template>
 
 <script setup lang="ts">
+export interface GPUProcess {
+    pid: string;
+    type: string;
+    processName: string;
+    usedMemory: string;
+}
+export interface ChartHide {
+    sharedMemory?: boolean;
+    deviceID?: string;
+    legacy?: boolean;
+    productName: string;
+    type?: 'gpu' | 'npu' | 'xpu';
+    process: boolean;
+    gpu: boolean;
+    memory: boolean;
+    power: boolean;
+    powerLimit: boolean;
+    temperature: boolean;
+    speed: boolean;
+}
+
+export interface MonitorGPUData {
+    memoryActivity: Array<number | null>;
+    encoderUtil: Array<number | null>;
+    decoderUtil: Array<number | null>;
+    jpegUtil: Array<number | null>;
+    ofaUtil: Array<number | null>;
+    mediaUtil: Array<number | null>;
+    computeUtil: Array<number | null>;
+    copyUtil: Array<number | null>;
+    hotspotTemperature: Array<number | null>;
+    fanRPM: Array<number | null>;
+    aiCPUUtil: Array<number | null>;
+    ctrlCPUUtil: Array<number | null>;
+    ddrUsed: Array<number | null>;
+    ddrTotal: Array<number | null>;
+    hbmUsed: Array<number | null>;
+    hbmTotal: Array<number | null>;
+    ddrBandwidth: Array<number | null>;
+    hbmBandwidth: Array<number | null>;
+    memoryBandwidth: Array<number | null>;
+    mediaFrequency: Array<number | null>;
+    hugepagesUsed: Array<number | null>;
+    hugepagesTotal: Array<number | null>;
+
+    bucketSeconds: number;
+    sampleCount: number;
+    memoryTemperatureValue: Array<number | null>;
+    frequencyValue: Array<number | null>;
+    memoryFrequencyValue: Array<number | null>;
+    date: Array<Date>;
+    gpuValue: Array<number | null>;
+    temperatureValue: Array<number | null>;
+    powerTotal: Array<number | null>;
+    powerUsed: Array<number | null>;
+    powerPercent: Array<number | null>;
+    memoryTotal: Array<number | null>;
+    memoryUsed: Array<number | null>;
+    memoryPercent: Array<number | null>;
+    speedValue: Array<number | null>;
+    processCount: Array<number | null>;
+    gpuProcesses: Array<Array<GPUProcess>>;
+}
+export interface MonitorData {
+    param: string;
+    date: Array<Date>;
+    value: Array<any>;
+}
 import { computed, onMounted, reactive, ref } from 'vue';
 import { toMonitorChartSeries } from '@/lib/rpc/monitor';
 import { getGPUOptions, loadGPUMonitor } from '@/api/modules/ai';
-import { Host } from '@/types/host';
 import { rpc } from '@/lib/rpc';
-import { AI } from '@/types/ai';
 import { shortcuts } from '@/utils/shortcuts';
 import { dateFormatForName } from '@/utils/date';
 import { exportMonitorTables, MonitorExportTable } from '@/utils/monitor-export';
@@ -120,7 +186,7 @@ const loading = ref(false);
 const timeRange = ref<[Date, Date]>([new Date(new Date().setHours(0, 0, 0, 0)), new Date()]);
 const ioOptions = ref<Array<string>>([]);
 const netOptions = ref<Array<string>>([]);
-const gpuOptions = ref<(AI.ChartHide & { value: string; label: string })[]>([]);
+const gpuOptions = ref<(ChartHide & { value: string; label: string })[]>([]);
 const ioOptionsFailed = ref(false);
 const netOptionsFailed = ref(false);
 const gpuOptionsFailed = ref(false);
@@ -172,7 +238,7 @@ const tableLabel = (name: string): string => {
     }
 };
 
-const buildBaseTable = (datasets: Array<Host.MonitorData>): MonitorExportTable => {
+const buildBaseTable = (datasets: Array<MonitorData>): MonitorExportTable => {
     const base = datasets.find((item) => item.param === 'base');
     const fields = ['time'];
     const headers = [t('commons.table.date')];
@@ -201,7 +267,7 @@ const buildBaseTable = (datasets: Array<Host.MonitorData>): MonitorExportTable =
     return { name: 'base', fields, headers, rows };
 };
 
-const buildIOTable = (datasets: Array<Host.MonitorData>): MonitorExportTable => {
+const buildIOTable = (datasets: Array<MonitorData>): MonitorExportTable => {
     const rows = datasets
         .flatMap((item) => (item.param === 'io' ? item.value || [] : []))
         .filter((row) => form.io !== ALL_DEVICES || row.name !== 'all')
@@ -222,7 +288,7 @@ const buildIOTable = (datasets: Array<Host.MonitorData>): MonitorExportTable => 
     };
 };
 
-const buildNetworkTable = (datasets: Array<Host.MonitorData>): MonitorExportTable => {
+const buildNetworkTable = (datasets: Array<MonitorData>): MonitorExportTable => {
     const rows = datasets
         .flatMap((item) => (item.param === 'network' ? item.value || [] : []))
         .filter((row) => form.network !== ALL_DEVICES || row.name !== 'all')
@@ -241,7 +307,7 @@ const buildNetworkTable = (datasets: Array<Host.MonitorData>): MonitorExportTabl
     };
 };
 
-const buildGPUTable = (datasets: Array<{ device: AI.ChartHide; data: AI.MonitorGPUData }>): MonitorExportTable => {
+const buildGPUTable = (datasets: Array<{ device: ChartHide; data: MonitorGPUData }>): MonitorExportTable => {
     const rows = datasets
         .flatMap(({ device, data }) =>
             (data.date || []).map((date, i) => [
@@ -294,8 +360,8 @@ const buildGPUTable = (datasets: Array<{ device: AI.ChartHide; data: AI.MonitorG
 const collectTables = async (): Promise<MonitorExportTable[]> => {
     const [startTime, endTime] = timeRange.value;
     const jobs: Promise<void>[] = [];
-    const datasets: Array<Host.MonitorData> = [];
-    const gpuDatasets: Array<{ device: AI.ChartHide; data: AI.MonitorGPUData }> = [];
+    const datasets: Array<MonitorData> = [];
+    const gpuDatasets: Array<{ device: ChartHide; data: MonitorGPUData }> = [];
 
     const search = (param: string, io = 'all', network = 'all') =>
         rpc.monitor
