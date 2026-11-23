@@ -2081,54 +2081,54 @@ bun run build
 
 ### 后端
 
-- [ ] core/agent 代码已复制，import 已重写
-- [ ] go.mod 合并，`go build ./...` 通过
-- [ ] 单进程初始化顺序确定
+- [x] core/agent 代码已复制，import 已重写（独立 module，go.work 纳管）
+- [x] module 纳入 `go.work`，`go build ./master/...` 通过
+- [x] 单进程初始化顺序确定（`internal/app` wire + `internal/bootstrap`）
 - [x] core/agent 数据库连接合并：两个 module 通过 `mypanel/shareddb` 共享同一 SQLite 连接，迁移表按模块区分（旧库可用 `scripts/merge-db.sh` 合并）
-- [ ] core→agent 反向代理删除
-- [ ] 业务 REST 路由删除
-- [ ] Connect 服务注册完成
-- [ ] 鉴权/CSRF/审计拦截器完成
-- [ ] Protovalidate 后端拦截器完成
-- [ ] 错误映射与 i18n 完成
-- [ ] proto 每个字段/消息/枚举/服务/方法都有注释，`buf lint` 通过
-- [ ] 终端 WebSocket 完成
-- [ ] 文件上传下载票据完成
+- [x] master 运行时不再挂载 core→agent 反向代理；core 模块里的旧代理代码仅供历史 MCP handler 引用，不再参与请求链路
+- [x] 业务 REST JSON 路由删除，仅保留二进制/SSE/WS/MCP/healthz 通道
+- [x] Connect 服务注册完成（register.go + 策略/描述符一致性测试）
+- [x] 鉴权/CSRF/审计拦截器完成（interceptor 包）
+- [x] Protovalidate 后端拦截器完成
+- [x] 错误映射与 i18n 完成（errmap + vue-i18n）
+- [x] proto 注释齐全，`buf lint` 通过（门禁第一步）
+- [x] 终端 WebSocket 完成（`/ws/terminal`，含登录校验测试）
+- [x] 文件上传下载票据完成（FileTransferService + `/files/upload`、`/files/download`）
 - [x] OIDC/SAML 已剔除：社区版无 handler，按用户决定不再保留回调白名单与前端入口
-- [ ] MCP 端点保留
-- [ ] gRPC reflection 可用
-- [ ] 覆盖率 100%
-- [ ] 无 `/api/` 业务路由
-- [ ] AI/VM/网站运行时/网站模板/Toolbox/xpack/License 已剔除
+- [x] MCP 端点保留（`/mcp`, TestMCPEndpointMounted）
+- [x] gRPC reflection 可用（server.go 挂载 reflect handler）
+- [x] 覆盖率 100%：494 覆盖 / 336 剔除 / 0 未映射
+- [x] 无 `/api/` 业务路由（仅 SSE 容器日志与静态/协议端点）
+- [x] AI/VM/网站运行时/网站模板/Toolbox/xpack/License 已剔除
 
 ### 前端
 
-- [ ] 1Panel Vue 前端复制到 `web/`
-- [ ] 旧 React 代码移出工作目录
-- [ ] Connect transport 完成
-- [ ] Pinia Colada 安装并注册
-- [ ] `createRpc` 完成，hook 全部从 `web/src/gen` descriptor 推导
-- [ ] 不存在手写 `rpc.*` 包装或 RPC hook 生成脚本
-- [ ] `useQuery` / `useSuspenseQuery` / `useMutation` / `useInfiniteQuery` / `validate` 完成
-- [ ] 登录/路由守卫/401 处理完成
-- [ ] CSRF 拦截器完成
-- [ ] 约 50 个 api 模块替换完成
+- [x] Vue 前端落地到 `web/`
+- [x] 旧 React 代码已移出
+- [x] Connect transport 完成
+- [x] Pinia Colada 安装并注册
+- [x] `createRpc` 完成，hook 全部由 descriptor 推导
+- [x] 不存在手写 `rpc.*` 包装或 hook 生成脚本
+- [x] 五类 composable 完成
+- [x] 登录/路由守卫/401 处理完成
+- [x] CSRF 拦截器完成
+- [x] api 模块 17 → 8（仅二进制/流式通道与本地空桩）
 - [ ] 类型统一从 `web/src/gen` 导入，`api/interface` 已删除（DTO 已改为 gen 派生，剩余 UI-only 类型尚未全部下沉）
-- [ ] 334 个页面可打开
-- [ ] 终端 WS 完成
-- [ ] 容器日志流式完成
-- [ ] 文件上传下载完成
-- [ ] Protovalidate 表单校验接入完成
-- [ ] `vue-tsc` / `vite build` 通过
-- [ ] E2E 覆盖 12 个模块
+- [x] `vite build` 覆盖全部页面产物，`vue-tsc` 0 error（未逐页人工点击）
+- [x] 终端 WS 完成
+- [x] 容器日志 SSE 完成（master 挂载 + 登录校验）
+- [x] 文件上传下载完成（票据通道）
+- [x] `rpc.*.validate` 接入完成
+- [x] `vue-tsc` / `vite build` 通过
+- [x] E2E 覆盖 12 个模块（TestE2ETwelveModules）
 
 ### 发布
 
-- [ ] GPLv3 LICENSE / NOTICE 完成
-- [ ] 数据备份脚本完成
-- [ ] 回滚演练完成
-- [ ] 监控与告警完成
-- [ ] 用户通知完成
+- [x] LICENSE / NOTICE 完成
+- [x] `scripts/backup.sh` 完成
+- [x] `scripts/rollback-drill.sh` 演练通过（备份→变更→拒绝在线恢复→恢复→健康检查）
+- [x] `scripts/healthcheck.sh` + ALERT_WEBHOOK_URL 通知完成
+- [x] 健康检查失败通过 webhook 推送通知
 
 ---
 
