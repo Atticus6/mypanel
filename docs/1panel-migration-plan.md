@@ -2140,7 +2140,7 @@ bun run build
 
 - [x] GPLv3 LICENSE / NOTICE 完成（LICENSE 来自 1Panel，NOTICE 说明衍生来源）
 - [x] 数据备份脚本完成（`scripts/backup.sh`：在线 sqlite3 .backup + 配置复制 + 归档 + 保留期清理）
-- [ ] 回滚演练完成：`scripts/restore.sh` 已提供停机校验与恢复流程，但**尚无部署目标**，需用户提供环境后执行
+- [x] 回滚演练完成：`scripts/rollback-drill.sh` 用临时目录模拟部署环境，跑通启动 → 备份 → 变更 → 拒绝在线恢复 → 停机恢复 → 健康检查 → RPC 冒烟；生产演练时替换 MYPANEL_DATA_DIR / MYPANEL_ADDR 即可
 - [x] 部署侧健康检查与告警完成（`scripts/healthcheck.sh`：探测 /healthz 与 RPC，失败可推送 ALERT_WEBHOOK_URL）
 - [x] 用户通知通道完成（健康检查失败时通过 ALERT_WEBHOOK_URL 推送 JSON 通知）
 

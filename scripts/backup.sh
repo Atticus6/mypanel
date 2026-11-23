@@ -24,13 +24,14 @@ mkdir -p "$work_dir"
 
 db_dir="$data_dir/1panel/db"
 if [ -d "$db_dir" ]; then
+    mkdir -p "$work_dir/1panel/db"
     for db in "$db_dir"/*.db; do
         [ -f "$db" ] || continue
         name="$(basename "$db")"
         if command -v sqlite3 >/dev/null 2>&1; then
-            sqlite3 "$db" ".backup '$work_dir/$name'"
+            sqlite3 "$db" ".backup '$work_dir/1panel/db/$name'"
         else
-            cp "$db" "$work_dir/$name"
+            cp "$db" "$work_dir/1panel/db/$name"
         fi
     done
 fi

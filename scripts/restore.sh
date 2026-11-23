@@ -34,12 +34,21 @@ if [ -z "$source_dir" ]; then
 fi
 
 mkdir -p "$data_dir/1panel/db"
+# WAL/SHM 属于运行期缓存，必须清掉，否则恢复的主库会被残留 WAL 覆盖回旧状态。
+find "$data_dir/1panel/db" -maxdepth 1 -type f \( -name '*.db-wal' -o -name '*.db-shm' \) -delete
 copied=0
 while IFS= read -r -d '' file; do
     rel="${file#"$source_dir"/}"
     case "$rel" in
         *.db|config.yaml|config.local.yaml)
-            cp "$file" "$data_dir/$rel"
+            # 兼容早期扁平结构的归档：库文件直接放在归档根目录。
+            case "$rel" in
+                */*) dest="$data_dir/$rel" ;;
+                *.db) dest="$data_dir/1panel/db/$rel" ;;
+                *) dest="$data_dir/$rel" ;;
+            esac
+            mkdir -p "$(dirname "$dest")"
+            cp "$file" "$dest"
             copied=$((copied + 1))
             ;;
     esac
