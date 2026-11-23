@@ -17,3 +17,10 @@ data/
 
 # rpc-coverage 调试产生的本地二进制。
 /rpc-coverage
+
+# 测试/运行时产生的临时数据目录与 SQLite 文件。
+**/tmp/
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
