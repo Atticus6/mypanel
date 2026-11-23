@@ -7182,6 +7182,864 @@ func (x *ContainerStatsSample) GetShotTime() string {
 	return ""
 }
 
+// CreateContainerRequest 是创建容器参数。
+//
+// 容器配置含网络、端口与卷等嵌套结构，直接用 JSON 透传。
+type CreateContainerRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateContainerRequest) Reset() {
+	*x = CreateContainerRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[119]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateContainerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateContainerRequest) ProtoMessage() {}
+
+func (x *CreateContainerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[119]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateContainerRequest.ProtoReflect.Descriptor instead.
+func (*CreateContainerRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{119}
+}
+
+func (x *CreateContainerRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// CreateContainerResponse 是创建结果，无业务字段。
+type CreateContainerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateContainerResponse) Reset() {
+	*x = CreateContainerResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[120]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateContainerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateContainerResponse) ProtoMessage() {}
+
+func (x *CreateContainerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[120]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateContainerResponse.ProtoReflect.Descriptor instead.
+func (*CreateContainerResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{120}
+}
+
+// CreateComposeRequest 是创建 Compose 项目参数。
+type CreateComposeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateComposeRequest) Reset() {
+	*x = CreateComposeRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[121]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateComposeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateComposeRequest) ProtoMessage() {}
+
+func (x *CreateComposeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[121]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateComposeRequest.ProtoReflect.Descriptor instead.
+func (*CreateComposeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{121}
+}
+
+func (x *CreateComposeRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// CreateComposeResponse 是创建结果，无业务字段。
+type CreateComposeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateComposeResponse) Reset() {
+	*x = CreateComposeResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[122]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateComposeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateComposeResponse) ProtoMessage() {}
+
+func (x *CreateComposeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[122]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateComposeResponse.ProtoReflect.Descriptor instead.
+func (*CreateComposeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{122}
+}
+
+// UpdateComposeRequest 是更新 Compose 项目参数。
+type UpdateComposeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateComposeRequest) Reset() {
+	*x = UpdateComposeRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[123]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateComposeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateComposeRequest) ProtoMessage() {}
+
+func (x *UpdateComposeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[123]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateComposeRequest.ProtoReflect.Descriptor instead.
+func (*UpdateComposeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{123}
+}
+
+func (x *UpdateComposeRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// UpdateComposeResponse 是更新结果，无业务字段。
+type UpdateComposeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateComposeResponse) Reset() {
+	*x = UpdateComposeResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[124]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateComposeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateComposeResponse) ProtoMessage() {}
+
+func (x *UpdateComposeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[124]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateComposeResponse.ProtoReflect.Descriptor instead.
+func (*UpdateComposeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{124}
+}
+
+// ContainerInfoRequest 是容器详情查询参数。
+type ContainerInfoRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 容器名称。
+	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerInfoRequest) Reset() {
+	*x = ContainerInfoRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[125]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerInfoRequest) ProtoMessage() {}
+
+func (x *ContainerInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[125]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerInfoRequest.ProtoReflect.Descriptor instead.
+func (*ContainerInfoRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{125}
+}
+
+func (x *ContainerInfoRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+// ContainerInfoResponse 是容器详情。
+type ContainerInfoResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 容器详情的 JSON 字符串。
+	InfoJson      string `protobuf:"bytes,1,opt,name=info_json,json=infoJson,proto3" json:"info_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContainerInfoResponse) Reset() {
+	*x = ContainerInfoResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[126]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContainerInfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerInfoResponse) ProtoMessage() {}
+
+func (x *ContainerInfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[126]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerInfoResponse.ProtoReflect.Descriptor instead.
+func (*ContainerInfoResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{126}
+}
+
+func (x *ContainerInfoResponse) GetInfoJson() string {
+	if x != nil {
+		return x.InfoJson
+	}
+	return ""
+}
+
+// ListImagesRequest 是镜像标签列表查询参数，无业务字段。
+type ListImagesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListImagesRequest) Reset() {
+	*x = ListImagesRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[127]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListImagesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListImagesRequest) ProtoMessage() {}
+
+func (x *ListImagesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[127]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListImagesRequest.ProtoReflect.Descriptor instead.
+func (*ListImagesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{127}
+}
+
+// ImageOptionsResponse 是镜像标签列表。
+type ImageOptionsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 镜像标签。
+	Items         []string `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImageOptionsResponse) Reset() {
+	*x = ImageOptionsResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[128]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImageOptionsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImageOptionsResponse) ProtoMessage() {}
+
+func (x *ImageOptionsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[128]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImageOptionsResponse.ProtoReflect.Descriptor instead.
+func (*ImageOptionsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{128}
+}
+
+func (x *ImageOptionsResponse) GetItems() []string {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// ListAllImagesRequest 是全部镜像查询参数，无业务字段。
+type ListAllImagesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListAllImagesRequest) Reset() {
+	*x = ListAllImagesRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[129]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListAllImagesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListAllImagesRequest) ProtoMessage() {}
+
+func (x *ListAllImagesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[129]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListAllImagesRequest.ProtoReflect.Descriptor instead.
+func (*ListAllImagesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{129}
+}
+
+// ImageListResponse 是镜像列表结果。
+type ImageListResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 镜像列表。
+	Items         []*ImageInfo `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImageListResponse) Reset() {
+	*x = ImageListResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[130]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImageListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImageListResponse) ProtoMessage() {}
+
+func (x *ImageListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[130]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImageListResponse.ProtoReflect.Descriptor instead.
+func (*ImageListResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{130}
+}
+
+func (x *ImageListResponse) GetItems() []*ImageInfo {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// ImageInfo 是一个镜像。
+type ImageInfo struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 镜像 ID。
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 创建时间，RFC3339 格式。
+	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 是否被容器使用。
+	IsUsed bool `protobuf:"varint,3,opt,name=is_used,json=isUsed,proto3" json:"is_used,omitempty"`
+	// 镜像标签。
+	Tags []string `protobuf:"bytes,4,rep,name=tags,proto3" json:"tags,omitempty"`
+	// 大小，单位字节。
+	Size int64 `protobuf:"varint,5,opt,name=size,proto3" json:"size,omitempty"`
+	// 是否置顶。
+	IsPinned bool `protobuf:"varint,6,opt,name=is_pinned,json=isPinned,proto3" json:"is_pinned,omitempty"`
+	// 描述。
+	Description   string `protobuf:"bytes,7,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImageInfo) Reset() {
+	*x = ImageInfo{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[131]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImageInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImageInfo) ProtoMessage() {}
+
+func (x *ImageInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[131]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImageInfo.ProtoReflect.Descriptor instead.
+func (*ImageInfo) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{131}
+}
+
+func (x *ImageInfo) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ImageInfo) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *ImageInfo) GetIsUsed() bool {
+	if x != nil {
+		return x.IsUsed
+	}
+	return false
+}
+
+func (x *ImageInfo) GetTags() []string {
+	if x != nil {
+		return x.Tags
+	}
+	return nil
+}
+
+func (x *ImageInfo) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *ImageInfo) GetIsPinned() bool {
+	if x != nil {
+		return x.IsPinned
+	}
+	return false
+}
+
+func (x *ImageInfo) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+// CommitContainerRequest 是容器提交参数。
+type CommitContainerRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CommitContainerRequest) Reset() {
+	*x = CommitContainerRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[132]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CommitContainerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommitContainerRequest) ProtoMessage() {}
+
+func (x *CommitContainerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[132]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommitContainerRequest.ProtoReflect.Descriptor instead.
+func (*CommitContainerRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{132}
+}
+
+func (x *CommitContainerRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// CommitContainerResponse 是提交结果，无业务字段。
+type CommitContainerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CommitContainerResponse) Reset() {
+	*x = CommitContainerResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[133]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CommitContainerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommitContainerResponse) ProtoMessage() {}
+
+func (x *CommitContainerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[133]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommitContainerResponse.ProtoReflect.Descriptor instead.
+func (*CommitContainerResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{133}
+}
+
+// UpdateContainerRequest 是容器更新参数。
+type UpdateContainerRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateContainerRequest) Reset() {
+	*x = UpdateContainerRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[134]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateContainerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateContainerRequest) ProtoMessage() {}
+
+func (x *UpdateContainerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[134]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateContainerRequest.ProtoReflect.Descriptor instead.
+func (*UpdateContainerRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{134}
+}
+
+func (x *UpdateContainerRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// UpdateContainerResponse 是更新结果，无业务字段。
+type UpdateContainerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateContainerResponse) Reset() {
+	*x = UpdateContainerResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[135]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateContainerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateContainerResponse) ProtoMessage() {}
+
+func (x *UpdateContainerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[135]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateContainerResponse.ProtoReflect.Descriptor instead.
+func (*UpdateContainerResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{135}
+}
+
+// UpgradeContainerRequest 是容器升级参数。
+type UpgradeContainerRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpgradeContainerRequest) Reset() {
+	*x = UpgradeContainerRequest{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[136]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpgradeContainerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpgradeContainerRequest) ProtoMessage() {}
+
+func (x *UpgradeContainerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[136]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpgradeContainerRequest.ProtoReflect.Descriptor instead.
+func (*UpgradeContainerRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{136}
+}
+
+func (x *UpgradeContainerRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// UpgradeContainerResponse 是升级结果，无业务字段。
+type UpgradeContainerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpgradeContainerResponse) Reset() {
+	*x = UpgradeContainerResponse{}
+	mi := &file_panel_agent_v1_container_proto_msgTypes[137]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpgradeContainerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpgradeContainerResponse) ProtoMessage() {}
+
+func (x *UpgradeContainerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_container_proto_msgTypes[137]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpgradeContainerResponse.ProtoReflect.Descriptor instead.
+func (*UpgradeContainerResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_container_proto_rawDescGZIP(), []int{137}
+}
+
 var File_panel_agent_v1_container_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_container_proto_rawDesc = "" +
@@ -7671,7 +8529,44 @@ const file_panel_agent_v1_container_proto_rawDesc = "" +
 	"network_rx\x18\x06 \x01(\x01R\tnetworkRx\x12\x1d\n" +
 	"\n" +
 	"network_tx\x18\a \x01(\x01R\tnetworkTx\x12\x1b\n" +
-	"\tshot_time\x18\b \x01(\tR\bshotTime2\x8b5\n" +
+	"\tshot_time\x18\b \x01(\tR\bshotTime\"D\n" +
+	"\x16CreateContainerRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x19\n" +
+	"\x17CreateContainerResponse\"B\n" +
+	"\x14CreateComposeRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x17\n" +
+	"\x15CreateComposeResponse\"B\n" +
+	"\x14UpdateComposeRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x17\n" +
+	"\x15UpdateComposeResponse\"3\n" +
+	"\x14ContainerInfoRequest\x12\x1b\n" +
+	"\x04name\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04name\"4\n" +
+	"\x15ContainerInfoResponse\x12\x1b\n" +
+	"\tinfo_json\x18\x01 \x01(\tR\binfoJson\"\x13\n" +
+	"\x11ListImagesRequest\",\n" +
+	"\x14ImageOptionsResponse\x12\x14\n" +
+	"\x05items\x18\x01 \x03(\tR\x05items\"\x16\n" +
+	"\x14ListAllImagesRequest\"D\n" +
+	"\x11ImageListResponse\x12/\n" +
+	"\x05items\x18\x01 \x03(\v2\x19.panel.agent.v1.ImageInfoR\x05items\"\xba\x01\n" +
+	"\tImageInfo\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x02 \x01(\tR\tcreatedAt\x12\x17\n" +
+	"\ais_used\x18\x03 \x01(\bR\x06isUsed\x12\x12\n" +
+	"\x04tags\x18\x04 \x03(\tR\x04tags\x12\x12\n" +
+	"\x04size\x18\x05 \x01(\x03R\x04size\x12\x1b\n" +
+	"\tis_pinned\x18\x06 \x01(\bR\bisPinned\x12 \n" +
+	"\vdescription\x18\a \x01(\tR\vdescription\"D\n" +
+	"\x16CommitContainerRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x19\n" +
+	"\x17CommitContainerResponse\"D\n" +
+	"\x16UpdateContainerRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x19\n" +
+	"\x17UpdateContainerResponse\"E\n" +
+	"\x17UpgradeContainerRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x1a\n" +
+	"\x18UpgradeContainerResponse2\xf8=\n" +
 	"\x10ContainerService\x12e\n" +
 	"\x06Search\x12'.panel.agent.v1.SearchContainersRequest\x1a(.panel.agent.v1.SearchContainersResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12[\n" +
 	"\x06Status\x12&.panel.agent.v1.ContainerStatusRequest\x1a\x1f.panel.agent.v1.ContainerStatus\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12c\n" +
@@ -7734,7 +8629,17 @@ const file_panel_agent_v1_container_proto_rawDesc = "" +
 	"\x10SearchImageRepos\x12'.panel.agent.v1.SearchImageReposRequest\x1a(.panel.agent.v1.SearchImageReposResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x81\x01\n" +
 	"\x16SearchComposeTemplates\x12-.panel.agent.v1.SearchComposeTemplatesRequest\x1a..panel.agent.v1.SearchComposeTemplatesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12f\n" +
 	"\rSearchCompose\x12$.panel.agent.v1.SearchComposeRequest\x1a%.panel.agent.v1.SearchComposeResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12f\n" +
-	"\rSearchVolumes\x12$.panel.agent.v1.SearchVolumesRequest\x1a%.panel.agent.v1.SearchVolumesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\rSearchVolumes\x12$.panel.agent.v1.SearchVolumesRequest\x1a%.panel.agent.v1.SearchVolumesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x88\x01\n" +
+	"\x0fCreateContainer\x12&.panel.agent.v1.CreateContainerRequest\x1a'.panel.agent.v1.CreateContainerResponse\"$\x8a\xb5\x18 \"\f创建容器*\x10Create container\x12\x82\x01\n" +
+	"\rCreateCompose\x12$.panel.agent.v1.CreateComposeRequest\x1a%.panel.agent.v1.CreateComposeResponse\"$\x8a\xb5\x18 \"\x0e创建 Compose*\x0eCreate compose\x12\x82\x01\n" +
+	"\rUpdateCompose\x12$.panel.agent.v1.UpdateComposeRequest\x1a%.panel.agent.v1.UpdateComposeResponse\"$\x8a\xb5\x18 \"\x0e更新 Compose*\x0eUpdate compose\x12f\n" +
+	"\rContainerInfo\x12$.panel.agent.v1.ContainerInfoRequest\x1a%.panel.agent.v1.ContainerInfoResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12_\n" +
+	"\n" +
+	"ListImages\x12!.panel.agent.v1.ListImagesRequest\x1a$.panel.agent.v1.ImageOptionsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12b\n" +
+	"\rListAllImages\x12$.panel.agent.v1.ListAllImagesRequest\x1a!.panel.agent.v1.ImageListResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x8e\x01\n" +
+	"\x0fCommitContainer\x12&.panel.agent.v1.CommitContainerRequest\x1a'.panel.agent.v1.CommitContainerResponse\"*\x8a\xb5\x18&\"\x12提交容器镜像*\x10Commit container\x12\x88\x01\n" +
+	"\x0fUpdateContainer\x12&.panel.agent.v1.UpdateContainerRequest\x1a'.panel.agent.v1.UpdateContainerResponse\"$\x8a\xb5\x18 \"\f更新容器*\x10Update container\x12\x8c\x01\n" +
+	"\x10UpgradeContainer\x12'.panel.agent.v1.UpgradeContainerRequest\x1a(.panel.agent.v1.UpgradeContainerResponse\"%\x8a\xb5\x18!\"\f升级容器*\x11Upgrade containerB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_container_proto_rawDescOnce sync.Once
@@ -7748,7 +8653,7 @@ func file_panel_agent_v1_container_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_container_proto_rawDescData
 }
 
-var file_panel_agent_v1_container_proto_msgTypes = make([]protoimpl.MessageInfo, 119)
+var file_panel_agent_v1_container_proto_msgTypes = make([]protoimpl.MessageInfo, 138)
 var file_panel_agent_v1_container_proto_goTypes = []any{
 	(*SearchContainersRequest)(nil),        // 0: panel.agent.v1.SearchContainersRequest
 	(*SearchContainersResponse)(nil),       // 1: panel.agent.v1.SearchContainersResponse
@@ -7869,6 +8774,25 @@ var file_panel_agent_v1_container_proto_goTypes = []any{
 	(*ContainerItemStats)(nil),             // 116: panel.agent.v1.ContainerItemStats
 	(*SampleContainerStatsRequest)(nil),    // 117: panel.agent.v1.SampleContainerStatsRequest
 	(*ContainerStatsSample)(nil),           // 118: panel.agent.v1.ContainerStatsSample
+	(*CreateContainerRequest)(nil),         // 119: panel.agent.v1.CreateContainerRequest
+	(*CreateContainerResponse)(nil),        // 120: panel.agent.v1.CreateContainerResponse
+	(*CreateComposeRequest)(nil),           // 121: panel.agent.v1.CreateComposeRequest
+	(*CreateComposeResponse)(nil),          // 122: panel.agent.v1.CreateComposeResponse
+	(*UpdateComposeRequest)(nil),           // 123: panel.agent.v1.UpdateComposeRequest
+	(*UpdateComposeResponse)(nil),          // 124: panel.agent.v1.UpdateComposeResponse
+	(*ContainerInfoRequest)(nil),           // 125: panel.agent.v1.ContainerInfoRequest
+	(*ContainerInfoResponse)(nil),          // 126: panel.agent.v1.ContainerInfoResponse
+	(*ListImagesRequest)(nil),              // 127: panel.agent.v1.ListImagesRequest
+	(*ImageOptionsResponse)(nil),           // 128: panel.agent.v1.ImageOptionsResponse
+	(*ListAllImagesRequest)(nil),           // 129: panel.agent.v1.ListAllImagesRequest
+	(*ImageListResponse)(nil),              // 130: panel.agent.v1.ImageListResponse
+	(*ImageInfo)(nil),                      // 131: panel.agent.v1.ImageInfo
+	(*CommitContainerRequest)(nil),         // 132: panel.agent.v1.CommitContainerRequest
+	(*CommitContainerResponse)(nil),        // 133: panel.agent.v1.CommitContainerResponse
+	(*UpdateContainerRequest)(nil),         // 134: panel.agent.v1.UpdateContainerRequest
+	(*UpdateContainerResponse)(nil),        // 135: panel.agent.v1.UpdateContainerResponse
+	(*UpgradeContainerRequest)(nil),        // 136: panel.agent.v1.UpgradeContainerRequest
+	(*UpgradeContainerResponse)(nil),       // 137: panel.agent.v1.UpgradeContainerResponse
 }
 var file_panel_agent_v1_container_proto_depIdxs = []int32{
 	2,   // 0: panel.agent.v1.SearchContainersResponse.items:type_name -> panel.agent.v1.Container
@@ -7888,119 +8812,138 @@ var file_panel_agent_v1_container_proto_depIdxs = []int32{
 	75,  // 14: panel.agent.v1.ImageRepoOptions.items:type_name -> panel.agent.v1.ImageRepoOption
 	96,  // 15: panel.agent.v1.SearchRemoteImagesResponse.items:type_name -> panel.agent.v1.RemoteImage
 	113, // 16: panel.agent.v1.ContainerStatsList.items:type_name -> panel.agent.v1.ContainerStatsItem
-	0,   // 17: panel.agent.v1.ContainerService.Search:input_type -> panel.agent.v1.SearchContainersRequest
-	3,   // 18: panel.agent.v1.ContainerService.Status:input_type -> panel.agent.v1.ContainerStatusRequest
-	5,   // 19: panel.agent.v1.ContainerService.SearchImages:input_type -> panel.agent.v1.SearchImagesRequest
-	8,   // 20: panel.agent.v1.ContainerService.SearchNetworks:input_type -> panel.agent.v1.SearchNetworksRequest
-	108, // 21: panel.agent.v1.ContainerService.ListContainers:input_type -> panel.agent.v1.ListContainersRequest
-	109, // 22: panel.agent.v1.ContainerService.ListContainersByImage:input_type -> panel.agent.v1.ListContainersByImageRequest
-	110, // 23: panel.agent.v1.ContainerService.GetContainerUsers:input_type -> panel.agent.v1.GetContainerUsersRequest
-	112, // 24: panel.agent.v1.ContainerService.GetContainerStats:input_type -> panel.agent.v1.GetContainerStatsRequest
-	115, // 25: panel.agent.v1.ContainerService.GetContainerItemStats:input_type -> panel.agent.v1.GetContainerItemStatsRequest
-	117, // 26: panel.agent.v1.ContainerService.SampleContainerStats:input_type -> panel.agent.v1.SampleContainerStatsRequest
-	85,  // 27: panel.agent.v1.ContainerService.GetDockerStatus:input_type -> panel.agent.v1.GetDockerStatusRequest
-	87,  // 28: panel.agent.v1.ContainerService.OperateDocker:input_type -> panel.agent.v1.OperateDockerRequest
-	89,  // 29: panel.agent.v1.ContainerService.PullImages:input_type -> panel.agent.v1.PullImagesRequest
-	91,  // 30: panel.agent.v1.ContainerService.PushImage:input_type -> panel.agent.v1.PushImageRequest
-	93,  // 31: panel.agent.v1.ContainerService.BuildImage:input_type -> panel.agent.v1.BuildImageRequest
-	95,  // 32: panel.agent.v1.ContainerService.SearchRemoteImages:input_type -> panel.agent.v1.SearchRemoteImagesRequest
-	98,  // 33: panel.agent.v1.ContainerService.GetDaemonJson:input_type -> panel.agent.v1.GetDaemonJsonRequest
-	100, // 34: panel.agent.v1.ContainerService.UpdateDaemonJson:input_type -> panel.agent.v1.UpdateDaemonJsonRequest
-	102, // 35: panel.agent.v1.ContainerService.UpdateDaemonJsonByFile:input_type -> panel.agent.v1.UpdateDaemonJsonByFileRequest
-	104, // 36: panel.agent.v1.ContainerService.UpdateLogOption:input_type -> panel.agent.v1.UpdateDockerLogOptionRequest
-	106, // 37: panel.agent.v1.ContainerService.UpdateIpv6Option:input_type -> panel.agent.v1.UpdateDockerIpv6OptionRequest
-	63,  // 38: panel.agent.v1.ContainerService.ListTemplates:input_type -> panel.agent.v1.ListComposeTemplatesRequest
-	66,  // 39: panel.agent.v1.ContainerService.CreateTemplate:input_type -> panel.agent.v1.CreateComposeTemplateRequest
-	68,  // 40: panel.agent.v1.ContainerService.UpdateTemplate:input_type -> panel.agent.v1.UpdateComposeTemplateRequest
-	70,  // 41: panel.agent.v1.ContainerService.DeleteTemplates:input_type -> panel.agent.v1.DeleteComposeTemplatesRequest
-	72,  // 42: panel.agent.v1.ContainerService.BatchTemplates:input_type -> panel.agent.v1.BatchComposeTemplatesRequest
-	74,  // 43: panel.agent.v1.ContainerService.ListRepos:input_type -> panel.agent.v1.ListImageReposRequest
-	77,  // 44: panel.agent.v1.ContainerService.CreateRepo:input_type -> panel.agent.v1.CreateImageRepoRequest
-	79,  // 45: panel.agent.v1.ContainerService.UpdateRepo:input_type -> panel.agent.v1.UpdateImageRepoRequest
-	81,  // 46: panel.agent.v1.ContainerService.DeleteRepo:input_type -> panel.agent.v1.DeleteImageRepoRequest
-	83,  // 47: panel.agent.v1.ContainerService.CheckRepoStatus:input_type -> panel.agent.v1.CheckImageRepoStatusRequest
-	27,  // 48: panel.agent.v1.ContainerService.GetLimit:input_type -> panel.agent.v1.GetContainerLimitRequest
-	29,  // 49: panel.agent.v1.ContainerService.OperateContainers:input_type -> panel.agent.v1.OperateContainersRequest
-	31,  // 50: panel.agent.v1.ContainerService.RenameContainer:input_type -> panel.agent.v1.RenameContainerRequest
-	33,  // 51: panel.agent.v1.ContainerService.Prune:input_type -> panel.agent.v1.PruneContainersRequest
-	35,  // 52: panel.agent.v1.ContainerService.CleanLogs:input_type -> panel.agent.v1.CleanContainerLogsRequest
-	37,  // 53: panel.agent.v1.ContainerService.ListNetworks:input_type -> panel.agent.v1.ListNetworksRequest
-	41,  // 54: panel.agent.v1.ContainerService.CreateNetwork:input_type -> panel.agent.v1.CreateNetworkRequest
-	43,  // 55: panel.agent.v1.ContainerService.DeleteNetworks:input_type -> panel.agent.v1.DeleteNetworksRequest
-	38,  // 56: panel.agent.v1.ContainerService.ListVolumes:input_type -> panel.agent.v1.ListVolumesRequest
-	45,  // 57: panel.agent.v1.ContainerService.CreateVolume:input_type -> panel.agent.v1.CreateVolumeRequest
-	47,  // 58: panel.agent.v1.ContainerService.DeleteVolumes:input_type -> panel.agent.v1.DeleteVolumesRequest
-	49,  // 59: panel.agent.v1.ContainerService.RemoveImages:input_type -> panel.agent.v1.RemoveImagesRequest
-	51,  // 60: panel.agent.v1.ContainerService.TagImage:input_type -> panel.agent.v1.TagImageRequest
-	53,  // 61: panel.agent.v1.ContainerService.GetComposeEnv:input_type -> panel.agent.v1.GetComposeEnvRequest
-	55,  // 62: panel.agent.v1.ContainerService.TestCompose:input_type -> panel.agent.v1.TestComposeRequest
-	57,  // 63: panel.agent.v1.ContainerService.OperateCompose:input_type -> panel.agent.v1.OperateComposeRequest
-	59,  // 64: panel.agent.v1.ContainerService.PinCompose:input_type -> panel.agent.v1.PinComposeRequest
-	61,  // 65: panel.agent.v1.ContainerService.CleanComposeLogs:input_type -> panel.agent.v1.CleanComposeLogsRequest
-	25,  // 66: panel.agent.v1.ContainerService.Inspect:input_type -> panel.agent.v1.ContainerInspectRequest
-	19,  // 67: panel.agent.v1.ContainerService.SearchImageRepos:input_type -> panel.agent.v1.SearchImageReposRequest
-	22,  // 68: panel.agent.v1.ContainerService.SearchComposeTemplates:input_type -> panel.agent.v1.SearchComposeTemplatesRequest
-	15,  // 69: panel.agent.v1.ContainerService.SearchCompose:input_type -> panel.agent.v1.SearchComposeRequest
-	11,  // 70: panel.agent.v1.ContainerService.SearchVolumes:input_type -> panel.agent.v1.SearchVolumesRequest
-	1,   // 71: panel.agent.v1.ContainerService.Search:output_type -> panel.agent.v1.SearchContainersResponse
-	4,   // 72: panel.agent.v1.ContainerService.Status:output_type -> panel.agent.v1.ContainerStatus
-	6,   // 73: panel.agent.v1.ContainerService.SearchImages:output_type -> panel.agent.v1.SearchImagesResponse
-	9,   // 74: panel.agent.v1.ContainerService.SearchNetworks:output_type -> panel.agent.v1.SearchNetworksResponse
-	39,  // 75: panel.agent.v1.ContainerService.ListContainers:output_type -> panel.agent.v1.ContainerOptions
-	39,  // 76: panel.agent.v1.ContainerService.ListContainersByImage:output_type -> panel.agent.v1.ContainerOptions
-	111, // 77: panel.agent.v1.ContainerService.GetContainerUsers:output_type -> panel.agent.v1.ContainerUsers
-	114, // 78: panel.agent.v1.ContainerService.GetContainerStats:output_type -> panel.agent.v1.ContainerStatsList
-	116, // 79: panel.agent.v1.ContainerService.GetContainerItemStats:output_type -> panel.agent.v1.ContainerItemStats
-	118, // 80: panel.agent.v1.ContainerService.SampleContainerStats:output_type -> panel.agent.v1.ContainerStatsSample
-	86,  // 81: panel.agent.v1.ContainerService.GetDockerStatus:output_type -> panel.agent.v1.DockerStatus
-	88,  // 82: panel.agent.v1.ContainerService.OperateDocker:output_type -> panel.agent.v1.OperateDockerResponse
-	90,  // 83: panel.agent.v1.ContainerService.PullImages:output_type -> panel.agent.v1.PullImagesResponse
-	92,  // 84: panel.agent.v1.ContainerService.PushImage:output_type -> panel.agent.v1.PushImageResponse
-	94,  // 85: panel.agent.v1.ContainerService.BuildImage:output_type -> panel.agent.v1.BuildImageResponse
-	97,  // 86: panel.agent.v1.ContainerService.SearchRemoteImages:output_type -> panel.agent.v1.SearchRemoteImagesResponse
-	99,  // 87: panel.agent.v1.ContainerService.GetDaemonJson:output_type -> panel.agent.v1.DaemonJsonConf
-	101, // 88: panel.agent.v1.ContainerService.UpdateDaemonJson:output_type -> panel.agent.v1.UpdateDaemonJsonResponse
-	103, // 89: panel.agent.v1.ContainerService.UpdateDaemonJsonByFile:output_type -> panel.agent.v1.UpdateDaemonJsonByFileResponse
-	105, // 90: panel.agent.v1.ContainerService.UpdateLogOption:output_type -> panel.agent.v1.UpdateDockerLogOptionResponse
-	107, // 91: panel.agent.v1.ContainerService.UpdateIpv6Option:output_type -> panel.agent.v1.UpdateDockerIpv6OptionResponse
-	65,  // 92: panel.agent.v1.ContainerService.ListTemplates:output_type -> panel.agent.v1.ComposeTemplates
-	67,  // 93: panel.agent.v1.ContainerService.CreateTemplate:output_type -> panel.agent.v1.CreateComposeTemplateResponse
-	69,  // 94: panel.agent.v1.ContainerService.UpdateTemplate:output_type -> panel.agent.v1.UpdateComposeTemplateResponse
-	71,  // 95: panel.agent.v1.ContainerService.DeleteTemplates:output_type -> panel.agent.v1.DeleteComposeTemplatesResponse
-	73,  // 96: panel.agent.v1.ContainerService.BatchTemplates:output_type -> panel.agent.v1.BatchComposeTemplatesResponse
-	76,  // 97: panel.agent.v1.ContainerService.ListRepos:output_type -> panel.agent.v1.ImageRepoOptions
-	78,  // 98: panel.agent.v1.ContainerService.CreateRepo:output_type -> panel.agent.v1.CreateImageRepoResponse
-	80,  // 99: panel.agent.v1.ContainerService.UpdateRepo:output_type -> panel.agent.v1.UpdateImageRepoResponse
-	82,  // 100: panel.agent.v1.ContainerService.DeleteRepo:output_type -> panel.agent.v1.DeleteImageRepoResponse
-	84,  // 101: panel.agent.v1.ContainerService.CheckRepoStatus:output_type -> panel.agent.v1.CheckImageRepoStatusResponse
-	28,  // 102: panel.agent.v1.ContainerService.GetLimit:output_type -> panel.agent.v1.ContainerLimit
-	30,  // 103: panel.agent.v1.ContainerService.OperateContainers:output_type -> panel.agent.v1.OperateContainersResponse
-	32,  // 104: panel.agent.v1.ContainerService.RenameContainer:output_type -> panel.agent.v1.RenameContainerResponse
-	34,  // 105: panel.agent.v1.ContainerService.Prune:output_type -> panel.agent.v1.PruneContainersResponse
-	36,  // 106: panel.agent.v1.ContainerService.CleanLogs:output_type -> panel.agent.v1.CleanContainerLogsResponse
-	39,  // 107: panel.agent.v1.ContainerService.ListNetworks:output_type -> panel.agent.v1.ContainerOptions
-	42,  // 108: panel.agent.v1.ContainerService.CreateNetwork:output_type -> panel.agent.v1.CreateNetworkResponse
-	44,  // 109: panel.agent.v1.ContainerService.DeleteNetworks:output_type -> panel.agent.v1.DeleteNetworksResponse
-	39,  // 110: panel.agent.v1.ContainerService.ListVolumes:output_type -> panel.agent.v1.ContainerOptions
-	46,  // 111: panel.agent.v1.ContainerService.CreateVolume:output_type -> panel.agent.v1.CreateVolumeResponse
-	48,  // 112: panel.agent.v1.ContainerService.DeleteVolumes:output_type -> panel.agent.v1.DeleteVolumesResponse
-	50,  // 113: panel.agent.v1.ContainerService.RemoveImages:output_type -> panel.agent.v1.RemoveImagesResponse
-	52,  // 114: panel.agent.v1.ContainerService.TagImage:output_type -> panel.agent.v1.TagImageResponse
-	54,  // 115: panel.agent.v1.ContainerService.GetComposeEnv:output_type -> panel.agent.v1.ComposeEnv
-	56,  // 116: panel.agent.v1.ContainerService.TestCompose:output_type -> panel.agent.v1.TestComposeResponse
-	58,  // 117: panel.agent.v1.ContainerService.OperateCompose:output_type -> panel.agent.v1.OperateComposeResponse
-	60,  // 118: panel.agent.v1.ContainerService.PinCompose:output_type -> panel.agent.v1.PinComposeResponse
-	62,  // 119: panel.agent.v1.ContainerService.CleanComposeLogs:output_type -> panel.agent.v1.CleanComposeLogsResponse
-	26,  // 120: panel.agent.v1.ContainerService.Inspect:output_type -> panel.agent.v1.ContainerInspectResponse
-	20,  // 121: panel.agent.v1.ContainerService.SearchImageRepos:output_type -> panel.agent.v1.SearchImageReposResponse
-	23,  // 122: panel.agent.v1.ContainerService.SearchComposeTemplates:output_type -> panel.agent.v1.SearchComposeTemplatesResponse
-	16,  // 123: panel.agent.v1.ContainerService.SearchCompose:output_type -> panel.agent.v1.SearchComposeResponse
-	12,  // 124: panel.agent.v1.ContainerService.SearchVolumes:output_type -> panel.agent.v1.SearchVolumesResponse
-	71,  // [71:125] is the sub-list for method output_type
-	17,  // [17:71] is the sub-list for method input_type
-	17,  // [17:17] is the sub-list for extension type_name
-	17,  // [17:17] is the sub-list for extension extendee
-	0,   // [0:17] is the sub-list for field type_name
+	131, // 17: panel.agent.v1.ImageListResponse.items:type_name -> panel.agent.v1.ImageInfo
+	0,   // 18: panel.agent.v1.ContainerService.Search:input_type -> panel.agent.v1.SearchContainersRequest
+	3,   // 19: panel.agent.v1.ContainerService.Status:input_type -> panel.agent.v1.ContainerStatusRequest
+	5,   // 20: panel.agent.v1.ContainerService.SearchImages:input_type -> panel.agent.v1.SearchImagesRequest
+	8,   // 21: panel.agent.v1.ContainerService.SearchNetworks:input_type -> panel.agent.v1.SearchNetworksRequest
+	108, // 22: panel.agent.v1.ContainerService.ListContainers:input_type -> panel.agent.v1.ListContainersRequest
+	109, // 23: panel.agent.v1.ContainerService.ListContainersByImage:input_type -> panel.agent.v1.ListContainersByImageRequest
+	110, // 24: panel.agent.v1.ContainerService.GetContainerUsers:input_type -> panel.agent.v1.GetContainerUsersRequest
+	112, // 25: panel.agent.v1.ContainerService.GetContainerStats:input_type -> panel.agent.v1.GetContainerStatsRequest
+	115, // 26: panel.agent.v1.ContainerService.GetContainerItemStats:input_type -> panel.agent.v1.GetContainerItemStatsRequest
+	117, // 27: panel.agent.v1.ContainerService.SampleContainerStats:input_type -> panel.agent.v1.SampleContainerStatsRequest
+	85,  // 28: panel.agent.v1.ContainerService.GetDockerStatus:input_type -> panel.agent.v1.GetDockerStatusRequest
+	87,  // 29: panel.agent.v1.ContainerService.OperateDocker:input_type -> panel.agent.v1.OperateDockerRequest
+	89,  // 30: panel.agent.v1.ContainerService.PullImages:input_type -> panel.agent.v1.PullImagesRequest
+	91,  // 31: panel.agent.v1.ContainerService.PushImage:input_type -> panel.agent.v1.PushImageRequest
+	93,  // 32: panel.agent.v1.ContainerService.BuildImage:input_type -> panel.agent.v1.BuildImageRequest
+	95,  // 33: panel.agent.v1.ContainerService.SearchRemoteImages:input_type -> panel.agent.v1.SearchRemoteImagesRequest
+	98,  // 34: panel.agent.v1.ContainerService.GetDaemonJson:input_type -> panel.agent.v1.GetDaemonJsonRequest
+	100, // 35: panel.agent.v1.ContainerService.UpdateDaemonJson:input_type -> panel.agent.v1.UpdateDaemonJsonRequest
+	102, // 36: panel.agent.v1.ContainerService.UpdateDaemonJsonByFile:input_type -> panel.agent.v1.UpdateDaemonJsonByFileRequest
+	104, // 37: panel.agent.v1.ContainerService.UpdateLogOption:input_type -> panel.agent.v1.UpdateDockerLogOptionRequest
+	106, // 38: panel.agent.v1.ContainerService.UpdateIpv6Option:input_type -> panel.agent.v1.UpdateDockerIpv6OptionRequest
+	63,  // 39: panel.agent.v1.ContainerService.ListTemplates:input_type -> panel.agent.v1.ListComposeTemplatesRequest
+	66,  // 40: panel.agent.v1.ContainerService.CreateTemplate:input_type -> panel.agent.v1.CreateComposeTemplateRequest
+	68,  // 41: panel.agent.v1.ContainerService.UpdateTemplate:input_type -> panel.agent.v1.UpdateComposeTemplateRequest
+	70,  // 42: panel.agent.v1.ContainerService.DeleteTemplates:input_type -> panel.agent.v1.DeleteComposeTemplatesRequest
+	72,  // 43: panel.agent.v1.ContainerService.BatchTemplates:input_type -> panel.agent.v1.BatchComposeTemplatesRequest
+	74,  // 44: panel.agent.v1.ContainerService.ListRepos:input_type -> panel.agent.v1.ListImageReposRequest
+	77,  // 45: panel.agent.v1.ContainerService.CreateRepo:input_type -> panel.agent.v1.CreateImageRepoRequest
+	79,  // 46: panel.agent.v1.ContainerService.UpdateRepo:input_type -> panel.agent.v1.UpdateImageRepoRequest
+	81,  // 47: panel.agent.v1.ContainerService.DeleteRepo:input_type -> panel.agent.v1.DeleteImageRepoRequest
+	83,  // 48: panel.agent.v1.ContainerService.CheckRepoStatus:input_type -> panel.agent.v1.CheckImageRepoStatusRequest
+	27,  // 49: panel.agent.v1.ContainerService.GetLimit:input_type -> panel.agent.v1.GetContainerLimitRequest
+	29,  // 50: panel.agent.v1.ContainerService.OperateContainers:input_type -> panel.agent.v1.OperateContainersRequest
+	31,  // 51: panel.agent.v1.ContainerService.RenameContainer:input_type -> panel.agent.v1.RenameContainerRequest
+	33,  // 52: panel.agent.v1.ContainerService.Prune:input_type -> panel.agent.v1.PruneContainersRequest
+	35,  // 53: panel.agent.v1.ContainerService.CleanLogs:input_type -> panel.agent.v1.CleanContainerLogsRequest
+	37,  // 54: panel.agent.v1.ContainerService.ListNetworks:input_type -> panel.agent.v1.ListNetworksRequest
+	41,  // 55: panel.agent.v1.ContainerService.CreateNetwork:input_type -> panel.agent.v1.CreateNetworkRequest
+	43,  // 56: panel.agent.v1.ContainerService.DeleteNetworks:input_type -> panel.agent.v1.DeleteNetworksRequest
+	38,  // 57: panel.agent.v1.ContainerService.ListVolumes:input_type -> panel.agent.v1.ListVolumesRequest
+	45,  // 58: panel.agent.v1.ContainerService.CreateVolume:input_type -> panel.agent.v1.CreateVolumeRequest
+	47,  // 59: panel.agent.v1.ContainerService.DeleteVolumes:input_type -> panel.agent.v1.DeleteVolumesRequest
+	49,  // 60: panel.agent.v1.ContainerService.RemoveImages:input_type -> panel.agent.v1.RemoveImagesRequest
+	51,  // 61: panel.agent.v1.ContainerService.TagImage:input_type -> panel.agent.v1.TagImageRequest
+	53,  // 62: panel.agent.v1.ContainerService.GetComposeEnv:input_type -> panel.agent.v1.GetComposeEnvRequest
+	55,  // 63: panel.agent.v1.ContainerService.TestCompose:input_type -> panel.agent.v1.TestComposeRequest
+	57,  // 64: panel.agent.v1.ContainerService.OperateCompose:input_type -> panel.agent.v1.OperateComposeRequest
+	59,  // 65: panel.agent.v1.ContainerService.PinCompose:input_type -> panel.agent.v1.PinComposeRequest
+	61,  // 66: panel.agent.v1.ContainerService.CleanComposeLogs:input_type -> panel.agent.v1.CleanComposeLogsRequest
+	25,  // 67: panel.agent.v1.ContainerService.Inspect:input_type -> panel.agent.v1.ContainerInspectRequest
+	19,  // 68: panel.agent.v1.ContainerService.SearchImageRepos:input_type -> panel.agent.v1.SearchImageReposRequest
+	22,  // 69: panel.agent.v1.ContainerService.SearchComposeTemplates:input_type -> panel.agent.v1.SearchComposeTemplatesRequest
+	15,  // 70: panel.agent.v1.ContainerService.SearchCompose:input_type -> panel.agent.v1.SearchComposeRequest
+	11,  // 71: panel.agent.v1.ContainerService.SearchVolumes:input_type -> panel.agent.v1.SearchVolumesRequest
+	119, // 72: panel.agent.v1.ContainerService.CreateContainer:input_type -> panel.agent.v1.CreateContainerRequest
+	121, // 73: panel.agent.v1.ContainerService.CreateCompose:input_type -> panel.agent.v1.CreateComposeRequest
+	123, // 74: panel.agent.v1.ContainerService.UpdateCompose:input_type -> panel.agent.v1.UpdateComposeRequest
+	125, // 75: panel.agent.v1.ContainerService.ContainerInfo:input_type -> panel.agent.v1.ContainerInfoRequest
+	127, // 76: panel.agent.v1.ContainerService.ListImages:input_type -> panel.agent.v1.ListImagesRequest
+	129, // 77: panel.agent.v1.ContainerService.ListAllImages:input_type -> panel.agent.v1.ListAllImagesRequest
+	132, // 78: panel.agent.v1.ContainerService.CommitContainer:input_type -> panel.agent.v1.CommitContainerRequest
+	134, // 79: panel.agent.v1.ContainerService.UpdateContainer:input_type -> panel.agent.v1.UpdateContainerRequest
+	136, // 80: panel.agent.v1.ContainerService.UpgradeContainer:input_type -> panel.agent.v1.UpgradeContainerRequest
+	1,   // 81: panel.agent.v1.ContainerService.Search:output_type -> panel.agent.v1.SearchContainersResponse
+	4,   // 82: panel.agent.v1.ContainerService.Status:output_type -> panel.agent.v1.ContainerStatus
+	6,   // 83: panel.agent.v1.ContainerService.SearchImages:output_type -> panel.agent.v1.SearchImagesResponse
+	9,   // 84: panel.agent.v1.ContainerService.SearchNetworks:output_type -> panel.agent.v1.SearchNetworksResponse
+	39,  // 85: panel.agent.v1.ContainerService.ListContainers:output_type -> panel.agent.v1.ContainerOptions
+	39,  // 86: panel.agent.v1.ContainerService.ListContainersByImage:output_type -> panel.agent.v1.ContainerOptions
+	111, // 87: panel.agent.v1.ContainerService.GetContainerUsers:output_type -> panel.agent.v1.ContainerUsers
+	114, // 88: panel.agent.v1.ContainerService.GetContainerStats:output_type -> panel.agent.v1.ContainerStatsList
+	116, // 89: panel.agent.v1.ContainerService.GetContainerItemStats:output_type -> panel.agent.v1.ContainerItemStats
+	118, // 90: panel.agent.v1.ContainerService.SampleContainerStats:output_type -> panel.agent.v1.ContainerStatsSample
+	86,  // 91: panel.agent.v1.ContainerService.GetDockerStatus:output_type -> panel.agent.v1.DockerStatus
+	88,  // 92: panel.agent.v1.ContainerService.OperateDocker:output_type -> panel.agent.v1.OperateDockerResponse
+	90,  // 93: panel.agent.v1.ContainerService.PullImages:output_type -> panel.agent.v1.PullImagesResponse
+	92,  // 94: panel.agent.v1.ContainerService.PushImage:output_type -> panel.agent.v1.PushImageResponse
+	94,  // 95: panel.agent.v1.ContainerService.BuildImage:output_type -> panel.agent.v1.BuildImageResponse
+	97,  // 96: panel.agent.v1.ContainerService.SearchRemoteImages:output_type -> panel.agent.v1.SearchRemoteImagesResponse
+	99,  // 97: panel.agent.v1.ContainerService.GetDaemonJson:output_type -> panel.agent.v1.DaemonJsonConf
+	101, // 98: panel.agent.v1.ContainerService.UpdateDaemonJson:output_type -> panel.agent.v1.UpdateDaemonJsonResponse
+	103, // 99: panel.agent.v1.ContainerService.UpdateDaemonJsonByFile:output_type -> panel.agent.v1.UpdateDaemonJsonByFileResponse
+	105, // 100: panel.agent.v1.ContainerService.UpdateLogOption:output_type -> panel.agent.v1.UpdateDockerLogOptionResponse
+	107, // 101: panel.agent.v1.ContainerService.UpdateIpv6Option:output_type -> panel.agent.v1.UpdateDockerIpv6OptionResponse
+	65,  // 102: panel.agent.v1.ContainerService.ListTemplates:output_type -> panel.agent.v1.ComposeTemplates
+	67,  // 103: panel.agent.v1.ContainerService.CreateTemplate:output_type -> panel.agent.v1.CreateComposeTemplateResponse
+	69,  // 104: panel.agent.v1.ContainerService.UpdateTemplate:output_type -> panel.agent.v1.UpdateComposeTemplateResponse
+	71,  // 105: panel.agent.v1.ContainerService.DeleteTemplates:output_type -> panel.agent.v1.DeleteComposeTemplatesResponse
+	73,  // 106: panel.agent.v1.ContainerService.BatchTemplates:output_type -> panel.agent.v1.BatchComposeTemplatesResponse
+	76,  // 107: panel.agent.v1.ContainerService.ListRepos:output_type -> panel.agent.v1.ImageRepoOptions
+	78,  // 108: panel.agent.v1.ContainerService.CreateRepo:output_type -> panel.agent.v1.CreateImageRepoResponse
+	80,  // 109: panel.agent.v1.ContainerService.UpdateRepo:output_type -> panel.agent.v1.UpdateImageRepoResponse
+	82,  // 110: panel.agent.v1.ContainerService.DeleteRepo:output_type -> panel.agent.v1.DeleteImageRepoResponse
+	84,  // 111: panel.agent.v1.ContainerService.CheckRepoStatus:output_type -> panel.agent.v1.CheckImageRepoStatusResponse
+	28,  // 112: panel.agent.v1.ContainerService.GetLimit:output_type -> panel.agent.v1.ContainerLimit
+	30,  // 113: panel.agent.v1.ContainerService.OperateContainers:output_type -> panel.agent.v1.OperateContainersResponse
+	32,  // 114: panel.agent.v1.ContainerService.RenameContainer:output_type -> panel.agent.v1.RenameContainerResponse
+	34,  // 115: panel.agent.v1.ContainerService.Prune:output_type -> panel.agent.v1.PruneContainersResponse
+	36,  // 116: panel.agent.v1.ContainerService.CleanLogs:output_type -> panel.agent.v1.CleanContainerLogsResponse
+	39,  // 117: panel.agent.v1.ContainerService.ListNetworks:output_type -> panel.agent.v1.ContainerOptions
+	42,  // 118: panel.agent.v1.ContainerService.CreateNetwork:output_type -> panel.agent.v1.CreateNetworkResponse
+	44,  // 119: panel.agent.v1.ContainerService.DeleteNetworks:output_type -> panel.agent.v1.DeleteNetworksResponse
+	39,  // 120: panel.agent.v1.ContainerService.ListVolumes:output_type -> panel.agent.v1.ContainerOptions
+	46,  // 121: panel.agent.v1.ContainerService.CreateVolume:output_type -> panel.agent.v1.CreateVolumeResponse
+	48,  // 122: panel.agent.v1.ContainerService.DeleteVolumes:output_type -> panel.agent.v1.DeleteVolumesResponse
+	50,  // 123: panel.agent.v1.ContainerService.RemoveImages:output_type -> panel.agent.v1.RemoveImagesResponse
+	52,  // 124: panel.agent.v1.ContainerService.TagImage:output_type -> panel.agent.v1.TagImageResponse
+	54,  // 125: panel.agent.v1.ContainerService.GetComposeEnv:output_type -> panel.agent.v1.ComposeEnv
+	56,  // 126: panel.agent.v1.ContainerService.TestCompose:output_type -> panel.agent.v1.TestComposeResponse
+	58,  // 127: panel.agent.v1.ContainerService.OperateCompose:output_type -> panel.agent.v1.OperateComposeResponse
+	60,  // 128: panel.agent.v1.ContainerService.PinCompose:output_type -> panel.agent.v1.PinComposeResponse
+	62,  // 129: panel.agent.v1.ContainerService.CleanComposeLogs:output_type -> panel.agent.v1.CleanComposeLogsResponse
+	26,  // 130: panel.agent.v1.ContainerService.Inspect:output_type -> panel.agent.v1.ContainerInspectResponse
+	20,  // 131: panel.agent.v1.ContainerService.SearchImageRepos:output_type -> panel.agent.v1.SearchImageReposResponse
+	23,  // 132: panel.agent.v1.ContainerService.SearchComposeTemplates:output_type -> panel.agent.v1.SearchComposeTemplatesResponse
+	16,  // 133: panel.agent.v1.ContainerService.SearchCompose:output_type -> panel.agent.v1.SearchComposeResponse
+	12,  // 134: panel.agent.v1.ContainerService.SearchVolumes:output_type -> panel.agent.v1.SearchVolumesResponse
+	120, // 135: panel.agent.v1.ContainerService.CreateContainer:output_type -> panel.agent.v1.CreateContainerResponse
+	122, // 136: panel.agent.v1.ContainerService.CreateCompose:output_type -> panel.agent.v1.CreateComposeResponse
+	124, // 137: panel.agent.v1.ContainerService.UpdateCompose:output_type -> panel.agent.v1.UpdateComposeResponse
+	126, // 138: panel.agent.v1.ContainerService.ContainerInfo:output_type -> panel.agent.v1.ContainerInfoResponse
+	128, // 139: panel.agent.v1.ContainerService.ListImages:output_type -> panel.agent.v1.ImageOptionsResponse
+	130, // 140: panel.agent.v1.ContainerService.ListAllImages:output_type -> panel.agent.v1.ImageListResponse
+	133, // 141: panel.agent.v1.ContainerService.CommitContainer:output_type -> panel.agent.v1.CommitContainerResponse
+	135, // 142: panel.agent.v1.ContainerService.UpdateContainer:output_type -> panel.agent.v1.UpdateContainerResponse
+	137, // 143: panel.agent.v1.ContainerService.UpgradeContainer:output_type -> panel.agent.v1.UpgradeContainerResponse
+	81,  // [81:144] is the sub-list for method output_type
+	18,  // [18:81] is the sub-list for method input_type
+	18,  // [18:18] is the sub-list for extension type_name
+	18,  // [18:18] is the sub-list for extension extendee
+	0,   // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_container_proto_init() }
@@ -8014,7 +8957,7 @@ func file_panel_agent_v1_container_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_container_proto_rawDesc), len(file_panel_agent_v1_container_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   119,
+			NumMessages:   138,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -194,6 +194,33 @@ const (
 	// ContainerServiceSearchVolumesProcedure is the fully-qualified name of the ContainerService's
 	// SearchVolumes RPC.
 	ContainerServiceSearchVolumesProcedure = "/panel.agent.v1.ContainerService/SearchVolumes"
+	// ContainerServiceCreateContainerProcedure is the fully-qualified name of the ContainerService's
+	// CreateContainer RPC.
+	ContainerServiceCreateContainerProcedure = "/panel.agent.v1.ContainerService/CreateContainer"
+	// ContainerServiceCreateComposeProcedure is the fully-qualified name of the ContainerService's
+	// CreateCompose RPC.
+	ContainerServiceCreateComposeProcedure = "/panel.agent.v1.ContainerService/CreateCompose"
+	// ContainerServiceUpdateComposeProcedure is the fully-qualified name of the ContainerService's
+	// UpdateCompose RPC.
+	ContainerServiceUpdateComposeProcedure = "/panel.agent.v1.ContainerService/UpdateCompose"
+	// ContainerServiceContainerInfoProcedure is the fully-qualified name of the ContainerService's
+	// ContainerInfo RPC.
+	ContainerServiceContainerInfoProcedure = "/panel.agent.v1.ContainerService/ContainerInfo"
+	// ContainerServiceListImagesProcedure is the fully-qualified name of the ContainerService's
+	// ListImages RPC.
+	ContainerServiceListImagesProcedure = "/panel.agent.v1.ContainerService/ListImages"
+	// ContainerServiceListAllImagesProcedure is the fully-qualified name of the ContainerService's
+	// ListAllImages RPC.
+	ContainerServiceListAllImagesProcedure = "/panel.agent.v1.ContainerService/ListAllImages"
+	// ContainerServiceCommitContainerProcedure is the fully-qualified name of the ContainerService's
+	// CommitContainer RPC.
+	ContainerServiceCommitContainerProcedure = "/panel.agent.v1.ContainerService/CommitContainer"
+	// ContainerServiceUpdateContainerProcedure is the fully-qualified name of the ContainerService's
+	// UpdateContainer RPC.
+	ContainerServiceUpdateContainerProcedure = "/panel.agent.v1.ContainerService/UpdateContainer"
+	// ContainerServiceUpgradeContainerProcedure is the fully-qualified name of the ContainerService's
+	// UpgradeContainer RPC.
+	ContainerServiceUpgradeContainerProcedure = "/panel.agent.v1.ContainerService/UpgradeContainer"
 )
 
 // ContainerServiceClient is a client for the panel.agent.v1.ContainerService service.
@@ -306,6 +333,24 @@ type ContainerServiceClient interface {
 	SearchCompose(context.Context, *connect.Request[v1.SearchComposeRequest]) (*connect.Response[v1.SearchComposeResponse], error)
 	// 分页查询卷。
 	SearchVolumes(context.Context, *connect.Request[v1.SearchVolumesRequest]) (*connect.Response[v1.SearchVolumesResponse], error)
+	// 创建容器。
+	CreateContainer(context.Context, *connect.Request[v1.CreateContainerRequest]) (*connect.Response[v1.CreateContainerResponse], error)
+	// 创建 Compose 项目。
+	CreateCompose(context.Context, *connect.Request[v1.CreateComposeRequest]) (*connect.Response[v1.CreateComposeResponse], error)
+	// 更新 Compose 项目。
+	UpdateCompose(context.Context, *connect.Request[v1.UpdateComposeRequest]) (*connect.Response[v1.UpdateComposeResponse], error)
+	// 查询容器详情。
+	ContainerInfo(context.Context, *connect.Request[v1.ContainerInfoRequest]) (*connect.Response[v1.ContainerInfoResponse], error)
+	// 列出镜像标签选项。
+	ListImages(context.Context, *connect.Request[v1.ListImagesRequest]) (*connect.Response[v1.ImageOptionsResponse], error)
+	// 列出全部镜像。
+	ListAllImages(context.Context, *connect.Request[v1.ListAllImagesRequest]) (*connect.Response[v1.ImageListResponse], error)
+	// 将容器提交为新镜像。
+	CommitContainer(context.Context, *connect.Request[v1.CommitContainerRequest]) (*connect.Response[v1.CommitContainerResponse], error)
+	// 更新容器配置。
+	UpdateContainer(context.Context, *connect.Request[v1.UpdateContainerRequest]) (*connect.Response[v1.UpdateContainerResponse], error)
+	// 批量升级容器镜像。
+	UpgradeContainer(context.Context, *connect.Request[v1.UpgradeContainerRequest]) (*connect.Response[v1.UpgradeContainerResponse], error)
 }
 
 // NewContainerServiceClient constructs a client for the panel.agent.v1.ContainerService service. By
@@ -643,6 +688,60 @@ func NewContainerServiceClient(httpClient connect.HTTPClient, baseURL string, op
 			connect.WithSchema(containerServiceMethods.ByName("SearchVolumes")),
 			connect.WithClientOptions(opts...),
 		),
+		createContainer: connect.NewClient[v1.CreateContainerRequest, v1.CreateContainerResponse](
+			httpClient,
+			baseURL+ContainerServiceCreateContainerProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("CreateContainer")),
+			connect.WithClientOptions(opts...),
+		),
+		createCompose: connect.NewClient[v1.CreateComposeRequest, v1.CreateComposeResponse](
+			httpClient,
+			baseURL+ContainerServiceCreateComposeProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("CreateCompose")),
+			connect.WithClientOptions(opts...),
+		),
+		updateCompose: connect.NewClient[v1.UpdateComposeRequest, v1.UpdateComposeResponse](
+			httpClient,
+			baseURL+ContainerServiceUpdateComposeProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("UpdateCompose")),
+			connect.WithClientOptions(opts...),
+		),
+		containerInfo: connect.NewClient[v1.ContainerInfoRequest, v1.ContainerInfoResponse](
+			httpClient,
+			baseURL+ContainerServiceContainerInfoProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("ContainerInfo")),
+			connect.WithClientOptions(opts...),
+		),
+		listImages: connect.NewClient[v1.ListImagesRequest, v1.ImageOptionsResponse](
+			httpClient,
+			baseURL+ContainerServiceListImagesProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("ListImages")),
+			connect.WithClientOptions(opts...),
+		),
+		listAllImages: connect.NewClient[v1.ListAllImagesRequest, v1.ImageListResponse](
+			httpClient,
+			baseURL+ContainerServiceListAllImagesProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("ListAllImages")),
+			connect.WithClientOptions(opts...),
+		),
+		commitContainer: connect.NewClient[v1.CommitContainerRequest, v1.CommitContainerResponse](
+			httpClient,
+			baseURL+ContainerServiceCommitContainerProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("CommitContainer")),
+			connect.WithClientOptions(opts...),
+		),
+		updateContainer: connect.NewClient[v1.UpdateContainerRequest, v1.UpdateContainerResponse](
+			httpClient,
+			baseURL+ContainerServiceUpdateContainerProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("UpdateContainer")),
+			connect.WithClientOptions(opts...),
+		),
+		upgradeContainer: connect.NewClient[v1.UpgradeContainerRequest, v1.UpgradeContainerResponse](
+			httpClient,
+			baseURL+ContainerServiceUpgradeContainerProcedure,
+			connect.WithSchema(containerServiceMethods.ByName("UpgradeContainer")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -702,6 +801,15 @@ type containerServiceClient struct {
 	searchComposeTemplates *connect.Client[v1.SearchComposeTemplatesRequest, v1.SearchComposeTemplatesResponse]
 	searchCompose          *connect.Client[v1.SearchComposeRequest, v1.SearchComposeResponse]
 	searchVolumes          *connect.Client[v1.SearchVolumesRequest, v1.SearchVolumesResponse]
+	createContainer        *connect.Client[v1.CreateContainerRequest, v1.CreateContainerResponse]
+	createCompose          *connect.Client[v1.CreateComposeRequest, v1.CreateComposeResponse]
+	updateCompose          *connect.Client[v1.UpdateComposeRequest, v1.UpdateComposeResponse]
+	containerInfo          *connect.Client[v1.ContainerInfoRequest, v1.ContainerInfoResponse]
+	listImages             *connect.Client[v1.ListImagesRequest, v1.ImageOptionsResponse]
+	listAllImages          *connect.Client[v1.ListAllImagesRequest, v1.ImageListResponse]
+	commitContainer        *connect.Client[v1.CommitContainerRequest, v1.CommitContainerResponse]
+	updateContainer        *connect.Client[v1.UpdateContainerRequest, v1.UpdateContainerResponse]
+	upgradeContainer       *connect.Client[v1.UpgradeContainerRequest, v1.UpgradeContainerResponse]
 }
 
 // Search calls panel.agent.v1.ContainerService.Search.
@@ -974,6 +1082,51 @@ func (c *containerServiceClient) SearchVolumes(ctx context.Context, req *connect
 	return c.searchVolumes.CallUnary(ctx, req)
 }
 
+// CreateContainer calls panel.agent.v1.ContainerService.CreateContainer.
+func (c *containerServiceClient) CreateContainer(ctx context.Context, req *connect.Request[v1.CreateContainerRequest]) (*connect.Response[v1.CreateContainerResponse], error) {
+	return c.createContainer.CallUnary(ctx, req)
+}
+
+// CreateCompose calls panel.agent.v1.ContainerService.CreateCompose.
+func (c *containerServiceClient) CreateCompose(ctx context.Context, req *connect.Request[v1.CreateComposeRequest]) (*connect.Response[v1.CreateComposeResponse], error) {
+	return c.createCompose.CallUnary(ctx, req)
+}
+
+// UpdateCompose calls panel.agent.v1.ContainerService.UpdateCompose.
+func (c *containerServiceClient) UpdateCompose(ctx context.Context, req *connect.Request[v1.UpdateComposeRequest]) (*connect.Response[v1.UpdateComposeResponse], error) {
+	return c.updateCompose.CallUnary(ctx, req)
+}
+
+// ContainerInfo calls panel.agent.v1.ContainerService.ContainerInfo.
+func (c *containerServiceClient) ContainerInfo(ctx context.Context, req *connect.Request[v1.ContainerInfoRequest]) (*connect.Response[v1.ContainerInfoResponse], error) {
+	return c.containerInfo.CallUnary(ctx, req)
+}
+
+// ListImages calls panel.agent.v1.ContainerService.ListImages.
+func (c *containerServiceClient) ListImages(ctx context.Context, req *connect.Request[v1.ListImagesRequest]) (*connect.Response[v1.ImageOptionsResponse], error) {
+	return c.listImages.CallUnary(ctx, req)
+}
+
+// ListAllImages calls panel.agent.v1.ContainerService.ListAllImages.
+func (c *containerServiceClient) ListAllImages(ctx context.Context, req *connect.Request[v1.ListAllImagesRequest]) (*connect.Response[v1.ImageListResponse], error) {
+	return c.listAllImages.CallUnary(ctx, req)
+}
+
+// CommitContainer calls panel.agent.v1.ContainerService.CommitContainer.
+func (c *containerServiceClient) CommitContainer(ctx context.Context, req *connect.Request[v1.CommitContainerRequest]) (*connect.Response[v1.CommitContainerResponse], error) {
+	return c.commitContainer.CallUnary(ctx, req)
+}
+
+// UpdateContainer calls panel.agent.v1.ContainerService.UpdateContainer.
+func (c *containerServiceClient) UpdateContainer(ctx context.Context, req *connect.Request[v1.UpdateContainerRequest]) (*connect.Response[v1.UpdateContainerResponse], error) {
+	return c.updateContainer.CallUnary(ctx, req)
+}
+
+// UpgradeContainer calls panel.agent.v1.ContainerService.UpgradeContainer.
+func (c *containerServiceClient) UpgradeContainer(ctx context.Context, req *connect.Request[v1.UpgradeContainerRequest]) (*connect.Response[v1.UpgradeContainerResponse], error) {
+	return c.upgradeContainer.CallUnary(ctx, req)
+}
+
 // ContainerServiceHandler is an implementation of the panel.agent.v1.ContainerService service.
 type ContainerServiceHandler interface {
 	// 分页查询容器。
@@ -1084,6 +1237,24 @@ type ContainerServiceHandler interface {
 	SearchCompose(context.Context, *connect.Request[v1.SearchComposeRequest]) (*connect.Response[v1.SearchComposeResponse], error)
 	// 分页查询卷。
 	SearchVolumes(context.Context, *connect.Request[v1.SearchVolumesRequest]) (*connect.Response[v1.SearchVolumesResponse], error)
+	// 创建容器。
+	CreateContainer(context.Context, *connect.Request[v1.CreateContainerRequest]) (*connect.Response[v1.CreateContainerResponse], error)
+	// 创建 Compose 项目。
+	CreateCompose(context.Context, *connect.Request[v1.CreateComposeRequest]) (*connect.Response[v1.CreateComposeResponse], error)
+	// 更新 Compose 项目。
+	UpdateCompose(context.Context, *connect.Request[v1.UpdateComposeRequest]) (*connect.Response[v1.UpdateComposeResponse], error)
+	// 查询容器详情。
+	ContainerInfo(context.Context, *connect.Request[v1.ContainerInfoRequest]) (*connect.Response[v1.ContainerInfoResponse], error)
+	// 列出镜像标签选项。
+	ListImages(context.Context, *connect.Request[v1.ListImagesRequest]) (*connect.Response[v1.ImageOptionsResponse], error)
+	// 列出全部镜像。
+	ListAllImages(context.Context, *connect.Request[v1.ListAllImagesRequest]) (*connect.Response[v1.ImageListResponse], error)
+	// 将容器提交为新镜像。
+	CommitContainer(context.Context, *connect.Request[v1.CommitContainerRequest]) (*connect.Response[v1.CommitContainerResponse], error)
+	// 更新容器配置。
+	UpdateContainer(context.Context, *connect.Request[v1.UpdateContainerRequest]) (*connect.Response[v1.UpdateContainerResponse], error)
+	// 批量升级容器镜像。
+	UpgradeContainer(context.Context, *connect.Request[v1.UpgradeContainerRequest]) (*connect.Response[v1.UpgradeContainerResponse], error)
 }
 
 // NewContainerServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -1417,6 +1588,60 @@ func NewContainerServiceHandler(svc ContainerServiceHandler, opts ...connect.Han
 		connect.WithSchema(containerServiceMethods.ByName("SearchVolumes")),
 		connect.WithHandlerOptions(opts...),
 	)
+	containerServiceCreateContainerHandler := connect.NewUnaryHandler(
+		ContainerServiceCreateContainerProcedure,
+		svc.CreateContainer,
+		connect.WithSchema(containerServiceMethods.ByName("CreateContainer")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceCreateComposeHandler := connect.NewUnaryHandler(
+		ContainerServiceCreateComposeProcedure,
+		svc.CreateCompose,
+		connect.WithSchema(containerServiceMethods.ByName("CreateCompose")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceUpdateComposeHandler := connect.NewUnaryHandler(
+		ContainerServiceUpdateComposeProcedure,
+		svc.UpdateCompose,
+		connect.WithSchema(containerServiceMethods.ByName("UpdateCompose")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceContainerInfoHandler := connect.NewUnaryHandler(
+		ContainerServiceContainerInfoProcedure,
+		svc.ContainerInfo,
+		connect.WithSchema(containerServiceMethods.ByName("ContainerInfo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceListImagesHandler := connect.NewUnaryHandler(
+		ContainerServiceListImagesProcedure,
+		svc.ListImages,
+		connect.WithSchema(containerServiceMethods.ByName("ListImages")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceListAllImagesHandler := connect.NewUnaryHandler(
+		ContainerServiceListAllImagesProcedure,
+		svc.ListAllImages,
+		connect.WithSchema(containerServiceMethods.ByName("ListAllImages")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceCommitContainerHandler := connect.NewUnaryHandler(
+		ContainerServiceCommitContainerProcedure,
+		svc.CommitContainer,
+		connect.WithSchema(containerServiceMethods.ByName("CommitContainer")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceUpdateContainerHandler := connect.NewUnaryHandler(
+		ContainerServiceUpdateContainerProcedure,
+		svc.UpdateContainer,
+		connect.WithSchema(containerServiceMethods.ByName("UpdateContainer")),
+		connect.WithHandlerOptions(opts...),
+	)
+	containerServiceUpgradeContainerHandler := connect.NewUnaryHandler(
+		ContainerServiceUpgradeContainerProcedure,
+		svc.UpgradeContainer,
+		connect.WithSchema(containerServiceMethods.ByName("UpgradeContainer")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.ContainerService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ContainerServiceSearchProcedure:
@@ -1527,6 +1752,24 @@ func NewContainerServiceHandler(svc ContainerServiceHandler, opts ...connect.Han
 			containerServiceSearchComposeHandler.ServeHTTP(w, r)
 		case ContainerServiceSearchVolumesProcedure:
 			containerServiceSearchVolumesHandler.ServeHTTP(w, r)
+		case ContainerServiceCreateContainerProcedure:
+			containerServiceCreateContainerHandler.ServeHTTP(w, r)
+		case ContainerServiceCreateComposeProcedure:
+			containerServiceCreateComposeHandler.ServeHTTP(w, r)
+		case ContainerServiceUpdateComposeProcedure:
+			containerServiceUpdateComposeHandler.ServeHTTP(w, r)
+		case ContainerServiceContainerInfoProcedure:
+			containerServiceContainerInfoHandler.ServeHTTP(w, r)
+		case ContainerServiceListImagesProcedure:
+			containerServiceListImagesHandler.ServeHTTP(w, r)
+		case ContainerServiceListAllImagesProcedure:
+			containerServiceListAllImagesHandler.ServeHTTP(w, r)
+		case ContainerServiceCommitContainerProcedure:
+			containerServiceCommitContainerHandler.ServeHTTP(w, r)
+		case ContainerServiceUpdateContainerProcedure:
+			containerServiceUpdateContainerHandler.ServeHTTP(w, r)
+		case ContainerServiceUpgradeContainerProcedure:
+			containerServiceUpgradeContainerHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -1750,4 +1993,40 @@ func (UnimplementedContainerServiceHandler) SearchCompose(context.Context, *conn
 
 func (UnimplementedContainerServiceHandler) SearchVolumes(context.Context, *connect.Request[v1.SearchVolumesRequest]) (*connect.Response[v1.SearchVolumesResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.SearchVolumes is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) CreateContainer(context.Context, *connect.Request[v1.CreateContainerRequest]) (*connect.Response[v1.CreateContainerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.CreateContainer is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) CreateCompose(context.Context, *connect.Request[v1.CreateComposeRequest]) (*connect.Response[v1.CreateComposeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.CreateCompose is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) UpdateCompose(context.Context, *connect.Request[v1.UpdateComposeRequest]) (*connect.Response[v1.UpdateComposeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.UpdateCompose is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) ContainerInfo(context.Context, *connect.Request[v1.ContainerInfoRequest]) (*connect.Response[v1.ContainerInfoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.ContainerInfo is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) ListImages(context.Context, *connect.Request[v1.ListImagesRequest]) (*connect.Response[v1.ImageOptionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.ListImages is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) ListAllImages(context.Context, *connect.Request[v1.ListAllImagesRequest]) (*connect.Response[v1.ImageListResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.ListAllImages is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) CommitContainer(context.Context, *connect.Request[v1.CommitContainerRequest]) (*connect.Response[v1.CommitContainerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.CommitContainer is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) UpdateContainer(context.Context, *connect.Request[v1.UpdateContainerRequest]) (*connect.Response[v1.UpdateContainerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.UpdateContainer is not implemented"))
+}
+
+func (UnimplementedContainerServiceHandler) UpgradeContainer(context.Context, *connect.Request[v1.UpgradeContainerRequest]) (*connect.Response[v1.UpgradeContainerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.ContainerService.UpgradeContainer is not implemented"))
 }

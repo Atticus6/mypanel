@@ -99,6 +99,8 @@ routes:
   "GET /backups/options": panel.agent.v1.BackupService.LoadBackupOptions
   "GET /containers/daemonjson": panel.agent.v1.ContainerService.GetDaemonJson
   "GET /containers/docker/status": panel.agent.v1.ContainerService.GetDockerStatus
+  "GET /containers/image": panel.agent.v1.ContainerService.ListImages
+  "GET /containers/image/all": panel.agent.v1.ContainerService.ListAllImages
   "GET /containers/limit": panel.agent.v1.ContainerService.GetLimit
   "GET /containers/list/stats": panel.agent.v1.ContainerService.GetContainerStats
   "GET /containers/network": panel.agent.v1.ContainerService.ListNetworks
@@ -222,13 +224,17 @@ routes:
   "POST /backups/search/files": panel.agent.v1.BackupService.ListBackupFiles
   "POST /backups/update": panel.agent.v1.BackupService.UpdateBackupAccount
   "POST /backups/upload": panel.agent.v1.BackupService.UploadForRecover
+  "POST /containers": panel.agent.v1.ContainerService.CreateContainer
   "POST /containers/clean/log": panel.agent.v1.ContainerService.CleanLogs
+  "POST /containers/commit": panel.agent.v1.ContainerService.CommitContainer
+  "POST /containers/compose": panel.agent.v1.ContainerService.CreateCompose
   "POST /containers/compose/clean/log": panel.agent.v1.ContainerService.CleanComposeLogs
   "POST /containers/compose/env": panel.agent.v1.ContainerService.GetComposeEnv
   "POST /containers/compose/operate": panel.agent.v1.ContainerService.OperateCompose
   "POST /containers/compose/pin": panel.agent.v1.ContainerService.PinCompose
   "POST /containers/compose/search": panel.agent.v1.ContainerService.SearchCompose
   "POST /containers/compose/test": panel.agent.v1.ContainerService.TestCompose
+  "POST /containers/compose/update": panel.agent.v1.ContainerService.UpdateCompose
   "POST /containers/daemonjson/update": panel.agent.v1.ContainerService.UpdateDaemonJson
   "POST /containers/daemonjson/update/byfile": panel.agent.v1.ContainerService.UpdateDaemonJsonByFile
   "POST /containers/docker/operate": panel.agent.v1.ContainerService.OperateDocker
@@ -239,6 +245,7 @@ routes:
   "POST /containers/image/remove": panel.agent.v1.ContainerService.RemoveImages
   "POST /containers/image/search": panel.agent.v1.ContainerService.SearchImages
   "POST /containers/image/tag": panel.agent.v1.ContainerService.TagImage
+  "POST /containers/info": panel.agent.v1.ContainerService.ContainerInfo
   "POST /containers/inspect": panel.agent.v1.ContainerService.Inspect
   "POST /containers/ipv6option/update": panel.agent.v1.ContainerService.UpdateIpv6Option
   "POST /containers/item/stats": panel.agent.v1.ContainerService.GetContainerItemStats
@@ -262,6 +269,8 @@ routes:
   "POST /containers/template/del": panel.agent.v1.ContainerService.DeleteTemplates
   "POST /containers/template/search": panel.agent.v1.ContainerService.SearchComposeTemplates
   "POST /containers/template/update": panel.agent.v1.ContainerService.UpdateTemplate
+  "POST /containers/update": panel.agent.v1.ContainerService.UpdateContainer
+  "POST /containers/upgrade": panel.agent.v1.ContainerService.UpgradeContainer
   "POST /containers/users": panel.agent.v1.ContainerService.GetContainerUsers
   "POST /containers/volume": panel.agent.v1.ContainerService.CreateVolume
   "POST /containers/volume/del": panel.agent.v1.ContainerService.DeleteVolumes

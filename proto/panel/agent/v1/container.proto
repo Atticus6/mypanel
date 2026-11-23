@@ -440,6 +440,79 @@ service ContainerService {
       no_audit: true
     };
   }
+
+
+  // 创建容器。
+  rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建容器"
+      audit_action_en: "Create container"
+    };
+  }
+
+  // 创建 Compose 项目。
+  rpc CreateCompose(CreateComposeRequest) returns (CreateComposeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建 Compose"
+      audit_action_en: "Create compose"
+    };
+  }
+
+  // 更新 Compose 项目。
+  rpc UpdateCompose(UpdateComposeRequest) returns (UpdateComposeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新 Compose"
+      audit_action_en: "Update compose"
+    };
+  }
+
+  // 查询容器详情。
+  rpc ContainerInfo(ContainerInfoRequest) returns (ContainerInfoResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出镜像标签选项。
+  rpc ListImages(ListImagesRequest) returns (ImageOptionsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出全部镜像。
+  rpc ListAllImages(ListAllImagesRequest) returns (ImageListResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 将容器提交为新镜像。
+  rpc CommitContainer(CommitContainerRequest) returns (CommitContainerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "提交容器镜像"
+      audit_action_en: "Commit container"
+    };
+  }
+
+  // 更新容器配置。
+  rpc UpdateContainer(UpdateContainerRequest) returns (UpdateContainerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新容器"
+      audit_action_en: "Update container"
+    };
+  }
+
+  // 批量升级容器镜像。
+  rpc UpgradeContainer(UpgradeContainerRequest) returns (UpgradeContainerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "升级容器"
+      audit_action_en: "Upgrade container"
+    };
+  }
 }
 
 // SearchContainersRequest 是容器列表查询参数。
@@ -1826,3 +1899,113 @@ message ContainerStatsSample {
   // 采样时间，RFC3339 格式。
   string shot_time = 8;
 }
+
+// CreateContainerRequest 是创建容器参数。
+//
+// 容器配置含网络、端口与卷等嵌套结构，直接用 JSON 透传。
+message CreateContainerRequest {
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// CreateContainerResponse 是创建结果，无业务字段。
+message CreateContainerResponse {}
+
+// CreateComposeRequest 是创建 Compose 项目参数。
+message CreateComposeRequest {
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// CreateComposeResponse 是创建结果，无业务字段。
+message CreateComposeResponse {}
+
+// UpdateComposeRequest 是更新 Compose 项目参数。
+message UpdateComposeRequest {
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateComposeResponse 是更新结果，无业务字段。
+message UpdateComposeResponse {}
+
+// ContainerInfoRequest 是容器详情查询参数。
+message ContainerInfoRequest {
+  // 容器名称。
+  string name = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ContainerInfoResponse 是容器详情。
+message ContainerInfoResponse {
+  // 容器详情的 JSON 字符串。
+  string info_json = 1;
+}
+
+// ListImagesRequest 是镜像标签列表查询参数，无业务字段。
+message ListImagesRequest {}
+
+// ImageOptionsResponse 是镜像标签列表。
+message ImageOptionsResponse {
+  // 镜像标签。
+  repeated string items = 1;
+}
+
+// ListAllImagesRequest 是全部镜像查询参数，无业务字段。
+message ListAllImagesRequest {}
+
+// ImageListResponse 是镜像列表结果。
+message ImageListResponse {
+  // 镜像列表。
+  repeated ImageInfo items = 1;
+}
+
+// ImageInfo 是一个镜像。
+message ImageInfo {
+  // 镜像 ID。
+  string id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 是否被容器使用。
+  bool is_used = 3;
+
+  // 镜像标签。
+  repeated string tags = 4;
+
+  // 大小，单位字节。
+  int64 size = 5;
+
+  // 是否置顶。
+  bool is_pinned = 6;
+
+  // 描述。
+  string description = 7;
+}
+
+// CommitContainerRequest 是容器提交参数。
+message CommitContainerRequest {
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// CommitContainerResponse 是提交结果，无业务字段。
+message CommitContainerResponse {}
+
+// UpdateContainerRequest 是容器更新参数。
+message UpdateContainerRequest {
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateContainerResponse 是更新结果，无业务字段。
+message UpdateContainerResponse {}
+
+// UpgradeContainerRequest 是容器升级参数。
+message UpgradeContainerRequest {
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpgradeContainerResponse 是升级结果，无业务字段。
+message UpgradeContainerResponse {}

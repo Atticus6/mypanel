@@ -67,8 +67,8 @@
                                         <el-option
                                             v-for="(item, index) of images"
                                             :key="index"
-                                            :value="item.option"
-                                            :label="item.option"
+                                            :value="item"
+                                            :label="item"
                                         />
                                     </el-select>
                                     <el-input class="mini-form-item" v-else v-model="form.image" />
@@ -353,7 +353,7 @@ import Confirm from '@/views/container/container/operate/confirm.vue';
 import Volume from '@/views/container/container/operate/volume.vue';
 import Network from '@/views/container/container/operate/network.vue';
 import ExtraHosts from '@/views/website/components/extra-hosts/index.vue';
-import { listImage, createContainer, updateContainer, loadContainerInfo, searchContainer } from '@/api/modules/container';
+import { searchContainer } from '@/api/modules/container';
 import { Container } from '@/api/interface/container';
 import { MsgError } from '@/utils/message';
 import TaskLog from '@/components/log/task/index.vue';
@@ -407,29 +407,31 @@ const form = reactive<Container.ContainerHelper>({
 const search = async () => {
     if (!isCreate.value) {
         loading.value = true;
-        await loadContainerInfo(form.name)
+        await rpc.container
+            .containerInfo({ name: form.name })
+            .then((res) => JSON.parse(res.infoJson || '{}'))
             .then((res) => {
                 loading.value = false;
-                form.name = res.data.name;
-                form.image = res.data.image;
-                form.networks = res.data.networks;
-                form.hostname = res.data.hostname;
-                form.domainName = res.data.domainName;
-                form.dns = res.data.dns || [];
-                form.openStdin = res.data.openStdin;
-                form.tty = res.data.tty;
-                form.publishAllPorts = res.data.publishAllPorts;
-                form.nanoCPUs = res.data.nanoCPUs;
-                form.cpuShares = res.data.cpuShares;
-                form.privileged = res.data.privileged;
-                form.autoRemove = res.data.autoRemove;
-                form.restartPolicy = res.data.restartPolicy;
-                form.memory = Number(res.data.memory.toFixed(2));
-                form.user = res.data.user;
-                form.workingDir = res.data.workingDir;
+                form.name = res.name;
+                form.image = res.image;
+                form.networks = res.networks;
+                form.hostname = res.hostname;
+                form.domainName = res.domainName;
+                form.dns = res.dns || [];
+                form.openStdin = res.openStdin;
+                form.tty = res.tty;
+                form.publishAllPorts = res.publishAllPorts;
+                form.nanoCPUs = res.nanoCPUs;
+                form.cpuShares = res.cpuShares;
+                form.privileged = res.privileged;
+                form.autoRemove = res.autoRemove;
+                form.restartPolicy = res.restartPolicy;
+                form.memory = Number(Number(res.memory).toFixed(2));
+                form.user = res.user;
+                form.workingDir = res.workingDir;
 
                 let itemCmd = '';
-                form.cmd = res.data.cmd || [];
+                form.cmd = res.cmd || [];
                 for (const item of form.cmd) {
                     if (item.indexOf(' ') !== -1) {
                         itemCmd += `"${escapeQuotes(item)}" `;
@@ -439,7 +441,7 @@ const search = async () => {
                 }
                 form.cmdStr = itemCmd.trimEnd();
                 let itemEntrypoint = '';
-                form.entrypoint = res.data.entrypoint || [];
+                form.entrypoint = res.entrypoint || [];
                 for (const item of form.entrypoint) {
                     if (item.indexOf(' ') !== -1) {
                         itemEntrypoint += `"${escapeQuotes(item)}" `;
@@ -449,9 +451,9 @@ const search = async () => {
                 }
                 form.entrypointStr = itemEntrypoint.trimEnd();
 
-                form.labels = res.data.labels || [];
-                form.env = res.data.env || [];
-                form.exposedPorts = res.data.exposedPorts || [];
+                form.labels = res.labels || [];
+                form.env = res.env || [];
+                form.exposedPorts = res.exposedPorts || [];
                 for (const item of form.exposedPorts) {
                     if (item.hostIP) {
                         item.host = item.hostIP + ':' + item.hostPort;
@@ -459,8 +461,8 @@ const search = async () => {
                         item.host = item.hostPort;
                     }
                 }
-                form.volumes = res.data.volumes || [];
-                form.extraHosts = res.data.extraHosts || [];
+                form.volumes = res.volumes || [];
+                form.extraHosts = res.extraHosts || [];
             })
             .catch(() => {
                 loading.value = false;
@@ -525,8 +527,7 @@ const loadLimit = async () => {
 };
 
 const loadImageOptions = async () => {
-    const res = await listImage();
-    images.value = res.data;
+    images.value = (await rpc.container.listImages({})).items;
 };
 const onSubmit = async (formEl: FormInstance | undefined) => {
     form.volumes = volumeRef.value.loadVolumes();
@@ -585,7 +586,8 @@ const submit = async () => {
 
     loading.value = true;
     if (isCreate.value) {
-        await createContainer(form)
+        await rpc.container
+            .createContainer({ payloadJson: JSON.stringify(form) })
             .then(() => {
                 loading.value = false;
                 openTaskLog(form.taskID);
@@ -594,7 +596,8 @@ const submit = async () => {
                 loading.value = false;
             });
     } else {
-        await updateContainer(form)
+        await rpc.container
+            .updateContainer({ payloadJson: JSON.stringify(form) })
             .then(() => {
                 loading.value = false;
                 openTaskLog(form.taskID);

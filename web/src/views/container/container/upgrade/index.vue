@@ -95,7 +95,6 @@
 import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import { ElMessageBox, type CheckboxValueType, type FormInstance } from 'element-plus';
 import { Container } from '@/api/interface/container';
-import { upgradeContainer } from '@/api/modules/container';
 import { Rules } from '@/global/form-rules';
 import { newUUID } from '@/utils/id';
 import i18n from '@/lang';
@@ -277,15 +276,14 @@ const submit = async () => {
         for (const group of pending) {
             group.state = 'submitting';
             try {
-                await upgradeContainer(
-                    {
+                await rpc.container.upgradeContainer({
+                    payloadJson: JSON.stringify({
                         taskID: group.taskID,
                         names: [...group.names],
                         image: group.targetImage.trim(),
                         forcePull,
-                    },
-                    operateNode,
-                );
+                    }),
+                });
                 group.state = 'submitted';
             } catch (error) {
                 if (!(await refreshGroup(group))) {

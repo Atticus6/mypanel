@@ -42,7 +42,6 @@
 </template>
 
 <script lang="ts" setup>
-import { listAllImage } from '@/api/modules/container';
 import TaskLog from '@/components/log/task/index.vue';
 import i18n from '@/lang';
 import { newUUID } from '@/utils/id';
@@ -63,8 +62,7 @@ const isIndeterminate = ref(false);
 const checkedLists = ref([]);
 
 const acceptParams = async (): Promise<void> => {
-    const res = await listAllImage();
-    let list = res.data || [];
+    const list = (await rpc.container.listAllImages({})).items;
     unTagList.value = [];
     unUsedList.value = [];
     for (const item of list) {
@@ -145,7 +143,8 @@ const prune = async () => {
         pruneType: 'image',
         withTagAll: scope.value === 'unused',
     };
-    await rpc.container.prune(params)
+    await rpc.container
+        .prune(params)
         .then(() => {
             loading.value = false;
             dialogVisible.value = false;
@@ -164,7 +163,8 @@ const removeImage = async () => {
         taskID: newUUID(),
         names: checkedLists.value,
     };
-    await rpc.container.removeImages(params)
+    await rpc.container
+        .removeImages(params)
         .then(() => {
             loading.value = false;
             dialogVisible.value = false;

@@ -1134,7 +1134,10 @@
     {
       "method": "POST",
       "path": "/containers",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.CreateContainer",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CreateContainer",
+      "covered": true
     },
     {
       "method": "POST",
@@ -1147,12 +1150,18 @@
     {
       "method": "POST",
       "path": "/containers/commit",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.CommitContainer",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CommitContainer",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/containers/compose",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.CreateCompose",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "CreateCompose",
+      "covered": true
     },
     {
       "method": "POST",
@@ -1205,7 +1214,10 @@
     {
       "method": "POST",
       "path": "/containers/compose/update",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.UpdateCompose",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateCompose",
+      "covered": true
     },
     {
       "method": "GET",
@@ -1298,12 +1310,18 @@
     {
       "method": "GET",
       "path": "/containers/image",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.ListImages",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListImages",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/containers/image/all",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.ListAllImages",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ListAllImages",
+      "covered": true
     },
     {
       "method": "POST",
@@ -1376,7 +1394,10 @@
     {
       "method": "POST",
       "path": "/containers/info",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.ContainerInfo",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "ContainerInfo",
+      "covered": true
     },
     {
       "method": "POST",
@@ -1627,12 +1648,18 @@
     {
       "method": "POST",
       "path": "/containers/update",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.UpdateContainer",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpdateContainer",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/containers/upgrade",
-      "covered": false
+      "target": "panel.agent.v1.ContainerService.UpgradeContainer",
+      "service": "panel.agent.v1.ContainerService",
+      "rpc": "UpgradeContainer",
+      "covered": true
     },
     {
       "method": "POST",

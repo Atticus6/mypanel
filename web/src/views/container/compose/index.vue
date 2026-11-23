@@ -536,7 +536,7 @@ import ContainerLogDialog from '@/components/log/container-drawer/index.vue';
 import DeleteDialog from '@/views/container/compose/delete/index.vue';
 import Backups from '@/components/backup/index.vue';
 import Uploads from '@/components/upload/index.vue';
-import { composeUpdate, inspect, upCompose } from '@/api/modules/container';
+import { inspect } from '@/api/modules/container';
 import DockerStatus from '@/views/container/docker-status/index.vue';
 import i18n from '@/lang';
 import { Container } from '@/api/interface/container';
@@ -673,9 +673,11 @@ const refresh = async () => {
         pageSize: 100,
         excludeAppStore: !includeAppStore.value,
     };
-    await rpc.container.searchCompose({ info: params.info, page: params.page, pageSize: params.pageSize }).then((res) => {
-        data.value = res.items || [];
-    });
+    await rpc.container
+        .searchCompose({ info: params.info, page: params.page, pageSize: params.pageSize })
+        .then((res) => {
+            data.value = res.items || [];
+        });
 };
 
 const search = async (withRefreshDetail?: boolean) => {
@@ -889,7 +891,8 @@ const handleComposeOperate = async (operation: 'up' | 'stop' | 'restart' | 'rebu
             withFile: false,
             force: false,
         };
-        await rpc.container.operateCompose(params)
+        await rpc.container
+            .operateCompose(params)
             .then(async () => {
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
                 await search();
@@ -955,7 +958,8 @@ const onSubmitEdit = async () => {
         forcePull: forcePull.value,
     };
     loading.value = true;
-    await composeUpdate(param)
+    await rpc.container
+        .updateCompose({ payloadJson: JSON.stringify(param) })
         .then(async () => {
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
             openTaskLog(taskID);
@@ -981,12 +985,13 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
             return;
         }
         loading.value = true;
-        await rpc.container.testCompose(form)
+        await rpc.container
+            .testCompose(form)
             .then(async (res) => {
                 loading.value = false;
                 if (res.ok) {
                     form.taskID = newUUID();
-                    await upCompose(form);
+                    await rpc.container.createCompose({ payloadJson: JSON.stringify(form) });
                     openTaskLog(form.taskID);
                     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
                 }

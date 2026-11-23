@@ -2,6 +2,7 @@ package agent
 
 import (
 	"context"
+	"encoding/json"
 
 	"connectrpc.com/connect"
 
@@ -341,4 +342,146 @@ func fromContainerInfo(item agentdto.ContainerInfo) *agentv1.Container {
 		LatestVersion:  item.LatestVersion,
 		TargetImage:    item.TargetImage,
 	}
+}
+
+// CreateContainer 创建容器。
+func (s *ContainerServer) CreateContainer(
+	_ context.Context,
+	req *connect.Request[agentv1.CreateContainerRequest],
+) (*connect.Response[agentv1.CreateContainerResponse], error) {
+	var payload agentdto.ContainerOperate
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.ContainerCreate(payload, true); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.CreateContainerResponse{}), nil
+}
+
+// CreateCompose 创建 Compose 项目。
+func (s *ContainerServer) CreateCompose(
+	_ context.Context,
+	req *connect.Request[agentv1.CreateComposeRequest],
+) (*connect.Response[agentv1.CreateComposeResponse], error) {
+	var payload agentdto.ComposeCreate
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.CreateCompose(payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.CreateComposeResponse{}), nil
+}
+
+// UpdateCompose 更新 Compose 项目。
+func (s *ContainerServer) UpdateCompose(
+	_ context.Context,
+	req *connect.Request[agentv1.UpdateComposeRequest],
+) (*connect.Response[agentv1.UpdateComposeResponse], error) {
+	var payload agentdto.ComposeUpdate
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.ComposeUpdate(payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.UpdateComposeResponse{}), nil
+}
+
+// ContainerInfo 查询容器详情。
+func (s *ContainerServer) ContainerInfo(
+	_ context.Context,
+	req *connect.Request[agentv1.ContainerInfoRequest],
+) (*connect.Response[agentv1.ContainerInfoResponse], error) {
+	info, err := s.service.ContainerInfo(agentdto.OperationWithName{Name: req.Msg.GetName()})
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrRecordNotFound", err)
+	}
+	return connect.NewResponse(&agentv1.ContainerInfoResponse{InfoJson: marshalJSON(info)}), nil
+}
+
+// ListImages 列出镜像标签选项。
+func (s *ContainerServer) ListImages(
+	_ context.Context,
+	_ *connect.Request[agentv1.ListImagesRequest],
+) (*connect.Response[agentv1.ImageOptionsResponse], error) {
+	list, err := s.image.List()
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	items := make([]string, 0, len(list))
+	for _, item := range list {
+		items = append(items, item.Option)
+	}
+	return connect.NewResponse(&agentv1.ImageOptionsResponse{Items: items}), nil
+}
+
+// ListAllImages 列出全部镜像。
+func (s *ContainerServer) ListAllImages(
+	_ context.Context,
+	_ *connect.Request[agentv1.ListAllImagesRequest],
+) (*connect.Response[agentv1.ImageListResponse], error) {
+	list, err := s.image.ListAll()
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	items := make([]*agentv1.ImageInfo, 0, len(list))
+	for _, item := range list {
+		items = append(items, &agentv1.ImageInfo{
+			Id:          item.ID,
+			CreatedAt:   formatFileTime(item.CreatedAt),
+			IsUsed:      item.IsUsed,
+			Tags:        item.Tags,
+			Size:        item.Size,
+			IsPinned:    item.IsPinned,
+			Description: item.Description,
+		})
+	}
+	return connect.NewResponse(&agentv1.ImageListResponse{Items: items}), nil
+}
+
+// CommitContainer 将容器提交为新镜像。
+func (s *ContainerServer) CommitContainer(
+	_ context.Context,
+	req *connect.Request[agentv1.CommitContainerRequest],
+) (*connect.Response[agentv1.CommitContainerResponse], error) {
+	var payload agentdto.ContainerCommit
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.ContainerCommit(payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.CommitContainerResponse{}), nil
+}
+
+// UpdateContainer 更新容器配置。
+func (s *ContainerServer) UpdateContainer(
+	_ context.Context,
+	req *connect.Request[agentv1.UpdateContainerRequest],
+) (*connect.Response[agentv1.UpdateContainerResponse], error) {
+	var payload agentdto.ContainerOperate
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.ContainerUpdate(payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.UpdateContainerResponse{}), nil
+}
+
+// UpgradeContainer 批量升级容器镜像。
+func (s *ContainerServer) UpgradeContainer(
+	_ context.Context,
+	req *connect.Request[agentv1.UpgradeContainerRequest],
+) (*connect.Response[agentv1.UpgradeContainerResponse], error) {
+	var payload agentdto.ContainerUpgrade
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.ContainerUpgrade(payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.UpgradeContainerResponse{}), nil
 }

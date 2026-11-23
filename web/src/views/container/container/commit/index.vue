@@ -50,7 +50,7 @@ import { reactive, ref } from 'vue';
 import { ElForm } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { commitContainer } from '@/api/modules/container';
+import { rpc } from '@/lib/rpc';
 import TaskLog from '@/components/log/task/index.vue';
 import { MsgSuccess } from '@/utils/message';
 import { newUUID } from '@/utils/id';
@@ -95,7 +95,8 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         }).then(async () => {
             loading.value = true;
             form.taskID = newUUID();
-            await commitContainer(form)
+            await rpc.container
+                .commitContainer({ payloadJson: JSON.stringify(form) })
                 .then(() => {
                     loading.value = false;
                     emit('search');
