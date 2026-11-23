@@ -2,13 +2,17 @@ package agent
 
 import (
 	"context"
+	"encoding/json"
+	"net/http"
 
 	"connectrpc.com/connect"
 
 	agentdto "mypanel/agent/app/dto"
+	agentmodel "mypanel/agent/app/model"
 	agentservice "mypanel/agent/app/service"
 	agentv1 "mypanel/proto/gen/go/panel/agent/v1"
 
+	"mypanel/master/internal/transport/bridge"
 	"mypanel/master/internal/transport/errmap"
 )
 
@@ -182,4 +186,228 @@ func fromQuickJumps(items []agentdto.QuickJump) []*agentv1.QuickJump {
 		})
 	}
 	return result
+}
+
+// GetAppLauncher 列出首页应用启动器。
+func (s *DashboardServer) GetAppLauncher(
+	ctx context.Context,
+	_ *connect.Request[agentv1.GetAppLauncherRequest],
+) (*connect.Response[agentv1.AppLauncherList], error) {
+	c := bridge.GinContext(ctx)
+	if c == nil {
+		c, _ = bridge.New(ctx, http.Header{}, "", http.MethodPost, "/rpc")
+	}
+	list, err := s.service.LoadAppLauncher(c)
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	items := make([]*agentv1.AppLauncherEntry, 0, len(list))
+	for _, item := range list {
+		items = append(items, &agentv1.AppLauncherEntry{
+			Key:         item.Key,
+			Type:        item.Type,
+			Name:        item.Name,
+			Icon:        item.Icon,
+			Limit:       int32(item.Limit),
+			Description: item.Description,
+			Recommend:   int32(item.Recommend),
+			IsInstall:   item.IsInstall,
+			IsRecommend: item.IsRecommend,
+			DetailJson:  marshalJSON(item.Detail),
+		})
+	}
+	return connect.NewResponse(&agentv1.AppLauncherList{Items: items}), nil
+}
+
+// GetLauncherOptions 列出可添加到启动器的应用。
+func (s *DashboardServer) GetLauncherOptions(
+	_ context.Context,
+	req *connect.Request[agentv1.GetLauncherOptionsRequest],
+) (*connect.Response[agentv1.LauncherOptions], error) {
+	list, err := s.service.ListLauncherOption(req.Msg.GetFilter())
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	items := make([]*agentv1.LauncherOption, 0, len(list))
+	for _, item := range list {
+		items = append(items, &agentv1.LauncherOption{Key: item.Key, IsShow: item.IsShow})
+	}
+	return connect.NewResponse(&agentv1.LauncherOptions{Items: items}), nil
+}
+
+// SetLauncherShow 设置启动器应用的显示状态。
+func (s *DashboardServer) SetLauncherShow(
+	_ context.Context,
+	req *connect.Request[agentv1.SetLauncherShowRequest],
+) (*connect.Response[agentv1.SetLauncherShowResponse], error) {
+	if err := s.service.ChangeShow(agentdto.SettingUpdate{
+		Key:   req.Msg.GetKey(),
+		Value: req.Msg.GetValue(),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.SetLauncherShowResponse{}), nil
+}
+
+// GetNodeCurrent 读取当前节点负载信息。
+func (s *DashboardServer) GetNodeCurrent(
+	_ context.Context,
+	_ *connect.Request[agentv1.GetNodeCurrentRequest],
+) (*connect.Response[agentv1.NodeCurrent], error) {
+	data := s.service.LoadCurrentInfoForNode()
+	return connect.NewResponse(&agentv1.NodeCurrent{
+		Load1:                 data.Load1,
+		Load5:                 data.Load5,
+		Load15:                data.Load15,
+		LoadUsagePercent:      data.LoadUsagePercent,
+		CpuUsedPercent:        data.CPUUsedPercent,
+		CpuUsed:               data.CPUUsed,
+		CpuTotal:              int32(data.CPUTotal),
+		CpuDetailedPercent:    data.CPUDetailedPercent,
+		MemoryTotal:           data.MemoryTotal,
+		MemoryAvailable:       data.MemoryAvailable,
+		MemoryUsed:            data.MemoryUsed,
+		MemoryUsedPercent:     data.MemoryUsedPercent,
+		SwapMemoryTotal:       data.SwapMemoryTotal,
+		SwapMemoryAvailable:   data.SwapMemoryAvailable,
+		SwapMemoryUsed:        data.SwapMemoryUsed,
+		SwapMemoryUsedPercent: data.SwapMemoryUsedPercent,
+	}), nil
+}
+
+// GetTopCPU 读取 CPU 占用最高的进程。
+func (s *DashboardServer) GetTopCPU(
+	_ context.Context,
+	_ *connect.Request[agentv1.GetTopCPURequest],
+) (*connect.Response[agentv1.TopProcesses], error) {
+	return connect.NewResponse(&agentv1.TopProcesses{Items: fromTopProcesses(s.service.LoadTopCPU())}), nil
+}
+
+// GetTopMem 读取内存占用最高的进程。
+func (s *DashboardServer) GetTopMem(
+	_ context.Context,
+	_ *connect.Request[agentv1.GetTopMemRequest],
+) (*connect.Response[agentv1.TopProcesses], error) {
+	return connect.NewResponse(&agentv1.TopProcesses{Items: fromTopProcesses(s.service.LoadTopMem())}), nil
+}
+
+// ChangeQuickJump 修改首页快速跳转的显示状态。
+func (s *DashboardServer) ChangeQuickJump(
+	_ context.Context,
+	req *connect.Request[agentv1.ChangeQuickJumpRequest],
+) (*connect.Response[agentv1.ChangeQuickJumpResponse], error) {
+	var quicks []agentdto.QuickVisibility
+	if err := json.Unmarshal([]byte(req.Msg.GetQuicksJson()), &quicks); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.ChangeQuick(agentdto.ChangeQuicks{Quicks: quicks}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.ChangeQuickJumpResponse{}), nil
+}
+
+// GetQuickDirectories 列出快捷目录。
+func (s *DashboardServer) GetQuickDirectories(
+	_ context.Context,
+	_ *connect.Request[agentv1.GetQuickDirectoriesRequest],
+) (*connect.Response[agentv1.QuickDirectories], error) {
+	list, err := s.service.ListQuickDirectories()
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	items := make([]*agentv1.QuickDirectory, 0, len(list))
+	for _, item := range list {
+		items = append(items, fromQuickDirectory(&item))
+	}
+	return connect.NewResponse(&agentv1.QuickDirectories{Items: items}), nil
+}
+
+// CreateQuickDirectory 新建快捷目录。
+func (s *DashboardServer) CreateQuickDirectory(
+	_ context.Context,
+	req *connect.Request[agentv1.CreateQuickDirectoryRequest],
+) (*connect.Response[agentv1.QuickDirectory], error) {
+	item, err := s.service.CreateQuickDirectory(agentdto.QuickDirectoryCreate{
+		Path:  req.Msg.GetPath(),
+		Alias: req.Msg.GetAlias(),
+	})
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(fromQuickDirectory(item)), nil
+}
+
+// UpdateQuickDirectory 更新快捷目录。
+func (s *DashboardServer) UpdateQuickDirectory(
+	_ context.Context,
+	req *connect.Request[agentv1.UpdateQuickDirectoryRequest],
+) (*connect.Response[agentv1.QuickDirectory], error) {
+	item, err := s.service.UpdateQuickDirectory(agentdto.QuickDirectoryUpdate{
+		QuickDirectoryDelete: agentdto.QuickDirectoryDelete{
+			ID:     uint(req.Msg.GetId()),
+			Legacy: req.Msg.GetLegacy(),
+		},
+		QuickDirectoryCreate: agentdto.QuickDirectoryCreate{
+			Path:  req.Msg.GetPath(),
+			Alias: req.Msg.GetAlias(),
+		},
+	})
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(fromQuickDirectory(item)), nil
+}
+
+// DeleteQuickDirectory 删除快捷目录。
+func (s *DashboardServer) DeleteQuickDirectory(
+	_ context.Context,
+	req *connect.Request[agentv1.DeleteQuickDirectoryRequest],
+) (*connect.Response[agentv1.DeleteQuickDirectoryResponse], error) {
+	if err := s.service.DeleteQuickDirectory(agentdto.QuickDirectoryDelete{
+		ID:     uint(req.Msg.GetId()),
+		Legacy: req.Msg.GetLegacy(),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.DeleteQuickDirectoryResponse{}), nil
+}
+
+// SystemRestart 执行主机电源操作。
+func (s *DashboardServer) SystemRestart(
+	_ context.Context,
+	req *connect.Request[agentv1.SystemRestartRequest],
+) (*connect.Response[agentv1.SystemRestartResponse], error) {
+	if err := s.service.Restart(req.Msg.GetOperation()); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.SystemRestartResponse{}), nil
+}
+
+// fromTopProcesses 把进程信息转成 proto。
+func fromTopProcesses(list []agentdto.Process) []*agentv1.TopProcess {
+	items := make([]*agentv1.TopProcess, 0, len(list))
+	for _, item := range list {
+		items = append(items, &agentv1.TopProcess{
+			Name:    item.Name,
+			Pid:     item.Pid,
+			Percent: item.Percent,
+			Memory:  item.Memory,
+			Cmd:     item.Cmd,
+			User:    item.User,
+		})
+	}
+	return items
+}
+
+// fromQuickDirectory 把快捷目录模型转成 proto。
+func fromQuickDirectory(item *agentmodel.QuickDirectory) *agentv1.QuickDirectory {
+	if item == nil {
+		return &agentv1.QuickDirectory{}
+	}
+	return &agentv1.QuickDirectory{
+		Id:     uint32(item.ID),
+		Path:   item.Path,
+		Alias:  item.Alias,
+		Legacy: item.Legacy,
+	}
 }

@@ -111,12 +111,7 @@ import i18n from '@/lang';
 import { routerToFileWithPath } from '@/utils/router';
 import FileList from '@/components/file-list/index.vue';
 import { Dashboard } from '@/api/interface/dashboard';
-import {
-    loadQuickDirectories,
-    createQuickDirectory,
-    updateQuickDirectory,
-    deleteQuickDirectory,
-} from '@/api/modules/dashboard';
+import { rpc } from '@/lib/rpc';
 
 defineProps<{ count: string; disabled: boolean }>();
 const emit = defineEmits<{ (e: 'change', count: number): void }>();
@@ -185,8 +180,8 @@ const load = async () => {
     searchTerm.value = '';
     rows.value = [];
     try {
-        const { data } = await loadQuickDirectories();
-        rows.value = data.map((item) => ({
+        const { items } = await rpc.dashboard.getQuickDirectories({});
+        rows.value = items.map((item) => ({
             ...item,
             alias: item.alias ?? '',
             key: nextKey++,
@@ -206,9 +201,9 @@ const save = async (row: DirectoryRow) => {
     row.busy = true;
     try {
         const payload = { path: row.path, alias: (row.alias ?? '').trim() };
-        const { data } = row.id
-            ? await updateQuickDirectory({ id: row.id, legacy: row.legacy ?? false, ...payload })
-            : await createQuickDirectory(payload);
+        const data = row.id
+            ? await rpc.dashboard.updateQuickDirectory({ id: row.id, legacy: row.legacy ?? false, ...payload })
+            : await rpc.dashboard.createQuickDirectory(payload);
         Object.assign(row, data, { savedPath: data.path, editing: false });
         updateCount();
     } finally {
@@ -232,7 +227,7 @@ const remove = async (row: DirectoryRow) => {
             return;
         }
         try {
-            await deleteQuickDirectory(row.id, row.legacy ?? false);
+            await rpc.dashboard.deleteQuickDirectory({ id: row.id, legacy: row.legacy ?? false });
         } catch (error) {
             row.busy = false;
             throw error;

@@ -242,7 +242,6 @@ import SnapshotImport from '@/views/setting/snapshot/import/index.vue';
 import SnapshotCreate from '@/views/setting/snapshot/create/index.vue';
 import SnapRecover from '@/views/setting/snapshot/recover/index.vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { loadOsInfo } from '@/api/modules/dashboard';
 
 const loading = ref(false);
 const data = ref();
@@ -348,7 +347,8 @@ const onRecover = async (row: any) => {
         return;
     }
     loading.value = true;
-    await loadOsInfo()
+    await rpc.dashboard
+        .getOsInfo({})
         .then((res) => {
             loading.value = false;
             let params = {
@@ -359,9 +359,9 @@ const onRecover = async (row: any) => {
                 reDownload: false,
                 secret: row.secret,
 
-                arch: res.data.kernelArch,
+                arch: res.kernelArch,
                 size: row.size,
-                freeSize: res.data.diskSize,
+                freeSize: Number(res.diskSize),
 
                 interruptStep: row.interruptStep,
                 status: row.recoverStatus,

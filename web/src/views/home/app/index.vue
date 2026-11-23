@@ -134,7 +134,7 @@
                                     v-permission="'app_manage'"
                                     size="small"
                                     :disabled="app.limit == 1 && app.detail && app.detail.length !== 0"
-                                    @click="goInstall(app.key, app.appType)"
+                                    @click="goInstall(app.key, app.type)"
                                 >
                                     {{ $t('commons.button.install') }}
                                 </el-button>
@@ -150,7 +150,6 @@
 <script lang="ts" setup>
 import { TABLE_OVERFLOW_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { getAppIconUrl } from '@/api/modules/app';
-import { changeLauncherStatus, loadAppLauncher, loadAppLauncherOption } from '@/api/modules/dashboard';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { ref } from 'vue';
@@ -179,15 +178,14 @@ const goInstall = (key: string, type: string) => {
 
 const search = async () => {
     loading.value = true;
-    await loadAppLauncher()
+    await rpc.dashboard
+        .getAppLauncher({})
         .then((res) => {
             loading.value = false;
-            apps.value = res.data;
-            for (const item of apps.value) {
-                if (item.detail && item.detail.length !== 0) {
-                    item.currentRow = item.detail[0];
-                }
-            }
+            apps.value = res.items.map((item) => {
+                const detail = JSON.parse(item.detailJson || '[]');
+                return { ...item, detail, currentRow: detail[0] };
+            });
         })
         .finally(() => {
             loading.value = false;
@@ -196,7 +194,8 @@ const search = async () => {
 
 const onChangeStatus = async (row: any) => {
     loading.value = true;
-    await changeLauncherStatus(row.key, row.isShow ? 'Enable' : 'Disable')
+    await rpc.dashboard
+        .setLauncherShow({ key: row.key, value: row.isShow ? 'Enable' : 'Disable' })
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -236,8 +235,8 @@ const onOperate = async (operation: string, row: any) => {
 };
 
 const loadOption = async () => {
-    const res = await loadAppLauncherOption(filter.value || '');
-    options.value = res.data || [];
+    const res = await rpc.dashboard.getLauncherOptions({ filter: filter.value || '' });
+    options.value = res.items || [];
 };
 
 const getAppIconSrc = (app: any) => {

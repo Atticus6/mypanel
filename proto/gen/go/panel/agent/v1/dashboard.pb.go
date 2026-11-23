@@ -1242,6 +1242,1426 @@ func (x *QuickJump) GetRouter() string {
 	return ""
 }
 
+// GetAppLauncherRequest 是启动器列表查询参数，无业务字段。
+type GetAppLauncherRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppLauncherRequest) Reset() {
+	*x = GetAppLauncherRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppLauncherRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppLauncherRequest) ProtoMessage() {}
+
+func (x *GetAppLauncherRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppLauncherRequest.ProtoReflect.Descriptor instead.
+func (*GetAppLauncherRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{11}
+}
+
+// AppLauncherList 是启动器列表结果。
+type AppLauncherList struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 启动器条目。
+	Items         []*AppLauncherEntry `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppLauncherList) Reset() {
+	*x = AppLauncherList{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppLauncherList) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppLauncherList) ProtoMessage() {}
+
+func (x *AppLauncherList) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppLauncherList.ProtoReflect.Descriptor instead.
+func (*AppLauncherList) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *AppLauncherList) GetItems() []*AppLauncherEntry {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// AppLauncherEntry 是一个启动器条目。
+type AppLauncherEntry struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 key。
+	Key string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	// 应用类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 展示名称。
+	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	// 图标。
+	Icon string `protobuf:"bytes,4,opt,name=icon,proto3" json:"icon,omitempty"`
+	// 安装数量上限。
+	Limit int32 `protobuf:"varint,5,opt,name=limit,proto3" json:"limit,omitempty"`
+	// 简介。
+	Description string `protobuf:"bytes,6,opt,name=description,proto3" json:"description,omitempty"`
+	// 推荐顺序。
+	Recommend int32 `protobuf:"varint,7,opt,name=recommend,proto3" json:"recommend,omitempty"`
+	// 是否已安装。
+	IsInstall bool `protobuf:"varint,8,opt,name=is_install,json=isInstall,proto3" json:"is_install,omitempty"`
+	// 是否推荐。
+	IsRecommend bool `protobuf:"varint,9,opt,name=is_recommend,json=isRecommend,proto3" json:"is_recommend,omitempty"`
+	// 版本详情的 JSON 字符串。
+	DetailJson    string `protobuf:"bytes,10,opt,name=detail_json,json=detailJson,proto3" json:"detail_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppLauncherEntry) Reset() {
+	*x = AppLauncherEntry{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppLauncherEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppLauncherEntry) ProtoMessage() {}
+
+func (x *AppLauncherEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppLauncherEntry.ProtoReflect.Descriptor instead.
+func (*AppLauncherEntry) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *AppLauncherEntry) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *AppLauncherEntry) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *AppLauncherEntry) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *AppLauncherEntry) GetIcon() string {
+	if x != nil {
+		return x.Icon
+	}
+	return ""
+}
+
+func (x *AppLauncherEntry) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *AppLauncherEntry) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *AppLauncherEntry) GetRecommend() int32 {
+	if x != nil {
+		return x.Recommend
+	}
+	return 0
+}
+
+func (x *AppLauncherEntry) GetIsInstall() bool {
+	if x != nil {
+		return x.IsInstall
+	}
+	return false
+}
+
+func (x *AppLauncherEntry) GetIsRecommend() bool {
+	if x != nil {
+		return x.IsRecommend
+	}
+	return false
+}
+
+func (x *AppLauncherEntry) GetDetailJson() string {
+	if x != nil {
+		return x.DetailJson
+	}
+	return ""
+}
+
+// GetLauncherOptionsRequest 是启动器可选项查询参数。
+type GetLauncherOptionsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 关键字过滤。
+	Filter        string `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLauncherOptionsRequest) Reset() {
+	*x = GetLauncherOptionsRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLauncherOptionsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLauncherOptionsRequest) ProtoMessage() {}
+
+func (x *GetLauncherOptionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLauncherOptionsRequest.ProtoReflect.Descriptor instead.
+func (*GetLauncherOptionsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetLauncherOptionsRequest) GetFilter() string {
+	if x != nil {
+		return x.Filter
+	}
+	return ""
+}
+
+// LauncherOptions 是启动器可选项列表。
+type LauncherOptions struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 可选项。
+	Items         []*LauncherOption `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LauncherOptions) Reset() {
+	*x = LauncherOptions{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LauncherOptions) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LauncherOptions) ProtoMessage() {}
+
+func (x *LauncherOptions) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LauncherOptions.ProtoReflect.Descriptor instead.
+func (*LauncherOptions) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *LauncherOptions) GetItems() []*LauncherOption {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// LauncherOption 是一个启动器可选项。
+type LauncherOption struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 key。
+	Key string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	// 是否显示。
+	IsShow        bool `protobuf:"varint,2,opt,name=is_show,json=isShow,proto3" json:"is_show,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LauncherOption) Reset() {
+	*x = LauncherOption{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LauncherOption) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LauncherOption) ProtoMessage() {}
+
+func (x *LauncherOption) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LauncherOption.ProtoReflect.Descriptor instead.
+func (*LauncherOption) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *LauncherOption) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *LauncherOption) GetIsShow() bool {
+	if x != nil {
+		return x.IsShow
+	}
+	return false
+}
+
+// SetLauncherShowRequest 是启动器显示状态修改参数。
+type SetLauncherShowRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 设置项 key。
+	Key string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	// 设置值。
+	Value         string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetLauncherShowRequest) Reset() {
+	*x = SetLauncherShowRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetLauncherShowRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetLauncherShowRequest) ProtoMessage() {}
+
+func (x *SetLauncherShowRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetLauncherShowRequest.ProtoReflect.Descriptor instead.
+func (*SetLauncherShowRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *SetLauncherShowRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *SetLauncherShowRequest) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+// SetLauncherShowResponse 是修改结果，无业务字段。
+type SetLauncherShowResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetLauncherShowResponse) Reset() {
+	*x = SetLauncherShowResponse{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetLauncherShowResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetLauncherShowResponse) ProtoMessage() {}
+
+func (x *SetLauncherShowResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetLauncherShowResponse.ProtoReflect.Descriptor instead.
+func (*SetLauncherShowResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{18}
+}
+
+// GetNodeCurrentRequest 是节点负载查询参数，无业务字段。
+type GetNodeCurrentRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetNodeCurrentRequest) Reset() {
+	*x = GetNodeCurrentRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetNodeCurrentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetNodeCurrentRequest) ProtoMessage() {}
+
+func (x *GetNodeCurrentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetNodeCurrentRequest.ProtoReflect.Descriptor instead.
+func (*GetNodeCurrentRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{19}
+}
+
+// NodeCurrent 是当前节点的负载信息。
+type NodeCurrent struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 1 分钟负载。
+	Load1 float64 `protobuf:"fixed64,1,opt,name=load1,proto3" json:"load1,omitempty"`
+	// 5 分钟负载。
+	Load5 float64 `protobuf:"fixed64,2,opt,name=load5,proto3" json:"load5,omitempty"`
+	// 15 分钟负载。
+	Load15 float64 `protobuf:"fixed64,3,opt,name=load15,proto3" json:"load15,omitempty"`
+	// 负载百分比。
+	LoadUsagePercent float64 `protobuf:"fixed64,4,opt,name=load_usage_percent,json=loadUsagePercent,proto3" json:"load_usage_percent,omitempty"`
+	// CPU 使用率。
+	CpuUsedPercent float64 `protobuf:"fixed64,5,opt,name=cpu_used_percent,json=cpuUsedPercent,proto3" json:"cpu_used_percent,omitempty"`
+	// 已用 CPU。
+	CpuUsed float64 `protobuf:"fixed64,6,opt,name=cpu_used,json=cpuUsed,proto3" json:"cpu_used,omitempty"`
+	// CPU 核心数。
+	CpuTotal int32 `protobuf:"varint,7,opt,name=cpu_total,json=cpuTotal,proto3" json:"cpu_total,omitempty"`
+	// 各核心使用率。
+	CpuDetailedPercent []float64 `protobuf:"fixed64,8,rep,packed,name=cpu_detailed_percent,json=cpuDetailedPercent,proto3" json:"cpu_detailed_percent,omitempty"`
+	// 内存总量，单位字节。
+	MemoryTotal uint64 `protobuf:"varint,9,opt,name=memory_total,json=memoryTotal,proto3" json:"memory_total,omitempty"`
+	// 可用内存，单位字节。
+	MemoryAvailable uint64 `protobuf:"varint,10,opt,name=memory_available,json=memoryAvailable,proto3" json:"memory_available,omitempty"`
+	// 已用内存，单位字节。
+	MemoryUsed uint64 `protobuf:"varint,11,opt,name=memory_used,json=memoryUsed,proto3" json:"memory_used,omitempty"`
+	// 内存使用率。
+	MemoryUsedPercent float64 `protobuf:"fixed64,12,opt,name=memory_used_percent,json=memoryUsedPercent,proto3" json:"memory_used_percent,omitempty"`
+	// Swap 总量，单位字节。
+	SwapMemoryTotal uint64 `protobuf:"varint,13,opt,name=swap_memory_total,json=swapMemoryTotal,proto3" json:"swap_memory_total,omitempty"`
+	// 可用 Swap，单位字节。
+	SwapMemoryAvailable uint64 `protobuf:"varint,14,opt,name=swap_memory_available,json=swapMemoryAvailable,proto3" json:"swap_memory_available,omitempty"`
+	// 已用 Swap，单位字节。
+	SwapMemoryUsed uint64 `protobuf:"varint,15,opt,name=swap_memory_used,json=swapMemoryUsed,proto3" json:"swap_memory_used,omitempty"`
+	// Swap 使用率。
+	SwapMemoryUsedPercent float64 `protobuf:"fixed64,16,opt,name=swap_memory_used_percent,json=swapMemoryUsedPercent,proto3" json:"swap_memory_used_percent,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *NodeCurrent) Reset() {
+	*x = NodeCurrent{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NodeCurrent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NodeCurrent) ProtoMessage() {}
+
+func (x *NodeCurrent) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NodeCurrent.ProtoReflect.Descriptor instead.
+func (*NodeCurrent) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *NodeCurrent) GetLoad1() float64 {
+	if x != nil {
+		return x.Load1
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetLoad5() float64 {
+	if x != nil {
+		return x.Load5
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetLoad15() float64 {
+	if x != nil {
+		return x.Load15
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetLoadUsagePercent() float64 {
+	if x != nil {
+		return x.LoadUsagePercent
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetCpuUsedPercent() float64 {
+	if x != nil {
+		return x.CpuUsedPercent
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetCpuUsed() float64 {
+	if x != nil {
+		return x.CpuUsed
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetCpuTotal() int32 {
+	if x != nil {
+		return x.CpuTotal
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetCpuDetailedPercent() []float64 {
+	if x != nil {
+		return x.CpuDetailedPercent
+	}
+	return nil
+}
+
+func (x *NodeCurrent) GetMemoryTotal() uint64 {
+	if x != nil {
+		return x.MemoryTotal
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetMemoryAvailable() uint64 {
+	if x != nil {
+		return x.MemoryAvailable
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetMemoryUsed() uint64 {
+	if x != nil {
+		return x.MemoryUsed
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetMemoryUsedPercent() float64 {
+	if x != nil {
+		return x.MemoryUsedPercent
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetSwapMemoryTotal() uint64 {
+	if x != nil {
+		return x.SwapMemoryTotal
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetSwapMemoryAvailable() uint64 {
+	if x != nil {
+		return x.SwapMemoryAvailable
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetSwapMemoryUsed() uint64 {
+	if x != nil {
+		return x.SwapMemoryUsed
+	}
+	return 0
+}
+
+func (x *NodeCurrent) GetSwapMemoryUsedPercent() float64 {
+	if x != nil {
+		return x.SwapMemoryUsedPercent
+	}
+	return 0
+}
+
+// GetTopCPURequest 是 CPU 进程列表查询参数，无业务字段。
+type GetTopCPURequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTopCPURequest) Reset() {
+	*x = GetTopCPURequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTopCPURequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTopCPURequest) ProtoMessage() {}
+
+func (x *GetTopCPURequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTopCPURequest.ProtoReflect.Descriptor instead.
+func (*GetTopCPURequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{21}
+}
+
+// GetTopMemRequest 是内存进程列表查询参数，无业务字段。
+type GetTopMemRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTopMemRequest) Reset() {
+	*x = GetTopMemRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTopMemRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTopMemRequest) ProtoMessage() {}
+
+func (x *GetTopMemRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTopMemRequest.ProtoReflect.Descriptor instead.
+func (*GetTopMemRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{22}
+}
+
+// TopProcesses 是占用资源最高的进程列表。
+type TopProcesses struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 进程列表。
+	Items         []*TopProcess `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TopProcesses) Reset() {
+	*x = TopProcesses{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TopProcesses) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TopProcesses) ProtoMessage() {}
+
+func (x *TopProcesses) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TopProcesses.ProtoReflect.Descriptor instead.
+func (*TopProcesses) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *TopProcesses) GetItems() []*TopProcess {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// TopProcess 是一个进程的资源占用。
+type TopProcess struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 进程名。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 进程 PID。
+	Pid int32 `protobuf:"varint,2,opt,name=pid,proto3" json:"pid,omitempty"`
+	// 占用百分比。
+	Percent float64 `protobuf:"fixed64,3,opt,name=percent,proto3" json:"percent,omitempty"`
+	// 内存占用，单位字节。
+	Memory uint64 `protobuf:"varint,4,opt,name=memory,proto3" json:"memory,omitempty"`
+	// 命令行。
+	Cmd string `protobuf:"bytes,5,opt,name=cmd,proto3" json:"cmd,omitempty"`
+	// 运行用户。
+	User          string `protobuf:"bytes,6,opt,name=user,proto3" json:"user,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TopProcess) Reset() {
+	*x = TopProcess{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TopProcess) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TopProcess) ProtoMessage() {}
+
+func (x *TopProcess) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TopProcess.ProtoReflect.Descriptor instead.
+func (*TopProcess) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *TopProcess) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *TopProcess) GetPid() int32 {
+	if x != nil {
+		return x.Pid
+	}
+	return 0
+}
+
+func (x *TopProcess) GetPercent() float64 {
+	if x != nil {
+		return x.Percent
+	}
+	return 0
+}
+
+func (x *TopProcess) GetMemory() uint64 {
+	if x != nil {
+		return x.Memory
+	}
+	return 0
+}
+
+func (x *TopProcess) GetCmd() string {
+	if x != nil {
+		return x.Cmd
+	}
+	return ""
+}
+
+func (x *TopProcess) GetUser() string {
+	if x != nil {
+		return x.User
+	}
+	return ""
+}
+
+// ChangeQuickJumpRequest 是快速跳转修改参数。
+type ChangeQuickJumpRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 快速跳转可见性设置的 JSON 字符串。
+	QuicksJson    string `protobuf:"bytes,1,opt,name=quicks_json,json=quicksJson,proto3" json:"quicks_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeQuickJumpRequest) Reset() {
+	*x = ChangeQuickJumpRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeQuickJumpRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeQuickJumpRequest) ProtoMessage() {}
+
+func (x *ChangeQuickJumpRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeQuickJumpRequest.ProtoReflect.Descriptor instead.
+func (*ChangeQuickJumpRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *ChangeQuickJumpRequest) GetQuicksJson() string {
+	if x != nil {
+		return x.QuicksJson
+	}
+	return ""
+}
+
+// ChangeQuickJumpResponse 是修改结果，无业务字段。
+type ChangeQuickJumpResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeQuickJumpResponse) Reset() {
+	*x = ChangeQuickJumpResponse{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeQuickJumpResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeQuickJumpResponse) ProtoMessage() {}
+
+func (x *ChangeQuickJumpResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeQuickJumpResponse.ProtoReflect.Descriptor instead.
+func (*ChangeQuickJumpResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{26}
+}
+
+// GetQuickDirectoriesRequest 是快捷目录查询参数，无业务字段。
+type GetQuickDirectoriesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetQuickDirectoriesRequest) Reset() {
+	*x = GetQuickDirectoriesRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetQuickDirectoriesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetQuickDirectoriesRequest) ProtoMessage() {}
+
+func (x *GetQuickDirectoriesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetQuickDirectoriesRequest.ProtoReflect.Descriptor instead.
+func (*GetQuickDirectoriesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{27}
+}
+
+// QuickDirectories 是快捷目录列表。
+type QuickDirectories struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目录列表。
+	Items         []*QuickDirectory `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QuickDirectories) Reset() {
+	*x = QuickDirectories{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QuickDirectories) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QuickDirectories) ProtoMessage() {}
+
+func (x *QuickDirectories) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QuickDirectories.ProtoReflect.Descriptor instead.
+func (*QuickDirectories) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *QuickDirectories) GetItems() []*QuickDirectory {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// QuickDirectory 是一个快捷目录。
+type QuickDirectory struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 目录路径。
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+	// 别名。
+	Alias string `protobuf:"bytes,3,opt,name=alias,proto3" json:"alias,omitempty"`
+	// 是否为历史遗留记录。
+	Legacy        bool `protobuf:"varint,4,opt,name=legacy,proto3" json:"legacy,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QuickDirectory) Reset() {
+	*x = QuickDirectory{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QuickDirectory) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QuickDirectory) ProtoMessage() {}
+
+func (x *QuickDirectory) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QuickDirectory.ProtoReflect.Descriptor instead.
+func (*QuickDirectory) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *QuickDirectory) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *QuickDirectory) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *QuickDirectory) GetAlias() string {
+	if x != nil {
+		return x.Alias
+	}
+	return ""
+}
+
+func (x *QuickDirectory) GetLegacy() bool {
+	if x != nil {
+		return x.Legacy
+	}
+	return false
+}
+
+// CreateQuickDirectoryRequest 是新建快捷目录参数。
+type CreateQuickDirectoryRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目录路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 目录别名。
+	Alias         string `protobuf:"bytes,2,opt,name=alias,proto3" json:"alias,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateQuickDirectoryRequest) Reset() {
+	*x = CreateQuickDirectoryRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateQuickDirectoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateQuickDirectoryRequest) ProtoMessage() {}
+
+func (x *CreateQuickDirectoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateQuickDirectoryRequest.ProtoReflect.Descriptor instead.
+func (*CreateQuickDirectoryRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *CreateQuickDirectoryRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *CreateQuickDirectoryRequest) GetAlias() string {
+	if x != nil {
+		return x.Alias
+	}
+	return ""
+}
+
+// UpdateQuickDirectoryRequest 是更新快捷目录参数。
+type UpdateQuickDirectoryRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 目录路径。
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+	// 目录别名。
+	Alias string `protobuf:"bytes,3,opt,name=alias,proto3" json:"alias,omitempty"`
+	// 是否为历史遗留记录。
+	Legacy        bool `protobuf:"varint,4,opt,name=legacy,proto3" json:"legacy,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateQuickDirectoryRequest) Reset() {
+	*x = UpdateQuickDirectoryRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateQuickDirectoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateQuickDirectoryRequest) ProtoMessage() {}
+
+func (x *UpdateQuickDirectoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateQuickDirectoryRequest.ProtoReflect.Descriptor instead.
+func (*UpdateQuickDirectoryRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *UpdateQuickDirectoryRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateQuickDirectoryRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *UpdateQuickDirectoryRequest) GetAlias() string {
+	if x != nil {
+		return x.Alias
+	}
+	return ""
+}
+
+func (x *UpdateQuickDirectoryRequest) GetLegacy() bool {
+	if x != nil {
+		return x.Legacy
+	}
+	return false
+}
+
+// DeleteQuickDirectoryRequest 是删除快捷目录参数。
+type DeleteQuickDirectoryRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 是否为历史遗留记录。
+	Legacy        bool `protobuf:"varint,2,opt,name=legacy,proto3" json:"legacy,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteQuickDirectoryRequest) Reset() {
+	*x = DeleteQuickDirectoryRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteQuickDirectoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteQuickDirectoryRequest) ProtoMessage() {}
+
+func (x *DeleteQuickDirectoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteQuickDirectoryRequest.ProtoReflect.Descriptor instead.
+func (*DeleteQuickDirectoryRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *DeleteQuickDirectoryRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *DeleteQuickDirectoryRequest) GetLegacy() bool {
+	if x != nil {
+		return x.Legacy
+	}
+	return false
+}
+
+// DeleteQuickDirectoryResponse 是删除结果，无业务字段。
+type DeleteQuickDirectoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteQuickDirectoryResponse) Reset() {
+	*x = DeleteQuickDirectoryResponse{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteQuickDirectoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteQuickDirectoryResponse) ProtoMessage() {}
+
+func (x *DeleteQuickDirectoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteQuickDirectoryResponse.ProtoReflect.Descriptor instead.
+func (*DeleteQuickDirectoryResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{33}
+}
+
+// SystemRestartRequest 是电源操作参数。
+type SystemRestartRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 操作类型，例如 reboot、shutdown。
+	Operation     string `protobuf:"bytes,1,opt,name=operation,proto3" json:"operation,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SystemRestartRequest) Reset() {
+	*x = SystemRestartRequest{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SystemRestartRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemRestartRequest) ProtoMessage() {}
+
+func (x *SystemRestartRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemRestartRequest.ProtoReflect.Descriptor instead.
+func (*SystemRestartRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *SystemRestartRequest) GetOperation() string {
+	if x != nil {
+		return x.Operation
+	}
+	return ""
+}
+
+// SystemRestartResponse 是操作结果，无业务字段。
+type SystemRestartResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SystemRestartResponse) Reset() {
+	*x = SystemRestartResponse{}
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SystemRestartResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemRestartResponse) ProtoMessage() {}
+
+func (x *SystemRestartResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_dashboard_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemRestartResponse.ProtoReflect.Descriptor instead.
+func (*SystemRestartResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_dashboard_proto_rawDescGZIP(), []int{35}
+}
+
 var File_panel_agent_v1_dashboard_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_dashboard_proto_rawDesc = "" +
@@ -1362,13 +2782,112 @@ const file_panel_agent_v1_dashboard_proto_rawDesc = "" +
 	"\x06detail\x18\x05 \x01(\tR\x06detail\x12\x1c\n" +
 	"\trecommend\x18\x06 \x01(\x05R\trecommend\x12\x17\n" +
 	"\ais_show\x18\a \x01(\bR\x06isShow\x12\x16\n" +
-	"\x06router\x18\b \x01(\tR\x06router2\xf4\x02\n" +
+	"\x06router\x18\b \x01(\tR\x06router\"\x17\n" +
+	"\x15GetAppLauncherRequest\"I\n" +
+	"\x0fAppLauncherList\x126\n" +
+	"\x05items\x18\x01 \x03(\v2 .panel.agent.v1.AppLauncherEntryR\x05items\"\x99\x02\n" +
+	"\x10AppLauncherEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n" +
+	"\x04icon\x18\x04 \x01(\tR\x04icon\x12\x14\n" +
+	"\x05limit\x18\x05 \x01(\x05R\x05limit\x12 \n" +
+	"\vdescription\x18\x06 \x01(\tR\vdescription\x12\x1c\n" +
+	"\trecommend\x18\a \x01(\x05R\trecommend\x12\x1d\n" +
+	"\n" +
+	"is_install\x18\b \x01(\bR\tisInstall\x12!\n" +
+	"\fis_recommend\x18\t \x01(\bR\visRecommend\x12\x1f\n" +
+	"\vdetail_json\x18\n" +
+	" \x01(\tR\n" +
+	"detailJson\"3\n" +
+	"\x19GetLauncherOptionsRequest\x12\x16\n" +
+	"\x06filter\x18\x01 \x01(\tR\x06filter\"G\n" +
+	"\x0fLauncherOptions\x124\n" +
+	"\x05items\x18\x01 \x03(\v2\x1e.panel.agent.v1.LauncherOptionR\x05items\";\n" +
+	"\x0eLauncherOption\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x17\n" +
+	"\ais_show\x18\x02 \x01(\bR\x06isShow\"I\n" +
+	"\x16SetLauncherShowRequest\x12\x19\n" +
+	"\x03key\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\"\x19\n" +
+	"\x17SetLauncherShowResponse\"\x17\n" +
+	"\x15GetNodeCurrentRequest\"\xf5\x04\n" +
+	"\vNodeCurrent\x12\x14\n" +
+	"\x05load1\x18\x01 \x01(\x01R\x05load1\x12\x14\n" +
+	"\x05load5\x18\x02 \x01(\x01R\x05load5\x12\x16\n" +
+	"\x06load15\x18\x03 \x01(\x01R\x06load15\x12,\n" +
+	"\x12load_usage_percent\x18\x04 \x01(\x01R\x10loadUsagePercent\x12(\n" +
+	"\x10cpu_used_percent\x18\x05 \x01(\x01R\x0ecpuUsedPercent\x12\x19\n" +
+	"\bcpu_used\x18\x06 \x01(\x01R\acpuUsed\x12\x1b\n" +
+	"\tcpu_total\x18\a \x01(\x05R\bcpuTotal\x120\n" +
+	"\x14cpu_detailed_percent\x18\b \x03(\x01R\x12cpuDetailedPercent\x12!\n" +
+	"\fmemory_total\x18\t \x01(\x04R\vmemoryTotal\x12)\n" +
+	"\x10memory_available\x18\n" +
+	" \x01(\x04R\x0fmemoryAvailable\x12\x1f\n" +
+	"\vmemory_used\x18\v \x01(\x04R\n" +
+	"memoryUsed\x12.\n" +
+	"\x13memory_used_percent\x18\f \x01(\x01R\x11memoryUsedPercent\x12*\n" +
+	"\x11swap_memory_total\x18\r \x01(\x04R\x0fswapMemoryTotal\x122\n" +
+	"\x15swap_memory_available\x18\x0e \x01(\x04R\x13swapMemoryAvailable\x12(\n" +
+	"\x10swap_memory_used\x18\x0f \x01(\x04R\x0eswapMemoryUsed\x127\n" +
+	"\x18swap_memory_used_percent\x18\x10 \x01(\x01R\x15swapMemoryUsedPercent\"\x12\n" +
+	"\x10GetTopCPURequest\"\x12\n" +
+	"\x10GetTopMemRequest\"@\n" +
+	"\fTopProcesses\x120\n" +
+	"\x05items\x18\x01 \x03(\v2\x1a.panel.agent.v1.TopProcessR\x05items\"\x8a\x01\n" +
+	"\n" +
+	"TopProcess\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n" +
+	"\x03pid\x18\x02 \x01(\x05R\x03pid\x12\x18\n" +
+	"\apercent\x18\x03 \x01(\x01R\apercent\x12\x16\n" +
+	"\x06memory\x18\x04 \x01(\x04R\x06memory\x12\x10\n" +
+	"\x03cmd\x18\x05 \x01(\tR\x03cmd\x12\x12\n" +
+	"\x04user\x18\x06 \x01(\tR\x04user\"B\n" +
+	"\x16ChangeQuickJumpRequest\x12(\n" +
+	"\vquicks_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\n" +
+	"quicksJson\"\x19\n" +
+	"\x17ChangeQuickJumpResponse\"\x1c\n" +
+	"\x1aGetQuickDirectoriesRequest\"H\n" +
+	"\x10QuickDirectories\x124\n" +
+	"\x05items\x18\x01 \x03(\v2\x1e.panel.agent.v1.QuickDirectoryR\x05items\"b\n" +
+	"\x0eQuickDirectory\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04path\x18\x02 \x01(\tR\x04path\x12\x14\n" +
+	"\x05alias\x18\x03 \x01(\tR\x05alias\x12\x16\n" +
+	"\x06legacy\x18\x04 \x01(\bR\x06legacy\"P\n" +
+	"\x1bCreateQuickDirectoryRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x14\n" +
+	"\x05alias\x18\x02 \x01(\tR\x05alias\"\x81\x01\n" +
+	"\x1bUpdateQuickDirectoryRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12\x1b\n" +
+	"\x04path\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x14\n" +
+	"\x05alias\x18\x03 \x01(\tR\x05alias\x12\x16\n" +
+	"\x06legacy\x18\x04 \x01(\bR\x06legacy\"N\n" +
+	"\x1bDeleteQuickDirectoryRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12\x16\n" +
+	"\x06legacy\x18\x02 \x01(\bR\x06legacy\"\x1e\n" +
+	"\x1cDeleteQuickDirectoryResponse\"=\n" +
+	"\x14SystemRestartRequest\x12%\n" +
+	"\toperation\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\toperation\"\x17\n" +
+	"\x15SystemRestartResponse2\xca\x0e\n" +
 	"\x10DashboardService\x12L\n" +
 	"\tGetOsInfo\x12\x1d.panel.agent.v1.OsInfoRequest\x1a\x16.panel.agent.v1.OsInfo\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12T\n" +
 	"\bBaseInfo\x12\x1f.panel.agent.v1.BaseInfoRequest\x1a\x1d.panel.agent.v1.DashboardBase\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12]\n" +
 	"\vCurrentInfo\x12\".panel.agent.v1.CurrentInfoRequest\x1a .panel.agent.v1.DashboardCurrent\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12]\n" +
 	"\n" +
-	"QuickJumps\x12!.panel.agent.v1.QuickJumpsRequest\x1a\".panel.agent.v1.QuickJumpsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"QuickJumps\x12!.panel.agent.v1.QuickJumpsRequest\x1a\".panel.agent.v1.QuickJumpsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12b\n" +
+	"\x0eGetAppLauncher\x12%.panel.agent.v1.GetAppLauncherRequest\x1a\x1f.panel.agent.v1.AppLauncherList\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12j\n" +
+	"\x12GetLauncherOptions\x12).panel.agent.v1.GetLauncherOptionsRequest\x1a\x1f.panel.agent.v1.LauncherOptions\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x95\x01\n" +
+	"\x0fSetLauncherShow\x12&.panel.agent.v1.SetLauncherShowRequest\x1a'.panel.agent.v1.SetLauncherShowResponse\"1\x8a\xb5\x18-\"\x18设置首页应用显示*\x11Set launcher show\x12^\n" +
+	"\x0eGetNodeCurrent\x12%.panel.agent.v1.GetNodeCurrentRequest\x1a\x1b.panel.agent.v1.NodeCurrent\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12U\n" +
+	"\tGetTopCPU\x12 .panel.agent.v1.GetTopCPURequest\x1a\x1c.panel.agent.v1.TopProcesses\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12U\n" +
+	"\tGetTopMem\x12 .panel.agent.v1.GetTopMemRequest\x1a\x1c.panel.agent.v1.TopProcesses\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x8f\x01\n" +
+	"\x0fChangeQuickJump\x12&.panel.agent.v1.ChangeQuickJumpRequest\x1a'.panel.agent.v1.ChangeQuickJumpResponse\"+\x8a\xb5\x18'\"\x12修改快速跳转*\x11Change quick jump\x12m\n" +
+	"\x13GetQuickDirectories\x12*.panel.agent.v1.GetQuickDirectoriesRequest\x1a .panel.agent.v1.QuickDirectories\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x95\x01\n" +
+	"\x14CreateQuickDirectory\x12+.panel.agent.v1.CreateQuickDirectoryRequest\x1a\x1e.panel.agent.v1.QuickDirectory\"0\x8a\xb5\x18,\"\x12新建快捷目录*\x16Create quick directory\x12\x95\x01\n" +
+	"\x14UpdateQuickDirectory\x12+.panel.agent.v1.UpdateQuickDirectoryRequest\x1a\x1e.panel.agent.v1.QuickDirectory\"0\x8a\xb5\x18,\"\x12更新快捷目录*\x16Update quick directory\x12\xa3\x01\n" +
+	"\x14DeleteQuickDirectory\x12+.panel.agent.v1.DeleteQuickDirectoryRequest\x1a,.panel.agent.v1.DeleteQuickDirectoryResponse\"0\x8a\xb5\x18,\"\x12删除快捷目录*\x16Delete quick directory\x12\x86\x01\n" +
+	"\rSystemRestart\x12$.panel.agent.v1.SystemRestartRequest\x1a%.panel.agent.v1.SystemRestartResponse\"(\x8a\xb5\x18$\"\x12操作主机电源*\x0eRestart systemB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_dashboard_proto_rawDescOnce sync.Once
@@ -1382,19 +2901,44 @@ func file_panel_agent_v1_dashboard_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_dashboard_proto_rawDescData
 }
 
-var file_panel_agent_v1_dashboard_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_panel_agent_v1_dashboard_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
 var file_panel_agent_v1_dashboard_proto_goTypes = []any{
-	(*OsInfoRequest)(nil),      // 0: panel.agent.v1.OsInfoRequest
-	(*OsInfo)(nil),             // 1: panel.agent.v1.OsInfo
-	(*BaseInfoRequest)(nil),    // 2: panel.agent.v1.BaseInfoRequest
-	(*DashboardBase)(nil),      // 3: panel.agent.v1.DashboardBase
-	(*CurrentInfoRequest)(nil), // 4: panel.agent.v1.CurrentInfoRequest
-	(*DashboardCurrent)(nil),   // 5: panel.agent.v1.DashboardCurrent
-	(*RunningTime)(nil),        // 6: panel.agent.v1.RunningTime
-	(*DiskInfo)(nil),           // 7: panel.agent.v1.DiskInfo
-	(*QuickJumpsRequest)(nil),  // 8: panel.agent.v1.QuickJumpsRequest
-	(*QuickJumpsResponse)(nil), // 9: panel.agent.v1.QuickJumpsResponse
-	(*QuickJump)(nil),          // 10: panel.agent.v1.QuickJump
+	(*OsInfoRequest)(nil),                // 0: panel.agent.v1.OsInfoRequest
+	(*OsInfo)(nil),                       // 1: panel.agent.v1.OsInfo
+	(*BaseInfoRequest)(nil),              // 2: panel.agent.v1.BaseInfoRequest
+	(*DashboardBase)(nil),                // 3: panel.agent.v1.DashboardBase
+	(*CurrentInfoRequest)(nil),           // 4: panel.agent.v1.CurrentInfoRequest
+	(*DashboardCurrent)(nil),             // 5: panel.agent.v1.DashboardCurrent
+	(*RunningTime)(nil),                  // 6: panel.agent.v1.RunningTime
+	(*DiskInfo)(nil),                     // 7: panel.agent.v1.DiskInfo
+	(*QuickJumpsRequest)(nil),            // 8: panel.agent.v1.QuickJumpsRequest
+	(*QuickJumpsResponse)(nil),           // 9: panel.agent.v1.QuickJumpsResponse
+	(*QuickJump)(nil),                    // 10: panel.agent.v1.QuickJump
+	(*GetAppLauncherRequest)(nil),        // 11: panel.agent.v1.GetAppLauncherRequest
+	(*AppLauncherList)(nil),              // 12: panel.agent.v1.AppLauncherList
+	(*AppLauncherEntry)(nil),             // 13: panel.agent.v1.AppLauncherEntry
+	(*GetLauncherOptionsRequest)(nil),    // 14: panel.agent.v1.GetLauncherOptionsRequest
+	(*LauncherOptions)(nil),              // 15: panel.agent.v1.LauncherOptions
+	(*LauncherOption)(nil),               // 16: panel.agent.v1.LauncherOption
+	(*SetLauncherShowRequest)(nil),       // 17: panel.agent.v1.SetLauncherShowRequest
+	(*SetLauncherShowResponse)(nil),      // 18: panel.agent.v1.SetLauncherShowResponse
+	(*GetNodeCurrentRequest)(nil),        // 19: panel.agent.v1.GetNodeCurrentRequest
+	(*NodeCurrent)(nil),                  // 20: panel.agent.v1.NodeCurrent
+	(*GetTopCPURequest)(nil),             // 21: panel.agent.v1.GetTopCPURequest
+	(*GetTopMemRequest)(nil),             // 22: panel.agent.v1.GetTopMemRequest
+	(*TopProcesses)(nil),                 // 23: panel.agent.v1.TopProcesses
+	(*TopProcess)(nil),                   // 24: panel.agent.v1.TopProcess
+	(*ChangeQuickJumpRequest)(nil),       // 25: panel.agent.v1.ChangeQuickJumpRequest
+	(*ChangeQuickJumpResponse)(nil),      // 26: panel.agent.v1.ChangeQuickJumpResponse
+	(*GetQuickDirectoriesRequest)(nil),   // 27: panel.agent.v1.GetQuickDirectoriesRequest
+	(*QuickDirectories)(nil),             // 28: panel.agent.v1.QuickDirectories
+	(*QuickDirectory)(nil),               // 29: panel.agent.v1.QuickDirectory
+	(*CreateQuickDirectoryRequest)(nil),  // 30: panel.agent.v1.CreateQuickDirectoryRequest
+	(*UpdateQuickDirectoryRequest)(nil),  // 31: panel.agent.v1.UpdateQuickDirectoryRequest
+	(*DeleteQuickDirectoryRequest)(nil),  // 32: panel.agent.v1.DeleteQuickDirectoryRequest
+	(*DeleteQuickDirectoryResponse)(nil), // 33: panel.agent.v1.DeleteQuickDirectoryResponse
+	(*SystemRestartRequest)(nil),         // 34: panel.agent.v1.SystemRestartRequest
+	(*SystemRestartResponse)(nil),        // 35: panel.agent.v1.SystemRestartResponse
 }
 var file_panel_agent_v1_dashboard_proto_depIdxs = []int32{
 	10, // 0: panel.agent.v1.DashboardBase.quick_jumps:type_name -> panel.agent.v1.QuickJump
@@ -1402,19 +2946,47 @@ var file_panel_agent_v1_dashboard_proto_depIdxs = []int32{
 	6,  // 2: panel.agent.v1.DashboardCurrent.running_time:type_name -> panel.agent.v1.RunningTime
 	7,  // 3: panel.agent.v1.DashboardCurrent.disk_data:type_name -> panel.agent.v1.DiskInfo
 	10, // 4: panel.agent.v1.QuickJumpsResponse.items:type_name -> panel.agent.v1.QuickJump
-	0,  // 5: panel.agent.v1.DashboardService.GetOsInfo:input_type -> panel.agent.v1.OsInfoRequest
-	2,  // 6: panel.agent.v1.DashboardService.BaseInfo:input_type -> panel.agent.v1.BaseInfoRequest
-	4,  // 7: panel.agent.v1.DashboardService.CurrentInfo:input_type -> panel.agent.v1.CurrentInfoRequest
-	8,  // 8: panel.agent.v1.DashboardService.QuickJumps:input_type -> panel.agent.v1.QuickJumpsRequest
-	1,  // 9: panel.agent.v1.DashboardService.GetOsInfo:output_type -> panel.agent.v1.OsInfo
-	3,  // 10: panel.agent.v1.DashboardService.BaseInfo:output_type -> panel.agent.v1.DashboardBase
-	5,  // 11: panel.agent.v1.DashboardService.CurrentInfo:output_type -> panel.agent.v1.DashboardCurrent
-	9,  // 12: panel.agent.v1.DashboardService.QuickJumps:output_type -> panel.agent.v1.QuickJumpsResponse
-	9,  // [9:13] is the sub-list for method output_type
-	5,  // [5:9] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	13, // 5: panel.agent.v1.AppLauncherList.items:type_name -> panel.agent.v1.AppLauncherEntry
+	16, // 6: panel.agent.v1.LauncherOptions.items:type_name -> panel.agent.v1.LauncherOption
+	24, // 7: panel.agent.v1.TopProcesses.items:type_name -> panel.agent.v1.TopProcess
+	29, // 8: panel.agent.v1.QuickDirectories.items:type_name -> panel.agent.v1.QuickDirectory
+	0,  // 9: panel.agent.v1.DashboardService.GetOsInfo:input_type -> panel.agent.v1.OsInfoRequest
+	2,  // 10: panel.agent.v1.DashboardService.BaseInfo:input_type -> panel.agent.v1.BaseInfoRequest
+	4,  // 11: panel.agent.v1.DashboardService.CurrentInfo:input_type -> panel.agent.v1.CurrentInfoRequest
+	8,  // 12: panel.agent.v1.DashboardService.QuickJumps:input_type -> panel.agent.v1.QuickJumpsRequest
+	11, // 13: panel.agent.v1.DashboardService.GetAppLauncher:input_type -> panel.agent.v1.GetAppLauncherRequest
+	14, // 14: panel.agent.v1.DashboardService.GetLauncherOptions:input_type -> panel.agent.v1.GetLauncherOptionsRequest
+	17, // 15: panel.agent.v1.DashboardService.SetLauncherShow:input_type -> panel.agent.v1.SetLauncherShowRequest
+	19, // 16: panel.agent.v1.DashboardService.GetNodeCurrent:input_type -> panel.agent.v1.GetNodeCurrentRequest
+	21, // 17: panel.agent.v1.DashboardService.GetTopCPU:input_type -> panel.agent.v1.GetTopCPURequest
+	22, // 18: panel.agent.v1.DashboardService.GetTopMem:input_type -> panel.agent.v1.GetTopMemRequest
+	25, // 19: panel.agent.v1.DashboardService.ChangeQuickJump:input_type -> panel.agent.v1.ChangeQuickJumpRequest
+	27, // 20: panel.agent.v1.DashboardService.GetQuickDirectories:input_type -> panel.agent.v1.GetQuickDirectoriesRequest
+	30, // 21: panel.agent.v1.DashboardService.CreateQuickDirectory:input_type -> panel.agent.v1.CreateQuickDirectoryRequest
+	31, // 22: panel.agent.v1.DashboardService.UpdateQuickDirectory:input_type -> panel.agent.v1.UpdateQuickDirectoryRequest
+	32, // 23: panel.agent.v1.DashboardService.DeleteQuickDirectory:input_type -> panel.agent.v1.DeleteQuickDirectoryRequest
+	34, // 24: panel.agent.v1.DashboardService.SystemRestart:input_type -> panel.agent.v1.SystemRestartRequest
+	1,  // 25: panel.agent.v1.DashboardService.GetOsInfo:output_type -> panel.agent.v1.OsInfo
+	3,  // 26: panel.agent.v1.DashboardService.BaseInfo:output_type -> panel.agent.v1.DashboardBase
+	5,  // 27: panel.agent.v1.DashboardService.CurrentInfo:output_type -> panel.agent.v1.DashboardCurrent
+	9,  // 28: panel.agent.v1.DashboardService.QuickJumps:output_type -> panel.agent.v1.QuickJumpsResponse
+	12, // 29: panel.agent.v1.DashboardService.GetAppLauncher:output_type -> panel.agent.v1.AppLauncherList
+	15, // 30: panel.agent.v1.DashboardService.GetLauncherOptions:output_type -> panel.agent.v1.LauncherOptions
+	18, // 31: panel.agent.v1.DashboardService.SetLauncherShow:output_type -> panel.agent.v1.SetLauncherShowResponse
+	20, // 32: panel.agent.v1.DashboardService.GetNodeCurrent:output_type -> panel.agent.v1.NodeCurrent
+	23, // 33: panel.agent.v1.DashboardService.GetTopCPU:output_type -> panel.agent.v1.TopProcesses
+	23, // 34: panel.agent.v1.DashboardService.GetTopMem:output_type -> panel.agent.v1.TopProcesses
+	26, // 35: panel.agent.v1.DashboardService.ChangeQuickJump:output_type -> panel.agent.v1.ChangeQuickJumpResponse
+	28, // 36: panel.agent.v1.DashboardService.GetQuickDirectories:output_type -> panel.agent.v1.QuickDirectories
+	29, // 37: panel.agent.v1.DashboardService.CreateQuickDirectory:output_type -> panel.agent.v1.QuickDirectory
+	29, // 38: panel.agent.v1.DashboardService.UpdateQuickDirectory:output_type -> panel.agent.v1.QuickDirectory
+	33, // 39: panel.agent.v1.DashboardService.DeleteQuickDirectory:output_type -> panel.agent.v1.DeleteQuickDirectoryResponse
+	35, // 40: panel.agent.v1.DashboardService.SystemRestart:output_type -> panel.agent.v1.SystemRestartResponse
+	25, // [25:41] is the sub-list for method output_type
+	9,  // [9:25] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_dashboard_proto_init() }
@@ -1428,7 +3000,7 @@ func file_panel_agent_v1_dashboard_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_dashboard_proto_rawDesc), len(file_panel_agent_v1_dashboard_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   36,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

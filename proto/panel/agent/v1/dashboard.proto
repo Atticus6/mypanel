@@ -41,6 +41,103 @@ service DashboardService {
       no_audit: true
     };
   }
+
+
+  // 列出首页应用启动器。
+  rpc GetAppLauncher(GetAppLauncherRequest) returns (AppLauncherList) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出可添加到启动器的应用。
+  rpc GetLauncherOptions(GetLauncherOptionsRequest) returns (LauncherOptions) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 设置启动器应用的显示状态。
+  rpc SetLauncherShow(SetLauncherShowRequest) returns (SetLauncherShowResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "设置首页应用显示"
+      audit_action_en: "Set launcher show"
+    };
+  }
+
+  // 读取当前节点负载信息。
+  rpc GetNodeCurrent(GetNodeCurrentRequest) returns (NodeCurrent) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取 CPU 占用最高的进程。
+  rpc GetTopCPU(GetTopCPURequest) returns (TopProcesses) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取内存占用最高的进程。
+  rpc GetTopMem(GetTopMemRequest) returns (TopProcesses) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改首页快速跳转的显示状态。
+  rpc ChangeQuickJump(ChangeQuickJumpRequest) returns (ChangeQuickJumpResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改快速跳转"
+      audit_action_en: "Change quick jump"
+    };
+  }
+
+  // 列出快捷目录。
+  rpc GetQuickDirectories(GetQuickDirectoriesRequest) returns (QuickDirectories) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 新建快捷目录。
+  rpc CreateQuickDirectory(CreateQuickDirectoryRequest) returns (QuickDirectory) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "新建快捷目录"
+      audit_action_en: "Create quick directory"
+    };
+  }
+
+  // 更新快捷目录。
+  rpc UpdateQuickDirectory(UpdateQuickDirectoryRequest) returns (QuickDirectory) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新快捷目录"
+      audit_action_en: "Update quick directory"
+    };
+  }
+
+  // 删除快捷目录。
+  rpc DeleteQuickDirectory(DeleteQuickDirectoryRequest) returns (DeleteQuickDirectoryResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除快捷目录"
+      audit_action_en: "Delete quick directory"
+    };
+  }
+
+  // 重启或关闭系统。
+  rpc SystemRestart(SystemRestartRequest) returns (SystemRestartResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "操作主机电源"
+      audit_action_en: "Restart system"
+    };
+  }
 }
 
 // OsInfoRequest 是系统信息查询参数，无业务字段。
@@ -345,3 +442,243 @@ message QuickJump {
   // 前端路由。
   string router = 8;
 }
+
+// GetAppLauncherRequest 是启动器列表查询参数，无业务字段。
+message GetAppLauncherRequest {}
+
+// AppLauncherList 是启动器列表结果。
+message AppLauncherList {
+  // 启动器条目。
+  repeated AppLauncherEntry items = 1;
+}
+
+// AppLauncherEntry 是一个启动器条目。
+message AppLauncherEntry {
+  // 应用 key。
+  string key = 1;
+
+  // 应用类型。
+  string type = 2;
+
+  // 展示名称。
+  string name = 3;
+
+  // 图标。
+  string icon = 4;
+
+  // 安装数量上限。
+  int32 limit = 5;
+
+  // 简介。
+  string description = 6;
+
+  // 推荐顺序。
+  int32 recommend = 7;
+
+  // 是否已安装。
+  bool is_install = 8;
+
+  // 是否推荐。
+  bool is_recommend = 9;
+
+  // 版本详情的 JSON 字符串。
+  string detail_json = 10;
+}
+
+// GetLauncherOptionsRequest 是启动器可选项查询参数。
+message GetLauncherOptionsRequest {
+  // 关键字过滤。
+  string filter = 1;
+}
+
+// LauncherOptions 是启动器可选项列表。
+message LauncherOptions {
+  // 可选项。
+  repeated LauncherOption items = 1;
+}
+
+// LauncherOption 是一个启动器可选项。
+message LauncherOption {
+  // 应用 key。
+  string key = 1;
+
+  // 是否显示。
+  bool is_show = 2;
+}
+
+// SetLauncherShowRequest 是启动器显示状态修改参数。
+message SetLauncherShowRequest {
+  // 设置项 key。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 设置值。
+  string value = 2;
+}
+
+// SetLauncherShowResponse 是修改结果，无业务字段。
+message SetLauncherShowResponse {}
+
+// GetNodeCurrentRequest 是节点负载查询参数，无业务字段。
+message GetNodeCurrentRequest {}
+
+// NodeCurrent 是当前节点的负载信息。
+message NodeCurrent {
+  // 1 分钟负载。
+  double load1 = 1;
+
+  // 5 分钟负载。
+  double load5 = 2;
+
+  // 15 分钟负载。
+  double load15 = 3;
+
+  // 负载百分比。
+  double load_usage_percent = 4;
+
+  // CPU 使用率。
+  double cpu_used_percent = 5;
+
+  // 已用 CPU。
+  double cpu_used = 6;
+
+  // CPU 核心数。
+  int32 cpu_total = 7;
+
+  // 各核心使用率。
+  repeated double cpu_detailed_percent = 8;
+
+  // 内存总量，单位字节。
+  uint64 memory_total = 9;
+
+  // 可用内存，单位字节。
+  uint64 memory_available = 10;
+
+  // 已用内存，单位字节。
+  uint64 memory_used = 11;
+
+  // 内存使用率。
+  double memory_used_percent = 12;
+
+  // Swap 总量，单位字节。
+  uint64 swap_memory_total = 13;
+
+  // 可用 Swap，单位字节。
+  uint64 swap_memory_available = 14;
+
+  // 已用 Swap，单位字节。
+  uint64 swap_memory_used = 15;
+
+  // Swap 使用率。
+  double swap_memory_used_percent = 16;
+}
+
+// GetTopCPURequest 是 CPU 进程列表查询参数，无业务字段。
+message GetTopCPURequest {}
+
+// GetTopMemRequest 是内存进程列表查询参数，无业务字段。
+message GetTopMemRequest {}
+
+// TopProcesses 是占用资源最高的进程列表。
+message TopProcesses {
+  // 进程列表。
+  repeated TopProcess items = 1;
+}
+
+// TopProcess 是一个进程的资源占用。
+message TopProcess {
+  // 进程名。
+  string name = 1;
+
+  // 进程 PID。
+  int32 pid = 2;
+
+  // 占用百分比。
+  double percent = 3;
+
+  // 内存占用，单位字节。
+  uint64 memory = 4;
+
+  // 命令行。
+  string cmd = 5;
+
+  // 运行用户。
+  string user = 6;
+}
+
+// ChangeQuickJumpRequest 是快速跳转修改参数。
+message ChangeQuickJumpRequest {
+  // 快速跳转可见性设置的 JSON 字符串。
+  string quicks_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ChangeQuickJumpResponse 是修改结果，无业务字段。
+message ChangeQuickJumpResponse {}
+
+// GetQuickDirectoriesRequest 是快捷目录查询参数，无业务字段。
+message GetQuickDirectoriesRequest {}
+
+// QuickDirectories 是快捷目录列表。
+message QuickDirectories {
+  // 目录列表。
+  repeated QuickDirectory items = 1;
+}
+
+// QuickDirectory 是一个快捷目录。
+message QuickDirectory {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 目录路径。
+  string path = 2;
+
+  // 别名。
+  string alias = 3;
+
+  // 是否为历史遗留记录。
+  bool legacy = 4;
+}
+
+// CreateQuickDirectoryRequest 是新建快捷目录参数。
+message CreateQuickDirectoryRequest {
+  // 目录路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 目录别名。
+  string alias = 2;
+}
+
+// UpdateQuickDirectoryRequest 是更新快捷目录参数。
+message UpdateQuickDirectoryRequest {
+  // 记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 目录路径。
+  string path = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 目录别名。
+  string alias = 3;
+
+  // 是否为历史遗留记录。
+  bool legacy = 4;
+}
+
+// DeleteQuickDirectoryRequest 是删除快捷目录参数。
+message DeleteQuickDirectoryRequest {
+  // 记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否为历史遗留记录。
+  bool legacy = 2;
+}
+
+// DeleteQuickDirectoryResponse 是删除结果，无业务字段。
+message DeleteQuickDirectoryResponse {}
+
+// SystemRestartRequest 是电源操作参数。
+message SystemRestartRequest {
+  // 操作类型，例如 reboot、shutdown。
+  string operation = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// SystemRestartResponse 是操作结果，无业务字段。
+message SystemRestartResponse {}

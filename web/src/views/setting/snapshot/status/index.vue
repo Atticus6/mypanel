@@ -128,7 +128,6 @@ import { Setting } from '@/api/interface/setting';
 import { ElMessageBox } from 'element-plus';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { loadOsInfo } from '@/api/modules/dashboard';
 import SnapRecover from '@/views/setting/snapshot/recover/index.vue';
 import { newUUID } from '@/utils/id';
 import { rpc } from '@/lib/rpc';
@@ -153,7 +152,8 @@ const handleClose = () => {
 
 const recoverSnapshot = async (isNew: boolean) => {
     loading.value = true;
-    await loadOsInfo()
+    await rpc.dashboard
+        .getOsInfo({})
         .then((res) => {
             loading.value = false;
             let params = {
@@ -163,9 +163,9 @@ const recoverSnapshot = async (isNew: boolean) => {
                 reDownload: false,
                 secret: snapInfo.value.secret,
 
-                arch: res.data.kernelArch,
+                arch: res.kernelArch,
                 size: snapInfo.value.size,
-                freeSize: res.data.diskSize,
+                freeSize: Number(res.diskSize),
             };
             recoverRef.value.acceptParams(params);
         })
@@ -182,7 +182,8 @@ const rollbackSnapshot = async () => {
     }).then(async () => {
         loading.value = true;
         let taskID = newUUID();
-        await rpc.snapshot.rollback({ id: snapInfo.value.id, isNew: false, reDownload: false, secret: '', taskId: taskID })
+        await rpc.snapshot
+            .rollback({ id: snapInfo.value.id, isNew: false, reDownload: false, secret: '', taskId: taskID })
             .then(() => {
                 emit('search');
                 loading.value = false;

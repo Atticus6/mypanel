@@ -26,7 +26,7 @@
 import { ref } from 'vue';
 import i18n from '@/lang';
 import { MsgInfo, MsgSuccess } from '@/utils/message';
-import { changeQuick, loadQuickOption } from '@/api/modules/dashboard';
+import { rpc } from '@/lib/rpc';
 
 const emit = defineEmits<{ (e: 'search'): void }>();
 const drawerVisible = ref();
@@ -39,10 +39,11 @@ const quickOptions = ref([]);
 
 const search = async () => {
     loading.value = true;
-    await loadQuickOption()
+    await rpc.dashboard
+        .quickJumps({})
         .then((res) => {
             loading.value = false;
-            quickOptions.value = res.data || [];
+            quickOptions.value = res.items || [];
         })
         .catch(() => {
             loading.value = false;
@@ -64,7 +65,8 @@ const onChangeShow = async () => {
         return;
     }
     loading.value = true;
-    await changeQuick(quickOptions.value.map(({ id, isShow }) => ({ id, isShow })))
+    await rpc.dashboard
+        .changeQuickJump({ quicksJson: JSON.stringify(quickOptions.value.map(({ id, isShow }) => ({ id, isShow }))) })
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

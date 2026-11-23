@@ -47,6 +47,42 @@ const (
 	// DashboardServiceQuickJumpsProcedure is the fully-qualified name of the DashboardService's
 	// QuickJumps RPC.
 	DashboardServiceQuickJumpsProcedure = "/panel.agent.v1.DashboardService/QuickJumps"
+	// DashboardServiceGetAppLauncherProcedure is the fully-qualified name of the DashboardService's
+	// GetAppLauncher RPC.
+	DashboardServiceGetAppLauncherProcedure = "/panel.agent.v1.DashboardService/GetAppLauncher"
+	// DashboardServiceGetLauncherOptionsProcedure is the fully-qualified name of the DashboardService's
+	// GetLauncherOptions RPC.
+	DashboardServiceGetLauncherOptionsProcedure = "/panel.agent.v1.DashboardService/GetLauncherOptions"
+	// DashboardServiceSetLauncherShowProcedure is the fully-qualified name of the DashboardService's
+	// SetLauncherShow RPC.
+	DashboardServiceSetLauncherShowProcedure = "/panel.agent.v1.DashboardService/SetLauncherShow"
+	// DashboardServiceGetNodeCurrentProcedure is the fully-qualified name of the DashboardService's
+	// GetNodeCurrent RPC.
+	DashboardServiceGetNodeCurrentProcedure = "/panel.agent.v1.DashboardService/GetNodeCurrent"
+	// DashboardServiceGetTopCPUProcedure is the fully-qualified name of the DashboardService's
+	// GetTopCPU RPC.
+	DashboardServiceGetTopCPUProcedure = "/panel.agent.v1.DashboardService/GetTopCPU"
+	// DashboardServiceGetTopMemProcedure is the fully-qualified name of the DashboardService's
+	// GetTopMem RPC.
+	DashboardServiceGetTopMemProcedure = "/panel.agent.v1.DashboardService/GetTopMem"
+	// DashboardServiceChangeQuickJumpProcedure is the fully-qualified name of the DashboardService's
+	// ChangeQuickJump RPC.
+	DashboardServiceChangeQuickJumpProcedure = "/panel.agent.v1.DashboardService/ChangeQuickJump"
+	// DashboardServiceGetQuickDirectoriesProcedure is the fully-qualified name of the
+	// DashboardService's GetQuickDirectories RPC.
+	DashboardServiceGetQuickDirectoriesProcedure = "/panel.agent.v1.DashboardService/GetQuickDirectories"
+	// DashboardServiceCreateQuickDirectoryProcedure is the fully-qualified name of the
+	// DashboardService's CreateQuickDirectory RPC.
+	DashboardServiceCreateQuickDirectoryProcedure = "/panel.agent.v1.DashboardService/CreateQuickDirectory"
+	// DashboardServiceUpdateQuickDirectoryProcedure is the fully-qualified name of the
+	// DashboardService's UpdateQuickDirectory RPC.
+	DashboardServiceUpdateQuickDirectoryProcedure = "/panel.agent.v1.DashboardService/UpdateQuickDirectory"
+	// DashboardServiceDeleteQuickDirectoryProcedure is the fully-qualified name of the
+	// DashboardService's DeleteQuickDirectory RPC.
+	DashboardServiceDeleteQuickDirectoryProcedure = "/panel.agent.v1.DashboardService/DeleteQuickDirectory"
+	// DashboardServiceSystemRestartProcedure is the fully-qualified name of the DashboardService's
+	// SystemRestart RPC.
+	DashboardServiceSystemRestartProcedure = "/panel.agent.v1.DashboardService/SystemRestart"
 )
 
 // DashboardServiceClient is a client for the panel.agent.v1.DashboardService service.
@@ -59,6 +95,30 @@ type DashboardServiceClient interface {
 	CurrentInfo(context.Context, *connect.Request[v1.CurrentInfoRequest]) (*connect.Response[v1.DashboardCurrent], error)
 	// 读取首页快捷入口配置。
 	QuickJumps(context.Context, *connect.Request[v1.QuickJumpsRequest]) (*connect.Response[v1.QuickJumpsResponse], error)
+	// 列出首页应用启动器。
+	GetAppLauncher(context.Context, *connect.Request[v1.GetAppLauncherRequest]) (*connect.Response[v1.AppLauncherList], error)
+	// 列出可添加到启动器的应用。
+	GetLauncherOptions(context.Context, *connect.Request[v1.GetLauncherOptionsRequest]) (*connect.Response[v1.LauncherOptions], error)
+	// 设置启动器应用的显示状态。
+	SetLauncherShow(context.Context, *connect.Request[v1.SetLauncherShowRequest]) (*connect.Response[v1.SetLauncherShowResponse], error)
+	// 读取当前节点负载信息。
+	GetNodeCurrent(context.Context, *connect.Request[v1.GetNodeCurrentRequest]) (*connect.Response[v1.NodeCurrent], error)
+	// 读取 CPU 占用最高的进程。
+	GetTopCPU(context.Context, *connect.Request[v1.GetTopCPURequest]) (*connect.Response[v1.TopProcesses], error)
+	// 读取内存占用最高的进程。
+	GetTopMem(context.Context, *connect.Request[v1.GetTopMemRequest]) (*connect.Response[v1.TopProcesses], error)
+	// 修改首页快速跳转的显示状态。
+	ChangeQuickJump(context.Context, *connect.Request[v1.ChangeQuickJumpRequest]) (*connect.Response[v1.ChangeQuickJumpResponse], error)
+	// 列出快捷目录。
+	GetQuickDirectories(context.Context, *connect.Request[v1.GetQuickDirectoriesRequest]) (*connect.Response[v1.QuickDirectories], error)
+	// 新建快捷目录。
+	CreateQuickDirectory(context.Context, *connect.Request[v1.CreateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error)
+	// 更新快捷目录。
+	UpdateQuickDirectory(context.Context, *connect.Request[v1.UpdateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error)
+	// 删除快捷目录。
+	DeleteQuickDirectory(context.Context, *connect.Request[v1.DeleteQuickDirectoryRequest]) (*connect.Response[v1.DeleteQuickDirectoryResponse], error)
+	// 重启或关闭系统。
+	SystemRestart(context.Context, *connect.Request[v1.SystemRestartRequest]) (*connect.Response[v1.SystemRestartResponse], error)
 }
 
 // NewDashboardServiceClient constructs a client for the panel.agent.v1.DashboardService service. By
@@ -96,15 +156,99 @@ func NewDashboardServiceClient(httpClient connect.HTTPClient, baseURL string, op
 			connect.WithSchema(dashboardServiceMethods.ByName("QuickJumps")),
 			connect.WithClientOptions(opts...),
 		),
+		getAppLauncher: connect.NewClient[v1.GetAppLauncherRequest, v1.AppLauncherList](
+			httpClient,
+			baseURL+DashboardServiceGetAppLauncherProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("GetAppLauncher")),
+			connect.WithClientOptions(opts...),
+		),
+		getLauncherOptions: connect.NewClient[v1.GetLauncherOptionsRequest, v1.LauncherOptions](
+			httpClient,
+			baseURL+DashboardServiceGetLauncherOptionsProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("GetLauncherOptions")),
+			connect.WithClientOptions(opts...),
+		),
+		setLauncherShow: connect.NewClient[v1.SetLauncherShowRequest, v1.SetLauncherShowResponse](
+			httpClient,
+			baseURL+DashboardServiceSetLauncherShowProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("SetLauncherShow")),
+			connect.WithClientOptions(opts...),
+		),
+		getNodeCurrent: connect.NewClient[v1.GetNodeCurrentRequest, v1.NodeCurrent](
+			httpClient,
+			baseURL+DashboardServiceGetNodeCurrentProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("GetNodeCurrent")),
+			connect.WithClientOptions(opts...),
+		),
+		getTopCPU: connect.NewClient[v1.GetTopCPURequest, v1.TopProcesses](
+			httpClient,
+			baseURL+DashboardServiceGetTopCPUProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("GetTopCPU")),
+			connect.WithClientOptions(opts...),
+		),
+		getTopMem: connect.NewClient[v1.GetTopMemRequest, v1.TopProcesses](
+			httpClient,
+			baseURL+DashboardServiceGetTopMemProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("GetTopMem")),
+			connect.WithClientOptions(opts...),
+		),
+		changeQuickJump: connect.NewClient[v1.ChangeQuickJumpRequest, v1.ChangeQuickJumpResponse](
+			httpClient,
+			baseURL+DashboardServiceChangeQuickJumpProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("ChangeQuickJump")),
+			connect.WithClientOptions(opts...),
+		),
+		getQuickDirectories: connect.NewClient[v1.GetQuickDirectoriesRequest, v1.QuickDirectories](
+			httpClient,
+			baseURL+DashboardServiceGetQuickDirectoriesProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("GetQuickDirectories")),
+			connect.WithClientOptions(opts...),
+		),
+		createQuickDirectory: connect.NewClient[v1.CreateQuickDirectoryRequest, v1.QuickDirectory](
+			httpClient,
+			baseURL+DashboardServiceCreateQuickDirectoryProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("CreateQuickDirectory")),
+			connect.WithClientOptions(opts...),
+		),
+		updateQuickDirectory: connect.NewClient[v1.UpdateQuickDirectoryRequest, v1.QuickDirectory](
+			httpClient,
+			baseURL+DashboardServiceUpdateQuickDirectoryProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("UpdateQuickDirectory")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteQuickDirectory: connect.NewClient[v1.DeleteQuickDirectoryRequest, v1.DeleteQuickDirectoryResponse](
+			httpClient,
+			baseURL+DashboardServiceDeleteQuickDirectoryProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("DeleteQuickDirectory")),
+			connect.WithClientOptions(opts...),
+		),
+		systemRestart: connect.NewClient[v1.SystemRestartRequest, v1.SystemRestartResponse](
+			httpClient,
+			baseURL+DashboardServiceSystemRestartProcedure,
+			connect.WithSchema(dashboardServiceMethods.ByName("SystemRestart")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // dashboardServiceClient implements DashboardServiceClient.
 type dashboardServiceClient struct {
-	getOsInfo   *connect.Client[v1.OsInfoRequest, v1.OsInfo]
-	baseInfo    *connect.Client[v1.BaseInfoRequest, v1.DashboardBase]
-	currentInfo *connect.Client[v1.CurrentInfoRequest, v1.DashboardCurrent]
-	quickJumps  *connect.Client[v1.QuickJumpsRequest, v1.QuickJumpsResponse]
+	getOsInfo            *connect.Client[v1.OsInfoRequest, v1.OsInfo]
+	baseInfo             *connect.Client[v1.BaseInfoRequest, v1.DashboardBase]
+	currentInfo          *connect.Client[v1.CurrentInfoRequest, v1.DashboardCurrent]
+	quickJumps           *connect.Client[v1.QuickJumpsRequest, v1.QuickJumpsResponse]
+	getAppLauncher       *connect.Client[v1.GetAppLauncherRequest, v1.AppLauncherList]
+	getLauncherOptions   *connect.Client[v1.GetLauncherOptionsRequest, v1.LauncherOptions]
+	setLauncherShow      *connect.Client[v1.SetLauncherShowRequest, v1.SetLauncherShowResponse]
+	getNodeCurrent       *connect.Client[v1.GetNodeCurrentRequest, v1.NodeCurrent]
+	getTopCPU            *connect.Client[v1.GetTopCPURequest, v1.TopProcesses]
+	getTopMem            *connect.Client[v1.GetTopMemRequest, v1.TopProcesses]
+	changeQuickJump      *connect.Client[v1.ChangeQuickJumpRequest, v1.ChangeQuickJumpResponse]
+	getQuickDirectories  *connect.Client[v1.GetQuickDirectoriesRequest, v1.QuickDirectories]
+	createQuickDirectory *connect.Client[v1.CreateQuickDirectoryRequest, v1.QuickDirectory]
+	updateQuickDirectory *connect.Client[v1.UpdateQuickDirectoryRequest, v1.QuickDirectory]
+	deleteQuickDirectory *connect.Client[v1.DeleteQuickDirectoryRequest, v1.DeleteQuickDirectoryResponse]
+	systemRestart        *connect.Client[v1.SystemRestartRequest, v1.SystemRestartResponse]
 }
 
 // GetOsInfo calls panel.agent.v1.DashboardService.GetOsInfo.
@@ -127,6 +271,66 @@ func (c *dashboardServiceClient) QuickJumps(ctx context.Context, req *connect.Re
 	return c.quickJumps.CallUnary(ctx, req)
 }
 
+// GetAppLauncher calls panel.agent.v1.DashboardService.GetAppLauncher.
+func (c *dashboardServiceClient) GetAppLauncher(ctx context.Context, req *connect.Request[v1.GetAppLauncherRequest]) (*connect.Response[v1.AppLauncherList], error) {
+	return c.getAppLauncher.CallUnary(ctx, req)
+}
+
+// GetLauncherOptions calls panel.agent.v1.DashboardService.GetLauncherOptions.
+func (c *dashboardServiceClient) GetLauncherOptions(ctx context.Context, req *connect.Request[v1.GetLauncherOptionsRequest]) (*connect.Response[v1.LauncherOptions], error) {
+	return c.getLauncherOptions.CallUnary(ctx, req)
+}
+
+// SetLauncherShow calls panel.agent.v1.DashboardService.SetLauncherShow.
+func (c *dashboardServiceClient) SetLauncherShow(ctx context.Context, req *connect.Request[v1.SetLauncherShowRequest]) (*connect.Response[v1.SetLauncherShowResponse], error) {
+	return c.setLauncherShow.CallUnary(ctx, req)
+}
+
+// GetNodeCurrent calls panel.agent.v1.DashboardService.GetNodeCurrent.
+func (c *dashboardServiceClient) GetNodeCurrent(ctx context.Context, req *connect.Request[v1.GetNodeCurrentRequest]) (*connect.Response[v1.NodeCurrent], error) {
+	return c.getNodeCurrent.CallUnary(ctx, req)
+}
+
+// GetTopCPU calls panel.agent.v1.DashboardService.GetTopCPU.
+func (c *dashboardServiceClient) GetTopCPU(ctx context.Context, req *connect.Request[v1.GetTopCPURequest]) (*connect.Response[v1.TopProcesses], error) {
+	return c.getTopCPU.CallUnary(ctx, req)
+}
+
+// GetTopMem calls panel.agent.v1.DashboardService.GetTopMem.
+func (c *dashboardServiceClient) GetTopMem(ctx context.Context, req *connect.Request[v1.GetTopMemRequest]) (*connect.Response[v1.TopProcesses], error) {
+	return c.getTopMem.CallUnary(ctx, req)
+}
+
+// ChangeQuickJump calls panel.agent.v1.DashboardService.ChangeQuickJump.
+func (c *dashboardServiceClient) ChangeQuickJump(ctx context.Context, req *connect.Request[v1.ChangeQuickJumpRequest]) (*connect.Response[v1.ChangeQuickJumpResponse], error) {
+	return c.changeQuickJump.CallUnary(ctx, req)
+}
+
+// GetQuickDirectories calls panel.agent.v1.DashboardService.GetQuickDirectories.
+func (c *dashboardServiceClient) GetQuickDirectories(ctx context.Context, req *connect.Request[v1.GetQuickDirectoriesRequest]) (*connect.Response[v1.QuickDirectories], error) {
+	return c.getQuickDirectories.CallUnary(ctx, req)
+}
+
+// CreateQuickDirectory calls panel.agent.v1.DashboardService.CreateQuickDirectory.
+func (c *dashboardServiceClient) CreateQuickDirectory(ctx context.Context, req *connect.Request[v1.CreateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error) {
+	return c.createQuickDirectory.CallUnary(ctx, req)
+}
+
+// UpdateQuickDirectory calls panel.agent.v1.DashboardService.UpdateQuickDirectory.
+func (c *dashboardServiceClient) UpdateQuickDirectory(ctx context.Context, req *connect.Request[v1.UpdateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error) {
+	return c.updateQuickDirectory.CallUnary(ctx, req)
+}
+
+// DeleteQuickDirectory calls panel.agent.v1.DashboardService.DeleteQuickDirectory.
+func (c *dashboardServiceClient) DeleteQuickDirectory(ctx context.Context, req *connect.Request[v1.DeleteQuickDirectoryRequest]) (*connect.Response[v1.DeleteQuickDirectoryResponse], error) {
+	return c.deleteQuickDirectory.CallUnary(ctx, req)
+}
+
+// SystemRestart calls panel.agent.v1.DashboardService.SystemRestart.
+func (c *dashboardServiceClient) SystemRestart(ctx context.Context, req *connect.Request[v1.SystemRestartRequest]) (*connect.Response[v1.SystemRestartResponse], error) {
+	return c.systemRestart.CallUnary(ctx, req)
+}
+
 // DashboardServiceHandler is an implementation of the panel.agent.v1.DashboardService service.
 type DashboardServiceHandler interface {
 	// 读取操作系统与磁盘概况。
@@ -137,6 +341,30 @@ type DashboardServiceHandler interface {
 	CurrentInfo(context.Context, *connect.Request[v1.CurrentInfoRequest]) (*connect.Response[v1.DashboardCurrent], error)
 	// 读取首页快捷入口配置。
 	QuickJumps(context.Context, *connect.Request[v1.QuickJumpsRequest]) (*connect.Response[v1.QuickJumpsResponse], error)
+	// 列出首页应用启动器。
+	GetAppLauncher(context.Context, *connect.Request[v1.GetAppLauncherRequest]) (*connect.Response[v1.AppLauncherList], error)
+	// 列出可添加到启动器的应用。
+	GetLauncherOptions(context.Context, *connect.Request[v1.GetLauncherOptionsRequest]) (*connect.Response[v1.LauncherOptions], error)
+	// 设置启动器应用的显示状态。
+	SetLauncherShow(context.Context, *connect.Request[v1.SetLauncherShowRequest]) (*connect.Response[v1.SetLauncherShowResponse], error)
+	// 读取当前节点负载信息。
+	GetNodeCurrent(context.Context, *connect.Request[v1.GetNodeCurrentRequest]) (*connect.Response[v1.NodeCurrent], error)
+	// 读取 CPU 占用最高的进程。
+	GetTopCPU(context.Context, *connect.Request[v1.GetTopCPURequest]) (*connect.Response[v1.TopProcesses], error)
+	// 读取内存占用最高的进程。
+	GetTopMem(context.Context, *connect.Request[v1.GetTopMemRequest]) (*connect.Response[v1.TopProcesses], error)
+	// 修改首页快速跳转的显示状态。
+	ChangeQuickJump(context.Context, *connect.Request[v1.ChangeQuickJumpRequest]) (*connect.Response[v1.ChangeQuickJumpResponse], error)
+	// 列出快捷目录。
+	GetQuickDirectories(context.Context, *connect.Request[v1.GetQuickDirectoriesRequest]) (*connect.Response[v1.QuickDirectories], error)
+	// 新建快捷目录。
+	CreateQuickDirectory(context.Context, *connect.Request[v1.CreateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error)
+	// 更新快捷目录。
+	UpdateQuickDirectory(context.Context, *connect.Request[v1.UpdateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error)
+	// 删除快捷目录。
+	DeleteQuickDirectory(context.Context, *connect.Request[v1.DeleteQuickDirectoryRequest]) (*connect.Response[v1.DeleteQuickDirectoryResponse], error)
+	// 重启或关闭系统。
+	SystemRestart(context.Context, *connect.Request[v1.SystemRestartRequest]) (*connect.Response[v1.SystemRestartResponse], error)
 }
 
 // NewDashboardServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -170,6 +398,78 @@ func NewDashboardServiceHandler(svc DashboardServiceHandler, opts ...connect.Han
 		connect.WithSchema(dashboardServiceMethods.ByName("QuickJumps")),
 		connect.WithHandlerOptions(opts...),
 	)
+	dashboardServiceGetAppLauncherHandler := connect.NewUnaryHandler(
+		DashboardServiceGetAppLauncherProcedure,
+		svc.GetAppLauncher,
+		connect.WithSchema(dashboardServiceMethods.ByName("GetAppLauncher")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceGetLauncherOptionsHandler := connect.NewUnaryHandler(
+		DashboardServiceGetLauncherOptionsProcedure,
+		svc.GetLauncherOptions,
+		connect.WithSchema(dashboardServiceMethods.ByName("GetLauncherOptions")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceSetLauncherShowHandler := connect.NewUnaryHandler(
+		DashboardServiceSetLauncherShowProcedure,
+		svc.SetLauncherShow,
+		connect.WithSchema(dashboardServiceMethods.ByName("SetLauncherShow")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceGetNodeCurrentHandler := connect.NewUnaryHandler(
+		DashboardServiceGetNodeCurrentProcedure,
+		svc.GetNodeCurrent,
+		connect.WithSchema(dashboardServiceMethods.ByName("GetNodeCurrent")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceGetTopCPUHandler := connect.NewUnaryHandler(
+		DashboardServiceGetTopCPUProcedure,
+		svc.GetTopCPU,
+		connect.WithSchema(dashboardServiceMethods.ByName("GetTopCPU")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceGetTopMemHandler := connect.NewUnaryHandler(
+		DashboardServiceGetTopMemProcedure,
+		svc.GetTopMem,
+		connect.WithSchema(dashboardServiceMethods.ByName("GetTopMem")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceChangeQuickJumpHandler := connect.NewUnaryHandler(
+		DashboardServiceChangeQuickJumpProcedure,
+		svc.ChangeQuickJump,
+		connect.WithSchema(dashboardServiceMethods.ByName("ChangeQuickJump")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceGetQuickDirectoriesHandler := connect.NewUnaryHandler(
+		DashboardServiceGetQuickDirectoriesProcedure,
+		svc.GetQuickDirectories,
+		connect.WithSchema(dashboardServiceMethods.ByName("GetQuickDirectories")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceCreateQuickDirectoryHandler := connect.NewUnaryHandler(
+		DashboardServiceCreateQuickDirectoryProcedure,
+		svc.CreateQuickDirectory,
+		connect.WithSchema(dashboardServiceMethods.ByName("CreateQuickDirectory")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceUpdateQuickDirectoryHandler := connect.NewUnaryHandler(
+		DashboardServiceUpdateQuickDirectoryProcedure,
+		svc.UpdateQuickDirectory,
+		connect.WithSchema(dashboardServiceMethods.ByName("UpdateQuickDirectory")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceDeleteQuickDirectoryHandler := connect.NewUnaryHandler(
+		DashboardServiceDeleteQuickDirectoryProcedure,
+		svc.DeleteQuickDirectory,
+		connect.WithSchema(dashboardServiceMethods.ByName("DeleteQuickDirectory")),
+		connect.WithHandlerOptions(opts...),
+	)
+	dashboardServiceSystemRestartHandler := connect.NewUnaryHandler(
+		DashboardServiceSystemRestartProcedure,
+		svc.SystemRestart,
+		connect.WithSchema(dashboardServiceMethods.ByName("SystemRestart")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.DashboardService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case DashboardServiceGetOsInfoProcedure:
@@ -180,6 +480,30 @@ func NewDashboardServiceHandler(svc DashboardServiceHandler, opts ...connect.Han
 			dashboardServiceCurrentInfoHandler.ServeHTTP(w, r)
 		case DashboardServiceQuickJumpsProcedure:
 			dashboardServiceQuickJumpsHandler.ServeHTTP(w, r)
+		case DashboardServiceGetAppLauncherProcedure:
+			dashboardServiceGetAppLauncherHandler.ServeHTTP(w, r)
+		case DashboardServiceGetLauncherOptionsProcedure:
+			dashboardServiceGetLauncherOptionsHandler.ServeHTTP(w, r)
+		case DashboardServiceSetLauncherShowProcedure:
+			dashboardServiceSetLauncherShowHandler.ServeHTTP(w, r)
+		case DashboardServiceGetNodeCurrentProcedure:
+			dashboardServiceGetNodeCurrentHandler.ServeHTTP(w, r)
+		case DashboardServiceGetTopCPUProcedure:
+			dashboardServiceGetTopCPUHandler.ServeHTTP(w, r)
+		case DashboardServiceGetTopMemProcedure:
+			dashboardServiceGetTopMemHandler.ServeHTTP(w, r)
+		case DashboardServiceChangeQuickJumpProcedure:
+			dashboardServiceChangeQuickJumpHandler.ServeHTTP(w, r)
+		case DashboardServiceGetQuickDirectoriesProcedure:
+			dashboardServiceGetQuickDirectoriesHandler.ServeHTTP(w, r)
+		case DashboardServiceCreateQuickDirectoryProcedure:
+			dashboardServiceCreateQuickDirectoryHandler.ServeHTTP(w, r)
+		case DashboardServiceUpdateQuickDirectoryProcedure:
+			dashboardServiceUpdateQuickDirectoryHandler.ServeHTTP(w, r)
+		case DashboardServiceDeleteQuickDirectoryProcedure:
+			dashboardServiceDeleteQuickDirectoryHandler.ServeHTTP(w, r)
+		case DashboardServiceSystemRestartProcedure:
+			dashboardServiceSystemRestartHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -203,4 +527,52 @@ func (UnimplementedDashboardServiceHandler) CurrentInfo(context.Context, *connec
 
 func (UnimplementedDashboardServiceHandler) QuickJumps(context.Context, *connect.Request[v1.QuickJumpsRequest]) (*connect.Response[v1.QuickJumpsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.QuickJumps is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) GetAppLauncher(context.Context, *connect.Request[v1.GetAppLauncherRequest]) (*connect.Response[v1.AppLauncherList], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.GetAppLauncher is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) GetLauncherOptions(context.Context, *connect.Request[v1.GetLauncherOptionsRequest]) (*connect.Response[v1.LauncherOptions], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.GetLauncherOptions is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) SetLauncherShow(context.Context, *connect.Request[v1.SetLauncherShowRequest]) (*connect.Response[v1.SetLauncherShowResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.SetLauncherShow is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) GetNodeCurrent(context.Context, *connect.Request[v1.GetNodeCurrentRequest]) (*connect.Response[v1.NodeCurrent], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.GetNodeCurrent is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) GetTopCPU(context.Context, *connect.Request[v1.GetTopCPURequest]) (*connect.Response[v1.TopProcesses], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.GetTopCPU is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) GetTopMem(context.Context, *connect.Request[v1.GetTopMemRequest]) (*connect.Response[v1.TopProcesses], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.GetTopMem is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) ChangeQuickJump(context.Context, *connect.Request[v1.ChangeQuickJumpRequest]) (*connect.Response[v1.ChangeQuickJumpResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.ChangeQuickJump is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) GetQuickDirectories(context.Context, *connect.Request[v1.GetQuickDirectoriesRequest]) (*connect.Response[v1.QuickDirectories], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.GetQuickDirectories is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) CreateQuickDirectory(context.Context, *connect.Request[v1.CreateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.CreateQuickDirectory is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) UpdateQuickDirectory(context.Context, *connect.Request[v1.UpdateQuickDirectoryRequest]) (*connect.Response[v1.QuickDirectory], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.UpdateQuickDirectory is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) DeleteQuickDirectory(context.Context, *connect.Request[v1.DeleteQuickDirectoryRequest]) (*connect.Response[v1.DeleteQuickDirectoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.DeleteQuickDirectory is not implemented"))
+}
+
+func (UnimplementedDashboardServiceHandler) SystemRestart(context.Context, *connect.Request[v1.SystemRestartRequest]) (*connect.Response[v1.SystemRestartResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.DashboardService.SystemRestart is not implemented"))
 }

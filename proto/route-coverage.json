@@ -2468,17 +2468,26 @@
     {
       "method": "GET",
       "path": "/dashboard/app/launcher",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.GetAppLauncher",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "GetAppLauncher",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/dashboard/app/launcher/option",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.GetLauncherOptions",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "GetLauncherOptions",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/dashboard/app/launcher/show",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.SetLauncherShow",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "SetLauncherShow",
+      "covered": true
     },
     {
       "method": "GET",
@@ -2507,42 +2516,66 @@
     {
       "method": "GET",
       "path": "/dashboard/current/node",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.GetNodeCurrent",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "GetNodeCurrent",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/dashboard/current/top/cpu",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.GetTopCPU",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "GetTopCPU",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/dashboard/current/top/mem",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.GetTopMem",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "GetTopMem",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/dashboard/quick/change",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.ChangeQuickJump",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "ChangeQuickJump",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/dashboard/quick/directory",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.GetQuickDirectories",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "GetQuickDirectories",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/dashboard/quick/directory",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.CreateQuickDirectory",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "CreateQuickDirectory",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/dashboard/quick/directory/del",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.DeleteQuickDirectory",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "DeleteQuickDirectory",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/dashboard/quick/directory/update",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.UpdateQuickDirectory",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "UpdateQuickDirectory",
+      "covered": true
     },
     {
       "method": "GET",
@@ -2555,7 +2588,10 @@
     {
       "method": "POST",
       "path": "/dashboard/system/restart/:operation",
-      "covered": false
+      "target": "panel.agent.v1.DashboardService.SystemRestart",
+      "service": "panel.agent.v1.DashboardService",
+      "rpc": "SystemRestart",
+      "covered": true
     },
     {
       "method": "POST",

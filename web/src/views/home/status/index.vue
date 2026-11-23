@@ -353,7 +353,6 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import GPUStatus from './gpu.vue';
 import { useMediaQuery } from '@vueuse/core';
 import { routerToFileWithPath, routerToNameWithQuery } from '@/utils/router';
-import { loadTopCPU, loadTopMem } from '@/api/modules/dashboard';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 
@@ -597,8 +596,8 @@ const loadTopCPUData = async () => {
     if (cpuLoading) return;
     cpuLoading = true;
     try {
-        const res = await loadTopCPU();
-        currentInfo.value.topCPUItems = res.data || [];
+        const res = await rpc.dashboard.getTopCPU({});
+        currentInfo.value.topCPUItems = res.items.map((item) => ({ ...item, memory: Number(item.memory) }));
     } catch (_error) {
         // ignore load errors
     } finally {
@@ -610,8 +609,8 @@ const loadTopMemData = async () => {
     if (memLoading) return;
     memLoading = true;
     try {
-        const res = await loadTopMem();
-        currentInfo.value.topMemItems = res.data || [];
+        const res = await rpc.dashboard.getTopMem({});
+        currentInfo.value.topMemItems = res.items.map((item) => ({ ...item, memory: Number(item.memory) }));
     } catch (_error) {
         // ignore load errors
     } finally {
