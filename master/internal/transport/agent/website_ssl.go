@@ -2,11 +2,13 @@ package agent
 
 import (
 	"context"
+	"encoding/json"
 
 	"connectrpc.com/connect"
 
 	agentdto "mypanel/agent/app/dto"
 	"mypanel/agent/app/dto/request"
+	agentmodel "mypanel/agent/app/model"
 	agentservice "mypanel/agent/app/service"
 	agentv1 "mypanel/proto/gen/go/panel/agent/v1"
 
@@ -129,4 +131,66 @@ func (s *WebsiteSSLServer) Search(
 		Items: items,
 		Total: total,
 	}), nil
+}
+
+// ObtainCA 签发自签名证书。
+func (s *WebsiteSSLServer) ObtainCA(
+	_ context.Context,
+	req *connect.Request[agentv1.ObtainCARequest],
+) (*connect.Response[agentv1.ObtainCAResponse], error) {
+	ssl, err := s.ca.ObtainSSL(request.WebsiteCAObtain{
+		ID:          uint(req.Msg.GetId()),
+		Domains:     req.Msg.GetDomains(),
+		KeyType:     req.Msg.GetKeyType(),
+		Time:        int(req.Msg.GetTime()),
+		Unit:        req.Msg.GetUnit(),
+		PushDir:     req.Msg.GetPushDir(),
+		Dir:         req.Msg.GetDir(),
+		AutoRenew:   req.Msg.GetAutoRenew(),
+		Renew:       req.Msg.GetRenew(),
+		SSLID:       uint(req.Msg.GetSslId()),
+		Description: req.Msg.GetDescription(),
+		ExecShell:   req.Msg.GetExecShell(),
+		Shell:       req.Msg.GetShell(),
+	})
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.ObtainCAResponse{
+		SslId:         uint32(ssl.ID),
+		PrimaryDomain: ssl.PrimaryDomain,
+	}), nil
+}
+
+// ImportCA 导入自签名证书。
+func (s *WebsiteSSLServer) ImportCA(
+	_ context.Context,
+	req *connect.Request[agentv1.ImportCARequest],
+) (*connect.Response[agentv1.ImportCAResponse], error) {
+	if err := s.ca.Import(request.WebsiteCAImport{
+		Name:            req.Msg.GetName(),
+		Type:            req.Msg.GetType(),
+		Certificate:     req.Msg.GetCertificate(),
+		PrivateKey:      req.Msg.GetPrivateKey(),
+		CertificatePath: req.Msg.GetCertificatePath(),
+		PrivateKeyPath:  req.Msg.GetPrivateKeyPath(),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.ImportCAResponse{}), nil
+}
+
+// ImportSSL 导入主节点证书。
+func (s *WebsiteSSLServer) ImportSSL(
+	_ context.Context,
+	req *connect.Request[agentv1.ImportSSLRequest],
+) (*connect.Response[agentv1.ImportSSLResponse], error) {
+	var create agentmodel.WebsiteSSL
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &create); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.ImportMasterSSL(create); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.ImportSSLResponse{}), nil
 }

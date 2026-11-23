@@ -234,6 +234,12 @@ const (
 	WebsiteServiceListDomainsProcedure = "/panel.agent.v1.WebsiteService/ListDomains"
 	// WebsiteServiceGetProcedure is the fully-qualified name of the WebsiteService's Get RPC.
 	WebsiteServiceGetProcedure = "/panel.agent.v1.WebsiteService/Get"
+	// WebsiteServiceExecComposerProcedure is the fully-qualified name of the WebsiteService's
+	// ExecComposer RPC.
+	WebsiteServiceExecComposerProcedure = "/panel.agent.v1.WebsiteService/ExecComposer"
+	// WebsiteServiceBatchSetHttpsProcedure is the fully-qualified name of the WebsiteService's
+	// BatchSetHttps RPC.
+	WebsiteServiceBatchSetHttpsProcedure = "/panel.agent.v1.WebsiteService/BatchSetHttps"
 )
 
 // WebsiteServiceClient is a client for the panel.agent.v1.WebsiteService service.
@@ -378,6 +384,10 @@ type WebsiteServiceClient interface {
 	ListDomains(context.Context, *connect.Request[v1.ListWebsiteDomainsRequest]) (*connect.Response[v1.ListWebsiteDomainsResponse], error)
 	// 按 ID 查询单个网站详情。
 	Get(context.Context, *connect.Request[v1.GetWebsiteRequest]) (*connect.Response[v1.Website], error)
+	// 在网站目录中执行 Composer 命令。
+	ExecComposer(context.Context, *connect.Request[v1.ExecComposerRequest]) (*connect.Response[v1.ExecComposerResponse], error)
+	// 批量为网站启用 HTTPS。
+	BatchSetHttps(context.Context, *connect.Request[v1.BatchSetHttpsRequest]) (*connect.Response[v1.BatchSetHttpsResponse], error)
 }
 
 // NewWebsiteServiceClient constructs a client for the panel.agent.v1.WebsiteService service. By
@@ -811,6 +821,18 @@ func NewWebsiteServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(websiteServiceMethods.ByName("Get")),
 			connect.WithClientOptions(opts...),
 		),
+		execComposer: connect.NewClient[v1.ExecComposerRequest, v1.ExecComposerResponse](
+			httpClient,
+			baseURL+WebsiteServiceExecComposerProcedure,
+			connect.WithSchema(websiteServiceMethods.ByName("ExecComposer")),
+			connect.WithClientOptions(opts...),
+		),
+		batchSetHttps: connect.NewClient[v1.BatchSetHttpsRequest, v1.BatchSetHttpsResponse](
+			httpClient,
+			baseURL+WebsiteServiceBatchSetHttpsProcedure,
+			connect.WithSchema(websiteServiceMethods.ByName("BatchSetHttps")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -886,6 +908,8 @@ type websiteServiceClient struct {
 	getLog                 *connect.Client[v1.GetWebsiteLogRequest, v1.WebsiteLog]
 	listDomains            *connect.Client[v1.ListWebsiteDomainsRequest, v1.ListWebsiteDomainsResponse]
 	get                    *connect.Client[v1.GetWebsiteRequest, v1.Website]
+	execComposer           *connect.Client[v1.ExecComposerRequest, v1.ExecComposerResponse]
+	batchSetHttps          *connect.Client[v1.BatchSetHttpsRequest, v1.BatchSetHttpsResponse]
 }
 
 // Search calls panel.agent.v1.WebsiteService.Search.
@@ -1238,6 +1262,16 @@ func (c *websiteServiceClient) Get(ctx context.Context, req *connect.Request[v1.
 	return c.get.CallUnary(ctx, req)
 }
 
+// ExecComposer calls panel.agent.v1.WebsiteService.ExecComposer.
+func (c *websiteServiceClient) ExecComposer(ctx context.Context, req *connect.Request[v1.ExecComposerRequest]) (*connect.Response[v1.ExecComposerResponse], error) {
+	return c.execComposer.CallUnary(ctx, req)
+}
+
+// BatchSetHttps calls panel.agent.v1.WebsiteService.BatchSetHttps.
+func (c *websiteServiceClient) BatchSetHttps(ctx context.Context, req *connect.Request[v1.BatchSetHttpsRequest]) (*connect.Response[v1.BatchSetHttpsResponse], error) {
+	return c.batchSetHttps.CallUnary(ctx, req)
+}
+
 // WebsiteServiceHandler is an implementation of the panel.agent.v1.WebsiteService service.
 type WebsiteServiceHandler interface {
 	// 分页查询网站列表，支持按名称/域名模糊搜索与类型过滤。
@@ -1380,6 +1414,10 @@ type WebsiteServiceHandler interface {
 	ListDomains(context.Context, *connect.Request[v1.ListWebsiteDomainsRequest]) (*connect.Response[v1.ListWebsiteDomainsResponse], error)
 	// 按 ID 查询单个网站详情。
 	Get(context.Context, *connect.Request[v1.GetWebsiteRequest]) (*connect.Response[v1.Website], error)
+	// 在网站目录中执行 Composer 命令。
+	ExecComposer(context.Context, *connect.Request[v1.ExecComposerRequest]) (*connect.Response[v1.ExecComposerResponse], error)
+	// 批量为网站启用 HTTPS。
+	BatchSetHttps(context.Context, *connect.Request[v1.BatchSetHttpsRequest]) (*connect.Response[v1.BatchSetHttpsResponse], error)
 }
 
 // NewWebsiteServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -1809,6 +1847,18 @@ func NewWebsiteServiceHandler(svc WebsiteServiceHandler, opts ...connect.Handler
 		connect.WithSchema(websiteServiceMethods.ByName("Get")),
 		connect.WithHandlerOptions(opts...),
 	)
+	websiteServiceExecComposerHandler := connect.NewUnaryHandler(
+		WebsiteServiceExecComposerProcedure,
+		svc.ExecComposer,
+		connect.WithSchema(websiteServiceMethods.ByName("ExecComposer")),
+		connect.WithHandlerOptions(opts...),
+	)
+	websiteServiceBatchSetHttpsHandler := connect.NewUnaryHandler(
+		WebsiteServiceBatchSetHttpsProcedure,
+		svc.BatchSetHttps,
+		connect.WithSchema(websiteServiceMethods.ByName("BatchSetHttps")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.WebsiteService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case WebsiteServiceSearchProcedure:
@@ -1951,6 +2001,10 @@ func NewWebsiteServiceHandler(svc WebsiteServiceHandler, opts ...connect.Handler
 			websiteServiceListDomainsHandler.ServeHTTP(w, r)
 		case WebsiteServiceGetProcedure:
 			websiteServiceGetHandler.ServeHTTP(w, r)
+		case WebsiteServiceExecComposerProcedure:
+			websiteServiceExecComposerHandler.ServeHTTP(w, r)
+		case WebsiteServiceBatchSetHttpsProcedure:
+			websiteServiceBatchSetHttpsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -2238,4 +2292,12 @@ func (UnimplementedWebsiteServiceHandler) ListDomains(context.Context, *connect.
 
 func (UnimplementedWebsiteServiceHandler) Get(context.Context, *connect.Request[v1.GetWebsiteRequest]) (*connect.Response[v1.Website], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.WebsiteService.Get is not implemented"))
+}
+
+func (UnimplementedWebsiteServiceHandler) ExecComposer(context.Context, *connect.Request[v1.ExecComposerRequest]) (*connect.Response[v1.ExecComposerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.WebsiteService.ExecComposer is not implemented"))
+}
+
+func (UnimplementedWebsiteServiceHandler) BatchSetHttps(context.Context, *connect.Request[v1.BatchSetHttpsRequest]) (*connect.Response[v1.BatchSetHttpsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.WebsiteService.BatchSetHttps is not implemented"))
 }

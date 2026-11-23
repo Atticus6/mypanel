@@ -230,7 +230,7 @@
 
 <script lang="ts" setup>
 import { Website } from '@/api/interface/website';
-import { searchDnsAccount, obtainSSLByCA } from '@/api/modules/website';
+import { searchDnsAccount } from '@/api/modules/website';
 import { Rules, checkMaxLength, checkNumberRange } from '@/global/form-rules';
 import FileList from '@/components/file-list/index.vue';
 import i18n from '@/lang';
@@ -506,25 +506,24 @@ const submit = async (formEl: FormInstance | undefined) => {
         if (operate.value == 'create') {
             ssl.value.nodes = nodes;
             if (ssl.value.provider === 'selfSigned') {
-                obtainSSLByCA({
-                    id: ssl.value.caId!,
-                    domains: ssl.value.domains
-                        .split('\n')
-                        .map((domain) => domain.trim())
-                        .filter(Boolean)
-                        .join('\n'),
-                    keyType: ssl.value.keyType,
-                    time: ssl.value.time,
-                    unit: ssl.value.unit,
-                    autoRenew: ssl.value.autoRenew,
-                    description: ssl.value.description,
-                    pushDir: ssl.value.pushDir,
-                    dir: ssl.value.dir,
-                    execShell: ssl.value.execShell,
-                    shell: ssl.value.shell,
-                    pushNode: ssl.value.pushNode,
-                    nodes,
-                })
+                rpc.ssl
+                    .obtainCA({
+                        id: ssl.value.caId!,
+                        domains: ssl.value.domains
+                            .split('\n')
+                            .map((domain) => domain.trim())
+                            .filter(Boolean)
+                            .join('\n'),
+                        keyType: ssl.value.keyType,
+                        time: ssl.value.time,
+                        unit: ssl.value.unit,
+                        autoRenew: ssl.value.autoRenew,
+                        description: ssl.value.description,
+                        pushDir: ssl.value.pushDir,
+                        dir: ssl.value.dir,
+                        execShell: ssl.value.execShell,
+                        shell: ssl.value.shell,
+                    })
                     .then(() => {
                         handleClose();
                         MsgSuccess(i18n.global.t('commons.msg.createSuccess'));
@@ -534,7 +533,8 @@ const submit = async (formEl: FormInstance | undefined) => {
                     });
                 return;
             }
-            rpc.ssl.create(ssl.value as any)
+            rpc.ssl
+                .create(ssl.value as any)
                 .then((res) => {
                     if (ssl.value.provider != 'dnsManual') {
                         em('submit', res.id);
@@ -577,7 +577,8 @@ const submit = async (formEl: FormInstance | undefined) => {
                 nodes: nodes,
                 isIP: ssl.value.isIP,
             };
-            rpc.ssl.update(sslUpdate as any)
+            rpc.ssl
+                .update(sslUpdate as any)
                 .then(() => {
                     handleClose();
                     MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));

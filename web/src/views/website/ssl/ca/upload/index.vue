@@ -70,7 +70,8 @@ import { nextTick, reactive, ref } from 'vue';
 import type { FormInstance, UploadFile, UploadInstance, UploadRawFile } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import FileList from '@/components/file-list/index.vue';
-import { uploadCA, importCA } from '@/api/modules/website';
+import { uploadCA } from '@/api/modules/website';
+import { rpc } from '@/lib/rpc';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 
@@ -141,7 +142,7 @@ const submit = async () => {
             data.append('file', form.file);
             await uploadCA(data);
         } else {
-            await importCA(
+            await rpc.ssl.importCA(
                 form.type === 'paste'
                     ? { type: 'paste', name: form.name, certificate: form.certificate, privateKey: form.privateKey }
                     : {

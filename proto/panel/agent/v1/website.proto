@@ -573,6 +573,23 @@ service WebsiteService {
       no_audit: true
     };
   }
+
+
+  // 在网站目录中执行 Composer 命令。
+  rpc ExecComposer(ExecComposerRequest) returns (ExecComposerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "执行 Composer"
+      audit_action_en: "Run composer"
+    };
+  }
+
+  // 批量为网站启用 HTTPS。
+  rpc BatchSetHttps(BatchSetHttpsRequest) returns (BatchSetHttpsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "批量启用 HTTPS"
+      audit_action_en: "Batch enable HTTPS"
+    };
+  }
 }
 
 // SearchWebsitesRequest 是网站列表查询参数。
@@ -2407,3 +2424,84 @@ message UpdateProxyRequest {
 
 // UpdateProxyResponse 是更新结果，无业务字段。
 message UpdateProxyResponse {}
+
+// ExecComposerRequest 是 Composer 执行参数。
+message ExecComposerRequest {
+  // Composer 命令。
+  string command = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 附加命令。
+  string ext_command = 2;
+
+  // 镜像源。
+  string mirror = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 执行目录。
+  string dir = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 执行用户。
+  string user = 5 [(buf.validate.field).string.min_len = 1];
+
+  // 网站 ID。
+  uint32 website_id = 6 [(buf.validate.field).uint32.gt = 0];
+
+  // 前端生成的任务 ID。
+  string task_id = 7 [(buf.validate.field).string.min_len = 1];
+}
+
+// ExecComposerResponse 是执行结果，无业务字段。
+message ExecComposerResponse {}
+
+// BatchSetHttpsRequest 是批量启用 HTTPS 参数。
+message BatchSetHttpsRequest {
+  // 网站 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 前端生成的任务 ID。
+  string task_id = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 已有证书 ID。
+  uint32 website_ssl_id = 3;
+
+  // 证书来源：existed、auto 或 manual。
+  string type = 4;
+
+  // 私钥内容。
+  string private_key = 5;
+
+  // 证书内容。
+  string certificate = 6;
+
+  // 私钥文件路径。
+  string private_key_path = 7;
+
+  // 证书文件路径。
+  string certificate_path = 8;
+
+  // 导入类型。
+  string import_type = 9;
+
+  // HTTP 配置：HTTPSOnly、HTTPAlso 或 HTTPToHTTPS。
+  string http_config = 10;
+
+  // TLS 协议列表。
+  repeated string ssl_protocol = 11;
+
+  // 加密算法。
+  string algorithm = 12;
+
+  // 是否开启 HSTS。
+  bool hsts = 13;
+
+  // HSTS 是否包含子域名。
+  bool hsts_include_sub_domains = 14;
+
+  // HTTPS 端口列表。
+  repeated int32 https_ports = 15;
+
+  // 是否开启 HTTP/3。
+  bool http3 = 16;
+}
+
+// BatchSetHttpsResponse 是操作结果，无业务字段。
+message BatchSetHttpsResponse {}

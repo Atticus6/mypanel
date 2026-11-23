@@ -43,7 +43,6 @@
     <FileList ref="dirRef" :dir="true" @choose="getPath" />
 </template>
 <script setup lang="ts">
-import { execComposer } from '@/api/modules/website';
 import i18n from '@/lang';
 import { newUUID } from '@/utils/id';
 import TaskLog from '@/components/log/task/index.vue';
@@ -116,7 +115,15 @@ const exec = async () => {
     const taskID = newUUID();
     req.taskID = taskID;
     try {
-        await execComposer(req);
+        await rpc.website.execComposer({
+            command: req.command,
+            extCommand: req.extCommand,
+            mirror: req.mirror,
+            dir: req.dir,
+            user: req.user,
+            websiteId: props.websiteID,
+            taskId: taskID,
+        });
         taskLogRef.value.openWithTaskID(taskID);
     } catch (error) {
         return;

@@ -169,6 +169,31 @@ service WebsiteSSLService {
       audit_action_en: "Delete ACME account"
     };
   }
+
+
+  // 签发自签名 CA 证书。
+  rpc ObtainCA(ObtainCARequest) returns (ObtainCAResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "签发自签名证书"
+      audit_action_en: "Obtain CA certificate"
+    };
+  }
+
+  // 导入自签名 CA 证书。
+  rpc ImportCA(ImportCARequest) returns (ImportCAResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导入自签名证书"
+      audit_action_en: "Import CA certificate"
+    };
+  }
+
+  // 导入主节点 SSL 证书。
+  rpc ImportSSL(ImportSSLRequest) returns (ImportSSLResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导入 SSL 证书"
+      audit_action_en: "Import SSL certificate"
+    };
+  }
 }
 
 // SearchSSLRequest 是证书列表查询参数。
@@ -741,3 +766,97 @@ message DeleteACMEAccountRequest {
 
 // DeleteACMEAccountResponse 是删除结果，无业务字段。
 message DeleteACMEAccountResponse {}
+
+// ObtainCARequest 是自签名证书签发参数。
+message ObtainCARequest {
+  // CA ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 域名列表。
+  string domains = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 密钥类型，例如 EC256、RSA2048。
+  string key_type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 有效期长度。
+  int32 time = 4 [(buf.validate.field).int32.gt = 0];
+
+  // 有效期单位。
+  string unit = 5 [(buf.validate.field).string.min_len = 1];
+
+  // 是否推送到目录。
+  bool push_dir = 6;
+
+  // 推送目录。
+  string dir = 7;
+
+  // 是否自动续期。
+  bool auto_renew = 8;
+
+  // 是否为续签。
+  bool renew = 9;
+
+  // 关联 SSL ID。
+  uint32 ssl_id = 10;
+
+  // 描述。
+  string description = 11;
+
+  // 是否执行脚本。
+  bool exec_shell = 12;
+
+  // 签发后执行的脚本。
+  string shell = 13;
+}
+
+// ObtainCAResponse 是签发结果。
+message ObtainCAResponse {
+  // 生成的证书 ID。
+  uint32 ssl_id = 1;
+
+  // 主域名。
+  string primary_domain = 2;
+}
+
+// ImportCARequest 是自签名证书导入参数。
+message ImportCARequest {
+  // 证书名称。
+  string name = 1 [(buf.validate.field).string = {
+    min_len: 1
+    max_len: 128
+  }];
+
+  // 导入方式：paste 或 local。
+  string type = 2 [(buf.validate.field).string = {
+    in: [
+      "paste",
+      "local"
+    ]
+  }];
+
+  // 证书内容；paste 方式必填。
+  string certificate = 3;
+
+  // 私钥内容；paste 方式必填。
+  string private_key = 4;
+
+  // 证书文件路径；local 方式必填。
+  string certificate_path = 5;
+
+  // 私钥文件路径；local 方式必填。
+  string private_key_path = 6;
+}
+
+// ImportCAResponse 是导入结果，无业务字段。
+message ImportCAResponse {}
+
+// ImportSSLRequest 是主节点证书导入参数。
+//
+// 证书模型字段较多且随来源变化，直接用 JSON 透传。
+message ImportSSLRequest {
+  // WebsiteSSL 模型的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ImportSSLResponse 是导入结果，无业务字段。
+message ImportSSLResponse {}

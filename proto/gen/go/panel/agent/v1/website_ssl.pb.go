@@ -2758,6 +2758,428 @@ func (*DeleteACMEAccountResponse) Descriptor() ([]byte, []int) {
 	return file_panel_agent_v1_website_ssl_proto_rawDescGZIP(), []int{41}
 }
 
+// ObtainCARequest 是自签名证书签发参数。
+type ObtainCARequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// CA ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 域名列表。
+	Domains string `protobuf:"bytes,2,opt,name=domains,proto3" json:"domains,omitempty"`
+	// 密钥类型，例如 EC256、RSA2048。
+	KeyType string `protobuf:"bytes,3,opt,name=key_type,json=keyType,proto3" json:"key_type,omitempty"`
+	// 有效期长度。
+	Time int32 `protobuf:"varint,4,opt,name=time,proto3" json:"time,omitempty"`
+	// 有效期单位。
+	Unit string `protobuf:"bytes,5,opt,name=unit,proto3" json:"unit,omitempty"`
+	// 是否推送到目录。
+	PushDir bool `protobuf:"varint,6,opt,name=push_dir,json=pushDir,proto3" json:"push_dir,omitempty"`
+	// 推送目录。
+	Dir string `protobuf:"bytes,7,opt,name=dir,proto3" json:"dir,omitempty"`
+	// 是否自动续期。
+	AutoRenew bool `protobuf:"varint,8,opt,name=auto_renew,json=autoRenew,proto3" json:"auto_renew,omitempty"`
+	// 是否为续签。
+	Renew bool `protobuf:"varint,9,opt,name=renew,proto3" json:"renew,omitempty"`
+	// 关联 SSL ID。
+	SslId uint32 `protobuf:"varint,10,opt,name=ssl_id,json=sslId,proto3" json:"ssl_id,omitempty"`
+	// 描述。
+	Description string `protobuf:"bytes,11,opt,name=description,proto3" json:"description,omitempty"`
+	// 是否执行脚本。
+	ExecShell bool `protobuf:"varint,12,opt,name=exec_shell,json=execShell,proto3" json:"exec_shell,omitempty"`
+	// 签发后执行的脚本。
+	Shell         string `protobuf:"bytes,13,opt,name=shell,proto3" json:"shell,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ObtainCARequest) Reset() {
+	*x = ObtainCARequest{}
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ObtainCARequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ObtainCARequest) ProtoMessage() {}
+
+func (x *ObtainCARequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ObtainCARequest.ProtoReflect.Descriptor instead.
+func (*ObtainCARequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_ssl_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *ObtainCARequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ObtainCARequest) GetDomains() string {
+	if x != nil {
+		return x.Domains
+	}
+	return ""
+}
+
+func (x *ObtainCARequest) GetKeyType() string {
+	if x != nil {
+		return x.KeyType
+	}
+	return ""
+}
+
+func (x *ObtainCARequest) GetTime() int32 {
+	if x != nil {
+		return x.Time
+	}
+	return 0
+}
+
+func (x *ObtainCARequest) GetUnit() string {
+	if x != nil {
+		return x.Unit
+	}
+	return ""
+}
+
+func (x *ObtainCARequest) GetPushDir() bool {
+	if x != nil {
+		return x.PushDir
+	}
+	return false
+}
+
+func (x *ObtainCARequest) GetDir() string {
+	if x != nil {
+		return x.Dir
+	}
+	return ""
+}
+
+func (x *ObtainCARequest) GetAutoRenew() bool {
+	if x != nil {
+		return x.AutoRenew
+	}
+	return false
+}
+
+func (x *ObtainCARequest) GetRenew() bool {
+	if x != nil {
+		return x.Renew
+	}
+	return false
+}
+
+func (x *ObtainCARequest) GetSslId() uint32 {
+	if x != nil {
+		return x.SslId
+	}
+	return 0
+}
+
+func (x *ObtainCARequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *ObtainCARequest) GetExecShell() bool {
+	if x != nil {
+		return x.ExecShell
+	}
+	return false
+}
+
+func (x *ObtainCARequest) GetShell() string {
+	if x != nil {
+		return x.Shell
+	}
+	return ""
+}
+
+// ObtainCAResponse 是签发结果。
+type ObtainCAResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 生成的证书 ID。
+	SslId uint32 `protobuf:"varint,1,opt,name=ssl_id,json=sslId,proto3" json:"ssl_id,omitempty"`
+	// 主域名。
+	PrimaryDomain string `protobuf:"bytes,2,opt,name=primary_domain,json=primaryDomain,proto3" json:"primary_domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ObtainCAResponse) Reset() {
+	*x = ObtainCAResponse{}
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ObtainCAResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ObtainCAResponse) ProtoMessage() {}
+
+func (x *ObtainCAResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ObtainCAResponse.ProtoReflect.Descriptor instead.
+func (*ObtainCAResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_ssl_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *ObtainCAResponse) GetSslId() uint32 {
+	if x != nil {
+		return x.SslId
+	}
+	return 0
+}
+
+func (x *ObtainCAResponse) GetPrimaryDomain() string {
+	if x != nil {
+		return x.PrimaryDomain
+	}
+	return ""
+}
+
+// ImportCARequest 是自签名证书导入参数。
+type ImportCARequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 证书名称。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 导入方式：paste 或 local。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 证书内容；paste 方式必填。
+	Certificate string `protobuf:"bytes,3,opt,name=certificate,proto3" json:"certificate,omitempty"`
+	// 私钥内容；paste 方式必填。
+	PrivateKey string `protobuf:"bytes,4,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
+	// 证书文件路径；local 方式必填。
+	CertificatePath string `protobuf:"bytes,5,opt,name=certificate_path,json=certificatePath,proto3" json:"certificate_path,omitempty"`
+	// 私钥文件路径；local 方式必填。
+	PrivateKeyPath string `protobuf:"bytes,6,opt,name=private_key_path,json=privateKeyPath,proto3" json:"private_key_path,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ImportCARequest) Reset() {
+	*x = ImportCARequest{}
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImportCARequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImportCARequest) ProtoMessage() {}
+
+func (x *ImportCARequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImportCARequest.ProtoReflect.Descriptor instead.
+func (*ImportCARequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_ssl_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *ImportCARequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ImportCARequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *ImportCARequest) GetCertificate() string {
+	if x != nil {
+		return x.Certificate
+	}
+	return ""
+}
+
+func (x *ImportCARequest) GetPrivateKey() string {
+	if x != nil {
+		return x.PrivateKey
+	}
+	return ""
+}
+
+func (x *ImportCARequest) GetCertificatePath() string {
+	if x != nil {
+		return x.CertificatePath
+	}
+	return ""
+}
+
+func (x *ImportCARequest) GetPrivateKeyPath() string {
+	if x != nil {
+		return x.PrivateKeyPath
+	}
+	return ""
+}
+
+// ImportCAResponse 是导入结果，无业务字段。
+type ImportCAResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImportCAResponse) Reset() {
+	*x = ImportCAResponse{}
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImportCAResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImportCAResponse) ProtoMessage() {}
+
+func (x *ImportCAResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImportCAResponse.ProtoReflect.Descriptor instead.
+func (*ImportCAResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_ssl_proto_rawDescGZIP(), []int{45}
+}
+
+// ImportSSLRequest 是主节点证书导入参数。
+//
+// 证书模型字段较多且随来源变化，直接用 JSON 透传。
+type ImportSSLRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// WebsiteSSL 模型的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImportSSLRequest) Reset() {
+	*x = ImportSSLRequest{}
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImportSSLRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImportSSLRequest) ProtoMessage() {}
+
+func (x *ImportSSLRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImportSSLRequest.ProtoReflect.Descriptor instead.
+func (*ImportSSLRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_ssl_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *ImportSSLRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// ImportSSLResponse 是导入结果，无业务字段。
+type ImportSSLResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImportSSLResponse) Reset() {
+	*x = ImportSSLResponse{}
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImportSSLResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImportSSLResponse) ProtoMessage() {}
+
+func (x *ImportSSLResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_ssl_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImportSSLResponse.ProtoReflect.Descriptor instead.
+func (*ImportSSLResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_ssl_proto_rawDescGZIP(), []int{47}
+}
+
 var File_panel_agent_v1_website_ssl_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_website_ssl_proto_rawDesc = "" +
@@ -2959,7 +3381,40 @@ const file_panel_agent_v1_website_ssl_proto_rawDesc = "" +
 	"\x19UpdateACMEAccountResponse\"3\n" +
 	"\x18DeleteACMEAccountRequest\x12\x17\n" +
 	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\x1b\n" +
-	"\x19DeleteACMEAccountResponse2\xb6\x11\n" +
+	"\x19DeleteACMEAccountResponse\"\xfb\x02\n" +
+	"\x0fObtainCARequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12!\n" +
+	"\adomains\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\adomains\x12\"\n" +
+	"\bkey_type\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\akeyType\x12\x1b\n" +
+	"\x04time\x18\x04 \x01(\x05B\a\xbaH\x04\x1a\x02 \x00R\x04time\x12\x1b\n" +
+	"\x04unit\x18\x05 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04unit\x12\x19\n" +
+	"\bpush_dir\x18\x06 \x01(\bR\apushDir\x12\x10\n" +
+	"\x03dir\x18\a \x01(\tR\x03dir\x12\x1d\n" +
+	"\n" +
+	"auto_renew\x18\b \x01(\bR\tautoRenew\x12\x14\n" +
+	"\x05renew\x18\t \x01(\bR\x05renew\x12\x15\n" +
+	"\x06ssl_id\x18\n" +
+	" \x01(\rR\x05sslId\x12 \n" +
+	"\vdescription\x18\v \x01(\tR\vdescription\x12\x1d\n" +
+	"\n" +
+	"exec_shell\x18\f \x01(\bR\texecShell\x12\x14\n" +
+	"\x05shell\x18\r \x01(\tR\x05shell\"P\n" +
+	"\x10ObtainCAResponse\x12\x15\n" +
+	"\x06ssl_id\x18\x01 \x01(\rR\x05sslId\x12%\n" +
+	"\x0eprimary_domain\x18\x02 \x01(\tR\rprimaryDomain\"\xf2\x01\n" +
+	"\x0fImportCARequest\x12\x1e\n" +
+	"\x04name\x18\x01 \x01(\tB\n" +
+	"\xbaH\ar\x05\x10\x01\x18\x80\x01R\x04name\x12'\n" +
+	"\x04type\x18\x02 \x01(\tB\x13\xbaH\x10r\x0eR\x05pasteR\x05localR\x04type\x12 \n" +
+	"\vcertificate\x18\x03 \x01(\tR\vcertificate\x12\x1f\n" +
+	"\vprivate_key\x18\x04 \x01(\tR\n" +
+	"privateKey\x12)\n" +
+	"\x10certificate_path\x18\x05 \x01(\tR\x0fcertificatePath\x12(\n" +
+	"\x10private_key_path\x18\x06 \x01(\tR\x0eprivateKeyPath\"\x12\n" +
+	"\x10ImportCAResponse\">\n" +
+	"\x10ImportSSLRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x13\n" +
+	"\x11ImportSSLResponse2\xc2\x14\n" +
 	"\x11WebsiteSSLService\x12r\n" +
 	"\x11SearchDNSAccounts\x12(.panel.agent.v1.SearchDNSAccountsRequest\x1a).panel.agent.v1.SearchDNSAccountsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12u\n" +
 	"\x12SearchACMEAccounts\x12).panel.agent.v1.SearchACMEAccountsRequest\x1a*.panel.agent.v1.SearchACMEAccountsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12W\n" +
@@ -2983,7 +3438,10 @@ const file_panel_agent_v1_website_ssl_proto_rawDesc = "" +
 	"\n" +
 	"UpdateACME\x12(.panel.agent.v1.UpdateACMEAccountRequest\x1a).panel.agent.v1.UpdateACMEAccountResponse\"-\x8a\xb5\x18)\"\x12修改 ACME 账号*\x13Update ACME account\x12\x90\x01\n" +
 	"\n" +
-	"DeleteACME\x12(.panel.agent.v1.DeleteACMEAccountRequest\x1a).panel.agent.v1.DeleteACMEAccountResponse\"-\x8a\xb5\x18)\"\x12删除 ACME 账号*\x13Delete ACME accountB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"DeleteACME\x12(.panel.agent.v1.DeleteACMEAccountRequest\x1a).panel.agent.v1.DeleteACMEAccountResponse\"-\x8a\xb5\x18)\"\x12删除 ACME 账号*\x13Delete ACME account\x12\x81\x01\n" +
+	"\bObtainCA\x12\x1f.panel.agent.v1.ObtainCARequest\x1a .panel.agent.v1.ObtainCAResponse\"2\x8a\xb5\x18.\"\x15签发自签名证书*\x15Obtain CA certificate\x12\x81\x01\n" +
+	"\bImportCA\x12\x1f.panel.agent.v1.ImportCARequest\x1a .panel.agent.v1.ImportCAResponse\"2\x8a\xb5\x18.\"\x15导入自签名证书*\x15Import CA certificate\x12\x81\x01\n" +
+	"\tImportSSL\x12 .panel.agent.v1.ImportSSLRequest\x1a!.panel.agent.v1.ImportSSLResponse\"/\x8a\xb5\x18+\"\x11导入 SSL 证书*\x16Import SSL certificateB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_website_ssl_proto_rawDescOnce sync.Once
@@ -2997,7 +3455,7 @@ func file_panel_agent_v1_website_ssl_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_website_ssl_proto_rawDescData
 }
 
-var file_panel_agent_v1_website_ssl_proto_msgTypes = make([]protoimpl.MessageInfo, 42)
+var file_panel_agent_v1_website_ssl_proto_msgTypes = make([]protoimpl.MessageInfo, 48)
 var file_panel_agent_v1_website_ssl_proto_goTypes = []any{
 	(*SearchSSLRequest)(nil),           // 0: panel.agent.v1.SearchSSLRequest
 	(*SearchSSLResponse)(nil),          // 1: panel.agent.v1.SearchSSLResponse
@@ -3041,6 +3499,12 @@ var file_panel_agent_v1_website_ssl_proto_goTypes = []any{
 	(*UpdateACMEAccountResponse)(nil),  // 39: panel.agent.v1.UpdateACMEAccountResponse
 	(*DeleteACMEAccountRequest)(nil),   // 40: panel.agent.v1.DeleteACMEAccountRequest
 	(*DeleteACMEAccountResponse)(nil),  // 41: panel.agent.v1.DeleteACMEAccountResponse
+	(*ObtainCARequest)(nil),            // 42: panel.agent.v1.ObtainCARequest
+	(*ObtainCAResponse)(nil),           // 43: panel.agent.v1.ObtainCAResponse
+	(*ImportCARequest)(nil),            // 44: panel.agent.v1.ImportCARequest
+	(*ImportCAResponse)(nil),           // 45: panel.agent.v1.ImportCAResponse
+	(*ImportSSLRequest)(nil),           // 46: panel.agent.v1.ImportSSLRequest
+	(*ImportSSLResponse)(nil),          // 47: panel.agent.v1.ImportSSLResponse
 }
 var file_panel_agent_v1_website_ssl_proto_depIdxs = []int32{
 	2,  // 0: panel.agent.v1.SearchSSLResponse.items:type_name -> panel.agent.v1.WebsiteSSL
@@ -3069,28 +3533,34 @@ var file_panel_agent_v1_website_ssl_proto_depIdxs = []int32{
 	36, // 23: panel.agent.v1.WebsiteSSLService.CreateACME:input_type -> panel.agent.v1.CreateACMEAccountRequest
 	38, // 24: panel.agent.v1.WebsiteSSLService.UpdateACME:input_type -> panel.agent.v1.UpdateACMEAccountRequest
 	40, // 25: panel.agent.v1.WebsiteSSLService.DeleteACME:input_type -> panel.agent.v1.DeleteACMEAccountRequest
-	4,  // 26: panel.agent.v1.WebsiteSSLService.SearchDNSAccounts:output_type -> panel.agent.v1.SearchDNSAccountsResponse
-	7,  // 27: panel.agent.v1.WebsiteSSLService.SearchACMEAccounts:output_type -> panel.agent.v1.SearchACMEAccountsResponse
-	1,  // 28: panel.agent.v1.WebsiteSSLService.Search:output_type -> panel.agent.v1.SearchSSLResponse
-	10, // 29: panel.agent.v1.WebsiteSSLService.List:output_type -> panel.agent.v1.ListSSLResponse
-	2,  // 30: panel.agent.v1.WebsiteSSLService.GetByID:output_type -> panel.agent.v1.WebsiteSSL
-	2,  // 31: panel.agent.v1.WebsiteSSLService.GetByWebsite:output_type -> panel.agent.v1.WebsiteSSL
-	14, // 32: panel.agent.v1.WebsiteSSLService.Create:output_type -> panel.agent.v1.CreateSSLResponse
-	16, // 33: panel.agent.v1.WebsiteSSLService.Update:output_type -> panel.agent.v1.UpdateSSLResponse
-	18, // 34: panel.agent.v1.WebsiteSSLService.Apply:output_type -> panel.agent.v1.ApplySSLResponse
-	21, // 35: panel.agent.v1.WebsiteSSLService.GetDNSResolve:output_type -> panel.agent.v1.GetDNSResolveResponse
-	23, // 36: panel.agent.v1.WebsiteSSLService.Delete:output_type -> panel.agent.v1.DeleteSSLResponse
-	25, // 37: panel.agent.v1.WebsiteSSLService.Push:output_type -> panel.agent.v1.PushSSLResponse
-	27, // 38: panel.agent.v1.WebsiteSSLService.SearchCA:output_type -> panel.agent.v1.SearchCAResponse
-	28, // 39: panel.agent.v1.WebsiteSSLService.GetCA:output_type -> panel.agent.v1.CADetail
-	31, // 40: panel.agent.v1.WebsiteSSLService.CreateCA:output_type -> panel.agent.v1.CreateCAResponse
-	33, // 41: panel.agent.v1.WebsiteSSLService.DeleteCA:output_type -> panel.agent.v1.DeleteCAResponse
-	35, // 42: panel.agent.v1.WebsiteSSLService.RenewCA:output_type -> panel.agent.v1.RenewCAResponse
-	37, // 43: panel.agent.v1.WebsiteSSLService.CreateACME:output_type -> panel.agent.v1.CreateACMEAccountResponse
-	39, // 44: panel.agent.v1.WebsiteSSLService.UpdateACME:output_type -> panel.agent.v1.UpdateACMEAccountResponse
-	41, // 45: panel.agent.v1.WebsiteSSLService.DeleteACME:output_type -> panel.agent.v1.DeleteACMEAccountResponse
-	26, // [26:46] is the sub-list for method output_type
-	6,  // [6:26] is the sub-list for method input_type
+	42, // 26: panel.agent.v1.WebsiteSSLService.ObtainCA:input_type -> panel.agent.v1.ObtainCARequest
+	44, // 27: panel.agent.v1.WebsiteSSLService.ImportCA:input_type -> panel.agent.v1.ImportCARequest
+	46, // 28: panel.agent.v1.WebsiteSSLService.ImportSSL:input_type -> panel.agent.v1.ImportSSLRequest
+	4,  // 29: panel.agent.v1.WebsiteSSLService.SearchDNSAccounts:output_type -> panel.agent.v1.SearchDNSAccountsResponse
+	7,  // 30: panel.agent.v1.WebsiteSSLService.SearchACMEAccounts:output_type -> panel.agent.v1.SearchACMEAccountsResponse
+	1,  // 31: panel.agent.v1.WebsiteSSLService.Search:output_type -> panel.agent.v1.SearchSSLResponse
+	10, // 32: panel.agent.v1.WebsiteSSLService.List:output_type -> panel.agent.v1.ListSSLResponse
+	2,  // 33: panel.agent.v1.WebsiteSSLService.GetByID:output_type -> panel.agent.v1.WebsiteSSL
+	2,  // 34: panel.agent.v1.WebsiteSSLService.GetByWebsite:output_type -> panel.agent.v1.WebsiteSSL
+	14, // 35: panel.agent.v1.WebsiteSSLService.Create:output_type -> panel.agent.v1.CreateSSLResponse
+	16, // 36: panel.agent.v1.WebsiteSSLService.Update:output_type -> panel.agent.v1.UpdateSSLResponse
+	18, // 37: panel.agent.v1.WebsiteSSLService.Apply:output_type -> panel.agent.v1.ApplySSLResponse
+	21, // 38: panel.agent.v1.WebsiteSSLService.GetDNSResolve:output_type -> panel.agent.v1.GetDNSResolveResponse
+	23, // 39: panel.agent.v1.WebsiteSSLService.Delete:output_type -> panel.agent.v1.DeleteSSLResponse
+	25, // 40: panel.agent.v1.WebsiteSSLService.Push:output_type -> panel.agent.v1.PushSSLResponse
+	27, // 41: panel.agent.v1.WebsiteSSLService.SearchCA:output_type -> panel.agent.v1.SearchCAResponse
+	28, // 42: panel.agent.v1.WebsiteSSLService.GetCA:output_type -> panel.agent.v1.CADetail
+	31, // 43: panel.agent.v1.WebsiteSSLService.CreateCA:output_type -> panel.agent.v1.CreateCAResponse
+	33, // 44: panel.agent.v1.WebsiteSSLService.DeleteCA:output_type -> panel.agent.v1.DeleteCAResponse
+	35, // 45: panel.agent.v1.WebsiteSSLService.RenewCA:output_type -> panel.agent.v1.RenewCAResponse
+	37, // 46: panel.agent.v1.WebsiteSSLService.CreateACME:output_type -> panel.agent.v1.CreateACMEAccountResponse
+	39, // 47: panel.agent.v1.WebsiteSSLService.UpdateACME:output_type -> panel.agent.v1.UpdateACMEAccountResponse
+	41, // 48: panel.agent.v1.WebsiteSSLService.DeleteACME:output_type -> panel.agent.v1.DeleteACMEAccountResponse
+	43, // 49: panel.agent.v1.WebsiteSSLService.ObtainCA:output_type -> panel.agent.v1.ObtainCAResponse
+	45, // 50: panel.agent.v1.WebsiteSSLService.ImportCA:output_type -> panel.agent.v1.ImportCAResponse
+	47, // 51: panel.agent.v1.WebsiteSSLService.ImportSSL:output_type -> panel.agent.v1.ImportSSLResponse
+	29, // [29:52] is the sub-list for method output_type
+	6,  // [6:29] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
 	6,  // [6:6] is the sub-list for extension extendee
 	0,  // [0:6] is the sub-list for field type_name
@@ -3107,7 +3577,7 @@ func file_panel_agent_v1_website_ssl_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_website_ssl_proto_rawDesc), len(file_panel_agent_v1_website_ssl_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   42,
+			NumMessages:   48,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -795,3 +795,58 @@ func lbServersFromProto(servers []*agentv1.LoadBalanceServer) []agentdto.NginxUp
 	}
 	return result
 }
+
+// ExecComposer 在网站目录中执行 Composer 命令。
+func (s *WebsiteServer) ExecComposer(
+	_ context.Context,
+	req *connect.Request[agentv1.ExecComposerRequest],
+) (*connect.Response[agentv1.ExecComposerResponse], error) {
+	if err := s.service.ExecComposer(request.ExecComposerReq{
+		Command:    req.Msg.GetCommand(),
+		ExtCommand: req.Msg.GetExtCommand(),
+		Mirror:     req.Msg.GetMirror(),
+		Dir:        req.Msg.GetDir(),
+		User:       req.Msg.GetUser(),
+		WebsiteID:  uint(req.Msg.GetWebsiteId()),
+		TaskID:     req.Msg.GetTaskId(),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.ExecComposerResponse{}), nil
+}
+
+// BatchSetHttps 批量为网站启用 HTTPS。
+func (s *WebsiteServer) BatchSetHttps(
+	ctx context.Context,
+	req *connect.Request[agentv1.BatchSetHttpsRequest],
+) (*connect.Response[agentv1.BatchSetHttpsResponse], error) {
+	ids := make([]uint, 0, len(req.Msg.GetIds()))
+	for _, id := range req.Msg.GetIds() {
+		ids = append(ids, uint(id))
+	}
+	ports := make([]int, 0, len(req.Msg.GetHttpsPorts()))
+	for _, port := range req.Msg.GetHttpsPorts() {
+		ports = append(ports, int(port))
+	}
+	if err := s.service.BatchSetHttps(ctx, request.BatchWebsiteHttps{
+		IDs:                   ids,
+		TaskID:                req.Msg.GetTaskId(),
+		WebsiteSSLID:          uint(req.Msg.GetWebsiteSslId()),
+		Type:                  req.Msg.GetType(),
+		PrivateKey:            req.Msg.GetPrivateKey(),
+		Certificate:           req.Msg.GetCertificate(),
+		PrivateKeyPath:        req.Msg.GetPrivateKeyPath(),
+		CertificatePath:       req.Msg.GetCertificatePath(),
+		ImportType:            req.Msg.GetImportType(),
+		HttpConfig:            req.Msg.GetHttpConfig(),
+		SSLProtocol:           req.Msg.GetSslProtocol(),
+		Algorithm:             req.Msg.GetAlgorithm(),
+		Hsts:                  req.Msg.GetHsts(),
+		HstsIncludeSubDomains: req.Msg.GetHstsIncludeSubDomains(),
+		HttpsPorts:            ports,
+		Http3:                 req.Msg.GetHttp3(),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.BatchSetHttpsResponse{}), nil
+}

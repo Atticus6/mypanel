@@ -16,7 +16,7 @@
 import HttpsConfig from '@/views/website/website/components/https/index.vue';
 
 import { Website } from '@/api/interface/website';
-import { batchSetHttps } from '@/api/modules/website';
+import { rpc } from '@/lib/rpc';
 import { FormInstance } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 
@@ -80,7 +80,25 @@ const submit = async () => {
         loading.value = false;
         return;
     }
-    batchSetHttps(form.value)
+    rpc.website
+        .batchSetHttps({
+            ids: form.value.ids as number[],
+            taskId: form.value.taskID,
+            websiteSslId: form.value.websiteSSLId ?? 0,
+            type: form.value.type,
+            privateKey: form.value.privateKey,
+            certificate: form.value.certificate,
+            privateKeyPath: form.value.privateKeyPath,
+            certificatePath: form.value.certificatePath,
+            importType: form.value.importType,
+            httpConfig: form.value.httpConfig,
+            sslProtocol: form.value.SSLProtocol ?? [],
+            algorithm: form.value.algorithm,
+            hsts: form.value.hsts,
+            hstsIncludeSubDomains: form.value.hstsIncludeSubDomains,
+            httpsPorts: [Number(form.value.httpsPort) || 443],
+            http3: form.value.http3,
+        })
         .then(() => {
             open.value = false;
             emit('openTask', form.value.taskID);

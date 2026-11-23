@@ -9500,6 +9500,361 @@ func (*UpdateProxyResponse) Descriptor() ([]byte, []int) {
 	return file_panel_agent_v1_website_proto_rawDescGZIP(), []int{150}
 }
 
+// ExecComposerRequest 是 Composer 执行参数。
+type ExecComposerRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Composer 命令。
+	Command string `protobuf:"bytes,1,opt,name=command,proto3" json:"command,omitempty"`
+	// 附加命令。
+	ExtCommand string `protobuf:"bytes,2,opt,name=ext_command,json=extCommand,proto3" json:"ext_command,omitempty"`
+	// 镜像源。
+	Mirror string `protobuf:"bytes,3,opt,name=mirror,proto3" json:"mirror,omitempty"`
+	// 执行目录。
+	Dir string `protobuf:"bytes,4,opt,name=dir,proto3" json:"dir,omitempty"`
+	// 执行用户。
+	User string `protobuf:"bytes,5,opt,name=user,proto3" json:"user,omitempty"`
+	// 网站 ID。
+	WebsiteId uint32 `protobuf:"varint,6,opt,name=website_id,json=websiteId,proto3" json:"website_id,omitempty"`
+	// 前端生成的任务 ID。
+	TaskId        string `protobuf:"bytes,7,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExecComposerRequest) Reset() {
+	*x = ExecComposerRequest{}
+	mi := &file_panel_agent_v1_website_proto_msgTypes[151]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExecComposerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExecComposerRequest) ProtoMessage() {}
+
+func (x *ExecComposerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_proto_msgTypes[151]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExecComposerRequest.ProtoReflect.Descriptor instead.
+func (*ExecComposerRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_proto_rawDescGZIP(), []int{151}
+}
+
+func (x *ExecComposerRequest) GetCommand() string {
+	if x != nil {
+		return x.Command
+	}
+	return ""
+}
+
+func (x *ExecComposerRequest) GetExtCommand() string {
+	if x != nil {
+		return x.ExtCommand
+	}
+	return ""
+}
+
+func (x *ExecComposerRequest) GetMirror() string {
+	if x != nil {
+		return x.Mirror
+	}
+	return ""
+}
+
+func (x *ExecComposerRequest) GetDir() string {
+	if x != nil {
+		return x.Dir
+	}
+	return ""
+}
+
+func (x *ExecComposerRequest) GetUser() string {
+	if x != nil {
+		return x.User
+	}
+	return ""
+}
+
+func (x *ExecComposerRequest) GetWebsiteId() uint32 {
+	if x != nil {
+		return x.WebsiteId
+	}
+	return 0
+}
+
+func (x *ExecComposerRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// ExecComposerResponse 是执行结果，无业务字段。
+type ExecComposerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExecComposerResponse) Reset() {
+	*x = ExecComposerResponse{}
+	mi := &file_panel_agent_v1_website_proto_msgTypes[152]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExecComposerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExecComposerResponse) ProtoMessage() {}
+
+func (x *ExecComposerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_proto_msgTypes[152]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExecComposerResponse.ProtoReflect.Descriptor instead.
+func (*ExecComposerResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_proto_rawDescGZIP(), []int{152}
+}
+
+// BatchSetHttpsRequest 是批量启用 HTTPS 参数。
+type BatchSetHttpsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 网站 ID 列表。
+	Ids []uint32 `protobuf:"varint,1,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	// 前端生成的任务 ID。
+	TaskId string `protobuf:"bytes,2,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	// 已有证书 ID。
+	WebsiteSslId uint32 `protobuf:"varint,3,opt,name=website_ssl_id,json=websiteSslId,proto3" json:"website_ssl_id,omitempty"`
+	// 证书来源：existed、auto 或 manual。
+	Type string `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
+	// 私钥内容。
+	PrivateKey string `protobuf:"bytes,5,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
+	// 证书内容。
+	Certificate string `protobuf:"bytes,6,opt,name=certificate,proto3" json:"certificate,omitempty"`
+	// 私钥文件路径。
+	PrivateKeyPath string `protobuf:"bytes,7,opt,name=private_key_path,json=privateKeyPath,proto3" json:"private_key_path,omitempty"`
+	// 证书文件路径。
+	CertificatePath string `protobuf:"bytes,8,opt,name=certificate_path,json=certificatePath,proto3" json:"certificate_path,omitempty"`
+	// 导入类型。
+	ImportType string `protobuf:"bytes,9,opt,name=import_type,json=importType,proto3" json:"import_type,omitempty"`
+	// HTTP 配置：HTTPSOnly、HTTPAlso 或 HTTPToHTTPS。
+	HttpConfig string `protobuf:"bytes,10,opt,name=http_config,json=httpConfig,proto3" json:"http_config,omitempty"`
+	// TLS 协议列表。
+	SslProtocol []string `protobuf:"bytes,11,rep,name=ssl_protocol,json=sslProtocol,proto3" json:"ssl_protocol,omitempty"`
+	// 加密算法。
+	Algorithm string `protobuf:"bytes,12,opt,name=algorithm,proto3" json:"algorithm,omitempty"`
+	// 是否开启 HSTS。
+	Hsts bool `protobuf:"varint,13,opt,name=hsts,proto3" json:"hsts,omitempty"`
+	// HSTS 是否包含子域名。
+	HstsIncludeSubDomains bool `protobuf:"varint,14,opt,name=hsts_include_sub_domains,json=hstsIncludeSubDomains,proto3" json:"hsts_include_sub_domains,omitempty"`
+	// HTTPS 端口列表。
+	HttpsPorts []int32 `protobuf:"varint,15,rep,packed,name=https_ports,json=httpsPorts,proto3" json:"https_ports,omitempty"`
+	// 是否开启 HTTP/3。
+	Http3         bool `protobuf:"varint,16,opt,name=http3,proto3" json:"http3,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchSetHttpsRequest) Reset() {
+	*x = BatchSetHttpsRequest{}
+	mi := &file_panel_agent_v1_website_proto_msgTypes[153]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchSetHttpsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchSetHttpsRequest) ProtoMessage() {}
+
+func (x *BatchSetHttpsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_proto_msgTypes[153]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchSetHttpsRequest.ProtoReflect.Descriptor instead.
+func (*BatchSetHttpsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_proto_rawDescGZIP(), []int{153}
+}
+
+func (x *BatchSetHttpsRequest) GetIds() []uint32 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+func (x *BatchSetHttpsRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetWebsiteSslId() uint32 {
+	if x != nil {
+		return x.WebsiteSslId
+	}
+	return 0
+}
+
+func (x *BatchSetHttpsRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetPrivateKey() string {
+	if x != nil {
+		return x.PrivateKey
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetCertificate() string {
+	if x != nil {
+		return x.Certificate
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetPrivateKeyPath() string {
+	if x != nil {
+		return x.PrivateKeyPath
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetCertificatePath() string {
+	if x != nil {
+		return x.CertificatePath
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetImportType() string {
+	if x != nil {
+		return x.ImportType
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetHttpConfig() string {
+	if x != nil {
+		return x.HttpConfig
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetSslProtocol() []string {
+	if x != nil {
+		return x.SslProtocol
+	}
+	return nil
+}
+
+func (x *BatchSetHttpsRequest) GetAlgorithm() string {
+	if x != nil {
+		return x.Algorithm
+	}
+	return ""
+}
+
+func (x *BatchSetHttpsRequest) GetHsts() bool {
+	if x != nil {
+		return x.Hsts
+	}
+	return false
+}
+
+func (x *BatchSetHttpsRequest) GetHstsIncludeSubDomains() bool {
+	if x != nil {
+		return x.HstsIncludeSubDomains
+	}
+	return false
+}
+
+func (x *BatchSetHttpsRequest) GetHttpsPorts() []int32 {
+	if x != nil {
+		return x.HttpsPorts
+	}
+	return nil
+}
+
+func (x *BatchSetHttpsRequest) GetHttp3() bool {
+	if x != nil {
+		return x.Http3
+	}
+	return false
+}
+
+// BatchSetHttpsResponse 是操作结果，无业务字段。
+type BatchSetHttpsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchSetHttpsResponse) Reset() {
+	*x = BatchSetHttpsResponse{}
+	mi := &file_panel_agent_v1_website_proto_msgTypes[154]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchSetHttpsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchSetHttpsResponse) ProtoMessage() {}
+
+func (x *BatchSetHttpsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_website_proto_msgTypes[154]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchSetHttpsResponse.ProtoReflect.Descriptor instead.
+func (*BatchSetHttpsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_website_proto_rawDescGZIP(), []int{154}
+}
+
 var File_panel_agent_v1_website_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_website_proto_rawDesc = "" +
@@ -10196,7 +10551,41 @@ const file_panel_agent_v1_website_proto_rawDesc = "" +
 	"\rReplacesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x15\n" +
-	"\x13UpdateProxyResponse2\xd3F\n" +
+	"\x13UpdateProxyResponse\"\xfc\x01\n" +
+	"\x13ExecComposerRequest\x12!\n" +
+	"\acommand\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\acommand\x12\x1f\n" +
+	"\vext_command\x18\x02 \x01(\tR\n" +
+	"extCommand\x12\x1f\n" +
+	"\x06mirror\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06mirror\x12\x19\n" +
+	"\x03dir\x18\x04 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x03dir\x12\x1b\n" +
+	"\x04user\x18\x05 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04user\x12&\n" +
+	"\n" +
+	"website_id\x18\x06 \x01(\rB\a\xbaH\x04*\x02 \x00R\twebsiteId\x12 \n" +
+	"\atask_id\x18\a \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06taskId\"\x16\n" +
+	"\x14ExecComposerResponse\"\xad\x04\n" +
+	"\x14BatchSetHttpsRequest\x12\x1a\n" +
+	"\x03ids\x18\x01 \x03(\rB\b\xbaH\x05\x92\x01\x02\b\x01R\x03ids\x12 \n" +
+	"\atask_id\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06taskId\x12$\n" +
+	"\x0ewebsite_ssl_id\x18\x03 \x01(\rR\fwebsiteSslId\x12\x12\n" +
+	"\x04type\x18\x04 \x01(\tR\x04type\x12\x1f\n" +
+	"\vprivate_key\x18\x05 \x01(\tR\n" +
+	"privateKey\x12 \n" +
+	"\vcertificate\x18\x06 \x01(\tR\vcertificate\x12(\n" +
+	"\x10private_key_path\x18\a \x01(\tR\x0eprivateKeyPath\x12)\n" +
+	"\x10certificate_path\x18\b \x01(\tR\x0fcertificatePath\x12\x1f\n" +
+	"\vimport_type\x18\t \x01(\tR\n" +
+	"importType\x12\x1f\n" +
+	"\vhttp_config\x18\n" +
+	" \x01(\tR\n" +
+	"httpConfig\x12!\n" +
+	"\fssl_protocol\x18\v \x03(\tR\vsslProtocol\x12\x1c\n" +
+	"\talgorithm\x18\f \x01(\tR\talgorithm\x12\x12\n" +
+	"\x04hsts\x18\r \x01(\bR\x04hsts\x127\n" +
+	"\x18hsts_include_sub_domains\x18\x0e \x01(\bR\x15hstsIncludeSubDomains\x12\x1f\n" +
+	"\vhttps_ports\x18\x0f \x03(\x05R\n" +
+	"httpsPorts\x12\x14\n" +
+	"\x05http3\x18\x10 \x01(\bR\x05http3\"\x17\n" +
+	"\x15BatchSetHttpsResponse2\xe0H\n" +
 	"\x0eWebsiteService\x12a\n" +
 	"\x06Search\x12%.panel.agent.v1.SearchWebsitesRequest\x1a&.panel.agent.v1.SearchWebsitesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12X\n" +
 	"\n" +
@@ -10275,7 +10664,9 @@ const file_panel_agent_v1_website_proto_rawDesc = "" +
 	"\x0fUpdateNginxFile\x12-.panel.agent.v1.UpdateWebsiteNginxFileRequest\x1a..panel.agent.v1.UpdateWebsiteNginxFileResponse\"/\x8a\xb5\x18+\"\x12修改网站配置*\x15Update website config\x12T\n" +
 	"\x06GetLog\x12$.panel.agent.v1.GetWebsiteLogRequest\x1a\x1a.panel.agent.v1.WebsiteLog\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12n\n" +
 	"\vListDomains\x12).panel.agent.v1.ListWebsiteDomainsRequest\x1a*.panel.agent.v1.ListWebsiteDomainsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12K\n" +
-	"\x03Get\x12!.panel.agent.v1.GetWebsiteRequest\x1a\x17.panel.agent.v1.Website\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\x03Get\x12!.panel.agent.v1.GetWebsiteRequest\x1a\x17.panel.agent.v1.Website\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12~\n" +
+	"\fExecComposer\x12#.panel.agent.v1.ExecComposerRequest\x1a$.panel.agent.v1.ExecComposerResponse\"#\x8a\xb5\x18\x1f\"\x0f执行 Composer*\fRun composer\x12\x8a\x01\n" +
+	"\rBatchSetHttps\x12$.panel.agent.v1.BatchSetHttpsRequest\x1a%.panel.agent.v1.BatchSetHttpsResponse\",\x8a\xb5\x18(\"\x12批量启用 HTTPS*\x12Batch enable HTTPSB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_website_proto_rawDescOnce sync.Once
@@ -10289,7 +10680,7 @@ func file_panel_agent_v1_website_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_website_proto_rawDescData
 }
 
-var file_panel_agent_v1_website_proto_msgTypes = make([]protoimpl.MessageInfo, 154)
+var file_panel_agent_v1_website_proto_msgTypes = make([]protoimpl.MessageInfo, 158)
 var file_panel_agent_v1_website_proto_goTypes = []any{
 	(*SearchWebsitesRequest)(nil),           // 0: panel.agent.v1.SearchWebsitesRequest
 	(*SearchWebsitesResponse)(nil),          // 1: panel.agent.v1.SearchWebsitesResponse
@@ -10442,10 +10833,14 @@ var file_panel_agent_v1_website_proto_goTypes = []any{
 	(*OperateWebsiteLogResponse)(nil),       // 148: panel.agent.v1.OperateWebsiteLogResponse
 	(*UpdateProxyRequest)(nil),              // 149: panel.agent.v1.UpdateProxyRequest
 	(*UpdateProxyResponse)(nil),             // 150: panel.agent.v1.UpdateProxyResponse
-	nil,                                     // 151: panel.agent.v1.CreateDNSAccountRequest.AuthorizationEntry
-	nil,                                     // 152: panel.agent.v1.UpdateDNSAccountRequest.AuthorizationEntry
-	nil,                                     // 153: panel.agent.v1.UpdateProxyRequest.ReplacesEntry
-	(*FileEntry)(nil),                       // 154: panel.agent.v1.FileEntry
+	(*ExecComposerRequest)(nil),             // 151: panel.agent.v1.ExecComposerRequest
+	(*ExecComposerResponse)(nil),            // 152: panel.agent.v1.ExecComposerResponse
+	(*BatchSetHttpsRequest)(nil),            // 153: panel.agent.v1.BatchSetHttpsRequest
+	(*BatchSetHttpsResponse)(nil),           // 154: panel.agent.v1.BatchSetHttpsResponse
+	nil,                                     // 155: panel.agent.v1.CreateDNSAccountRequest.AuthorizationEntry
+	nil,                                     // 156: panel.agent.v1.UpdateDNSAccountRequest.AuthorizationEntry
+	nil,                                     // 157: panel.agent.v1.UpdateProxyRequest.ReplacesEntry
+	(*FileEntry)(nil),                       // 158: panel.agent.v1.FileEntry
 }
 var file_panel_agent_v1_website_proto_depIdxs = []int32{
 	2,   // 0: panel.agent.v1.SearchWebsitesResponse.items:type_name -> panel.agent.v1.Website
@@ -10467,10 +10862,10 @@ var file_panel_agent_v1_website_proto_depIdxs = []int32{
 	50,  // 16: panel.agent.v1.UpdateStreamRequest.servers:type_name -> panel.agent.v1.LoadBalanceServer
 	126, // 17: panel.agent.v1.GetWebsiteResourceResponse.items:type_name -> panel.agent.v1.WebsiteResource
 	41,  // 18: panel.agent.v1.CreateDomainsRequest.domains:type_name -> panel.agent.v1.CreateWebsiteDomain
-	151, // 19: panel.agent.v1.CreateDNSAccountRequest.authorization:type_name -> panel.agent.v1.CreateDNSAccountRequest.AuthorizationEntry
-	152, // 20: panel.agent.v1.UpdateDNSAccountRequest.authorization:type_name -> panel.agent.v1.UpdateDNSAccountRequest.AuthorizationEntry
+	155, // 19: panel.agent.v1.CreateDNSAccountRequest.authorization:type_name -> panel.agent.v1.CreateDNSAccountRequest.AuthorizationEntry
+	156, // 20: panel.agent.v1.UpdateDNSAccountRequest.authorization:type_name -> panel.agent.v1.UpdateDNSAccountRequest.AuthorizationEntry
 	141, // 21: panel.agent.v1.ListWebsiteDatabasesResponse.items:type_name -> panel.agent.v1.WebsiteDatabase
-	153, // 22: panel.agent.v1.UpdateProxyRequest.replaces:type_name -> panel.agent.v1.UpdateProxyRequest.ReplacesEntry
+	157, // 22: panel.agent.v1.UpdateProxyRequest.replaces:type_name -> panel.agent.v1.UpdateProxyRequest.ReplacesEntry
 	0,   // 23: panel.agent.v1.WebsiteService.Search:input_type -> panel.agent.v1.SearchWebsitesRequest
 	65,  // 24: panel.agent.v1.WebsiteService.GetWebsite:input_type -> panel.agent.v1.GetWebsiteRequest
 	67,  // 25: panel.agent.v1.WebsiteService.List:input_type -> panel.agent.v1.ListWebsitesRequest
@@ -10541,78 +10936,82 @@ var file_panel_agent_v1_website_proto_depIdxs = []int32{
 	6,   // 90: panel.agent.v1.WebsiteService.GetLog:input_type -> panel.agent.v1.GetWebsiteLogRequest
 	3,   // 91: panel.agent.v1.WebsiteService.ListDomains:input_type -> panel.agent.v1.ListWebsiteDomainsRequest
 	65,  // 92: panel.agent.v1.WebsiteService.Get:input_type -> panel.agent.v1.GetWebsiteRequest
-	1,   // 93: panel.agent.v1.WebsiteService.Search:output_type -> panel.agent.v1.SearchWebsitesResponse
-	66,  // 94: panel.agent.v1.WebsiteService.GetWebsite:output_type -> panel.agent.v1.WebsiteDetail
-	68,  // 95: panel.agent.v1.WebsiteService.List:output_type -> panel.agent.v1.ListWebsitesResponse
-	71,  // 96: panel.agent.v1.WebsiteService.Options:output_type -> panel.agent.v1.WebsiteOptionsResponse
-	73,  // 97: panel.agent.v1.WebsiteService.OperateWebsite:output_type -> panel.agent.v1.OperateWebsiteResponse
-	75,  // 98: panel.agent.v1.WebsiteService.UpdateWebsite:output_type -> panel.agent.v1.UpdateWebsiteResponse
-	78,  // 99: panel.agent.v1.WebsiteService.Check:output_type -> panel.agent.v1.CheckWebsiteResponse
-	80,  // 100: panel.agent.v1.WebsiteService.ChangeGroup:output_type -> panel.agent.v1.ChangeWebsiteGroupResponse
-	82,  // 101: panel.agent.v1.WebsiteService.BatchGroup:output_type -> panel.agent.v1.BatchWebsiteGroupResponse
-	84,  // 102: panel.agent.v1.WebsiteService.BatchOperate:output_type -> panel.agent.v1.BatchWebsiteOperateResponse
-	86,  // 103: panel.agent.v1.WebsiteService.ChangePHPVersion:output_type -> panel.agent.v1.ChangeWebsitePHPVersionResponse
-	88,  // 104: panel.agent.v1.WebsiteService.OperateCrossSite:output_type -> panel.agent.v1.OperateCrossSiteResponse
-	90,  // 105: panel.agent.v1.WebsiteService.GetCors:output_type -> panel.agent.v1.CorsConfig
-	92,  // 106: panel.agent.v1.WebsiteService.UpdateCors:output_type -> panel.agent.v1.UpdateCorsResponse
-	94,  // 107: panel.agent.v1.WebsiteService.GetSiteDir:output_type -> panel.agent.v1.WebsiteDirConfig
-	96,  // 108: panel.agent.v1.WebsiteService.UpdateSiteDir:output_type -> panel.agent.v1.UpdateWebsiteDirResponse
-	98,  // 109: panel.agent.v1.WebsiteService.UpdateSitePermission:output_type -> panel.agent.v1.UpdateWebsitePermissionResponse
-	100, // 110: panel.agent.v1.WebsiteService.ListCustomRewrite:output_type -> panel.agent.v1.ListCustomRewriteResponse
-	102, // 111: panel.agent.v1.WebsiteService.OperateCustomRewrite:output_type -> panel.agent.v1.OperateCustomRewriteResponse
-	135, // 112: panel.agent.v1.WebsiteService.CreateDNSAccount:output_type -> panel.agent.v1.CreateDNSAccountResponse
-	137, // 113: panel.agent.v1.WebsiteService.UpdateDNSAccount:output_type -> panel.agent.v1.UpdateDNSAccountResponse
-	139, // 114: panel.agent.v1.WebsiteService.DeleteDNSAccount:output_type -> panel.agent.v1.DeleteDNSAccountResponse
-	142, // 115: panel.agent.v1.WebsiteService.ListDatabases:output_type -> panel.agent.v1.ListWebsiteDatabasesResponse
-	144, // 116: panel.agent.v1.WebsiteService.ChangeDatabase:output_type -> panel.agent.v1.ChangeWebsiteDatabaseResponse
-	146, // 117: panel.agent.v1.WebsiteService.UpdateLoadBalanceFile:output_type -> panel.agent.v1.UpdateLoadBalanceFileResponse
-	148, // 118: panel.agent.v1.WebsiteService.OperateLog:output_type -> panel.agent.v1.OperateWebsiteLogResponse
-	150, // 119: panel.agent.v1.WebsiteService.UpdateProxy:output_type -> panel.agent.v1.UpdateProxyResponse
-	104, // 120: panel.agent.v1.WebsiteService.UpdateProxyFile:output_type -> panel.agent.v1.UpdateProxyFileResponse
-	106, // 121: panel.agent.v1.WebsiteService.DeleteProxy:output_type -> panel.agent.v1.DeleteProxyResponse
-	108, // 122: panel.agent.v1.WebsiteService.UpdateProxyStatus:output_type -> panel.agent.v1.UpdateProxyStatusResponse
-	110, // 123: panel.agent.v1.WebsiteService.ClearProxyCache:output_type -> panel.agent.v1.ClearProxyCacheResponse
-	113, // 124: panel.agent.v1.WebsiteService.GetAuth:output_type -> panel.agent.v1.AuthConfig
-	115, // 125: panel.agent.v1.WebsiteService.UpdateAuth:output_type -> panel.agent.v1.UpdateAuthResponse
-	118, // 126: panel.agent.v1.WebsiteService.GetPathAuth:output_type -> panel.agent.v1.GetPathAuthResponse
-	120, // 127: panel.agent.v1.WebsiteService.UpdatePathAuth:output_type -> panel.agent.v1.UpdatePathAuthResponse
-	122, // 128: panel.agent.v1.WebsiteService.UpdateRedirectFile:output_type -> panel.agent.v1.UpdateRedirectFileResponse
-	124, // 129: panel.agent.v1.WebsiteService.UpdateStream:output_type -> panel.agent.v1.UpdateStreamResponse
-	127, // 130: panel.agent.v1.WebsiteService.GetResource:output_type -> panel.agent.v1.GetWebsiteResourceResponse
-	129, // 131: panel.agent.v1.WebsiteService.CreateDomains:output_type -> panel.agent.v1.CreateDomainsResponse
-	131, // 132: panel.agent.v1.WebsiteService.DeleteDomain:output_type -> panel.agent.v1.DeleteDomainResponse
-	133, // 133: panel.agent.v1.WebsiteService.UpdateDomain:output_type -> panel.agent.v1.UpdateDomainResponse
-	42,  // 134: panel.agent.v1.WebsiteService.Create:output_type -> panel.agent.v1.CreateWebsiteResponse
-	34,  // 135: panel.agent.v1.WebsiteService.Delete:output_type -> panel.agent.v1.DeleteWebsiteResponse
-	52,  // 136: panel.agent.v1.WebsiteService.CreateLoadBalance:output_type -> panel.agent.v1.CreateLoadBalanceResponse
-	54,  // 137: panel.agent.v1.WebsiteService.UpdateLoadBalance:output_type -> panel.agent.v1.UpdateLoadBalanceResponse
-	56,  // 138: panel.agent.v1.WebsiteService.DeleteLoadBalance:output_type -> panel.agent.v1.DeleteLoadBalanceResponse
-	58,  // 139: panel.agent.v1.WebsiteService.GetRealIP:output_type -> panel.agent.v1.RealIPConfig
-	60,  // 140: panel.agent.v1.WebsiteService.UpdateRealIP:output_type -> panel.agent.v1.UpdateRealIPResponse
-	62,  // 141: panel.agent.v1.WebsiteService.GetDefaultHtml:output_type -> panel.agent.v1.DefaultHtml
-	64,  // 142: panel.agent.v1.WebsiteService.UpdateDefaultHtml:output_type -> panel.agent.v1.UpdateDefaultHtmlResponse
-	48,  // 143: panel.agent.v1.WebsiteService.GetLoadBalances:output_type -> panel.agent.v1.GetLoadBalancesResponse
-	44,  // 144: panel.agent.v1.WebsiteService.GetProxyCache:output_type -> panel.agent.v1.ProxyCache
-	46,  // 145: panel.agent.v1.WebsiteService.UpdateProxyCache:output_type -> panel.agent.v1.UpdateProxyCacheResponse
-	36,  // 146: panel.agent.v1.WebsiteService.GetNginxScopeConfig:output_type -> panel.agent.v1.NginxScopeConfig
-	39,  // 147: panel.agent.v1.WebsiteService.UpdateNginxScopeConfig:output_type -> panel.agent.v1.UpdateNginxScopeConfigResponse
-	23,  // 148: panel.agent.v1.WebsiteService.GetHTTPS:output_type -> panel.agent.v1.WebsiteHTTPS
-	23,  // 149: panel.agent.v1.WebsiteService.UpdateHTTPS:output_type -> panel.agent.v1.WebsiteHTTPS
-	27,  // 150: panel.agent.v1.WebsiteService.GetAntiLeech:output_type -> panel.agent.v1.AntiLeechConfig
-	29,  // 151: panel.agent.v1.WebsiteService.UpdateAntiLeech:output_type -> panel.agent.v1.UpdateAntiLeechResponse
-	31,  // 152: panel.agent.v1.WebsiteService.GetProxies:output_type -> panel.agent.v1.GetProxiesResponse
-	12,  // 153: panel.agent.v1.WebsiteService.ChangeDefault:output_type -> panel.agent.v1.ChangeDefaultWebsiteResponse
-	14,  // 154: panel.agent.v1.WebsiteService.GetRewrite:output_type -> panel.agent.v1.RewriteConfig
-	16,  // 155: panel.agent.v1.WebsiteService.UpdateRewrite:output_type -> panel.agent.v1.UpdateRewriteResponse
-	18,  // 156: panel.agent.v1.WebsiteService.GetRedirect:output_type -> panel.agent.v1.GetRedirectResponse
-	21,  // 157: panel.agent.v1.WebsiteService.UpdateRedirect:output_type -> panel.agent.v1.UpdateRedirectResponse
-	154, // 158: panel.agent.v1.WebsiteService.GetNginxFile:output_type -> panel.agent.v1.FileEntry
-	10,  // 159: panel.agent.v1.WebsiteService.UpdateNginxFile:output_type -> panel.agent.v1.UpdateWebsiteNginxFileResponse
-	7,   // 160: panel.agent.v1.WebsiteService.GetLog:output_type -> panel.agent.v1.WebsiteLog
-	4,   // 161: panel.agent.v1.WebsiteService.ListDomains:output_type -> panel.agent.v1.ListWebsiteDomainsResponse
-	2,   // 162: panel.agent.v1.WebsiteService.Get:output_type -> panel.agent.v1.Website
-	93,  // [93:163] is the sub-list for method output_type
-	23,  // [23:93] is the sub-list for method input_type
+	151, // 93: panel.agent.v1.WebsiteService.ExecComposer:input_type -> panel.agent.v1.ExecComposerRequest
+	153, // 94: panel.agent.v1.WebsiteService.BatchSetHttps:input_type -> panel.agent.v1.BatchSetHttpsRequest
+	1,   // 95: panel.agent.v1.WebsiteService.Search:output_type -> panel.agent.v1.SearchWebsitesResponse
+	66,  // 96: panel.agent.v1.WebsiteService.GetWebsite:output_type -> panel.agent.v1.WebsiteDetail
+	68,  // 97: panel.agent.v1.WebsiteService.List:output_type -> panel.agent.v1.ListWebsitesResponse
+	71,  // 98: panel.agent.v1.WebsiteService.Options:output_type -> panel.agent.v1.WebsiteOptionsResponse
+	73,  // 99: panel.agent.v1.WebsiteService.OperateWebsite:output_type -> panel.agent.v1.OperateWebsiteResponse
+	75,  // 100: panel.agent.v1.WebsiteService.UpdateWebsite:output_type -> panel.agent.v1.UpdateWebsiteResponse
+	78,  // 101: panel.agent.v1.WebsiteService.Check:output_type -> panel.agent.v1.CheckWebsiteResponse
+	80,  // 102: panel.agent.v1.WebsiteService.ChangeGroup:output_type -> panel.agent.v1.ChangeWebsiteGroupResponse
+	82,  // 103: panel.agent.v1.WebsiteService.BatchGroup:output_type -> panel.agent.v1.BatchWebsiteGroupResponse
+	84,  // 104: panel.agent.v1.WebsiteService.BatchOperate:output_type -> panel.agent.v1.BatchWebsiteOperateResponse
+	86,  // 105: panel.agent.v1.WebsiteService.ChangePHPVersion:output_type -> panel.agent.v1.ChangeWebsitePHPVersionResponse
+	88,  // 106: panel.agent.v1.WebsiteService.OperateCrossSite:output_type -> panel.agent.v1.OperateCrossSiteResponse
+	90,  // 107: panel.agent.v1.WebsiteService.GetCors:output_type -> panel.agent.v1.CorsConfig
+	92,  // 108: panel.agent.v1.WebsiteService.UpdateCors:output_type -> panel.agent.v1.UpdateCorsResponse
+	94,  // 109: panel.agent.v1.WebsiteService.GetSiteDir:output_type -> panel.agent.v1.WebsiteDirConfig
+	96,  // 110: panel.agent.v1.WebsiteService.UpdateSiteDir:output_type -> panel.agent.v1.UpdateWebsiteDirResponse
+	98,  // 111: panel.agent.v1.WebsiteService.UpdateSitePermission:output_type -> panel.agent.v1.UpdateWebsitePermissionResponse
+	100, // 112: panel.agent.v1.WebsiteService.ListCustomRewrite:output_type -> panel.agent.v1.ListCustomRewriteResponse
+	102, // 113: panel.agent.v1.WebsiteService.OperateCustomRewrite:output_type -> panel.agent.v1.OperateCustomRewriteResponse
+	135, // 114: panel.agent.v1.WebsiteService.CreateDNSAccount:output_type -> panel.agent.v1.CreateDNSAccountResponse
+	137, // 115: panel.agent.v1.WebsiteService.UpdateDNSAccount:output_type -> panel.agent.v1.UpdateDNSAccountResponse
+	139, // 116: panel.agent.v1.WebsiteService.DeleteDNSAccount:output_type -> panel.agent.v1.DeleteDNSAccountResponse
+	142, // 117: panel.agent.v1.WebsiteService.ListDatabases:output_type -> panel.agent.v1.ListWebsiteDatabasesResponse
+	144, // 118: panel.agent.v1.WebsiteService.ChangeDatabase:output_type -> panel.agent.v1.ChangeWebsiteDatabaseResponse
+	146, // 119: panel.agent.v1.WebsiteService.UpdateLoadBalanceFile:output_type -> panel.agent.v1.UpdateLoadBalanceFileResponse
+	148, // 120: panel.agent.v1.WebsiteService.OperateLog:output_type -> panel.agent.v1.OperateWebsiteLogResponse
+	150, // 121: panel.agent.v1.WebsiteService.UpdateProxy:output_type -> panel.agent.v1.UpdateProxyResponse
+	104, // 122: panel.agent.v1.WebsiteService.UpdateProxyFile:output_type -> panel.agent.v1.UpdateProxyFileResponse
+	106, // 123: panel.agent.v1.WebsiteService.DeleteProxy:output_type -> panel.agent.v1.DeleteProxyResponse
+	108, // 124: panel.agent.v1.WebsiteService.UpdateProxyStatus:output_type -> panel.agent.v1.UpdateProxyStatusResponse
+	110, // 125: panel.agent.v1.WebsiteService.ClearProxyCache:output_type -> panel.agent.v1.ClearProxyCacheResponse
+	113, // 126: panel.agent.v1.WebsiteService.GetAuth:output_type -> panel.agent.v1.AuthConfig
+	115, // 127: panel.agent.v1.WebsiteService.UpdateAuth:output_type -> panel.agent.v1.UpdateAuthResponse
+	118, // 128: panel.agent.v1.WebsiteService.GetPathAuth:output_type -> panel.agent.v1.GetPathAuthResponse
+	120, // 129: panel.agent.v1.WebsiteService.UpdatePathAuth:output_type -> panel.agent.v1.UpdatePathAuthResponse
+	122, // 130: panel.agent.v1.WebsiteService.UpdateRedirectFile:output_type -> panel.agent.v1.UpdateRedirectFileResponse
+	124, // 131: panel.agent.v1.WebsiteService.UpdateStream:output_type -> panel.agent.v1.UpdateStreamResponse
+	127, // 132: panel.agent.v1.WebsiteService.GetResource:output_type -> panel.agent.v1.GetWebsiteResourceResponse
+	129, // 133: panel.agent.v1.WebsiteService.CreateDomains:output_type -> panel.agent.v1.CreateDomainsResponse
+	131, // 134: panel.agent.v1.WebsiteService.DeleteDomain:output_type -> panel.agent.v1.DeleteDomainResponse
+	133, // 135: panel.agent.v1.WebsiteService.UpdateDomain:output_type -> panel.agent.v1.UpdateDomainResponse
+	42,  // 136: panel.agent.v1.WebsiteService.Create:output_type -> panel.agent.v1.CreateWebsiteResponse
+	34,  // 137: panel.agent.v1.WebsiteService.Delete:output_type -> panel.agent.v1.DeleteWebsiteResponse
+	52,  // 138: panel.agent.v1.WebsiteService.CreateLoadBalance:output_type -> panel.agent.v1.CreateLoadBalanceResponse
+	54,  // 139: panel.agent.v1.WebsiteService.UpdateLoadBalance:output_type -> panel.agent.v1.UpdateLoadBalanceResponse
+	56,  // 140: panel.agent.v1.WebsiteService.DeleteLoadBalance:output_type -> panel.agent.v1.DeleteLoadBalanceResponse
+	58,  // 141: panel.agent.v1.WebsiteService.GetRealIP:output_type -> panel.agent.v1.RealIPConfig
+	60,  // 142: panel.agent.v1.WebsiteService.UpdateRealIP:output_type -> panel.agent.v1.UpdateRealIPResponse
+	62,  // 143: panel.agent.v1.WebsiteService.GetDefaultHtml:output_type -> panel.agent.v1.DefaultHtml
+	64,  // 144: panel.agent.v1.WebsiteService.UpdateDefaultHtml:output_type -> panel.agent.v1.UpdateDefaultHtmlResponse
+	48,  // 145: panel.agent.v1.WebsiteService.GetLoadBalances:output_type -> panel.agent.v1.GetLoadBalancesResponse
+	44,  // 146: panel.agent.v1.WebsiteService.GetProxyCache:output_type -> panel.agent.v1.ProxyCache
+	46,  // 147: panel.agent.v1.WebsiteService.UpdateProxyCache:output_type -> panel.agent.v1.UpdateProxyCacheResponse
+	36,  // 148: panel.agent.v1.WebsiteService.GetNginxScopeConfig:output_type -> panel.agent.v1.NginxScopeConfig
+	39,  // 149: panel.agent.v1.WebsiteService.UpdateNginxScopeConfig:output_type -> panel.agent.v1.UpdateNginxScopeConfigResponse
+	23,  // 150: panel.agent.v1.WebsiteService.GetHTTPS:output_type -> panel.agent.v1.WebsiteHTTPS
+	23,  // 151: panel.agent.v1.WebsiteService.UpdateHTTPS:output_type -> panel.agent.v1.WebsiteHTTPS
+	27,  // 152: panel.agent.v1.WebsiteService.GetAntiLeech:output_type -> panel.agent.v1.AntiLeechConfig
+	29,  // 153: panel.agent.v1.WebsiteService.UpdateAntiLeech:output_type -> panel.agent.v1.UpdateAntiLeechResponse
+	31,  // 154: panel.agent.v1.WebsiteService.GetProxies:output_type -> panel.agent.v1.GetProxiesResponse
+	12,  // 155: panel.agent.v1.WebsiteService.ChangeDefault:output_type -> panel.agent.v1.ChangeDefaultWebsiteResponse
+	14,  // 156: panel.agent.v1.WebsiteService.GetRewrite:output_type -> panel.agent.v1.RewriteConfig
+	16,  // 157: panel.agent.v1.WebsiteService.UpdateRewrite:output_type -> panel.agent.v1.UpdateRewriteResponse
+	18,  // 158: panel.agent.v1.WebsiteService.GetRedirect:output_type -> panel.agent.v1.GetRedirectResponse
+	21,  // 159: panel.agent.v1.WebsiteService.UpdateRedirect:output_type -> panel.agent.v1.UpdateRedirectResponse
+	158, // 160: panel.agent.v1.WebsiteService.GetNginxFile:output_type -> panel.agent.v1.FileEntry
+	10,  // 161: panel.agent.v1.WebsiteService.UpdateNginxFile:output_type -> panel.agent.v1.UpdateWebsiteNginxFileResponse
+	7,   // 162: panel.agent.v1.WebsiteService.GetLog:output_type -> panel.agent.v1.WebsiteLog
+	4,   // 163: panel.agent.v1.WebsiteService.ListDomains:output_type -> panel.agent.v1.ListWebsiteDomainsResponse
+	2,   // 164: panel.agent.v1.WebsiteService.Get:output_type -> panel.agent.v1.Website
+	152, // 165: panel.agent.v1.WebsiteService.ExecComposer:output_type -> panel.agent.v1.ExecComposerResponse
+	154, // 166: panel.agent.v1.WebsiteService.BatchSetHttps:output_type -> panel.agent.v1.BatchSetHttpsResponse
+	95,  // [95:167] is the sub-list for method output_type
+	23,  // [23:95] is the sub-list for method input_type
 	23,  // [23:23] is the sub-list for extension type_name
 	23,  // [23:23] is the sub-list for extension extendee
 	0,   // [0:23] is the sub-list for field type_name
@@ -10630,7 +11029,7 @@ func file_panel_agent_v1_website_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_website_proto_rawDesc), len(file_panel_agent_v1_website_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   154,
+			NumMessages:   158,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

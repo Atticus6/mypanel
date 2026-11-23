@@ -487,8 +487,11 @@ routes:
   "POST /websites/auths/update": panel.agent.v1.WebsiteService.UpdateAuth
   "POST /websites/batch/group": panel.agent.v1.WebsiteService.BatchGroup
   "POST /websites/batch/operate": panel.agent.v1.WebsiteService.BatchOperate
+  "POST /websites/batch/ssl": panel.agent.v1.WebsiteService.BatchSetHttps
   "POST /websites/ca": panel.agent.v1.WebsiteSSLService.CreateCA
   "POST /websites/ca/del": panel.agent.v1.WebsiteSSLService.DeleteCA
+  "POST /websites/ca/import": panel.agent.v1.WebsiteSSLService.ImportCA
+  "POST /websites/ca/obtain": panel.agent.v1.WebsiteSSLService.ObtainCA
   "POST /websites/ca/renew": panel.agent.v1.WebsiteSSLService.RenewCA
   "POST /websites/ca/search": panel.agent.v1.WebsiteSSLService.SearchCA
   "POST /websites/check": panel.agent.v1.WebsiteService.Check
@@ -510,6 +513,7 @@ routes:
   "POST /websites/domains": panel.agent.v1.WebsiteService.CreateDomains
   "POST /websites/domains/del": panel.agent.v1.WebsiteService.DeleteDomain
   "POST /websites/domains/update": panel.agent.v1.WebsiteService.UpdateDomain
+  "POST /websites/exec/composer": panel.agent.v1.WebsiteService.ExecComposer
   "POST /websites/group/change": panel.agent.v1.WebsiteService.ChangeGroup
   "POST /websites/lbs/create": panel.agent.v1.WebsiteService.CreateLoadBalance
   "POST /websites/lbs/del": panel.agent.v1.WebsiteService.DeleteLoadBalance
@@ -540,6 +544,7 @@ routes:
   "POST /websites/search": panel.agent.v1.WebsiteService.Search
   "POST /websites/ssl": panel.agent.v1.WebsiteSSLService.Create
   "POST /websites/ssl/del": panel.agent.v1.WebsiteSSLService.Delete
+  "POST /websites/ssl/import": panel.agent.v1.WebsiteSSLService.ImportSSL
   "POST /websites/ssl/list": panel.agent.v1.WebsiteSSLService.List
   "POST /websites/ssl/obtain": panel.agent.v1.WebsiteSSLService.Apply
   "POST /websites/ssl/push": panel.agent.v1.WebsiteSSLService.Push

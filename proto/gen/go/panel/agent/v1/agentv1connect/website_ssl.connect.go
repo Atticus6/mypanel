@@ -91,6 +91,15 @@ const (
 	// WebsiteSSLServiceDeleteACMEProcedure is the fully-qualified name of the WebsiteSSLService's
 	// DeleteACME RPC.
 	WebsiteSSLServiceDeleteACMEProcedure = "/panel.agent.v1.WebsiteSSLService/DeleteACME"
+	// WebsiteSSLServiceObtainCAProcedure is the fully-qualified name of the WebsiteSSLService's
+	// ObtainCA RPC.
+	WebsiteSSLServiceObtainCAProcedure = "/panel.agent.v1.WebsiteSSLService/ObtainCA"
+	// WebsiteSSLServiceImportCAProcedure is the fully-qualified name of the WebsiteSSLService's
+	// ImportCA RPC.
+	WebsiteSSLServiceImportCAProcedure = "/panel.agent.v1.WebsiteSSLService/ImportCA"
+	// WebsiteSSLServiceImportSSLProcedure is the fully-qualified name of the WebsiteSSLService's
+	// ImportSSL RPC.
+	WebsiteSSLServiceImportSSLProcedure = "/panel.agent.v1.WebsiteSSLService/ImportSSL"
 )
 
 // WebsiteSSLServiceClient is a client for the panel.agent.v1.WebsiteSSLService service.
@@ -135,6 +144,12 @@ type WebsiteSSLServiceClient interface {
 	UpdateACME(context.Context, *connect.Request[v1.UpdateACMEAccountRequest]) (*connect.Response[v1.UpdateACMEAccountResponse], error)
 	// 删除 ACME 账号。
 	DeleteACME(context.Context, *connect.Request[v1.DeleteACMEAccountRequest]) (*connect.Response[v1.DeleteACMEAccountResponse], error)
+	// 签发自签名 CA 证书。
+	ObtainCA(context.Context, *connect.Request[v1.ObtainCARequest]) (*connect.Response[v1.ObtainCAResponse], error)
+	// 导入自签名 CA 证书。
+	ImportCA(context.Context, *connect.Request[v1.ImportCARequest]) (*connect.Response[v1.ImportCAResponse], error)
+	// 导入主节点 SSL 证书。
+	ImportSSL(context.Context, *connect.Request[v1.ImportSSLRequest]) (*connect.Response[v1.ImportSSLResponse], error)
 }
 
 // NewWebsiteSSLServiceClient constructs a client for the panel.agent.v1.WebsiteSSLService service.
@@ -268,6 +283,24 @@ func NewWebsiteSSLServiceClient(httpClient connect.HTTPClient, baseURL string, o
 			connect.WithSchema(websiteSSLServiceMethods.ByName("DeleteACME")),
 			connect.WithClientOptions(opts...),
 		),
+		obtainCA: connect.NewClient[v1.ObtainCARequest, v1.ObtainCAResponse](
+			httpClient,
+			baseURL+WebsiteSSLServiceObtainCAProcedure,
+			connect.WithSchema(websiteSSLServiceMethods.ByName("ObtainCA")),
+			connect.WithClientOptions(opts...),
+		),
+		importCA: connect.NewClient[v1.ImportCARequest, v1.ImportCAResponse](
+			httpClient,
+			baseURL+WebsiteSSLServiceImportCAProcedure,
+			connect.WithSchema(websiteSSLServiceMethods.ByName("ImportCA")),
+			connect.WithClientOptions(opts...),
+		),
+		importSSL: connect.NewClient[v1.ImportSSLRequest, v1.ImportSSLResponse](
+			httpClient,
+			baseURL+WebsiteSSLServiceImportSSLProcedure,
+			connect.WithSchema(websiteSSLServiceMethods.ByName("ImportSSL")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -293,6 +326,9 @@ type websiteSSLServiceClient struct {
 	createACME         *connect.Client[v1.CreateACMEAccountRequest, v1.CreateACMEAccountResponse]
 	updateACME         *connect.Client[v1.UpdateACMEAccountRequest, v1.UpdateACMEAccountResponse]
 	deleteACME         *connect.Client[v1.DeleteACMEAccountRequest, v1.DeleteACMEAccountResponse]
+	obtainCA           *connect.Client[v1.ObtainCARequest, v1.ObtainCAResponse]
+	importCA           *connect.Client[v1.ImportCARequest, v1.ImportCAResponse]
+	importSSL          *connect.Client[v1.ImportSSLRequest, v1.ImportSSLResponse]
 }
 
 // SearchDNSAccounts calls panel.agent.v1.WebsiteSSLService.SearchDNSAccounts.
@@ -395,6 +431,21 @@ func (c *websiteSSLServiceClient) DeleteACME(ctx context.Context, req *connect.R
 	return c.deleteACME.CallUnary(ctx, req)
 }
 
+// ObtainCA calls panel.agent.v1.WebsiteSSLService.ObtainCA.
+func (c *websiteSSLServiceClient) ObtainCA(ctx context.Context, req *connect.Request[v1.ObtainCARequest]) (*connect.Response[v1.ObtainCAResponse], error) {
+	return c.obtainCA.CallUnary(ctx, req)
+}
+
+// ImportCA calls panel.agent.v1.WebsiteSSLService.ImportCA.
+func (c *websiteSSLServiceClient) ImportCA(ctx context.Context, req *connect.Request[v1.ImportCARequest]) (*connect.Response[v1.ImportCAResponse], error) {
+	return c.importCA.CallUnary(ctx, req)
+}
+
+// ImportSSL calls panel.agent.v1.WebsiteSSLService.ImportSSL.
+func (c *websiteSSLServiceClient) ImportSSL(ctx context.Context, req *connect.Request[v1.ImportSSLRequest]) (*connect.Response[v1.ImportSSLResponse], error) {
+	return c.importSSL.CallUnary(ctx, req)
+}
+
 // WebsiteSSLServiceHandler is an implementation of the panel.agent.v1.WebsiteSSLService service.
 type WebsiteSSLServiceHandler interface {
 	// 分页查询 DNS 账号。
@@ -437,6 +488,12 @@ type WebsiteSSLServiceHandler interface {
 	UpdateACME(context.Context, *connect.Request[v1.UpdateACMEAccountRequest]) (*connect.Response[v1.UpdateACMEAccountResponse], error)
 	// 删除 ACME 账号。
 	DeleteACME(context.Context, *connect.Request[v1.DeleteACMEAccountRequest]) (*connect.Response[v1.DeleteACMEAccountResponse], error)
+	// 签发自签名 CA 证书。
+	ObtainCA(context.Context, *connect.Request[v1.ObtainCARequest]) (*connect.Response[v1.ObtainCAResponse], error)
+	// 导入自签名 CA 证书。
+	ImportCA(context.Context, *connect.Request[v1.ImportCARequest]) (*connect.Response[v1.ImportCAResponse], error)
+	// 导入主节点 SSL 证书。
+	ImportSSL(context.Context, *connect.Request[v1.ImportSSLRequest]) (*connect.Response[v1.ImportSSLResponse], error)
 }
 
 // NewWebsiteSSLServiceHandler builds an HTTP handler from the service implementation. It returns
@@ -566,6 +623,24 @@ func NewWebsiteSSLServiceHandler(svc WebsiteSSLServiceHandler, opts ...connect.H
 		connect.WithSchema(websiteSSLServiceMethods.ByName("DeleteACME")),
 		connect.WithHandlerOptions(opts...),
 	)
+	websiteSSLServiceObtainCAHandler := connect.NewUnaryHandler(
+		WebsiteSSLServiceObtainCAProcedure,
+		svc.ObtainCA,
+		connect.WithSchema(websiteSSLServiceMethods.ByName("ObtainCA")),
+		connect.WithHandlerOptions(opts...),
+	)
+	websiteSSLServiceImportCAHandler := connect.NewUnaryHandler(
+		WebsiteSSLServiceImportCAProcedure,
+		svc.ImportCA,
+		connect.WithSchema(websiteSSLServiceMethods.ByName("ImportCA")),
+		connect.WithHandlerOptions(opts...),
+	)
+	websiteSSLServiceImportSSLHandler := connect.NewUnaryHandler(
+		WebsiteSSLServiceImportSSLProcedure,
+		svc.ImportSSL,
+		connect.WithSchema(websiteSSLServiceMethods.ByName("ImportSSL")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.WebsiteSSLService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case WebsiteSSLServiceSearchDNSAccountsProcedure:
@@ -608,6 +683,12 @@ func NewWebsiteSSLServiceHandler(svc WebsiteSSLServiceHandler, opts ...connect.H
 			websiteSSLServiceUpdateACMEHandler.ServeHTTP(w, r)
 		case WebsiteSSLServiceDeleteACMEProcedure:
 			websiteSSLServiceDeleteACMEHandler.ServeHTTP(w, r)
+		case WebsiteSSLServiceObtainCAProcedure:
+			websiteSSLServiceObtainCAHandler.ServeHTTP(w, r)
+		case WebsiteSSLServiceImportCAProcedure:
+			websiteSSLServiceImportCAHandler.ServeHTTP(w, r)
+		case WebsiteSSLServiceImportSSLProcedure:
+			websiteSSLServiceImportSSLHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -695,4 +776,16 @@ func (UnimplementedWebsiteSSLServiceHandler) UpdateACME(context.Context, *connec
 
 func (UnimplementedWebsiteSSLServiceHandler) DeleteACME(context.Context, *connect.Request[v1.DeleteACMEAccountRequest]) (*connect.Response[v1.DeleteACMEAccountResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.WebsiteSSLService.DeleteACME is not implemented"))
+}
+
+func (UnimplementedWebsiteSSLServiceHandler) ObtainCA(context.Context, *connect.Request[v1.ObtainCARequest]) (*connect.Response[v1.ObtainCAResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.WebsiteSSLService.ObtainCA is not implemented"))
+}
+
+func (UnimplementedWebsiteSSLServiceHandler) ImportCA(context.Context, *connect.Request[v1.ImportCARequest]) (*connect.Response[v1.ImportCAResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.WebsiteSSLService.ImportCA is not implemented"))
+}
+
+func (UnimplementedWebsiteSSLServiceHandler) ImportSSL(context.Context, *connect.Request[v1.ImportSSLRequest]) (*connect.Response[v1.ImportSSLResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.WebsiteSSLService.ImportSSL is not implemented"))
 }

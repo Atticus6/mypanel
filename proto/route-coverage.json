@@ -5181,7 +5181,10 @@
     {
       "method": "POST",
       "path": "/websites/batch/ssl",
-      "covered": false
+      "target": "panel.agent.v1.WebsiteService.BatchSetHttps",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "BatchSetHttps",
+      "covered": true
     },
     {
       "method": "POST",
@@ -5208,12 +5211,18 @@
     {
       "method": "POST",
       "path": "/websites/ca/import",
-      "covered": false
+      "target": "panel.agent.v1.WebsiteSSLService.ImportCA",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "ImportCA",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/websites/ca/obtain",
-      "covered": false
+      "target": "panel.agent.v1.WebsiteSSLService.ObtainCA",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "ObtainCA",
+      "covered": true
     },
     {
       "method": "POST",
@@ -5432,7 +5441,10 @@
     {
       "method": "POST",
       "path": "/websites/exec/composer",
-      "covered": false
+      "target": "panel.agent.v1.WebsiteService.ExecComposer",
+      "service": "panel.agent.v1.WebsiteService",
+      "rpc": "ExecComposer",
+      "covered": true
     },
     {
       "method": "POST",
@@ -5731,7 +5743,10 @@
     {
       "method": "POST",
       "path": "/websites/ssl/import",
-      "covered": false
+      "target": "panel.agent.v1.WebsiteSSLService.ImportSSL",
+      "service": "panel.agent.v1.WebsiteSSLService",
+      "rpc": "ImportSSL",
+      "covered": true
     },
     {
       "method": "POST",
