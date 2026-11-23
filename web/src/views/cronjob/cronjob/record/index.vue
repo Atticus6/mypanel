@@ -267,7 +267,6 @@ import LogFile from '@/components/log/file/index.vue';
 import i18n from '@/lang';
 import { ElMessageBox } from 'element-plus';
 import { MsgSuccess } from '@/utils/message';
-import { listAppInstalled } from '@/api/modules/app';
 import { shortcuts } from '@/utils/shortcuts';
 import { hasBackup } from '../helper';
 
@@ -318,8 +317,8 @@ const acceptParams = async (params: DialogProps): Promise<void> => {
     recordShow.value = true;
     dialogData.value = params;
     if (dialogData.value.rowData.type === 'app') {
-        const res = await listAppInstalled();
-        let itemApps = res.data || [];
+        const res = await rpc.app.listInstalled({});
+        let itemApps = res.items || [];
         for (const item of itemApps) {
             if (item.id == dialogData.value.rowData.appID) {
                 dialogData.value.rowData.appID = item.key + ' [' + item.name + ']';

@@ -74,9 +74,7 @@ import { useSearchState } from '@/utils/search-reset';
 import { App } from '@/api/interface/app';
 import { toRef, onMounted, reactive, ref } from 'vue';
 import {
-    syncApp,
     syncCutomAppStore,
-    syncLocalApp,
     getCurrentNodeCustomAppConfig,
     getLocalAppSyncConfig,
     dispatchLocalAppSync,
@@ -193,14 +191,16 @@ const sync = async () => {
         taskID: taskID,
     };
     try {
-        let res;
+        let message = '';
         if ((isOffline.value && !isEnterprise.value) || (isProductPro.value && syncCustomAppstore.value)) {
-            res = await syncCutomAppStore(syncReq);
+            const res = await syncCutomAppStore(syncReq);
+            message = res.message;
         } else {
-            res = await syncApp(syncReq);
+            const res = await rpc.app.syncAppsFromRemote({ taskId: taskID });
+            message = res.message;
         }
-        if (res.message != '' && res.message != 'success') {
-            MsgSuccess(res.message);
+        if (message != '' && message != 'success') {
+            MsgSuccess(message);
         } else {
             openTaskLog(taskID);
         }
@@ -224,7 +224,7 @@ const syncLocal = async () => {
             await dispatchLocalAppSync(syncReq);
             taskLogRef.value.openWithTaskID(taskID, true, 'local');
         } else {
-            await syncLocalApp(syncReq);
+            await rpc.app.syncAppsFromLocal({ taskId: taskID });
             openTaskLog(taskID);
         }
         canUpdate.value = false;

@@ -149,7 +149,7 @@
 
 <script lang="ts" setup>
 import { TABLE_OVERFLOW_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { getAppIconUrl, installedOp } from '@/api/modules/app';
+import { getAppIconUrl } from '@/api/modules/app';
 import { changeLauncherStatus, loadAppLauncher, loadAppLauncherOption } from '@/api/modules/dashboard';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
@@ -158,6 +158,7 @@ import { jumpToInstall } from '@/utils/app';
 import { routerToName, routerToNameWithQuery } from '@/utils/router';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { isRemoteAppIcon } from '@/utils/app-icon';
+import { rpc } from '@/lib/rpc';
 
 const { isMobile, isAdminOrNodeAdmin } = useGlobalStore();
 let loading = ref(false);
@@ -217,12 +218,12 @@ const onOperate = async (operation: string, row: any) => {
         },
     ).then(async () => {
         loading.value = true;
-        let params = {
-            installId: row.installID,
-            operate: operation,
-            detailId: row.detailID,
-        };
-        await installedOp(params)
+        await rpc.app
+            .operate({
+                installId: row.installID,
+                operate: operation,
+                detailId: row.detailID,
+            })
             .then(() => {
                 loading.value = false;
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

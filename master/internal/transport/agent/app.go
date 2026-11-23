@@ -11,6 +11,7 @@ import (
 	"mypanel/agent/app/dto/request"
 	agentservice "mypanel/agent/app/service"
 	"mypanel/agent/constant"
+	agenti18n "mypanel/agent/i18n"
 	agentv1 "mypanel/proto/gen/go/panel/agent/v1"
 
 	"mypanel/master/internal/transport/bridge"
@@ -615,6 +616,18 @@ func (s *AppServer) SyncAppsFromRemote(
 	_ context.Context,
 	req *connect.Request[agentv1.SyncAppsRequest],
 ) (*connect.Response[agentv1.SyncAppsResponse], error) {
+	// 与 REST 行为一致：没有可更新内容时只返回提示，不重复启动同步任务。
+	res, err := s.app.GetAppUpdate()
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	if !res.CanUpdate {
+		message := agenti18n.GetMsgByKey("AppStoreIsUpToDate")
+		if res.IsSyncing {
+			message = agenti18n.GetMsgByKey("AppStoreIsSyncing")
+		}
+		return connect.NewResponse(&agentv1.SyncAppsResponse{Message: message}), nil
+	}
 	if err := s.app.SyncAppListFromRemote(req.Msg.GetTaskId()); err != nil {
 		return nil, errmap.FromMsgKey("ErrInternalServer", err)
 	}

@@ -79,7 +79,7 @@
 <script lang="ts" setup>
 import MarkDownEditor from '@/components/mkdown-editor/index.vue';
 
-import { getAppDetail, getAppIconUrl } from '@/api/modules/app';
+import { getAppIconUrl } from '@/api/modules/app';
 import { rpc } from '@/lib/rpc';
 import { ref } from 'vue';
 import Install from './install/index.vue';
@@ -125,8 +125,8 @@ const getApp = async () => {
 const getDetail = async (id: number, version: string) => {
     loadingDetail.value = true;
     try {
-        const res = await getAppDetail(id, version, 'app');
-        appDetail.value = res.data;
+        const res = await rpc.app.getAppDetail({ appId: id, version, type: 'app' });
+        appDetail.value = JSON.parse(res.detailJson || '{}');
         if (appDetail.value.architectures != '') {
             architectures.value = appDetail.value.architectures.split(',');
         }

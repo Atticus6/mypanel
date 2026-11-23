@@ -39,7 +39,6 @@ import { listDomains } from '@/api/modules/website';
 import { computed, onMounted, ref } from 'vue';
 import i18n from '@/lang';
 import { Promotion } from '@element-plus/icons-vue';
-import { checkAppInstalled } from '@/api/modules/app';
 import { MsgSuccess } from '@/utils/message';
 import { GetPunyCodeDomain, isPunycoded } from '@/utils/misc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -129,10 +128,11 @@ const get = (id: number) => {
 };
 
 const onCheck = async () => {
-    await checkAppInstalled('openresty', '')
+    await rpc.app
+        .checkInstalled({ key: 'openresty', name: '' })
         .then((res) => {
-            httpPort.value = res.data.httpPort;
-            httpsPort.value = res.data.httpsPort;
+            httpPort.value = res.httpPort;
+            httpsPort.value = res.httpsPort;
         })
         .catch(() => {});
 };

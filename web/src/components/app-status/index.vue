@@ -81,12 +81,12 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { checkAppInstalled, installedOp } from '@/api/modules/app';
 import { onMounted, reactive, ref } from 'vue';
 import Status from '@/components/status/index.vue';
 import { ElMessageBox } from 'element-plus';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
+import { rpc } from '@/lib/rpc';
 
 const props = defineProps({
     appKey: {
@@ -137,15 +137,16 @@ const setting = () => {
 };
 
 const onCheck = async (key: any, name: any) => {
-    await checkAppInstalled(key, name)
+    await rpc.app
+        .checkInstalled({ key, name })
         .then((res) => {
-            data.value = res.data;
-            em('isExist', res.data);
-            em('update:maskShow', res.data.status !== 'Running');
-            operateReq.installId = res.data.appInstallId;
-            em('update:appInstallID', res.data.appInstallId);
-            httpPort.value = res.data.httpPort;
-            httpsPort.value = res.data.httpsPort;
+            data.value = res;
+            em('isExist', res);
+            em('update:maskShow', res.status !== 'Running');
+            operateReq.installId = res.appInstallId;
+            em('update:appInstallID', res.appInstallId);
+            httpPort.value = res.httpPort;
+            httpsPort.value = res.httpsPort;
             refresh.value++;
         })
         .catch(() => {
@@ -168,7 +169,8 @@ const onOperate = async (operation: string) => {
         em('update:maskShow', true);
         em('update:loading', true);
         em('before');
-        installedOp(operateReq)
+        rpc.app
+            .operate(operateReq)
             .then(() => {
                 em('update:loading', false);
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

@@ -132,7 +132,6 @@ import CodemirrorPro from '@/components/codemirror-pro/index.vue';
 import { App } from '@/api/interface/app';
 import { AI } from '@/api/interface/ai';
 import FeishuTransition from '@/views/ai/agents/agent/config/tabs/channels/components/feishu-transition.vue';
-import { getAppInstallParams, ignoreUpgrade } from '@/api/modules/app';
 import { rpc } from '@/lib/rpc';
 import { isOpenclawCurrentHTTPVersion, isOpenclawHTTPSWindowVersion } from '@/utils/agent';
 import i18n from '@/lang';
@@ -318,10 +317,10 @@ const getVersions = async (version: string) => {
             return;
         }
         if (!currentComposeReady.value) {
-            const config = await getAppInstallParams(appInstallID.value, node.value);
+            const config = await rpc.app.getInstalledParams({ appInstallId: appInstallID.value });
             if (request !== versionRequest) return;
-            if (typeof config.data.isEdit === 'boolean') isEdit.value = config.data.isEdit;
-            oldContent.value = config.data.dockerCompose;
+            if (typeof config.isEdit === 'boolean') isEdit.value = config.isEdit;
+            oldContent.value = JSON.parse(config.containerJson || '{}').dockerCompose;
             currentComposeReady.value = true;
         }
         const res = await rpc.app.updateVersions({
@@ -362,16 +361,17 @@ const operate = async () => {
         }
         const taskID = uuidv4();
         operateReq.taskID = taskID;
-        await rpc.app.operate({
-            installId: operateReq.installId,
-            operate: operateReq.operate,
-            detailId: operateReq.detailId,
-            backup: operateReq.backup,
-            pullImage: operateReq.pullImage,
-            deleteImage: operateReq.deleteImage,
-            dockerCompose: operateReq.dockerCompose,
-            taskId: operateReq.taskID,
-        })
+        await rpc.app
+            .operate({
+                installId: operateReq.installId,
+                operate: operateReq.operate,
+                detailId: operateReq.detailId,
+                backup: operateReq.backup,
+                pullImage: operateReq.pullImage,
+                deleteImage: operateReq.deleteImage,
+                dockerCompose: operateReq.dockerCompose,
+                taskId: operateReq.taskID,
+            })
             .then(() => {
                 bus.emit('upgrade', true);
                 handleClose();
@@ -381,7 +381,12 @@ const operate = async () => {
                 loading.value = false;
             });
     } else {
-        await ignoreUpgrade(ignoreAppReq)
+        await rpc.app
+            .ignoreAppUpgrade({
+                appId: ignoreAppReq.appID,
+                appDetailId: ignoreAppReq.appDetailID,
+                scope: ignoreAppReq.scope,
+            })
             .then(() => {
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
                 bus.emit('upgrade', true);

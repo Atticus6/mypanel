@@ -159,7 +159,6 @@
 <script lang="ts" setup>
 import { expandInvalidFormSection } from '@/components/form-section';
 import { App } from '@/api/interface/app';
-import { getAppByKey, getAppDetail, getAppInstalledByID } from '@/api/modules/app';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 import { FormInstance, FormRules } from 'element-plus';
@@ -224,7 +223,6 @@ const oldMemory = ref<number>(0);
 const showParams = ref(false);
 const currentApp = ref<any>({});
 const appVersions = ref<string[]>([]);
-const operateNode = ref();
 const env = ref();
 const masterNodeAddr = ref();
 
@@ -307,21 +305,22 @@ const getVersionDetail = async (version: string) => {
     gpuSupport.value = false;
 
     try {
-        const res = await getAppDetail(currentApp.value.id, version, 'app', operateNode.value);
+        const res = await rpc.app.getAppDetail({ appId: currentApp.value.id, version, type: 'app' });
+        const detail = JSON.parse(res.detailJson || '{}');
         if (formData.value.version !== version) {
             return;
         }
-        formData.value.appDetailId = res.data.id;
-        formData.value.dockerCompose = res.data.dockerCompose;
-        isHostMode.value = res.data.hostMode;
+        formData.value.appDetailId = detail.id;
+        formData.value.dockerCompose = detail.dockerCompose;
+        isHostMode.value = detail.hostMode;
         if (env.value) {
-            installParams.value = addMasterParams(res.data.params);
+            installParams.value = addMasterParams(detail.params);
         } else {
-            installParams.value = res.data.params;
+            installParams.value = detail.params;
         }
         paramKey.value++;
-        memoryRequired.value = res.data.memoryRequired;
-        gpuSupport.value = res.data.gpuSupport;
+        memoryRequired.value = detail.memoryRequired;
+        gpuSupport.value = detail.gpuSupport;
         showParams.value = true;
     } catch (error) {}
 };
@@ -336,7 +335,6 @@ const loadInstallDefaultConfig = async () => {
 };
 
 const initForm = async (appKey: string, allowPort?: boolean) => {
-    operateNode.value = undefined;
     env.value = undefined;
     masterNodeAddr.value = undefined;
     formData.value.name = appKey.replace(/^local/, '');
@@ -345,8 +343,8 @@ const initForm = async (appKey: string, allowPort?: boolean) => {
     } else {
         formData.value.allowPort = allowPort;
     }
-    const res = await getAppByKey(appKey);
-    currentApp.value = res.data;
+    const res = await rpc.app.getApp({ key: appKey });
+    currentApp.value = res;
     appVersions.value = currentApp.value.versions;
     if (appVersions.value.length > 0) {
         const defaultVersion = appVersions.value[0];
@@ -358,10 +356,10 @@ const initForm = async (appKey: string, allowPort?: boolean) => {
     }
 };
 
-const getMasterAppInstall = async (appInstallID: number, masterNode: string) => {
+const getMasterAppInstall = async (appInstallID: number) => {
     try {
-        const res = await getAppInstalledByID(appInstallID, masterNode);
-        env.value = res.data.env;
+        const res = await rpc.app.getInstalledInfo({ appInstallId: appInstallID });
+        env.value = JSON.parse(res.envJson || '{}');
     } catch (error) {}
 };
 
@@ -394,13 +392,12 @@ const addMasterParams = (appParams: App.AppParams) => {
 
 const initClusterForm = async (props: ClusterProps) => {
     if (props.appInstallID && props.masterNode) {
-        getMasterAppInstall(props.appInstallID, props.masterNode);
+        getMasterAppInstall(props.appInstallID);
     }
     masterNodeAddr.value = props.masterNodeAddr;
-    operateNode.value = props.node;
     await loadInstallDefaultConfig();
-    const res = await getAppByKey(props.key, props.node);
-    currentApp.value = res.data;
+    const res = await rpc.app.getApp({ key: props.key });
+    currentApp.value = res;
     appVersions.value = currentApp.value.versions;
     if (appVersions.value.length > 0) {
         appVersions.value = appVersions.value.filter((v: string) => {

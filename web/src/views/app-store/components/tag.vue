@@ -45,8 +45,7 @@
 
 <script lang="ts" setup>
 import i18n from '@/lang';
-import { getAppTags } from '@/api/modules/app';
-import { App } from '@/api/interface/app';
+import { rpc } from '@/lib/rpc';
 
 const props = defineProps({
     hideKey: {
@@ -57,7 +56,7 @@ const props = defineProps({
 
 const containerRef = ref<HTMLElement>();
 const activeTag = ref('all');
-const tags = ref<App.Tag[]>([]);
+const tags = ref<{ key: string; name: string }[]>([]);
 const moreTag = ref('');
 const visibleTagCount = ref(7);
 const allMeasureRef = ref();
@@ -180,17 +179,16 @@ const initResizeObserver = () => {
 };
 
 const getTags = async () => {
-    await getAppTags().then((res) => {
-        for (let i = 0; i < res.data.length; i++) {
-            if (res.data[i].key === props.hideKey) {
-                res.data.splice(i, 1);
-                break;
-            }
+    const items = (await rpc.app.getAppTags({})).items;
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].key === props.hideKey) {
+            items.splice(i, 1);
+            break;
         }
-        tags.value = res.data;
-        nextTick(() => {
-            calculateVisibleTagCount();
-        });
+    }
+    tags.value = items;
+    nextTick(() => {
+        calculateVisibleTagCount();
     });
 };
 

@@ -28,8 +28,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { App } from '@/api/interface/app';
-import { getAppInstalled } from '@/api/modules/app';
+import type { InstalledApp } from '@/gen/panel/agent/v1/app_pb';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { toLink } from '@/utils/browser';
@@ -38,7 +37,7 @@ import { routerToName } from '@/utils/router';
 const props = defineProps<{ appKey: string; disabled?: boolean }>();
 const emit = defineEmits<{ notInstalled: [] }>();
 const { currentNodeAddr, isMaster } = useGlobalStore();
-const installed = ref<App.AppInstalled>();
+const installed = ref<InstalledApp>();
 const host = ref('');
 const loaded = ref(false);
 const links = computed(() => {
@@ -50,7 +49,7 @@ const links = computed(() => {
         if (app.httpPort > 0) urls.push(`http://${address}:${app.httpPort}`);
         if (app.httpsPort > 0) urls.push(`https://${address}:${app.httpsPort}`);
     }
-    if (app.webUI) urls.push(app.webUI);
+    if (app.webUi) urls.push(app.webUi);
     return [...new Set(urls)];
 });
 const onClick = () => {
@@ -66,11 +65,11 @@ onMounted(async () => {
         let count = 0;
         let total = 0;
         do {
-            const res = await getAppInstalled({ page: page++, pageSize: 100, type: '' });
-            const items = res.data.items || [];
+            const res = await rpc.app.searchInstalled({ page: page++, pageSize: 100, type: '' });
+            const items = res.items || [];
             installed.value = items.find((app) => app.appKey === props.appKey);
             count += items.length;
-            total = res.data.total;
+            total = Number(res.total);
             if (installed.value || !items.length) break;
         } while (count < total);
         loaded.value = true;

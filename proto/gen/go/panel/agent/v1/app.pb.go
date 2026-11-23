@@ -1130,7 +1130,7 @@ type CheckInstalledAppRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// 应用 key。
 	Key string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
-	// 计划使用的安装名称。
+	// 计划使用的安装名称；openresty 等场景允许为空。
 	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -3960,9 +3960,11 @@ func (x *SyncAppsRequest) GetTaskId() string {
 	return ""
 }
 
-// SyncAppsResponse 是同步结果，无业务字段。
+// SyncAppsResponse 是同步结果。
 type SyncAppsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 无需同步时返回的提示文案；已启动同步任务时为空。
+	Message       string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3995,6 +3997,13 @@ func (x *SyncAppsResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use SyncAppsResponse.ProtoReflect.Descriptor instead.
 func (*SyncAppsResponse) Descriptor() ([]byte, []int) {
 	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{60}
+}
+
+func (x *SyncAppsResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
 }
 
 // LoadAppPortRequest 是端口查询参数。
@@ -4347,10 +4356,10 @@ const file_panel_agent_v1_app_proto_rawDesc = "" +
 	" \x01(\tR\x04type\x12\x16\n" +
 	"\x06status\x18\v \x01(\tR\x06status\x12\x1c\n" +
 	"\trecommend\x18\f \x01(\x05R\trecommend\x12\x14\n" +
-	"\x05limit\x18\r \x01(\x05R\x05limit\"R\n" +
+	"\x05limit\x18\r \x01(\x05R\x05limit\"I\n" +
 	"\x18CheckInstalledAppRequest\x12\x19\n" +
-	"\x03key\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x03key\x12\x1b\n" +
-	"\x04name\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04name\"\xb1\x03\n" +
+	"\x03key\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x03key\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"\xb1\x03\n" +
 	"\x11AppInstalledCheck\x12\x17\n" +
 	"\atask_id\x18\x01 \x01(\tR\x06taskId\x12\x19\n" +
 	"\bis_exist\x18\x02 \x01(\bR\aisExist\x12\x12\n" +
@@ -4534,8 +4543,9 @@ const file_panel_agent_v1_app_proto_rawDesc = "" +
 	"sort_order\x18\x02 \x01(\x05R\tsortOrder\"\x1d\n" +
 	"\x1bUpdateInstalledSortResponse\"*\n" +
 	"\x0fSyncAppsRequest\x12\x17\n" +
-	"\atask_id\x18\x01 \x01(\tR\x06taskId\"\x12\n" +
-	"\x10SyncAppsResponse\"E\n" +
+	"\atask_id\x18\x01 \x01(\tR\x06taskId\",\n" +
+	"\x10SyncAppsResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"E\n" +
 	"\x12LoadAppPortRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1b\n" +
 	"\x04type\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\")\n" +

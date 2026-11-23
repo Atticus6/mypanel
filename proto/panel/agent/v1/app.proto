@@ -526,8 +526,8 @@ message CheckInstalledAppRequest {
   // 应用 key。
   string key = 1 [(buf.validate.field).string.min_len = 1];
 
-  // 计划使用的安装名称。
-  string name = 2 [(buf.validate.field).string.min_len = 1];
+  // 计划使用的安装名称；openresty 等场景允许为空。
+  string name = 2;
 }
 
 // AppInstalledCheck 是安装检查结果。
@@ -1017,8 +1017,11 @@ message SyncAppsRequest {
   string task_id = 1;
 }
 
-// SyncAppsResponse 是同步结果，无业务字段。
-message SyncAppsResponse {}
+// SyncAppsResponse 是同步结果。
+message SyncAppsResponse {
+  // 无需同步时返回的提示文案；已启动同步任务时为空。
+  string message = 1;
+}
 
 // LoadAppPortRequest 是端口查询参数。
 message LoadAppPortRequest {

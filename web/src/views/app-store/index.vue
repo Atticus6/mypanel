@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import i18n from '@/lang';
 import { onMounted, ref } from 'vue';
-import { searchAppInstalled } from '@/api/modules/app';
+import { rpc } from '@/lib/rpc';
 import bus from '@/global/bus';
 let showButton = ref(false);
 
@@ -37,13 +37,10 @@ let buttons = [
 ];
 
 const search = () => {
-    searchAppInstalled({ update: true, page: 1, pageSize: 100 })
+    rpc.app
+        .searchInstalled({ update: true, page: 1, pageSize: 100 })
         .then((res) => {
-            if (res.data.items) {
-                buttons[2].count = res.data.items.length;
-            } else {
-                buttons[2].count = 0;
-            }
+            buttons[2].count = res.items.length;
         })
         .finally(() => {
             showButton.value = true;

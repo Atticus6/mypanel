@@ -81,12 +81,12 @@
 </template>
 
 <script lang="ts" setup>
-import { checkAppInstalled } from '@/api/modules/app';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { MsgError } from '@/utils/message';
 import { toASCII } from 'punycode';
 import { ref, onMounted, nextTick } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { rpc } from '@/lib/rpc';
 
 const i18n = useI18n();
 
@@ -368,9 +368,10 @@ const handleParams = () => {
 
 const getOprensty = async () => {
     try {
-        await checkAppInstalled('openresty', '')
+        await rpc.app
+            .checkInstalled({ key: 'openresty', name: '' })
             .then((res) => {
-                defaultPort.value = res.data.httpPort || 80;
+                defaultPort.value = res.httpPort || 80;
                 create.value.domains[0].port = defaultPort.value;
             })
             .catch(() => {});

@@ -637,7 +637,6 @@
                                     <el-form-item prop="hasAlert">
                                         <el-checkbox v-model="form.hasAlert" :label="$t('xpack.alert.isAlert')" />
                                         <span class="input-help">{{ $t('xpack.alert.alertNotificationHelper') }}</span>
-
                                     </el-form-item>
                                 </LayoutCol>
                             </el-row>
@@ -796,7 +795,6 @@ import { Cronjob } from '@/api/interface/cronjob';
 import { addCronjob, editCronjob, loadCronjobInfo, loadNextHandle, loadScriptOptions } from '@/api/modules/cronjob';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useRouter } from 'vue-router';
-import { listAppInstalled } from '@/api/modules/app';
 import { Alert } from '@/api/interface/alert';
 import { ListAlertConfigs } from '@/api/modules/alert';
 import {
@@ -1317,7 +1315,7 @@ const loadInstallDir = async () => {
 
 const loadGroups = async () => {
     const res = await rpc.core.group.list({ type: 'cronjob' });
-    groupOptions.value = res.items as any || [];
+    groupOptions.value = (res.items as any) || [];
     for (const item of groupOptions.value) {
         if (item.isDefault) {
             defaultGroupID.value = item.id;
@@ -1501,8 +1499,8 @@ const loadUserOptions = async (isInit: boolean) => {
 };
 
 const loadAppInstalls = async () => {
-    const res = await listAppInstalled();
-    appOptions.value = res.data || [];
+    const res = await rpc.app.listInstalled({});
+    appOptions.value = res.items || [];
 };
 
 const loadWebsites = async () => {

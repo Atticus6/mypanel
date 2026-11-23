@@ -26,9 +26,9 @@
 import { getNginx, updateNginxConfigFile } from '@/api/modules/nginx';
 import { onMounted, ref } from 'vue';
 import i18n from '@/lang';
-import { getAppDefaultConfig } from '@/api/modules/app';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index.vue';
+import { rpc } from '@/lib/rpc';
 
 let content = ref('');
 let loading = ref(false);
@@ -60,8 +60,8 @@ const getNginxConfig = async () => {
 const getDefaultConfig = async () => {
     loading.value = true;
     try {
-        const res = await getAppDefaultConfig('openresty', '');
-        content.value = res.data;
+        const res = await rpc.app.getDefaultConfig({ type: 'openresty', name: '' });
+        content.value = res.content;
         useOld.value = true;
     } catch (error) {}
     loading.value = false;

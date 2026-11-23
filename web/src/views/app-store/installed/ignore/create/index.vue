@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { App } from '@/api/interface/app';
-import { getAppUpdateVersions, ignoreUpgrade } from '@/api/modules/app';
+import { rpc } from '@/lib/rpc';
 import bus from '@/global/bus';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
@@ -65,8 +65,8 @@ const acceptParams = (apppInstall: App.AppInstalled) => {
 
 const getVersions = async () => {
     try {
-        const res = await getAppUpdateVersions({ appInstallID: appInstallID.value, loadCompose: false });
-        versions.value = res.data || [];
+        const res = await rpc.app.updateVersions({ appInstallId: appInstallID.value, loadCompose: false });
+        versions.value = res.items;
         if (versions.value.length > 0) {
             req.appDetailID = versions.value[0].detailId;
         }
@@ -76,7 +76,7 @@ const getVersions = async () => {
 const submit = async () => {
     loading.value = true;
     try {
-        await ignoreUpgrade(req);
+        await rpc.app.ignoreAppUpgrade({ appId: req.appID, appDetailId: req.appDetailID, scope: req.scope });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         handleClose();
         bus.emit('upgrade', true);

@@ -241,7 +241,6 @@ import GPUConfig from '@/views/ai/components/gpu-config/index.vue';
 import Diff from '@/views/app-store/installed/upgrade/diff/index.vue';
 
 import { App } from '@/api/interface/app';
-import { getAppInstallParams, updateAppInstallParams, updateInstallConfig } from '@/api/modules/app';
 import { computed, nextTick, onBeforeUnmount, reactive, ref } from 'vue';
 import { FormInstance } from 'element-plus';
 import { Rules, checkNumberRange } from '@/global/form-rules';
@@ -397,9 +396,24 @@ const changeAllowPort = () => {
 const get = async () => {
     try {
         loading.value = true;
-        const res = await getAppInstallParams(Number(paramData.value.id));
-        rawCompose.value = res.data.rawCompose;
-        const configParams = res.data.params || [];
+        const res = await rpc.app.getInstalledParams({ appInstallId: Number(paramData.value.id) });
+        // 容器相关字段随应用定义变化，服务端以 JSON 透传，这里合并回原 AppConfig 形状。
+        const config: App.AppConfig = Object.assign(
+            {
+                appKey: res.appKey,
+                name: res.name,
+                httpPort: res.httpPort,
+                syncModelAccount: res.syncModelAccount,
+                modelAccountBaseURLType: res.modelAccountBaseUrlType,
+                modelAccountBaseURL: res.modelAccountBaseUrl,
+                params: JSON.parse(res.paramsJson || '[]'),
+                rawCompose: res.rawCompose,
+                isEdit: res.isEdit,
+            },
+            JSON.parse(res.containerJson || '{}'),
+        );
+        rawCompose.value = config.rawCompose;
+        const configParams = config.params || [];
         if (configParams && configParams.length > 0) {
             configParams.forEach((d) => {
                 let value = d.value;
@@ -432,30 +446,30 @@ const get = async () => {
                 }
             });
         }
-        paramModel.memoryLimit = res.data.memoryLimit;
-        paramModel.cpuQuota = res.data.cpuQuota;
-        paramModel.memoryUnit = res.data.memoryUnit !== '' ? res.data.memoryUnit : 'MB';
-        paramModel.allowPort = res.data.allowPort;
-        paramModel.containerName = res.data.containerName;
+        paramModel.memoryLimit = config.memoryLimit;
+        paramModel.cpuQuota = config.cpuQuota;
+        paramModel.memoryUnit = config.memoryUnit !== '' ? config.memoryUnit : 'MB';
+        paramModel.allowPort = config.allowPort;
+        paramModel.containerName = config.containerName;
         paramModel.advanced = false;
         paramModel.editCompose = false;
-        paramModel.dockerCompose = res.data.dockerCompose;
-        paramModel.isHostMode = res.data.hostMode;
-        paramModel.specifyIP = res.data.specifyIP;
-        paramModel.restartPolicy = res.data.restartPolicy || 'no';
+        paramModel.dockerCompose = config.dockerCompose;
+        paramModel.isHostMode = config.hostMode;
+        paramModel.specifyIP = config.specifyIP;
+        paramModel.restartPolicy = config.restartPolicy || 'no';
         if (paramModel.restartPolicy === 'on-failure:5') {
             paramModel.restartPolicy = 'on-failure';
         }
-        appConfigUpdate.value.webUI = res.data.webUI;
-        if (res.data.webUI != '') {
-            const httpConfig = splitHttp(res.data.webUI);
+        appConfigUpdate.value.webUI = config.webUI;
+        if (config.webUI != '') {
+            const httpConfig = splitHttp(config.webUI);
             webUI.domain = httpConfig.url;
             webUI.protocol = httpConfig.proto + '://';
         }
-        appType.value = res.data.type;
-        appKey.value = res.data.appKey;
+        appType.value = config.type;
+        appKey.value = config.appKey;
         if (showModelGPU.value) {
-            paramModel.gpu = res.data.gpu || {
+            paramModel.gpu = config.gpu || {
                 enabled: false,
                 mode: 'devices',
                 deviceIDs: [],
@@ -463,11 +477,11 @@ const get = async () => {
                 error: i18n.global.t('aiTools.model.loadFailed'),
             };
         }
-        paramModel.name = res.data.name;
-        paramModel.httpPort = res.data.httpPort;
-        paramModel.syncModelAccount = res.data.syncModelAccount;
-        paramModel.modelAccountBaseURLType = res.data.modelAccountBaseURLType || 'container';
-        paramModel.modelAccountBaseURL = res.data.modelAccountBaseURL;
+        paramModel.name = config.name;
+        paramModel.httpPort = config.httpPort;
+        paramModel.syncModelAccount = config.syncModelAccount;
+        paramModel.modelAccountBaseURLType = config.modelAccountBaseURLType || 'container';
+        paramModel.modelAccountBaseURL = config.modelAccountBaseURL;
         initialAdvancedConfig = Object.fromEntries(advancedFields.map((key) => [key, paramModel[key]]));
         return true;
     } catch (error) {
@@ -513,7 +527,10 @@ const submit = async (formEl: FormInstance) => {
             }
             try {
                 loading.value = true;
-                await updateAppInstallParams(submitModel);
+                await rpc.app.updateInstalled({
+                    installId: submitModel.installId,
+                    payloadJson: JSON.stringify(submitModel),
+                });
                 loading.value = false;
                 MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
                 handleClose();
@@ -537,7 +554,7 @@ const updateAppConfig = async () => {
             MsgError(i18n.global.t('commons.rule.host'));
             return;
         }
-        await updateInstallConfig(req);
+        await rpc.app.updateInstalledConfig({ installId: req.installID, webUi: req.webUI });
         MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
         handleClose();
     } catch (error) {}

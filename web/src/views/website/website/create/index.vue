@@ -449,7 +449,6 @@ import WebsiteSSL from '@/views/website/website/components/website-ssl/index.vue
 import LoadBalanceForm from '@/views/website/website/config/basic/load-balance/form/index.vue';
 
 import { App } from '@/api/interface/app';
-import { searchApp, getAppInstalled } from '@/api/modules/app';
 import { getDirConfig, searchTemplateOutputs } from '@/api/modules/website';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import i18n from '@/lang';
@@ -462,12 +461,12 @@ import { Runtime } from '@/api/interface/runtime';
 import { getRandomStr } from '@/utils/id';
 import { getRuntimeLabel } from '@/utils/app-store';
 import { dateFormatSimple } from '@/utils/date';
-import { getAppService } from '@/api/modules/app';
 import { v4 as uuidv4 } from 'uuid';
 import { getAccountName } from '@/utils/ssl';
 import { Website } from '@/api/interface/website';
 import { getWebsiteTypes } from '@/global/mimetype';
 import { compareVersion } from '@/utils/version';
+import type { InstalledApp } from '@/gen/panel/agent/v1/app_pb';
 defineOptions({ name: 'CreateWebSite' });
 
 type SSLItem = Website.SSLDTO & {
@@ -574,7 +573,7 @@ const rules = ref<any>({
 const open = ref(false);
 const loading = ref(false);
 const acmeAccounts = ref();
-const appInstalls = ref<App.AppInstalled[]>([]);
+const appInstalls = ref<InstalledApp[]>([]);
 const appReq = reactive({
     type: 'website',
     page: 1,
@@ -665,26 +664,21 @@ const changeType = (type: string) => {
 };
 
 const searchAppInstalled = (appType: string) => {
-    getAppInstalled({ type: appType, unused: true, all: true, page: 1, pageSize: 100 }).then((res) => {
-        appInstalls.value = res.data.items;
+    rpc.app.searchInstalled({ type: appType, unused: true, all: true, page: 1, pageSize: 100 }).then((res) => {
+        appInstalls.value = res.items;
         website.value.appInstallId = undefined;
-        if (
-            appType == 'website' &&
-            res.data.items &&
-            res.data.items.length > 0 &&
-            res.data.items[0].status === 'Running'
-        ) {
-            website.value.appInstallId = res.data.items[0].id;
+        if (appType == 'website' && res.items && res.items.length > 0 && res.items[0].status === 'Running') {
+            website.value.appInstallId = res.items[0].id;
         }
     });
 };
 
 const getAppByService = async (key: string) => {
-    const res = await getAppService(key);
-    dbServices.value = res.data;
+    const res = await rpc.app.getAppServices({ key });
+    dbServices.value = res.items.map((s) => ({ ...s, config: JSON.parse(s.configJson || '{}') }));
 };
 
-const getProxyTargetFromApp = (app: Pick<App.AppInstalled, 'httpPort' | 'httpsPort'>) => {
+const getProxyTargetFromApp = (app: Pick<InstalledApp, 'httpPort' | 'httpsPort'>) => {
     if ((app.httpPort ?? 0) > 0) {
         return {
             protocol: 'http://',
@@ -718,10 +712,10 @@ const changeInstall = () => {
 };
 
 const searchAppList = () => {
-    searchApp(appReq).then((res) => {
-        apps.value = res.data.items;
+    rpc.app.searchApps(appReq).then((res) => {
+        apps.value = res.items;
 
-        const selectableApp = res.data.items.find((item) => !isRestrictedDeploymentApp(item.key));
+        const selectableApp = res.items.find((item) => !isRestrictedDeploymentApp(item.key));
         if (selectableApp) {
             website.value.appinstall.appId = selectableApp.id;
             website.value.appinstall.appkey = selectableApp.key;
@@ -1000,15 +994,15 @@ const listSSLs = () => {
             acmeAccountId: String(website.value.acmeAccountID),
         })
         .then((res) => {
-        ssls.value = (res.items || []) as any;
-        website.value.websiteSSLID = undefined;
-        websiteSSL.value = undefined;
-        userSelectedSSL.value = false;
-        const autoSelected = tryAutoSelectSSL();
-        if (!autoSelected) {
-            selectFirstAvailableSSL();
-        }
-    });
+            ssls.value = (res.items || []) as any;
+            website.value.websiteSSLID = undefined;
+            websiteSSL.value = undefined;
+            userSelectedSSL.value = false;
+            const autoSelected = tryAutoSelectSSL();
+            if (!autoSelected) {
+                selectFirstAvailableSSL();
+            }
+        });
 };
 
 const submit = async (formEl: FormInstance | undefined) => {
@@ -1053,8 +1047,23 @@ const submit = async (formEl: FormInstance | undefined) => {
                 const taskID = uuidv4();
                 website.value.taskID = taskID;
                 const {
-                    type, alias, remark, proxy, webSiteGroupID, IPV6, siteDir, appType, appID, appInstallID,
-                    parentWebsiteID, domains, streamPorts, name, algorithm, udp, ...rest
+                    type,
+                    alias,
+                    remark,
+                    proxy,
+                    webSiteGroupID,
+                    IPV6,
+                    siteDir,
+                    appType,
+                    appID,
+                    appInstallID,
+                    parentWebsiteID,
+                    domains,
+                    streamPorts,
+                    name,
+                    algorithm,
+                    udp,
+                    ...rest
                 } = website.value as any;
                 await rpc.website.create({
                     type,

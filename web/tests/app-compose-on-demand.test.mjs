@@ -66,6 +66,16 @@ function drawer(overrides = {}) {
                 const res = await bindings.getAppUpdateVersions(req);
                 return res.items ? res : { items: res.data };
             },
+            getInstalledParams: async (req) => {
+                const res = await bindings.getAppInstallParams(req.appInstallId);
+                const data = res?.data ?? res ?? {};
+                return {
+                    isEdit: data.isEdit,
+                    containerJson: JSON.stringify({ dockerCompose: data.dockerCompose }),
+                };
+            },
+            operate: async (req) => bindings.installedOp(req),
+            ignoreAppUpgrade: async (req) => bindings.ignoreUpgrade(req),
         },
     };
     const ast = ts.createSourceFile('upgrade.ts', upgrade.scriptSetup.content, ts.ScriptTarget.Latest, true);
@@ -103,7 +113,7 @@ test('upgrade lists versions independently and loads only the default target on 
     const state = drawer();
     assert.equal(isDisabled(state), true);
     await state.getVersions('');
-    assert.deepEqual(state.calls.params, [[17, 'child & node']]);
+    assert.deepEqual(state.calls.params, [[17]]);
     assert.deepEqual(state.calls.versions, [
         [{ appInstallId: 17, loadCompose: false }],
         [{ appInstallId: 17, loadCompose: true, updateVersion: '2.0' }],
@@ -310,23 +320,21 @@ test('ignore version requests skip both current and target Compose loading', asy
         compilerOptions: { target: ts.ScriptTarget.ESNext },
     }).outputText;
     let request;
-    const getVersions = new Function(
-        'getAppUpdateVersions',
-        'appInstallID',
-        'versions',
-        'req',
-        `${compiled}\nreturn getVersions;`,
-    )(
-        async (req) => {
-            request = req;
-            return { data: [target()] };
+    const getVersions = new Function('rpc', 'appInstallID', 'versions', 'req', `${compiled}\nreturn getVersions;`)(
+        {
+            app: {
+                updateVersions: async (req) => {
+                    request = req;
+                    return { items: [target()] };
+                },
+            },
         },
         ref(17),
         ref([]),
         {},
     );
     await getVersions();
-    assert.deepEqual(request, { appInstallID: 17, loadCompose: false });
+    assert.deepEqual(request, { appInstallId: 17, loadCompose: false });
 });
 
 test('blank custom Compose is rejected before the upgrade confirmation', async () => {
@@ -348,19 +356,4 @@ test('Feishu legacy transition still enforces the required backup', async () => 
     assert.equal(state.feishuLegacy.value, true);
     assert.equal(state.feishuConfigured.value, true);
     assert.equal(state.operateReq.backup, true);
-});
-
-test('explicit current-configuration loading preserves child-node routing', () => {
-    const source = readFileSync(new URL('../src/api/modules/app.ts', import.meta.url), 'utf8');
-    const ast = ts.createSourceFile('app-api.ts', source, ts.ScriptTarget.Latest, true);
-    const declaration = ast.statements
-        .filter(ts.isVariableStatement)
-        .flatMap((statement) => statement.declarationList.declarations)
-        .find((item) => item.name.getText(ast) === 'getAppInstallParams');
-    const compiled = ts.transpileModule(`const getAppInstallParams = ${declaration.initializer.getText(ast)};`, {
-        compilerOptions: { target: ts.ScriptTarget.ESNext },
-    }).outputText;
-    const request = new Function('http', `${compiled}\nreturn getAppInstallParams;`)({ get: (url) => url });
-    assert.equal(request(17), 'apps/installed/params/17');
-    assert.equal(request(17, 'child & node'), 'apps/installed/params/17?operateNode=child%20%26%20node');
 });

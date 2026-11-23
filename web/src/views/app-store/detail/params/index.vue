@@ -140,7 +140,6 @@
 <script lang="ts" setup>
 import { computed, onMounted, reactive, ref } from 'vue';
 import { getRandomStr } from '@/utils/id';
-import { getAppService } from '@/api/modules/app';
 import { Rules } from '@/global/form-rules';
 import { App } from '@/api/interface/app';
 import { getDBName, getLabel, getDescription } from '@/utils/app-store';
@@ -269,21 +268,20 @@ const getServices = async (childKey: string, key: string | undefined, pObj: Para
     if (appKey.value == 'mysql' || appKey.value == 'mariadb') {
         form.format = 'utf8mb4';
     }
-    await getAppService(key).then((res) => {
-        pObj.services = res.data || [];
-        form[childKey] = '';
-        if (res.data && res.data.length > 0) {
-            form[childKey] = res.data[0].value;
-            if (pObj.params) {
-                pObj.params.forEach((param: App.FromParam) => {
-                    if (param.key === key) {
-                        form[param.envKey] = param.value;
-                    }
-                });
-            }
-            changeService(form[childKey], pObj.services);
+    const res = await rpc.app.getAppServices({ key: key ?? '' });
+    pObj.services = res.items.map((s) => ({ ...s, config: JSON.parse(s.configJson || '{}') }));
+    form[childKey] = '';
+    if (pObj.services.length > 0) {
+        form[childKey] = pObj.services[0].value;
+        if (pObj.params) {
+            pObj.params.forEach((param: App.FromParam) => {
+                if (param.key === key) {
+                    form[param.envKey] = param.value;
+                }
+            });
         }
-    });
+        changeService(form[childKey], pObj.services);
+    }
 };
 
 const changeService = (value: string, services: App.AppService[]) => {
@@ -312,12 +310,7 @@ const appKey = ref('');
 
 const loadOptions = async (_database: string) => {
     // 数据库模块已剔除，格式选项退回内置列表，不再请求后端。
-    formatOptions.value = [
-        { format: 'utf8mb4' },
-        { format: 'utf8mb3' },
-        { format: 'gbk' },
-        { format: 'big5' },
-    ];
+    formatOptions.value = [{ format: 'utf8mb4' }, { format: 'utf8mb3' }, { format: 'gbk' }, { format: 'big5' }];
     loadCollations();
 };
 

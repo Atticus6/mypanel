@@ -156,8 +156,6 @@ import ComposeLogs from '@/components/log/compose/index.vue';
 import IgnoreApp from '@/views/app-store/installed/ignore/create/index.vue';
 import TerminalDialog from '@/views/container/container/terminal/index.vue';
 
-import { appInstalledDeleteCheck, updateAppInstallSort } from '@/api/modules/app';
-
 import { toRef, onMounted, onUnmounted, reactive, ref, nextTick } from 'vue';
 import Sortable from 'sortablejs';
 import i18n from '@/lang';
@@ -264,20 +262,19 @@ const sync = async () => {
     paginationConfig.total = Number(res.total);
 };
 
-const openOperate = (row: any, op: string) => {
+const openOperate = async (row: any, op: string) => {
     operateReq.installId = row.id;
     operateReq.operate = op;
     if (op == 'upgrade') {
         upgradeRef.value.acceptParams(row, op);
     } else if (op == 'delete') {
-        appInstalledDeleteCheck(row.id).then(async (res) => {
-            const items = res.data;
-            if (res.data && res.data.length > 0) {
-                checkRef.value.acceptParams({ items: items, key: row.appKey, installID: row.id });
-            } else {
-                deleteRef.value.acceptParams(row);
-            }
-        });
+        const res = await rpc.app.checkDeleteInstalled({ appInstallId: row.id });
+        const items = res.items;
+        if (items.length > 0) {
+            checkRef.value.acceptParams({ items: items, key: row.appKey, installID: row.id });
+        } else {
+            deleteRef.value.acceptParams(row);
+        }
     } else {
         onOperate(op);
     }
@@ -297,12 +294,13 @@ const openIgnore = () => {
 const operate = async () => {
     open.value = false;
     loading.value = true;
-    await rpc.app.operate({
-        installId: operateReq.installId,
-        operate: operateReq.operate,
-        detailId: operateReq.detailId,
-        favorite: operateReq.favorite,
-    })
+    await rpc.app
+        .operate({
+            installId: operateReq.installId,
+            operate: operateReq.operate,
+            detailId: operateReq.detailId,
+            favorite: operateReq.favorite,
+        })
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
             searchReq.sync = true;
@@ -516,10 +514,10 @@ const saveSortOrder = async () => {
     let favIdx = 0;
     let normalIdx = 0;
     const items = data.value.map((item: any) => ({
-        installID: item.id,
+        installId: item.id as number,
         sortOrder: item.favorite ? favIdx++ : normalIdx++,
     }));
-    await updateAppInstallSort(items);
+    await rpc.app.updateInstalledSort({ items });
     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
     exitSortMode();
 };

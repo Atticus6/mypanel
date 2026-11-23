@@ -11,7 +11,7 @@
                 </el-table-column>
                 <el-table-column prop="scope" :label="$t('commons.table.operate')">
                     <template #default="{ row }">
-                        <el-button v-permission type="primary" link @click="cancelIgnore(row.ID)">
+                        <el-button v-permission type="primary" link @click="cancelIgnore(row.id)">
                             {{ $t('app.cancelIgnore') }}
                         </el-button>
                     </template>
@@ -26,7 +26,7 @@
     </DrawerPro>
 </template>
 <script lang="ts" setup>
-import { cancelAppIgnore, getIgnoredApp } from '@/api/modules/app';
+import { rpc } from '@/lib/rpc';
 import { ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
@@ -49,14 +49,21 @@ const acceptParams = () => {
 
 const getApps = async () => {
     try {
-        const res = await getIgnoredApp();
-        apps.value = res.data;
+        const res = await rpc.app.listIgnoredApps({});
+        apps.value = res.items.map((i) => ({
+            id: i.id,
+            name: i.name,
+            detailID: i.appDetailId,
+            version: i.version,
+            scope: i.scope,
+        }));
     } catch (error) {}
 };
 
 const cancelIgnore = async (id: number) => {
     loading.value = true;
-    await cancelAppIgnore({ id: id })
+    await rpc.app
+        .cancelIgnoreAppUpgrade({ id })
         .then(() => {
             bus.emit('upgrade', true);
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
