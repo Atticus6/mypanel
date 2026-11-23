@@ -92,13 +92,13 @@ import router from '@/routers';
 import { loadProductProFromDB } from '@/utils/xpack';
 import { routerToNameWithQuery } from '@/utils/router';
 import { changeToLocal, listNodes, setDefaultNodeInfo } from '@/utils/node';
-import { Login } from '@/types/auth';
+import type { AuthInfo, AuthInfoUpdate } from '@/utils/rbac';
 import { syncAuthInfo } from '@/utils/rbac';
 import UserInfo from './user-info/index.vue';
 import NodeDrawer from './node-drawer/index.vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 
-const currentUser = ref<Login.AuthInfo>();
+const currentUser = ref<AuthInfo>();
 const { globalStore, currentNode, currentNodeAddr, defaultNetwork, entrance, isEnterprise, isXpackOrEE } =
     useGlobalStore();
 const menuStore = MenuStore();

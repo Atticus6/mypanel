@@ -329,7 +329,7 @@ import { ElMessageBox, FormInstance } from 'element-plus';
 import { Check, Close, QuestionFilled } from '@element-plus/icons-vue';
 import DrawerPro from '@/components/drawer-pro/index.vue';
 import DialogPro from '@/components/dialog-pro/index.vue';
-import { Login } from '@/types/auth';
+import type { AuthInfo, AuthInfoUpdate } from '@/utils/rbac';
 import { Setting } from '@/types/setting';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
@@ -340,7 +340,7 @@ import { MsgError, MsgSuccess } from '@/utils/message';
 import { routerToNameWithQuery } from '@/utils/router';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 
-const props = defineProps<{ currentUser?: Login.AuthInfo }>();
+const props = defineProps<{ currentUser?: AuthInfo }>();
 const emit = defineEmits<{ (e: 'search'): void }>();
 
 const complexityVerification = ref(false);
@@ -454,7 +454,7 @@ const openDrawer = async () => {
     open.value = true;
 };
 
-const syncCurrentUser = (currentUser: Login.AuthInfo) => {
+const syncCurrentUser = (currentUser: AuthInfo) => {
     form.id = currentUser.id;
     form.name = currentUser.name;
     form.password = '';
@@ -691,7 +691,7 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
             return;
         }
     }
-    const param: Login.AuthInfoUpdate = {
+    const param: AuthInfoUpdate = {
         id: form.id,
         name: form.name,
         password: form.password,

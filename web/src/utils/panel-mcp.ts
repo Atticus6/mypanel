@@ -1,4 +1,73 @@
-import type { PanelMCP } from '@/types/panel-mcp';
+    export interface Catalog {
+        contractVersion: number;
+        tools: Tool[];
+        scope: 'nodes';
+        toolNodeIds: Record<string, string[]>;
+    }
+    export type Client = 'generic' | 'codex' | 'claude';
+    export interface Credential extends EditableCredential {
+        id: string;
+        keyHint: string;
+        status: CredentialStatus;
+        revision: number;
+        createdAt: string;
+        ownerName: string;
+        staleTools: string[];
+    }
+    export type CredentialStatus = 'Enable' | 'Disable' | 'Revoked' | 'Expired';
+    export interface EditableCredential {
+        name: string;
+        description: string;
+        expiresAt: string | null;
+        tools: string[];
+        toolPolicies: Record<string, string>;
+        toolReadOnly: Record<string, boolean>;
+        nodeIds: string[];
+    }
+    export interface Node {
+        id: string;
+        name: string;
+        status: string;
+        isLocal: boolean;
+    }
+    export interface Settings {
+        runtimeType: RuntimeType;
+        dockerImage: string;
+        enabled: boolean;
+        listenPort: number;
+        externalUrl: string;
+        revision: number;
+        accessPolicy: 'inherit' | 'restricted' | 'all';
+        allowedIPs: string[];
+    }
+    export interface Tool {
+        toolId: string;
+        schemaVersion: number;
+        name: string;
+        description: string;
+        categoryId: string;
+        categoryName: string;
+        categoryOrder: number;
+        readOnly: boolean;
+        risk: string;
+        inputSchema: Record<string, unknown>;
+        operations: ToolOperation[];
+        policyHash: string;
+    }
+    export interface ToolOperation {
+        id: string;
+        method: string;
+        path: string;
+        bodySchema: Record<string, unknown>;
+        responseFields: string[];
+    }
+    export interface WebsiteDraft {
+        requested: boolean;
+        domain: string;
+        enableSSL: boolean;
+        sslID: number;
+    }
+    export type RuntimeType = 'docker';
 import { isAxiosError } from 'axios';
 
 export const DEFAULT_MCP_DOCKER_IMAGE = '1panel/mcp-server:v2.0.0';
@@ -25,7 +94,7 @@ export const isMCPDockerImage = (image: string) => {
     return repository.length <= 255;
 };
 
-export const copyMCPSettings = (settings: PanelMCP.Settings): PanelMCP.Settings => ({
+export const copyMCPSettings = (settings: Settings): Settings => ({
     runtimeType: settings.runtimeType,
     dockerImage: settings.dockerImage,
     enabled: settings.enabled,
@@ -36,14 +105,14 @@ export const copyMCPSettings = (settings: PanelMCP.Settings): PanelMCP.Settings 
     allowedIPs: [...settings.allowedIPs],
 });
 
-export const hasMCPSettingsChanges = (settings: PanelMCP.Settings, saved: PanelMCP.Settings) =>
+export const hasMCPSettingsChanges = (settings: Settings, saved: Settings) =>
     (['listenPort', 'externalUrl', 'accessPolicy'] as const).some((field) => settings[field] !== saved[field]) ||
     JSON.stringify(settings.allowedIPs) !== JSON.stringify(saved.allowedIPs);
 
 export const getMCPCredentialStatus = (
-    item: Pick<PanelMCP.Credential, 'status' | 'expiresAt'>,
+    item: Pick<Credential, 'status' | 'expiresAt'>,
     now = Date.now(),
-): PanelMCP.CredentialStatus => {
+): CredentialStatus => {
     if (item.status === 'Revoked') return 'Revoked';
     if (item.expiresAt && (!Number.isFinite(Date.parse(item.expiresAt)) || Date.parse(item.expiresAt) <= now)) {
         return 'Expired';
@@ -54,7 +123,7 @@ export const getMCPCredentialStatus = (
 export const buildMCPClientConfig = (
     endpoint: string,
     token = '<MCP_TOKEN>',
-    client: PanelMCP.Client = 'generic',
+    client: Client = 'generic',
     credentialId = '',
 ) => {
     if (!endpoint) return '';
@@ -103,7 +172,7 @@ export const isMCPAllowedIPList = (values: string[]) =>
     });
 
 export type MCPToolFilter = 'all' | 'read' | 'write';
-export const filterMCPTools = (tools: PanelMCP.Tool[], search: string, mode: MCPToolFilter) => {
+export const filterMCPTools = (tools: Tool[], search: string, mode: MCPToolFilter) => {
     const keyword = search.trim().toLocaleLowerCase();
     return tools.filter(
         (tool) =>
@@ -112,12 +181,12 @@ export const filterMCPTools = (tools: PanelMCP.Tool[], search: string, mode: MCP
     );
 };
 
-export const groupMCPTools = (tools: PanelMCP.Tool[], filtered: PanelMCP.Tool[], selected: string[]) => {
+export const groupMCPTools = (tools: Tool[], filtered: Tool[], selected: string[]) => {
     const visibleIds = new Set(filtered.map((tool) => tool.toolId));
     const selectedIds = new Set(selected);
     const groups = new Map<
         string,
-        { id: string; name: string; order: number; total: number; selected: number; tools: PanelMCP.Tool[] }
+        { id: string; name: string; order: number; total: number; selected: number; tools: Tool[] }
     >();
     for (const tool of tools) {
         let group = groups.get(tool.categoryId);
@@ -143,7 +212,7 @@ export const groupMCPTools = (tools: PanelMCP.Tool[], filtered: PanelMCP.Tool[],
 
 export const changeVisibleMCPGrants = (
     selected: string[],
-    visible: PanelMCP.Tool[],
+    visible: Tool[],
     action: 'select' | 'clear' | 'readOnly',
 ) => {
     const result = new Set(selected);
@@ -190,7 +259,7 @@ const isMCPNodeID = (id: unknown): id is string =>
     typeof id === 'string' &&
     (id === 'local' || (/^[1-9][0-9]{0,19}$/.test(id) && BigInt(id) <= 18446744073709551615n));
 
-export const isUsableMCPToolNodes = (tools: PanelMCP.Tool[], mapping: unknown): mapping is Record<string, string[]> =>
+export const isUsableMCPToolNodes = (tools: Tool[], mapping: unknown): mapping is Record<string, string[]> =>
     isObject(mapping) &&
     Object.keys(mapping).length === tools.length &&
     new Set(tools.map((tool) => tool.toolId)).size === tools.length &&
@@ -205,7 +274,7 @@ export const isUsableMCPToolNodes = (tools: PanelMCP.Tool[], mapping: unknown): 
     });
 
 export const filterMCPToolsByNodes = (
-    tools: PanelMCP.Tool[],
+    tools: Tool[],
     snapshot: Record<string, string[]>,
     nodeIds: string[],
     current = snapshot,
@@ -214,7 +283,7 @@ export const filterMCPToolsByNodes = (
         nodeIds.some((id) => snapshot[tool.toolId]?.includes(id) && current[tool.toolId]?.includes(id)),
     );
 
-const isToolOperation = (operation: PanelMCP.ToolOperation) =>
+const isToolOperation = (operation: ToolOperation) =>
     isObject(operation) &&
     typeof operation.id === 'string' &&
     !!operation.id &&
@@ -227,7 +296,7 @@ const isToolOperation = (operation: PanelMCP.ToolOperation) =>
     Array.isArray(operation.responseFields) &&
     operation.responseFields.every((field) => typeof field === 'string');
 
-export const isUsableMCPCatalog = (catalog: PanelMCP.Catalog) =>
+export const isUsableMCPCatalog = (catalog: Catalog) =>
     catalog?.contractVersion === 5 &&
     catalog.scope === 'nodes' &&
     Array.isArray(catalog.tools) &&
@@ -255,7 +324,7 @@ export const isUsableMCPCatalog = (catalog: PanelMCP.Catalog) =>
     new Set(catalog.tools.map((tool) => tool.toolId)).size === catalog.tools.length &&
     isUsableMCPToolNodes(catalog.tools, catalog.toolNodeIds);
 
-export const getMCPStaleTools = (credential: PanelMCP.Credential, tools: PanelMCP.Tool[]) =>
+export const getMCPStaleTools = (credential: Credential, tools: Tool[]) =>
     credential.tools.filter((id) => {
         const current = tools.find((tool) => tool.toolId === id);
         if (
@@ -277,7 +346,7 @@ export const getMCPStaleTools = (credential: PanelMCP.Credential, tools: PanelMC
         );
     });
 
-export const isUsableMCPNodes = (nodes: unknown): nodes is PanelMCP.Node[] =>
+export const isUsableMCPNodes = (nodes: unknown): nodes is Node[] =>
     Array.isArray(nodes) &&
     nodes.every(
         (node) =>
@@ -290,7 +359,7 @@ export const isUsableMCPNodes = (nodes: unknown): nodes is PanelMCP.Node[] =>
     ) &&
     new Set(nodes.map((node) => node.id)).size === nodes.length;
 
-export const defaultMCPWebsiteDraft = (): PanelMCP.WebsiteDraft => ({
+export const defaultMCPWebsiteDraft = (): WebsiteDraft => ({
     requested: false,
     domain: '',
     enableSSL: true,

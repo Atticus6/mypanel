@@ -172,7 +172,12 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { Nginx } from '@/types/nginx';
+interface NginxConfigReq {
+    operate: string;
+    websiteId?: number;
+    scope: string;
+    params?: any;
+}
 import { rpc } from '@/lib/rpc';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import i18n from '@/lang';
@@ -180,7 +185,7 @@ import { MsgError, MsgSuccess } from '@/utils/message';
 import { FormInstance, FormItemRule } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
-let updateReq = ref<Nginx.NginxConfigReq>({
+let updateReq = ref<NginxConfigReq>({
     scope: 'http-per',
     operate: 'update',
     params: {},

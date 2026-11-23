@@ -248,7 +248,11 @@
 import { applyPanelCacheSettings } from '@/utils/panel-cache';
 import { ref, reactive, onMounted, onBeforeUnmount, computed, nextTick } from 'vue';
 import type { ElForm } from 'element-plus';
-import type { Login as LoginModel } from '@/types/auth';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import { LoginResponseSchema } from '@/gen/panel/core/v1/auth_pb';
+
+type Init<T extends DescMessage> = MessageInitShape<T>;
+type ResLogin = Init<typeof LoginResponseSchema>;
 import { MenuStore, TabsStore } from '@/store';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useI18n } from 'vue-i18n';
@@ -455,7 +459,7 @@ const navigateAfterLogin = async () => {
     await routerToName('home');
 };
 
-const completeLogin = async (result: LoginModel.ResLogin) => {
+const completeLogin = async (result: ResLogin) => {
     isLogin.value = true;
     agreeLicense.value = true;
     menuStore.resetMenuList();
@@ -471,7 +475,7 @@ const completeLogin = async (result: LoginModel.ResLogin) => {
     await navigateAfterLogin();
 };
 
-const handleLoginResult = async (result: LoginModel.ResLogin) => {
+const handleLoginResult = async (result: ResLogin) => {
     if (result.mfaStatus === 'Enable') {
         mfaLoginForm.sessionId = result.mfaSession || '';
         mfaLoginForm.code = '';

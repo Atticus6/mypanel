@@ -1,5 +1,21 @@
 import { rpc } from '@/lib/rpc';
-import { Login } from '@/types/auth';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    CurrentUserSchema,
+    UpdateCurrentUserRequestSchema,
+} from '@/gen/panel/core/v1/auth_pb';
+
+type Init<T extends DescMessage> = MessageInitShape<T>;
+
+// 当前用户与用户资料表单类型来自 core AuthService proto。
+export type AuthInfo = Omit<Init<typeof CurrentUserSchema>, 'mfaStatus' | 'nodeRoles' | 'apiKeyValidityTime'> & {
+    id: number;
+    mfaStatus: string;
+    masterOnlyPermissions?: string[];
+    nodeRoles: Array<{ nodeId: number; nodeName: string; roleId: number; roleName: string }>;
+    apiKeyValidityTime: number;
+};
+export type AuthInfoUpdate = Init<typeof UpdateCurrentUserRequestSchema> & { id?: number };
 import { getEnterpriseUserInfo } from '@/extensions/xpack';
 import type { RouteMeta } from 'vue-router';
 import { GlobalStore } from '@/store';
@@ -18,12 +34,12 @@ type RouteAccessTarget = {
     }>;
 };
 
-export const syncAuthInfo = async (currentNode?: string): Promise<Login.AuthInfo> => {
+export const syncAuthInfo = async (currentNode?: string): Promise<AuthInfo> => {
     const globalStore = GlobalStore();
     const storeCurrentNode = globalStore.currentNode;
     if (!globalStore.isEnterprise) {
         const res = await rpc.core.auth.current({});
-        const authInfo: Login.AuthInfo = {
+        const authInfo: AuthInfo = {
             id: 0,
             name: res.name,
             mfaStatus: res.mfaStatus,

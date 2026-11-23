@@ -67,14 +67,14 @@ import { MenuStore } from '@/store';
 import { loadMenuList } from '@/utils/menu';
 import PrimaryMenu from '@/assets/images/menu-bg.svg?component';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import type { Login } from '@/types/auth';
+import type { AuthInfo, AuthInfoUpdate } from '@/utils/rbac';
 
 const route = useRoute();
 const router = useRouter();
 const menuStore = MenuStore();
 const { currentNode, isAdmin, isNodeAdmin, menuAccordion, permissions, masterOnlyPermissions } = useGlobalStore();
 const nodeSelectorRef = ref<InstanceType<typeof Collapse>>();
-const currentUser = ref<Login.AuthInfo>();
+const currentUser = ref<AuthInfo>();
 
 const activeMenu = computed(() => {
     const { meta, path } = route;

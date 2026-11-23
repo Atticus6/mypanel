@@ -307,7 +307,16 @@ import { useSearchState } from '@/utils/search-reset';
 import { Firewall } from '@/types/firewall';
 import { TABLE_TOOLTIP_OPTIONS, type FuTableOperationButton } from '@/components/table/shared';
 import { buildHostRuleExport } from './transfer';
-import { Process } from '@/types/process';
+interface ListeningProcess {
+    pid?: number;
+    ports?: number[];
+    protocol?: number;
+    name?: string;
+    PID?: number;
+    Port?: Record<string, unknown>;
+    Protocol?: number;
+    Name?: string;
+}
 import i18n from '@/lang';
 import { getCurrentDateFormatted } from '@/utils/date';
 import { downloadWithContent } from '@/utils/file';
@@ -401,7 +410,7 @@ const searchName = ref('');
 const inventoryItems = ref<Firewall.InventoryItem[]>([]);
 const positionRanges = ref<Partial<Record<Firewall.Family, Firewall.PositionRange>>>({});
 const inventoryTotal = ref(0);
-const listeningProcesses = ref<Process.ListeningProcess[]>([]);
+const listeningProcesses = ref<ListeningProcess[]>([]);
 const dockerEndpoints = ref<Firewall.DockerGuardEndpoint[]>([]);
 const usageLoading = ref(false);
 const usageFailed = ref(false);
@@ -605,7 +614,7 @@ const displayPort = (row: Firewall.InventoryItem) => {
     if (isOpaqueRule(row) && !hasParsedUFWFields(row)) return '-';
     return row.rule.destinationPort || '*';
 };
-const extractListeningPorts = (portMap: Process.ListeningProcess['Port']) =>
+const extractListeningPorts = (portMap: ListeningProcess['Port']) =>
     Object.keys(portMap || {})
         .map(Number)
         .filter((port) => Number.isInteger(port) && port > 0 && port <= 65535);

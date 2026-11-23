@@ -51,7 +51,15 @@
 </template>
 
 <script lang="ts" setup>
-import { Nginx } from '@/types/nginx';
+interface OpenrestyStatusView {
+    accepts: number;
+    handled: number;
+    active: number;
+    requests: number;
+    reading: number;
+    writing: number;
+    waiting: number;
+}
 import { rpc } from '@/lib/rpc';
 import { onMounted, ref } from 'vue';
 
@@ -62,7 +70,7 @@ const props = defineProps({
     },
 });
 
-let data = ref<Nginx.NginxStatus>({
+let data = ref<OpenrestyStatusView>({
     accepts: 0,
     handled: 0,
     requests: 0,
