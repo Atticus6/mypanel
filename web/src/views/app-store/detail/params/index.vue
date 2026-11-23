@@ -145,7 +145,6 @@ import { Rules } from '@/global/form-rules';
 import { App } from '@/api/interface/app';
 import { getDBName, getLabel, getDescription } from '@/utils/app-store';
 import { rpc } from '@/lib/rpc';
-import { loadFormatCollations } from '@/api/modules/database';
 
 interface ParamObj extends App.FromField {
     services: App.AppService[];
@@ -311,12 +310,15 @@ const formatOptions = ref();
 const collationOptions = ref();
 const appKey = ref('');
 
-const loadOptions = async (database: string) => {
-    const defaultOptions = [{ format: 'utf8mb4' }, { format: 'utf8mb3' }, { format: 'gbk' }, { format: 'big5' }];
-    await loadFormatCollations(database).then((res) => {
-        formatOptions.value = res.data || defaultOptions;
-        loadCollations();
-    });
+const loadOptions = async (_database: string) => {
+    // 数据库模块已剔除，格式选项退回内置列表，不再请求后端。
+    formatOptions.value = [
+        { format: 'utf8mb4' },
+        { format: 'utf8mb3' },
+        { format: 'gbk' },
+        { format: 'big5' },
+    ];
+    loadCollations();
 };
 
 const loadCollations = async () => {

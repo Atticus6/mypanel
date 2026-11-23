@@ -304,70 +304,6 @@
                                         </el-select>
                                     </el-form-item>
                                 </LayoutCol>
-                                <LayoutCol v-if="form.type === 'database'">
-                                    <el-form-item :label="$t('cronjob.database')">
-                                        <el-select v-model="form.dbType" @change="loadDatabases">
-                                            <el-option label="MySQL" value="mysql" />
-                                            <el-option label="MySQL-Cluster" value="mysql-cluster" />
-                                            <el-option label="Mariadb" value="mariadb" />
-                                            <el-option label="PostgreSQL" value="postgresql" />
-                                            <el-option label="PostgreSQL-Cluster" value="postgresql-cluster" />
-                                            <el-option label="MongoDB" value="mongodb" />
-                                        </el-select>
-                                    </el-form-item>
-                                </LayoutCol>
-                                <LayoutCol v-if="form.type === 'database'">
-                                    <el-form-item :label="$t('cronjob.database')" prop="dbNameList">
-                                        <el-select
-                                            clearable
-                                            v-model="form.dbNameList"
-                                            multiple
-                                            @change="
-                                                form.dbNameList = form.dbNameList.includes('all')
-                                                    ? ['all']
-                                                    : form.dbNameList
-                                            "
-                                        >
-                                            <el-option :label="$t('commons.table.all')" value="all" />
-                                            <el-option
-                                                v-for="item in dbInfo.dbs"
-                                                :key="item.id"
-                                                :value="item.id + ''"
-                                                :label="item.name"
-                                            >
-                                                <span>{{ item.name }}</span>
-                                                <el-tag class="tagClass">
-                                                    {{
-                                                        item.from === 'local'
-                                                            ? $t('commons.table.local')
-                                                            : $t('database.remote')
-                                                    }}
-                                                </el-tag>
-                                                <el-tag class="tagClass">
-                                                    {{ item.database }}
-                                                </el-tag>
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                </LayoutCol>
-                                <LayoutCol :span="20" v-if="form.type === 'database' && supportMysqlBackupArgs()">
-                                    <el-form-item :label="$t('cronjob.backupArgs')">
-                                        <el-select v-model="form.argItems" filterable allow-create multiple>
-                                            <el-option
-                                                v-for="item in loadMysqlArgs(form.dbType)"
-                                                :key="item.arg"
-                                                :value="item.arg"
-                                                :label="item.arg"
-                                            >
-                                                {{ item.arg }}
-                                                <span class="ml-2">{{ item.description }}</span>
-                                            </el-option>
-                                        </el-select>
-                                        <span class="input-help">
-                                            {{ $t('cronjob.backupArgsHelper') }}
-                                        </span>
-                                    </el-form-item>
-                                </LayoutCol>
                                 <LayoutCol v-if="form.type === 'directory'">
                                     <el-form-item :label="$t('commons.button.backup')">
                                         <el-radio-group v-model="form.isDir" class="w-full">
@@ -658,7 +594,7 @@
                             </el-row>
 
                             <el-row :gutter="20">
-                                <LayoutCol v-if="isBackup() && !isDatabase()">
+                                <LayoutCol v-if="isBackup()">
                                     <el-form-item :label="$t('setting.compressPassword')" prop="secret">
                                         <el-input type="password" show-password v-model="form.secret" />
                                     </el-form-item>
@@ -858,10 +794,8 @@ import i18n from '@/lang';
 import { ElForm } from 'element-plus';
 import { Cronjob } from '@/api/interface/cronjob';
 import { addCronjob, editCronjob, loadCronjobInfo, loadNextHandle, loadScriptOptions } from '@/api/modules/cronjob';
-import { listDbItems } from '@/api/modules/database';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useRouter } from 'vue-router';
-import { Database } from '@/api/interface/database';
 import { listAppInstalled } from '@/api/modules/app';
 import { Alert } from '@/api/interface/alert';
 import { ListAlertConfigs } from '@/api/modules/alert';
@@ -873,7 +807,6 @@ import {
     transSpecToObj,
     weekOptions,
     cronjobTypes,
-    loadMysqlArgs,
 } from '../helper';
 import { loadUsers } from '@/api/modules/toolbox';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -1013,8 +946,9 @@ const form = reactive<Cronjob.CronjobInfo>({
     website: '',
     ignoreFiles: [],
     exclusionRules: '',
-    dbType: 'mysql',
+    dbType: '',
     dbName: '',
+    dbNameList: [],
     url: '',
     urlItems: [{ url: '', header: '' }],
     isDir: true,
@@ -1032,7 +966,6 @@ const form = reactive<Cronjob.CronjobInfo>({
 
     websiteList: [],
     appIdList: [],
-    dbNameList: [],
 
     retainCopies: 7,
     ignoreErr: false,
@@ -1108,9 +1041,6 @@ const search = async () => {
                 form.websiteList = res.data.website ? res.data.website.split(',') : [];
                 form.exclusionRules = res.data.exclusionRules;
                 form.ignoreFiles = res.data.exclusionRules ? res.data.exclusionRules.split(',') : [];
-                form.dbType = res.data.dbType;
-                form.dbName = res.data.dbName;
-                form.dbNameList = res.data.dbName ? res.data.dbName.split(',') : [];
                 form.url = res.data.url;
                 form.withImage = res.data.snapshotRule.withImage;
                 form.ignoreAppIDs = res.data.snapshotRule.ignoreAppIDs;
@@ -1169,11 +1099,6 @@ const search = async () => {
     loadWebsites();
     loadContainers();
     loadScripts();
-    if (form.dbType) {
-        loadDatabases(form.dbType);
-    } else {
-        loadDatabases('mysql');
-    }
 };
 
 const goRouter = async (path: string) => {
@@ -1193,13 +1118,6 @@ const appOptions = ref([]);
 const userOptions = ref([]);
 const scriptOptions = ref([]);
 const groupOptions = ref([]);
-
-const dbInfo = reactive({
-    isExist: false,
-    name: '',
-    version: '',
-    dbs: [] as Array<Database.DbItem>,
-});
 
 const verifyScript = (rule: any, value: any, callback: any) => {
     if (!form.script || form.script.length === 0) {
@@ -1357,7 +1275,6 @@ const rules = reactive({
     containerName: [Rules.requiredSelect],
     websiteList: [Rules.requiredSelect],
     appIdList: [Rules.requiredSelect],
-    dbNameList: [Rules.requiredSelect],
     files: [{ validator: verifyFiles, trigger: 'blur', required: true }],
     sourceDir: [Rules.requiredInput],
     sourceAccountItems: [Rules.requiredSelect],
@@ -1437,12 +1354,6 @@ const isWebsite = () => {
 const isDir = () => {
     return form.type === 'directory';
 };
-const isDatabase = () => {
-    return form.type === 'database';
-};
-const supportMysqlBackupArgs = () => {
-    return ['mysql', 'mysql-cluster', 'mariadb'].includes(form.dbType);
-};
 
 const loadNext = async (spec: any) => {
     nextTimes.value = [];
@@ -1463,11 +1374,6 @@ const loadNext = async (spec: any) => {
 const loadScripts = async () => {
     const res = await loadScriptOptions();
     scriptOptions.value = res.data || [];
-};
-
-const loadDatabases = async (dbType: string) => {
-    const data = await listDbItems(dbType);
-    dbInfo.dbs = data.data || [];
 };
 
 const changeType = () => {
@@ -1613,7 +1519,6 @@ function isBackup() {
     return (
         form.type === 'app' ||
         form.type === 'website' ||
-        form.type === 'database' ||
         form.type === 'directory' ||
         form.type === 'snapshot' ||
         form.type === 'log'
@@ -1630,7 +1535,7 @@ function hasExclusionRules() {
 }
 
 function hasIgnore() {
-    return form.type === 'app' || form.type === 'website' || form.type === 'database';
+    return form.type === 'app' || form.type === 'website';
 }
 
 function hasScript() {
@@ -1683,10 +1588,6 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         if (form.websiteList) {
             form.website = form.websiteList.join(',');
         }
-        if (form.dbNameList) {
-            form.dbName = form.dbNameList.join(',');
-        }
-
         form.exclusionRules = form.ignoreFiles.join(',');
         form.snapshotRule = { withImage: form.withImage, ignoreAppIDs: form.ignoreAppIDs };
         form.alertCount = form.hasAlert ? form.alertCount : 0;

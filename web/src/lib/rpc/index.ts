@@ -14,7 +14,6 @@ import { DashboardService } from '@/gen/panel/agent/v1/dashboard_pb';
 import { FileService } from '@/gen/panel/agent/v1/file_pb';
 import { CronjobService } from '@/gen/panel/agent/v1/cronjob_pb';
 import { ContainerService } from '@/gen/panel/agent/v1/container_pb';
-import { DatabaseService } from '@/gen/panel/agent/v1/database_pb';
 import { AlertService } from '@/gen/panel/agent/v1/alert_pb';
 import { AppService } from '@/gen/panel/agent/v1/app_pb';
 import { BackupService } from '@/gen/panel/agent/v1/backup_pb';
@@ -58,7 +57,6 @@ const services = {
     file: FileService,
     cronjob: CronjobService,
     container: ContainerService,
-    database: DatabaseService,
     alert: AlertService,
     app: AppService,
     backup: BackupService,

@@ -267,7 +267,6 @@ import LogFile from '@/components/log/file/index.vue';
 import i18n from '@/lang';
 import { ElMessageBox } from 'element-plus';
 import { MsgSuccess } from '@/utils/message';
-import { listDbItems } from '@/api/modules/database';
 import { listAppInstalled } from '@/api/modules/app';
 import { shortcuts } from '@/utils/shortcuts';
 import { hasBackup } from '../helper';
@@ -318,16 +317,6 @@ const acceptParams = async (params: DialogProps): Promise<void> => {
 
     recordShow.value = true;
     dialogData.value = params;
-    if (dialogData.value.rowData.type === 'database') {
-        const data = await listDbItems('mysql,mariadb,mysql-cluster,postgresql,postgresql-cluster,mongodb');
-        let itemDBs = data.data || [];
-        for (const item of itemDBs) {
-            if (item.id == dialogData.value.rowData.dbName) {
-                dialogData.value.rowData.dbName = item.database + ' [' + item.name + ']';
-                break;
-            }
-        }
-    }
     if (dialogData.value.rowData.type === 'app') {
         const res = await listAppInstalled();
         let itemApps = res.data || [];

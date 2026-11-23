@@ -52,7 +52,7 @@ excluded_prefixes:
   - prefix: /containers/daemonjson/file
     reason: daemon.json 文件上传下载是二进制通道
   - prefix: /databases
-    reason: 数据库管理交给 DBX 接管，mypanel 不再提供数据库实例管理接口
+    reason: 数据库模块已整体剔除
   - prefix: /core/auth/api/keys
     reason: 多 API Key 管理依赖 xpack 的 APIKeyOwnerProvider，社区版未实现，随 xpack 一并剔除
 

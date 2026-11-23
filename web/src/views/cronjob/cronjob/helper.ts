@@ -221,7 +221,6 @@ export const cronjobTypes = [
     { value: 'shell', label: i18n.global.t('cronjob.shell') },
     { value: 'app', label: i18n.global.t('cronjob.app') },
     { value: 'website', label: i18n.global.t('cronjob.website') },
-    { value: 'database', label: i18n.global.t('cronjob.database') },
     { value: 'directory', label: i18n.global.t('cronjob.directory') },
     { value: 'log', label: i18n.global.t('cronjob.log') },
     { value: 'curl', label: i18n.global.t('cronjob.curl') },

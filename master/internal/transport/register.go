@@ -58,7 +58,6 @@ func Services() []server.RPCService {
 	filePath, fileHandler := agentv1connect.NewFileServiceHandler(agenttransport.NewFileServer(), handlerOpts...)
 	cronjobPath, cronjobHandler := agentv1connect.NewCronjobServiceHandler(agenttransport.NewCronjobServer(), handlerOpts...)
 	containerPath, containerHandler := agentv1connect.NewContainerServiceHandler(agenttransport.NewContainerServer(), handlerOpts...)
-	databasePath, databaseHandler := agentv1connect.NewDatabaseServiceHandler(agenttransport.NewDatabaseServer(), handlerOpts...)
 	alertPath, alertHandler := agentv1connect.NewAlertServiceHandler(agenttransport.NewAlertServer(), handlerOpts...)
 	appPath, appHandler := agentv1connect.NewAppServiceHandler(agenttransport.NewAppServer(), handlerOpts...)
 	backupPath, backupHandler := agentv1connect.NewBackupServiceHandler(agenttransport.NewBackupServer(), handlerOpts...)
@@ -113,11 +112,6 @@ func Services() []server.RPCService {
 			Name:    agentv1connect.ContainerServiceName,
 			Path:    containerPath,
 			Handler: containerHandler,
-		},
-		{
-			Name:    agentv1connect.DatabaseServiceName,
-			Path:    databasePath,
-			Handler: databaseHandler,
 		},
 		{
 			Name:    agentv1connect.AlertServiceName,
@@ -260,7 +254,6 @@ func ServiceDescriptors() []protoreflect.ServiceDescriptor {
 		agentv1.File_panel_agent_v1_file_proto,
 		agentv1.File_panel_agent_v1_cronjob_proto,
 		agentv1.File_panel_agent_v1_container_proto,
-		agentv1.File_panel_agent_v1_database_proto,
 		agentv1.File_panel_agent_v1_alert_proto,
 		agentv1.File_panel_agent_v1_app_proto,
 		agentv1.File_panel_agent_v1_backup_proto,
