@@ -66,8 +66,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Nginx } from '@/api/interface/nginx';
-import { updateNginxModule } from '@/api/modules/nginx';
+import type { OpenrestyModule } from '@/gen/panel/agent/v1/openresty_pb';
+import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
@@ -87,8 +87,8 @@ type ModuleForm = {
     enable: boolean;
     params: string;
     packages: string;
-    buildMode: Nginx.NginxModule['buildMode'];
-    provider: Nginx.NginxModule['provider'];
+    buildMode: OpenrestyModule['buildMode'];
+    provider: OpenrestyModule['provider'];
     loadOrder: number;
     lastError: string;
 };
@@ -116,7 +116,7 @@ const handleClose = () => {
     em('close', false);
 };
 
-const acceptParams = async (operate: string, editModule?: Nginx.NginxModule, supported?: boolean) => {
+const acceptParams = async (operate: string, editModule?: OpenrestyModule, supported?: boolean) => {
     mode.value = operate;
     dynamicSupported.value = supported ?? true;
     module.value = defaultModule();
@@ -140,12 +140,18 @@ const acceptParams = async (operate: string, editModule?: Nginx.NginxModule, sup
 const submit = async (form: FormInstance) => {
     await form.validate();
     loading.value = true;
-    const data = {
-        ...module.value,
-        operate: mode.value,
-    };
     try {
-        await updateNginxModule(data);
+        await rpc.openresty.updateModule({
+            operate: mode.value,
+            name: module.value.name,
+            script: module.value.script,
+            packages: module.value.packages,
+            enable: module.value.enable,
+            params: module.value.params,
+            buildMode: module.value.buildMode,
+            provider: module.value.provider,
+            loadOrder: module.value.loadOrder,
+        });
         if (mode.value === 'update') {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
         } else if (mode.value === 'create') {

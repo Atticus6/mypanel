@@ -52,7 +52,7 @@
 
 <script lang="ts" setup>
 import { Nginx } from '@/api/interface/nginx';
-import { getNginxStatus } from '@/api/modules/nginx';
+import { rpc } from '@/lib/rpc';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps({
@@ -76,8 +76,7 @@ const get = async () => {
     if (props.status != 'Running') {
         return;
     }
-    const res = await getNginxStatus();
-    data.value = res.data;
+    data.value = await rpc.openresty.getStatus({});
 };
 
 onMounted(() => {

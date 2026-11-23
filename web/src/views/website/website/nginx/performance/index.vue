@@ -173,16 +173,13 @@
 </template>
 <script lang="ts" setup>
 import { Nginx } from '@/api/interface/nginx';
-import { getNginxConfigByScope, getNginxModules, updateNginxConfigByScope } from '@/api/modules/nginx';
+import { rpc } from '@/lib/rpc';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { FormInstance, FormItemRule } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
-let req = ref<Nginx.NginxScopeReq>({
-    scope: 'http-per',
-});
 let updateReq = ref<Nginx.NginxConfigReq>({
     scope: 'http-per',
     operate: 'update',
@@ -348,10 +345,10 @@ const getParams = async () => {
     // Reset the unit cache: a directive removed since the last load must not
     // hand its remembered unit to a value that no longer carries one.
     units.value = {};
-    const res = await getNginxConfigByScope(req.value);
-    data.value = res.data;
+    const res = await rpc.openresty.getConfigByScope({ scope: 'http-per', websiteId: 0 });
+    data.value = res.items;
     const nextSources: Record<string, string> = {};
-    for (const param of res.data) {
+    for (const param of res.items) {
         if (param.source) {
             nextSources[param.name] = param.source;
         }
@@ -380,17 +377,15 @@ const getParams = async () => {
 };
 
 const getBrotliParams = async () => {
-    const modules = await getNginxModules();
-    const brotli = modules.data.modules?.find((item) => item.name === 'ngx_brotli');
+    const modules = await rpc.openresty.getModules({});
+    const brotli = modules.items.find((item) => item.name === 'ngx_brotli');
     brotliAvailable.value = !!brotli && brotli.enable && brotli.buildStatus === 'ready';
     if (!brotliAvailable.value) {
         return;
     }
-    const res = await getNginxConfigByScope<Nginx.NginxBrotliRes>({ scope: 'brotli' });
-    brotliManagedExternally.value = !!res.data?.managedExternally;
-    brotliManagedPending.value = !!res.data?.managedPending;
-    brotliManagedUnavailable.value = !!res.data?.managedUnavailable;
-    for (const param of res.data?.params ?? []) {
+    const res = await rpc.openresty.getConfigByScope({ scope: 'brotli', websiteId: 0 });
+    // proto 的 GetConfigByScope 只返回 items，brotli 的托管状态不再随响应下发
+    for (const param of res.items) {
         if (param.params.length === 0) {
             continue;
         }
@@ -429,28 +424,37 @@ const submit = async (formEl: FormInstance | undefined) => {
             delete params[name];
         }
         updateReq.value.params = params;
-        updateNginxConfigByScope(updateReq.value)
+        rpc.openresty
+            .updateConfigByScope({
+                scope: updateReq.value.scope,
+                operate: updateReq.value.operate,
+                websiteId: updateReq.value.websiteId ?? 0,
+                paramsJson: updateReq.value.params ? JSON.stringify(updateReq.value.params) : '',
+            })
             .then(() => {
                 if (!brotliAvailable.value || brotliManagedUnavailable.value) {
                     return;
                 }
                 // brotli_types is managed by the panel and deliberately not
                 // exposed, so it stays aligned with gzip_types.
-                return updateNginxConfigByScope({
-                    scope: 'brotli',
-                    operate: 'update',
-                    params: {
-                        brotli: form.value.brotli,
-                        brotli_comp_level: String(form.value.brotli_comp_level),
-                        brotli_min_length: withUnit('brotli_min_length', form.value.brotli_min_length, 'k'),
-                    },
-                }).catch(() => {
-                    // gzip was already saved by the time brotli failed; say so
-                    // instead of leaving the user guessing which half applied.
-                    MsgError(i18n.global.t('nginx.brotliSaveFailed'));
-                    getParams();
-                    throw new Error('brotli save failed');
-                });
+                return rpc.openresty
+                    .updateConfigByScope({
+                        scope: 'brotli',
+                        operate: 'update',
+                        websiteId: 0,
+                        paramsJson: JSON.stringify({
+                            brotli: form.value.brotli,
+                            brotli_comp_level: String(form.value.brotli_comp_level),
+                            brotli_min_length: withUnit('brotli_min_length', form.value.brotli_min_length, 'k'),
+                        }),
+                    })
+                    .catch(() => {
+                        // gzip was already saved by the time brotli failed; say so
+                        // instead of leaving the user guessing which half applied.
+                        MsgError(i18n.global.t('nginx.brotliSaveFailed'));
+                        getParams();
+                        throw new Error('brotli save failed');
+                    });
             })
             .then(() => {
                 MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));

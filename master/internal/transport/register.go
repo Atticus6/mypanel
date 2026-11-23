@@ -74,6 +74,7 @@ func Services() []server.RPCService {
 	agentGroupPath, agentGroupHandler := agentv1connect.NewGroupServiceHandler(agenttransport.NewGroupServer(), handlerOpts...)
 	healthPath, healthHandler := agentv1connect.NewHealthServiceHandler(agenttransport.NewHealthServer(), handlerOpts...)
 	processPath, processHandler := agentv1connect.NewProcessServiceHandler(agenttransport.NewProcessServer(), handlerOpts...)
+	openrestyPath, openrestyHandler := agentv1connect.NewOpenrestyServiceHandler(agenttransport.NewOpenrestyServer(), handlerOpts...)
 
 	return []server.RPCService{
 		{
@@ -226,6 +227,11 @@ func Services() []server.RPCService {
 			Path:    processPath,
 			Handler: processHandler,
 		},
+		{
+			Name:    agentv1connect.OpenrestyServiceName,
+			Path:    openrestyPath,
+			Handler: openrestyHandler,
+		},
 	}
 }
 
@@ -288,6 +294,7 @@ func ServiceDescriptors() []protoreflect.ServiceDescriptor {
 		agentv1.File_panel_agent_v1_group_proto,
 		agentv1.File_panel_agent_v1_health_proto,
 		agentv1.File_panel_agent_v1_process_proto,
+		agentv1.File_panel_agent_v1_openresty_proto,
 	} {
 		for i := 0; i < file.Services().Len(); i++ {
 			descriptors = append(descriptors, file.Services().Get(i))

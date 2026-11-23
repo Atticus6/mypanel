@@ -58,12 +58,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { ElMessageBox, FormInstance } from 'element-plus';
-import { getNginxModules, buildNginx } from '@/api/modules/nginx';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { newUUID } from '@/utils/id';
 import TaskLog from '@/components/log/task/index.vue';
 import { Rules } from '@/global/form-rules';
-import { Nginx } from '@/api/interface/nginx';
+import type { OpenrestyModule } from '@/gen/panel/agent/v1/openresty_pb';
 
 const open = ref(false);
 const loading = ref(false);
@@ -73,8 +73,8 @@ const build = ref({
     modules: [] as string[],
     force: false,
 });
-const moduleOptions = ref<Nginx.NginxModule[]>([]);
-const staticModules = ref<Nginx.NginxModule[]>([]);
+const moduleOptions = ref<OpenrestyModule[]>([]);
+const staticModules = ref<OpenrestyModule[]>([]);
 const dynamicSupported = ref(true);
 const rules = computed(() => ({
     mirror: [Rules.requiredSelect],
@@ -89,13 +89,13 @@ const acceptParams = async () => {
 
 const getModules = async () => {
     try {
-        const res = await getNginxModules();
-        build.value.mirror = res.data.mirror;
-        dynamicSupported.value = res.data.dynamicSupported;
-        moduleOptions.value = res.data.dynamicSupported
-            ? res.data.modules.filter((item) => item.enable && item.buildMode === 'dynamic')
+        const res = await rpc.openresty.getModules({});
+        build.value.mirror = res.mirror;
+        dynamicSupported.value = res.dynamicSupported;
+        moduleOptions.value = res.dynamicSupported
+            ? res.items.filter((item) => item.enable && item.buildMode === 'dynamic')
             : [];
-        staticModules.value = res.data.modules.filter((item) => item.enable && item.buildMode === 'static');
+        staticModules.value = res.items.filter((item) => item.enable && item.buildMode === 'static');
         build.value.modules = moduleOptions.value.map((item) => item.name);
     } catch (error) {}
 };
@@ -109,8 +109,8 @@ const submit = async (form: FormInstance) => {
     const taskID = newUUID();
     loading.value = true;
     try {
-        await buildNginx({
-            taskID: taskID,
+        await rpc.openresty.build({
+            taskId: taskID,
             mirror: build.value.mirror,
             modules: build.value.modules,
             force: build.value.force,

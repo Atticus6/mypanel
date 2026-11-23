@@ -1,0 +1,349 @@
+// panel/agent/v1/openresty.proto 定义 OpenResty（Nginx）配置相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// OpenrestyService 管理 OpenResty 主配置与模块。
+service OpenrestyService {
+  // 读取 OpenResty 主配置内容。
+  rpc GetConfig(GetOpenrestyConfigRequest) returns (OpenrestyConfig) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按作用域读取配置项。
+  rpc GetConfigByScope(GetOpenrestyConfigByScopeRequest) returns (OpenrestyParams) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按作用域更新配置项。
+  rpc UpdateConfigByScope(UpdateOpenrestyConfigRequest) returns (UpdateOpenrestyConfigResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新 OpenResty 配置"
+      audit_action_en: "Update OpenResty config"
+    };
+  }
+
+  // 读取 OpenResty 运行状态。
+  rpc GetStatus(GetOpenrestyStatusRequest) returns (OpenrestyStatus) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 用完整文件内容替换主配置。
+  rpc UpdateConfigFile(UpdateOpenrestyConfigFileRequest) returns (UpdateOpenrestyConfigFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "上传 OpenResty 配置"
+      audit_action_en: "Upload OpenResty config"
+    };
+  }
+
+  // 重新构建 OpenResty。
+  rpc Build(BuildOpenrestyRequest) returns (BuildOpenrestyResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "构建 OpenResty"
+      audit_action_en: "Build OpenResty"
+    };
+  }
+
+  // 更新自定义模块。
+  rpc UpdateModule(UpdateOpenrestyModuleRequest) returns (UpdateOpenrestyModuleResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新 OpenResty 模块"
+      audit_action_en: "Update OpenResty module"
+    };
+  }
+
+  // 读取可用模块与构建配置。
+  rpc GetModules(GetOpenrestyModulesRequest) returns (OpenrestyModules) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 开启或关闭默认 HTTPS。
+  rpc OperateDefaultHTTPS(OperateDefaultHTTPSRequest) returns (OperateDefaultHTTPSResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改默认 HTTPS"
+      audit_action_en: "Operate default HTTPS"
+    };
+  }
+
+  // 查询默认 HTTPS 状态。
+  rpc GetDefaultHTTPSStatus(GetDefaultHTTPSStatusRequest) returns (DefaultHTTPSStatus) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// GetOpenrestyConfigRequest 是主配置读取参数，无业务字段。
+message GetOpenrestyConfigRequest {}
+
+// OpenrestyConfig 是主配置内容。
+message OpenrestyConfig {
+  // 配置文件内容。
+  string content = 1;
+}
+
+// GetOpenrestyConfigByScopeRequest 是按作用域读取配置参数。
+message GetOpenrestyConfigByScopeRequest {
+  // 配置作用域，例如 server、http、website。
+  string scope = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 网站 ID；仅 website 作用域需要。
+  uint32 website_id = 2;
+}
+
+// OpenrestyParams 是作用域内的配置项列表。
+message OpenrestyParams {
+  // 配置项。
+  repeated OpenrestyParam items = 1;
+}
+
+// OpenrestyParam 是一个配置项。
+message OpenrestyParam {
+  // 配置名。
+  string name = 1;
+
+  // 参数值列表。
+  repeated string params = 2;
+
+  // 定义该配置的文件；为空表示来自 nginx.conf。
+  string source = 3;
+}
+
+// UpdateOpenrestyConfigRequest 是配置更新参数。
+message UpdateOpenrestyConfigRequest {
+  // 配置作用域。
+  string scope = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 操作类型：add、update 或 delete。
+  string operate = 2 [(buf.validate.field).string = {
+    in: [
+      "add",
+      "update",
+      "delete"
+    ]
+  }];
+
+  // 网站 ID；仅 website 作用域需要。
+  uint32 website_id = 3;
+
+  // 配置参数的 JSON 字符串；结构随作用域变化。
+  string params_json = 4;
+}
+
+// UpdateOpenrestyConfigResponse 是更新结果，无业务字段。
+message UpdateOpenrestyConfigResponse {}
+
+// GetOpenrestyStatusRequest 是运行状态查询参数，无业务字段。
+message GetOpenrestyStatusRequest {}
+
+// OpenrestyStatus 是 OpenResty 的连接统计。
+message OpenrestyStatus {
+  // 活跃连接数。
+  int32 active = 1;
+
+  // 接受的连接数。
+  int32 accepts = 2;
+
+  // 已处理的连接数。
+  int32 handled = 3;
+
+  // 请求数。
+  int32 requests = 4;
+
+  // 正在读取的连接数。
+  int32 reading = 5;
+
+  // 正在写入的连接数。
+  int32 writing = 6;
+
+  // 空闲连接数。
+  int32 waiting = 7;
+}
+
+// UpdateOpenrestyConfigFileRequest 是完整配置上传参数。
+message UpdateOpenrestyConfigFileRequest {
+  // 配置文件内容。
+  string content = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 是否先备份原文件。
+  bool backup = 2;
+}
+
+// UpdateOpenrestyConfigFileResponse 是更新结果，无业务字段。
+message UpdateOpenrestyConfigFileResponse {}
+
+// BuildOpenrestyRequest 是构建参数。
+message BuildOpenrestyRequest {
+  // 前端生成的任务 ID。
+  string task_id = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 下载镜像源。
+  string mirror = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 需要编译的模块列表。
+  repeated string modules = 3;
+
+  // 是否强制重建。
+  bool force = 4;
+}
+
+// BuildOpenrestyResponse 是构建结果，无业务字段。
+message BuildOpenrestyResponse {}
+
+// UpdateOpenrestyModuleRequest 是模块更新参数。
+message UpdateOpenrestyModuleRequest {
+  // 操作类型：create、delete 或 update。
+  string operate = 1 [(buf.validate.field).string = {
+    in: [
+      "create",
+      "delete",
+      "update"
+    ]
+  }];
+
+  // 模块名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 构建脚本。
+  string script = 3;
+
+  // 依赖包。
+  string packages = 4;
+
+  // 是否启用。
+  bool enable = 5;
+
+  // 模块参数。
+  string params = 6;
+
+  // 构建模式：dynamic 或 static。
+  string build_mode = 7 [(buf.validate.field).string = {
+    in: [
+      "",
+      "dynamic",
+      "static"
+    ]
+  }];
+
+  // 来源：local 或 prebuilt。
+  string provider = 8 [(buf.validate.field).string = {
+    in: [
+      "",
+      "local",
+      "prebuilt"
+    ]
+  }];
+
+  // 加载顺序。
+  int32 load_order = 9 [(buf.validate.field).int32 = {
+    gte: 0
+    lte: 9999
+  }];
+}
+
+// UpdateOpenrestyModuleResponse 是更新结果，无业务字段。
+message UpdateOpenrestyModuleResponse {}
+
+// GetOpenrestyModulesRequest 是模块列表查询参数，无业务字段。
+message GetOpenrestyModulesRequest {}
+
+// OpenrestyModules 是模块与构建配置。
+message OpenrestyModules {
+  // 当前镜像源。
+  string mirror = 1;
+
+  // 是否支持动态模块。
+  bool dynamic_supported = 2;
+
+  // 模块列表。
+  repeated OpenrestyModule items = 3;
+}
+
+// OpenrestyModule 是一个 OpenResty 模块。
+message OpenrestyModule {
+  // 模块名称。
+  string name = 1;
+
+  // 是否自定义模块。
+  bool custom = 2;
+
+  // 构建脚本。
+  string script = 3;
+
+  // 依赖包。
+  string packages = 4;
+
+  // 模块参数。
+  string params = 5;
+
+  // 是否启用。
+  bool enable = 6;
+
+  // 构建模式。
+  string build_mode = 7;
+
+  // 来源。
+  string provider = 8;
+
+  // 加载顺序。
+  int32 load_order = 9;
+
+  // 构建状态。
+  string build_status = 10;
+
+  // 加载状态。
+  string load_status = 11;
+
+  // 构建产物的 JSON 字符串。
+  string artifacts_json = 12;
+
+  // 最近一次错误。
+  string last_error = 13;
+}
+
+// OperateDefaultHTTPSRequest 是默认 HTTPS 开关参数。
+message OperateDefaultHTTPSRequest {
+  // 操作类型：enable 或 disable。
+  string operate = 1 [(buf.validate.field).string = {
+    in: [
+      "enable",
+      "disable"
+    ]
+  }];
+
+  // 是否拒绝非 HTTPS 握手。
+  bool ssl_reject_handshake = 2;
+}
+
+// OperateDefaultHTTPSResponse 是操作结果，无业务字段。
+message OperateDefaultHTTPSResponse {}
+
+// GetDefaultHTTPSStatusRequest 是默认 HTTPS 状态查询参数，无业务字段。
+message GetDefaultHTTPSStatusRequest {}
+
+// DefaultHTTPSStatus 是默认 HTTPS 状态。
+message DefaultHTTPSStatus {
+  // 是否已开启。
+  bool https = 1;
+
+  // 是否拒绝非 HTTPS 握手。
+  bool ssl_reject_handshake = 2;
+}

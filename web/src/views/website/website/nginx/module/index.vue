@@ -48,38 +48,38 @@
 </template>
 <script lang="ts" setup>
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { getNginxModules, updateNginxModule } from '@/api/modules/nginx';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
-import { Nginx } from '@/api/interface/nginx';
+import type { OpenrestyModule } from '@/gen/panel/agent/v1/openresty_pb';
 import { MsgSuccess } from '@/utils/message';
 import Operate from './operate/index.vue';
 import Build from './build/index.vue';
 import { onMounted, ref } from 'vue';
 
-const data = ref<Nginx.NginxModule[]>([]);
+const data = ref<OpenrestyModule[]>([]);
 const loading = ref(false);
 const buttons = [
     {
         label: i18n.global.t('commons.button.view'),
         permission: true,
-        show: (row: Nginx.NginxModule) => !row.custom,
-        click: function (row: Nginx.NginxModule) {
+        show: (row: OpenrestyModule) => !row.custom,
+        click: function (row: OpenrestyModule) {
             openView(row);
         },
     },
     {
         label: i18n.global.t('commons.button.edit'),
         permission: true,
-        show: (row: Nginx.NginxModule) => row.custom,
-        click: function (row: Nginx.NginxModule) {
+        show: (row: OpenrestyModule) => row.custom,
+        click: function (row: OpenrestyModule) {
             openEdit(row);
         },
     },
     {
         label: i18n.global.t('commons.button.delete'),
         permission: true,
-        show: (row: Nginx.NginxModule) => row.custom,
-        click: function (row: Nginx.NginxModule) {
+        show: (row: OpenrestyModule) => row.custom,
+        click: function (row: OpenrestyModule) {
             deleteModule(row);
         },
     },
@@ -93,37 +93,43 @@ const buildNginx = async () => {
     buildRef.value.acceptParams();
 };
 
-const search = () => {
+const search = async () => {
     loading.value = true;
-    getNginxModules()
-        .then((res) => {
-            data.value = res.data.modules;
-            dynamicSupported.value = res.data.dynamicSupported;
-        })
-        .finally(() => {
-            loading.value = false;
-        });
+    try {
+        const res = await rpc.openresty.getModules({});
+        data.value = res.items;
+        dynamicSupported.value = res.dynamicSupported;
+    } finally {
+        loading.value = false;
+    }
 };
 
 const openOperate = () => {
     operateRef.value.acceptParams('create', undefined, dynamicSupported.value);
 };
 
-const openEdit = (row: Nginx.NginxModule) => {
+const openEdit = (row: OpenrestyModule) => {
     operateRef.value.acceptParams('update', row, dynamicSupported.value);
 };
 
-const openView = (row: Nginx.NginxModule) => {
+const openView = (row: OpenrestyModule) => {
     operateRef.value.acceptParams('view', row, dynamicSupported.value);
 };
 
-const updateModule = (row: Nginx.NginxModule) => {
+const updateModule = (row: OpenrestyModule) => {
     loading.value = true;
-    const data = {
-        ...row,
-        operate: 'update',
-    };
-    updateNginxModule(data)
+    rpc.openresty
+        .updateModule({
+            operate: 'update',
+            name: row.name,
+            script: row.script,
+            packages: row.packages,
+            enable: row.enable,
+            params: row.params,
+            buildMode: row.buildMode,
+            provider: row.provider,
+            loadOrder: row.loadOrder,
+        })
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
         })
@@ -144,7 +150,7 @@ const statusType = (status: string) => {
     return 'info';
 };
 
-const deleteModule = async (row: Nginx.NginxModule) => {
+const deleteModule = async (row: OpenrestyModule) => {
     const data = {
         name: row.name,
         operate: 'delete',
@@ -156,7 +162,7 @@ const deleteModule = async (row: Nginx.NginxModule) => {
             i18n.global.t('nginx.module'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: updateNginxModule,
+        api: rpc.openresty.updateModule,
         params: data,
     });
 };

@@ -23,7 +23,6 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { getNginx, updateNginxConfigFile } from '@/api/modules/nginx';
 import { onMounted, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
@@ -36,10 +35,11 @@ let useOld = ref(false);
 
 const submit = () => {
     loading.value = true;
-    updateNginxConfigFile({
-        content: content.value,
-        backup: useOld.value,
-    })
+    rpc.openresty
+        .updateConfigFile({
+            content: content.value,
+            backup: useOld.value,
+        })
         .then(() => {
             MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
             getNginxConfig();
@@ -51,8 +51,8 @@ const submit = () => {
 
 const getNginxConfig = async () => {
     try {
-        const res = await getNginx();
-        content.value = res.data.content;
+        const res = await rpc.openresty.getConfig({});
+        content.value = res.content;
         useOld.value = false;
     } catch (error) {}
 };

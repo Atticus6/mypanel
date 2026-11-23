@@ -4059,52 +4059,82 @@
     {
       "method": "GET",
       "path": "/openresty",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.GetConfig",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "GetConfig",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/openresty/build",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.Build",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "Build",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/openresty/file",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.UpdateConfigFile",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "UpdateConfigFile",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/openresty/https",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.GetDefaultHTTPSStatus",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "GetDefaultHTTPSStatus",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/openresty/https",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.OperateDefaultHTTPS",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "OperateDefaultHTTPS",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/openresty/modules",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.GetModules",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "GetModules",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/openresty/modules/update",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.UpdateModule",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "UpdateModule",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/openresty/scope",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.GetConfigByScope",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "GetConfigByScope",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/openresty/status",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.GetStatus",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "GetStatus",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/openresty/update",
-      "covered": false
+      "target": "panel.agent.v1.OpenrestyService.UpdateConfigByScope",
+      "service": "panel.agent.v1.OpenrestyService",
+      "rpc": "UpdateConfigByScope",
+      "covered": true
     },
     {
       "method": "POST",

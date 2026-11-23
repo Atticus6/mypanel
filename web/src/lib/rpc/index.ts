@@ -30,6 +30,7 @@ import { MonitorService } from '@/gen/panel/agent/v1/monitor_pb';
 import { GroupService as AgentGroupService } from '@/gen/panel/agent/v1/group_pb';
 import { HealthService } from '@/gen/panel/agent/v1/health_pb';
 import { ProcessService } from '@/gen/panel/agent/v1/process_pb';
+import { OpenrestyService } from '@/gen/panel/agent/v1/openresty_pb';
 import { createRpc } from './create-rpc';
 import { transport } from './transport';
 
@@ -76,6 +77,7 @@ const services = {
     group: AgentGroupService,
     health: HealthService,
     process: ProcessService,
+    openresty: OpenrestyService,
 } as const satisfies Record<string, DescService | Record<string, DescService>>;
 
 export const rpc = createRpc(services, transport);

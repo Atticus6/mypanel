@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getHttpsStatus, operateHttps } from '@/api/modules/nginx';
+import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 
@@ -35,9 +35,9 @@ const form = reactive({
 
 const getStatus = async () => {
     try {
-        const res = await getHttpsStatus();
-        enable.value = res.data.https;
-        form.sslRejectHandshake = res.data.sslRejectHandshake;
+        const res = await rpc.openresty.getDefaultHTTPSStatus({});
+        enable.value = res.https;
+        form.sslRejectHandshake = res.sslRejectHandshake;
         showPage.value = true;
     } catch {}
 };
@@ -46,7 +46,10 @@ const submit = async () => {
     loading.value = true;
     try {
         form.operate = enable.value ? 'enable' : 'disable';
-        await operateHttps(form);
+        await rpc.openresty.operateDefaultHTTPS({
+            operate: form.operate,
+            sslRejectHandshake: form.sslRejectHandshake ?? false,
+        });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
     } catch (error) {
         getStatus();
