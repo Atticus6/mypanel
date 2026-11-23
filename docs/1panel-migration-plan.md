@@ -2255,8 +2255,9 @@ bun run build
 `process.ts`、`log.ts` 已整体删除，分组、进程与日志全部走 RPC。
 
 类型层收敛进度：`web/src/types` 从 25 个手写 DTO 文件、6712 行缩减到 21 个文件、4579 行；
-其中 331 个业务 DTO 已改为 `MessageInitShape<typeof XxxSchema>` 形式的 `@/gen` 派生类型，
-剩余 358 个 `export interface` 主要属于没有 proto 对应物的 UI-only 状态与剔除域表单结构。
+其中 331 个业务 DTO 已改为 `MessageInitShape<typeof XxxSchema>` 形式的 `@/gen` 派生类型；
+按页面实际引用裁剪了 AI/runtime/MCP/认证/Nginx 等剔除域的手写类型，
+本地接口从 358 个降到约 154 个，剩余主要是仍有 proto 对应物但保留兼容字段的 DTO 与基础分页类型。
 `api/interface` 已删除，但「类型统一从 `@/gen` 导入」尚未完全达成。
 
 core 与 agent 现在通过 `mypanel/shareddb` 共享同一个 SQLite 连接池（`1panel/db/mypanel.db`），
