@@ -200,17 +200,17 @@
                                             </el-tooltip>
                                         </el-form-item>
                                     </el-row>
-                                    <el-row v-if="currentRecord?.taskID && currentRecord?.taskID != ''">
+                                    <el-row v-if="currentRecord?.taskId && currentRecord?.taskId != ''">
                                         <LogFile
                                             :defaultButton="true"
                                             class="w-full"
-                                            :key="currentRecord?.taskID"
+                                            :key="currentRecord?.taskId"
                                             @stop-reading="search(false)"
                                             :heightDiff="420"
                                             :config="{
                                                 type: 'task',
                                                 colorMode: 'task',
-                                                taskID: currentRecord?.taskID,
+                                                taskID: currentRecord?.taskId,
                                                 tail: true,
                                             }"
                                         />
@@ -260,7 +260,7 @@ import { panelCacheKey, writePanelCache, readCachedPageSize } from '@/utils/pane
 import { reactive, ref } from 'vue';
 import { useMediaQuery } from '@vueuse/core';
 import { Cronjob } from '@/api/interface/cronjob';
-import { handleOnce, updateStatus, cleanRecords, stopCronjob } from '@/api/modules/cronjob';
+import type { CronjobRecord } from '@/gen/panel/agent/v1/cronjob_pb';
 import { rpc } from '@/lib/rpc';
 import { dateFormat } from '@/utils/date';
 import LogFile from '@/components/log/file/index.vue';
@@ -280,8 +280,8 @@ interface DialogProps {
 }
 const recordShow = ref(false);
 const dialogData = ref();
-const records = ref<Array<Cronjob.Record>>([]);
-const currentRecord = ref<Cronjob.Record>();
+const records = ref<Array<CronjobRecord>>([]);
+const currentRecord = ref<CronjobRecord>();
 
 const open = ref();
 const delLoading = ref();
@@ -356,7 +356,8 @@ const searchInfo = reactive({
 
 const onHandle = async (row: Cronjob.CronjobInfo) => {
     loading.value = true;
-    await handleOnce(row.id)
+    await rpc.cronjob
+        .handleCronjobOnce({ id: row.id })
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -373,7 +374,7 @@ const onChangeStatus = async (id: number, status: string) => {
         cancelButtonText: i18n.global.t('commons.button.cancel'),
     }).then(async () => {
         let itemStatus = status === 'enable' ? 'Enable' : 'Disable';
-        await updateStatus({ id: id, status: itemStatus });
+        await rpc.cronjob.updateCronjobStatus({ id: id, status: itemStatus });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         dialogData.value.rowData.status = itemStatus;
     });
@@ -395,7 +396,7 @@ const search = async (changeToLatest: boolean) => {
         endTime: new Date(searchInfo.endTime).toISOString(),
         status: searchInfo.status,
     });
-    records.value = res.items as any;
+    records.value = res.items;
     searchInfo.recordTotal = Number(res.total);
     hasRecords.value = searchInfo.recordTotal !== 0;
     if (!hasRecords.value) {
@@ -413,7 +414,7 @@ const search = async (changeToLatest: boolean) => {
     }
 };
 
-const forDetail = (row: Cronjob.Record) => {
+const forDetail = (row: CronjobRecord) => {
     currentRecord.value = row;
 };
 
@@ -424,7 +425,12 @@ const onClean = async () => {
             cancelButtonText: i18n.global.t('commons.button.cancel'),
             type: 'warning',
         }).then(async () => {
-            await cleanRecords(dialogData.value.rowData.id, cleanData.value, cleanRemoteData.value)
+            await rpc.cronjob
+                .cleanCronjobRecords({
+                    cronjobId: dialogData.value.rowData.id,
+                    cleanData: cleanData.value,
+                    cleanRemoteData: cleanRemoteData.value,
+                })
                 .then(() => {
                     delLoading.value = false;
                     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -445,14 +451,19 @@ const onStop = async (id: number) => {
         cancelButtonText: i18n.global.t('commons.button.cancel'),
         type: 'warning',
     }).then(async () => {
-        await stopCronjob(id);
+        await rpc.cronjob.stopCronjob({ id });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
     });
 };
 
 const cleanRecord = async () => {
     delLoading.value = true;
-    await cleanRecords(dialogData.value.rowData.id, cleanData.value, cleanRemoteData.value)
+    await rpc.cronjob
+        .cleanCronjobRecords({
+            cronjobId: dialogData.value.rowData.id,
+            cleanData: cleanData.value,
+            cleanRemoteData: cleanRemoteData.value,
+        })
         .then(() => {
             delLoading.value = false;
             open.value = false;

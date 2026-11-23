@@ -2,6 +2,7 @@ package agent
 
 import (
 	"context"
+	"encoding/json"
 	"time"
 
 	"connectrpc.com/connect"
@@ -199,5 +200,164 @@ func fromCronjobOperate(item *agentdto.CronjobOperate) *agentv1.Cronjob {
 		RetryTimes:    uint32(item.RetryTimes),
 		Timeout:       uint32(item.Timeout),
 		IgnoreErr:     item.IgnoreErr,
+		InfoJson:      marshalJSON(item),
 	}
+}
+
+// CreateCronjob 创建计划任务。
+func (s *CronjobServer) CreateCronjob(
+	ctx context.Context,
+	req *connect.Request[agentv1.CreateCronjobRequest],
+) (*connect.Response[agentv1.CreateCronjobResponse], error) {
+	var payload agentdto.CronjobOperate
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.Create(payload, alertAuditUser(ctx)); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.CreateCronjobResponse{}), nil
+}
+
+// UpdateCronjob 更新计划任务。
+func (s *CronjobServer) UpdateCronjob(
+	ctx context.Context,
+	req *connect.Request[agentv1.UpdateCronjobRequest],
+) (*connect.Response[agentv1.UpdateCronjobResponse], error) {
+	var payload agentdto.CronjobOperate
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	payload.ID = uint(req.Msg.GetId())
+	if err := s.service.Update(payload.ID, payload, alertAuditUser(ctx)); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.UpdateCronjobResponse{}), nil
+}
+
+// DeleteCronjobs 批量删除计划任务。
+func (s *CronjobServer) DeleteCronjobs(
+	_ context.Context,
+	req *connect.Request[agentv1.DeleteCronjobsRequest],
+) (*connect.Response[agentv1.DeleteCronjobsResponse], error) {
+	ids := make([]uint, 0, len(req.Msg.GetIds()))
+	for _, id := range req.Msg.GetIds() {
+		ids = append(ids, uint(id))
+	}
+	if err := s.service.Delete(agentdto.CronjobBatchDelete{
+		IDs:             ids,
+		CleanData:       req.Msg.GetCleanData(),
+		CleanRemoteData: req.Msg.GetCleanRemoteData(),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.DeleteCronjobsResponse{}), nil
+}
+
+// UpdateCronjobGroup 修改计划任务分组。
+func (s *CronjobServer) UpdateCronjobGroup(
+	_ context.Context,
+	req *connect.Request[agentv1.UpdateCronjobGroupRequest],
+) (*connect.Response[agentv1.UpdateCronjobGroupResponse], error) {
+	if err := s.service.UpdateGroup(agentdto.ChangeGroup{
+		ID:      uint(req.Msg.GetId()),
+		GroupID: uint(req.Msg.GetGroupId()),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.UpdateCronjobGroupResponse{}), nil
+}
+
+// UpdateCronjobStatus 修改计划任务状态。
+func (s *CronjobServer) UpdateCronjobStatus(
+	_ context.Context,
+	req *connect.Request[agentv1.UpdateCronjobStatusRequest],
+) (*connect.Response[agentv1.UpdateCronjobStatusResponse], error) {
+	if err := s.service.UpdateStatus(uint(req.Msg.GetId()), req.Msg.GetStatus()); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.UpdateCronjobStatusResponse{}), nil
+}
+
+// HandleCronjobOnce 手动执行一次计划任务。
+func (s *CronjobServer) HandleCronjobOnce(
+	_ context.Context,
+	req *connect.Request[agentv1.HandleCronjobOnceRequest],
+) (*connect.Response[agentv1.HandleCronjobOnceResponse], error) {
+	if err := s.service.HandleOnce(uint(req.Msg.GetId())); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.HandleCronjobOnceResponse{}), nil
+}
+
+// StopCronjob 停止正在执行的计划任务。
+func (s *CronjobServer) StopCronjob(
+	_ context.Context,
+	req *connect.Request[agentv1.StopCronjobRequest],
+) (*connect.Response[agentv1.StopCronjobResponse], error) {
+	if err := s.service.HandleStop(uint(req.Msg.GetId())); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.StopCronjobResponse{}), nil
+}
+
+// CleanCronjobRecords 清空计划任务执行记录。
+func (s *CronjobServer) CleanCronjobRecords(
+	_ context.Context,
+	req *connect.Request[agentv1.CleanCronjobRecordsRequest],
+) (*connect.Response[agentv1.CleanCronjobRecordsResponse], error) {
+	if err := s.service.CleanRecord(agentdto.CronjobClean{
+		IsDelete:        req.Msg.GetIsDelete(),
+		CleanData:       req.Msg.GetCleanData(),
+		CronjobID:       uint(req.Msg.GetCronjobId()),
+		CleanRemoteData: req.Msg.GetCleanRemoteData(),
+	}); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.CleanCronjobRecordsResponse{}), nil
+}
+
+// LoadScriptOptions 列出可选脚本。
+func (s *CronjobServer) LoadScriptOptions(
+	_ context.Context,
+	_ *connect.Request[agentv1.LoadScriptOptionsRequest],
+) (*connect.Response[agentv1.ScriptOptionsResponse], error) {
+	options := s.service.LoadScriptOptions()
+	items := make([]*agentv1.ScriptOption, 0, len(options))
+	for _, item := range options {
+		items = append(items, &agentv1.ScriptOption{Id: uint32(item.ID), Name: item.Name})
+	}
+	return connect.NewResponse(&agentv1.ScriptOptionsResponse{Items: items}), nil
+}
+
+// LoadNextHandle 计算接下来几次执行时间。
+func (s *CronjobServer) LoadNextHandle(
+	_ context.Context,
+	req *connect.Request[agentv1.LoadNextHandleRequest],
+) (*connect.Response[agentv1.LoadNextHandleResponse], error) {
+	list, err := s.service.LoadNextHandle(req.Msg.GetSpec())
+	if err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if list == nil {
+		list = []string{}
+	}
+	return connect.NewResponse(&agentv1.LoadNextHandleResponse{Items: list}), nil
+}
+
+// ImportCronjobs 导入计划任务。
+func (s *CronjobServer) ImportCronjobs(
+	ctx context.Context,
+	req *connect.Request[agentv1.ImportCronjobsRequest],
+) (*connect.Response[agentv1.ImportCronjobsResponse], error) {
+	var payload struct {
+		Cronjobs []agentdto.CronjobTrans `json:"cronjobs"`
+	}
+	if err := json.Unmarshal([]byte(req.Msg.GetPayloadJson()), &payload); err != nil {
+		return nil, errmap.FromMsgKey("ErrInvalidParams", err)
+	}
+	if err := s.service.Import(payload.Cronjobs, alertAuditUser(ctx)); err != nil {
+		return nil, errmap.FromMsgKey("ErrInternalServer", err)
+	}
+	return connect.NewResponse(&agentv1.ImportCronjobsResponse{}), nil
 }

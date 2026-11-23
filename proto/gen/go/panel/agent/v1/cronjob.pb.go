@@ -277,7 +277,9 @@ type Cronjob struct {
 	// 告警触发模式。
 	AlertTriggerMode string `protobuf:"bytes,28,opt,name=alert_trigger_mode,json=alertTriggerMode,proto3" json:"alert_trigger_mode,omitempty"`
 	// 创建时间，RFC3339 格式。
-	CreatedAt     string `protobuf:"bytes,29,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt string `protobuf:"bytes,29,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 原始表单数据的 JSON 字符串，含 URLItems、SnapshotRule 等嵌套字段。
+	InfoJson      string `protobuf:"bytes,30,opt,name=info_json,json=infoJson,proto3" json:"info_json,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -511,6 +513,13 @@ func (x *Cronjob) GetAlertTriggerMode() string {
 func (x *Cronjob) GetCreatedAt() string {
 	if x != nil {
 		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *Cronjob) GetInfoJson() string {
+	if x != nil {
+		return x.InfoJson
 	}
 	return ""
 }
@@ -880,6 +889,1057 @@ func (x *CronjobRecordLog) GetContent() string {
 	return ""
 }
 
+// CreateCronjobRequest 是创建计划任务参数。
+//
+// 任务参数含嵌套的备份、告警与脚本配置，结构随任务类型变化，直接用 JSON 透传。
+type CreateCronjobRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCronjobRequest) Reset() {
+	*x = CreateCronjobRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCronjobRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCronjobRequest) ProtoMessage() {}
+
+func (x *CreateCronjobRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCronjobRequest.ProtoReflect.Descriptor instead.
+func (*CreateCronjobRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *CreateCronjobRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// CreateCronjobResponse 是创建结果，无业务字段。
+type CreateCronjobResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCronjobResponse) Reset() {
+	*x = CreateCronjobResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCronjobResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCronjobResponse) ProtoMessage() {}
+
+func (x *CreateCronjobResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCronjobResponse.ProtoReflect.Descriptor instead.
+func (*CreateCronjobResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{10}
+}
+
+// UpdateCronjobRequest 是更新计划任务参数。
+type UpdateCronjobRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,2,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCronjobRequest) Reset() {
+	*x = UpdateCronjobRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCronjobRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCronjobRequest) ProtoMessage() {}
+
+func (x *UpdateCronjobRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCronjobRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCronjobRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *UpdateCronjobRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateCronjobRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// UpdateCronjobResponse 是更新结果，无业务字段。
+type UpdateCronjobResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCronjobResponse) Reset() {
+	*x = UpdateCronjobResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCronjobResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCronjobResponse) ProtoMessage() {}
+
+func (x *UpdateCronjobResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCronjobResponse.ProtoReflect.Descriptor instead.
+func (*UpdateCronjobResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{12}
+}
+
+// DeleteCronjobsRequest 是批量删除参数。
+type DeleteCronjobsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID 列表。
+	Ids []uint32 `protobuf:"varint,1,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	// 是否同时清理备份数据。
+	CleanData bool `protobuf:"varint,2,opt,name=clean_data,json=cleanData,proto3" json:"clean_data,omitempty"`
+	// 是否同时清理远端备份。
+	CleanRemoteData bool `protobuf:"varint,3,opt,name=clean_remote_data,json=cleanRemoteData,proto3" json:"clean_remote_data,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *DeleteCronjobsRequest) Reset() {
+	*x = DeleteCronjobsRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteCronjobsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCronjobsRequest) ProtoMessage() {}
+
+func (x *DeleteCronjobsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCronjobsRequest.ProtoReflect.Descriptor instead.
+func (*DeleteCronjobsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *DeleteCronjobsRequest) GetIds() []uint32 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+func (x *DeleteCronjobsRequest) GetCleanData() bool {
+	if x != nil {
+		return x.CleanData
+	}
+	return false
+}
+
+func (x *DeleteCronjobsRequest) GetCleanRemoteData() bool {
+	if x != nil {
+		return x.CleanRemoteData
+	}
+	return false
+}
+
+// DeleteCronjobsResponse 是删除结果，无业务字段。
+type DeleteCronjobsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteCronjobsResponse) Reset() {
+	*x = DeleteCronjobsResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteCronjobsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCronjobsResponse) ProtoMessage() {}
+
+func (x *DeleteCronjobsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCronjobsResponse.ProtoReflect.Descriptor instead.
+func (*DeleteCronjobsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{14}
+}
+
+// UpdateCronjobGroupRequest 是分组修改参数。
+type UpdateCronjobGroupRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 目标分组 ID。
+	GroupId       uint32 `protobuf:"varint,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCronjobGroupRequest) Reset() {
+	*x = UpdateCronjobGroupRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCronjobGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCronjobGroupRequest) ProtoMessage() {}
+
+func (x *UpdateCronjobGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCronjobGroupRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCronjobGroupRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *UpdateCronjobGroupRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateCronjobGroupRequest) GetGroupId() uint32 {
+	if x != nil {
+		return x.GroupId
+	}
+	return 0
+}
+
+// UpdateCronjobGroupResponse 是修改结果，无业务字段。
+type UpdateCronjobGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCronjobGroupResponse) Reset() {
+	*x = UpdateCronjobGroupResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCronjobGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCronjobGroupResponse) ProtoMessage() {}
+
+func (x *UpdateCronjobGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCronjobGroupResponse.ProtoReflect.Descriptor instead.
+func (*UpdateCronjobGroupResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{16}
+}
+
+// UpdateCronjobStatusRequest 是状态修改参数。
+type UpdateCronjobStatusRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 目标状态。
+	Status        string `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCronjobStatusRequest) Reset() {
+	*x = UpdateCronjobStatusRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCronjobStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCronjobStatusRequest) ProtoMessage() {}
+
+func (x *UpdateCronjobStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCronjobStatusRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCronjobStatusRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *UpdateCronjobStatusRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateCronjobStatusRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+// UpdateCronjobStatusResponse 是修改结果，无业务字段。
+type UpdateCronjobStatusResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateCronjobStatusResponse) Reset() {
+	*x = UpdateCronjobStatusResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCronjobStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCronjobStatusResponse) ProtoMessage() {}
+
+func (x *UpdateCronjobStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCronjobStatusResponse.ProtoReflect.Descriptor instead.
+func (*UpdateCronjobStatusResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{18}
+}
+
+// HandleCronjobOnceRequest 是手动执行参数。
+type HandleCronjobOnceRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HandleCronjobOnceRequest) Reset() {
+	*x = HandleCronjobOnceRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HandleCronjobOnceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HandleCronjobOnceRequest) ProtoMessage() {}
+
+func (x *HandleCronjobOnceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HandleCronjobOnceRequest.ProtoReflect.Descriptor instead.
+func (*HandleCronjobOnceRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *HandleCronjobOnceRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// HandleCronjobOnceResponse 是执行结果，无业务字段。
+type HandleCronjobOnceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HandleCronjobOnceResponse) Reset() {
+	*x = HandleCronjobOnceResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HandleCronjobOnceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HandleCronjobOnceResponse) ProtoMessage() {}
+
+func (x *HandleCronjobOnceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HandleCronjobOnceResponse.ProtoReflect.Descriptor instead.
+func (*HandleCronjobOnceResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{20}
+}
+
+// StopCronjobRequest 是停止任务参数。
+type StopCronjobRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopCronjobRequest) Reset() {
+	*x = StopCronjobRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopCronjobRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopCronjobRequest) ProtoMessage() {}
+
+func (x *StopCronjobRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopCronjobRequest.ProtoReflect.Descriptor instead.
+func (*StopCronjobRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *StopCronjobRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// StopCronjobResponse 是停止结果，无业务字段。
+type StopCronjobResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopCronjobResponse) Reset() {
+	*x = StopCronjobResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopCronjobResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopCronjobResponse) ProtoMessage() {}
+
+func (x *StopCronjobResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopCronjobResponse.ProtoReflect.Descriptor instead.
+func (*StopCronjobResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{22}
+}
+
+// CleanCronjobRecordsRequest 是清空执行记录参数。
+type CleanCronjobRecordsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	CronjobId uint32 `protobuf:"varint,1,opt,name=cronjob_id,json=cronjobId,proto3" json:"cronjob_id,omitempty"`
+	// 是否同时删除远端数据。
+	IsDelete bool `protobuf:"varint,2,opt,name=is_delete,json=isDelete,proto3" json:"is_delete,omitempty"`
+	// 是否清理备份数据。
+	CleanData bool `protobuf:"varint,3,opt,name=clean_data,json=cleanData,proto3" json:"clean_data,omitempty"`
+	// 是否清理远端备份。
+	CleanRemoteData bool `protobuf:"varint,4,opt,name=clean_remote_data,json=cleanRemoteData,proto3" json:"clean_remote_data,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *CleanCronjobRecordsRequest) Reset() {
+	*x = CleanCronjobRecordsRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CleanCronjobRecordsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CleanCronjobRecordsRequest) ProtoMessage() {}
+
+func (x *CleanCronjobRecordsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CleanCronjobRecordsRequest.ProtoReflect.Descriptor instead.
+func (*CleanCronjobRecordsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *CleanCronjobRecordsRequest) GetCronjobId() uint32 {
+	if x != nil {
+		return x.CronjobId
+	}
+	return 0
+}
+
+func (x *CleanCronjobRecordsRequest) GetIsDelete() bool {
+	if x != nil {
+		return x.IsDelete
+	}
+	return false
+}
+
+func (x *CleanCronjobRecordsRequest) GetCleanData() bool {
+	if x != nil {
+		return x.CleanData
+	}
+	return false
+}
+
+func (x *CleanCronjobRecordsRequest) GetCleanRemoteData() bool {
+	if x != nil {
+		return x.CleanRemoteData
+	}
+	return false
+}
+
+// CleanCronjobRecordsResponse 是清空结果，无业务字段。
+type CleanCronjobRecordsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CleanCronjobRecordsResponse) Reset() {
+	*x = CleanCronjobRecordsResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CleanCronjobRecordsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CleanCronjobRecordsResponse) ProtoMessage() {}
+
+func (x *CleanCronjobRecordsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CleanCronjobRecordsResponse.ProtoReflect.Descriptor instead.
+func (*CleanCronjobRecordsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{24}
+}
+
+// LoadScriptOptionsRequest 是脚本列表查询参数，无业务字段。
+type LoadScriptOptionsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadScriptOptionsRequest) Reset() {
+	*x = LoadScriptOptionsRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadScriptOptionsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadScriptOptionsRequest) ProtoMessage() {}
+
+func (x *LoadScriptOptionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadScriptOptionsRequest.ProtoReflect.Descriptor instead.
+func (*LoadScriptOptionsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{25}
+}
+
+// ScriptOptionsResponse 是脚本列表结果。
+type ScriptOptionsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 可选脚本。
+	Items         []*ScriptOption `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScriptOptionsResponse) Reset() {
+	*x = ScriptOptionsResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScriptOptionsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScriptOptionsResponse) ProtoMessage() {}
+
+func (x *ScriptOptionsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScriptOptionsResponse.ProtoReflect.Descriptor instead.
+func (*ScriptOptionsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *ScriptOptionsResponse) GetItems() []*ScriptOption {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// ScriptOption 是一个可选脚本。
+type ScriptOption struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 脚本 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 脚本名称。
+	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScriptOption) Reset() {
+	*x = ScriptOption{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScriptOption) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScriptOption) ProtoMessage() {}
+
+func (x *ScriptOption) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScriptOption.ProtoReflect.Descriptor instead.
+func (*ScriptOption) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *ScriptOption) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ScriptOption) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+// LoadNextHandleRequest 是 Cron 表达式计算参数。
+type LoadNextHandleRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Cron 表达式。
+	Spec          string `protobuf:"bytes,1,opt,name=spec,proto3" json:"spec,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadNextHandleRequest) Reset() {
+	*x = LoadNextHandleRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadNextHandleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadNextHandleRequest) ProtoMessage() {}
+
+func (x *LoadNextHandleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadNextHandleRequest.ProtoReflect.Descriptor instead.
+func (*LoadNextHandleRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *LoadNextHandleRequest) GetSpec() string {
+	if x != nil {
+		return x.Spec
+	}
+	return ""
+}
+
+// LoadNextHandleResponse 是接下来几次执行时间。
+type LoadNextHandleResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 时间字符串列表。
+	Items         []string `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadNextHandleResponse) Reset() {
+	*x = LoadNextHandleResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadNextHandleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadNextHandleResponse) ProtoMessage() {}
+
+func (x *LoadNextHandleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadNextHandleResponse.ProtoReflect.Descriptor instead.
+func (*LoadNextHandleResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *LoadNextHandleResponse) GetItems() []string {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// ImportCronjobsRequest 是导入参数。
+type ImportCronjobsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// cronjobs 数组的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,1,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImportCronjobsRequest) Reset() {
+	*x = ImportCronjobsRequest{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImportCronjobsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImportCronjobsRequest) ProtoMessage() {}
+
+func (x *ImportCronjobsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImportCronjobsRequest.ProtoReflect.Descriptor instead.
+func (*ImportCronjobsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *ImportCronjobsRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// ImportCronjobsResponse 是导入结果，无业务字段。
+type ImportCronjobsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ImportCronjobsResponse) Reset() {
+	*x = ImportCronjobsResponse{}
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ImportCronjobsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ImportCronjobsResponse) ProtoMessage() {}
+
+func (x *ImportCronjobsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_cronjob_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ImportCronjobsResponse.ProtoReflect.Descriptor instead.
+func (*ImportCronjobsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_cronjob_proto_rawDescGZIP(), []int{31}
+}
+
 var File_panel_agent_v1_cronjob_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_cronjob_proto_rawDesc = "" +
@@ -897,7 +1957,7 @@ const file_panel_agent_v1_cronjob_proto_rawDesc = "" +
 	"\x05items\x18\x01 \x03(\v2\x17.panel.agent.v1.CronjobR\x05items\x12\x14\n" +
 	"\x05total\x18\x02 \x01(\x03R\x05total\",\n" +
 	"\x11GetCronjobRequest\x12\x17\n" +
-	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\xda\x06\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\xf7\x06\n" +
 	"\aCronjob\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
@@ -935,7 +1995,8 @@ const file_panel_agent_v1_cronjob_proto_rawDesc = "" +
 	"alertCount\x12,\n" +
 	"\x12alert_trigger_mode\x18\x1c \x01(\tR\x10alertTriggerMode\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\x1d \x01(\tR\tcreatedAt\"\xe5\x01\n" +
+	"created_at\x18\x1d \x01(\tR\tcreatedAt\x12\x1b\n" +
+	"\tinfo_json\x18\x1e \x01(\tR\binfoJson\"\xe5\x01\n" +
 	"\x1bSearchCronjobRecordsRequest\x12\x1b\n" +
 	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12&\n" +
 	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\x12&\n" +
@@ -966,12 +2027,71 @@ const file_panel_agent_v1_cronjob_proto_rawDesc = "" +
 	"\x1bLoadCronjobRecordLogRequest\x12\x17\n" +
 	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\",\n" +
 	"\x10CronjobRecordLog\x12\x18\n" +
-	"\acontent\x18\x01 \x01(\tR\acontent2\xa0\x03\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\"B\n" +
+	"\x14CreateCronjobRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x17\n" +
+	"\x15CreateCronjobResponse\"[\n" +
+	"\x14UpdateCronjobRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12*\n" +
+	"\fpayload_json\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x17\n" +
+	"\x15UpdateCronjobResponse\"~\n" +
+	"\x15DeleteCronjobsRequest\x12\x1a\n" +
+	"\x03ids\x18\x01 \x03(\rB\b\xbaH\x05\x92\x01\x02\b\x01R\x03ids\x12\x1d\n" +
+	"\n" +
+	"clean_data\x18\x02 \x01(\bR\tcleanData\x12*\n" +
+	"\x11clean_remote_data\x18\x03 \x01(\bR\x0fcleanRemoteData\"\x18\n" +
+	"\x16DeleteCronjobsResponse\"X\n" +
+	"\x19UpdateCronjobGroupRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12\"\n" +
+	"\bgroup_id\x18\x02 \x01(\rB\a\xbaH\x04*\x02 \x00R\agroupId\"\x1c\n" +
+	"\x1aUpdateCronjobGroupResponse\"V\n" +
+	"\x1aUpdateCronjobStatusRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12\x1f\n" +
+	"\x06status\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06status\"\x1d\n" +
+	"\x1bUpdateCronjobStatusResponse\"3\n" +
+	"\x18HandleCronjobOnceRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\x1b\n" +
+	"\x19HandleCronjobOnceResponse\"-\n" +
+	"\x12StopCronjobRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\x15\n" +
+	"\x13StopCronjobResponse\"\xac\x01\n" +
+	"\x1aCleanCronjobRecordsRequest\x12&\n" +
+	"\n" +
+	"cronjob_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\tcronjobId\x12\x1b\n" +
+	"\tis_delete\x18\x02 \x01(\bR\bisDelete\x12\x1d\n" +
+	"\n" +
+	"clean_data\x18\x03 \x01(\bR\tcleanData\x12*\n" +
+	"\x11clean_remote_data\x18\x04 \x01(\bR\x0fcleanRemoteData\"\x1d\n" +
+	"\x1bCleanCronjobRecordsResponse\"\x1a\n" +
+	"\x18LoadScriptOptionsRequest\"K\n" +
+	"\x15ScriptOptionsResponse\x122\n" +
+	"\x05items\x18\x01 \x03(\v2\x1c.panel.agent.v1.ScriptOptionR\x05items\"2\n" +
+	"\fScriptOption\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"4\n" +
+	"\x15LoadNextHandleRequest\x12\x1b\n" +
+	"\x04spec\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04spec\".\n" +
+	"\x16LoadNextHandleResponse\x12\x14\n" +
+	"\x05items\x18\x01 \x03(\tR\x05items\"C\n" +
+	"\x15ImportCronjobsRequest\x12*\n" +
+	"\fpayload_json\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x18\n" +
+	"\x16ImportCronjobsResponse2\xb8\x0f\n" +
 	"\x0eCronjobService\x12a\n" +
 	"\x06Search\x12%.panel.agent.v1.SearchCronjobsRequest\x1a&.panel.agent.v1.SearchCronjobsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12t\n" +
 	"\rSearchRecords\x12+.panel.agent.v1.SearchCronjobRecordsRequest\x1a,.panel.agent.v1.SearchCronjobRecordsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12h\n" +
 	"\rLoadRecordLog\x12+.panel.agent.v1.LoadCronjobRecordLogRequest\x1a .panel.agent.v1.CronjobRecordLog\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12K\n" +
-	"\x03Get\x12!.panel.agent.v1.GetCronjobRequest\x1a\x17.panel.agent.v1.Cronjob\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\x03Get\x12!.panel.agent.v1.GetCronjobRequest\x1a\x17.panel.agent.v1.Cronjob\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x86\x01\n" +
+	"\rCreateCronjob\x12$.panel.agent.v1.CreateCronjobRequest\x1a%.panel.agent.v1.CreateCronjobResponse\"(\x8a\xb5\x18$\"\x12创建计划任务*\x0eCreate cronjob\x12\x86\x01\n" +
+	"\rUpdateCronjob\x12$.panel.agent.v1.UpdateCronjobRequest\x1a%.panel.agent.v1.UpdateCronjobResponse\"(\x8a\xb5\x18$\"\x12更新计划任务*\x0eUpdate cronjob\x12\x8a\x01\n" +
+	"\x0eDeleteCronjobs\x12%.panel.agent.v1.DeleteCronjobsRequest\x1a&.panel.agent.v1.DeleteCronjobsResponse\")\x8a\xb5\x18%\"\x12删除计划任务*\x0fDelete cronjobs\x12\xa1\x01\n" +
+	"\x12UpdateCronjobGroup\x12).panel.agent.v1.UpdateCronjobGroupRequest\x1a*.panel.agent.v1.UpdateCronjobGroupResponse\"4\x8a\xb5\x180\"\x18修改计划任务分组*\x14Update cronjob group\x12\xa5\x01\n" +
+	"\x13UpdateCronjobStatus\x12*.panel.agent.v1.UpdateCronjobStatusRequest\x1a+.panel.agent.v1.UpdateCronjobStatusResponse\"5\x8a\xb5\x181\"\x18修改计划任务状态*\x15Update cronjob status\x12\x9a\x01\n" +
+	"\x11HandleCronjobOnce\x12(.panel.agent.v1.HandleCronjobOnceRequest\x1a).panel.agent.v1.HandleCronjobOnceResponse\"0\x8a\xb5\x18,\"\x18手动执行计划任务*\x10Run cronjob once\x12~\n" +
+	"\vStopCronjob\x12\".panel.agent.v1.StopCronjobRequest\x1a#.panel.agent.v1.StopCronjobResponse\"&\x8a\xb5\x18\"\"\x12停止计划任务*\fStop cronjob\x12\xa5\x01\n" +
+	"\x13CleanCronjobRecords\x12*.panel.agent.v1.CleanCronjobRecordsRequest\x1a+.panel.agent.v1.CleanCronjobRecordsResponse\"5\x8a\xb5\x181\"\x18清空计划任务记录*\x15Clean cronjob records\x12n\n" +
+	"\x11LoadScriptOptions\x12(.panel.agent.v1.LoadScriptOptionsRequest\x1a%.panel.agent.v1.ScriptOptionsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12i\n" +
+	"\x0eLoadNextHandle\x12%.panel.agent.v1.LoadNextHandleRequest\x1a&.panel.agent.v1.LoadNextHandleResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x8a\x01\n" +
+	"\x0eImportCronjobs\x12%.panel.agent.v1.ImportCronjobsRequest\x1a&.panel.agent.v1.ImportCronjobsResponse\")\x8a\xb5\x18%\"\x12导入计划任务*\x0fImport cronjobsB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_cronjob_proto_rawDescOnce sync.Once
@@ -985,7 +2105,7 @@ func file_panel_agent_v1_cronjob_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_cronjob_proto_rawDescData
 }
 
-var file_panel_agent_v1_cronjob_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_panel_agent_v1_cronjob_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
 var file_panel_agent_v1_cronjob_proto_goTypes = []any{
 	(*SearchCronjobsRequest)(nil),        // 0: panel.agent.v1.SearchCronjobsRequest
 	(*SearchCronjobsResponse)(nil),       // 1: panel.agent.v1.SearchCronjobsResponse
@@ -996,23 +2116,69 @@ var file_panel_agent_v1_cronjob_proto_goTypes = []any{
 	(*CronjobRecord)(nil),                // 6: panel.agent.v1.CronjobRecord
 	(*LoadCronjobRecordLogRequest)(nil),  // 7: panel.agent.v1.LoadCronjobRecordLogRequest
 	(*CronjobRecordLog)(nil),             // 8: panel.agent.v1.CronjobRecordLog
+	(*CreateCronjobRequest)(nil),         // 9: panel.agent.v1.CreateCronjobRequest
+	(*CreateCronjobResponse)(nil),        // 10: panel.agent.v1.CreateCronjobResponse
+	(*UpdateCronjobRequest)(nil),         // 11: panel.agent.v1.UpdateCronjobRequest
+	(*UpdateCronjobResponse)(nil),        // 12: panel.agent.v1.UpdateCronjobResponse
+	(*DeleteCronjobsRequest)(nil),        // 13: panel.agent.v1.DeleteCronjobsRequest
+	(*DeleteCronjobsResponse)(nil),       // 14: panel.agent.v1.DeleteCronjobsResponse
+	(*UpdateCronjobGroupRequest)(nil),    // 15: panel.agent.v1.UpdateCronjobGroupRequest
+	(*UpdateCronjobGroupResponse)(nil),   // 16: panel.agent.v1.UpdateCronjobGroupResponse
+	(*UpdateCronjobStatusRequest)(nil),   // 17: panel.agent.v1.UpdateCronjobStatusRequest
+	(*UpdateCronjobStatusResponse)(nil),  // 18: panel.agent.v1.UpdateCronjobStatusResponse
+	(*HandleCronjobOnceRequest)(nil),     // 19: panel.agent.v1.HandleCronjobOnceRequest
+	(*HandleCronjobOnceResponse)(nil),    // 20: panel.agent.v1.HandleCronjobOnceResponse
+	(*StopCronjobRequest)(nil),           // 21: panel.agent.v1.StopCronjobRequest
+	(*StopCronjobResponse)(nil),          // 22: panel.agent.v1.StopCronjobResponse
+	(*CleanCronjobRecordsRequest)(nil),   // 23: panel.agent.v1.CleanCronjobRecordsRequest
+	(*CleanCronjobRecordsResponse)(nil),  // 24: panel.agent.v1.CleanCronjobRecordsResponse
+	(*LoadScriptOptionsRequest)(nil),     // 25: panel.agent.v1.LoadScriptOptionsRequest
+	(*ScriptOptionsResponse)(nil),        // 26: panel.agent.v1.ScriptOptionsResponse
+	(*ScriptOption)(nil),                 // 27: panel.agent.v1.ScriptOption
+	(*LoadNextHandleRequest)(nil),        // 28: panel.agent.v1.LoadNextHandleRequest
+	(*LoadNextHandleResponse)(nil),       // 29: panel.agent.v1.LoadNextHandleResponse
+	(*ImportCronjobsRequest)(nil),        // 30: panel.agent.v1.ImportCronjobsRequest
+	(*ImportCronjobsResponse)(nil),       // 31: panel.agent.v1.ImportCronjobsResponse
 }
 var file_panel_agent_v1_cronjob_proto_depIdxs = []int32{
-	3, // 0: panel.agent.v1.SearchCronjobsResponse.items:type_name -> panel.agent.v1.Cronjob
-	6, // 1: panel.agent.v1.SearchCronjobRecordsResponse.items:type_name -> panel.agent.v1.CronjobRecord
-	0, // 2: panel.agent.v1.CronjobService.Search:input_type -> panel.agent.v1.SearchCronjobsRequest
-	4, // 3: panel.agent.v1.CronjobService.SearchRecords:input_type -> panel.agent.v1.SearchCronjobRecordsRequest
-	7, // 4: panel.agent.v1.CronjobService.LoadRecordLog:input_type -> panel.agent.v1.LoadCronjobRecordLogRequest
-	2, // 5: panel.agent.v1.CronjobService.Get:input_type -> panel.agent.v1.GetCronjobRequest
-	1, // 6: panel.agent.v1.CronjobService.Search:output_type -> panel.agent.v1.SearchCronjobsResponse
-	5, // 7: panel.agent.v1.CronjobService.SearchRecords:output_type -> panel.agent.v1.SearchCronjobRecordsResponse
-	8, // 8: panel.agent.v1.CronjobService.LoadRecordLog:output_type -> panel.agent.v1.CronjobRecordLog
-	3, // 9: panel.agent.v1.CronjobService.Get:output_type -> panel.agent.v1.Cronjob
-	6, // [6:10] is the sub-list for method output_type
-	2, // [2:6] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	3,  // 0: panel.agent.v1.SearchCronjobsResponse.items:type_name -> panel.agent.v1.Cronjob
+	6,  // 1: panel.agent.v1.SearchCronjobRecordsResponse.items:type_name -> panel.agent.v1.CronjobRecord
+	27, // 2: panel.agent.v1.ScriptOptionsResponse.items:type_name -> panel.agent.v1.ScriptOption
+	0,  // 3: panel.agent.v1.CronjobService.Search:input_type -> panel.agent.v1.SearchCronjobsRequest
+	4,  // 4: panel.agent.v1.CronjobService.SearchRecords:input_type -> panel.agent.v1.SearchCronjobRecordsRequest
+	7,  // 5: panel.agent.v1.CronjobService.LoadRecordLog:input_type -> panel.agent.v1.LoadCronjobRecordLogRequest
+	2,  // 6: panel.agent.v1.CronjobService.Get:input_type -> panel.agent.v1.GetCronjobRequest
+	9,  // 7: panel.agent.v1.CronjobService.CreateCronjob:input_type -> panel.agent.v1.CreateCronjobRequest
+	11, // 8: panel.agent.v1.CronjobService.UpdateCronjob:input_type -> panel.agent.v1.UpdateCronjobRequest
+	13, // 9: panel.agent.v1.CronjobService.DeleteCronjobs:input_type -> panel.agent.v1.DeleteCronjobsRequest
+	15, // 10: panel.agent.v1.CronjobService.UpdateCronjobGroup:input_type -> panel.agent.v1.UpdateCronjobGroupRequest
+	17, // 11: panel.agent.v1.CronjobService.UpdateCronjobStatus:input_type -> panel.agent.v1.UpdateCronjobStatusRequest
+	19, // 12: panel.agent.v1.CronjobService.HandleCronjobOnce:input_type -> panel.agent.v1.HandleCronjobOnceRequest
+	21, // 13: panel.agent.v1.CronjobService.StopCronjob:input_type -> panel.agent.v1.StopCronjobRequest
+	23, // 14: panel.agent.v1.CronjobService.CleanCronjobRecords:input_type -> panel.agent.v1.CleanCronjobRecordsRequest
+	25, // 15: panel.agent.v1.CronjobService.LoadScriptOptions:input_type -> panel.agent.v1.LoadScriptOptionsRequest
+	28, // 16: panel.agent.v1.CronjobService.LoadNextHandle:input_type -> panel.agent.v1.LoadNextHandleRequest
+	30, // 17: panel.agent.v1.CronjobService.ImportCronjobs:input_type -> panel.agent.v1.ImportCronjobsRequest
+	1,  // 18: panel.agent.v1.CronjobService.Search:output_type -> panel.agent.v1.SearchCronjobsResponse
+	5,  // 19: panel.agent.v1.CronjobService.SearchRecords:output_type -> panel.agent.v1.SearchCronjobRecordsResponse
+	8,  // 20: panel.agent.v1.CronjobService.LoadRecordLog:output_type -> panel.agent.v1.CronjobRecordLog
+	3,  // 21: panel.agent.v1.CronjobService.Get:output_type -> panel.agent.v1.Cronjob
+	10, // 22: panel.agent.v1.CronjobService.CreateCronjob:output_type -> panel.agent.v1.CreateCronjobResponse
+	12, // 23: panel.agent.v1.CronjobService.UpdateCronjob:output_type -> panel.agent.v1.UpdateCronjobResponse
+	14, // 24: panel.agent.v1.CronjobService.DeleteCronjobs:output_type -> panel.agent.v1.DeleteCronjobsResponse
+	16, // 25: panel.agent.v1.CronjobService.UpdateCronjobGroup:output_type -> panel.agent.v1.UpdateCronjobGroupResponse
+	18, // 26: panel.agent.v1.CronjobService.UpdateCronjobStatus:output_type -> panel.agent.v1.UpdateCronjobStatusResponse
+	20, // 27: panel.agent.v1.CronjobService.HandleCronjobOnce:output_type -> panel.agent.v1.HandleCronjobOnceResponse
+	22, // 28: panel.agent.v1.CronjobService.StopCronjob:output_type -> panel.agent.v1.StopCronjobResponse
+	24, // 29: panel.agent.v1.CronjobService.CleanCronjobRecords:output_type -> panel.agent.v1.CleanCronjobRecordsResponse
+	26, // 30: panel.agent.v1.CronjobService.LoadScriptOptions:output_type -> panel.agent.v1.ScriptOptionsResponse
+	29, // 31: panel.agent.v1.CronjobService.LoadNextHandle:output_type -> panel.agent.v1.LoadNextHandleResponse
+	31, // 32: panel.agent.v1.CronjobService.ImportCronjobs:output_type -> panel.agent.v1.ImportCronjobsResponse
+	18, // [18:33] is the sub-list for method output_type
+	3,  // [3:18] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_cronjob_proto_init() }
@@ -1026,7 +2192,7 @@ func file_panel_agent_v1_cronjob_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_cronjob_proto_rawDesc), len(file_panel_agent_v1_cronjob_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   32,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

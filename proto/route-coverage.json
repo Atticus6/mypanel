@@ -2315,32 +2315,48 @@
     {
       "method": "POST",
       "path": "/cronjobs",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.CreateCronjob",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "CreateCronjob",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/cronjobs/del",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.DeleteCronjobs",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "DeleteCronjobs",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/cronjobs/export",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/cronjobs/group/update",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.UpdateCronjobGroup",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "UpdateCronjobGroup",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/cronjobs/handle",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.HandleCronjobOnce",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "HandleCronjobOnce",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/cronjobs/import",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.ImportCronjobs",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "ImportCronjobs",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2353,12 +2369,18 @@
     {
       "method": "POST",
       "path": "/cronjobs/next",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.LoadNextHandle",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "LoadNextHandle",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/cronjobs/records/clean",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.CleanCronjobRecords",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "CleanCronjobRecords",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2371,7 +2393,10 @@
     {
       "method": "GET",
       "path": "/cronjobs/script/options",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.LoadScriptOptions",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "LoadScriptOptions",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2392,17 +2417,26 @@
     {
       "method": "POST",
       "path": "/cronjobs/status",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.UpdateCronjobStatus",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "UpdateCronjobStatus",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/cronjobs/stop",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.StopCronjob",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "StopCronjob",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/cronjobs/update",
-      "covered": false
+      "target": "panel.agent.v1.CronjobService.UpdateCronjob",
+      "service": "panel.agent.v1.CronjobService",
+      "rpc": "UpdateCronjob",
+      "covered": true
     },
     {
       "method": "GET",

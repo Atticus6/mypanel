@@ -41,6 +41,94 @@ service CronjobService {
       no_audit: true
     };
   }
+
+  // 创建计划任务。
+  rpc CreateCronjob(CreateCronjobRequest) returns (CreateCronjobResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建计划任务"
+      audit_action_en: "Create cronjob"
+    };
+  }
+
+  // 更新计划任务。
+  rpc UpdateCronjob(UpdateCronjobRequest) returns (UpdateCronjobResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新计划任务"
+      audit_action_en: "Update cronjob"
+    };
+  }
+
+  // 批量删除计划任务。
+  rpc DeleteCronjobs(DeleteCronjobsRequest) returns (DeleteCronjobsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除计划任务"
+      audit_action_en: "Delete cronjobs"
+    };
+  }
+
+  // 修改计划任务分组。
+  rpc UpdateCronjobGroup(UpdateCronjobGroupRequest) returns (UpdateCronjobGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改计划任务分组"
+      audit_action_en: "Update cronjob group"
+    };
+  }
+
+  // 修改计划任务状态。
+  rpc UpdateCronjobStatus(UpdateCronjobStatusRequest) returns (UpdateCronjobStatusResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改计划任务状态"
+      audit_action_en: "Update cronjob status"
+    };
+  }
+
+  // 手动执行一次计划任务。
+  rpc HandleCronjobOnce(HandleCronjobOnceRequest) returns (HandleCronjobOnceResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "手动执行计划任务"
+      audit_action_en: "Run cronjob once"
+    };
+  }
+
+  // 停止正在执行的计划任务。
+  rpc StopCronjob(StopCronjobRequest) returns (StopCronjobResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "停止计划任务"
+      audit_action_en: "Stop cronjob"
+    };
+  }
+
+  // 清空计划任务执行记录。
+  rpc CleanCronjobRecords(CleanCronjobRecordsRequest) returns (CleanCronjobRecordsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清空计划任务记录"
+      audit_action_en: "Clean cronjob records"
+    };
+  }
+
+  // 列出可选的脚本。
+  rpc LoadScriptOptions(LoadScriptOptionsRequest) returns (ScriptOptionsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 根据 Cron 表达式计算接下来几次执行时间。
+  rpc LoadNextHandle(LoadNextHandleRequest) returns (LoadNextHandleResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 导入计划任务。
+  rpc ImportCronjobs(ImportCronjobsRequest) returns (ImportCronjobsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "导入计划任务"
+      audit_action_en: "Import cronjobs"
+    };
+  }
 }
 
 // SearchCronjobsRequest 是计划任务列表查询参数。
@@ -184,6 +272,9 @@ message Cronjob {
 
   // 创建时间，RFC3339 格式。
   string created_at = 29;
+
+  // 原始表单数据的 JSON 字符串，含 URLItems、SnapshotRule 等嵌套字段。
+  string info_json = 30;
 }
 
 // SearchCronjobRecordsRequest 是执行记录查询参数。
@@ -263,3 +354,140 @@ message CronjobRecordLog {
   // 日志内容；文件不存在时为空。
   string content = 1;
 }
+
+// CreateCronjobRequest 是创建计划任务参数。
+//
+// 任务参数含嵌套的备份、告警与脚本配置，结构随任务类型变化，直接用 JSON 透传。
+message CreateCronjobRequest {
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// CreateCronjobResponse 是创建结果，无业务字段。
+message CreateCronjobResponse {}
+
+// UpdateCronjobRequest 是更新计划任务参数。
+message UpdateCronjobRequest {
+  // 任务 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateCronjobResponse 是更新结果，无业务字段。
+message UpdateCronjobResponse {}
+
+// DeleteCronjobsRequest 是批量删除参数。
+message DeleteCronjobsRequest {
+  // 任务 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 是否同时清理备份数据。
+  bool clean_data = 2;
+
+  // 是否同时清理远端备份。
+  bool clean_remote_data = 3;
+}
+
+// DeleteCronjobsResponse 是删除结果，无业务字段。
+message DeleteCronjobsResponse {}
+
+// UpdateCronjobGroupRequest 是分组修改参数。
+message UpdateCronjobGroupRequest {
+  // 任务 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 目标分组 ID。
+  uint32 group_id = 2 [(buf.validate.field).uint32.gt = 0];
+}
+
+// UpdateCronjobGroupResponse 是修改结果，无业务字段。
+message UpdateCronjobGroupResponse {}
+
+// UpdateCronjobStatusRequest 是状态修改参数。
+message UpdateCronjobStatusRequest {
+  // 任务 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 目标状态。
+  string status = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateCronjobStatusResponse 是修改结果，无业务字段。
+message UpdateCronjobStatusResponse {}
+
+// HandleCronjobOnceRequest 是手动执行参数。
+message HandleCronjobOnceRequest {
+  // 任务 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// HandleCronjobOnceResponse 是执行结果，无业务字段。
+message HandleCronjobOnceResponse {}
+
+// StopCronjobRequest 是停止任务参数。
+message StopCronjobRequest {
+  // 任务 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// StopCronjobResponse 是停止结果，无业务字段。
+message StopCronjobResponse {}
+
+// CleanCronjobRecordsRequest 是清空执行记录参数。
+message CleanCronjobRecordsRequest {
+  // 任务 ID。
+  uint32 cronjob_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 是否同时删除远端数据。
+  bool is_delete = 2;
+
+  // 是否清理备份数据。
+  bool clean_data = 3;
+
+  // 是否清理远端备份。
+  bool clean_remote_data = 4;
+}
+
+// CleanCronjobRecordsResponse 是清空结果，无业务字段。
+message CleanCronjobRecordsResponse {}
+
+// LoadScriptOptionsRequest 是脚本列表查询参数，无业务字段。
+message LoadScriptOptionsRequest {}
+
+// ScriptOptionsResponse 是脚本列表结果。
+message ScriptOptionsResponse {
+  // 可选脚本。
+  repeated ScriptOption items = 1;
+}
+
+// ScriptOption 是一个可选脚本。
+message ScriptOption {
+  // 脚本 ID。
+  uint32 id = 1;
+
+  // 脚本名称。
+  string name = 2;
+}
+
+// LoadNextHandleRequest 是 Cron 表达式计算参数。
+message LoadNextHandleRequest {
+  // Cron 表达式。
+  string spec = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// LoadNextHandleResponse 是接下来几次执行时间。
+message LoadNextHandleResponse {
+  // 时间字符串列表。
+  repeated string items = 1;
+}
+
+// ImportCronjobsRequest 是导入参数。
+message ImportCronjobsRequest {
+  // cronjobs 数组的 JSON 字符串。
+  string payload_json = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// ImportCronjobsResponse 是导入结果，无业务字段。
+message ImportCronjobsResponse {}

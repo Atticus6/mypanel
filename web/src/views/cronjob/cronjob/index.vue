@@ -269,13 +269,7 @@ import Records from '@/views/cronjob/cronjob/record/index.vue';
 import Backups from '@/views/cronjob/cronjob/backup/index.vue';
 import Import from '@/views/cronjob/cronjob/import/index.vue';
 import { toRef, onMounted, ref, toRefs } from 'vue';
-import {
-    deleteCronjob,
-    editCronjobGroup,
-    exportCronjob,
-    handleOnce,
-    updateStatus,
-} from '@/api/modules/cronjob';
+import { exportCronjob } from '@/api/modules/cronjob';
 import i18n from '@/lang';
 import { Cronjob } from '@/api/interface/cronjob';
 import GroupDialog from '@/components/group/index.vue';
@@ -355,7 +349,10 @@ const search = async (column?: any) => {
             orderBy: params.orderBy,
             order: params.order,
         });
-        data.value = res.items || [];
+        data.value = (res.items || []).map((item) => ({
+            ...item,
+            retainCopies: Number(item.retainCopies),
+        }));
         loadGroups();
         paginationConfig.total = Number(res.total);
     } finally {
@@ -413,7 +410,8 @@ const onDelete = async (row: Cronjob.CronjobInfo | null) => {
 
 const onSubmitDelete = async () => {
     loading.value = true;
-    await deleteCronjob({ ids: operateIDs.value, cleanData: cleanData.value, cleanRemoteData: cleanRemoteData.value })
+    await rpc.cronjob
+        .deleteCronjobs({ ids: operateIDs.value, cleanData: cleanData.value, cleanRemoteData: cleanRemoteData.value })
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.deleteSuccess'));
@@ -467,7 +465,7 @@ const onSubmitExport = async () => {
 
 const loadGroups = async () => {
     const res = await rpc.core.group.list({ type: 'cronjob' });
-    groupOptions.value = res.items as any || [];
+    groupOptions.value = (res.items as any) || [];
     const invalidGroup = searchGroupID.value && !groupOptions.value.some((group) => group.id === searchGroupID.value);
     if (invalidGroup) {
         searchGroupID.value = undefined;
@@ -475,18 +473,18 @@ const loadGroups = async () => {
     }
     defaultGroupID.value = groupOptions.value.find((group) => group.isDefault)?.id;
     for (const item of data.value) {
-        if (item.groupID === 0) {
-            item.groupID = defaultGroupID.value;
+        if (item.groupId === 0) {
+            item.groupId = defaultGroupID.value;
         }
         let hasGroup = false;
         for (const group of groupOptions.value) {
-            if (item.groupID === group.id) {
+            if (item.groupId === group.id) {
                 hasGroup = true;
                 item.groupBelong = group.name;
             }
         }
         if (!hasGroup) {
-            item.groupID = null;
+            item.groupId = null;
             item.groupBelong = '-';
         }
     }
@@ -496,7 +494,7 @@ const loadGroups = async () => {
 };
 
 const updateGroup = async (row: any) => {
-    await editCronjobGroup(row.id, row.groupId);
+    await rpc.cronjob.updateCronjobGroup({ id: row.id, groupId: row.groupId });
     search();
     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
 };
@@ -511,7 +509,7 @@ const onChangeStatus = async (id: number, status: string) => {
         cancelButtonText: i18n.global.t('commons.button.cancel'),
     }).then(async () => {
         let itemStatus = status === 'enable' ? 'Enable' : 'Disable';
-        await updateStatus({ id: id, status: itemStatus });
+        await rpc.cronjob.updateCronjobStatus({ id: id, status: itemStatus });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         search();
     });
@@ -524,7 +522,7 @@ const onBatchChangeStatus = async (status: string) => {
     }).then(async () => {
         let itemStatus = status === 'enable' ? 'Enable' : 'Disable';
         for (const item of selects.value) {
-            await updateStatus({ id: item.id, status: itemStatus });
+            await rpc.cronjob.updateCronjobStatus({ id: item.id, status: itemStatus });
         }
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         search();
@@ -543,7 +541,8 @@ const openBackupAccounts = (row: Cronjob.CronjobInfo) => {
 
 const onHandle = async (row: Cronjob.CronjobInfo) => {
     loading.value = true;
-    await handleOnce(row.id)
+    await rpc.cronjob
+        .handleCronjobOnce({ id: row.id })
         .then(() => {
             loading.value = false;
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

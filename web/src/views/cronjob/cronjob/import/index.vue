@@ -87,8 +87,8 @@ import { transSpecToStr } from './../helper';
 import { genFileId, UploadFile, UploadFiles, UploadProps, UploadRawFile } from 'element-plus';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { importCronjob } from '@/api/modules/cronjob';
 import { Cronjob } from '@/api/interface/cronjob';
+import { rpc } from '@/lib/rpc';
 
 const emit = defineEmits<{ (e: 'search'): void }>();
 
@@ -198,7 +198,7 @@ const checkDataFormat = (item: any) => {
 };
 
 const onImport = async () => {
-    await importCronjob(selects.value).then(() => {
+    await rpc.cronjob.importCronjobs({ payloadJson: JSON.stringify({ cronjobs: selects.value }) }).then(() => {
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         visible.value = false;
         emit('search');

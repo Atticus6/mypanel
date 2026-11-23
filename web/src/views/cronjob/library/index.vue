@@ -129,7 +129,7 @@
             </template>
         </LayoutContent>
 
-        <OpDialog ref="opRef" @search="search"></OpDialog>
+        <OpDialog ref="opRef" @search="search" @submit="onSubmitDelete"></OpDialog>
         <OperateDialog @search="search" ref="dialogRef" />
         <GroupDialog @search="loadGroupOptions" ref="dialogGroupRef" />
         <CodemirrorDrawer ref="myDetail" />
@@ -148,7 +148,6 @@ import GroupDialog from '@/components/group/index.vue';
 import TaskLog from '@/components/log/task/index.vue';
 import OperateDialog from '@/views/cronjob/library/operate/index.vue';
 import TerminalDialog from '@/views/cronjob/library/run/index.vue';
-import { deleteScript } from '@/api/modules/cronjob';
 import { toRef, onMounted, reactive, ref } from 'vue';
 import { Cronjob } from '@/api/interface/cronjob';
 import i18n from '@/lang';
@@ -164,6 +163,7 @@ const myDetail = ref();
 const loading = ref();
 const selects = ref<any>([]);
 const opRef = ref();
+const deleteIDs = ref<number[]>([]);
 
 const runRef = ref();
 const taskLogRef = ref();
@@ -224,6 +224,7 @@ const onDelete = async (row: Cronjob.ScriptInfo | null) => {
             ids.push(item.id);
         }
     }
+    deleteIDs.value = ids;
     opRef.value.acceptParams({
         title: i18n.global.t('commons.button.delete'),
         names: names,
@@ -231,9 +232,15 @@ const onDelete = async (row: Cronjob.ScriptInfo | null) => {
             i18n.global.t('cronjob.library.script'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: deleteScript,
-        params: ids,
+        api: null,
+        params: null,
     });
+};
+
+const onSubmitDelete = async () => {
+    await rpc.core.script.delete({ ids: deleteIDs.value });
+    MsgSuccess(i18n.global.t('commons.msg.deleteSuccess'));
+    search();
 };
 
 const onSync = async () => {
@@ -244,7 +251,8 @@ const onSync = async () => {
     }).then(async () => {
         loading.value = true;
         let taskID = newUUID();
-        await rpc.core.script.sync({ taskId: taskID })
+        await rpc.core.script
+            .sync({ taskId: taskID })
             .then(() => {
                 loading.value = false;
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -289,7 +297,8 @@ const handleSyncOp = async (command: string) => {
         },
     ).then(async () => {
         loading.value = true;
-        await rpc.core.setting.updateSetting({ key: 'ScriptSync', value: val })
+        await rpc.core.setting
+            .updateSetting({ key: 'ScriptSync', value: val })
             .then(() => {
                 loadSyncStatus();
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -303,12 +312,13 @@ const handleSyncOp = async (command: string) => {
 const search = async () => {
     let params = {
         info: searchInfo.value,
-        groupID: Number(group.value),
+        groupId: Number(group.value),
         page: paginationConfig.currentPage,
         pageSize: paginationConfig.pageSize,
     };
     loading.value = true;
-    await rpc.core.script.search(params)
+    await rpc.core.script
+        .search(params)
         .then((res) => {
             loading.value = false;
             data.value = res.items as any;
@@ -321,7 +331,7 @@ const search = async () => {
 
 const loadGroupOptions = async () => {
     const res = await rpc.core.group.list({ type: 'script' });
-    groupOptions.value = res.items as any || [];
+    groupOptions.value = (res.items as any) || [];
 };
 
 const buttons = [

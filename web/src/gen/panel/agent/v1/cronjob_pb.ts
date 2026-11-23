@@ -14,7 +14,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file panel/agent/v1/cronjob.proto.
  */
 export const file_panel_agent_v1_cronjob: GenFile = /*@__PURE__*/
-  fileDesc("ChxwYW5lbC9hZ2VudC92MS9jcm9uam9iLnByb3RvEg5wYW5lbC5hZ2VudC52MSLfAQoVU2VhcmNoQ3JvbmpvYnNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAESFQoEaW5mbxgDIAEoCUIHukgEcgIYQBIRCglncm91cF9pZHMYBCADKA0SMgoIb3JkZXJfYnkYBSABKAlCILpIHXIbUgBSBG5hbWVSBnN0YXR1c1IJY3JlYXRlZEF0EjMKBW9yZGVyGAYgASgJQiS6SCFyH1IAUgRudWxsUglhc2NlbmRpbmdSCmRlc2NlbmRpbmciTwoWU2VhcmNoQ3JvbmpvYnNSZXNwb25zZRImCgVpdGVtcxgBIAMoCzIXLnBhbmVsLmFnZW50LnYxLkNyb25qb2ISDQoFdG90YWwYAiABKAMiKAoRR2V0Q3JvbmpvYlJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAAisAQKB0Nyb25qb2ISCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCRIMCgR0eXBlGAMgASgJEhAKCGdyb3VwX2lkGAQgASgNEhMKC3NwZWNfY3VzdG9tGAUgASgIEgwKBHNwZWMYBiABKAkSEAoIZXhlY3V0b3IYByABKAkSDwoHY29tbWFuZBgIIAEoCRIWCg5jb250YWluZXJfbmFtZRgJIAEoCRITCgtzY3JpcHRfbW9kZRgKIAEoCRIOCgZzY3JpcHQYCyABKAkSDAoEdXNlchgMIAEoCRIRCglzY3JpcHRfaWQYDSABKA0SDwoHd2Vic2l0ZRgOIAEoCRIOCgZhcHBfaWQYDyABKAkSDwoHZGJfdHlwZRgQIAEoCRIPCgdkYl9uYW1lGBEgASgJEhIKCnNvdXJjZV9kaXIYEiABKAkSFQoNcmV0YWluX2NvcGllcxgTIAEoBBITCgtyZXRyeV90aW1lcxgUIAEoDRIPCgd0aW1lb3V0GBUgASgNEhIKCmlnbm9yZV9lcnIYFiABKAgSDgoGc3RhdHVzGBcgASgJEhQKDGlzX2V4ZWN1dGluZxgYIAEoCBIaChJsYXN0X3JlY29yZF9zdGF0dXMYGSABKAkSGAoQbGFzdF9yZWNvcmRfdGltZRgaIAEoCRITCgthbGVydF9jb3VudBgbIAEoDRIaChJhbGVydF90cmlnZ2VyX21vZGUYHCABKAkSEgoKY3JlYXRlZF9hdBgdIAEoCSKuAQobU2VhcmNoQ3JvbmpvYlJlY29yZHNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAESGwoKY3JvbmpvYl9pZBgDIAEoDUIHukgEKgIgABIXCgZzdGF0dXMYBCABKAlCB7pIBHICGCASEgoKc3RhcnRfdGltZRgFIAEoCRIQCghlbmRfdGltZRgGIAEoCSJbChxTZWFyY2hDcm9uam9iUmVjb3Jkc1Jlc3BvbnNlEiwKBWl0ZW1zGAEgAygLMh0ucGFuZWwuYWdlbnQudjEuQ3JvbmpvYlJlY29yZBINCgV0b3RhbBgCIAEoAyK7AQoNQ3JvbmpvYlJlY29yZBIKCgJpZBgBIAEoDRISCgpjcm9uam9iX2lkGAIgASgNEg8KB3Rhc2tfaWQYAyABKAkSEgoKc3RhcnRfdGltZRgEIAEoCRIPCgdyZWNvcmRzGAUgASgJEg4KBnN0YXR1cxgGIAEoCRIPCgdtZXNzYWdlGAcgASgJEhMKC3RhcmdldF9wYXRoGAggASgJEhAKCGludGVydmFsGAkgASgFEgwKBGZpbGUYCiABKAkiMgobTG9hZENyb25qb2JSZWNvcmRMb2dSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIiMKEENyb25qb2JSZWNvcmRMb2cSDwoHY29udGVudBgBIAEoCTKgAwoOQ3JvbmpvYlNlcnZpY2USYQoGU2VhcmNoEiUucGFuZWwuYWdlbnQudjEuU2VhcmNoQ3JvbmpvYnNSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuU2VhcmNoQ3JvbmpvYnNSZXNwb25zZSIIirUYBBgBMAESdAoNU2VhcmNoUmVjb3JkcxIrLnBhbmVsLmFnZW50LnYxLlNlYXJjaENyb25qb2JSZWNvcmRzUmVxdWVzdBosLnBhbmVsLmFnZW50LnYxLlNlYXJjaENyb25qb2JSZWNvcmRzUmVzcG9uc2UiCIq1GAQYATABEmgKDUxvYWRSZWNvcmRMb2cSKy5wYW5lbC5hZ2VudC52MS5Mb2FkQ3JvbmpvYlJlY29yZExvZ1JlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5Dcm9uam9iUmVjb3JkTG9nIgiKtRgEGAEwARJLCgNHZXQSIS5wYW5lbC5hZ2VudC52MS5HZXRDcm9uam9iUmVxdWVzdBoXLnBhbmVsLmFnZW50LnYxLkNyb25qb2IiCIq1GAQYATABQi1aK215cGFuZWwvcHJvdG8vZ2VuL2dvL3BhbmVsL2FnZW50L3YxO2FnZW50djFiBnByb3RvMw", [file_buf_validate_validate, file_panel_common_v1_options]);
+  fileDesc("ChxwYW5lbC9hZ2VudC92MS9jcm9uam9iLnByb3RvEg5wYW5lbC5hZ2VudC52MSLfAQoVU2VhcmNoQ3JvbmpvYnNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAESFQoEaW5mbxgDIAEoCUIHukgEcgIYQBIRCglncm91cF9pZHMYBCADKA0SMgoIb3JkZXJfYnkYBSABKAlCILpIHXIbUgBSBG5hbWVSBnN0YXR1c1IJY3JlYXRlZEF0EjMKBW9yZGVyGAYgASgJQiS6SCFyH1IAUgRudWxsUglhc2NlbmRpbmdSCmRlc2NlbmRpbmciTwoWU2VhcmNoQ3JvbmpvYnNSZXNwb25zZRImCgVpdGVtcxgBIAMoCzIXLnBhbmVsLmFnZW50LnYxLkNyb25qb2ISDQoFdG90YWwYAiABKAMiKAoRR2V0Q3JvbmpvYlJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAAiwwQKB0Nyb25qb2ISCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCRIMCgR0eXBlGAMgASgJEhAKCGdyb3VwX2lkGAQgASgNEhMKC3NwZWNfY3VzdG9tGAUgASgIEgwKBHNwZWMYBiABKAkSEAoIZXhlY3V0b3IYByABKAkSDwoHY29tbWFuZBgIIAEoCRIWCg5jb250YWluZXJfbmFtZRgJIAEoCRITCgtzY3JpcHRfbW9kZRgKIAEoCRIOCgZzY3JpcHQYCyABKAkSDAoEdXNlchgMIAEoCRIRCglzY3JpcHRfaWQYDSABKA0SDwoHd2Vic2l0ZRgOIAEoCRIOCgZhcHBfaWQYDyABKAkSDwoHZGJfdHlwZRgQIAEoCRIPCgdkYl9uYW1lGBEgASgJEhIKCnNvdXJjZV9kaXIYEiABKAkSFQoNcmV0YWluX2NvcGllcxgTIAEoBBITCgtyZXRyeV90aW1lcxgUIAEoDRIPCgd0aW1lb3V0GBUgASgNEhIKCmlnbm9yZV9lcnIYFiABKAgSDgoGc3RhdHVzGBcgASgJEhQKDGlzX2V4ZWN1dGluZxgYIAEoCBIaChJsYXN0X3JlY29yZF9zdGF0dXMYGSABKAkSGAoQbGFzdF9yZWNvcmRfdGltZRgaIAEoCRITCgthbGVydF9jb3VudBgbIAEoDRIaChJhbGVydF90cmlnZ2VyX21vZGUYHCABKAkSEgoKY3JlYXRlZF9hdBgdIAEoCRIRCglpbmZvX2pzb24YHiABKAkirgEKG1NlYXJjaENyb25qb2JSZWNvcmRzUmVxdWVzdBIVCgRwYWdlGAEgASgFQge6SAQaAigBEhwKCXBhZ2Vfc2l6ZRgCIAEoBUIJukgGGgQYZCgBEhsKCmNyb25qb2JfaWQYAyABKA1CB7pIBCoCIAASFwoGc3RhdHVzGAQgASgJQge6SARyAhggEhIKCnN0YXJ0X3RpbWUYBSABKAkSEAoIZW5kX3RpbWUYBiABKAkiWwocU2VhcmNoQ3JvbmpvYlJlY29yZHNSZXNwb25zZRIsCgVpdGVtcxgBIAMoCzIdLnBhbmVsLmFnZW50LnYxLkNyb25qb2JSZWNvcmQSDQoFdG90YWwYAiABKAMiuwEKDUNyb25qb2JSZWNvcmQSCgoCaWQYASABKA0SEgoKY3JvbmpvYl9pZBgCIAEoDRIPCgd0YXNrX2lkGAMgASgJEhIKCnN0YXJ0X3RpbWUYBCABKAkSDwoHcmVjb3JkcxgFIAEoCRIOCgZzdGF0dXMYBiABKAkSDwoHbWVzc2FnZRgHIAEoCRITCgt0YXJnZXRfcGF0aBgIIAEoCRIQCghpbnRlcnZhbBgJIAEoBRIMCgRmaWxlGAogASgJIjIKG0xvYWRDcm9uam9iUmVjb3JkTG9nUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACIjChBDcm9uam9iUmVjb3JkTG9nEg8KB2NvbnRlbnQYASABKAkiNQoUQ3JlYXRlQ3JvbmpvYlJlcXVlc3QSHQoMcGF5bG9hZF9qc29uGAEgASgJQge6SARyAhABIhcKFUNyZWF0ZUNyb25qb2JSZXNwb25zZSJKChRVcGRhdGVDcm9uam9iUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgABIdCgxwYXlsb2FkX2pzb24YAiABKAlCB7pIBHICEAEiFwoVVXBkYXRlQ3JvbmpvYlJlc3BvbnNlIl0KFURlbGV0ZUNyb25qb2JzUmVxdWVzdBIVCgNpZHMYASADKA1CCLpIBZIBAggBEhIKCmNsZWFuX2RhdGEYAiABKAgSGQoRY2xlYW5fcmVtb3RlX2RhdGEYAyABKAgiGAoWRGVsZXRlQ3JvbmpvYnNSZXNwb25zZSJLChlVcGRhdGVDcm9uam9iR3JvdXBSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAEhkKCGdyb3VwX2lkGAIgASgNQge6SAQqAiAAIhwKGlVwZGF0ZUNyb25qb2JHcm91cFJlc3BvbnNlIkoKGlVwZGF0ZUNyb25qb2JTdGF0dXNSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAEhcKBnN0YXR1cxgCIAEoCUIHukgEcgIQASIdChtVcGRhdGVDcm9uam9iU3RhdHVzUmVzcG9uc2UiLwoYSGFuZGxlQ3JvbmpvYk9uY2VSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIhsKGUhhbmRsZUNyb25qb2JPbmNlUmVzcG9uc2UiKQoSU3RvcENyb25qb2JSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIhUKE1N0b3BDcm9uam9iUmVzcG9uc2UiewoaQ2xlYW5Dcm9uam9iUmVjb3Jkc1JlcXVlc3QSGwoKY3JvbmpvYl9pZBgBIAEoDUIHukgEKgIgABIRCglpc19kZWxldGUYAiABKAgSEgoKY2xlYW5fZGF0YRgDIAEoCBIZChFjbGVhbl9yZW1vdGVfZGF0YRgEIAEoCCIdChtDbGVhbkNyb25qb2JSZWNvcmRzUmVzcG9uc2UiGgoYTG9hZFNjcmlwdE9wdGlvbnNSZXF1ZXN0IkQKFVNjcmlwdE9wdGlvbnNSZXNwb25zZRIrCgVpdGVtcxgBIAMoCzIcLnBhbmVsLmFnZW50LnYxLlNjcmlwdE9wdGlvbiIoCgxTY3JpcHRPcHRpb24SCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCSIuChVMb2FkTmV4dEhhbmRsZVJlcXVlc3QSFQoEc3BlYxgBIAEoCUIHukgEcgIQASInChZMb2FkTmV4dEhhbmRsZVJlc3BvbnNlEg0KBWl0ZW1zGAEgAygJIjYKFUltcG9ydENyb25qb2JzUmVxdWVzdBIdCgxwYXlsb2FkX2pzb24YASABKAlCB7pIBHICEAEiGAoWSW1wb3J0Q3JvbmpvYnNSZXNwb25zZTK4DwoOQ3JvbmpvYlNlcnZpY2USYQoGU2VhcmNoEiUucGFuZWwuYWdlbnQudjEuU2VhcmNoQ3JvbmpvYnNSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuU2VhcmNoQ3JvbmpvYnNSZXNwb25zZSIIirUYBBgBMAESdAoNU2VhcmNoUmVjb3JkcxIrLnBhbmVsLmFnZW50LnYxLlNlYXJjaENyb25qb2JSZWNvcmRzUmVxdWVzdBosLnBhbmVsLmFnZW50LnYxLlNlYXJjaENyb25qb2JSZWNvcmRzUmVzcG9uc2UiCIq1GAQYATABEmgKDUxvYWRSZWNvcmRMb2cSKy5wYW5lbC5hZ2VudC52MS5Mb2FkQ3JvbmpvYlJlY29yZExvZ1JlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5Dcm9uam9iUmVjb3JkTG9nIgiKtRgEGAEwARJLCgNHZXQSIS5wYW5lbC5hZ2VudC52MS5HZXRDcm9uam9iUmVxdWVzdBoXLnBhbmVsLmFnZW50LnYxLkNyb25qb2IiCIq1GAQYATABEoYBCg1DcmVhdGVDcm9uam9iEiQucGFuZWwuYWdlbnQudjEuQ3JlYXRlQ3JvbmpvYlJlcXVlc3QaJS5wYW5lbC5hZ2VudC52MS5DcmVhdGVDcm9uam9iUmVzcG9uc2UiKIq1GCQiEuWIm+W7uuiuoeWIkuS7u+WKoSoOQ3JlYXRlIGNyb25qb2IShgEKDVVwZGF0ZUNyb25qb2ISJC5wYW5lbC5hZ2VudC52MS5VcGRhdGVDcm9uam9iUmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLlVwZGF0ZUNyb25qb2JSZXNwb25zZSIoirUYJCIS5pu05paw6K6h5YiS5Lu75YqhKg5VcGRhdGUgY3JvbmpvYhKKAQoORGVsZXRlQ3JvbmpvYnMSJS5wYW5lbC5hZ2VudC52MS5EZWxldGVDcm9uam9ic1JlcXVlc3QaJi5wYW5lbC5hZ2VudC52MS5EZWxldGVDcm9uam9ic1Jlc3BvbnNlIimKtRglIhLliKDpmaTorqHliJLku7vliqEqD0RlbGV0ZSBjcm9uam9icxKhAQoSVXBkYXRlQ3JvbmpvYkdyb3VwEikucGFuZWwuYWdlbnQudjEuVXBkYXRlQ3JvbmpvYkdyb3VwUmVxdWVzdBoqLnBhbmVsLmFnZW50LnYxLlVwZGF0ZUNyb25qb2JHcm91cFJlc3BvbnNlIjSKtRgwIhjkv67mlLnorqHliJLku7vliqHliIbnu4QqFFVwZGF0ZSBjcm9uam9iIGdyb3VwEqUBChNVcGRhdGVDcm9uam9iU3RhdHVzEioucGFuZWwuYWdlbnQudjEuVXBkYXRlQ3JvbmpvYlN0YXR1c1JlcXVlc3QaKy5wYW5lbC5hZ2VudC52MS5VcGRhdGVDcm9uam9iU3RhdHVzUmVzcG9uc2UiNYq1GDEiGOS/ruaUueiuoeWIkuS7u+WKoeeKtuaAgSoVVXBkYXRlIGNyb25qb2Igc3RhdHVzEpoBChFIYW5kbGVDcm9uam9iT25jZRIoLnBhbmVsLmFnZW50LnYxLkhhbmRsZUNyb25qb2JPbmNlUmVxdWVzdBopLnBhbmVsLmFnZW50LnYxLkhhbmRsZUNyb25qb2JPbmNlUmVzcG9uc2UiMIq1GCwiGOaJi+WKqOaJp+ihjOiuoeWIkuS7u+WKoSoQUnVuIGNyb25qb2Igb25jZRJ+CgtTdG9wQ3JvbmpvYhIiLnBhbmVsLmFnZW50LnYxLlN0b3BDcm9uam9iUmVxdWVzdBojLnBhbmVsLmFnZW50LnYxLlN0b3BDcm9uam9iUmVzcG9uc2UiJoq1GCIiEuWBnOatouiuoeWIkuS7u+WKoSoMU3RvcCBjcm9uam9iEqUBChNDbGVhbkNyb25qb2JSZWNvcmRzEioucGFuZWwuYWdlbnQudjEuQ2xlYW5Dcm9uam9iUmVjb3Jkc1JlcXVlc3QaKy5wYW5lbC5hZ2VudC52MS5DbGVhbkNyb25qb2JSZWNvcmRzUmVzcG9uc2UiNYq1GDEiGOa4heepuuiuoeWIkuS7u+WKoeiusOW9lSoVQ2xlYW4gY3JvbmpvYiByZWNvcmRzEm4KEUxvYWRTY3JpcHRPcHRpb25zEigucGFuZWwuYWdlbnQudjEuTG9hZFNjcmlwdE9wdGlvbnNSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuU2NyaXB0T3B0aW9uc1Jlc3BvbnNlIgiKtRgEGAEwARJpCg5Mb2FkTmV4dEhhbmRsZRIlLnBhbmVsLmFnZW50LnYxLkxvYWROZXh0SGFuZGxlUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLkxvYWROZXh0SGFuZGxlUmVzcG9uc2UiCIq1GAQYATABEooBCg5JbXBvcnRDcm9uam9icxIlLnBhbmVsLmFnZW50LnYxLkltcG9ydENyb25qb2JzUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLkltcG9ydENyb25qb2JzUmVzcG9uc2UiKYq1GCUiEuWvvOWFpeiuoeWIkuS7u+WKoSoPSW1wb3J0IGNyb25qb2JzQi1aK215cGFuZWwvcHJvdG8vZ2VuL2dvL3BhbmVsL2FnZW50L3YxO2FnZW50djFiBnByb3RvMw", [file_buf_validate_validate, file_panel_common_v1_options]);
 
 /**
  * SearchCronjobsRequest 是计划任务列表查询参数。
@@ -329,6 +329,13 @@ export type Cronjob = Message<"panel.agent.v1.Cronjob"> & {
    * @generated from field: string created_at = 29;
    */
   createdAt: string;
+
+  /**
+   * 原始表单数据的 JSON 字符串，含 URLItems、SnapshotRule 等嵌套字段。
+   *
+   * @generated from field: string info_json = 30;
+   */
+  infoJson: string;
 };
 
 /**
@@ -549,6 +556,494 @@ export const CronjobRecordLogSchema: GenMessage<CronjobRecordLog> = /*@__PURE__*
   messageDesc(file_panel_agent_v1_cronjob, 8);
 
 /**
+ * CreateCronjobRequest 是创建计划任务参数。
+ *
+ * 任务参数含嵌套的备份、告警与脚本配置，结构随任务类型变化，直接用 JSON 透传。
+ *
+ * @generated from message panel.agent.v1.CreateCronjobRequest
+ */
+export type CreateCronjobRequest = Message<"panel.agent.v1.CreateCronjobRequest"> & {
+  /**
+   * 原始请求体的 JSON 字符串。
+   *
+   * @generated from field: string payload_json = 1;
+   */
+  payloadJson: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateCronjobRequest.
+ * Use `create(CreateCronjobRequestSchema)` to create a new message.
+ */
+export const CreateCronjobRequestSchema: GenMessage<CreateCronjobRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 9);
+
+/**
+ * CreateCronjobResponse 是创建结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CreateCronjobResponse
+ */
+export type CreateCronjobResponse = Message<"panel.agent.v1.CreateCronjobResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateCronjobResponse.
+ * Use `create(CreateCronjobResponseSchema)` to create a new message.
+ */
+export const CreateCronjobResponseSchema: GenMessage<CreateCronjobResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 10);
+
+/**
+ * UpdateCronjobRequest 是更新计划任务参数。
+ *
+ * @generated from message panel.agent.v1.UpdateCronjobRequest
+ */
+export type UpdateCronjobRequest = Message<"panel.agent.v1.UpdateCronjobRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 原始请求体的 JSON 字符串。
+   *
+   * @generated from field: string payload_json = 2;
+   */
+  payloadJson: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateCronjobRequest.
+ * Use `create(UpdateCronjobRequestSchema)` to create a new message.
+ */
+export const UpdateCronjobRequestSchema: GenMessage<UpdateCronjobRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 11);
+
+/**
+ * UpdateCronjobResponse 是更新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateCronjobResponse
+ */
+export type UpdateCronjobResponse = Message<"panel.agent.v1.UpdateCronjobResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateCronjobResponse.
+ * Use `create(UpdateCronjobResponseSchema)` to create a new message.
+ */
+export const UpdateCronjobResponseSchema: GenMessage<UpdateCronjobResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 12);
+
+/**
+ * DeleteCronjobsRequest 是批量删除参数。
+ *
+ * @generated from message panel.agent.v1.DeleteCronjobsRequest
+ */
+export type DeleteCronjobsRequest = Message<"panel.agent.v1.DeleteCronjobsRequest"> & {
+  /**
+   * 任务 ID 列表。
+   *
+   * @generated from field: repeated uint32 ids = 1;
+   */
+  ids: number[];
+
+  /**
+   * 是否同时清理备份数据。
+   *
+   * @generated from field: bool clean_data = 2;
+   */
+  cleanData: boolean;
+
+  /**
+   * 是否同时清理远端备份。
+   *
+   * @generated from field: bool clean_remote_data = 3;
+   */
+  cleanRemoteData: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteCronjobsRequest.
+ * Use `create(DeleteCronjobsRequestSchema)` to create a new message.
+ */
+export const DeleteCronjobsRequestSchema: GenMessage<DeleteCronjobsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 13);
+
+/**
+ * DeleteCronjobsResponse 是删除结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.DeleteCronjobsResponse
+ */
+export type DeleteCronjobsResponse = Message<"panel.agent.v1.DeleteCronjobsResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteCronjobsResponse.
+ * Use `create(DeleteCronjobsResponseSchema)` to create a new message.
+ */
+export const DeleteCronjobsResponseSchema: GenMessage<DeleteCronjobsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 14);
+
+/**
+ * UpdateCronjobGroupRequest 是分组修改参数。
+ *
+ * @generated from message panel.agent.v1.UpdateCronjobGroupRequest
+ */
+export type UpdateCronjobGroupRequest = Message<"panel.agent.v1.UpdateCronjobGroupRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 目标分组 ID。
+   *
+   * @generated from field: uint32 group_id = 2;
+   */
+  groupId: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateCronjobGroupRequest.
+ * Use `create(UpdateCronjobGroupRequestSchema)` to create a new message.
+ */
+export const UpdateCronjobGroupRequestSchema: GenMessage<UpdateCronjobGroupRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 15);
+
+/**
+ * UpdateCronjobGroupResponse 是修改结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateCronjobGroupResponse
+ */
+export type UpdateCronjobGroupResponse = Message<"panel.agent.v1.UpdateCronjobGroupResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateCronjobGroupResponse.
+ * Use `create(UpdateCronjobGroupResponseSchema)` to create a new message.
+ */
+export const UpdateCronjobGroupResponseSchema: GenMessage<UpdateCronjobGroupResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 16);
+
+/**
+ * UpdateCronjobStatusRequest 是状态修改参数。
+ *
+ * @generated from message panel.agent.v1.UpdateCronjobStatusRequest
+ */
+export type UpdateCronjobStatusRequest = Message<"panel.agent.v1.UpdateCronjobStatusRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 目标状态。
+   *
+   * @generated from field: string status = 2;
+   */
+  status: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateCronjobStatusRequest.
+ * Use `create(UpdateCronjobStatusRequestSchema)` to create a new message.
+ */
+export const UpdateCronjobStatusRequestSchema: GenMessage<UpdateCronjobStatusRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 17);
+
+/**
+ * UpdateCronjobStatusResponse 是修改结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateCronjobStatusResponse
+ */
+export type UpdateCronjobStatusResponse = Message<"panel.agent.v1.UpdateCronjobStatusResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateCronjobStatusResponse.
+ * Use `create(UpdateCronjobStatusResponseSchema)` to create a new message.
+ */
+export const UpdateCronjobStatusResponseSchema: GenMessage<UpdateCronjobStatusResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 18);
+
+/**
+ * HandleCronjobOnceRequest 是手动执行参数。
+ *
+ * @generated from message panel.agent.v1.HandleCronjobOnceRequest
+ */
+export type HandleCronjobOnceRequest = Message<"panel.agent.v1.HandleCronjobOnceRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.HandleCronjobOnceRequest.
+ * Use `create(HandleCronjobOnceRequestSchema)` to create a new message.
+ */
+export const HandleCronjobOnceRequestSchema: GenMessage<HandleCronjobOnceRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 19);
+
+/**
+ * HandleCronjobOnceResponse 是执行结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.HandleCronjobOnceResponse
+ */
+export type HandleCronjobOnceResponse = Message<"panel.agent.v1.HandleCronjobOnceResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.HandleCronjobOnceResponse.
+ * Use `create(HandleCronjobOnceResponseSchema)` to create a new message.
+ */
+export const HandleCronjobOnceResponseSchema: GenMessage<HandleCronjobOnceResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 20);
+
+/**
+ * StopCronjobRequest 是停止任务参数。
+ *
+ * @generated from message panel.agent.v1.StopCronjobRequest
+ */
+export type StopCronjobRequest = Message<"panel.agent.v1.StopCronjobRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.StopCronjobRequest.
+ * Use `create(StopCronjobRequestSchema)` to create a new message.
+ */
+export const StopCronjobRequestSchema: GenMessage<StopCronjobRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 21);
+
+/**
+ * StopCronjobResponse 是停止结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.StopCronjobResponse
+ */
+export type StopCronjobResponse = Message<"panel.agent.v1.StopCronjobResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.StopCronjobResponse.
+ * Use `create(StopCronjobResponseSchema)` to create a new message.
+ */
+export const StopCronjobResponseSchema: GenMessage<StopCronjobResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 22);
+
+/**
+ * CleanCronjobRecordsRequest 是清空执行记录参数。
+ *
+ * @generated from message panel.agent.v1.CleanCronjobRecordsRequest
+ */
+export type CleanCronjobRecordsRequest = Message<"panel.agent.v1.CleanCronjobRecordsRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: uint32 cronjob_id = 1;
+   */
+  cronjobId: number;
+
+  /**
+   * 是否同时删除远端数据。
+   *
+   * @generated from field: bool is_delete = 2;
+   */
+  isDelete: boolean;
+
+  /**
+   * 是否清理备份数据。
+   *
+   * @generated from field: bool clean_data = 3;
+   */
+  cleanData: boolean;
+
+  /**
+   * 是否清理远端备份。
+   *
+   * @generated from field: bool clean_remote_data = 4;
+   */
+  cleanRemoteData: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.CleanCronjobRecordsRequest.
+ * Use `create(CleanCronjobRecordsRequestSchema)` to create a new message.
+ */
+export const CleanCronjobRecordsRequestSchema: GenMessage<CleanCronjobRecordsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 23);
+
+/**
+ * CleanCronjobRecordsResponse 是清空结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CleanCronjobRecordsResponse
+ */
+export type CleanCronjobRecordsResponse = Message<"panel.agent.v1.CleanCronjobRecordsResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CleanCronjobRecordsResponse.
+ * Use `create(CleanCronjobRecordsResponseSchema)` to create a new message.
+ */
+export const CleanCronjobRecordsResponseSchema: GenMessage<CleanCronjobRecordsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 24);
+
+/**
+ * LoadScriptOptionsRequest 是脚本列表查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.LoadScriptOptionsRequest
+ */
+export type LoadScriptOptionsRequest = Message<"panel.agent.v1.LoadScriptOptionsRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.LoadScriptOptionsRequest.
+ * Use `create(LoadScriptOptionsRequestSchema)` to create a new message.
+ */
+export const LoadScriptOptionsRequestSchema: GenMessage<LoadScriptOptionsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 25);
+
+/**
+ * ScriptOptionsResponse 是脚本列表结果。
+ *
+ * @generated from message panel.agent.v1.ScriptOptionsResponse
+ */
+export type ScriptOptionsResponse = Message<"panel.agent.v1.ScriptOptionsResponse"> & {
+  /**
+   * 可选脚本。
+   *
+   * @generated from field: repeated panel.agent.v1.ScriptOption items = 1;
+   */
+  items: ScriptOption[];
+};
+
+/**
+ * Describes the message panel.agent.v1.ScriptOptionsResponse.
+ * Use `create(ScriptOptionsResponseSchema)` to create a new message.
+ */
+export const ScriptOptionsResponseSchema: GenMessage<ScriptOptionsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 26);
+
+/**
+ * ScriptOption 是一个可选脚本。
+ *
+ * @generated from message panel.agent.v1.ScriptOption
+ */
+export type ScriptOption = Message<"panel.agent.v1.ScriptOption"> & {
+  /**
+   * 脚本 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 脚本名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.ScriptOption.
+ * Use `create(ScriptOptionSchema)` to create a new message.
+ */
+export const ScriptOptionSchema: GenMessage<ScriptOption> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 27);
+
+/**
+ * LoadNextHandleRequest 是 Cron 表达式计算参数。
+ *
+ * @generated from message panel.agent.v1.LoadNextHandleRequest
+ */
+export type LoadNextHandleRequest = Message<"panel.agent.v1.LoadNextHandleRequest"> & {
+  /**
+   * Cron 表达式。
+   *
+   * @generated from field: string spec = 1;
+   */
+  spec: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.LoadNextHandleRequest.
+ * Use `create(LoadNextHandleRequestSchema)` to create a new message.
+ */
+export const LoadNextHandleRequestSchema: GenMessage<LoadNextHandleRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 28);
+
+/**
+ * LoadNextHandleResponse 是接下来几次执行时间。
+ *
+ * @generated from message panel.agent.v1.LoadNextHandleResponse
+ */
+export type LoadNextHandleResponse = Message<"panel.agent.v1.LoadNextHandleResponse"> & {
+  /**
+   * 时间字符串列表。
+   *
+   * @generated from field: repeated string items = 1;
+   */
+  items: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.LoadNextHandleResponse.
+ * Use `create(LoadNextHandleResponseSchema)` to create a new message.
+ */
+export const LoadNextHandleResponseSchema: GenMessage<LoadNextHandleResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 29);
+
+/**
+ * ImportCronjobsRequest 是导入参数。
+ *
+ * @generated from message panel.agent.v1.ImportCronjobsRequest
+ */
+export type ImportCronjobsRequest = Message<"panel.agent.v1.ImportCronjobsRequest"> & {
+  /**
+   * cronjobs 数组的 JSON 字符串。
+   *
+   * @generated from field: string payload_json = 1;
+   */
+  payloadJson: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.ImportCronjobsRequest.
+ * Use `create(ImportCronjobsRequestSchema)` to create a new message.
+ */
+export const ImportCronjobsRequestSchema: GenMessage<ImportCronjobsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 30);
+
+/**
+ * ImportCronjobsResponse 是导入结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.ImportCronjobsResponse
+ */
+export type ImportCronjobsResponse = Message<"panel.agent.v1.ImportCronjobsResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.ImportCronjobsResponse.
+ * Use `create(ImportCronjobsResponseSchema)` to create a new message.
+ */
+export const ImportCronjobsResponseSchema: GenMessage<ImportCronjobsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_cronjob, 31);
+
+/**
  * CronjobService 对应 1Panel 的计划任务域。
  *
  * @generated from service panel.agent.v1.CronjobService
@@ -593,6 +1088,116 @@ export const CronjobService: GenService<{
     methodKind: "unary";
     input: typeof GetCronjobRequestSchema;
     output: typeof CronjobSchema;
+  },
+  /**
+   * 创建计划任务。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.CreateCronjob
+   */
+  createCronjob: {
+    methodKind: "unary";
+    input: typeof CreateCronjobRequestSchema;
+    output: typeof CreateCronjobResponseSchema;
+  },
+  /**
+   * 更新计划任务。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.UpdateCronjob
+   */
+  updateCronjob: {
+    methodKind: "unary";
+    input: typeof UpdateCronjobRequestSchema;
+    output: typeof UpdateCronjobResponseSchema;
+  },
+  /**
+   * 批量删除计划任务。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.DeleteCronjobs
+   */
+  deleteCronjobs: {
+    methodKind: "unary";
+    input: typeof DeleteCronjobsRequestSchema;
+    output: typeof DeleteCronjobsResponseSchema;
+  },
+  /**
+   * 修改计划任务分组。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.UpdateCronjobGroup
+   */
+  updateCronjobGroup: {
+    methodKind: "unary";
+    input: typeof UpdateCronjobGroupRequestSchema;
+    output: typeof UpdateCronjobGroupResponseSchema;
+  },
+  /**
+   * 修改计划任务状态。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.UpdateCronjobStatus
+   */
+  updateCronjobStatus: {
+    methodKind: "unary";
+    input: typeof UpdateCronjobStatusRequestSchema;
+    output: typeof UpdateCronjobStatusResponseSchema;
+  },
+  /**
+   * 手动执行一次计划任务。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.HandleCronjobOnce
+   */
+  handleCronjobOnce: {
+    methodKind: "unary";
+    input: typeof HandleCronjobOnceRequestSchema;
+    output: typeof HandleCronjobOnceResponseSchema;
+  },
+  /**
+   * 停止正在执行的计划任务。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.StopCronjob
+   */
+  stopCronjob: {
+    methodKind: "unary";
+    input: typeof StopCronjobRequestSchema;
+    output: typeof StopCronjobResponseSchema;
+  },
+  /**
+   * 清空计划任务执行记录。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.CleanCronjobRecords
+   */
+  cleanCronjobRecords: {
+    methodKind: "unary";
+    input: typeof CleanCronjobRecordsRequestSchema;
+    output: typeof CleanCronjobRecordsResponseSchema;
+  },
+  /**
+   * 列出可选的脚本。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.LoadScriptOptions
+   */
+  loadScriptOptions: {
+    methodKind: "unary";
+    input: typeof LoadScriptOptionsRequestSchema;
+    output: typeof ScriptOptionsResponseSchema;
+  },
+  /**
+   * 根据 Cron 表达式计算接下来几次执行时间。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.LoadNextHandle
+   */
+  loadNextHandle: {
+    methodKind: "unary";
+    input: typeof LoadNextHandleRequestSchema;
+    output: typeof LoadNextHandleResponseSchema;
+  },
+  /**
+   * 导入计划任务。
+   *
+   * @generated from rpc panel.agent.v1.CronjobService.ImportCronjobs
+   */
+  importCronjobs: {
+    methodKind: "unary";
+    input: typeof ImportCronjobsRequestSchema;
+    output: typeof ImportCronjobsResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_panel_agent_v1_cronjob, 0);

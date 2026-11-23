@@ -791,7 +791,6 @@ import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { ElForm } from 'element-plus';
 import { Cronjob } from '@/api/interface/cronjob';
-import { addCronjob, editCronjob, loadCronjobInfo, loadNextHandle, loadScriptOptions } from '@/api/modules/cronjob';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useRouter } from 'vue-router';
 import { Alert } from '@/api/interface/alert';
@@ -987,18 +986,20 @@ const form = reactive<Cronjob.CronjobInfo>({
 const search = async () => {
     if (!isCreate.value) {
         loading.value = true;
-        await loadCronjobInfo(form.id)
+        await rpc.cronjob
+            .get({ id: form.id })
             .then((res) => {
+                const info = JSON.parse(res.infoJson) as Cronjob.CronjobInfo;
                 loading.value = false;
-                form.name = res.data.name;
-                form.groupID = res.data.groupID || defaultGroupID.value;
-                form.type = res.data.type;
-                form.specCustom = res.data.specCustom;
-                form.spec = res.data.spec;
-                form.specs = res.data.specs || [];
+                form.name = info.name;
+                form.groupID = info.groupID || defaultGroupID.value;
+                form.type = info.type;
+                form.specCustom = info.specCustom;
+                form.spec = info.spec;
+                form.specs = info.specs || [];
                 if (!form.specCustom && form.spec) {
                     let objs = [];
-                    for (const item of res.data.spec.split('&&')) {
+                    for (const item of info.spec.split('&&')) {
                         objs.push(transSpecToObj(item));
                     }
                     form.specObjs = objs || [];
@@ -1007,23 +1008,23 @@ const search = async () => {
                     form.specs = form.spec.split('&&') || [];
                 }
 
-                form.script = res.data.script;
-                form.scriptMode = res.data.scriptMode;
+                form.script = info.script;
+                form.scriptMode = info.scriptMode;
                 form.urlItems =
-                    res.data.urlItems?.map((item) => ({ ...item })) ??
-                    (res.data.url || '')
+                    info.urlItems?.map((item) => ({ ...item })) ??
+                    (info.url || '')
                         .split(',')
                         .filter(Boolean)
                         .map((url) => ({ url, header: '' }));
 
-                form.containerName = res.data.containerName;
-                form.user = res.data.user;
+                form.containerName = info.containerName;
+                form.user = info.user;
                 if (form.containerName.length !== 0) {
                     form.inContainer = true;
-                    form.command = res.data.command || 'sh';
+                    form.command = info.command || 'sh';
                     form.isCustom = form.command !== 'sh' && form.command !== 'bash' && form.command !== 'ash';
                 } else {
-                    form.executor = res.data.executor || 'bash';
+                    form.executor = info.executor || 'bash';
                     form.isCustom =
                         form.executor !== 'sh' &&
                         form.executor !== 'bash' &&
@@ -1031,19 +1032,19 @@ const search = async () => {
                         form.executor !== 'python3';
                 }
 
-                form.scriptID = res.data.scriptID || null;
-                form.appID = res.data.appID;
-                form.appIdList = res.data.appID ? res.data.appID.split(',') : [];
-                form.website = res.data.website;
-                form.websiteList = res.data.website ? res.data.website.split(',') : [];
-                form.exclusionRules = res.data.exclusionRules;
-                form.ignoreFiles = res.data.exclusionRules ? res.data.exclusionRules.split(',') : [];
-                form.url = res.data.url;
-                form.withImage = res.data.snapshotRule.withImage;
-                form.ignoreAppIDs = res.data.snapshotRule.ignoreAppIDs;
+                form.scriptID = info.scriptID || null;
+                form.appID = info.appID;
+                form.appIdList = info.appID ? info.appID.split(',') : [];
+                form.website = info.website;
+                form.websiteList = info.website ? info.website.split(',') : [];
+                form.exclusionRules = info.exclusionRules;
+                form.ignoreFiles = info.exclusionRules ? info.exclusionRules.split(',') : [];
+                form.url = info.url;
+                form.withImage = info.snapshotRule.withImage;
+                form.ignoreAppIDs = info.snapshotRule.ignoreAppIDs;
 
-                form.isDir = res.data.isDir;
-                form.sourceDir = res.data.sourceDir;
+                form.isDir = info.isDir;
+                form.sourceDir = info.sourceDir;
                 if (!form.isDir) {
                     let files = form.sourceDir?.split(',') || [];
                     for (const item of files) {
@@ -1051,8 +1052,8 @@ const search = async () => {
                     }
                 }
 
-                form.sourceAccountIDs = res.data.sourceAccountIDs;
-                form.downloadAccountID = res.data.downloadAccountID;
+                form.sourceAccountIDs = info.sourceAccountIDs;
+                form.downloadAccountID = info.downloadAccountID;
                 if (form.sourceAccountIDs) {
                     let list = [];
                     form.sourceAccountItems = [];
@@ -1064,27 +1065,27 @@ const search = async () => {
                     }
                 }
 
-                form.ignoreErr = res.data.ignoreErr;
-                form.retainCopies = res.data.retainCopies;
-                form.retryTimes = res.data.retryTimes;
+                form.ignoreErr = info.ignoreErr;
+                form.retainCopies = info.retainCopies;
+                form.retryTimes = info.retryTimes;
 
-                form.timeout = res.data.timeout || 3600;
+                form.timeout = info.timeout || 3600;
                 const item = splitTimeFromSecond(form.timeout);
                 form.timeoutItem = item.timeItem;
                 form.timeoutUnit = item.timeUnit;
 
-                form.secret = res.data.secret;
-                form.hasAlert = res.data.alertCount > 0;
-                form.alertCount = res.data.alertCount || 3;
-                form.alertTriggerMode = normalizeCronjobAlertMode(res.data.alertTriggerMode);
-                form.alertTitle = res.data.alertTitle;
-                if (res.data.alertMethod) {
-                    form.alertMethodItems = normalizeAlertMethodItems(res.data.alertMethod.split(',') || []);
+                form.secret = info.secret;
+                form.hasAlert = info.alertCount > 0;
+                form.alertCount = info.alertCount || 3;
+                form.alertTriggerMode = normalizeCronjobAlertMode(info.alertTriggerMode);
+                form.alertTitle = info.alertTitle;
+                if (info.alertMethod) {
+                    form.alertMethodItems = normalizeAlertMethodItems(info.alertMethod.split(',') || []);
                 } else {
                     form.alertMethodItems = [];
                 }
-                form.scopes = res.data.scopes;
-                form.argItems = res.data.args ? res.data.args.split(',') : [];
+                form.scopes = info.scopes;
+                form.argItems = info.args ? info.args.split(',') : [];
             })
             .catch(() => {
                 loading.value = false;
@@ -1364,13 +1365,13 @@ const loadNext = async (spec: any) => {
         MsgError(i18n.global.t('cronjob.cronSpecRule2'));
         return;
     }
-    const data = await loadNextHandle(specItem);
-    nextTimes.value = data.data || [];
+    const res = await rpc.cronjob.loadNextHandle({ spec: specItem });
+    nextTimes.value = res.items || [];
 };
 
 const loadScripts = async () => {
-    const res = await loadScriptOptions();
-    scriptOptions.value = res.data || [];
+    const res = await rpc.cronjob.loadScriptOptions({});
+    scriptOptions.value = res.items || [];
 };
 
 const changeType = () => {
@@ -1595,9 +1596,9 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         if (!form) return;
 
         if (isCreate.value) {
-            await addCronjob(form);
+            await rpc.cronjob.createCronjob({ payloadJson: JSON.stringify(form) });
         } else {
-            await editCronjob(form);
+            await rpc.cronjob.updateCronjob({ id: form.id, payloadJson: JSON.stringify(form) });
         }
 
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

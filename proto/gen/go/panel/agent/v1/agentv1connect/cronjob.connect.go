@@ -45,6 +45,39 @@ const (
 	CronjobServiceLoadRecordLogProcedure = "/panel.agent.v1.CronjobService/LoadRecordLog"
 	// CronjobServiceGetProcedure is the fully-qualified name of the CronjobService's Get RPC.
 	CronjobServiceGetProcedure = "/panel.agent.v1.CronjobService/Get"
+	// CronjobServiceCreateCronjobProcedure is the fully-qualified name of the CronjobService's
+	// CreateCronjob RPC.
+	CronjobServiceCreateCronjobProcedure = "/panel.agent.v1.CronjobService/CreateCronjob"
+	// CronjobServiceUpdateCronjobProcedure is the fully-qualified name of the CronjobService's
+	// UpdateCronjob RPC.
+	CronjobServiceUpdateCronjobProcedure = "/panel.agent.v1.CronjobService/UpdateCronjob"
+	// CronjobServiceDeleteCronjobsProcedure is the fully-qualified name of the CronjobService's
+	// DeleteCronjobs RPC.
+	CronjobServiceDeleteCronjobsProcedure = "/panel.agent.v1.CronjobService/DeleteCronjobs"
+	// CronjobServiceUpdateCronjobGroupProcedure is the fully-qualified name of the CronjobService's
+	// UpdateCronjobGroup RPC.
+	CronjobServiceUpdateCronjobGroupProcedure = "/panel.agent.v1.CronjobService/UpdateCronjobGroup"
+	// CronjobServiceUpdateCronjobStatusProcedure is the fully-qualified name of the CronjobService's
+	// UpdateCronjobStatus RPC.
+	CronjobServiceUpdateCronjobStatusProcedure = "/panel.agent.v1.CronjobService/UpdateCronjobStatus"
+	// CronjobServiceHandleCronjobOnceProcedure is the fully-qualified name of the CronjobService's
+	// HandleCronjobOnce RPC.
+	CronjobServiceHandleCronjobOnceProcedure = "/panel.agent.v1.CronjobService/HandleCronjobOnce"
+	// CronjobServiceStopCronjobProcedure is the fully-qualified name of the CronjobService's
+	// StopCronjob RPC.
+	CronjobServiceStopCronjobProcedure = "/panel.agent.v1.CronjobService/StopCronjob"
+	// CronjobServiceCleanCronjobRecordsProcedure is the fully-qualified name of the CronjobService's
+	// CleanCronjobRecords RPC.
+	CronjobServiceCleanCronjobRecordsProcedure = "/panel.agent.v1.CronjobService/CleanCronjobRecords"
+	// CronjobServiceLoadScriptOptionsProcedure is the fully-qualified name of the CronjobService's
+	// LoadScriptOptions RPC.
+	CronjobServiceLoadScriptOptionsProcedure = "/panel.agent.v1.CronjobService/LoadScriptOptions"
+	// CronjobServiceLoadNextHandleProcedure is the fully-qualified name of the CronjobService's
+	// LoadNextHandle RPC.
+	CronjobServiceLoadNextHandleProcedure = "/panel.agent.v1.CronjobService/LoadNextHandle"
+	// CronjobServiceImportCronjobsProcedure is the fully-qualified name of the CronjobService's
+	// ImportCronjobs RPC.
+	CronjobServiceImportCronjobsProcedure = "/panel.agent.v1.CronjobService/ImportCronjobs"
 )
 
 // CronjobServiceClient is a client for the panel.agent.v1.CronjobService service.
@@ -57,6 +90,28 @@ type CronjobServiceClient interface {
 	LoadRecordLog(context.Context, *connect.Request[v1.LoadCronjobRecordLogRequest]) (*connect.Response[v1.CronjobRecordLog], error)
 	// 按 ID 查询计划任务详情。
 	Get(context.Context, *connect.Request[v1.GetCronjobRequest]) (*connect.Response[v1.Cronjob], error)
+	// 创建计划任务。
+	CreateCronjob(context.Context, *connect.Request[v1.CreateCronjobRequest]) (*connect.Response[v1.CreateCronjobResponse], error)
+	// 更新计划任务。
+	UpdateCronjob(context.Context, *connect.Request[v1.UpdateCronjobRequest]) (*connect.Response[v1.UpdateCronjobResponse], error)
+	// 批量删除计划任务。
+	DeleteCronjobs(context.Context, *connect.Request[v1.DeleteCronjobsRequest]) (*connect.Response[v1.DeleteCronjobsResponse], error)
+	// 修改计划任务分组。
+	UpdateCronjobGroup(context.Context, *connect.Request[v1.UpdateCronjobGroupRequest]) (*connect.Response[v1.UpdateCronjobGroupResponse], error)
+	// 修改计划任务状态。
+	UpdateCronjobStatus(context.Context, *connect.Request[v1.UpdateCronjobStatusRequest]) (*connect.Response[v1.UpdateCronjobStatusResponse], error)
+	// 手动执行一次计划任务。
+	HandleCronjobOnce(context.Context, *connect.Request[v1.HandleCronjobOnceRequest]) (*connect.Response[v1.HandleCronjobOnceResponse], error)
+	// 停止正在执行的计划任务。
+	StopCronjob(context.Context, *connect.Request[v1.StopCronjobRequest]) (*connect.Response[v1.StopCronjobResponse], error)
+	// 清空计划任务执行记录。
+	CleanCronjobRecords(context.Context, *connect.Request[v1.CleanCronjobRecordsRequest]) (*connect.Response[v1.CleanCronjobRecordsResponse], error)
+	// 列出可选的脚本。
+	LoadScriptOptions(context.Context, *connect.Request[v1.LoadScriptOptionsRequest]) (*connect.Response[v1.ScriptOptionsResponse], error)
+	// 根据 Cron 表达式计算接下来几次执行时间。
+	LoadNextHandle(context.Context, *connect.Request[v1.LoadNextHandleRequest]) (*connect.Response[v1.LoadNextHandleResponse], error)
+	// 导入计划任务。
+	ImportCronjobs(context.Context, *connect.Request[v1.ImportCronjobsRequest]) (*connect.Response[v1.ImportCronjobsResponse], error)
 }
 
 // NewCronjobServiceClient constructs a client for the panel.agent.v1.CronjobService service. By
@@ -94,15 +149,92 @@ func NewCronjobServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(cronjobServiceMethods.ByName("Get")),
 			connect.WithClientOptions(opts...),
 		),
+		createCronjob: connect.NewClient[v1.CreateCronjobRequest, v1.CreateCronjobResponse](
+			httpClient,
+			baseURL+CronjobServiceCreateCronjobProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("CreateCronjob")),
+			connect.WithClientOptions(opts...),
+		),
+		updateCronjob: connect.NewClient[v1.UpdateCronjobRequest, v1.UpdateCronjobResponse](
+			httpClient,
+			baseURL+CronjobServiceUpdateCronjobProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("UpdateCronjob")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteCronjobs: connect.NewClient[v1.DeleteCronjobsRequest, v1.DeleteCronjobsResponse](
+			httpClient,
+			baseURL+CronjobServiceDeleteCronjobsProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("DeleteCronjobs")),
+			connect.WithClientOptions(opts...),
+		),
+		updateCronjobGroup: connect.NewClient[v1.UpdateCronjobGroupRequest, v1.UpdateCronjobGroupResponse](
+			httpClient,
+			baseURL+CronjobServiceUpdateCronjobGroupProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("UpdateCronjobGroup")),
+			connect.WithClientOptions(opts...),
+		),
+		updateCronjobStatus: connect.NewClient[v1.UpdateCronjobStatusRequest, v1.UpdateCronjobStatusResponse](
+			httpClient,
+			baseURL+CronjobServiceUpdateCronjobStatusProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("UpdateCronjobStatus")),
+			connect.WithClientOptions(opts...),
+		),
+		handleCronjobOnce: connect.NewClient[v1.HandleCronjobOnceRequest, v1.HandleCronjobOnceResponse](
+			httpClient,
+			baseURL+CronjobServiceHandleCronjobOnceProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("HandleCronjobOnce")),
+			connect.WithClientOptions(opts...),
+		),
+		stopCronjob: connect.NewClient[v1.StopCronjobRequest, v1.StopCronjobResponse](
+			httpClient,
+			baseURL+CronjobServiceStopCronjobProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("StopCronjob")),
+			connect.WithClientOptions(opts...),
+		),
+		cleanCronjobRecords: connect.NewClient[v1.CleanCronjobRecordsRequest, v1.CleanCronjobRecordsResponse](
+			httpClient,
+			baseURL+CronjobServiceCleanCronjobRecordsProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("CleanCronjobRecords")),
+			connect.WithClientOptions(opts...),
+		),
+		loadScriptOptions: connect.NewClient[v1.LoadScriptOptionsRequest, v1.ScriptOptionsResponse](
+			httpClient,
+			baseURL+CronjobServiceLoadScriptOptionsProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("LoadScriptOptions")),
+			connect.WithClientOptions(opts...),
+		),
+		loadNextHandle: connect.NewClient[v1.LoadNextHandleRequest, v1.LoadNextHandleResponse](
+			httpClient,
+			baseURL+CronjobServiceLoadNextHandleProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("LoadNextHandle")),
+			connect.WithClientOptions(opts...),
+		),
+		importCronjobs: connect.NewClient[v1.ImportCronjobsRequest, v1.ImportCronjobsResponse](
+			httpClient,
+			baseURL+CronjobServiceImportCronjobsProcedure,
+			connect.WithSchema(cronjobServiceMethods.ByName("ImportCronjobs")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // cronjobServiceClient implements CronjobServiceClient.
 type cronjobServiceClient struct {
-	search        *connect.Client[v1.SearchCronjobsRequest, v1.SearchCronjobsResponse]
-	searchRecords *connect.Client[v1.SearchCronjobRecordsRequest, v1.SearchCronjobRecordsResponse]
-	loadRecordLog *connect.Client[v1.LoadCronjobRecordLogRequest, v1.CronjobRecordLog]
-	get           *connect.Client[v1.GetCronjobRequest, v1.Cronjob]
+	search              *connect.Client[v1.SearchCronjobsRequest, v1.SearchCronjobsResponse]
+	searchRecords       *connect.Client[v1.SearchCronjobRecordsRequest, v1.SearchCronjobRecordsResponse]
+	loadRecordLog       *connect.Client[v1.LoadCronjobRecordLogRequest, v1.CronjobRecordLog]
+	get                 *connect.Client[v1.GetCronjobRequest, v1.Cronjob]
+	createCronjob       *connect.Client[v1.CreateCronjobRequest, v1.CreateCronjobResponse]
+	updateCronjob       *connect.Client[v1.UpdateCronjobRequest, v1.UpdateCronjobResponse]
+	deleteCronjobs      *connect.Client[v1.DeleteCronjobsRequest, v1.DeleteCronjobsResponse]
+	updateCronjobGroup  *connect.Client[v1.UpdateCronjobGroupRequest, v1.UpdateCronjobGroupResponse]
+	updateCronjobStatus *connect.Client[v1.UpdateCronjobStatusRequest, v1.UpdateCronjobStatusResponse]
+	handleCronjobOnce   *connect.Client[v1.HandleCronjobOnceRequest, v1.HandleCronjobOnceResponse]
+	stopCronjob         *connect.Client[v1.StopCronjobRequest, v1.StopCronjobResponse]
+	cleanCronjobRecords *connect.Client[v1.CleanCronjobRecordsRequest, v1.CleanCronjobRecordsResponse]
+	loadScriptOptions   *connect.Client[v1.LoadScriptOptionsRequest, v1.ScriptOptionsResponse]
+	loadNextHandle      *connect.Client[v1.LoadNextHandleRequest, v1.LoadNextHandleResponse]
+	importCronjobs      *connect.Client[v1.ImportCronjobsRequest, v1.ImportCronjobsResponse]
 }
 
 // Search calls panel.agent.v1.CronjobService.Search.
@@ -125,6 +257,61 @@ func (c *cronjobServiceClient) Get(ctx context.Context, req *connect.Request[v1.
 	return c.get.CallUnary(ctx, req)
 }
 
+// CreateCronjob calls panel.agent.v1.CronjobService.CreateCronjob.
+func (c *cronjobServiceClient) CreateCronjob(ctx context.Context, req *connect.Request[v1.CreateCronjobRequest]) (*connect.Response[v1.CreateCronjobResponse], error) {
+	return c.createCronjob.CallUnary(ctx, req)
+}
+
+// UpdateCronjob calls panel.agent.v1.CronjobService.UpdateCronjob.
+func (c *cronjobServiceClient) UpdateCronjob(ctx context.Context, req *connect.Request[v1.UpdateCronjobRequest]) (*connect.Response[v1.UpdateCronjobResponse], error) {
+	return c.updateCronjob.CallUnary(ctx, req)
+}
+
+// DeleteCronjobs calls panel.agent.v1.CronjobService.DeleteCronjobs.
+func (c *cronjobServiceClient) DeleteCronjobs(ctx context.Context, req *connect.Request[v1.DeleteCronjobsRequest]) (*connect.Response[v1.DeleteCronjobsResponse], error) {
+	return c.deleteCronjobs.CallUnary(ctx, req)
+}
+
+// UpdateCronjobGroup calls panel.agent.v1.CronjobService.UpdateCronjobGroup.
+func (c *cronjobServiceClient) UpdateCronjobGroup(ctx context.Context, req *connect.Request[v1.UpdateCronjobGroupRequest]) (*connect.Response[v1.UpdateCronjobGroupResponse], error) {
+	return c.updateCronjobGroup.CallUnary(ctx, req)
+}
+
+// UpdateCronjobStatus calls panel.agent.v1.CronjobService.UpdateCronjobStatus.
+func (c *cronjobServiceClient) UpdateCronjobStatus(ctx context.Context, req *connect.Request[v1.UpdateCronjobStatusRequest]) (*connect.Response[v1.UpdateCronjobStatusResponse], error) {
+	return c.updateCronjobStatus.CallUnary(ctx, req)
+}
+
+// HandleCronjobOnce calls panel.agent.v1.CronjobService.HandleCronjobOnce.
+func (c *cronjobServiceClient) HandleCronjobOnce(ctx context.Context, req *connect.Request[v1.HandleCronjobOnceRequest]) (*connect.Response[v1.HandleCronjobOnceResponse], error) {
+	return c.handleCronjobOnce.CallUnary(ctx, req)
+}
+
+// StopCronjob calls panel.agent.v1.CronjobService.StopCronjob.
+func (c *cronjobServiceClient) StopCronjob(ctx context.Context, req *connect.Request[v1.StopCronjobRequest]) (*connect.Response[v1.StopCronjobResponse], error) {
+	return c.stopCronjob.CallUnary(ctx, req)
+}
+
+// CleanCronjobRecords calls panel.agent.v1.CronjobService.CleanCronjobRecords.
+func (c *cronjobServiceClient) CleanCronjobRecords(ctx context.Context, req *connect.Request[v1.CleanCronjobRecordsRequest]) (*connect.Response[v1.CleanCronjobRecordsResponse], error) {
+	return c.cleanCronjobRecords.CallUnary(ctx, req)
+}
+
+// LoadScriptOptions calls panel.agent.v1.CronjobService.LoadScriptOptions.
+func (c *cronjobServiceClient) LoadScriptOptions(ctx context.Context, req *connect.Request[v1.LoadScriptOptionsRequest]) (*connect.Response[v1.ScriptOptionsResponse], error) {
+	return c.loadScriptOptions.CallUnary(ctx, req)
+}
+
+// LoadNextHandle calls panel.agent.v1.CronjobService.LoadNextHandle.
+func (c *cronjobServiceClient) LoadNextHandle(ctx context.Context, req *connect.Request[v1.LoadNextHandleRequest]) (*connect.Response[v1.LoadNextHandleResponse], error) {
+	return c.loadNextHandle.CallUnary(ctx, req)
+}
+
+// ImportCronjobs calls panel.agent.v1.CronjobService.ImportCronjobs.
+func (c *cronjobServiceClient) ImportCronjobs(ctx context.Context, req *connect.Request[v1.ImportCronjobsRequest]) (*connect.Response[v1.ImportCronjobsResponse], error) {
+	return c.importCronjobs.CallUnary(ctx, req)
+}
+
 // CronjobServiceHandler is an implementation of the panel.agent.v1.CronjobService service.
 type CronjobServiceHandler interface {
 	// 分页查询计划任务。
@@ -135,6 +322,28 @@ type CronjobServiceHandler interface {
 	LoadRecordLog(context.Context, *connect.Request[v1.LoadCronjobRecordLogRequest]) (*connect.Response[v1.CronjobRecordLog], error)
 	// 按 ID 查询计划任务详情。
 	Get(context.Context, *connect.Request[v1.GetCronjobRequest]) (*connect.Response[v1.Cronjob], error)
+	// 创建计划任务。
+	CreateCronjob(context.Context, *connect.Request[v1.CreateCronjobRequest]) (*connect.Response[v1.CreateCronjobResponse], error)
+	// 更新计划任务。
+	UpdateCronjob(context.Context, *connect.Request[v1.UpdateCronjobRequest]) (*connect.Response[v1.UpdateCronjobResponse], error)
+	// 批量删除计划任务。
+	DeleteCronjobs(context.Context, *connect.Request[v1.DeleteCronjobsRequest]) (*connect.Response[v1.DeleteCronjobsResponse], error)
+	// 修改计划任务分组。
+	UpdateCronjobGroup(context.Context, *connect.Request[v1.UpdateCronjobGroupRequest]) (*connect.Response[v1.UpdateCronjobGroupResponse], error)
+	// 修改计划任务状态。
+	UpdateCronjobStatus(context.Context, *connect.Request[v1.UpdateCronjobStatusRequest]) (*connect.Response[v1.UpdateCronjobStatusResponse], error)
+	// 手动执行一次计划任务。
+	HandleCronjobOnce(context.Context, *connect.Request[v1.HandleCronjobOnceRequest]) (*connect.Response[v1.HandleCronjobOnceResponse], error)
+	// 停止正在执行的计划任务。
+	StopCronjob(context.Context, *connect.Request[v1.StopCronjobRequest]) (*connect.Response[v1.StopCronjobResponse], error)
+	// 清空计划任务执行记录。
+	CleanCronjobRecords(context.Context, *connect.Request[v1.CleanCronjobRecordsRequest]) (*connect.Response[v1.CleanCronjobRecordsResponse], error)
+	// 列出可选的脚本。
+	LoadScriptOptions(context.Context, *connect.Request[v1.LoadScriptOptionsRequest]) (*connect.Response[v1.ScriptOptionsResponse], error)
+	// 根据 Cron 表达式计算接下来几次执行时间。
+	LoadNextHandle(context.Context, *connect.Request[v1.LoadNextHandleRequest]) (*connect.Response[v1.LoadNextHandleResponse], error)
+	// 导入计划任务。
+	ImportCronjobs(context.Context, *connect.Request[v1.ImportCronjobsRequest]) (*connect.Response[v1.ImportCronjobsResponse], error)
 }
 
 // NewCronjobServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -168,6 +377,72 @@ func NewCronjobServiceHandler(svc CronjobServiceHandler, opts ...connect.Handler
 		connect.WithSchema(cronjobServiceMethods.ByName("Get")),
 		connect.WithHandlerOptions(opts...),
 	)
+	cronjobServiceCreateCronjobHandler := connect.NewUnaryHandler(
+		CronjobServiceCreateCronjobProcedure,
+		svc.CreateCronjob,
+		connect.WithSchema(cronjobServiceMethods.ByName("CreateCronjob")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceUpdateCronjobHandler := connect.NewUnaryHandler(
+		CronjobServiceUpdateCronjobProcedure,
+		svc.UpdateCronjob,
+		connect.WithSchema(cronjobServiceMethods.ByName("UpdateCronjob")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceDeleteCronjobsHandler := connect.NewUnaryHandler(
+		CronjobServiceDeleteCronjobsProcedure,
+		svc.DeleteCronjobs,
+		connect.WithSchema(cronjobServiceMethods.ByName("DeleteCronjobs")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceUpdateCronjobGroupHandler := connect.NewUnaryHandler(
+		CronjobServiceUpdateCronjobGroupProcedure,
+		svc.UpdateCronjobGroup,
+		connect.WithSchema(cronjobServiceMethods.ByName("UpdateCronjobGroup")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceUpdateCronjobStatusHandler := connect.NewUnaryHandler(
+		CronjobServiceUpdateCronjobStatusProcedure,
+		svc.UpdateCronjobStatus,
+		connect.WithSchema(cronjobServiceMethods.ByName("UpdateCronjobStatus")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceHandleCronjobOnceHandler := connect.NewUnaryHandler(
+		CronjobServiceHandleCronjobOnceProcedure,
+		svc.HandleCronjobOnce,
+		connect.WithSchema(cronjobServiceMethods.ByName("HandleCronjobOnce")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceStopCronjobHandler := connect.NewUnaryHandler(
+		CronjobServiceStopCronjobProcedure,
+		svc.StopCronjob,
+		connect.WithSchema(cronjobServiceMethods.ByName("StopCronjob")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceCleanCronjobRecordsHandler := connect.NewUnaryHandler(
+		CronjobServiceCleanCronjobRecordsProcedure,
+		svc.CleanCronjobRecords,
+		connect.WithSchema(cronjobServiceMethods.ByName("CleanCronjobRecords")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceLoadScriptOptionsHandler := connect.NewUnaryHandler(
+		CronjobServiceLoadScriptOptionsProcedure,
+		svc.LoadScriptOptions,
+		connect.WithSchema(cronjobServiceMethods.ByName("LoadScriptOptions")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceLoadNextHandleHandler := connect.NewUnaryHandler(
+		CronjobServiceLoadNextHandleProcedure,
+		svc.LoadNextHandle,
+		connect.WithSchema(cronjobServiceMethods.ByName("LoadNextHandle")),
+		connect.WithHandlerOptions(opts...),
+	)
+	cronjobServiceImportCronjobsHandler := connect.NewUnaryHandler(
+		CronjobServiceImportCronjobsProcedure,
+		svc.ImportCronjobs,
+		connect.WithSchema(cronjobServiceMethods.ByName("ImportCronjobs")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.CronjobService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case CronjobServiceSearchProcedure:
@@ -178,6 +453,28 @@ func NewCronjobServiceHandler(svc CronjobServiceHandler, opts ...connect.Handler
 			cronjobServiceLoadRecordLogHandler.ServeHTTP(w, r)
 		case CronjobServiceGetProcedure:
 			cronjobServiceGetHandler.ServeHTTP(w, r)
+		case CronjobServiceCreateCronjobProcedure:
+			cronjobServiceCreateCronjobHandler.ServeHTTP(w, r)
+		case CronjobServiceUpdateCronjobProcedure:
+			cronjobServiceUpdateCronjobHandler.ServeHTTP(w, r)
+		case CronjobServiceDeleteCronjobsProcedure:
+			cronjobServiceDeleteCronjobsHandler.ServeHTTP(w, r)
+		case CronjobServiceUpdateCronjobGroupProcedure:
+			cronjobServiceUpdateCronjobGroupHandler.ServeHTTP(w, r)
+		case CronjobServiceUpdateCronjobStatusProcedure:
+			cronjobServiceUpdateCronjobStatusHandler.ServeHTTP(w, r)
+		case CronjobServiceHandleCronjobOnceProcedure:
+			cronjobServiceHandleCronjobOnceHandler.ServeHTTP(w, r)
+		case CronjobServiceStopCronjobProcedure:
+			cronjobServiceStopCronjobHandler.ServeHTTP(w, r)
+		case CronjobServiceCleanCronjobRecordsProcedure:
+			cronjobServiceCleanCronjobRecordsHandler.ServeHTTP(w, r)
+		case CronjobServiceLoadScriptOptionsProcedure:
+			cronjobServiceLoadScriptOptionsHandler.ServeHTTP(w, r)
+		case CronjobServiceLoadNextHandleProcedure:
+			cronjobServiceLoadNextHandleHandler.ServeHTTP(w, r)
+		case CronjobServiceImportCronjobsProcedure:
+			cronjobServiceImportCronjobsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -201,4 +498,48 @@ func (UnimplementedCronjobServiceHandler) LoadRecordLog(context.Context, *connec
 
 func (UnimplementedCronjobServiceHandler) Get(context.Context, *connect.Request[v1.GetCronjobRequest]) (*connect.Response[v1.Cronjob], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.Get is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) CreateCronjob(context.Context, *connect.Request[v1.CreateCronjobRequest]) (*connect.Response[v1.CreateCronjobResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.CreateCronjob is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) UpdateCronjob(context.Context, *connect.Request[v1.UpdateCronjobRequest]) (*connect.Response[v1.UpdateCronjobResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.UpdateCronjob is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) DeleteCronjobs(context.Context, *connect.Request[v1.DeleteCronjobsRequest]) (*connect.Response[v1.DeleteCronjobsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.DeleteCronjobs is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) UpdateCronjobGroup(context.Context, *connect.Request[v1.UpdateCronjobGroupRequest]) (*connect.Response[v1.UpdateCronjobGroupResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.UpdateCronjobGroup is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) UpdateCronjobStatus(context.Context, *connect.Request[v1.UpdateCronjobStatusRequest]) (*connect.Response[v1.UpdateCronjobStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.UpdateCronjobStatus is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) HandleCronjobOnce(context.Context, *connect.Request[v1.HandleCronjobOnceRequest]) (*connect.Response[v1.HandleCronjobOnceResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.HandleCronjobOnce is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) StopCronjob(context.Context, *connect.Request[v1.StopCronjobRequest]) (*connect.Response[v1.StopCronjobResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.StopCronjob is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) CleanCronjobRecords(context.Context, *connect.Request[v1.CleanCronjobRecordsRequest]) (*connect.Response[v1.CleanCronjobRecordsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.CleanCronjobRecords is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) LoadScriptOptions(context.Context, *connect.Request[v1.LoadScriptOptionsRequest]) (*connect.Response[v1.ScriptOptionsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.LoadScriptOptions is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) LoadNextHandle(context.Context, *connect.Request[v1.LoadNextHandleRequest]) (*connect.Response[v1.LoadNextHandleResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.LoadNextHandle is not implemented"))
+}
+
+func (UnimplementedCronjobServiceHandler) ImportCronjobs(context.Context, *connect.Request[v1.ImportCronjobsRequest]) (*connect.Response[v1.ImportCronjobsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.CronjobService.ImportCronjobs is not implemented"))
 }
