@@ -1,68 +1,58 @@
-import { CommonModel, ReqPage } from '.';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    HostSchema,
+    HostGroupSchema,
+    HostTreeChildSchema,
+    HostTreeRequestSchema,
+    SearchHostsRequestSchema,
+    CreateHostRequestSchema,
+    UpdateHostRequestSchema,
+    UpdateHostGroupRequestSchema,
+    TestHostInfoRequestSchema,
+    ComponentInfoSchema,
+    DiskPartBaseSchema,
+    DiskDetailSchema,
+    CompleteDiskDetailSchema,
+    PartitionDiskRequestSchema,
+    MountDiskRequestSchema,
+    UnmountDiskRequestSchema,
+    DiagnosticsSummarySchema,
+    GoroutineGroupSchema,
+    GoroutineSnapshotSchema,
+    CreateDiagnosticsProfileRequestSchema,
+} from '@/gen/panel/agent/v1/host_pb';
+
+type Init<T extends DescMessage> = MessageInitShape<T>;
 
 export namespace Host {
-    export interface HostTree {
-        id: number;
-        label: string;
-        children: Array<TreeNode>;
-    }
-    export interface TreeNode {
-        id: number;
-        label: string;
-    }
-    export interface Host extends CommonModel {
-        name: string;
+    export type TreeNode = Init<typeof HostTreeChildSchema>;
+    export type HostTree = Init<typeof HostGroupSchema>;
+
+    // 主机展示信息：凭据字段不进入 proto，由展示层自行补充；groupID 保留旧字段名。
+    export type Host = Init<typeof HostSchema> & {
         groupID: number;
-        groupBelong: string;
-        addr: string;
-        port: number;
-        user: string;
-        authMode: string;
         password: string;
         privateKey: string;
         passPhrase: string;
         rememberPassword: boolean;
-        description: string;
-    }
-    export interface HostOperate {
-        isLocal: boolean;
-        id: number;
-        name: string;
+        updatedAt?: string;
+    };
+
+    export type HostOperate = Init<typeof UpdateHostRequestSchema> & {
         groupID: number;
-        addr: string;
-        port: number;
-        user: string;
-        authMode: string;
-        password: string;
-        privateKey: string;
-        passPhrase: string;
-        rememberPassword: boolean;
-
-        description: string;
-    }
-    export interface HostConnTest {
         isLocal: boolean;
-        addr: string;
-        port: number;
-        user: string;
-        authMode: string;
-        privateKey: string;
-        passPhrase: string;
-        password: string;
+    };
 
+    export type HostConnTest = Init<typeof TestHostInfoRequestSchema> & {
+        isLocal: boolean;
         localSSHConnShow: string;
-    }
-    export interface GroupChange {
-        id: number;
-        groupID: number;
-    }
-    export interface ReqSearch {
-        info?: string;
-    }
-    export interface SearchWithPage extends ReqPage {
-        groupID: number;
-        info?: string;
-    }
+    };
+
+    export type GroupChange = Init<typeof UpdateHostGroupRequestSchema> & { groupID: number };
+
+    export type ReqSearch = Init<typeof HostTreeRequestSchema>;
+
+    export type SearchWithPage = Init<typeof SearchHostsRequestSchema> & { groupID: number };
 
     export interface MonitorSetting {
         gpuMonitorStatus: string;
@@ -87,29 +77,25 @@ export namespace Host {
         endTime: Date;
     }
 
-    export interface RuntimeDiagnosticsSummary {
+    // 内存统计字段在 proto 中为 uint64（bigint），展示层按 number 处理。
+    export type RuntimeDiagnosticsSummary = Omit<
+        Init<typeof DiagnosticsSummarySchema>,
+        'rss' | 'heapAlloc' | 'heapObjects'
+    > & {
         rss: number;
         heapAlloc: number;
         heapObjects: number;
-        goroutines: number;
-    }
-    export interface RuntimeGoroutineGroup {
-        state: string;
-        top: string;
-        count: number;
-        stack: string[];
-    }
-    export interface RuntimeGoroutineSnapshot {
-        total: number;
-        groupCount: number;
-        truncated: boolean;
-        capturedAt: string;
-        goroutines: RuntimeGoroutineGroup[];
-    }
-    export interface RuntimeProfileCreate {
-        type: 'cpu' | 'heap' | 'goroutine' | 'mutex' | 'block';
+    };
+    export type RuntimeGoroutineGroup = Init<typeof GoroutineGroupSchema>;
+    export type RuntimeGoroutineSnapshot = Init<typeof GoroutineSnapshotSchema>;
+    export type RuntimeProfileCreate = Omit<
+        Init<typeof CreateDiagnosticsProfileRequestSchema>,
+        '$typeName' | '$unknown' | 'type' | 'duration'
+    > & {
+        type: string;
         duration: number;
-    }
+    };
+
     export interface SSHInfo {
         autoStart: boolean;
         isActive: boolean;
@@ -148,14 +134,18 @@ export namespace Host {
         publicKey: string;
         privateKey: string;
     }
-    export interface searchSSHLog extends ReqPage {
+    export interface searchSSHLog {
         info: string;
         status: string;
         startTime?: string | Date;
         endTime?: string | Date;
+        page: number;
+        pageSize: number;
     }
-    export interface analysisSSHLog extends ReqPage {
+    export interface analysisSSHLog {
         orderBy: string;
+        page: number;
+        pageSize: number;
     }
     export interface sshHistory {
         date: Date;
@@ -168,57 +158,23 @@ export namespace Host {
         message: string;
     }
 
-    export interface DiskBasicInfo {
-        device: string;
-        size: string;
-        model: string;
-        diskType: string;
-        isRemovable: boolean;
-        isSystem: boolean;
-        filesystem: string;
-        used: string;
-        avail: string;
-        usePercent: number;
-        mountPoint: string;
-        isMounted: boolean;
-        serial: string;
-    }
+    export type DiskBasicInfo = Init<typeof DiskPartBaseSchema>;
 
-    export interface DiskInfo extends DiskBasicInfo {
+    // DiskCard 同时接收 DiskDetail（已分区）与 DiskPartBase（未分区），去掉 $typeName 以兼容两者。
+    export type DiskInfo = Omit<Init<typeof DiskDetailSchema>, '$typeName' | '$unknown'> & {
         partitions?: DiskBasicInfo[];
-    }
+    };
 
-    export interface CompleteDiskInfo {
-        disks: DiskInfo[];
-        unpartitionedDisks: DiskBasicInfo[];
-        systemDisks?: DiskInfo[];
-        totalDisks: number;
+    // 总容量在 proto 中为 uint64（bigint），展示层按 number 处理。
+    export type CompleteDiskInfo = Omit<Init<typeof CompleteDiskDetailSchema>, 'totalCapacity'> & {
         totalCapacity: number;
-    }
+    };
 
-    export interface DiskPartition {
-        device: string;
-        filesystem: string;
-        label: string;
-        autoMount: boolean;
-        mountPoint: string;
-        noFail: boolean;
-    }
+    export type DiskPartition = Init<typeof PartitionDiskRequestSchema>;
 
-    export interface DiskMount {
-        device: string;
-        mountPoint: string;
-        filesystem?: string;
-    }
+    export type DiskMount = Init<typeof MountDiskRequestSchema>;
 
-    export interface DiskUmount {
-        mountPoint: string;
-    }
+    export type DiskUmount = Init<typeof UnmountDiskRequestSchema>;
 
-    export interface ComponentInfo {
-        exists: boolean;
-        version: string;
-        path: string;
-        error: string;
-    }
+    export type ComponentInfo = Init<typeof ComponentInfoSchema>;
 }

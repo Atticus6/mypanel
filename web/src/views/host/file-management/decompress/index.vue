@@ -285,7 +285,7 @@ const submit = async (formEl: FormInstance | undefined) => {
             return;
         }
         const taskID = newUUID();
-        form.value.taskID = taskID;
+        form.value.taskId = taskID;
         canceling.value = false;
         abortController.value = new AbortController();
         loading.value = true;

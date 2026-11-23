@@ -22,7 +22,8 @@ import FileRole from '@/components/file-role/index.vue';
 import { MsgSuccess } from '@/utils/message';
 
 const open = ref(false);
-const form = ref<File.FileCreate>({ path: '', isDir: false, mode: 0o755 });
+interface RoleForm { path: string; isDir: boolean; mode: number; isLink?: boolean; sub?: boolean; name?: string }
+const form = ref<RoleForm>({ path: '', isDir: false, mode: 0o755 });
 const loading = ref(false);
 const mode = ref('0755');
 const name = ref('');
@@ -33,7 +34,7 @@ const handleClose = () => {
     em('close', false);
 };
 
-const acceptParams = (create: File.FileCreate) => {
+const acceptParams = (create: RoleForm) => {
     open.value = true;
     form.value.isDir = create.isDir;
     form.value.path = create.path;

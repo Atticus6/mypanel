@@ -1,82 +1,87 @@
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
 import { AI } from './ai';
-import { ReqPage, CommonModel } from '.';
+import {
+    AppDetailSchema,
+    AppTagSchema,
+    AppItemSchema,
+    SearchAppsResponseSchema,
+    SearchAppsRequestSchema,
+    SearchInstalledAppsRequestSchema,
+    InstallAppRequestSchema,
+    InstalledAppSchema,
+    InstalledInfoSchema,
+    InstalledAppBriefSchema,
+    AppInstalledCheckSchema,
+    LoadAppConnInfoResponseSchema,
+    AppResourceSchema,
+    OperateAppRequestSchema,
+    AppServiceItemSchema,
+    AppVersionSchema,
+    IgnoredAppSchema,
+    UpdateVersionsRequestSchema,
+    IgnoreAppUpgradeRequestSchema,
+    CancelIgnoreAppUpgradeRequestSchema,
+    SyncAppsRequestSchema,
+    UpdateInstalledConfigRequestSchema,
+    ChangeAppPortRequestSchema,
+} from '@/gen/panel/agent/v1/app_pb';
+
+type Init<T extends DescMessage> = MessageInitShape<T>;
+
+interface Locale {
+    zh: string;
+    en: string;
+    'zh-Hant': string;
+    ja: string;
+    ms: string;
+    'pt-br': string;
+    ru: string;
+    ko: string;
+    tr: string;
+    'es-es': string;
+    fa: string;
+    lo: string;
+}
 
 export namespace App {
     export interface LocalAppSyncConfig {
         enabled: boolean;
     }
-    export interface App extends CommonModel {
-        name: string;
-        icon?: string;
-        key: string;
+
+    // 应用展示信息：应用市场专有的文案字段不进入 proto，由展示层补充。
+    export type App = Omit<Init<typeof AppDetailSchema>, 'tags'> & {
         tags: Tag[];
         shortDescZh: string;
         shortDescEn: string;
-        description: string;
         author: string;
         source: string;
-        type: string;
-        status: string;
-        limit: number;
         website?: string;
         github?: string;
-        readme: string;
         batchInstallSupport: boolean;
-    }
+        createdAt?: string;
+        updatedAt?: string;
+    };
 
-    interface Locale {
-        zh: string;
-        en: string;
-        'zh-Hant': string;
-        ja: string;
-        ms: string;
-        'pt-br': string;
-        ru: string;
-        ko: string;
-        tr: string;
-        'es-es': string;
-        fa: string;
-        lo: string;
-    }
-
-    export interface AppDTO extends App {
+    export type AppDTO = App & {
         versions: string[];
         installed: boolean;
         architectures: string;
-    }
+    };
 
-    export interface Tag {
-        key: string;
-        name: string;
-        sort: number;
-    }
+    export type Tag = Init<typeof AppTagSchema> & { sort: number };
 
-    export interface AppItem {
-        name: string;
-        icon?: string;
-        key: string;
-        id: number;
-        description: string;
-        status: string;
-        installed: boolean;
-        limit: number;
-        tags: string[];
-        gpuSupport: boolean;
-        recommend: number;
-        batchInstallSupport: boolean;
-    }
+    export type AppItem = Init<typeof AppItemSchema>;
 
-    export interface AppResPage {
-        total: number;
-        items: AppItem[];
-    }
+    // total 在 proto 中为 int64（bigint），展示层按 number 处理。
+    export type AppResPage = Omit<Init<typeof SearchAppsResponseSchema>, 'total'> & { total: number };
 
     export interface AppUpdateRes {
         version: string;
         canUpdate: boolean;
     }
 
-    export interface AppDetail extends CommonModel {
+    export interface AppDetail {
+        id: number;
         appId: number;
         icon: string;
         version: string;
@@ -88,16 +93,11 @@ export namespace App {
         memoryRequired: number;
         architectures: string;
         gpuSupport: boolean;
+        createdAt?: string;
+        updatedAt?: string;
     }
 
-    export interface AppReq extends ReqPage {
-        name?: string;
-        tags?: string[];
-        type?: string;
-        recommend?: boolean;
-        resource?: string;
-        showCurrentArch?: boolean;
-    }
+    export type AppReq = Init<typeof SearchAppsRequestSchema>;
 
     export interface AppParams {
         formFields: FromField[];
@@ -137,166 +137,75 @@ export namespace App {
         from?: '';
     }
 
-    export interface AppInstall {
+    export type AppInstall = Init<typeof InstallAppRequestSchema> & {
+        taskID: string;
+        params: any;
         gpu?: AI.ModelGPUConfig;
         syncModelAccount?: boolean;
         modelAccountBaseURLType?: string;
         modelAccountBaseURL?: string;
-        appDetailId: number;
-        params: any;
-        taskID: string;
-        name: string;
-    }
+    };
 
-    export interface AppInstallSearch extends ReqPage {
-        name?: string;
-        tags?: string[];
-        update?: boolean;
-        unused?: boolean;
-        sync?: boolean;
-    }
-    export interface ChangePort {
-        key: string;
-        name: string;
-        port: number;
-    }
+    export type AppInstallSearch = Init<typeof SearchInstalledAppsRequestSchema> & { sync?: boolean };
 
-    export interface AppInstalled extends CommonModel {
-        name: string;
+    export type ChangePort = Omit<Init<typeof ChangeAppPortRequestSchema>, 'port'> & { port: number };
+
+    // appDetailId 在 proto 中为 uint32，展示层按字符串处理。
+    export type AppInstalled = Omit<Init<typeof InstalledAppSchema>, 'appDetailId'> & {
         appID: number;
         appDetailId: string;
-        env: string;
-        status: string;
-        description: string;
-        message: string;
-        icon: string;
-        canUpdate: boolean;
-        path: string;
-        httpPort?: number;
-        httpsPort?: number;
-        favorite: boolean;
-        app: App;
         webUI: string;
-        appKey?: string;
+        env: string;
+        description: string;
+        app: App;
         serviceName: string;
-        appStatus?: string;
-        appType?: string;
-        version?: string;
-    }
+        updatedAt?: string;
+    };
 
-    export interface AppInstalledInfo {
-        id: number;
-        name: string;
-        version: string;
-        status: string;
-        message: string;
-        httpPort: number;
-        container: string;
+    export type AppInstalledInfo = Init<typeof InstalledInfoSchema> & {
         env: { [key: string]: any };
-        appKey: string;
-    }
+    };
 
-    export interface AppInstallDto {
+    export type AppInstallDto = Init<typeof InstalledAppSchema> & {
         taskID?: string;
-        id: number;
-        name: string;
         appID: number;
         appDetailID: number;
-        version: string;
-        status: string;
-        message: string;
-        httpPort: number;
-        httpsPort: number;
-        path: string;
-        canUpdate: boolean;
-        icon: string;
-        appName: string;
         ready: number;
         total: number;
-        appKey: string;
-        appType: string;
-        appStatus: string;
         isEdit: boolean;
         dockerCompose: string;
-        app: App.AppDetail;
+        app: AppDetail;
         linkDB: boolean;
         resourceKeys?: string[];
         env?: { [key: string]: any };
-    }
+    };
 
-    export interface AppInstalledOption {
-        id: number;
-        key: string;
-        name: string;
-    }
+    export type AppInstalledOption = Init<typeof InstalledAppBriefSchema>;
 
-    export interface CheckInstalled {
+    export type CheckInstalled = Init<typeof AppInstalledCheckSchema> & {
         taskID?: string;
-        name: string;
-        version: string;
-        isExist: boolean;
         modelAccountBaseURLType: string;
         modelAccountBaseURL: string;
-        app: string;
-        status: string;
-        createdAt: string;
-        lastBackupAt: string;
-        appInstallId: number;
-        containerName: string;
-        installPath: string;
-        httpPort: number;
-        httpsPort: number;
-        websiteDir: string;
-    }
+    };
 
-    export interface DatabaseConnInfo {
-        status: string;
-        username: string;
-        password: string;
-        privilege: boolean;
-        containerName: string;
-        serviceName: string;
-        systemIP: string;
+    // port 在 proto 中为 int64（bigint），展示层按 number 处理。
+    export type DatabaseConnInfo = Omit<Init<typeof LoadAppConnInfoResponseSchema>, 'port'> & {
         port: number;
-    }
-    export interface AppInstallResource {
-        type: string;
-        name: string;
-    }
+        systemIP: string;
+    };
 
-    export interface AppInstalledOp {
-        feishuTransition?: AI.AgentFeishuTransition;
-        installId: number;
-        operate: string;
-        backupId?: number;
-        detailId?: number;
-        forceDelete?: boolean;
-        deleteBackup?: boolean;
-        deleteImage?: boolean;
+    export type AppInstallResource = Init<typeof AppResourceSchema>;
+
+    export type AppInstalledOp = Init<typeof OperateAppRequestSchema> & {
         taskID?: string;
-    }
+        feishuTransition?: AI.AgentFeishuTransition;
+    };
 
-    export interface AppInstalledSearch extends ReqPage {
-        type: string;
-        unused?: boolean;
-        all?: boolean;
-    }
+    export type AppInstalledSearch = Init<typeof SearchInstalledAppsRequestSchema>;
 
-    export interface AppService {
-        label: string;
-        value: string;
-        config?: object;
-        from?: string;
-        status: string;
-    }
+    export type AppService = Init<typeof AppServiceItemSchema> & { config?: object };
 
-    export interface VersionDetail {
-        feishuLegacy?: boolean;
-        feishuConfigured?: boolean;
-        version: string;
-        detailId: number;
-        dockerCompose?: string;
-    }
+    export type VersionDetail = Init<typeof AppVersionSchema>;
 
     export interface InstallParams {
         labelZh: string;
@@ -338,37 +247,23 @@ export namespace App {
         restartPolicy: string;
     }
 
-    export interface IgnoredApp {
-        name: string;
-        detailID: number;
-        version: string;
-        scope: string;
-    }
+    export type IgnoredApp = Init<typeof IgnoredAppSchema> & { detailID: number };
 
-    export interface AppUpdateVersionReq {
-        appInstallID: number;
-        updateVersion?: string;
-        loadCompose?: boolean;
-    }
+    export type AppUpdateVersionReq = Init<typeof UpdateVersionsRequestSchema> & { appInstallID: number };
 
-    export interface AppIgnoreReq {
+    export type AppIgnoreReq = Init<typeof IgnoreAppUpgradeRequestSchema> & {
         appID: number;
         appDetailID: number;
-        scope: string;
-    }
+    };
 
-    export interface CancelAppIgnore {
-        id: number;
-    }
+    export type CancelAppIgnore = Init<typeof CancelIgnoreAppUpgradeRequestSchema>;
 
-    export interface AppStoreSync {
-        taskID: string;
-    }
+    export type AppStoreSync = Init<typeof SyncAppsRequestSchema> & { taskID: string };
 
-    export interface AppConfigUpdate {
+    export type AppConfigUpdate = Init<typeof UpdateInstalledConfigRequestSchema> & {
         installID: number;
         webUI: string;
-    }
+    };
 
     export interface AppStoreConfig {
         uninstallDeleteImage: string;
@@ -388,9 +283,9 @@ export namespace App {
         imagePrefix: string;
     }
 
-    export interface InstallAppToNodes extends AppInstall {
+    export type InstallAppToNodes = AppInstall & {
         nodes: string[];
         appKey: string;
         version: string;
-    }
+    };
 }

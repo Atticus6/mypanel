@@ -587,14 +587,14 @@
                                         </div>
                                         <div class="file-row__actions">
                                             <el-button
-                                                v-if="row.favoriteID > 0"
+                                                v-if="row.favoriteId > 0"
                                                 v-permission
                                                 v-node-admin
                                                 link
                                                 type="warning"
                                                 size="large"
                                                 icon="StarFilled"
-                                                @click="remove(row.favoriteID)"
+                                                @click="remove(row.favoriteId)"
                                             ></el-button>
                                             <div v-else>
                                                 <el-button
@@ -2172,16 +2172,16 @@ const afterButtons = [
         click: (row: File.File) => {
             addToFavorite(row);
         },
-        show: (row: File.File) => row?.favoriteID === 0,
+        show: (row: File.File) => row?.favoriteId === 0,
     },
     {
         label: i18n.global.t('file.removeFavoriteAction'),
         permission: true,
         nodeAdmin: true,
         click: (row: File.File) => {
-            remove(row?.favoriteID);
+            remove(row?.favoriteId);
         },
-        show: (row: File.File) => row?.favoriteID > 0,
+        show: (row: File.File) => row?.favoriteId > 0,
     },
     {
         label: i18n.global.t('file.shareFile'),

@@ -1,114 +1,57 @@
-import { DateTimeFormats } from '@intlify/core-base';
-import { ReqPage } from '.';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    ReadSystemLogsRequestSchema,
+    SystemLogBatchSchema,
+    SystemLogEntrySchema,
+    SystemLogStatusSchema,
+    ReadTaskLogsRequestSchema,
+} from '@/gen/panel/agent/v1/log_pb';
+import { SearchTasksRequestSchema, TaskSchema } from '@/gen/panel/agent/v1/task_pb';
+import {
+    CleanLogsRequestSchema,
+    LoginLogEntrySchema,
+    OperationLogEntrySchema,
+    SearchLoginLogsRequestSchema,
+    SearchOperationLogsRequestSchema,
+} from '@/gen/panel/core/v1/log_pb';
 
+// 剥掉 protobuf 内部元字段，避免不同消息的 $typeName/$unknown 字面量类型互相冲突。
+type Init<T extends DescMessage> = Omit<MessageInitShape<T>, '$typeName' | '$unknown'>;
+
+// 日志域 DTO 统一来自 proto 生成类型；只保留旧页面仍在用的字段名兼容别名。
 export namespace Log {
-    export interface OperationLog {
-        id: number;
-        source: string;
-        user: string;
+    export type OperationLog = Omit<Init<typeof OperationLogEntrySchema>, 'latencyMs' | 'createdAt'> & {
         apiKeyID?: string;
-        apiKeyName?: string;
-        authMethod?: string;
-        node: string;
-        ip: string;
-        path: string;
-        method: string;
-        userAgent: string;
-        status: string;
-        latency: number;
-        message: string;
-        detailZH: string;
-        detailEN: string;
-        createdAt: DateTimeFormats;
-    }
-    export interface SearchOpLog extends ReqPage {
-        source: string;
-        status: string;
-        operation: string;
-        node?: string;
-    }
-    export interface SearchLgLog extends ReqPage {
-        info: string;
-        status: string;
-        startTime?: string | Date;
-        endTime?: string | Date;
-    }
-    export interface LoginLogs {
-        ip: string;
-        user: string;
-        address: string;
-        agent: string;
-        status: string;
-        message: string;
-        createdAt: DateTimeFormats;
-    }
-    export interface CleanLog {
-        logType: string;
-    }
+        detailZH?: string;
+        detailEN?: string;
+        latency?: number;
+        createdAt?: string;
+    };
+    export type SearchOpLog = Init<typeof SearchOperationLogsRequestSchema>;
+    export type SearchLgLog = Init<typeof SearchLoginLogsRequestSchema>;
+    export type LoginLogs = Init<typeof LoginLogEntrySchema>;
+    export type CleanLog = Init<typeof CleanLogsRequestSchema>;
 
-    export interface SystemLog {
-        source: string;
-        items: SystemLogItem[];
-        hasMore: boolean;
-        nextCursor: string;
-    }
-
-    export interface SystemLogStatus {
+    export type SystemLog = Omit<Init<typeof SystemLogBatchSchema>, 'items'> & { items: SystemLogItem[] };
+    export type SystemLogStatus = Omit<Init<typeof SystemLogStatusSchema>, 'source'> & {
         source: 'journalctl' | 'file';
-        version: string;
-        keywordFilterSupported: boolean;
-        message: string;
-    }
+    };
+    export type SystemLogSearch = Init<typeof ReadSystemLogsRequestSchema>;
+    export type SystemLogItem = Init<typeof SystemLogEntrySchema>;
 
-    export interface SystemLogSearch {
-        pageSize: number;
-        cursor?: string;
-        startTime?: Date;
-        endTime?: Date;
-        keyword?: string;
-        priority?: string;
-        service?: string;
-    }
-
-    export interface SystemLogItem {
-        time: string;
-        priority: string;
-        service: string;
-        message: string;
-        raw: string;
-    }
-
-    export interface SearchTaskReq extends ReqPage {
-        type: string;
-        status: string;
-        taskID?: string;
-    }
-
-    export interface TaskLogReadReq {
-        page: number;
-        pageSize: number;
-        latest?: boolean;
-        taskID?: string;
-        taskType?: string;
-        taskOperate?: string;
+    export type SearchTaskReq = Init<typeof SearchTasksRequestSchema> & { taskID?: string };
+    export type TaskLogReadReq = Init<typeof ReadTaskLogsRequestSchema> & { taskID?: string; resourceID?: number };
+    export type Task = Omit<
+        Init<typeof TaskSchema>,
+        'operationLogId' | 'resourceId' | 'endAt' | 'createdAt'
+    > & {
+        operationLogID?: number;
         resourceID?: number;
-    }
-
-    export interface Task {
-        id: string;
-        name: string;
-        type: string;
-        logFile: string;
-        status: string;
-        errorMsg: string;
-        operationLogID: number;
-        resourceID: number;
-        currentStep: string;
-        progressCurrent: number;
-        progressTotal: number;
-        progressPercent: number;
-        progressMessage: string;
-        endAt: Date;
-        createdAt: Date;
-    }
+        endAt?: Date;
+        createdAt?: Date;
+        progressCurrent?: number;
+        progressTotal?: number;
+        progressPercent?: number;
+        progressMessage?: string;
+    };
 }

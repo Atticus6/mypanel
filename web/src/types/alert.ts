@@ -1,26 +1,41 @@
-import { CommonModel, ReqPage } from '@/types';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
 import type { CronjobAlertTriggerMode } from '@/utils/cronjob-alert';
+import {
+    AlertSchema,
+    AlertDiskSchema,
+    AlertLogEntrySchema,
+    AlertClamSchema,
+    AlertCronJobSchema,
+    CreateAlertRequestSchema,
+    UpdateAlertRequestSchema,
+    UpdateAlertStatusRequestSchema,
+    DeleteAlertRequestSchema,
+    SearchAlertsRequestSchema,
+    SearchAlertLogsRequestSchema,
+    GetAlertCronJobsRequestSchema,
+    AlertConfigEntrySchema,
+    SearchAlertConfigsRequestSchema,
+    GetAlertConfigRequestSchema,
+    UpdateAlertConfigRequestSchema,
+    UpdateAlertConfigStatusRequestSchema,
+    TestAlertConfigRequestSchema,
+    TestAlertConfigResponseSchema,
+} from '@/gen/panel/agent/v1/alert_pb';
+
+type Init<T extends DescMessage> = MessageInitShape<T>;
 
 export namespace Alert {
-    export interface AlertInfo extends CommonModel {
+    // 去掉 $typeName/$unknown，避免展开到其它 RPC 入参时携带错误的消息类型名。
+    export type AlertInfo = Omit<Init<typeof AlertSchema>, '$typeName' | '$unknown'> & {
         type: string;
-        subType: string;
-        cycle: number;
-        count: number;
-        interval: number;
-        method: string;
         title: string;
-        taskName?: string;
-        project: string;
-        status: string;
-        sendCount: number;
+        subType: string;
+        interval: number;
         sendMethod: string[];
-        advancedParams: string;
         alertTriggerMode?: CronjobAlertTriggerMode;
-        createUser?: string;
-        updateUser?: string;
-    }
+    };
 
+    // 告警详情由 alert_detail_json 透传，组件按字段自行展示。
     export interface AlertDetail {
         type: string;
         subType?: string;
@@ -31,105 +46,42 @@ export namespace Alert {
         params: { index: string; key: string; value: string }[] | string;
     }
 
-    export interface AlertUpdateStatusReq {
-        id: number;
-        status: string;
-    }
+    export type AlertUpdateStatusReq = Init<typeof UpdateAlertStatusRequestSchema>;
 
-    export interface AlertLog extends CommonModel {
-        alertId: number;
+    export type AlertLog = Init<typeof AlertLogEntrySchema> & {
         alertDetail: AlertDetail;
         alertRule: AlertInfo;
-        count: number;
-        message: string;
-        status: string;
-        method: string;
-    }
+    };
 
-    export interface DisksDTO {
-        path: string;
-        type: string;
-        device: string;
+    // 容量字段在 proto 中为 uint64（bigint），展示层按 number 处理。
+    export type DisksDTO = Omit<Init<typeof AlertDiskSchema>, 'total' | 'free' | 'used' | 'inodesTotal' | 'inodesUsed' | 'inodesFree'> & {
         total: number;
         free: number;
         used: number;
-        usedPercent: number;
         inodesTotal: number;
         inodesUsed: number;
         inodesFree: number;
-        inodesUsedPercent: number;
-    }
+    };
 
-    export interface AlertSearch extends ReqPage {
-        type: string;
-        status: string;
-        method: string;
-        orderBy: string;
-        order: string;
-    }
+    export type AlertSearch = Init<typeof SearchAlertsRequestSchema>;
 
-    export interface AlertCreateReq {
-        type: string;
-        cycle: number;
-        count: number;
-        interval: number;
-        method: string;
-        title: string;
-        project: string;
-        status: string;
-        sendCount: number;
-        advancedParams?: string;
-    }
+    export type AlertCreateReq = Init<typeof CreateAlertRequestSchema> & { interval: number };
 
-    export interface AlertUpdateReq extends CommonModel {
-        type: string;
-        cycle: number;
-        count: number;
-        interval: number;
-        method: string;
-        title: string;
-        project: string;
-        status: string;
-        sendCount: number;
-        advancedParams?: string;
-    }
+    export type AlertUpdateReq = Init<typeof UpdateAlertRequestSchema> & { interval: number };
 
-    export interface DelReq {
-        id: number;
-    }
+    export type DelReq = Init<typeof DeleteAlertRequestSchema>;
 
-    export interface AlertLogSearch extends ReqPage {
-        status: string;
-        count: number;
-    }
+    export type AlertLogSearch = Init<typeof SearchAlertLogsRequestSchema>;
 
     export interface AlertLogId {
         id: number;
     }
 
-    export interface ClamsDTO {
-        id: number;
-        name: string;
-        status: string;
-        path: string;
-        createdAt: string;
-        updatedAt: string;
-    }
+    export type ClamsDTO = Init<typeof AlertClamSchema>;
 
-    export interface CronJobDTO {
-        id: number;
-        name: string;
-        type: string;
-        status: string;
-        createdAt: string;
-        updatedAt: string;
-    }
+    export type CronJobDTO = Init<typeof AlertCronJobSchema>;
 
-    export interface CronJobReq {
-        name: string;
-        type: string;
-        status: string;
-    }
+    export type CronJobReq = Init<typeof GetAlertCronJobsRequestSchema>;
 
     export interface AlertSmsReq {
         licenseId: string;
@@ -141,53 +93,17 @@ export namespace Alert {
         used: number;
     }
 
-    export interface AlertConfigInfo extends CommonModel {
-        type: string;
-        title: string;
-        config: string;
-        status: string;
-        createUser?: string;
-        updateUser?: string;
-    }
+    export type AlertConfigInfo = Init<typeof AlertConfigEntrySchema>;
 
-    export interface AlertConfigPageReq {
-        page: number;
-        pageSize: number;
-        excludeTypes?: string[];
-    }
+    export type AlertConfigPageReq = Init<typeof SearchAlertConfigsRequestSchema>;
 
-    export interface AlertConfigFilterReq {
-        excludeTypes?: string[];
-    }
+    export type AlertConfigFilterReq = Init<typeof GetAlertConfigRequestSchema>;
 
-    export interface AlertConfigUpdateReq {
-        id: number;
-        revision?: string;
-        type: string;
-        title: string;
-        config: string;
-        status: string;
-        displayName: string;
-    }
+    export type AlertConfigUpdateReq = Init<typeof UpdateAlertConfigRequestSchema>;
 
-    export interface AlertConfigStatusReq {
-        id: number;
-        status: string;
-    }
+    export type AlertConfigStatusReq = Init<typeof UpdateAlertConfigStatusRequestSchema>;
 
-    export interface AlertConfigTest {
-        id?: number;
-        type: 'email';
-        config: string;
-        host: string;
-        port: number;
-        sender: string;
-        userName: string;
-        password: string;
-        displayName: string;
-        encryption: string;
-        recipient: string;
-    }
+    export type AlertConfigTest = Init<typeof TestAlertConfigRequestSchema> & { type: 'email' };
 
     export interface AlertConfigCustomTest {
         id?: number;
@@ -195,13 +111,10 @@ export namespace Alert {
         config: string;
     }
 
-    export interface AlertConfigCustomTestResult {
-        success: boolean;
-        statusCode?: number;
+    // duration 在 proto 中为 int64（bigint），展示层按 number 处理。
+    export type AlertConfigCustomTestResult = Omit<Init<typeof TestAlertConfigResponseSchema>, 'duration'> & {
         duration?: number;
-        message?: string;
-        response?: string;
-    }
+    };
 
     export interface CommonAlertConfig {
         id?: number;

@@ -1,177 +1,137 @@
-import { ReqPage } from '.';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    FirewallBackendOptionSchema,
+    FirewallFamilyStatusSchema,
+    FirewallBackendGroupSchema,
+    FirewallSettingsSchema,
+    PortWhitelistRuleSchema,
+    UpdateFirewallWhitelistRequestSchema,
+    OperateFirewallBackendRequestSchema,
+    FirewallTaskResponseSchema,
+    FirewallBaseInfoSchema,
+    SearchForwardRulesRequestSchema,
+    ForwardRuleSchema,
+    ForwardRuleOperationSchema,
+    FirewallScopeSchema,
+    FirewallRuleSchema,
+    FirewallLocatorSchema,
+    FirewallObservedRuleSchema,
+    FirewallPositionRangeSchema,
+    FirewallInventoryItemSchema,
+    FirewallScopeNoticeSchema,
+    FirewallInventorySchema,
+    ResetFirewallRulesResponseSchema,
+    FirewallRuleBackupsSchema,
+    ResetFirewallRulesRequestSchema,
+    FirewallInventoryRequestSchema,
+    GetFirewallNativeDetailRequestSchema,
+    FirewallRuleCreateItemSchema,
+    CreateFirewallRulesRequestSchema,
+    FirewallRuleCreateFailureSchema,
+    CreateFirewallRulesResponseSchema,
+    FirewallRuleDeleteTargetSchema,
+    DeleteFirewallRulesRequestSchema,
+    FirewallRuleDeleteFailureSchema,
+    DeleteFirewallRulesResponseSchema,
+    DockerGuardBaseSchema,
+    DockerGuardFamilyStatusSchema,
+    DockerGuardEndpointSchema,
+    DockerGuardPortGroupSchema,
+    DockerGuardContainerSchema,
+    DockerGuardOverviewSchema,
+    DockerGuardPolicySchema,
+    UpsertDockerPoliciesRequestSchema,
+    DeleteDockerPoliciesRequestSchema,
+} from '@/gen/panel/agent/v1/firewall_pb';
+
+type Init<T extends DescMessage> = MessageInitShape<T>;
 
 export namespace Firewall {
     export type Provider = 'iptables' | 'nftables' | 'firewalld' | 'ufw';
     export type BackendSubsystem = 'system' | 'forwarding' | 'docker';
     export type BackendOperation = 'select' | 'initialize' | 'cleanup';
-    export interface BackendOption {
-        name: Provider;
-        installed: boolean;
-        active: boolean;
-        initialized: boolean;
-        bound: boolean;
-        supported: boolean;
-        supportReason?: string;
-        implementation?: string;
-        message?: string;
-        ipv4: BackendFamilyStatus;
-        ipv6: BackendFamilyStatus;
-    }
-    export interface BackendFamilyStatus {
-        partial?: boolean;
-        available: boolean;
-        initialized: boolean;
-        bound: boolean;
-        reason?: string;
-        raInterfaces?: string[];
-    }
-    export interface BackendGroup {
-        selected: string;
-        current?: string;
-        options: BackendOption[];
-    }
-    export interface Settings {
-        ipv6Enabled?: boolean;
-        system: BackendGroup;
-        forwarding: BackendGroup;
-        docker: BackendGroup;
-        pingStatus: string;
-        portWhiteList: PortWhitelist[];
-        panelPort: string;
-        sshPort: string;
-    }
-    export interface PortWhitelist {
-        port?: string;
+    export type BackendOption = Init<typeof FirewallBackendOptionSchema>;
+
+    // 去掉 $typeName/$unknown 后为静态对象类型，供页面 interface 继承。
+    export type BackendFamilyStatus = Omit<Init<typeof FirewallFamilyStatusSchema>, '$typeName' | '$unknown'>;
+
+    export type BackendGroup = Init<typeof FirewallBackendGroupSchema>;
+
+    export type Settings = Init<typeof FirewallSettingsSchema>;
+
+    export type PortWhitelist = Init<typeof PortWhitelistRuleSchema> & {
         protocol?: 'tcp' | 'udp';
         type?: 'panel' | 'ssh';
-        sources: string[];
-    }
-    export interface PortWhitelistUpdate {
-        oldRule: PortWhitelist;
-        rule: PortWhitelist;
-    }
+    };
 
-    export interface BackendOperateRequest {
-        subsystem: BackendSubsystem;
-        backend: Provider;
-        operation: BackendOperation;
-    }
-    export interface FilterChainOperationResult {
-        taskID?: string;
-        queued?: boolean;
-    }
-    export interface FirewallBase {
-        ipv6Enabled?: boolean;
-        lifecycleTaskID?: string;
-        name: string;
-        backend: string;
-        conflictBackend?: string;
-        isExist: boolean;
-        isActive: boolean;
-        isInit: boolean;
-        isBind: boolean;
-        version: string;
-        pingStatus: string;
-        message?: string;
-        reason?: string;
-        ipv4: BackendFamilyStatus;
-        ipv6: BackendFamilyStatus;
-    }
-    export interface ForwardRuleSearch extends ReqPage {
-        all?: boolean;
-        strategy: string;
-        info: string;
-    }
-    export interface RuleInfo extends ReqPage {
-        family: string;
-        address: string;
+    export type PortWhitelistUpdate = Init<typeof UpdateFirewallWhitelistRequestSchema>;
+
+    export type BackendOperateRequest = Init<typeof OperateFirewallBackendRequestSchema>;
+
+    export type FilterChainOperationResult = Init<typeof FirewallTaskResponseSchema> & { taskID?: string };
+
+    export type FirewallBase = Init<typeof FirewallBaseInfoSchema> & { lifecycleTaskID?: string };
+
+    export type ForwardRuleSearch = Init<typeof SearchForwardRulesRequestSchema>;
+
+    export type RuleInfo = Init<typeof ForwardRuleSchema> & {
         destination: string;
-        port: string;
         srcPort: string;
         destPort: string;
-        protocol: string;
-        strategy: string;
-        usedStatus: string;
-        description: string;
+        page: number;
+        pageSize: number;
         [key: string]: any;
-    }
-    export interface RuleForward {
-        operation: string;
+    };
+
+    // targetIP 为展示层旧字段名，proto 对应 targetIp；family 收窄为展示层使用的地址族。
+    export type RuleForward = Omit<Init<typeof ForwardRuleOperationSchema>, '$typeName' | '$unknown' | 'family'> & {
         family: 'ipv4' | 'ipv6';
-        protocol: string;
-        port: string;
         targetIP: string;
-        targetPort: string;
-        interface: string;
-    }
+    };
+
     export type Family = 'ipv4' | 'ipv6' | 'inet';
     export type Direction = 'input';
     export type Action = 'accept' | 'drop' | 'reject';
     export type NativeKind =
-        'rule' | 'zone_port' | 'rich_rule' | 'ufw_rule' | 'ufw_application' | 'opaque' | 'zone_service';
+        | 'rule' | 'zone_port' | 'rich_rule' | 'ufw_rule' | 'ufw_application' | 'opaque' | 'zone_service';
     export type ParseStatus = 'supported' | 'partial' | 'opaque';
     export type PersistenceStatus = 'converged' | 'runtime_only' | 'permanent_only';
 
-    export interface Scope {
+    export type Scope = Omit<Init<typeof FirewallScopeSchema>, '$typeName' | '$unknown' | 'provider' | 'family' | 'direction'> & {
         provider: Provider;
         family: Family;
-        table?: string;
-        zone?: string;
-        chain?: string;
         direction: Direction;
-    }
+    };
 
-    export interface Rule {
+    // orderIndex 在 proto 中为 int64（bigint），展示层按 number 处理。
+    export type Rule = Omit<Init<typeof FirewallRuleSchema>, 'scope' | 'nativeKind' | 'action' | 'orderIndex'> & {
         raw?: string;
         parseStatus?: ParseStatus;
-        uuid?: string;
         scope: Scope;
         nativeKind?: NativeKind;
-        protocol: string;
-        sourceAddress?: string;
-        sourcePort?: string;
-        destinationAddress?: string;
-        destinationPort?: string;
-        interface?: string;
-        connectionStates?: string[];
         action: Action;
-        priority?: number;
         orderIndex?: number;
-        orderBucket?: string;
-        description?: string;
-    }
+    };
 
-    export interface Locator {
-        provider: Provider;
-        scopeKey: string;
-        nativeId?: string;
-        canonical?: string;
-        position?: number;
-    }
+    export type Locator = Omit<Init<typeof FirewallLocatorSchema>, 'provider'> & { provider: Provider };
 
-    export interface ObservedRule {
+    export type ObservedRule = Omit<
+        Init<typeof FirewallObservedRuleSchema>,
+        'rule' | 'locator' | 'parseStatus' | 'persistence'
+    > & {
         rule: Rule;
         locator: Locator;
-        instanceKey?: string;
-        marker?: string;
         parseStatus: ParseStatus;
-        uncertainFields?: string[];
-        raw?: string;
-        protected: boolean;
         persistence?: PersistenceStatus;
-    }
+    };
 
-    export interface PositionRange {
-        min: number;
-        max: number;
-    }
+    export type PositionRange = Init<typeof FirewallPositionRangeSchema>;
 
-    export interface InventoryItem {
+    export type InventoryItem = Omit<Init<typeof FirewallInventoryItemSchema>, 'rule' | 'observed'> & {
         rule: Rule;
         observed: ObservedRule;
-        isWhitelist: boolean;
         descriptionID: string;
-    }
+    };
 
     export type ScopeNoticeCode =
         | 'family_unavailable'
@@ -180,105 +140,71 @@ export namespace Firewall {
         | 'default_policy'
         | 'managed_scope_missing';
 
-    export interface ScopeNotice {
-        code: ScopeNoticeCode;
-        values?: string[];
-    }
+    export type ScopeNotice = Omit<Init<typeof FirewallScopeNoticeSchema>, 'code'> & { code: ScopeNoticeCode };
 
-    export interface Inventory {
-        ipv4Range: PositionRange;
-        ipv6Range: PositionRange;
+    // total、allTotal 在 proto 中为 int64（bigint），展示层按 number 处理。
+    export type Inventory = Omit<Init<typeof FirewallInventorySchema>, 'total' | 'allTotal'> & {
         total: number;
         allTotal: number;
-        items: InventoryItem[];
-        notices?: ScopeNotice[];
-    }
+    };
 
-    export interface ResetResponse {
-        backupPath: string;
-        removed: number;
-        disabled: boolean;
-    }
+    export type ResetResponse = Init<typeof ResetFirewallRulesResponseSchema>;
 
-    export interface RuleBackups {
-        directory: string;
+    export type RuleBackups = Omit<Init<typeof FirewallRuleBackupsSchema>, 'files'> & {
         files: Array<{ name: string; provider: Provider; ruleCount: number; modifiedAt: number }>;
-    }
+    };
 
-    export interface ResetRequest {
+    export type ResetRequest = Omit<Init<typeof ResetFirewallRulesRequestSchema>, 'subsystem' | 'provider'> & {
         subsystem?: BackendSubsystem;
-        backup?: boolean;
         provider?: Provider;
-        withDockerRestart?: boolean;
-    }
+    };
 
-    export interface InventoryRequest extends ReqPage {
+    export type InventoryRequest = Omit<Init<typeof FirewallInventoryRequestSchema>, 'scopes' | 'families' | 'actions'> & {
         scopes: Scope[];
-        all?: boolean;
-        info: string;
         families?: Array<'ipv4' | 'ipv6'>;
         actions?: Array<'accept' | 'deny'>;
-        excludeChains?: string[];
-    }
+    };
 
-    export interface NativeDetailRequest {
+    export type NativeDetailRequest = Omit<
+        Init<typeof GetFirewallNativeDetailRequestSchema>,
+        '$typeName' | '$unknown' | 'provider' | 'nativeKind'
+    > & {
         provider: 'firewalld' | 'ufw';
         nativeKind: 'zone_service' | 'ufw_application';
-        name: string;
-        permanent: boolean;
-    }
+    };
 
-    export interface CreateItem {
-        raw?: string;
-        parseStatus?: ParseStatus;
+    export type CreateItem = Omit<Init<typeof FirewallRuleCreateItemSchema>, 'rule' | 'parseStatus' | 'sourceKind'> & {
         rule: Rule;
+        parseStatus?: ParseStatus;
         sourceKind?: 'user' | 'panel' | 'security' | 'imported';
-    }
+    };
 
-    export interface CreateRequest {
-        backupFile?: string;
-        initialize?: boolean;
+    export type CreateRequest = Omit<Init<typeof CreateFirewallRulesRequestSchema>, 'items'> & {
         items: CreateItem[];
-    }
+    };
 
-    export interface CreateResponse {
+    export type CreateResponse = Omit<Init<typeof CreateFirewallRulesResponseSchema>, 'errors'> & {
         taskID?: string;
-        queued?: boolean;
-        succeeded: number;
-        failed: number;
-        skipped: number;
         errors?: CreateFailure[];
-    }
+    };
 
-    export interface CreateFailure {
-        index: number;
+    export type CreateFailure = Omit<Init<typeof FirewallRuleCreateFailureSchema>, 'status' | 'rule'> & {
         status: 'failed' | 'skipped';
         rule: Rule;
-        error?: string;
-    }
+    };
 
-    export interface RuleTarget {
-        scope: Scope;
-        instanceKey: string;
-    }
+    export type RuleTarget = Omit<Init<typeof FirewallRuleDeleteTargetSchema>, 'scope'> & { scope: Scope };
 
-    export interface DeleteRequest {
+    export type DeleteRequest = Omit<Init<typeof DeleteFirewallRulesRequestSchema>, 'targets'> & {
         targets: (RuleTarget & { observed: ObservedRule })[];
-    }
+    };
 
-    export interface DeleteResponse {
+    export type DeleteResponse = Omit<Init<typeof DeleteFirewallRulesResponseSchema>, 'errors'> & {
         taskID?: string;
-        queued?: boolean;
-        succeeded: number;
-        failed: number;
         errors?: DeleteFailure[];
-    }
+    };
 
-    export interface DeleteFailure {
-        index: number;
-        instanceKey: string;
-        error: string;
-    }
+    export type DeleteFailure = Init<typeof FirewallRuleDeleteFailureSchema>;
 
     export type UpdateRequest =
         | { rule: Rule; description?: never; orderIndex?: never; priority?: never }
@@ -286,86 +212,68 @@ export namespace Firewall {
         | { rule?: never; description?: string; orderIndex: number; priority?: never }
         | { rule?: never; description?: string; orderIndex?: never; priority: number };
 
-    export interface DockerGuardBase {
-        ipv6Enabled?: boolean;
-        name: string;
-        version: string;
-        isExist: boolean;
-        initialized: boolean;
-        bound: boolean;
-        ipv4: DockerGuardFamilyStatus;
-        ipv6: DockerGuardFamilyStatus;
-        backend: string;
-        message?: string;
-    }
-    export interface DockerGuardFamilyStatus {
-        partial?: boolean;
-        state: 'effective' | 'disabled' | 'not_effective';
-        reason?:
-            | 'command_missing'
-            | 'docker_chain_missing'
-            | 'guard_chain_missing'
-            | 'jump_missing'
-            | 'jump_not_first'
-            | 'jump_duplicate'
-            | 'inspect_failed';
-        initialized: boolean;
-        bound: boolean;
-        effective: boolean;
-    }
-    export interface DockerGuardEndpoint {
+    export type DockerGuardBase = Init<typeof DockerGuardBaseSchema>;
+
+    export type DockerGuardFamilyStatus = Init<typeof DockerGuardFamilyStatusSchema>;
+
+    export type DockerGuardEndpoint = Omit<
+        Init<typeof DockerGuardEndpointSchema>,
+        | 'family'
+        | 'hostIp'
+        | 'protocol'
+        | 'containerId'
+        | 'containerState'
+        | 'policyUuid'
+        | 'mode'
+        | 'trafficPath'
+        | 'managementTarget'
+        | 'managementReason'
+    > & {
         family: 'ipv4' | 'ipv6';
         hostIP: string;
-        hostPort: number;
         protocol: 'tcp' | 'udp';
         containerID?: string;
-        containerName?: string;
         containerState?: 'created' | 'running' | 'paused' | 'restarting' | 'removing' | 'exited' | 'dead';
-        containerPort?: number;
-        compose?: string;
-        application?: string;
         policyUUID?: string;
         mode?: 'deny_sources' | 'allow_sources' | 'deny_all' | 'accept_sources' | 'accept_all';
-        sources: string[];
-        effective: boolean;
         trafficPath: 'forward' | 'input' | 'unknown';
         managementTarget?: 'container_guard' | 'host_firewall' | 'needs_diagnosis';
         managementReason?: 'nat_inspect_failed' | 'nat_chain_unreachable' | 'proxy_inspect_failed' | 'no_matching_path';
-    }
-    export interface DockerGuardPortGroup {
-        key: string;
-        label: string;
+    };
+
+    export type DockerGuardPortGroup = Omit<Init<typeof DockerGuardPortGroupSchema>, 'endpoint' | 'endpoints'> & {
         endpoint: DockerGuardEndpoint;
         endpoints: DockerGuardEndpoint[];
-    }
-    export interface DockerGuardContainer {
-        key: string;
-        name: string;
-        compose?: string;
-        application?: string;
+    };
+
+    export type DockerGuardContainer = Omit<Init<typeof DockerGuardContainerSchema>, 'endpoints' | 'portGroups'> & {
         endpoints: DockerGuardEndpoint[];
         portGroups: DockerGuardPortGroup[];
-    }
-    export interface DockerGuardList {
+    };
+
+    export type DockerGuardList = Omit<Init<typeof DockerGuardOverviewSchema>, 'base' | 'containers' | 'orphanPolicies'> & {
         base: DockerGuardBase;
         containers: DockerGuardContainer[];
         orphanPolicies: DockerGuardEndpoint[];
-    }
+    };
+
     export interface DockerGuardEndpointIdentity {
         family: 'ipv4' | 'ipv6';
         hostIP: string;
         hostPort: number;
         protocol: 'tcp' | 'udp';
     }
-    export interface DockerGuardPolicy extends DockerGuardEndpointIdentity {
+
+    export type DockerGuardPolicy = Omit<Init<typeof DockerGuardPolicySchema>, 'family' | 'hostIp' | 'protocol' | 'mode'> & {
+        family: 'ipv4' | 'ipv6';
+        hostIP: string;
+        protocol: 'tcp' | 'udp';
         mode: 'deny_sources' | 'allow_sources' | 'deny_all' | 'accept_sources' | 'accept_all';
-        sources: string[];
-    }
-    export interface DockerGuardPolicyBatch {
+    };
+
+    export type DockerGuardPolicyBatch = Omit<Init<typeof UpsertDockerPoliciesRequestSchema>, 'policies'> & {
         policies: DockerGuardPolicy[];
-        import?: boolean;
-    }
-    export interface DockerGuardPolicyBatchDelete {
-        uuids: string[];
-    }
+    };
+
+    export type DockerGuardPolicyBatchDelete = Init<typeof DeleteDockerPoliciesRequestSchema>;
 }

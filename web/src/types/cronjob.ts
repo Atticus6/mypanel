@@ -1,48 +1,44 @@
-import { ReqPage } from '.';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    CronjobRecordSchema,
+    CronjobSchema,
+    DeleteCronjobsRequestSchema,
+    ScriptOptionSchema,
+    SearchCronjobRecordsRequestSchema,
+    SearchCronjobsRequestSchema,
+    UpdateCronjobStatusRequestSchema,
+} from '@/gen/panel/agent/v1/cronjob_pb';
 import type { CronjobAlertTriggerMode } from '@/utils/cronjob-alert';
 
+type Init<T extends DescMessage> = MessageInitShape<T>;
+
+// 计划任务域 DTO 由 proto 生成类型派生；specObjs、urlItems 等展示层结构没有 proto 对应物，保留为本地字段。
 export namespace Cronjob {
     export interface URLItem {
         url: string;
         header: string;
     }
-    export interface Search extends ReqPage {
-        info: string;
-        groupIDs: Array<number>;
-        orderBy?: string;
-        order?: string;
-    }
-    export interface CronjobInfo {
-        id: number;
-        name: string;
-        type: string;
-        groupID: number;
-        specCustom: boolean;
-        spec: string;
-        specs: Array<string>;
-        specObjs: Array<SpecObj>;
 
-        executor: string;
-        isExecutorCustom: boolean;
-        script: string;
-        scriptMode: string;
-        isCustom: boolean;
-        command: string;
-        inContainer: boolean;
-        containerName: string;
-        user: string;
+    export type Search = Init<typeof SearchCronjobsRequestSchema> & { groupIDs?: Array<number> };
+
+    export type CronjobInfo = Omit<Init<typeof CronjobSchema>, 'retainCopies' | 'alertTriggerMode'> & {
+        groupID: number;
         scriptID: number;
         appID: string;
-        website: string;
+        retainCopies: number;
+        alertTriggerMode?: CronjobAlertTriggerMode;
+
+        specs: Array<string>;
+        specObjs: Array<SpecObj>;
+        isExecutorCustom: boolean;
+        isCustom: boolean;
+        inContainer: boolean;
         exclusionRules: string;
         ignoreFiles: Array<string>;
-        dbType: string;
-        dbName: string;
         url: string;
         urlItems: Array<URLItem>;
         isDir: boolean;
         files: Array<Item>;
-        sourceDir: string;
         snapshotRule: snapshotRule;
         ignoreAppIDs: Array<number>;
         withImage: boolean;
@@ -57,17 +53,10 @@ export namespace Cronjob {
         downloadAccountID: number;
         sourceAccountItems: Array<number>;
 
-        retainCopies: number;
-        ignoreErr: boolean;
-        retryTimes: number;
-        timeout: number;
         timeoutItem: number;
         timeoutUnit: string;
-        status: string;
         secret: string;
         hasAlert: boolean;
-        alertCount: number;
-        alertTriggerMode?: CronjobAlertTriggerMode;
         alertTitle: string;
         alertMethod: string;
         alertMethodItems: Array<string>;
@@ -75,56 +64,34 @@ export namespace Cronjob {
         scopes: string[];
         args: string;
         argItems: Array<string>;
-    }
+    };
     export interface Item {
         val: string;
     }
-    export interface CronjobOperate {
-        id: number;
-        name: string;
-        groupID: number;
-        type: string;
-        specCustom: boolean;
-        spec: string;
-        specs: Array<string>;
-        specObjs: Array<SpecObj>;
 
+    export type CronjobOperate = Omit<Init<typeof CronjobSchema>, 'retainCopies' | 'alertTriggerMode'> & {
+        groupID: number;
         scriptID: number;
         appID: string;
-        website: string;
+        retainCopies: number;
+        alertTriggerMode?: CronjobAlertTriggerMode;
+
+        specs: Array<string>;
+        specObjs: Array<SpecObj>;
         exclusionRules: string;
-        dbType: string;
-        dbName: string;
         url: string;
         urlItems?: Array<URLItem>;
         isDir: boolean;
-        sourceDir: string;
         snapshotRule: snapshotRule;
-
-        //shell
-        executor: string;
-        scriptMode: string;
-        script: string;
-        command: string;
-        containerName: string;
-        user: string;
-
         sourceAccountIDs: string;
         downloadAccountID: number;
-        retainCopies: number;
-        retryTimes: number;
-        timeout: number;
-        ignoreErr: boolean;
         secret: string;
-
-        alertCount: number;
-        alertTriggerMode?: CronjobAlertTriggerMode;
         alertTitle: string;
         alertMethod: string;
-
         scopes?: string[];
         args: string;
-    }
+    };
+
     export interface CronjobTrans {
         name: string;
         type: string;
@@ -185,42 +152,24 @@ export namespace Cronjob {
         minute: number;
         second: number;
     }
-    export interface CronjobDelete {
-        ids: Array<number>;
-        cleanData: boolean;
-        cleanRemoteData: boolean;
-    }
-    export interface UpdateStatus {
-        id: number;
-        status: string;
-    }
+
+    export type CronjobDelete = Init<typeof DeleteCronjobsRequestSchema>;
+    export type UpdateStatus = Init<typeof UpdateCronjobStatusRequestSchema>;
     export interface Download {
         recordID: number;
         backupAccountID: number;
     }
-    export interface ScriptOptions {
-        id: number;
-        name: string;
-        script: string;
-    }
-    export interface SearchRecord extends ReqPage {
-        cronjobID: number;
+    export type ScriptOptions = Init<typeof ScriptOptionSchema> & { script?: string };
+
+    export type SearchRecord = Init<typeof SearchCronjobRecordsRequestSchema> & {
+        cronjobID?: number;
         startTime: string | Date;
         endTime: string | Date;
-        status: string;
-    }
-    export interface Record {
-        id: number;
+    };
+    export type Record = Init<typeof CronjobRecordSchema> & {
+        taskID?: string;
         cronjobName?: string;
-        taskID: string;
-        file: string;
-        startTime: string;
-        records: string;
-        status: string;
-        message: string;
-        targetPath: string;
-        interval: number;
-    }
+    };
 
     export interface ScriptInfo {
         id: number;

@@ -1,5 +1,7 @@
 import { CommonModel, ReqPage } from '.';
 import { App } from './app';
+
+// Runtime 已作为独立域剔除，proto 中没有对应消息；以下结构只供本地展示与空桩使用。
 export namespace Runtime {
     export interface PHPExtensionsPush {
         sourceNode: string;

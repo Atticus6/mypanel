@@ -1,68 +1,117 @@
-import { CommonModel, ReqPage } from '.';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    AntiLeechConfigSchema,
+    AuthConfigSchema,
+    AuthItemSchema,
+    BatchSetHttpsRequestSchema,
+    BatchWebsiteGroupRequestSchema,
+    BatchWebsiteOperateRequestSchema,
+    ChangeDefaultWebsiteRequestSchema,
+    ChangeWebsiteDatabaseRequestSchema,
+    ChangeWebsitePHPVersionRequestSchema,
+    CheckWebsiteRequestSchema,
+    CorsConfigSchema,
+    CreateDNSAccountRequestSchema,
+    CreateDomainsRequestSchema,
+    CreateLoadBalanceRequestSchema,
+    CreateWebsiteRequestSchema,
+    DefaultHtmlSchema,
+    DeleteDomainRequestSchema,
+    DeleteLoadBalanceRequestSchema,
+    DeleteProxyRequestSchema,
+    DeleteWebsiteRequestSchema,
+    GetAntiLeechRequestSchema,
+    GetAuthRequestSchema,
+    GetProxiesRequestSchema,
+    GetRewriteRequestSchema,
+    GetWebsiteLogRequestSchema,
+    LoadBalanceSchema,
+    LoadBalanceServerSchema,
+    NginxParamSchema,
+    NginxScopeConfigSchema,
+    OperateCrossSiteRequestSchema,
+    OperateCustomRewriteRequestSchema,
+    OperateWebsiteRequestSchema,
+    ProxyCacheSchema,
+    RealIPConfigSchema,
+    RedirectConfigSchema,
+    RewriteConfigSchema,
+    SearchWebsitesRequestSchema,
+    UpdateAuthRequestSchema,
+    UpdateDNSAccountRequestSchema,
+    UpdateDefaultHtmlRequestSchema,
+    UpdateDomainRequestSchema,
+    UpdateLoadBalanceFileRequestSchema,
+    UpdatePathAuthRequestSchema,
+    UpdateProxyFileRequestSchema,
+    UpdateProxyStatusRequestSchema,
+    UpdateRedirectFileRequestSchema,
+    UpdateRewriteRequestSchema,
+    UpdateStreamRequestSchema,
+    UpdateWebsiteDirRequestSchema,
+    UpdateWebsiteHTTPSRequestSchema,
+    UpdateWebsiteNginxFileRequestSchema,
+    UpdateWebsitePermissionRequestSchema,
+    UpdateWebsiteRequestSchema,
+    WebsiteDirConfigSchema,
+    WebsiteCheckItemSchema,
+    WebsiteDatabaseSchema,
+    WebsiteDetailSchema,
+    WebsiteDomainSchema,
+    WebsiteHTTPSSchema,
+    WebsiteLogSchema,
+    WebsiteOptionsRequestSchema,
+    WebsiteOptionSchema,
+    WebsiteProxySchema,
+    WebsiteResourceSchema,
+    WebsiteSchema,
+    ExecComposerRequestSchema,
+} from '@/gen/panel/agent/v1/website_pb';
+import {
+    ACMEAccountSchema,
+    CADetailSchema,
+    CreateACMEAccountRequestSchema,
+    CreateCARequestSchema,
+    CreateSSLRequestSchema,
+    DNSAccountSchema,
+    DNSResolveRecordSchema,
+    GetDNSResolveRequestSchema,
+    ObtainCARequestSchema,
+    PushSSLRequestSchema,
+    RenewCARequestSchema,
+    UpdateACMEAccountRequestSchema,
+    UpdateSSLRequestSchema,
+    WebsiteSSLSchema,
+} from '@/gen/panel/agent/v1/website_ssl_pb';
 
+type Init<T extends DescMessage> = MessageInitShape<T>;
+
+// 网站域 DTO 由 proto 生成类型派生；模板、预览等纯前端结构没有 proto 对应物，保留为本地类型。
 export namespace Website {
-    export interface Website extends CommonModel {
-        primaryDomain: string;
-        type: string;
-        alias: string;
-        remark: string;
+    export type Website = Init<typeof WebsiteDetailSchema> & {
         domains: string[];
         appType: string;
-        appInstallId?: number;
         webSiteGroupId: number;
         otherDomains: string;
-        defaultServer: boolean;
-        protocol: string;
         autoRenew: boolean;
         appinstall?: NewAppInstall;
         webSiteSSL: SSL;
         runtimeID: number;
-        rewrite: string;
-        user: string;
-        group: string;
         IPV6: boolean;
-        accessLog?: boolean;
-        errorLog?: boolean;
-        childSites?: string[];
         dbID: number;
-        dbType: string;
-        favorite: boolean;
-        streamPorts: string;
-        udp: boolean;
-    }
+        childSites?: string[];
+    };
 
-    export interface WebsiteDTO extends Website {
-        errorLogPath: string;
-        accessLogPath: string;
-        sitePath: string;
-        appName: string;
-        runtimeName: string;
-        runtimeType: string;
-        openBaseDir: boolean;
-        algorithm: string;
+    export type WebsiteDTO = Website & {
         servers: NginxUpstreamServer[];
-    }
+    };
 
-    export interface WebsiteStreamUpdate {
-        websiteID: number;
-        algorithm: string;
-        streamPorts?: string;
+    export type WebsiteStreamUpdate = Init<typeof UpdateStreamRequestSchema> & {
+        websiteID?: number;
         servers: NginxUpstreamServer[];
-    }
+    };
 
-    export interface WebsiteRes extends CommonModel {
-        protocol: string;
-        primaryDomain: string;
-        type: string;
-        alias: string;
-        remark: string;
-        status: string;
-        expireDate: string;
-        sitePath: string;
-        appName: string;
-        runtimeName: string;
-        sslExpireDate: Date;
-    }
+    export type WebsiteRes = Init<typeof WebsiteSchema> & { runtimeName: string };
 
     export interface NewAppInstall {
         name: string;
@@ -70,62 +119,29 @@ export namespace Website {
         params: any;
     }
 
-    export interface WebSiteSearch extends ReqPage {
-        name: string;
-        orderBy: string;
-        order: string;
-        websiteGroupId: number;
-    }
+    export type WebSiteSearch = Init<typeof SearchWebsitesRequestSchema>;
+    export type WebSiteDel = Init<typeof DeleteWebsiteRequestSchema>;
 
-    export interface WebSiteDel {
-        id: number;
-        deleteApp: boolean;
-        deleteBackup: boolean;
-        forceDelete: boolean;
-    }
-
-    export interface WebSiteCreateReq {
-        type: string;
-        alias: string;
-        remark: string;
-        appType: string;
-        appInstallId: number;
-        webSiteGroupId: number;
-        proxy: string;
-        proxyType: string;
-        ftpUser: string;
-        ftpPassword: string;
-        taskID: string;
+    export type WebSiteCreateReq = Init<typeof CreateWebsiteRequestSchema> & {
+        webSiteGroupId?: number;
+        taskID?: string;
         templateOutputID?: number;
         SSLID?: number;
-        enableSSL: boolean;
+        enableSSL?: boolean;
+        ftpUser?: string;
+        ftpPassword?: string;
+        proxyType?: string;
         createDB?: boolean;
         dbName?: string;
         dbPassword?: string;
         dbFormat?: string;
         dbUser?: string;
         dbHost?: string;
-        domains: SubDomain[];
-        streamPorts?: string;
-        name: string;
-        algorithm: string;
         servers: NginxUpstreamServer[];
-    }
+    };
 
-    export interface WebSiteUpdateReq {
-        id: number;
-        primaryDomain: string;
-        remark: string;
-        webSiteGroupId: number;
-        expireDate?: string;
-        IPV6: boolean;
-        favorite: boolean;
-    }
-
-    export interface WebSiteOp {
-        id: number;
-        operate: string;
-    }
+    export type WebSiteUpdateReq = Init<typeof UpdateWebsiteRequestSchema>;
+    export type WebSiteOp = Init<typeof OperateWebsiteRequestSchema>;
 
     export interface WebSiteOpLog {
         id: number;
@@ -133,57 +149,20 @@ export namespace Website {
         logType: string;
     }
 
-    export interface WebSiteLogReq {
-        id: number;
-        page?: number;
-        pageSize?: number;
-        logType: string;
-    }
+    export type WebSiteLogReq = Init<typeof GetWebsiteLogRequestSchema>;
+    export type OptionReq = Init<typeof WebsiteOptionsRequestSchema>;
+    export type WebsiteOption = Init<typeof WebsiteOptionSchema>;
+    export type WebSiteLog = Init<typeof WebsiteLogSchema>;
 
-    export interface OptionReq {
-        types?: string[];
-    }
-
-    export interface WebsiteOption {
-        id: number;
-        primaryDomain: string;
-        alias: string;
-    }
-
-    export interface WebSiteLog {
-        enable: boolean;
-        content: string;
-        end: boolean;
-        path: string;
-    }
-
-    export interface Domain {
-        websiteId: number;
-        port: number;
-        id: number;
-        domain: string;
-        ssl: boolean;
-    }
-
-    export interface DomainCreate {
-        websiteID: number;
-        domains: SubDomain[];
-    }
-
-    export interface DomainUpdate {
-        id: number;
-        ssl: boolean;
-    }
-
+    export type Domain = Init<typeof WebsiteDomainSchema>;
+    export type DomainCreate = Init<typeof CreateDomainsRequestSchema> & { websiteID?: number };
+    export type DomainUpdate = Init<typeof UpdateDomainRequestSchema>;
     interface SubDomain {
         domain: string;
         port: number;
         ssl: boolean;
     }
-
-    export interface DomainDelete {
-        id: number;
-    }
+    export type DomainDelete = Init<typeof DeleteDomainRequestSchema>;
 
     export interface NginxConfigReq {
         operate: string;
@@ -197,390 +176,149 @@ export namespace Website {
         scope: string;
     }
 
-    export interface NginxParam {
-        name: string;
-        params: string[];
-    }
+    export type NginxParam = Init<typeof NginxParamSchema>;
+    export type NginxScopeConfig = Init<typeof NginxScopeConfigSchema>;
 
-    export interface NginxScopeConfig {
-        enable: boolean;
-        params: NginxParam[];
-    }
+    export type DnsAccount = Init<typeof DNSAccountSchema> & { authorization?: Record<string, string> };
+    export type DnsAccountCreate = Init<typeof CreateDNSAccountRequestSchema>;
+    export type DnsAccountUpdate = Init<typeof UpdateDNSAccountRequestSchema>;
 
-    export interface DnsAccount extends CommonModel {
-        name: string;
-        type: string;
-        authorization: object;
-    }
-
-    export interface DnsAccountCreate {
-        name: string;
-        type: string;
-        authorization: object;
-    }
-
-    export interface DnsAccountUpdate {
-        id: number;
-        name: string;
-        type: string;
-        authorization: object;
-    }
-
-    export interface SSL extends CommonModel {
-        primaryDomain: string;
-        privateKey: string;
-        pem: string;
-        otherDomains: string;
-        certURL: string;
-        type: string;
-        issuerName: string;
-        expireDate: string;
-        startDate: string;
-        provider: string;
+    export type SSL = Init<typeof WebsiteSSLSchema> & {
+        privateKey?: string;
+        pem?: string;
+        otherDomains?: string;
+        certURL?: string;
+        issuerName?: string;
+        acmeAccountId?: number;
         websites?: Website.Website[];
-        autoRenew: boolean;
-        acmeAccountId: number;
-        status: string;
-        domains: string;
-        description: string;
         dnsAccountId?: number;
-        pushDir: boolean;
-        dir: string;
-        keyType: string;
-        nameserver1: string;
-        nameserver2: string;
-        disableCNAME: boolean;
-        skipDNS: boolean;
-        execShell: boolean;
-        shell: string;
-        pushNode: boolean;
-        nodes: string;
-        privateKeyPath: string;
-        certPath: string;
-        isIP: boolean;
-    }
-
-    export interface SSLDTO extends SSL {
-        logPath: string;
-    }
-
-    export interface SSLCreate {
-        primaryDomain: string;
-        otherDomains: string;
-        provider: string;
-        acmeAccountId: number;
-        dnsAccountId: number;
+        nameserver1?: string;
+        nameserver2?: string;
+        disableCNAME?: boolean;
+        skipDNS?: boolean;
+        execShell?: boolean;
+        shell?: string;
+        pushNode?: boolean;
+        nodes?: string;
+        privateKeyPath?: string;
+        certPath?: string;
+        isIP?: boolean;
+    };
+    export type SSLDTO = SSL & { logPath: string };
+    export type SSLCreate = Init<typeof CreateSSLRequestSchema> & {
         id?: number;
-        description: string;
-        isIP: boolean;
-    }
+        isIP?: boolean;
+    };
 
     export interface SSLApply {
         websiteId: number;
         SSLId: number;
     }
-
     export interface SSLRenew {
         SSLId: number;
     }
-
-    export interface SSLUpdate {
-        id: number;
-        autoRenew: boolean;
-        description: string;
-        primaryDomain: string;
-        otherDomains: string;
-        acmeAccountId: number;
-        provider: string;
-        dnsAccountId?: number;
-        keyType: string;
-        pushDir: boolean;
-        dir: string;
+    export type SSLUpdate = Init<typeof UpdateSSLRequestSchema> & {
         pushNode?: boolean;
         nodes?: string;
-    }
+    };
+    export type SSLPush = Init<typeof PushSSLRequestSchema> & { taskID?: string };
 
-    export interface SSLPush {
-        id: number;
-        pushNode: boolean;
-        nodes: string;
-        taskID: string;
-    }
-
-    export interface AcmeAccount extends CommonModel {
-        email: string;
-        url: string;
-        type: string;
-        keyType: string;
-        useProxy: boolean;
-    }
-
-    export interface AcmeAccountCreate {
-        email: string;
-        useProxy: boolean;
-    }
-
-    export interface AcmeAccountUpdate {
-        id: number;
-        useProxy: boolean;
-    }
-
-    export interface DNSResolveReq {
-        acmeAccountId: number;
-        websiteSSLId: number;
-    }
-
-    export interface DNSResolve {
-        resolve: string;
-        value: string;
-        domain: string;
-        err: string;
-    }
+    export type AcmeAccount = Init<typeof ACMEAccountSchema>;
+    export type AcmeAccountCreate = Init<typeof CreateACMEAccountRequestSchema>;
+    export type AcmeAccountUpdate = Init<typeof UpdateACMEAccountRequestSchema>;
+    export type DNSResolveReq = Init<typeof GetDNSResolveRequestSchema> & { websiteSSLId?: number };
+    export type DNSResolve = Init<typeof DNSResolveRecordSchema>;
 
     export interface SSLReq {
         name?: string;
         acmeAccountID?: string;
     }
 
-    export interface HTTPSReq {
-        websiteId: number;
-        enable: boolean;
-        websiteSSLId?: number;
-        type: string;
-        certificate?: string;
-        privateKey?: string;
-        httpConfig: string;
-        SSLProtocol: string[];
-        algorithm: string;
-        http3: boolean;
-    }
-
-    export interface HTTPSConfig {
-        enable: boolean;
+    export type HTTPSReq = Init<typeof UpdateWebsiteHTTPSRequestSchema> & {
+        SSLProtocol?: string[];
+    };
+    export type HTTPSConfig = Init<typeof WebsiteHTTPSSchema> & {
         SSL: SSL;
-        httpConfig: string;
-        SSLProtocol: string[];
-        algorithm: string;
-        hsts: boolean;
-        hstsIncludeSubDomains: boolean;
-        httpsPort?: string;
-        http3: boolean;
-    }
-
-    export interface BatchSetHttps {
-        ids: number[];
-        taskID: string;
-        enable: boolean;
+        SSLProtocol?: string[];
+    };
+    export type BatchSetHttps = Init<typeof BatchSetHttpsRequestSchema> & {
+        SSLId?: number;
+        SSLProtocol?: string[];
         websiteSSLId?: number;
-        type: string;
-        certificate?: string;
-        privateKey?: string;
-        httpConfig: string;
-        SSLProtocol: string[];
-        algorithm: string;
-        http3: boolean;
-    }
+        taskID?: string;
+    };
 
-    export interface CheckReq {
-        installIds?: number[];
-    }
-
-    export interface CheckRes {
-        name: string;
-        status: string;
-        version: string;
-        appName: string;
-    }
-
+    export type CheckReq = Init<typeof CheckWebsiteRequestSchema>;
+    export type CheckRes = Init<typeof WebsiteCheckItemSchema>;
     export interface DelReq {
         id: number;
     }
+    export type NginxUpdate = Init<typeof UpdateWebsiteNginxFileRequestSchema>;
+    export type DefaultServerUpdate = Init<typeof ChangeDefaultWebsiteRequestSchema>;
 
-    export interface NginxUpdate {
-        id: number;
-        content: string;
-    }
+    export type RewriteReq = Init<typeof GetRewriteRequestSchema> & { websiteID?: number };
+    export type RewriteRes = Init<typeof RewriteConfigSchema>;
+    export type RewriteUpdate = Init<typeof UpdateRewriteRequestSchema> & { websiteID?: number };
+    export type CustomRewrite = Init<typeof OperateCustomRewriteRequestSchema>;
 
-    export interface DefaultServerUpdate {
-        id: number;
-    }
-    export interface RewriteReq {
-        websiteID: number;
-        name: string;
-    }
+    export type DirUpdate = Init<typeof UpdateWebsiteDirRequestSchema>;
+    export type DirPermissionUpdate = Init<typeof UpdateWebsitePermissionRequestSchema>;
 
-    export interface RewriteRes {
-        content: string;
-    }
-
-    export interface RewriteUpdate {
-        websiteID: number;
-        name: string;
-        content: string;
-    }
-
-    export interface CustomRewrite {
-        operate: string;
-        name: string;
-        content: string;
-    }
-
-    export interface DirUpdate {
-        id: number;
-        siteDir: string;
-    }
-
-    export interface DirPermissionUpdate {
-        id: number;
-        user: string;
-        group: string;
-    }
-
-    export interface ProxyReq {
-        id: number;
-    }
-
-    export interface ProxyConfig {
-        id: number;
-        operate: string;
-        enable: boolean;
-        cache: boolean;
-        cacheTime: number;
-        cacheUnit: string;
-        serverCacheTime: number;
-        serverCacheUnit: string;
-        name: string;
-        modifier: string;
-        match: string;
-        proxyPass: string;
-        proxyHost: string;
-        filePath?: string;
+    export type ProxyReq = Init<typeof GetProxiesRequestSchema>;
+    export type ProxyConfig = Init<typeof WebsiteProxySchema> & {
+        operate?: string;
+        modifier?: string;
         replaces?: ProxReplace;
-        content?: string;
+        browserCache?: 'enable' | 'disable' | 'noModify';
+        cors?: boolean;
+        allowOrigins?: string;
+        allowMethods?: string;
+        allowHeaders?: string;
+        allowCredentials?: boolean;
+        preflight?: boolean;
         proxyAddress?: string;
         proxyProtocol?: string;
-        sni?: boolean;
-        proxySSLName: string;
-        sslVerify?: boolean;
-        cors: boolean;
-        allowOrigins: string;
-        allowMethods: string;
-        allowHeaders: string;
-        allowCredentials: boolean;
-        preflight: boolean;
-        browserCache?: 'enable' | 'disable' | 'noModify';
-    }
-
-    export interface ProxyDel {
-        id: number;
-        name: string;
-    }
-
-    export interface ProxyStatusUpdate {
-        id: number;
-        name: string;
-        status: string;
-    }
-
+        proxySSLName?: string;
+    };
+    export type ProxyDel = Init<typeof DeleteProxyRequestSchema>;
+    export type ProxyStatusUpdate = Init<typeof UpdateProxyStatusRequestSchema>;
     export interface ProxReplace {
         [key: string]: string;
     }
+    export type ProxyFileUpdate = Init<typeof UpdateProxyFileRequestSchema> & { websiteID?: number };
 
-    export interface ProxyFileUpdate {
-        websiteID: number;
-        name: string;
-        content: string;
-    }
-
-    export interface AuthReq {
-        websiteID: number;
-    }
-
-    export interface NginxAuth {
-        username: string;
-        remark: string;
-    }
-
-    export interface AuthConfig {
-        enable: boolean;
-        items: NginxAuth[];
-    }
-
-    export interface NginxAuthConfig {
-        websiteID: number;
-        operate: string;
-        username: string;
-        password: string;
-        remark: string;
-        scope: string;
+    export type AuthReq = Init<typeof GetAuthRequestSchema> & { websiteID?: number };
+    export type NginxAuth = Init<typeof AuthItemSchema>;
+    export type AuthConfig = Init<typeof AuthConfigSchema>;
+    export type NginxAuthConfig = Init<typeof UpdateAuthRequestSchema> & {
+        websiteID?: number;
+        scope?: string;
         path?: '';
         name?: '';
-    }
+    };
+    export type NginxPathAuthConfig = Init<typeof UpdatePathAuthRequestSchema> & { websiteID?: number };
 
-    export interface NginxPathAuthConfig {
-        websiteID: number;
-        operate: string;
-        path: string;
-        username: string;
-        password: string;
-        name: string;
-    }
-
-    export interface LeechConfig {
-        enable: boolean;
-        cache: boolean;
-        cacheTime: number;
-        cacheUint: string;
-        extends: string;
-        return: string;
-        serverNames: string[];
-        noneRef: boolean;
-        logEnable: boolean;
-        blocked: boolean;
-        websiteID?: number;
-    }
-
-    export interface LeechReq {
-        websiteID: number;
-    }
-
+    export type LeechConfig = Init<typeof AntiLeechConfigSchema> & { websiteID?: number };
+    export type LeechReq = Init<typeof GetAntiLeechRequestSchema> & { websiteID?: number };
     export interface WebsiteReq {
         websiteID: number;
     }
 
-    export interface RedirectConfig {
-        operate: string;
-        websiteID: number;
-        domains?: string[];
-        enable: boolean;
-        name: string;
-        keepPath: boolean;
-        type: string;
-        redirect: string;
-        path?: string;
-        target: string;
-        redirectRoot?: boolean;
-        filePath?: string;
-        content?: string;
-    }
+    export type RedirectConfig = Init<typeof RedirectConfigSchema> & {
+        operate?: string;
+        websiteID?: number;
+    };
+    export type RedirectFileUpdate = Init<typeof UpdateRedirectFileRequestSchema> & { websiteID?: number };
 
-    export interface RedirectFileUpdate {
-        websiteID: number;
-        name: string;
-        content: string;
-    }
+    export type PHPVersionChange = Init<typeof ChangeWebsitePHPVersionRequestSchema> & {
+        websiteID?: number;
+        runtimeID?: number;
+    };
 
-    export interface PHPVersionChange {
-        websiteID: number;
-        runtimeID: number;
-    }
-
-    export interface DirConfig {
-        dirs: string[];
-        user: string;
-        userGroup: string;
-        msg: string;
-    }
+    export type DirConfig = Init<typeof WebsiteDirConfigSchema> & {
+        userGroup?: string;
+        msg?: string;
+    };
 
     export interface SSLUpload {
         privateKey: string;
@@ -593,189 +331,64 @@ export namespace Website {
         pushNode?: boolean;
         nodes?: string;
     }
-
     export interface SSLObtain {
         ID: number;
     }
 
-    export interface CA extends CommonModel {
-        name: string;
-        csr: string;
-        privateKey: string;
-        keyType: string;
-    }
-
-    export interface CACreate {
-        name: string;
-        commonName: string;
-        country: string;
-        organization: string;
-        organizationUint: string;
-        keyType: string;
-        province: string;
-        city: string;
-    }
-
-    export interface CADTO extends CA {
+    export type CA = Init<typeof CADetailSchema>;
+    export type CACreate = Init<typeof CreateCARequestSchema>;
+    export type CADTO = CA & {
         commonName: string;
         country: string;
         organization: string;
         organizationUint: string;
         province: string;
         city: string;
-    }
-
-    export interface SSLObtainByCA {
-        autoRenew: boolean;
-        execShell: boolean;
-        shell: string;
-        id: number;
-        domains: string;
-        keyType: string;
-        time: number;
-        unit: string;
-        pushDir: boolean;
-        dir: string;
-        description: string;
-        pushNode?: boolean;
-        nodes?: string;
-    }
-
-    export interface RenewSSLByCA {
-        SSLID: number;
-    }
-
+    };
+    export type SSLObtainByCA = Init<typeof ObtainCARequestSchema> & {
+        ID?: number;
+        SSLId?: number;
+    };
+    export type RenewSSLByCA = Init<typeof RenewCARequestSchema> & { SSLID?: number };
     export interface SSLDownload {
         id: number;
     }
 
-    export interface WebsiteHtml {
-        content: string;
-    }
-    export interface WebsiteHtmlUpdate {
-        type: string;
-        content: string;
-        sync: boolean;
-    }
+    export type WebsiteHtml = Init<typeof DefaultHtmlSchema>;
+    export type WebsiteHtmlUpdate = Init<typeof UpdateDefaultHtmlRequestSchema>;
 
-    export interface NginxUpstream {
-        name: string;
-        algorithm: string;
-        servers: NginxUpstreamServer[];
-        content?: string;
+    export type NginxUpstream = Init<typeof LoadBalanceSchema> & { websiteID?: number };
+    export type NginxUpstreamFile = Init<typeof UpdateLoadBalanceFileRequestSchema> & { websiteID?: number };
+    export type LoadBalanceReq = Init<typeof CreateLoadBalanceRequestSchema> & { websiteID?: number };
+    type NginxUpstreamServer = Init<typeof LoadBalanceServerSchema>;
+    export type LoadBalanceDel = Init<typeof DeleteLoadBalanceRequestSchema> & { websiteID?: number };
+    export type WebsiteLBUpdateFile = Init<typeof UpdateLoadBalanceFileRequestSchema> & { websiteID?: number };
+
+    export type WebsiteCacheConfig = Init<typeof ProxyCacheSchema>;
+    export type WebsiteRealIPConfig = Init<typeof RealIPConfigSchema>;
+    export type WebsiteResource = Init<typeof WebsiteResourceSchema> & {
+        resourceID?: number;
+        detail?: any;
+    };
+    export type WebsiteDatabase = Init<typeof WebsiteDatabaseSchema> & {
+        databaseID?: number;
         websiteID?: number;
-    }
+    };
+    export type ChangeDatabase = Init<typeof ChangeWebsiteDatabaseRequestSchema> & {
+        websiteID?: number;
+        databaseID?: number;
+        databaseType?: string;
+    };
+    export type CrossSiteAccessOp = Init<typeof OperateCrossSiteRequestSchema> & { websiteID?: number };
+    export type ExecComposer = Init<typeof ExecComposerRequestSchema> & {
+        websiteID?: number;
+        taskID?: string;
+    };
+    export type BatchOperate = Init<typeof BatchWebsiteOperateRequestSchema> & { taskID?: string };
 
-    export interface NginxUpstreamFile {
-        name: string;
-        content: string;
-        websiteID: number;
-    }
-
-    export interface LoadBalanceReq {
-        websiteID: number;
-        name: string;
-        algorithm: string;
-        servers: NginxUpstreamServer[];
-    }
-
-    interface NginxUpstreamServer {
-        server: string;
-        weight: number;
-        failTimeout: number;
-        failTimeoutUnit: string;
-        maxFails: number;
-        maxConns: number;
-        flag: string;
-    }
-
-    export interface LoadBalanceDel {
-        websiteID: number;
-        name: string;
-    }
-
-    export interface WebsiteLBUpdateFile {
-        websiteID: number;
-        name: string;
-        content: string;
-    }
-
-    export interface WebsiteCacheConfig {
-        open: boolean;
-        cacheLimit: number;
-        cacheLimitUnit: string;
-        shareCache: number;
-        shareCacheUnit: string;
-        cacheExpire: number;
-        cacheExpireUnit: string;
-    }
-
-    export interface WebsiteRealIPConfig {
-        open: boolean;
-        ipFrom: string;
-        ipHeader: string;
-        ipOther: string;
-    }
-
-    export interface WebsiteResource {
-        name: string;
-        type: string;
-        resourceID: number;
-        detail: any;
-    }
-
-    export interface WebsiteDatabase {
-        type: string;
-        databaseID: number;
-        websiteID: number;
-        from: string;
-        databaseName: number;
-    }
-
-    export interface ChangeDatabase {
-        websiteID: number;
-        databaseID: number;
-        databaseType: string;
-    }
-
-    export interface CrossSiteAccessOp {
-        websiteID: number;
-        operation: string;
-    }
-
-    export interface ExecComposer {
-        websiteID: number;
-        command: string;
-        extCommand?: string;
-        mirror: string;
-        dir: string;
-        user: string;
-        taskID: string;
-    }
-
-    export interface BatchOperate {
-        ids: number[];
-        operate: string;
-        taskID: string;
-    }
-
-    export interface CorsConfig {
-        cors: boolean;
-        allowOrigins: string;
-        allowMethods: string;
-        allowHeaders: string;
-        allowCredentials: boolean;
-        preflight: boolean;
-    }
-
-    export interface CorsConfigReq extends CorsConfig {
-        websiteID: number;
-    }
-
-    export interface BatchSetGroup {
-        ids: number[];
-        groupID: number;
-    }
+    export type CorsConfig = Init<typeof CorsConfigSchema>;
+    export type CorsConfigReq = CorsConfig & { websiteID: number };
+    export type BatchSetGroup = Init<typeof BatchWebsiteGroupRequestSchema> & { groupID?: number };
 
     export interface TemplateVariable {
         key: string;
@@ -786,7 +399,10 @@ export namespace Website {
         required: boolean;
     }
 
-    export interface Template extends CommonModel {
+    export interface Template {
+        id: number;
+        createdAt?: string;
+        updatedAt?: string;
         name: string;
         type: string;
         content: string;
@@ -794,12 +410,12 @@ export namespace Website {
         variables: string;
         remark: string;
     }
-
-    export interface TemplateSearch extends ReqPage {
+    export interface TemplateSearch {
+        page: number;
+        pageSize: number;
         name: string;
         type: string;
     }
-
     export interface TemplateCreate {
         name: string;
         type: string;
@@ -808,7 +424,6 @@ export namespace Website {
         variables: string;
         remark: string;
     }
-
     export interface TemplateUpdate {
         id: number;
         name: string;
@@ -818,34 +433,33 @@ export namespace Website {
         variables: string;
         remark: string;
     }
-
-    export interface TemplateOutput extends CommonModel {
+    export interface TemplateOutput {
+        id: number;
+        createdAt?: string;
+        updatedAt?: string;
         name: string;
         templateID: number;
         templateType: string;
         variableValues: string;
         outputPath: string;
     }
-
     export interface TemplateOutputDTO extends TemplateOutput {
         templateName: string;
     }
-
-    export interface TemplateOutputSearch extends ReqPage {
+    export interface TemplateOutputSearch {
+        page: number;
+        pageSize: number;
         templateID: number;
     }
-
     export interface TemplateOutputCreate {
         templateID: number;
         name: string;
         variableValues: Record<string, string>;
     }
-
     export interface PreviewReq {
         templateID: number;
         variableValues: Record<string, string>;
     }
-
     export interface PreviewDTO {
         html: string;
     }

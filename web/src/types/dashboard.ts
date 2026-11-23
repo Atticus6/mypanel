@@ -1,29 +1,27 @@
-export namespace Dashboard {
-    export interface OsInfo {
-        os: string;
-        platform: string;
-        platformFamily: string;
-        kernelArch: string;
-        kernelVersion: string;
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    DashboardBaseSchema,
+    DashboardCurrentSchema,
+    DiskInfoSchema,
+    LauncherOptionSchema,
+    OsInfoSchema,
+    QuickDirectorySchema,
+    QuickJumpSchema,
+    RunningTimeSchema,
+    TopProcessSchema,
+} from '@/gen/panel/agent/v1/dashboard_pb';
 
-        diskSize: number;
-    }
-    export interface QuickDirectory {
-        id: number;
-        legacy?: boolean;
-        path: string;
-        alias: string;
-    }
-    export interface QuickJump {
-        id: number;
-        name: string;
-        alias: string;
-        title: string;
-        detail: string;
-        recommend: number;
-        isShow: boolean;
-        router: string;
-    }
+// 剥掉 protobuf 内部元字段，避免不同消息的 $typeName/$unknown 字面量类型互相冲突。
+type Init<T extends DescMessage> = Omit<MessageInitShape<T>, '$typeName' | '$unknown'>;
+
+// 仪表盘 DTO 统一来自 proto 生成类型；int64 字段在 TS 为 bigint，
+// 为兼容旧页面按 number 使用，统一 Omit 后补 number 字段。
+// GPU/NPU/XPU 等加速卡信息无 proto 对应物，保留为纯 UI 类型。
+export namespace Dashboard {
+    export type OsInfo = Omit<Init<typeof OsInfoSchema>, 'diskSize'> & { diskSize?: number };
+    export type QuickDirectory = Init<typeof QuickDirectorySchema>;
+    export type QuickJump = Init<typeof QuickJumpSchema>;
+
     export interface AppLauncher {
         key: string;
         icon: string;
@@ -31,15 +29,11 @@ export namespace Dashboard {
         shortDescEn: string;
         shortDescZh: string;
         currentRow: InstallDetail;
-
         isInstall: boolean;
         isRecommend: boolean;
         detail: Array<InstallDetail>;
     }
-    export interface AppLauncherOption {
-        key: string;
-        isShow: boolean;
-    }
+    export type AppLauncherOption = Init<typeof LauncherOptionSchema>;
     export interface InstallDetail {
         installID: number;
         detailID: string;
@@ -52,104 +46,86 @@ export namespace Dashboard {
         httpPort: string;
         httpsPort: string;
     }
-    export interface BaseInfo {
-        hostname: string;
-        os: string;
-        platform: string;
-        platformFamily: string;
-        platformVersion: string;
-        prettyDistro: string;
-        kernelArch: string;
-        kernelVersion: string;
-        virtualizationSystem: string;
-        ipV4Addr: string;
-        httpProxy: string;
 
-        cpuCores: number;
-        cpuLogicalCores: number;
-        cpuModelName: string;
-        cpuMhz: number;
+    export type BaseInfo = Omit<Init<typeof DashboardBaseSchema>, 'currentInfo' | 'quickJumps'> & {
+        httpProxy?: string;
+        quickJump?: QuickJump[];
+        quickJumps?: QuickJump[];
+        currentInfo?: CurrentInfo;
+    };
 
-        currentInfo: CurrentInfo;
-        quickJump: Array<QuickJump>;
-    }
-    export interface CurrentInfo {
-        uptime: number;
-        timeSinceUptime: string;
-        runningTime: RunningTime;
-        procs: number;
+    type CurrentInit = Init<typeof DashboardCurrentSchema>;
+    export type CurrentInfo = Omit<
+        CurrentInit,
+        | 'uptime'
+        | 'procs'
+        | 'memoryTotal'
+        | 'memoryUsed'
+        | 'memoryFree'
+        | 'memoryShard'
+        | 'memoryCache'
+        | 'memoryAvailable'
+        | 'swapMemoryTotal'
+        | 'swapMemoryAvailable'
+        | 'swapMemoryUsed'
+        | 'ioReadBytes'
+        | 'ioWriteBytes'
+        | 'ioCount'
+        | 'ioReadTime'
+        | 'ioWriteTime'
+        | 'netBytesSent'
+        | 'netBytesRecv'
+        | 'runningTime'
+        | 'shotTime'
+        | 'diskData'
+    > & {
+        uptime?: number;
+        procs?: number;
+        memoryTotal?: number;
+        memoryUsed?: number;
+        memoryFree?: number;
+        memoryShard?: number;
+        memoryCache?: number;
+        memoryAvailable?: number;
+        swapMemoryTotal?: number;
+        swapMemoryAvailable?: number;
+        swapMemoryUsed?: number;
+        ioReadBytes?: number;
+        ioWriteBytes?: number;
+        ioCount?: number;
+        ioReadTime?: number;
+        ioWriteTime?: number;
+        netBytesSent?: number;
+        netBytesRecv?: number;
+        runningTime?: RunningTime;
+        diskData?: DiskInfo[];
+        shotTime?: Date;
+        gpuData?: GPUInfo[];
+        npuData?: NPUInfo[];
+        xpuData?: XPUInfo[];
+        topCPUItems?: Process[];
+        topMemItems?: Process[];
+    };
 
-        load1: number;
-        load5: number;
-        load15: number;
-        loadUsagePercent: number;
-
-        cpuPercent: Array<number>;
-        cpuUsedPercent: number;
-        cpuUsed: number;
-        cpuTotal: number;
-        cpuDetailedPercent: Array<number>; // [user, system, nice, idle, iowait, irq, softirq, steal]
-
-        memoryTotal: number;
-        memoryAvailable: number;
-        memoryUsed: number;
-        memoryFree: number;
-        memoryShard: number;
-        memoryCache: number;
-        memoryUsedPercent: number;
-        swapMemoryTotal: number;
-        swapMemoryAvailable: number;
-        swapMemoryUsed: number;
-        swapMemoryUsedPercent: number;
-
-        ioReadBytes: number;
-        ioWriteBytes: number;
-        ioCount: number;
-        ioReadTime: number;
-        ioWriteTime: number;
-
-        diskData: Array<DiskInfo>;
-
-        gpuData: Array<GPUInfo>;
-        npuData: Array<NPUInfo>;
-        xpuData: Array<XPUInfo>;
-
-        topCPUItems?: Array<Process>;
-        topMemItems?: Array<Process>;
-
-        netBytesSent: number;
-        netBytesRecv: number;
-
-        shotTime: Date;
-    }
-    export interface RunningTime {
+    export type RunningTime = Omit<Init<typeof RunningTimeSchema>, 'days' | 'hours' | 'minutes' | 'seconds'> & {
         days: number;
         hours: number;
         minutes: number;
         seconds: number;
-    }
-    export interface Process {
-        name: string;
-        pid: number;
-        percent: number;
-        memory: number;
-        cmd: string;
-        user: string;
-    }
-    export interface DiskInfo {
-        path: string;
-        type: string;
-        device: string;
-        total: number;
-        free: number;
-        used: number;
-        usedPercent: number;
+    };
+    export type Process = Omit<Init<typeof TopProcessSchema>, 'memory'> & { memory?: number };
+    export type DiskInfo = Omit<
+        Init<typeof DiskInfoSchema>,
+        'total' | 'free' | 'used' | 'inodesTotal' | 'inodesUsed' | 'inodesFree'
+    > & {
+        total?: number;
+        free?: number;
+        used?: number;
+        inodesTotal?: number;
+        inodesUsed?: number;
+        inodesFree?: number;
+    };
 
-        inodesTotal: number;
-        inodesUsed: number;
-        inodesFree: number;
-        inodesUsedPercent: number;
-    }
     export interface GPUInfo {
         sharedMemory?: boolean;
         type: string;
@@ -169,7 +145,6 @@ export namespace Dashboard {
         memTotal: string;
         fanSpeed: string;
     }
-
     export interface NPUInfo {
         type: 'ascend';
         index: number;
@@ -190,7 +165,6 @@ export namespace Dashboard {
         hugepagesUsed: string;
         hugepagesTotal: string;
     }
-
     export interface XPUInfo {
         deviceID: number;
         deviceName: string;

@@ -1,108 +1,58 @@
-import { ReqPage } from '.';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    BackupCheckResultSchema,
+    BackupDataRequestSchema,
+    BackupOperateSchema,
+    BackupOptionSchema,
+    BackupRecordEntrySchema,
+    BackupSchema,
+    DownloadBackupRecordRequestSchema,
+    ListBucketsRequestSchema,
+    LoadRecordSizeRequestSchema,
+    RecordFileSizeSchema,
+    RecoverDataRequestSchema,
+    SearchBackupRecordsByCronjobRequestSchema,
+    SearchBackupRecordsRequestSchema,
+    SearchBackupsRequestSchema,
+} from '@/gen/panel/agent/v1/backup_pb';
+import { BackupClientInfoSchema } from '@/gen/panel/core/v1/backup_pb';
 
+// 剥掉 protobuf 内部元字段，避免不同消息的 $typeName/$unknown 字面量类型互相冲突。
+type Init<T extends DescMessage> = Omit<MessageInitShape<T>, '$typeName' | '$unknown'>;
+
+// 备份域 DTO 统一来自 proto 生成类型；只保留旧页面仍在用的字段名兼容别名。
 export namespace Backup {
-    export interface SearchWithType extends ReqPage {
-        type: string;
-        info: string;
-    }
-    export interface BackupOption {
-        id: number;
-        name: string;
-        type: string;
-    }
-    export interface BackupInfo {
-        id: number;
-        name: string;
-        type: string;
-        isPublic: boolean;
-        accessKey: string;
-        bucket: string;
-        credential: string;
-        rememberAuth: boolean;
-        backupPath: string;
-        bucketInput: boolean;
-        vars: string;
-        varsJson: object;
-        createdAt: Date;
-    }
-    export interface CheckResult {
-        isOk: boolean;
-        msg: string;
-        token: string;
-    }
-    export interface ClientInfo {
-        client_id: string;
-        client_secret: string;
-        redirect_uri: string;
-    }
-    export interface BackupOperate {
-        id: number;
-        type: string;
-        name: string;
-        isPublic: boolean;
-        accessKey: string;
-        bucket: string;
-        credential: string;
-        backupPath: string;
-        vars: string;
-    }
-    export interface RecordDownload {
-        downloadAccountID: number;
-        fileDir: string;
-        fileName: string;
-    }
-    export interface RecordInfo {
-        id: number;
-        createdAt: Date;
-        accountType: string;
-        accountName: string;
-        downloadAccountID: number;
-        fileDir: string;
-        fileName: string;
-        size: number;
-    }
-    export interface ForBucket {
-        type: string;
-        isPublic: boolean;
-        accessKey: string;
-        credential: string;
-        vars: string;
-    }
-    export interface SearchBackupRecord extends ReqPage {
-        type: string;
-        name: string;
-        detailName: string;
-    }
-    export interface SearchForSize extends ReqPage {
-        type: string;
-        name: string;
-        detailName: string;
-        info: string;
-        cronjobID: number;
-    }
-    export interface RecordFileSize extends ReqPage {
-        id: number;
-        size: number;
-    }
-    export interface SearchBackupRecordByCronjob extends ReqPage {
-        cronjobID: number;
-    }
-    export interface Backup {
-        type: string;
-        name: string;
-        detailName: string;
-        secret: string;
-        taskID: string;
-        stopBefore?: boolean;
-    }
-    export interface Recover {
-        downloadAccountID: number;
-        type: string;
-        name: string;
-        detailName: string;
-        file: string;
-        secret: string;
-        taskID: string;
-        dropAllCollections?: boolean;
-    }
+    export type SearchWithType = Init<typeof SearchBackupsRequestSchema>;
+    export type BackupOption = Init<typeof BackupOptionSchema>;
+
+    type BackupInfoBase = Init<typeof BackupSchema> & Init<typeof BackupOperateSchema>;
+    export type BackupInfo = Omit<BackupInfoBase, 'createdAt'> & {
+        bucketInput?: boolean;
+        varsJson?: Record<string, any>;
+        createdAt?: Date;
+    };
+
+    export type CheckResult = Init<typeof BackupCheckResultSchema>;
+    export type ClientInfo = Init<typeof BackupClientInfoSchema> & {
+        client_id?: string;
+        client_secret?: string;
+        redirect_uri?: string;
+    };
+    export type BackupOperate = Init<typeof BackupOperateSchema>;
+
+    export type RecordDownload = Init<typeof DownloadBackupRecordRequestSchema> & { downloadAccountID?: number };
+    export type RecordInfo = Omit<Init<typeof BackupRecordEntrySchema>, 'createdAt'> & {
+        downloadAccountID?: number;
+        size?: number;
+        createdAt?: Date;
+    };
+    export type ForBucket = Init<typeof ListBucketsRequestSchema>;
+    export type SearchBackupRecord = Init<typeof SearchBackupRecordsRequestSchema>;
+    export type SearchForSize = Init<typeof LoadRecordSizeRequestSchema> & { cronjobID?: number };
+    export type RecordFileSize = Omit<Init<typeof RecordFileSizeSchema>, 'size'> & { size: number };
+    export type SearchBackupRecordByCronjob = Init<typeof SearchBackupRecordsByCronjobRequestSchema> & {
+        cronjobID?: number;
+    };
+    export type Backup = Init<typeof BackupDataRequestSchema> & { taskID?: string };
+    export type Recover = Init<typeof RecoverDataRequestSchema> & { downloadAccountID?: number; taskID?: string };
 }

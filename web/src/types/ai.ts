@@ -1,5 +1,6 @@
 import { ReqPage } from '.';
 
+// AI 能力已从数据面剔除，proto 中没有对应消息；以下结构只供本地展示与空桩使用。
 export namespace AI {
     export interface ModelGPUDevice {
         index?: number;

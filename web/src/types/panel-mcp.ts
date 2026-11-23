@@ -1,3 +1,4 @@
+// MCP 面板未纳入 proto，契约与目录完全由本地 JSON 描述；以下结构只供前端展示与校验使用。
 export namespace PanelMCP {
     export type CredentialStatus = 'Enable' | 'Disable' | 'Revoked' | 'Expired';
     export interface EditableCredential {

@@ -1,271 +1,91 @@
-import { DateTimeFormats } from '@intlify/core-base';
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    FileAISettingSchema,
+    FileHistorySettingSchema,
+    SaveDescriptionRequestSchema,
+    TerminalAISettingSchema,
+    AgentSettingInfoSchema,
+} from '@/gen/panel/agent/v1/setting_pb';
+import {
+    CreateSnapshotRequestSchema,
+    DataTreeSchema,
+    ImportSnapshotRequestSchema,
+    RecoverSnapshotRequestSchema,
+    SnapshotDataSchema,
+    SnapshotInfoSchema,
+} from '@/gen/panel/agent/v1/snapshot_pb';
+import {
+    PasskeyBeginResponseSchema,
+    PasskeyInfoSchema,
+    PasskeyRegisterBeginRequestSchema,
+} from '@/gen/panel/core/v1/auth_pb';
+import {
+    SettingBaseInfoSchema,
+    SettingInfoSchema,
+    SSLInfoSchema,
+    TerminalInfoSchema,
+    UpdatePortRequestSchema,
+    UpdateProxyRequestSchema,
+    UpdateSettingRequestSchema,
+    UpdateSSLRequestSchema,
+    UpgradeInfoSchema,
+} from '@/gen/panel/core/v1/setting_pb';
 
+// 剥掉 protobuf 内部元字段，避免不同消息的 $typeName/$unknown 字面量类型互相冲突。
+type Init<T extends DescMessage> = Omit<MessageInitShape<T>, '$typeName' | '$unknown'>;
+
+// 设置域 DTO 统一来自 proto 生成类型；只保留旧页面仍在用的字段名兼容别名。
+// License / Node 等 xpack 相关结构已无 proto 对应物，保留为纯 UI 类型。
 export namespace Setting {
-    export interface AgentSettingInfo {
-        dockerSockPath: string;
-        systemVersion: string;
-        systemIP: string;
+    export type AgentSettingInfo = Omit<
+        Init<typeof AgentSettingInfoSchema>,
+        'systemIp' | 'defaultIo' | 'localSshConnShow'
+    > & {
+        systemIP?: string;
+        defaultIO?: string;
+        localSSHConnShow?: string;
+    };
+    export type SettingInfo = Init<typeof SettingInfoSchema> & {
+        sessionTimeout?: number;
+        expirationDays?: number;
+        serverPort?: number;
+        allowIPs?: string;
+        allowIPTrustedProxies?: string;
+    };
+    export type SettingBaseInfo = Init<typeof SettingBaseInfoSchema>;
+    export type TerminalInfo = Init<typeof TerminalInfoSchema>;
+    export type TerminalAIInfo = Init<typeof TerminalAISettingSchema>;
+    export type FileManageAIInfo = Init<typeof FileAISettingSchema>;
+    export type FileHistoryInfo = Omit<Init<typeof FileHistorySettingSchema>, 'diskQuotaMb'> & { diskQuotaMB?: number };
+    export type SettingUpdate = Init<typeof UpdateSettingRequestSchema>;
+    export type ProxyUpdate = Init<typeof UpdateProxyRequestSchema>;
+    export type SSLUpdate = Omit<Init<typeof UpdateSSLRequestSchema>, 'sslId'> & { sslID?: number };
+    export type SSLInfo = Init<typeof SSLInfoSchema> & { sslID?: number };
+    export type PortUpdate = Omit<Init<typeof UpdatePortRequestSchema>, 'port'> & { serverPort?: number };
+    export type PasskeyRegisterRequest = Init<typeof PasskeyRegisterBeginRequestSchema>;
+    export type PasskeyBeginResponse = Omit<Init<typeof PasskeyBeginResponseSchema>, 'publicKey'> & {
+        publicKey?: Record<string, any>;
+    };
+    export type PasskeyInfo = Init<typeof PasskeyInfoSchema>;
+    export type CommonDescription = Init<typeof SaveDescriptionRequestSchema>;
 
-        localTime: string;
-        timeZone: string;
-        ntpSite: string;
-
-        defaultNetwork: string;
-        defaultIO: string;
-        lastCleanTime: string;
-        lastCleanSize: string;
-        lastCleanData: string;
-
-        monitorStatus: string;
-        monitorInterval: string;
-        monitorStoreDays: string;
-
-        appStoreVersion: string;
-        appStoreLastModified: string;
-        appStoreSyncStatus: string;
-
-        fileRecycleBin: string;
-        localSSHConnShow: string;
-        firewallPortWhiteList: string;
-    }
-    export interface SettingInfo {
-        systemVersion: string;
-        upgradeBackupCopies: string;
-        developerMode: string;
-
-        sessionTimeout: number;
-        expirationDays: number;
-
-        panelName: string;
-        edition: string;
-        theme: string;
-        menuTabs: string;
-        menuAccordion: string;
-        panelCache: string;
-        language: string;
-        docSource: string;
-
-        serverPort: number;
-        ipv6: string;
-        bindAddress: string;
-        ssl: string;
-        sslType: string;
-        allowIPs: string;
-        allowIPTrustedProxies: string;
-        bindDomain: string;
-        passkeyTrustedProxies: string;
-        securityEntrance: string;
-        dashboardMemoVisible: string;
-        dashboardSimpleNodeVisible: string;
-        complexityVerification: string;
-
-        messageType: string;
-        emailVars: string;
-        weChatVars: string;
-        dingVars: string;
-        snapshotIgnore: string;
-        hideMenu: string;
-        noAuthSetting: string;
-
-        proxyUrl: string;
-        proxyType: string;
-        proxyPort: string;
-        proxyUser: string;
-        proxyPasswd: string;
-        proxyPasswdKeep: string;
-    }
-    export interface SettingBaseInfo {
-        systemVersion: string;
-        developerMode: string;
-        upgradeBackupCopies: string;
-
-        port: string;
-        ipv6: string;
-        bindAddress: string;
-        panelName: string;
-        edition: string;
-        theme: string;
-        menuTabs: string;
-        menuAccordion: string;
-        panelCache: string;
-        language: string;
-        hideMenu: string;
-        docSource: string;
-
-        serverPort: string;
-        securityEntrance: string;
-        complexityVerification: string;
-        noAuthSetting: string;
-        proxyType: string;
-        proxyEnabled: boolean;
-
-        scriptSync: string;
-        dashboardMemoVisible: string;
-        dashboardSimpleNodeVisible: string;
-    }
-    export interface TerminalInfo {
-        showTerminalButton?: string;
-        lineHeight: string;
-        letterSpacing: string;
-        fontSize: string;
-        fontFamily: string;
-        backgroundColor: string;
-        foregroundColor: string;
-        cursorBlink: string;
-        cursorStyle: string;
-        scrollback: string;
-        scrollSensitivity: string;
-    }
-    export interface TerminalAIInfo {
-        aiStatus: string;
-        aiAccountId: string;
-        aiPrefix: string;
-        aiRiskCommands: string;
-        aiRiskCommandsDefault?: string;
-    }
-
-    export interface FileManageAIInfo {
-        aiStatus: string;
-        aiAccountId: string;
-    }
-
-    export interface FileHistoryInfo {
-        enable: string;
-        maxPerPath: number;
-        diskQuotaMB: number;
-    }
-    export interface SettingUpdate {
-        key: string;
-        value: string;
-    }
-    export interface ProxyUpdate {
-        proxyUrl: string;
-        proxyType: string;
-        proxyPort: string;
-        proxyUser: string;
-        proxyPasswd: string;
-        proxyPasswdKeep: string;
-        withDockerRestart: boolean;
-    }
-    export interface SSLUpdate {
-        ssl: string;
-        domain: string;
-        sslType: string;
-        cert: string;
-        key: string;
-        sslID: number;
-    }
-    export interface SSLInfo {
-        domain: string;
-        timeout: string;
-        rootPath: string;
-        cert: string;
-        key: string;
-        sslID: number;
-    }
-    export interface PortUpdate {
-        serverPort: number;
-    }
-    export interface PasskeyRegisterRequest {
-        name: string;
-    }
-    export interface PasskeyBeginResponse {
-        sessionId: string;
-        publicKey: Record<string, any>;
-    }
-    export interface PasskeyInfo {
-        id: string;
-        name: string;
-        createdAt: string;
-        lastUsedAt: string;
-    }
-    export interface CommonDescription {
-        id: string;
-        type: string;
-        detailType: string;
-        isPinned: boolean;
-        description: string;
-    }
-
-    export interface SnapshotCreate {
-        id: number;
-        sourceAccountIDs: string;
-        downloadAccountID: string;
-        description: string;
-        secret: string;
-        timeout: number;
-
-        appData: Array<DataTree>;
-        panelData: Array<DataTree>;
-        backupData: Array<DataTree>;
-
-        withMonitorData: boolean;
-        withLoginLog: boolean;
-        withOperationLog: boolean;
-    }
-    export interface SnapshotImport {
-        backupAccountID: number;
-        names: Array<string>;
-        description: string;
-    }
-    export interface SnapshotRecover {
-        id: number;
-        taskID: string;
-        isNew: boolean;
-        reDownload: boolean;
-        secret: string;
-    }
-    export interface SnapshotInfo {
-        id: number;
-        name: string;
-        sourceAccounts: Array<string>;
-        downloadAccount: string;
-        description: string;
-        status: string;
-        message: string;
-        createdAt: DateTimeFormats;
-        version: string;
-        secret: string;
-        timeout: number;
-
-        taskID: string;
-        taskRecoverID: string;
-        taskRollbackID: string;
-
-        interruptStep: string;
-        recoverStatus: string;
-        recoverMessage: string;
-        rollbackStatus: string;
-        rollbackMessage: string;
-    }
-    export interface SnapshotData {
-        appData: Array<DataTree>;
-        panelData: Array<DataTree>;
-        backupData: Array<DataTree>;
-
-        withMonitorData: boolean;
-        withLoginLog: boolean;
-        withOperationLog: boolean;
-    }
-    export interface DataTree {
-        id: string;
-        label: string;
-        key: string;
-        name: string;
-        size: number;
-        isShow: boolean;
-        isDisable: boolean;
-
-        path: string;
-
-        Children: Array<DataTree>;
-    }
-    export interface UpgradeInfo {
-        testVersion: string;
-        newVersion: string;
-        latestVersion: string;
-        releaseNote: string;
-    }
+    export type SnapshotCreate = Init<typeof CreateSnapshotRequestSchema>;
+    export type SnapshotImport = Init<typeof ImportSnapshotRequestSchema>;
+    export type SnapshotRecover = Init<typeof RecoverSnapshotRequestSchema> & { taskID?: string };
+    export type SnapshotInfo = Omit<Init<typeof SnapshotInfoSchema>, 'size' | 'createdAt'> & {
+        size?: number;
+        createdAt?: string;
+        taskID?: string;
+        taskRecoverID?: string;
+        taskRollbackID?: string;
+    };
+    export type SnapshotData = Init<typeof SnapshotDataSchema>;
+    export type DataTree = Omit<Init<typeof DataTreeSchema>, 'size' | 'isCheck' | 'children'> & {
+        size?: number;
+        isShow?: boolean;
+        Children?: DataTree[];
+    };
+    export type UpgradeInfo = Init<typeof UpgradeInfoSchema>;
 
     export interface License {
         licenseName: string;
@@ -303,7 +123,6 @@ export namespace Setting {
         serialNo: string;
         remark: string;
         ext: string;
-
         status: string;
         message: string;
     }
@@ -348,7 +167,6 @@ export namespace Setting {
         OptimizationCount: number;
         FixCount: number;
     }
-
     export interface LicenseBind {
         nodeID: number;
         licenseID: number;
@@ -360,13 +178,11 @@ export namespace Setting {
         force: boolean;
         withDockerRestart: boolean;
     }
-
     export interface SmsInfo {
         licenseName: string;
         smsUsed: number;
         smsTotal: number;
     }
-
     export interface NodeAppItem {
         name: string;
         updateCount: number;

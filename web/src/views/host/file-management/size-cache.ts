@@ -1,8 +1,8 @@
 import type { File } from '@/types/file';
 
-type FileSizeItem = Pick<File.File, 'path' | 'size' | 'isDir'> & Partial<Pick<File.File, 'dirSize'>>;
+type FileSizeItem = { path: string; size: number; isDir: boolean; dirSize?: number };
 
-export type DirSizeItem = Pick<File.DepthDirSizeRes, 'path' | 'size'>;
+export type DirSizeItem = { path: string; size: number };
 
 export const updateDirSizeCache = (cache: Map<string, number>, items: DirSizeItem[]) => {
     items.forEach((item) => {

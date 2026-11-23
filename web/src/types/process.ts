@@ -1,8 +1,21 @@
-export namespace Process {
-    export interface StopReq {
-        PID: number;
-    }
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+import {
+    ListeningProcessSchema,
+    StopProcessRequestSchema,
+} from '@/gen/panel/agent/v1/process_pb';
 
+type Init<T extends DescMessage> = MessageInitShape<T>;
+
+export namespace Process {
+    export type StopReq = Init<typeof StopProcessRequestSchema>;
+    export type ListeningProcess = Init<typeof ListeningProcessSchema> & {
+    PID?: number;
+    Port?: Record<string, unknown>;
+    Protocol?: number;
+    Name?: string;
+};
+
+    // 进程详情由 detailJson 透传，组件自行按字段展示。
     export interface PsProcessData {
         PID: number;
         name: string;
@@ -13,11 +26,9 @@ export namespace Process {
         numThreads: number;
         numConnections: number;
         cpuPercent: string;
-
         diskRead: string;
         diskWrite: string;
         cmdLine: string;
-
         rss: string;
         vms: string;
         hwm: string;
@@ -30,12 +41,9 @@ export namespace Process {
         uss: string;
         shared: string;
         text: string;
-
         cpuValue: number;
         rssValue: number;
-
         envs: string[];
-
         openFiles: OpenFilesStat[];
         connects: ProcessConnect[];
     }
@@ -48,18 +56,9 @@ export namespace Process {
         PID: number;
         name: string;
     }
-
     export type ProcessConnects = ProcessConnect[];
-
     export interface OpenFilesStat {
         path: string;
         fd: number;
-    }
-
-    export interface ListeningProcess {
-        PID: number;
-        Port: { [key: string]: {} };
-        Protocol: number;
-        Name: string;
     }
 }

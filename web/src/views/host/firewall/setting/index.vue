@@ -53,7 +53,7 @@
                                                     v-else-if="
                                                         option.supported &&
                                                         (option.name !== item.group.selected ||
-                                                            isServiceBackend(option.name))
+                                                            isServiceBackend(option.name as Firewall.Provider))
                                                     "
                                                     size="small"
                                                     type="success"
@@ -111,7 +111,7 @@
         </LayoutContent>
         <WhiteList
             ref="whiteListRef"
-            :rules="settings?.portWhiteList"
+            :rules="(settings?.portWhiteList as Firewall.PortWhitelist[] | undefined)"
             :ipv6-enabled="settings?.ipv6Enabled !== false"
             :panel-port="settings?.panelPort"
             :ssh-port="settings?.sshPort"
@@ -227,7 +227,7 @@ const groups = computed(() => {
 const whiteListCount = computed(() => settings.value?.portWhiteList?.length || 0);
 
 const sortedOptions = (group: Firewall.BackendGroup) => {
-    return [...group.options].sort((left, right) => providerOrder[left.name] - providerOrder[right.name]);
+    return [...group.options].sort((left, right) => providerOrder[left.name as Firewall.Provider] - providerOrder[right.name as Firewall.Provider]);
 };
 
 const load = async () => {
