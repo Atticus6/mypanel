@@ -536,7 +536,6 @@ import ContainerLogDialog from '@/components/log/container-drawer/index.vue';
 import DeleteDialog from '@/views/container/compose/delete/index.vue';
 import Backups from '@/components/backup/index.vue';
 import Uploads from '@/components/upload/index.vue';
-import { inspect } from '@/api/modules/container';
 import DockerStatus from '@/views/container/docker-status/index.vue';
 import i18n from '@/lang';
 import { Container } from '@/api/interface/container';
@@ -742,12 +741,13 @@ const inspectCompose = async (name: string, detailPath: string) => {
         return;
     }
     detailLoading.value = true;
-    await inspect({ id: name, type: 'compose', detail: detailPath })
+    await rpc.container
+        .inspect({ id: name, type: 'compose', detail: detailPath })
         .then((res) => {
             if (currentCompose.value?.name !== name || currentYamlPath.value !== detailPath) {
                 return;
             }
-            composeContent.value = res.data;
+            composeContent.value = res.content;
         })
         .finally(() => {
             if (currentCompose.value?.name !== name || currentYamlPath.value !== detailPath) {
@@ -1014,8 +1014,8 @@ const onInspectContainer = async (item: any) => {
     if (!item.containerID) {
         return;
     }
-    const res = await inspect({ id: item.containerID, type: 'container', detail: '' });
-    containerInspectRef.value!.acceptParams({ data: res.data, ports: item.ports || [] });
+    const res = await rpc.container.inspect({ id: item.containerID, type: 'container', detail: '' });
+    containerInspectRef.value!.acceptParams({ data: res.content, ports: item.ports || [] });
 };
 const onOpenTerminal = (row: any) => {
     if (!row.containerID) {

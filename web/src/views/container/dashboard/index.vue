@@ -199,7 +199,6 @@
 </template>
 
 <script lang="ts" setup>
-import { loadContainerStatus } from '@/api/modules/container';
 import DockerStatus from '@/views/container/docker-status/index.vue';
 import { rpc } from '@/lib/rpc';
 import { computeSize2 } from '@/utils/size';
@@ -257,28 +256,29 @@ const search = () => {
 };
 
 const loadContainerCount = async () => {
-    await loadContainerStatus().then((res) => {
-        countItem.running = res.data.running;
-        countItem.paused = res.data.paused;
-        countItem.restarting = res.data.restarting;
-        countItem.removing = res.data.removing;
-        countItem.created = res.data.created;
-        countItem.dead = res.data.dead;
-        countItem.exited = res.data.exited;
+    await rpc.container.status({}).then((res) => {
+        countItem.running = res.running;
+        countItem.paused = res.paused;
+        countItem.restarting = res.restarting;
+        countItem.removing = res.removing;
+        countItem.created = res.created;
+        countItem.dead = res.dead;
+        countItem.exited = res.exited;
 
-        countItem.containerCount = res.data.containerCount;
-        countItem.composeCount = res.data.composeCount;
-        countItem.composeTemplateCount = res.data.composeTemplateCount;
-        countItem.imageCount = res.data.imageCount;
-        countItem.networkCount = res.data.networkCount;
-        countItem.volumeCount = res.data.volumeCount;
-        countItem.repoCount = res.data.repoCount;
+        countItem.containerCount = res.containerCount;
+        countItem.composeCount = res.composeCount;
+        countItem.composeTemplateCount = res.composeTemplateCount;
+        countItem.imageCount = res.imageCount;
+        countItem.networkCount = res.networkCount;
+        countItem.volumeCount = res.volumeCount;
+        countItem.repoCount = res.repoCount;
     });
 };
 
 const loadUsage = async () => {
     usageLoading.value = true;
-    await rpc.container.getContainerItemStats({ name: 'system' })
+    await rpc.container
+        .getContainerItemStats({ name: 'system' })
         .then((res) => {
             countItem.containerUsage = Number(res.containerUsage);
             countItem.containerReclaimable = Number(res.containerReclaimable);
@@ -328,7 +328,8 @@ const onClean = async (type: string, withAll: boolean) => {
             pruneType: type,
             withTagAll: withAll,
         };
-        await rpc.container.prune(params)
+        await rpc.container
+            .prune(params)
             .then(() => {
                 loading.value = false;
                 openTaskLog(params.taskID);

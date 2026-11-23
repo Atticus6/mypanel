@@ -353,7 +353,6 @@ import Confirm from '@/views/container/container/operate/confirm.vue';
 import Volume from '@/views/container/container/operate/volume.vue';
 import Network from '@/views/container/container/operate/network.vue';
 import ExtraHosts from '@/views/website/components/extra-hosts/index.vue';
-import { searchContainer } from '@/api/modules/container';
 import { Container } from '@/api/interface/container';
 import { MsgError } from '@/utils/message';
 import TaskLog from '@/components/log/task/index.vue';
@@ -679,8 +678,8 @@ const checkExist = async () => {
         orderBy: 'createdAt',
         order: 'null',
     };
-    await searchContainer(params).then((res) => {
-        if (res.data.items?.length === 1) {
+    await rpc.container.search(params).then((res) => {
+        if (res.items?.length === 1) {
             isCreate.value = false;
             routerToNameWithQuery('ContainerCreate', { name: form.name, t: Date.now() });
             return;

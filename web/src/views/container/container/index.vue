@@ -31,34 +31,6 @@
                 <el-button v-permission type="primary" plain @click="onClean()">
                     {{ $t('container.containerPrune') }}
                 </el-button>
-                <el-dropdown v-permission trigger="click" @command="onImageCheckUpdateCommand">
-                    <el-button type="primary" plain :loading="imageCheckUpdateBusy">
-                        {{ $t('container.imageCheckUpdates') }}
-                        <el-icon class="el-icon--right"><ArrowDown /></el-icon>
-                    </el-button>
-                    <template #dropdown>
-                        <el-dropdown-menu>
-                            <el-dropdown-item
-                                command="check"
-                                :disabled="imageCheckUpdateBusy || imageCheckUpdateStatus?.running"
-                            >
-                                {{ $t('container.imageCheckUpdateNow') }}
-                            </el-dropdown-item>
-                            <el-dropdown-item
-                                command="schedule"
-                                :disabled="imageCheckUpdateBusy || !imageCheckUpdateStatus"
-                            >
-                                {{
-                                    $t(
-                                        imageCheckUpdateStatus?.enabled
-                                            ? 'container.imageCheckUpdateDisable'
-                                            : 'container.imageCheckUpdateSchedule',
-                                    )
-                                }}
-                            </el-dropdown-item>
-                        </el-dropdown-menu>
-                    </template>
-                </el-dropdown>
             </template>
             <template #rightToolBar>
                 <TableViewSwitch v-model="viewMode" storage-key="container" />
@@ -508,9 +480,6 @@ import DockerStatus from '@/views/container/docker-status/index.vue';
 import ContainerLogDialog from '@/components/log/container-drawer/index.vue';
 import Status from '@/components/status/index.vue';
 import { toRef, computed, onMounted, onActivated, onBeforeUnmount, onDeactivated, reactive, ref, watch } from 'vue';
-import { showImageProxyRequired, isRuntimeProxyRequired } from '@/utils/image-remote';
-import { ArrowDown } from '@element-plus/icons-vue';
-import { getContainerImageCheckUpdateStatus, runContainerImageCheckUpdate, setContainerImageCheckUpdateSchedule, type ContainerImageCheckUpdateStatus } from '@/api/modules/container';
 import { Container } from '@/api/interface/container';
 import { rpc } from '@/lib/rpc';
 import { toContainerView } from '@/lib/rpc/container';
@@ -809,116 +778,6 @@ const loadContainers = async (background = false, column?: any) => {
 
 const search = (column?: any) => loadContainers(false, column);
 
-const imageCheckUpdateStatus = ref<ContainerImageCheckUpdateStatus>();
-const imageCheckUpdateBusy = ref(false);
-let imageCheckUpdateTimer: ReturnType<typeof setTimeout> | undefined;
-let imageCheckUpdateGeneration = 0;
-let imageCheckUpdateActive = false;
-let imageCheckUpdateController: AbortController | undefined;
-const pauseImageCheckUpdatePolling = () => {
-    imageCheckUpdateGeneration++;
-    clearTimeout(imageCheckUpdateTimer);
-    imageCheckUpdateController?.abort();
-    imageCheckUpdateController = undefined;
-};
-const stopImageCheckUpdatePolling = () => {
-    imageCheckUpdateActive = false;
-    pauseImageCheckUpdatePolling();
-};
-const showImageCheckUpdateResult = (status: ContainerImageCheckUpdateStatus) => {
-    if (status.error) MsgWarning(status.error);
-    else {
-        const summary = i18n.global.t('container.imageCheckUpdateResult', { ...status });
-        if (status.failed) MsgWarning(summary);
-        else MsgSuccess(summary);
-    }
-};
-const refreshImageCheckUpdateStatus = async (generation: number) => {
-    if (!imageCheckUpdateActive || document.hidden || generation !== imageCheckUpdateGeneration) return;
-    const node = currentNode.value;
-    const controller = new AbortController();
-    imageCheckUpdateController = controller;
-    try {
-        const res = await getContainerImageCheckUpdateStatus(node, controller.signal);
-        if (generation !== imageCheckUpdateGeneration || node !== currentNode.value) return;
-        const previous = imageCheckUpdateStatus.value;
-        imageCheckUpdateStatus.value = res.data;
-        if (previous && res.data.finishedAt && previous.finishedAt !== res.data.finishedAt) {
-            await loadContainers();
-            if (generation !== imageCheckUpdateGeneration || node !== currentNode.value) return;
-            showImageCheckUpdateResult(res.data);
-        }
-    } catch {
-        // The HTTP layer displays errors. Retry on the next status poll.
-    } finally {
-        if (imageCheckUpdateController === controller) imageCheckUpdateController = undefined;
-        if (generation === imageCheckUpdateGeneration && imageCheckUpdateActive && !document.hidden) {
-            const interval = imageCheckUpdateStatus.value?.running ? 10000 : 60000;
-            imageCheckUpdateTimer = setTimeout(() => refreshImageCheckUpdateStatus(generation), interval);
-        }
-    }
-};
-const restartImageCheckUpdatePolling = () => {
-    pauseImageCheckUpdatePolling();
-    if (imageCheckUpdateActive && !document.hidden) void refreshImageCheckUpdateStatus(imageCheckUpdateGeneration);
-};
-const startImageCheckUpdatePolling = () => {
-    if (imageCheckUpdateActive) return;
-    imageCheckUpdateActive = true;
-    restartImageCheckUpdatePolling();
-};
-const onImageCheckUpdateCommand = async (command: string) => {
-    const node = currentNode.value;
-    const generation = imageCheckUpdateGeneration;
-    imageCheckUpdateBusy.value = true;
-    try {
-        const status = await getContainerImageCheckUpdateStatus(node);
-        if (generation !== imageCheckUpdateGeneration || node !== currentNode.value) return;
-        imageCheckUpdateStatus.value = status.data;
-        // Disabling an existing schedule must remain possible without a proxy.
-        const proxyStatus =
-            node === 'local' && (command === 'check' || !status.data.enabled) ? await rpc.core.setting.getBaseInfo({}) : undefined;
-        if (generation !== imageCheckUpdateGeneration || node !== currentNode.value) return;
-        if (proxyStatus && isRuntimeProxyRequired(proxyStatus)) {
-            await showImageProxyRequired('container.imageCheckUpdateProxyRequired', () => node === currentNode.value);
-            return;
-        }
-        const res =
-            command === 'check'
-                ? await runContainerImageCheckUpdate(node)
-                : await setContainerImageCheckUpdateSchedule(!imageCheckUpdateStatus.value?.enabled, node);
-        if (generation !== imageCheckUpdateGeneration || node !== currentNode.value) return;
-        imageCheckUpdateStatus.value = res.data;
-        if (command === 'check' && res.data.taskID) openTaskLog(res.data.taskID);
-        if (command === 'check' && !res.data.running) {
-            showImageCheckUpdateResult(res.data);
-            await loadContainers();
-        } else {
-            MsgSuccess(
-                i18n.global.t(
-                    command === 'check' ? 'container.imageCheckUpdateStarted' : 'commons.msg.operationSuccess',
-                ),
-            );
-        }
-        if (generation === imageCheckUpdateGeneration && node === currentNode.value) restartImageCheckUpdatePolling();
-    } catch {
-        // The HTTP layer reports failures; keep the last confirmed schedule state.
-    } finally {
-        if (node === currentNode.value) imageCheckUpdateBusy.value = false;
-    }
-};
-onMounted(startImageCheckUpdatePolling);
-onMounted(() => document.addEventListener('visibilitychange', restartImageCheckUpdatePolling));
-onBeforeUnmount(() => document.removeEventListener('visibilitychange', restartImageCheckUpdatePolling));
-onActivated(startImageCheckUpdatePolling);
-onBeforeUnmount(stopImageCheckUpdatePolling);
-onDeactivated(stopImageCheckUpdatePolling);
-watch(currentNode, () => {
-    imageCheckUpdateStatus.value = undefined;
-    imageCheckUpdateBusy.value = false;
-    restartImageCheckUpdatePolling();
-});
-
 const searchWithStatus = (item: string) => {
     activeTag.value = item;
     paginationConfig.state = activeTag.value;
@@ -1084,7 +943,8 @@ const onOperate = async (op: string, row: Container.ContainerInfo | null) => {
 const onSubmitOperate = async () => {
     loading.value = true;
     let taskID = newUUID();
-    await rpc.container.operateContainers({ names: batchNames.value, operation: batchOp.value as any, taskId: taskID })
+    await rpc.container
+        .operateContainers({ names: batchNames.value, operation: batchOp.value as any, taskId: taskID })
         .then(() => {
             loading.value = false;
             search();
