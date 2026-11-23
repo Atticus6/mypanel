@@ -33,17 +33,6 @@ const settingRouter = {
             component: () => import('@/views/setting/index.vue'),
             children: [
                 {
-                    path: 'apikeys',
-                    name: 'APIKeys',
-                    component: () => import('@/views/setting/api-keys/index.vue'),
-                    hidden: true,
-                    meta: {
-                        parent: 'menu.settings',
-                        title: 'apiKeyManagement.title',
-                        activeMenu: '/settings',
-                    },
-                },
-                {
                     path: 'panel',
                     name: 'Panel',
                     component: () => import('@/views/setting/panel/index.vue'),

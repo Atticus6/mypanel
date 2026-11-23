@@ -66,7 +66,6 @@
 import { ElForm } from 'element-plus';
 import { Host } from '@/api/interface/host';
 import { Rules } from '@/global/form-rules';
-import { editHost } from '@/api/modules/terminal';
 import i18n from '@/lang';
 import { reactive, ref } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
@@ -206,7 +205,20 @@ const submitAddHost = (formEl: FormInstance | undefined, ops: string) => {
                     if (form.id == 0) {
                         await rpc.agentSetting.saveLocalConn(form as any);
                     } else {
-                        await editHost(form);
+                        await rpc.host.updateHost({
+                            id: form.id,
+                            groupId: form.groupID,
+                            name: form.name,
+                            addr: form.addr,
+                            port: form.port,
+                            user: form.user,
+                            authMode: form.authMode,
+                            password: form.password,
+                            privateKey: form.privateKey,
+                            passPhrase: form.passPhrase,
+                            rememberPassword: form.rememberPassword,
+                            description: form.description,
+                        } as any);
                     }
                 } else if (form.id == 0) {
                     savedHost = await rpc.host.create({

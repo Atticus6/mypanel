@@ -455,7 +455,6 @@ import { rpc } from '@/lib/rpc';
 import { ElForm, FormInstance } from 'element-plus';
 import { reactive, ref, watch } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { SearchRuntimes } from '@/api/modules/runtime';
 import { Runtime } from '@/api/interface/runtime';
 import { getRandomStr } from '@/utils/id';
 import { getRuntimeLabel } from '@/utils/app-store';
@@ -759,8 +758,8 @@ const changeRuntime = (runID: number) => {
 const getRuntimes = async () => {
     website.value.port = 0;
     try {
-        const res = await SearchRuntimes(runtimeReq.value);
-        runtimes.value = res.data.items || [];
+        // 运行时能力已剔除，不再请求 runtime 列表。
+        runtimes.value = [];
         if (runtimes.value.length > 0) {
             const first = runtimes.value[0];
             website.value.runtimeID = first.id;

@@ -1,4 +1,5 @@
-import { getUserInfo } from '@/api/modules/auth';
+import { rpc } from '@/lib/rpc';
+import { Login } from '@/api/interface/auth';
 import { getEnterpriseUserInfo } from '@/extensions/xpack';
 import type { RouteMeta } from 'vue-router';
 import { GlobalStore } from '@/store';
@@ -17,19 +18,36 @@ type RouteAccessTarget = {
     }>;
 };
 
-export const syncAuthInfo = async (currentNode?: string) => {
+export const syncAuthInfo = async (currentNode?: string): Promise<Login.AuthInfo> => {
     const globalStore = GlobalStore();
     const storeCurrentNode = globalStore.currentNode;
     if (!globalStore.isEnterprise) {
-        const res = await getUserInfo();
-        globalStore.cacheUserID = `community:${res.data.id}`;
+        const res = await rpc.core.auth.current({});
+        const authInfo: Login.AuthInfo = {
+            id: 0,
+            name: res.name,
+            mfaStatus: res.mfaStatus,
+            mfaInterval: res.mfaInterval,
+            role: res.role,
+            permissions: res.permissions || [],
+            masterOnlyPermissions: [],
+            nodeRoles: res.nodeRoles || [],
+            authSource: res.authSource,
+            authSourceStatus: res.authSourceStatus,
+            apiInterfaceStatus: res.apiInterfaceStatus,
+            apiKey: res.apiKey,
+            ipWhiteList: res.ipWhiteList,
+            apiTrustedProxies: res.apiTrustedProxies,
+            apiKeyValidityTime: res.apiKeyValidityTime,
+        };
+        globalStore.cacheUserID = `community:${res.name}`;
         globalStore.setAuthInfo({
-            isAdmin: res.data.role === 'ADMIN',
-            permissions: res.data.permissions || [],
-            masterOnlyPermissions: res.data.masterOnlyPermissions || [],
-            nodeRoles: res.data.nodeRoles || [],
+            isAdmin: res.role === 'ADMIN',
+            permissions: authInfo.permissions,
+            masterOnlyPermissions: authInfo.masterOnlyPermissions,
+            nodeRoles: authInfo.nodeRoles,
         });
-        return res.data;
+        return authInfo;
     }
     const res = await getEnterpriseUserInfo(currentNode ?? storeCurrentNode);
     globalStore.cacheUserID = `enterprise:${res.data.id}`;

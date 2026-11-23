@@ -804,7 +804,6 @@ import {
     weekOptions,
     cronjobTypes,
 } from '../helper';
-import { loadUsers } from '@/api/modules/toolbox';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { splitTimeFromSecond, transferTimeToSecond } from '@/utils/validate';
 import { routerToName, routerToPath } from '@/utils/router';
@@ -1485,8 +1484,9 @@ const changeAccount = async () => {
 const loadUserOptions = async (isInit: boolean) => {
     userOptions.value = [];
     if (!form.inContainer) {
-        const res = await loadUsers();
-        userOptions.value = res.data || [];
+        // 主机用户列表复用文件服务的系统用户/组接口，不再调用已剔除的 Toolbox 通道。
+        const res = await rpc.file.getUsersAndGroups({});
+        userOptions.value = (res.users || []).map((item) => item.username);
     } else {
         if (!isInit) {
             form.user = '';

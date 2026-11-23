@@ -7,7 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import { GetRuntime } from '@/api/modules/runtime';
 import { computed, onMounted, ref } from 'vue';
 import Nginx from './nginx/index.vue';
 import { rpc } from '@/lib/rpc';
@@ -28,13 +27,11 @@ let configPHP = ref(false);
 let installId = ref(0);
 
 const getWebsiteDetail = async () => {
-    const res = await (rpc.website.getWebsite({ id: props.id }) as Promise<any>);
-    if (res.data.type === 'runtime') {
-        installId.value = res.data.appInstallId;
-        const runRes = await GetRuntime(res.data.runtimeID);
-        if (runRes.data.type == 'php' && runRes.data.resource === 'appstore') {
-            configPHP.value = true;
-        }
+    const res = await rpc.website.getWebsite({ id: props.id });
+    if (res.type === 'runtime') {
+        installId.value = res.appInstallId;
+        // 运行时能力已剔除，不再请求 runtime 详情。
+        configPHP.value = false;
     }
 };
 

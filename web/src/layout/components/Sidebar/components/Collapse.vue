@@ -88,8 +88,6 @@ import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
 import { computed, onMounted, ref } from 'vue';
 import bus from '@/global/bus';
-import { logOutApi } from '@/api/modules/auth';
-import { submitSAML2Navigation } from '@/utils/saml2';
 import router from '@/routers';
 import { loadProductProFromDB } from '@/utils/xpack';
 import { routerToNameWithQuery } from '@/utils/router';
@@ -265,15 +263,9 @@ const logout = () => {
         type: 'warning',
     })
         .then(async () => {
-            const res = await logOutApi();
+            await rpc.core.auth.logout({});
             globalStore.setLogStatus(false);
             globalStore.clearAuthInfo();
-            if (res.data?.saml2Navigation) {
-                try {
-                    submitSAML2Navigation(res.data.saml2Navigation);
-                    return;
-                } catch {}
-            }
             router.push({ name: 'entrance', params: { code: entrance.value } });
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         })

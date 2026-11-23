@@ -54,7 +54,6 @@
 </template>
 
 <script setup lang="ts">
-import { SearchRuntimes } from '@/api/modules/runtime';
 import { onMounted, reactive, ref } from 'vue';
 import { Runtime } from '@/api/interface/runtime';
 import { Website } from '@/api/interface/website';
@@ -89,8 +88,8 @@ const tabIndex = ref('0');
 const getRuntimes = async () => {
     try {
         loading.value = true;
-        const res = await SearchRuntimes(runtimeReq);
-        const items = res.data.items || [];
+        // 运行时能力已剔除，不再请求 runtime 列表。
+        const items: any[] = [];
         for (const item of items) {
             versions.value.push({
                 value: item.id,

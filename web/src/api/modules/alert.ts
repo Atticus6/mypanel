@@ -1,4 +1,3 @@
-import http from '@/api';
 import { GlobalStore } from '@/store';
 
 const alertConfigHiddenTypes = ['sms'];
@@ -13,15 +12,7 @@ export const resolveAlertConfigExcludeTypes = (excludeTypes: string[] = []): str
     return Array.from(types);
 };
 
-// 以下接口属于 xpack / 企业版能力，社区版后端未开放，保留原样以免改动相关 UI 分支。
-export const SyncAlertInfo = (req: { id: number }) => {
-    return http.post<any>(`/xpack/alert/logs/sync`, req);
-};
-
-export const SyncAlertAll = () => {
-    return http.post<any>(`/xpack/alert/logs/sync/all`);
-};
-
-export const SyncOfflineAlert = () => {
-    return http.post<any>(`/core/xpack/alert/offline/sync`);
-};
+// 告警日志同步属于 xpack / 离线节点能力，社区版不提供；保留本地空操作避免调用不存在的 REST。
+export const SyncAlertInfo = async (_req: { id: number }) => ({ data: undefined });
+export const SyncAlertAll = async () => ({ data: undefined });
+export const SyncOfflineAlert = async () => ({ data: undefined });

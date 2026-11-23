@@ -1,4 +1,3 @@
-import http from '@/api';
 import { App } from '../interface/app';
 import { resolveAppIconUrl } from '@/utils/app-icon';
 
@@ -8,27 +7,10 @@ export function getAppIconUrl(appKey: string, node?: string, icon = ''): string 
     return resolveAppIconUrl(appKey, node, icon, baseURL);
 }
 
-// 以下接口属于 xpack / 企业版能力，社区版后端未开放，保留原样以免改动相关 UI 分支。
-export const syncCutomAppStore = (req: App.AppStoreSync) => {
-    return http.post(`/custom/app/sync`, req);
-};
-
-export const getCurrentNodeCustomAppConfig = () => {
-    return http.get<App.CustomAppStoreConfig>(`/custom/app/config`);
-};
-
-export const installAppToNodes = (param: App.InstallAppToNodes) => {
-    return http.post(`/core/xpack/sync/app/install`, param);
-};
-
-export const getLocalAppSyncConfig = () => {
-    return http.get<App.LocalAppSyncConfig>('/core/xpack/settings/app/local-sync');
-};
-
-export const updateLocalAppSyncConfig = (config: App.LocalAppSyncConfig) => {
-    return http.post('/core/xpack/settings/app/local-sync', config);
-};
-
-export const dispatchLocalAppSync = (req: App.AppStoreSync) => {
-    return http.post('/core/xpack/settings/app/local-sync/dispatch', req);
-};
+// 自定义应用商店与本地同步属于 xpack 能力，社区版不提供；保留本地空操作以免调用不存在的 REST。
+export const syncCutomAppStore = async (_req: App.AppStoreSync) => ({ message: '' });
+export const getCurrentNodeCustomAppConfig = async () => ({ data: { status: 'Disable', imagePrefix: '' } });
+export const installAppToNodes = async (_param: App.InstallAppToNodes) => ({ data: undefined });
+export const getLocalAppSyncConfig = async () => ({ data: { enabled: false } });
+export const updateLocalAppSyncConfig = async (_config: App.LocalAppSyncConfig) => ({ data: undefined });
+export const dispatchLocalAppSync = async (_req: App.AppStoreSync) => ({ data: undefined });

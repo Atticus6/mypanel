@@ -48,7 +48,6 @@
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue';
 import { rpc } from '@/lib/rpc';
-import { handleExpired } from '@/api/modules/auth';
 import { ElForm } from 'element-plus';
 import i18n from '@/lang';
 import { Rules } from '@/global/form-rules';
@@ -89,7 +88,7 @@ const submitChangePassword = async (formEl: FormInstance | undefined) => {
             MsgError(i18n.global.t('setting.duplicatePassword'));
             return;
         }
-        await handleExpired({ oldPassword: passForm.oldPass, newPassword: password });
+        await rpc.core.auth.resetExpiredPassword({ oldPassword: passForm.oldPass, newPassword: password });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         routerToName('home');
     });

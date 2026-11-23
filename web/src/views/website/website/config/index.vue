@@ -45,7 +45,6 @@ import Basic from './basic/index.vue';
 import Resource from './resource/index.vue';
 import Log from './log/index.vue';
 import WebsiteStatus from '@/views/website/website/status/index.vue';
-import { GetRuntime } from '@/api/modules/runtime';
 import { routerToNameWithParams } from '@/utils/router';
 import MainDiv from '@/components/main-div/index.vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -86,14 +85,10 @@ onMounted(async () => {
     index.value = props.tab;
     id.value = Number(props.id);
     loading.value = true;
-    const res = await (rpc.website.getWebsite({ id: id.value }) as Promise<any>);
-    website.value = res.data;
-    if (res.data.type === 'runtime') {
-        const runRes = await GetRuntime(res.data.runtimeID);
-        if (runRes.data.type == 'php' && runRes.data.resource === 'appstore') {
-            configPHP.value = true;
-        }
-    }
+    const res = await rpc.website.getWebsite({ id: id.value });
+    website.value = res;
+    // 运行时能力已剔除，不再请求 runtime 详情。
+    configPHP.value = false;
     loading.value = false;
 });
 </script>

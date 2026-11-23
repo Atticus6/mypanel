@@ -2214,6 +2214,14 @@ bun run build
 | 应用域补全 | `apps` 域 24 条路由全部落地：23 条走 `AppService` RPC（详情、标签、更新检查、忽略升级、已安装摘要/参数/运行信息/排序/端口/连接信息、商店同步），`/apps/icon` 为二进制图标响应列入剔除前缀 |
 | 分组/日志/进程/健康补全 | `groups`、`logs/*/read`、`process/*`、`health/check` 共 11 条路由落地；`/process/ws` 为 WebSocket 通道列入剔除前缀 |
 | 备份域补全 | `backups` 域 20 条路由全部落地：账号管理、连通性检查、桶列表、记录查询/下载/删除/描述、备份与恢复 |
+| 告警域补全 | `alert` 域 15 条路由全部落地：告警任务、日志、通知配置与 Webhook 测试 |
+| 计划任务域补全 | `cronjobs` 域 12 条路由全部落地；`/cronjobs/export` 为文件下载通道列入剔除前缀 |
+| OpenResty 域补全 | `openresty` 域 10 条路由全部落地：主配置与作用域配置、状态、模块构建与默认 HTTPS |
+| 网站零散接口补全 | `websites` 域剩余 5 条路由：Composer 执行、批量 HTTPS、自签 CA 签发/导入、SSL 证书导入 |
+| 容器零散接口补全 | `containers` 域剩余 9 条路由：容器创建/更新/升级/提交/详情、镜像列表、Compose 创建与更新 |
+| 首页域补全 | `dashboard` 域 12 条路由：应用启动器、节点负载、Top 进程、快速跳转、快捷目录与电源操作 |
+| **覆盖率达成** | 830 条基线路由全部映射：494 条走 RPC，336 条为已确认剔除的二进制/流式/xpack/静态通道，**未映射 0** |
+| 前端 REST 清理 | `api/modules` 从 17 个模块、361 处 HTTP 调用缩减到 8 个模块：仅保留文件/容器/SSL 二进制通道与剔除域的本地空桩 |
 
 ### 当前进度（2026-11-23）
 
@@ -2259,6 +2267,12 @@ bun run build
 
 进程详情里的环境变量、打开文件与连接列表同样用 `detail_json` 透传；前端 `api/modules/group.ts`、
 `process.ts`、`log.ts` 已整体删除，分组、进程与日志全部走 RPC。
+
+`web/src/api/modules` 中仅剩 8 个模块：`files.ts`、`container.ts`、`website.ts`、`cronjob.ts`
+（二进制上传下载/导出），以及 `ai.ts`、`alert.ts`、`app.ts`（xpack 能力的本地空桩，返回空数据而不是
+调用不存在的 REST）。`command.ts` 只保留 multipart 上传；认证、多密钥管理、Toolbox、VM、
+runtime 等页面入口已删除或改为本地实现。`views/ai` 仅保留被应用商店复用的 GPU 配置组件，
+不再有独立路由与菜单。
 应用详情、参数与 Compose 片段结构随应用定义变化，proto 里用 `detail_json`、`params_json`、
 `container_json` 这类 JSON 字段透传，避免为每个应用定义维护一套消息。
 

@@ -330,7 +330,6 @@ import { Check, Close, QuestionFilled } from '@element-plus/icons-vue';
 import DrawerPro from '@/components/drawer-pro/index.vue';
 import DialogPro from '@/components/dialog-pro/index.vue';
 import { Login } from '@/api/interface/auth';
-import { passkeyDelete, passkeyList as fetchPasskeyList } from '@/api/modules/auth';
 import { Setting } from '@/api/interface/setting';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
@@ -579,8 +578,8 @@ const checkPasskeyBrowserSupport = async () => {
 const loadPasskeys = async () => {
     passkeyLoading.value = true;
     try {
-        const res = await fetchPasskeyList();
-        passkeyList.value = res.data || [];
+        const res = await rpc.core.auth.passkeyList({});
+        passkeyList.value = res.items || [];
     } catch (error) {
         passkeyList.value = [];
     } finally {
@@ -628,7 +627,7 @@ const removePasskey = async (id: string) => {
     })
         .then(async () => {
             passkeyLoading.value = true;
-            await passkeyDelete(id);
+            await rpc.core.auth.passkeyDelete({ id });
             MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
             await loadPasskeys();
         })

@@ -88,7 +88,6 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { ElTree } from 'element-plus';
 import i18n from '@/lang';
-import { getHostTree } from '@/api/modules/terminal';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { MsgError } from '@/utils/message';
 import type { Host } from '@/api/interface/host';
@@ -174,8 +173,8 @@ const loadNodes = async () => {
 const loadHosts = async () => {
     hostTree.value = [];
     if (isNodeAdmin.value) return;
-    const res = await getHostTree({});
-    hostTree.value = res.data || [];
+    const res = await rpc.host.tree({ info: '' });
+    hostTree.value = (res.groups || []) as unknown as Host.HostTree[];
 };
 const loadConnections = async () => {
     loadingConnections.value = true;

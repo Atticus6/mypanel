@@ -97,7 +97,6 @@ import { Command } from '@/api/interface/command';
 import GroupDialog from '@/components/group/index.vue';
 import OperateDialog from '@/views/terminal/command/operate/index.vue';
 import ImportDialog from '@/views/terminal/command/import/index.vue';
-import { deleteCommand } from '@/api/modules/command';
 import { toRef, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
@@ -197,7 +196,7 @@ const batchDelete = async (row: Command.CommandInfo | null) => {
             i18n.global.t('terminal.quickCommand'),
             i18n.global.t('commons.button.delete'),
         ]),
-        api: deleteCommand,
+        api: (params: { ids: number[] }) => rpc.core.command.delete({ ids: params.ids }),
         params: { ids: ids },
     });
 };
