@@ -2210,13 +2210,14 @@ bun run build
 | 代理与域名 | `WebsiteService` 增至 69 个方法：反向代理新增/文件/删除/状态/缓存清理、访问认证与路径认证、重定向文件、四层代理、关联资源、域名增删改、DNS 账号、数据库绑定、负载均衡文件、日志开关 |
 | 多节点接口清理 | 前端 `listNodeOptions`/`listAllSimpleNodes`/`updateNodeFavorite` 已改为本地单节点实现，不再请求 xpack 的 `/core/nodes*` |
 | 数据库模块剔除 | `/databases/*`（63 条）整体剔除：前端数据库页面与路由、后端 `DatabaseService` RPC 与 agent 的数据库 REST 接口全部删除 |
+| 文件域补全 | `files` 域 46 条路由全部落地：38 条走 `FileService` RPC（新建/检查/批量删除/移动/大小统计/目录树/备注/预览保存/历史版本/转换日志/分享/远程下载），8 条二进制或流式通道列入剔除前缀 |
 
 ### 当前进度（2026-11-23）
 
 | 指标 | 数值 |
 | --- | --- |
-| proto RPC 方法数 | 346 |
-| 精确路由覆盖 | 343 / 830（剔除 323，未映射 164） |
+| proto RPC 方法数 | 384 |
+| 精确路由覆盖 | 379 / 830（剔除 333，未映射 118） |
 | 已迁移页面与对话框 | 约 315 个（数据库页面已移除） |
 
 `web/src/api/modules/setting.ts`、`firewall.ts`、`host.ts` 已整体删除：面板设置、agent 设置与系统快照全部走 RPC。
@@ -2243,6 +2244,13 @@ bun run build
 
 覆盖率工具会把 `:id` 与 `{id}` 视为同一种路径参数（`normalizeRouteKey`），并对未命中任何基线路由的
 映射打印警告——此前这种写法差异会让部分映射静默失效，覆盖率被低估。
+
+剔除前缀新增 `exact: true` 语义：前缀匹配无法表达「剔除 `/files/upload` 但保留 `/files/upload/search`」
+这类同前缀路由，`exact: true` 时按完整路径匹配。
+
+文件域的 `download`、`upload`、`chunkupload`、`chunkdownload`、`share/download`、`share/qrcode`、
+`wget/process` 与 `ai-search` 属于二进制、WebSocket 或 AI 通道，保留 HTTP 实现并列入剔除前缀；
+其余文件操作全部走 `FileService`。
 
 覆盖率权威命令：`./scripts/check-rpc-coverage.sh`；映射维护在 `master/cmd/rpc-coverage/main.go` 的 `overrides`，
 快照 `proto/route-coverage.json` 随映射一起更新。

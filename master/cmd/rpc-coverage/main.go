@@ -48,6 +48,9 @@ type manifest struct {
 // excludedPrefix 描述一个不迁移的路径前缀。
 type excludedPrefix struct {
 	Prefix string `yaml:"prefix"`
+	// Exact 为真时按完整路径匹配，用于剔除同一个前缀下仍有子路由需要迁移的情况，
+	// 例如 /files/upload 被剔除，但 /files/upload/search 要迁移。
+	Exact  bool   `yaml:"exact,omitempty"`
 	Reason string `yaml:"reason"`
 }
 
@@ -397,6 +400,44 @@ var overrides = map[string]string{
 	"POST /files/rename":                                "panel.agent.v1.FileService.ChangeName",
 	"POST /files/decompress":                            "panel.agent.v1.FileService.DeCompress",
 	"POST /files/content":                               "panel.agent.v1.FileService.GetFile",
+	"POST /files":                                       "panel.agent.v1.FileService.CreateFile",
+	"POST /files/batch/check":                           "panel.agent.v1.FileService.BatchCheckFiles",
+	"POST /files/batch/del":                             "panel.agent.v1.FileService.BatchDeleteFiles",
+	"POST /files/batch/role":                            "panel.agent.v1.FileService.BatchChangeRole",
+	"POST /files/check":                                 "panel.agent.v1.FileService.CheckFile",
+	"POST /files/compress/stop":                         "panel.agent.v1.FileService.StopCompress",
+	"POST /files/convert":                               "panel.agent.v1.FileService.ConvertFiles",
+	"POST /files/convert/log":                           "panel.agent.v1.FileService.SearchConvertLogs",
+	"POST /files/decompress/stop":                       "panel.agent.v1.FileService.StopDecompress",
+	"POST /files/depth/size":                            "panel.agent.v1.FileService.GetDepthSize",
+	"POST /files/history/content":                       "panel.agent.v1.FileService.GetHistoryContent",
+	"POST /files/history/del":                           "panel.agent.v1.FileService.DeleteHistory",
+	"POST /files/history/restore":                       "panel.agent.v1.FileService.RestoreHistory",
+	"POST /files/mount":                                 "panel.agent.v1.FileService.ListMounts",
+	"POST /files/move":                                  "panel.agent.v1.FileService.MoveFiles",
+	"POST /files/move/stop":                             "panel.agent.v1.FileService.StopMove",
+	"POST /files/owner":                                 "panel.agent.v1.FileService.ChangeOwner",
+	"POST /files/preview":                               "panel.agent.v1.FileService.PreviewFile",
+	"POST /files/read/:type":                            "panel.agent.v1.FileService.ReadFileLines",
+	"POST /files/recycle/clear":                         "panel.agent.v1.FileService.ClearRecycle",
+	"GET /files/recycle/status":                         "panel.agent.v1.FileService.GetRecycleStatus",
+	"POST /files/remark":                                "panel.agent.v1.FileService.SetRemark",
+	"POST /files/remarks":                               "panel.agent.v1.FileService.GetRemarks",
+	"POST /files/save":                                  "panel.agent.v1.FileService.SaveFile",
+	"GET /files/share/check":                            "panel.agent.v1.FileService.CheckShare",
+	"POST /files/share/create":                          "panel.agent.v1.FileService.CreateShare",
+	"POST /files/share/del":                             "panel.agent.v1.FileService.DeleteShare",
+	"POST /files/share/detail":                          "panel.agent.v1.FileService.GetShare",
+	"GET /files/share/info":                             "panel.agent.v1.FileService.GetPublicShare",
+	"POST /files/share/search":                          "panel.agent.v1.FileService.SearchShares",
+	"POST /files/size":                                  "panel.agent.v1.FileService.GetSize",
+	"POST /files/tree":                                  "panel.agent.v1.FileService.GetFileTree",
+	"POST /files/upload/search":                         "panel.agent.v1.FileService.SearchUpload",
+	"POST /files/user/group":                            "panel.agent.v1.FileService.GetUsersAndGroups",
+	"POST /files/wget":                                  "panel.agent.v1.FileService.Wget",
+	"POST /files/wget/stop":                             "panel.agent.v1.FileService.StopWget",
+	"GET /files/wget/process/keys":                      "panel.agent.v1.FileService.GetWgetProcessKeys",
+	"POST /files/wget/process/remove":                   "panel.agent.v1.FileService.RemoveWgetRecords",
 }
 
 // fallbackExclusions 在 manifest 不存在时使用，与 manifest 的首版内容一致。
@@ -528,6 +569,9 @@ func writeManifest(path string, m manifest) error {
 	b.WriteString("version: 1\n\nexcluded_prefixes:\n")
 	for _, item := range m.ExcludedPrefixes {
 		b.WriteString("  - prefix: " + item.Prefix + "\n")
+		if item.Exact {
+			b.WriteString("    exact: true\n")
+		}
 		b.WriteString("    reason: " + item.Reason + "\n")
 	}
 	b.WriteString("\nroutes:\n")
@@ -590,6 +634,12 @@ func normalizeRouteKey(key string) string {
 // isExcluded 判断路径是否属于已剔除模块。
 func isExcluded(path string, prefixes []excludedPrefix) bool {
 	for _, item := range prefixes {
+		if item.Exact {
+			if path == item.Prefix {
+				return true
+			}
+			continue
+		}
 		if strings.HasPrefix(path, item.Prefix) {
 			return true
 		}

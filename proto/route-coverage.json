@@ -2702,41 +2702,59 @@
     {
       "method": "POST",
       "path": "/files",
-      "covered": false
+      "target": "panel.agent.v1.FileService.CreateFile",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "CreateFile",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/ai-search",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/files/batch/check",
-      "covered": false
+      "target": "panel.agent.v1.FileService.BatchCheckFiles",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "BatchCheckFiles",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/batch/del",
-      "covered": false
+      "target": "panel.agent.v1.FileService.BatchDeleteFiles",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "BatchDeleteFiles",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/batch/role",
-      "covered": false
+      "target": "panel.agent.v1.FileService.BatchChangeRole",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "BatchChangeRole",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/check",
-      "covered": false
+      "target": "panel.agent.v1.FileService.CheckFile",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "CheckFile",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/chunkdownload",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/files/chunkupload",
+      "excluded": true,
       "covered": false
     },
     {
@@ -2750,7 +2768,10 @@
     {
       "method": "POST",
       "path": "/files/compress/stop",
-      "covered": false
+      "target": "panel.agent.v1.FileService.StopCompress",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "StopCompress",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2763,12 +2784,18 @@
     {
       "method": "POST",
       "path": "/files/convert",
-      "covered": false
+      "target": "panel.agent.v1.FileService.ConvertFiles",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ConvertFiles",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/convert/log",
-      "covered": false
+      "target": "panel.agent.v1.FileService.SearchConvertLogs",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SearchConvertLogs",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2781,7 +2808,10 @@
     {
       "method": "POST",
       "path": "/files/decompress/stop",
-      "covered": false
+      "target": "panel.agent.v1.FileService.StopDecompress",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "StopDecompress",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2794,11 +2824,15 @@
     {
       "method": "POST",
       "path": "/files/depth/size",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetDepthSize",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetDepthSize",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/files/download",
+      "excluded": true,
       "covered": false
     },
     {
@@ -2828,17 +2862,26 @@
     {
       "method": "POST",
       "path": "/files/history/content",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetHistoryContent",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetHistoryContent",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/history/del",
-      "covered": false
+      "target": "panel.agent.v1.FileService.DeleteHistory",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "DeleteHistory",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/history/restore",
-      "covered": false
+      "target": "panel.agent.v1.FileService.RestoreHistory",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "RestoreHistory",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2859,37 +2902,58 @@
     {
       "method": "POST",
       "path": "/files/mount",
-      "covered": false
+      "target": "panel.agent.v1.FileService.ListMounts",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ListMounts",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/move",
-      "covered": false
+      "target": "panel.agent.v1.FileService.MoveFiles",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "MoveFiles",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/move/stop",
-      "covered": false
+      "target": "panel.agent.v1.FileService.StopMove",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "StopMove",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/owner",
-      "covered": false
+      "target": "panel.agent.v1.FileService.ChangeOwner",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ChangeOwner",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/preview",
-      "covered": false
+      "target": "panel.agent.v1.FileService.PreviewFile",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "PreviewFile",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/read/{type}",
-      "covered": false
+      "target": "panel.agent.v1.FileService.ReadFileLines",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ReadFileLines",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/recycle/clear",
-      "covered": false
+      "target": "panel.agent.v1.FileService.ClearRecycle",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "ClearRecycle",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2910,17 +2974,26 @@
     {
       "method": "GET",
       "path": "/files/recycle/status",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetRecycleStatus",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetRecycleStatus",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/remark",
-      "covered": false
+      "target": "panel.agent.v1.FileService.SetRemark",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SetRemark",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/remarks",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetRemarks",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetRemarks",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2933,7 +3006,10 @@
     {
       "method": "POST",
       "path": "/files/save",
-      "covered": false
+      "target": "panel.agent.v1.FileService.SaveFile",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SaveFile",
+      "covered": true
     },
     {
       "method": "POST",
@@ -2946,92 +3022,134 @@
     {
       "method": "GET",
       "path": "/files/share/check",
-      "covered": false
+      "target": "panel.agent.v1.FileService.CheckShare",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "CheckShare",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/share/create",
-      "covered": false
+      "target": "panel.agent.v1.FileService.CreateShare",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "CreateShare",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/share/del",
-      "covered": false
+      "target": "panel.agent.v1.FileService.DeleteShare",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "DeleteShare",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/share/detail",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetShare",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetShare",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/files/share/download",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "GET",
       "path": "/files/share/info",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetPublicShare",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetPublicShare",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/files/share/qrcode",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/files/share/search",
-      "covered": false
+      "target": "panel.agent.v1.FileService.SearchShares",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SearchShares",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/size",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetSize",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetSize",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/tree",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetFileTree",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetFileTree",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/upload",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/files/upload/search",
-      "covered": false
+      "target": "panel.agent.v1.FileService.SearchUpload",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "SearchUpload",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/user/group",
-      "covered": false
+      "target": "panel.agent.v1.FileService.GetUsersAndGroups",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "GetUsersAndGroups",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/files/wget",
-      "covered": false
+      "target": "panel.agent.v1.FileService.Wget",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "Wget",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/files/wget/process",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "GET",
       "path": "/files/wget/process/keys",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/files/wget/process/remove",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/files/wget/stop",
-      "covered": false
+      "target": "panel.agent.v1.FileService.StopWget",
+      "service": "panel.agent.v1.FileService",
+      "rpc": "StopWget",
+      "covered": true
     },
     {
       "method": "POST",

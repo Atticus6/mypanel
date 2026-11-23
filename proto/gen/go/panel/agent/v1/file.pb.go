@@ -2073,6 +2073,4751 @@ func (x *FileHistoryEntry) GetUpdatedAt() string {
 	return ""
 }
 
+// CreateFileRequest 是新建文件/目录参数。
+type CreateFileRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目标路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 文件内容；新建目录时忽略。
+	Content string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	// 是否创建目录。
+	IsDir bool `protobuf:"varint,3,opt,name=is_dir,json=isDir,proto3" json:"is_dir,omitempty"`
+	// 权限位；0 表示使用默认权限。
+	Mode int64 `protobuf:"varint,4,opt,name=mode,proto3" json:"mode,omitempty"`
+	// 是否创建普通链接。
+	IsLink bool `protobuf:"varint,5,opt,name=is_link,json=isLink,proto3" json:"is_link,omitempty"`
+	// 是否创建符号链接。
+	IsSymlink bool `protobuf:"varint,6,opt,name=is_symlink,json=isSymlink,proto3" json:"is_symlink,omitempty"`
+	// 链接目标。
+	LinkPath string `protobuf:"bytes,7,opt,name=link_path,json=linkPath,proto3" json:"link_path,omitempty"`
+	// 是否递归处理子目录。
+	Sub           bool `protobuf:"varint,8,opt,name=sub,proto3" json:"sub,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateFileRequest) Reset() {
+	*x = CreateFileRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateFileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateFileRequest) ProtoMessage() {}
+
+func (x *CreateFileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateFileRequest.ProtoReflect.Descriptor instead.
+func (*CreateFileRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *CreateFileRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *CreateFileRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *CreateFileRequest) GetIsDir() bool {
+	if x != nil {
+		return x.IsDir
+	}
+	return false
+}
+
+func (x *CreateFileRequest) GetMode() int64 {
+	if x != nil {
+		return x.Mode
+	}
+	return 0
+}
+
+func (x *CreateFileRequest) GetIsLink() bool {
+	if x != nil {
+		return x.IsLink
+	}
+	return false
+}
+
+func (x *CreateFileRequest) GetIsSymlink() bool {
+	if x != nil {
+		return x.IsSymlink
+	}
+	return false
+}
+
+func (x *CreateFileRequest) GetLinkPath() string {
+	if x != nil {
+		return x.LinkPath
+	}
+	return ""
+}
+
+func (x *CreateFileRequest) GetSub() bool {
+	if x != nil {
+		return x.Sub
+	}
+	return false
+}
+
+// CreateFileResponse 是新建结果，无业务字段。
+type CreateFileResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateFileResponse) Reset() {
+	*x = CreateFileResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateFileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateFileResponse) ProtoMessage() {}
+
+func (x *CreateFileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateFileResponse.ProtoReflect.Descriptor instead.
+func (*CreateFileResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{30}
+}
+
+// CheckFileRequest 是路径存在性检查参数。
+type CheckFileRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 待检查路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 路径不存在时是否自动初始化目录。
+	WithInit      bool `protobuf:"varint,2,opt,name=with_init,json=withInit,proto3" json:"with_init,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckFileRequest) Reset() {
+	*x = CheckFileRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckFileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckFileRequest) ProtoMessage() {}
+
+func (x *CheckFileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckFileRequest.ProtoReflect.Descriptor instead.
+func (*CheckFileRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *CheckFileRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *CheckFileRequest) GetWithInit() bool {
+	if x != nil {
+		return x.WithInit
+	}
+	return false
+}
+
+// CheckFileResponse 是路径存在性结果。
+type CheckFileResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 路径是否存在（或在 with_init 下是否初始化成功）。
+	Exists        bool `protobuf:"varint,1,opt,name=exists,proto3" json:"exists,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckFileResponse) Reset() {
+	*x = CheckFileResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckFileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckFileResponse) ProtoMessage() {}
+
+func (x *CheckFileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckFileResponse.ProtoReflect.Descriptor instead.
+func (*CheckFileResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *CheckFileResponse) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
+// BatchCheckFilesRequest 是批量路径检查参数。
+type BatchCheckFilesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 待检查的路径列表。
+	Paths         []string `protobuf:"bytes,1,rep,name=paths,proto3" json:"paths,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchCheckFilesRequest) Reset() {
+	*x = BatchCheckFilesRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchCheckFilesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchCheckFilesRequest) ProtoMessage() {}
+
+func (x *BatchCheckFilesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchCheckFilesRequest.ProtoReflect.Descriptor instead.
+func (*BatchCheckFilesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *BatchCheckFilesRequest) GetPaths() []string {
+	if x != nil {
+		return x.Paths
+	}
+	return nil
+}
+
+// BatchCheckFilesResponse 是批量检查结果。
+type BatchCheckFilesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 存在的文件条目。
+	Items         []*ExistFileInfo `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchCheckFilesResponse) Reset() {
+	*x = BatchCheckFilesResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchCheckFilesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchCheckFilesResponse) ProtoMessage() {}
+
+func (x *BatchCheckFilesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchCheckFilesResponse.ProtoReflect.Descriptor instead.
+func (*BatchCheckFilesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *BatchCheckFilesResponse) GetItems() []*ExistFileInfo {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// ExistFileInfo 是一个存在文件的摘要。
+type ExistFileInfo struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件名。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 完整路径。
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+	// 大小，单位字节。
+	Size int64 `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	// 修改时间，RFC3339 格式。
+	ModTime string `protobuf:"bytes,4,opt,name=mod_time,json=modTime,proto3" json:"mod_time,omitempty"`
+	// 是否为目录。
+	IsDir         bool `protobuf:"varint,5,opt,name=is_dir,json=isDir,proto3" json:"is_dir,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExistFileInfo) Reset() {
+	*x = ExistFileInfo{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExistFileInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExistFileInfo) ProtoMessage() {}
+
+func (x *ExistFileInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExistFileInfo.ProtoReflect.Descriptor instead.
+func (*ExistFileInfo) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *ExistFileInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ExistFileInfo) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *ExistFileInfo) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *ExistFileInfo) GetModTime() string {
+	if x != nil {
+		return x.ModTime
+	}
+	return ""
+}
+
+func (x *ExistFileInfo) GetIsDir() bool {
+	if x != nil {
+		return x.IsDir
+	}
+	return false
+}
+
+// BatchDeleteFilesRequest 是批量删除参数。
+type BatchDeleteFilesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 待删除的路径列表。
+	Paths []string `protobuf:"bytes,1,rep,name=paths,proto3" json:"paths,omitempty"`
+	// 是否按目录删除。
+	IsDir         bool `protobuf:"varint,2,opt,name=is_dir,json=isDir,proto3" json:"is_dir,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchDeleteFilesRequest) Reset() {
+	*x = BatchDeleteFilesRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchDeleteFilesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchDeleteFilesRequest) ProtoMessage() {}
+
+func (x *BatchDeleteFilesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchDeleteFilesRequest.ProtoReflect.Descriptor instead.
+func (*BatchDeleteFilesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *BatchDeleteFilesRequest) GetPaths() []string {
+	if x != nil {
+		return x.Paths
+	}
+	return nil
+}
+
+func (x *BatchDeleteFilesRequest) GetIsDir() bool {
+	if x != nil {
+		return x.IsDir
+	}
+	return false
+}
+
+// BatchDeleteFilesResponse 是批量删除结果，无业务字段。
+type BatchDeleteFilesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchDeleteFilesResponse) Reset() {
+	*x = BatchDeleteFilesResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchDeleteFilesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchDeleteFilesResponse) ProtoMessage() {}
+
+func (x *BatchDeleteFilesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchDeleteFilesResponse.ProtoReflect.Descriptor instead.
+func (*BatchDeleteFilesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{37}
+}
+
+// BatchChangeRoleRequest 是批量修改权限与所有者的参数。
+type BatchChangeRoleRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目标路径列表。
+	Paths []string `protobuf:"bytes,1,rep,name=paths,proto3" json:"paths,omitempty"`
+	// 权限位。
+	Mode int64 `protobuf:"varint,2,opt,name=mode,proto3" json:"mode,omitempty"`
+	// 所有者用户名。
+	User string `protobuf:"bytes,3,opt,name=user,proto3" json:"user,omitempty"`
+	// 所属组名。
+	Group string `protobuf:"bytes,4,opt,name=group,proto3" json:"group,omitempty"`
+	// 是否递归处理子目录。
+	Sub           bool `protobuf:"varint,5,opt,name=sub,proto3" json:"sub,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchChangeRoleRequest) Reset() {
+	*x = BatchChangeRoleRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchChangeRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchChangeRoleRequest) ProtoMessage() {}
+
+func (x *BatchChangeRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchChangeRoleRequest.ProtoReflect.Descriptor instead.
+func (*BatchChangeRoleRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *BatchChangeRoleRequest) GetPaths() []string {
+	if x != nil {
+		return x.Paths
+	}
+	return nil
+}
+
+func (x *BatchChangeRoleRequest) GetMode() int64 {
+	if x != nil {
+		return x.Mode
+	}
+	return 0
+}
+
+func (x *BatchChangeRoleRequest) GetUser() string {
+	if x != nil {
+		return x.User
+	}
+	return ""
+}
+
+func (x *BatchChangeRoleRequest) GetGroup() string {
+	if x != nil {
+		return x.Group
+	}
+	return ""
+}
+
+func (x *BatchChangeRoleRequest) GetSub() bool {
+	if x != nil {
+		return x.Sub
+	}
+	return false
+}
+
+// BatchChangeRoleResponse 是批量修改结果，无业务字段。
+type BatchChangeRoleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BatchChangeRoleResponse) Reset() {
+	*x = BatchChangeRoleResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BatchChangeRoleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BatchChangeRoleResponse) ProtoMessage() {}
+
+func (x *BatchChangeRoleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BatchChangeRoleResponse.ProtoReflect.Descriptor instead.
+func (*BatchChangeRoleResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{39}
+}
+
+// ChangeOwnerRequest 是修改所有者参数。
+type ChangeOwnerRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目标路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 所有者用户名。
+	User string `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	// 所属组名。
+	Group string `protobuf:"bytes,3,opt,name=group,proto3" json:"group,omitempty"`
+	// 是否递归处理子目录。
+	Sub           bool `protobuf:"varint,4,opt,name=sub,proto3" json:"sub,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeOwnerRequest) Reset() {
+	*x = ChangeOwnerRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeOwnerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeOwnerRequest) ProtoMessage() {}
+
+func (x *ChangeOwnerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeOwnerRequest.ProtoReflect.Descriptor instead.
+func (*ChangeOwnerRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *ChangeOwnerRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *ChangeOwnerRequest) GetUser() string {
+	if x != nil {
+		return x.User
+	}
+	return ""
+}
+
+func (x *ChangeOwnerRequest) GetGroup() string {
+	if x != nil {
+		return x.Group
+	}
+	return ""
+}
+
+func (x *ChangeOwnerRequest) GetSub() bool {
+	if x != nil {
+		return x.Sub
+	}
+	return false
+}
+
+// ChangeOwnerResponse 是修改结果，无业务字段。
+type ChangeOwnerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeOwnerResponse) Reset() {
+	*x = ChangeOwnerResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeOwnerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeOwnerResponse) ProtoMessage() {}
+
+func (x *ChangeOwnerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeOwnerResponse.ProtoReflect.Descriptor instead.
+func (*ChangeOwnerResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{41}
+}
+
+// StopCompressRequest 是停止压缩任务参数。
+type StopCompressRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	TaskId        string `protobuf:"bytes,1,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopCompressRequest) Reset() {
+	*x = StopCompressRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopCompressRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopCompressRequest) ProtoMessage() {}
+
+func (x *StopCompressRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopCompressRequest.ProtoReflect.Descriptor instead.
+func (*StopCompressRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *StopCompressRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// StopCompressResponse 是停止结果，无业务字段。
+type StopCompressResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopCompressResponse) Reset() {
+	*x = StopCompressResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopCompressResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopCompressResponse) ProtoMessage() {}
+
+func (x *StopCompressResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopCompressResponse.ProtoReflect.Descriptor instead.
+func (*StopCompressResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{43}
+}
+
+// StopDecompressRequest 是停止解压任务参数。
+type StopDecompressRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	TaskId        string `protobuf:"bytes,1,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopDecompressRequest) Reset() {
+	*x = StopDecompressRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopDecompressRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopDecompressRequest) ProtoMessage() {}
+
+func (x *StopDecompressRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopDecompressRequest.ProtoReflect.Descriptor instead.
+func (*StopDecompressRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *StopDecompressRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// StopDecompressResponse 是停止结果，无业务字段。
+type StopDecompressResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopDecompressResponse) Reset() {
+	*x = StopDecompressResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopDecompressResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopDecompressResponse) ProtoMessage() {}
+
+func (x *StopDecompressResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopDecompressResponse.ProtoReflect.Descriptor instead.
+func (*StopDecompressResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{45}
+}
+
+// MoveFilesRequest 是移动/复制参数。
+type MoveFilesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 操作类型：cut（移动）或 copy（复制）。
+	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	// 源路径列表。
+	OldPaths []string `protobuf:"bytes,2,rep,name=old_paths,json=oldPaths,proto3" json:"old_paths,omitempty"`
+	// 目标目录。
+	NewPath string `protobuf:"bytes,3,opt,name=new_path,json=newPath,proto3" json:"new_path,omitempty"`
+	// 目标名称；为空表示沿用原名称。
+	Name string `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	// 同名文件是否覆盖。
+	Cover bool `protobuf:"varint,5,opt,name=cover,proto3" json:"cover,omitempty"`
+	// 允许覆盖的路径列表。
+	CoverPaths []string `protobuf:"bytes,6,rep,name=cover_paths,json=coverPaths,proto3" json:"cover_paths,omitempty"`
+	// 前端生成的任务 ID，用于轮询进度。
+	TaskId        string `protobuf:"bytes,7,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MoveFilesRequest) Reset() {
+	*x = MoveFilesRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MoveFilesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MoveFilesRequest) ProtoMessage() {}
+
+func (x *MoveFilesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MoveFilesRequest.ProtoReflect.Descriptor instead.
+func (*MoveFilesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *MoveFilesRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *MoveFilesRequest) GetOldPaths() []string {
+	if x != nil {
+		return x.OldPaths
+	}
+	return nil
+}
+
+func (x *MoveFilesRequest) GetNewPath() string {
+	if x != nil {
+		return x.NewPath
+	}
+	return ""
+}
+
+func (x *MoveFilesRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *MoveFilesRequest) GetCover() bool {
+	if x != nil {
+		return x.Cover
+	}
+	return false
+}
+
+func (x *MoveFilesRequest) GetCoverPaths() []string {
+	if x != nil {
+		return x.CoverPaths
+	}
+	return nil
+}
+
+func (x *MoveFilesRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// MoveFilesResponse 是移动任务启动结果。
+type MoveFilesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID，与请求中的 task_id 一致。
+	TaskId        string `protobuf:"bytes,1,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MoveFilesResponse) Reset() {
+	*x = MoveFilesResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MoveFilesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MoveFilesResponse) ProtoMessage() {}
+
+func (x *MoveFilesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MoveFilesResponse.ProtoReflect.Descriptor instead.
+func (*MoveFilesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *MoveFilesResponse) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// StopMoveRequest 是停止移动任务参数。
+type StopMoveRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	TaskId        string `protobuf:"bytes,1,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopMoveRequest) Reset() {
+	*x = StopMoveRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[48]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopMoveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopMoveRequest) ProtoMessage() {}
+
+func (x *StopMoveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[48]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopMoveRequest.ProtoReflect.Descriptor instead.
+func (*StopMoveRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *StopMoveRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// StopMoveResponse 是停止结果，无业务字段。
+type StopMoveResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopMoveResponse) Reset() {
+	*x = StopMoveResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[49]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopMoveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopMoveResponse) ProtoMessage() {}
+
+func (x *StopMoveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[49]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopMoveResponse.ProtoReflect.Descriptor instead.
+func (*StopMoveResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{49}
+}
+
+// GetSizeRequest 是目录大小统计参数。
+type GetSizeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目标路径。
+	Path          string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSizeRequest) Reset() {
+	*x = GetSizeRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[50]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSizeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSizeRequest) ProtoMessage() {}
+
+func (x *GetSizeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[50]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSizeRequest.ProtoReflect.Descriptor instead.
+func (*GetSizeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *GetSizeRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+// GetSizeResponse 是目录大小结果。
+type GetSizeResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 占用大小，单位字节。
+	Size          int64 `protobuf:"varint,1,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSizeResponse) Reset() {
+	*x = GetSizeResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[51]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSizeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSizeResponse) ProtoMessage() {}
+
+func (x *GetSizeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[51]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSizeResponse.ProtoReflect.Descriptor instead.
+func (*GetSizeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{51}
+}
+
+func (x *GetSizeResponse) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+// GetDepthSizeRequest 是按一级子项统计的参数。
+type GetDepthSizeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目标路径。
+	Path          string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDepthSizeRequest) Reset() {
+	*x = GetDepthSizeRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[52]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDepthSizeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDepthSizeRequest) ProtoMessage() {}
+
+func (x *GetDepthSizeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[52]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDepthSizeRequest.ProtoReflect.Descriptor instead.
+func (*GetDepthSizeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{52}
+}
+
+func (x *GetDepthSizeRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+// GetDepthSizeResponse 是按一级子项统计的结果。
+type GetDepthSizeResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 各子项的占用大小。
+	Items         []*DepthSize `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDepthSizeResponse) Reset() {
+	*x = GetDepthSizeResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[53]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDepthSizeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDepthSizeResponse) ProtoMessage() {}
+
+func (x *GetDepthSizeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[53]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDepthSizeResponse.ProtoReflect.Descriptor instead.
+func (*GetDepthSizeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{53}
+}
+
+func (x *GetDepthSizeResponse) GetItems() []*DepthSize {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// DepthSize 是一个子项的占用大小。
+type DepthSize struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 子项路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 占用大小，单位字节。
+	Size          int64 `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DepthSize) Reset() {
+	*x = DepthSize{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[54]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DepthSize) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DepthSize) ProtoMessage() {}
+
+func (x *DepthSize) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[54]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DepthSize.ProtoReflect.Descriptor instead.
+func (*DepthSize) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{54}
+}
+
+func (x *DepthSize) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *DepthSize) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+// GetFileTreeRequest 是目录树查询参数。
+type GetFileTreeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目录绝对路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 搜索关键字，为空表示浏览目录。
+	Search string `protobuf:"bytes,2,opt,name=search,proto3" json:"search,omitempty"`
+	// 是否递归搜索子目录。
+	ContainSub bool `protobuf:"varint,3,opt,name=contain_sub,json=containSub,proto3" json:"contain_sub,omitempty"`
+	// 是否只返回目录。
+	Dir bool `protobuf:"varint,4,opt,name=dir,proto3" json:"dir,omitempty"`
+	// 是否显示隐藏文件。
+	ShowHidden bool `protobuf:"varint,5,opt,name=show_hidden,json=showHidden,proto3" json:"show_hidden,omitempty"`
+	// 排序字段，例如 name、size、modTime。
+	SortBy string `protobuf:"bytes,6,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	// 排序方向：ascending 或 descending。
+	SortOrder     string `protobuf:"bytes,7,opt,name=sort_order,json=sortOrder,proto3" json:"sort_order,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetFileTreeRequest) Reset() {
+	*x = GetFileTreeRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[55]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetFileTreeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFileTreeRequest) ProtoMessage() {}
+
+func (x *GetFileTreeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[55]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFileTreeRequest.ProtoReflect.Descriptor instead.
+func (*GetFileTreeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{55}
+}
+
+func (x *GetFileTreeRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *GetFileTreeRequest) GetSearch() string {
+	if x != nil {
+		return x.Search
+	}
+	return ""
+}
+
+func (x *GetFileTreeRequest) GetContainSub() bool {
+	if x != nil {
+		return x.ContainSub
+	}
+	return false
+}
+
+func (x *GetFileTreeRequest) GetDir() bool {
+	if x != nil {
+		return x.Dir
+	}
+	return false
+}
+
+func (x *GetFileTreeRequest) GetShowHidden() bool {
+	if x != nil {
+		return x.ShowHidden
+	}
+	return false
+}
+
+func (x *GetFileTreeRequest) GetSortBy() string {
+	if x != nil {
+		return x.SortBy
+	}
+	return ""
+}
+
+func (x *GetFileTreeRequest) GetSortOrder() string {
+	if x != nil {
+		return x.SortOrder
+	}
+	return ""
+}
+
+// FileTreeResponse 是目录树结果。
+type FileTreeResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 顶层节点。
+	Items         []*FileTreeNode `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FileTreeResponse) Reset() {
+	*x = FileTreeResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[56]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FileTreeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FileTreeResponse) ProtoMessage() {}
+
+func (x *FileTreeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[56]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FileTreeResponse.ProtoReflect.Descriptor instead.
+func (*FileTreeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{56}
+}
+
+func (x *FileTreeResponse) GetItems() []*FileTreeNode {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// FileTreeNode 是目录树中的一个节点。
+type FileTreeNode struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 节点 ID，通常为路径。
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// 完整路径。
+	Path string `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty"`
+	// 是否为目录。
+	IsDir bool `protobuf:"varint,4,opt,name=is_dir,json=isDir,proto3" json:"is_dir,omitempty"`
+	// 扩展名。
+	Extension string `protobuf:"bytes,5,opt,name=extension,proto3" json:"extension,omitempty"`
+	// 子节点。
+	Children      []*FileTreeNode `protobuf:"bytes,6,rep,name=children,proto3" json:"children,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FileTreeNode) Reset() {
+	*x = FileTreeNode{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[57]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FileTreeNode) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FileTreeNode) ProtoMessage() {}
+
+func (x *FileTreeNode) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[57]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FileTreeNode.ProtoReflect.Descriptor instead.
+func (*FileTreeNode) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *FileTreeNode) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *FileTreeNode) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *FileTreeNode) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *FileTreeNode) GetIsDir() bool {
+	if x != nil {
+		return x.IsDir
+	}
+	return false
+}
+
+func (x *FileTreeNode) GetExtension() string {
+	if x != nil {
+		return x.Extension
+	}
+	return ""
+}
+
+func (x *FileTreeNode) GetChildren() []*FileTreeNode {
+	if x != nil {
+		return x.Children
+	}
+	return nil
+}
+
+// SearchUploadRequest 是已上传文件分页查询参数。
+type SearchUploadRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目录路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 1000。
+	PageSize      int32 `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchUploadRequest) Reset() {
+	*x = SearchUploadRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[58]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchUploadRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchUploadRequest) ProtoMessage() {}
+
+func (x *SearchUploadRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[58]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchUploadRequest.ProtoReflect.Descriptor instead.
+func (*SearchUploadRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{58}
+}
+
+func (x *SearchUploadRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *SearchUploadRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchUploadRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+// SearchUploadResponse 是已上传文件列表结果。
+type SearchUploadResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 当前页的条目。
+	Items []*UploadEntry `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	// 符合条件的条目总数。
+	Total         int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchUploadResponse) Reset() {
+	*x = SearchUploadResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[59]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchUploadResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchUploadResponse) ProtoMessage() {}
+
+func (x *SearchUploadResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[59]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchUploadResponse.ProtoReflect.Descriptor instead.
+func (*SearchUploadResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{59}
+}
+
+func (x *SearchUploadResponse) GetItems() []*UploadEntry {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *SearchUploadResponse) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+// UploadEntry 是一个已上传文件的摘要。
+type UploadEntry struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件名。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 大小，单位字节。
+	Size int64 `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
+	// 修改时间。
+	CreatedAt     string `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadEntry) Reset() {
+	*x = UploadEntry{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[60]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadEntry) ProtoMessage() {}
+
+func (x *UploadEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[60]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadEntry.ProtoReflect.Descriptor instead.
+func (*UploadEntry) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{60}
+}
+
+func (x *UploadEntry) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *UploadEntry) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *UploadEntry) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+// GetUsersAndGroupsRequest 是系统用户与用户组查询参数，无业务字段。
+type GetUsersAndGroupsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUsersAndGroupsRequest) Reset() {
+	*x = GetUsersAndGroupsRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[61]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUsersAndGroupsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUsersAndGroupsRequest) ProtoMessage() {}
+
+func (x *GetUsersAndGroupsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[61]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUsersAndGroupsRequest.ProtoReflect.Descriptor instead.
+func (*GetUsersAndGroupsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{61}
+}
+
+// GetUsersAndGroupsResponse 是系统用户与用户组列表。
+type GetUsersAndGroupsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 可选用户。
+	Users []*SystemUser `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	// 可选用户组。
+	Groups        []string `protobuf:"bytes,2,rep,name=groups,proto3" json:"groups,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUsersAndGroupsResponse) Reset() {
+	*x = GetUsersAndGroupsResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[62]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUsersAndGroupsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUsersAndGroupsResponse) ProtoMessage() {}
+
+func (x *GetUsersAndGroupsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[62]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUsersAndGroupsResponse.ProtoReflect.Descriptor instead.
+func (*GetUsersAndGroupsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{62}
+}
+
+func (x *GetUsersAndGroupsResponse) GetUsers() []*SystemUser {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
+func (x *GetUsersAndGroupsResponse) GetGroups() []string {
+	if x != nil {
+		return x.Groups
+	}
+	return nil
+}
+
+// SystemUser 是一个系统用户及其主组。
+type SystemUser struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 用户名。
+	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	// 主组名。
+	Group         string `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SystemUser) Reset() {
+	*x = SystemUser{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[63]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SystemUser) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemUser) ProtoMessage() {}
+
+func (x *SystemUser) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[63]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemUser.ProtoReflect.Descriptor instead.
+func (*SystemUser) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{63}
+}
+
+func (x *SystemUser) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *SystemUser) GetGroup() string {
+	if x != nil {
+		return x.Group
+	}
+	return ""
+}
+
+// GetRemarksRequest 是批量读取备注参数。
+type GetRemarksRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件路径列表。
+	Paths         []string `protobuf:"bytes,1,rep,name=paths,proto3" json:"paths,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRemarksRequest) Reset() {
+	*x = GetRemarksRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[64]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRemarksRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRemarksRequest) ProtoMessage() {}
+
+func (x *GetRemarksRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[64]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRemarksRequest.ProtoReflect.Descriptor instead.
+func (*GetRemarksRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{64}
+}
+
+func (x *GetRemarksRequest) GetPaths() []string {
+	if x != nil {
+		return x.Paths
+	}
+	return nil
+}
+
+// GetRemarksResponse 是备注查询结果。
+type GetRemarksResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 路径到备注的映射；没有备注的路径不出现。
+	Remarks       map[string]string `protobuf:"bytes,1,rep,name=remarks,proto3" json:"remarks,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRemarksResponse) Reset() {
+	*x = GetRemarksResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[65]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRemarksResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRemarksResponse) ProtoMessage() {}
+
+func (x *GetRemarksResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[65]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRemarksResponse.ProtoReflect.Descriptor instead.
+func (*GetRemarksResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{65}
+}
+
+func (x *GetRemarksResponse) GetRemarks() map[string]string {
+	if x != nil {
+		return x.Remarks
+	}
+	return nil
+}
+
+// SetRemarkRequest 是设置备注参数。
+type SetRemarkRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目标路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 备注内容；为空表示清除备注。
+	Remark        string `protobuf:"bytes,2,opt,name=remark,proto3" json:"remark,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetRemarkRequest) Reset() {
+	*x = SetRemarkRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[66]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetRemarkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetRemarkRequest) ProtoMessage() {}
+
+func (x *SetRemarkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[66]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetRemarkRequest.ProtoReflect.Descriptor instead.
+func (*SetRemarkRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{66}
+}
+
+func (x *SetRemarkRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *SetRemarkRequest) GetRemark() string {
+	if x != nil {
+		return x.Remark
+	}
+	return ""
+}
+
+// SetRemarkResponse 是设置结果，无业务字段。
+type SetRemarkResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetRemarkResponse) Reset() {
+	*x = SetRemarkResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[67]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetRemarkResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetRemarkResponse) ProtoMessage() {}
+
+func (x *SetRemarkResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[67]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetRemarkResponse.ProtoReflect.Descriptor instead.
+func (*SetRemarkResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{67}
+}
+
+// PreviewFileRequest 是预览参数。
+type PreviewFileRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 是否返回完整详情。
+	IsDetail      bool `protobuf:"varint,2,opt,name=is_detail,json=isDetail,proto3" json:"is_detail,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PreviewFileRequest) Reset() {
+	*x = PreviewFileRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[68]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PreviewFileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PreviewFileRequest) ProtoMessage() {}
+
+func (x *PreviewFileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[68]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PreviewFileRequest.ProtoReflect.Descriptor instead.
+func (*PreviewFileRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{68}
+}
+
+func (x *PreviewFileRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *PreviewFileRequest) GetIsDetail() bool {
+	if x != nil {
+		return x.IsDetail
+	}
+	return false
+}
+
+// SaveFileRequest 是保存文件内容参数。
+type SaveFileRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 文件内容。
+	Content       string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SaveFileRequest) Reset() {
+	*x = SaveFileRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[69]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SaveFileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveFileRequest) ProtoMessage() {}
+
+func (x *SaveFileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[69]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveFileRequest.ProtoReflect.Descriptor instead.
+func (*SaveFileRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{69}
+}
+
+func (x *SaveFileRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *SaveFileRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+// SaveFileResponse 是保存结果，无业务字段。
+type SaveFileResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SaveFileResponse) Reset() {
+	*x = SaveFileResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[70]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SaveFileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveFileResponse) ProtoMessage() {}
+
+func (x *SaveFileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[70]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveFileResponse.ProtoReflect.Descriptor instead.
+func (*SaveFileResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{70}
+}
+
+// ReadFileLinesRequest 是按行读取日志文件参数。
+type ReadFileLinesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页行数。
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 读取类型，例如 log、task。
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	// 资源 ID。
+	Id uint32 `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
+	// 文件名。
+	Name string `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	// 是否只取最新内容。
+	Latest bool `protobuf:"varint,6,opt,name=latest,proto3" json:"latest,omitempty"`
+	// 任务 ID。
+	TaskId string `protobuf:"bytes,7,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	// 任务类型。
+	TaskType string `protobuf:"bytes,8,opt,name=task_type,json=taskType,proto3" json:"task_type,omitempty"`
+	// 任务操作。
+	TaskOperate string `protobuf:"bytes,9,opt,name=task_operate,json=taskOperate,proto3" json:"task_operate,omitempty"`
+	// 资源 ID（任务上下文）。
+	ResourceId    uint32 `protobuf:"varint,10,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReadFileLinesRequest) Reset() {
+	*x = ReadFileLinesRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[71]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReadFileLinesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadFileLinesRequest) ProtoMessage() {}
+
+func (x *ReadFileLinesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[71]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadFileLinesRequest.ProtoReflect.Descriptor instead.
+func (*ReadFileLinesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{71}
+}
+
+func (x *ReadFileLinesRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *ReadFileLinesRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *ReadFileLinesRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *ReadFileLinesRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ReadFileLinesRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ReadFileLinesRequest) GetLatest() bool {
+	if x != nil {
+		return x.Latest
+	}
+	return false
+}
+
+func (x *ReadFileLinesRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+func (x *ReadFileLinesRequest) GetTaskType() string {
+	if x != nil {
+		return x.TaskType
+	}
+	return ""
+}
+
+func (x *ReadFileLinesRequest) GetTaskOperate() string {
+	if x != nil {
+		return x.TaskOperate
+	}
+	return ""
+}
+
+func (x *ReadFileLinesRequest) GetResourceId() uint32 {
+	if x != nil {
+		return x.ResourceId
+	}
+	return 0
+}
+
+// ReadFileLinesResponse 是按行读取结果。
+type ReadFileLinesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 是否已到文件末尾。
+	End bool `protobuf:"varint,1,opt,name=end,proto3" json:"end,omitempty"`
+	// 文件路径。
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+	// 当前页行数。
+	Total int32 `protobuf:"varint,3,opt,name=total,proto3" json:"total,omitempty"`
+	// 任务状态。
+	TaskStatus string `protobuf:"bytes,4,opt,name=task_status,json=taskStatus,proto3" json:"task_status,omitempty"`
+	// 行内容。
+	Lines []string `protobuf:"bytes,5,rep,name=lines,proto3" json:"lines,omitempty"`
+	// 读取范围。
+	Scope string `protobuf:"bytes,6,opt,name=scope,proto3" json:"scope,omitempty"`
+	// 文件总行数。
+	TotalLines    int32 `protobuf:"varint,7,opt,name=total_lines,json=totalLines,proto3" json:"total_lines,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReadFileLinesResponse) Reset() {
+	*x = ReadFileLinesResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[72]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReadFileLinesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadFileLinesResponse) ProtoMessage() {}
+
+func (x *ReadFileLinesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[72]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadFileLinesResponse.ProtoReflect.Descriptor instead.
+func (*ReadFileLinesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{72}
+}
+
+func (x *ReadFileLinesResponse) GetEnd() bool {
+	if x != nil {
+		return x.End
+	}
+	return false
+}
+
+func (x *ReadFileLinesResponse) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *ReadFileLinesResponse) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *ReadFileLinesResponse) GetTaskStatus() string {
+	if x != nil {
+		return x.TaskStatus
+	}
+	return ""
+}
+
+func (x *ReadFileLinesResponse) GetLines() []string {
+	if x != nil {
+		return x.Lines
+	}
+	return nil
+}
+
+func (x *ReadFileLinesResponse) GetScope() string {
+	if x != nil {
+		return x.Scope
+	}
+	return ""
+}
+
+func (x *ReadFileLinesResponse) GetTotalLines() int32 {
+	if x != nil {
+		return x.TotalLines
+	}
+	return 0
+}
+
+// ListMountsRequest 是挂载点查询参数，无业务字段。
+type ListMountsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMountsRequest) Reset() {
+	*x = ListMountsRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[73]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMountsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMountsRequest) ProtoMessage() {}
+
+func (x *ListMountsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[73]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMountsRequest.ProtoReflect.Descriptor instead.
+func (*ListMountsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{73}
+}
+
+// ListMountsResponse 是挂载点列表结果。
+type ListMountsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 挂载点信息。
+	Items         []*MountInfo `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMountsResponse) Reset() {
+	*x = ListMountsResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[74]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMountsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMountsResponse) ProtoMessage() {}
+
+func (x *ListMountsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[74]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMountsResponse.ProtoReflect.Descriptor instead.
+func (*ListMountsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{74}
+}
+
+func (x *ListMountsResponse) GetItems() []*MountInfo {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// MountInfo 是一个挂载点的容量信息。
+type MountInfo struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 挂载路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 文件系统类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 设备名。
+	Device string `protobuf:"bytes,3,opt,name=device,proto3" json:"device,omitempty"`
+	// 总容量，单位字节。
+	Total uint64 `protobuf:"varint,4,opt,name=total,proto3" json:"total,omitempty"`
+	// 剩余容量，单位字节。
+	Free uint64 `protobuf:"varint,5,opt,name=free,proto3" json:"free,omitempty"`
+	// 已用容量，单位字节。
+	Used uint64 `protobuf:"varint,6,opt,name=used,proto3" json:"used,omitempty"`
+	// 使用率百分比。
+	UsedPercent float64 `protobuf:"fixed64,7,opt,name=used_percent,json=usedPercent,proto3" json:"used_percent,omitempty"`
+	// inode 总数。
+	InodesTotal uint64 `protobuf:"varint,8,opt,name=inodes_total,json=inodesTotal,proto3" json:"inodes_total,omitempty"`
+	// 已用 inode 数。
+	InodesUsed uint64 `protobuf:"varint,9,opt,name=inodes_used,json=inodesUsed,proto3" json:"inodes_used,omitempty"`
+	// 剩余 inode 数。
+	InodesFree uint64 `protobuf:"varint,10,opt,name=inodes_free,json=inodesFree,proto3" json:"inodes_free,omitempty"`
+	// inode 使用率百分比。
+	InodesUsedPercent float64 `protobuf:"fixed64,11,opt,name=inodes_used_percent,json=inodesUsedPercent,proto3" json:"inodes_used_percent,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *MountInfo) Reset() {
+	*x = MountInfo{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[75]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MountInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MountInfo) ProtoMessage() {}
+
+func (x *MountInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[75]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MountInfo.ProtoReflect.Descriptor instead.
+func (*MountInfo) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{75}
+}
+
+func (x *MountInfo) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *MountInfo) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *MountInfo) GetDevice() string {
+	if x != nil {
+		return x.Device
+	}
+	return ""
+}
+
+func (x *MountInfo) GetTotal() uint64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *MountInfo) GetFree() uint64 {
+	if x != nil {
+		return x.Free
+	}
+	return 0
+}
+
+func (x *MountInfo) GetUsed() uint64 {
+	if x != nil {
+		return x.Used
+	}
+	return 0
+}
+
+func (x *MountInfo) GetUsedPercent() float64 {
+	if x != nil {
+		return x.UsedPercent
+	}
+	return 0
+}
+
+func (x *MountInfo) GetInodesTotal() uint64 {
+	if x != nil {
+		return x.InodesTotal
+	}
+	return 0
+}
+
+func (x *MountInfo) GetInodesUsed() uint64 {
+	if x != nil {
+		return x.InodesUsed
+	}
+	return 0
+}
+
+func (x *MountInfo) GetInodesFree() uint64 {
+	if x != nil {
+		return x.InodesFree
+	}
+	return 0
+}
+
+func (x *MountInfo) GetInodesUsedPercent() float64 {
+	if x != nil {
+		return x.InodesUsedPercent
+	}
+	return 0
+}
+
+// ClearRecycleRequest 是清空回收站参数，无业务字段。
+type ClearRecycleRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ClearRecycleRequest) Reset() {
+	*x = ClearRecycleRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[76]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ClearRecycleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClearRecycleRequest) ProtoMessage() {}
+
+func (x *ClearRecycleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[76]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClearRecycleRequest.ProtoReflect.Descriptor instead.
+func (*ClearRecycleRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{76}
+}
+
+// ClearRecycleResponse 是清空结果，无业务字段。
+type ClearRecycleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ClearRecycleResponse) Reset() {
+	*x = ClearRecycleResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[77]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ClearRecycleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClearRecycleResponse) ProtoMessage() {}
+
+func (x *ClearRecycleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[77]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClearRecycleResponse.ProtoReflect.Descriptor instead.
+func (*ClearRecycleResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{77}
+}
+
+// GetRecycleStatusRequest 是回收站状态查询参数，无业务字段。
+type GetRecycleStatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRecycleStatusRequest) Reset() {
+	*x = GetRecycleStatusRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[78]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRecycleStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRecycleStatusRequest) ProtoMessage() {}
+
+func (x *GetRecycleStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[78]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRecycleStatusRequest.ProtoReflect.Descriptor instead.
+func (*GetRecycleStatusRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{78}
+}
+
+// GetRecycleStatusResponse 是回收站状态结果。
+type GetRecycleStatusResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 开关状态：Enable 或 Disable。
+	Status        string `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRecycleStatusResponse) Reset() {
+	*x = GetRecycleStatusResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[79]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRecycleStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRecycleStatusResponse) ProtoMessage() {}
+
+func (x *GetRecycleStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[79]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRecycleStatusResponse.ProtoReflect.Descriptor instead.
+func (*GetRecycleStatusResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{79}
+}
+
+func (x *GetRecycleStatusResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+// GetHistoryContentRequest 是历史版本内容查询参数。
+type GetHistoryContentRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 历史记录 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetHistoryContentRequest) Reset() {
+	*x = GetHistoryContentRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[80]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetHistoryContentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetHistoryContentRequest) ProtoMessage() {}
+
+func (x *GetHistoryContentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[80]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetHistoryContentRequest.ProtoReflect.Descriptor instead.
+func (*GetHistoryContentRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{80}
+}
+
+func (x *GetHistoryContentRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// GetHistoryContentResponse 是历史版本内容详情。
+type GetHistoryContentResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 文件 ID。
+	FileId string `protobuf:"bytes,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 路径。
+	Path string `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty"`
+	// 当前路径。
+	CurrentPath string `protobuf:"bytes,4,opt,name=current_path,json=currentPath,proto3" json:"current_path,omitempty"`
+	// 上一版本 ID。
+	PreviousId uint32 `protobuf:"varint,5,opt,name=previous_id,json=previousId,proto3" json:"previous_id,omitempty"`
+	// 操作来源路径。
+	SourcePath string `protobuf:"bytes,6,opt,name=source_path,json=sourcePath,proto3" json:"source_path,omitempty"`
+	// 操作目标路径。
+	TargetPath string `protobuf:"bytes,7,opt,name=target_path,json=targetPath,proto3" json:"target_path,omitempty"`
+	// 文件名。
+	FileName string `protobuf:"bytes,8,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// 扩展名。
+	Extension string `protobuf:"bytes,9,opt,name=extension,proto3" json:"extension,omitempty"`
+	// 文件权限。
+	FileMode string `protobuf:"bytes,10,opt,name=file_mode,json=fileMode,proto3" json:"file_mode,omitempty"`
+	// 操作类型。
+	Operation string `protobuf:"bytes,11,opt,name=operation,proto3" json:"operation,omitempty"`
+	// 是否已删除。
+	Deleted bool `protobuf:"varint,12,opt,name=deleted,proto3" json:"deleted,omitempty"`
+	// 内容大小，单位字节。
+	ContentSize int64 `protobuf:"varint,13,opt,name=content_size,json=contentSize,proto3" json:"content_size,omitempty"`
+	// 内容 SHA 摘要。
+	ContentSha string `protobuf:"bytes,14,opt,name=content_sha,json=contentSha,proto3" json:"content_sha,omitempty"`
+	// 历史版本内容。
+	Content string `protobuf:"bytes,15,opt,name=content,proto3" json:"content,omitempty"`
+	// 当前文件内容。
+	CurrentContent string `protobuf:"bytes,16,opt,name=current_content,json=currentContent,proto3" json:"current_content,omitempty"`
+	// 创建时间，RFC3339 格式。
+	CreatedAt string `protobuf:"bytes,17,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 更新时间，RFC3339 格式。
+	UpdatedAt     string `protobuf:"bytes,18,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetHistoryContentResponse) Reset() {
+	*x = GetHistoryContentResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[81]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetHistoryContentResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetHistoryContentResponse) ProtoMessage() {}
+
+func (x *GetHistoryContentResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[81]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetHistoryContentResponse.ProtoReflect.Descriptor instead.
+func (*GetHistoryContentResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{81}
+}
+
+func (x *GetHistoryContentResponse) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *GetHistoryContentResponse) GetFileId() string {
+	if x != nil {
+		return x.FileId
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetCurrentPath() string {
+	if x != nil {
+		return x.CurrentPath
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetPreviousId() uint32 {
+	if x != nil {
+		return x.PreviousId
+	}
+	return 0
+}
+
+func (x *GetHistoryContentResponse) GetSourcePath() string {
+	if x != nil {
+		return x.SourcePath
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetTargetPath() string {
+	if x != nil {
+		return x.TargetPath
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetExtension() string {
+	if x != nil {
+		return x.Extension
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetFileMode() string {
+	if x != nil {
+		return x.FileMode
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetOperation() string {
+	if x != nil {
+		return x.Operation
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetDeleted() bool {
+	if x != nil {
+		return x.Deleted
+	}
+	return false
+}
+
+func (x *GetHistoryContentResponse) GetContentSize() int64 {
+	if x != nil {
+		return x.ContentSize
+	}
+	return 0
+}
+
+func (x *GetHistoryContentResponse) GetContentSha() string {
+	if x != nil {
+		return x.ContentSha
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetCurrentContent() string {
+	if x != nil {
+		return x.CurrentContent
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *GetHistoryContentResponse) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+// DeleteHistoryRequest 是删除历史记录参数。
+type DeleteHistoryRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 历史记录 ID 列表。
+	Ids           []uint32 `protobuf:"varint,1,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteHistoryRequest) Reset() {
+	*x = DeleteHistoryRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[82]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteHistoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteHistoryRequest) ProtoMessage() {}
+
+func (x *DeleteHistoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[82]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteHistoryRequest.ProtoReflect.Descriptor instead.
+func (*DeleteHistoryRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{82}
+}
+
+func (x *DeleteHistoryRequest) GetIds() []uint32 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+// DeleteHistoryResponse 是删除结果，无业务字段。
+type DeleteHistoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteHistoryResponse) Reset() {
+	*x = DeleteHistoryResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[83]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteHistoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteHistoryResponse) ProtoMessage() {}
+
+func (x *DeleteHistoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[83]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteHistoryResponse.ProtoReflect.Descriptor instead.
+func (*DeleteHistoryResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{83}
+}
+
+// RestoreHistoryRequest 是还原历史版本参数。
+type RestoreHistoryRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 历史记录 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RestoreHistoryRequest) Reset() {
+	*x = RestoreHistoryRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[84]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RestoreHistoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RestoreHistoryRequest) ProtoMessage() {}
+
+func (x *RestoreHistoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[84]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RestoreHistoryRequest.ProtoReflect.Descriptor instead.
+func (*RestoreHistoryRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{84}
+}
+
+func (x *RestoreHistoryRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// ConvertFilesRequest 是文件格式转换参数。
+type ConvertFilesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 待转换文件。
+	Files []*ConvertFileItem `protobuf:"bytes,1,rep,name=files,proto3" json:"files,omitempty"`
+	// 输出目录。
+	OutputPath string `protobuf:"bytes,2,opt,name=output_path,json=outputPath,proto3" json:"output_path,omitempty"`
+	// 是否删除源文件。
+	DeleteSource bool `protobuf:"varint,3,opt,name=delete_source,json=deleteSource,proto3" json:"delete_source,omitempty"`
+	// 前端生成的任务 ID。
+	TaskId        string `protobuf:"bytes,4,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConvertFilesRequest) Reset() {
+	*x = ConvertFilesRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[85]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConvertFilesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConvertFilesRequest) ProtoMessage() {}
+
+func (x *ConvertFilesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[85]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConvertFilesRequest.ProtoReflect.Descriptor instead.
+func (*ConvertFilesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{85}
+}
+
+func (x *ConvertFilesRequest) GetFiles() []*ConvertFileItem {
+	if x != nil {
+		return x.Files
+	}
+	return nil
+}
+
+func (x *ConvertFilesRequest) GetOutputPath() string {
+	if x != nil {
+		return x.OutputPath
+	}
+	return ""
+}
+
+func (x *ConvertFilesRequest) GetDeleteSource() bool {
+	if x != nil {
+		return x.DeleteSource
+	}
+	return false
+}
+
+func (x *ConvertFilesRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// ConvertFileItem 是单个待转换文件。
+type ConvertFileItem struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 转换类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 输入文件名。
+	InputFile string `protobuf:"bytes,3,opt,name=input_file,json=inputFile,proto3" json:"input_file,omitempty"`
+	// 输入扩展名。
+	Extension string `protobuf:"bytes,4,opt,name=extension,proto3" json:"extension,omitempty"`
+	// 输出格式。
+	OutputFormat string `protobuf:"bytes,5,opt,name=output_format,json=outputFormat,proto3" json:"output_format,omitempty"`
+	// 转换状态。
+	Status        string `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConvertFileItem) Reset() {
+	*x = ConvertFileItem{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[86]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConvertFileItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConvertFileItem) ProtoMessage() {}
+
+func (x *ConvertFileItem) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[86]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConvertFileItem.ProtoReflect.Descriptor instead.
+func (*ConvertFileItem) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{86}
+}
+
+func (x *ConvertFileItem) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *ConvertFileItem) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *ConvertFileItem) GetInputFile() string {
+	if x != nil {
+		return x.InputFile
+	}
+	return ""
+}
+
+func (x *ConvertFileItem) GetExtension() string {
+	if x != nil {
+		return x.Extension
+	}
+	return ""
+}
+
+func (x *ConvertFileItem) GetOutputFormat() string {
+	if x != nil {
+		return x.OutputFormat
+	}
+	return ""
+}
+
+func (x *ConvertFileItem) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+// ConvertFilesResponse 是转换任务启动结果，无业务字段。
+type ConvertFilesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConvertFilesResponse) Reset() {
+	*x = ConvertFilesResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[87]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConvertFilesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConvertFilesResponse) ProtoMessage() {}
+
+func (x *ConvertFilesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[87]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConvertFilesResponse.ProtoReflect.Descriptor instead.
+func (*ConvertFilesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{87}
+}
+
+// SearchConvertLogsRequest 是转换日志查询参数。
+type SearchConvertLogsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 1000。
+	PageSize      int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchConvertLogsRequest) Reset() {
+	*x = SearchConvertLogsRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[88]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchConvertLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchConvertLogsRequest) ProtoMessage() {}
+
+func (x *SearchConvertLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[88]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchConvertLogsRequest.ProtoReflect.Descriptor instead.
+func (*SearchConvertLogsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{88}
+}
+
+func (x *SearchConvertLogsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchConvertLogsRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+// SearchConvertLogsResponse 是转换日志列表结果。
+type SearchConvertLogsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 当前页的日志。
+	Items []*ConvertLogEntry `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	// 符合条件的日志总数。
+	Total         int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchConvertLogsResponse) Reset() {
+	*x = SearchConvertLogsResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[89]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchConvertLogsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchConvertLogsResponse) ProtoMessage() {}
+
+func (x *SearchConvertLogsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[89]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchConvertLogsResponse.ProtoReflect.Descriptor instead.
+func (*SearchConvertLogsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{89}
+}
+
+func (x *SearchConvertLogsResponse) GetItems() []*ConvertLogEntry {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *SearchConvertLogsResponse) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+// ConvertLogEntry 是一条转换日志。
+type ConvertLogEntry struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 日期。
+	Date string `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
+	// 转换类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 日志内容。
+	Log string `protobuf:"bytes,3,opt,name=log,proto3" json:"log,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	// 消息。
+	Message       string `protobuf:"bytes,5,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConvertLogEntry) Reset() {
+	*x = ConvertLogEntry{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[90]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConvertLogEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConvertLogEntry) ProtoMessage() {}
+
+func (x *ConvertLogEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[90]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConvertLogEntry.ProtoReflect.Descriptor instead.
+func (*ConvertLogEntry) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{90}
+}
+
+func (x *ConvertLogEntry) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *ConvertLogEntry) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *ConvertLogEntry) GetLog() string {
+	if x != nil {
+		return x.Log
+	}
+	return ""
+}
+
+func (x *ConvertLogEntry) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *ConvertLogEntry) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+// CreateShareRequest 是创建分享参数。
+type CreateShareRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享的文件或目录路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 过期时间，单位分钟；0 表示永久。
+	ExpireMinutes int32 `protobuf:"varint,2,opt,name=expire_minutes,json=expireMinutes,proto3" json:"expire_minutes,omitempty"`
+	// 访问密码；未设置时为空。
+	Password      *string `protobuf:"bytes,3,opt,name=password,proto3,oneof" json:"password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateShareRequest) Reset() {
+	*x = CreateShareRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[91]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateShareRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateShareRequest) ProtoMessage() {}
+
+func (x *CreateShareRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[91]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateShareRequest.ProtoReflect.Descriptor instead.
+func (*CreateShareRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{91}
+}
+
+func (x *CreateShareRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *CreateShareRequest) GetExpireMinutes() int32 {
+	if x != nil {
+		return x.ExpireMinutes
+	}
+	return 0
+}
+
+func (x *CreateShareRequest) GetPassword() string {
+	if x != nil && x.Password != nil {
+		return *x.Password
+	}
+	return ""
+}
+
+// CreateShareResponse 是创建分享结果。
+type CreateShareResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享信息。
+	Share         *FileShareInfo `protobuf:"bytes,1,opt,name=share,proto3" json:"share,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateShareResponse) Reset() {
+	*x = CreateShareResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[92]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateShareResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateShareResponse) ProtoMessage() {}
+
+func (x *CreateShareResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[92]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateShareResponse.ProtoReflect.Descriptor instead.
+func (*CreateShareResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{92}
+}
+
+func (x *CreateShareResponse) GetShare() *FileShareInfo {
+	if x != nil {
+		return x.Share
+	}
+	return nil
+}
+
+// FileShareInfo 是一条文件分享记录。
+type FileShareInfo struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享码。
+	Code string `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	// 分享路径。
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+	// 文件名。
+	FileName string `protobuf:"bytes,3,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// 过期时间戳，单位秒；永久分享为 0。
+	ExpiresAt int64 `protobuf:"varint,4,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	// 是否永久有效。
+	Permanent bool `protobuf:"varint,5,opt,name=permanent,proto3" json:"permanent,omitempty"`
+	// 是否设置了访问密码。
+	HasPassword bool `protobuf:"varint,6,opt,name=has_password,json=hasPassword,proto3" json:"has_password,omitempty"`
+	// 访问密码；仅在创建分享时返回。
+	Password      string `protobuf:"bytes,7,opt,name=password,proto3" json:"password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FileShareInfo) Reset() {
+	*x = FileShareInfo{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[93]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FileShareInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FileShareInfo) ProtoMessage() {}
+
+func (x *FileShareInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[93]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FileShareInfo.ProtoReflect.Descriptor instead.
+func (*FileShareInfo) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{93}
+}
+
+func (x *FileShareInfo) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *FileShareInfo) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *FileShareInfo) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *FileShareInfo) GetExpiresAt() int64 {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return 0
+}
+
+func (x *FileShareInfo) GetPermanent() bool {
+	if x != nil {
+		return x.Permanent
+	}
+	return false
+}
+
+func (x *FileShareInfo) GetHasPassword() bool {
+	if x != nil {
+		return x.HasPassword
+	}
+	return false
+}
+
+func (x *FileShareInfo) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+// DeleteShareRequest 是关闭分享参数。
+type DeleteShareRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享路径。
+	Path          string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteShareRequest) Reset() {
+	*x = DeleteShareRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[94]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteShareRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteShareRequest) ProtoMessage() {}
+
+func (x *DeleteShareRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[94]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteShareRequest.ProtoReflect.Descriptor instead.
+func (*DeleteShareRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{94}
+}
+
+func (x *DeleteShareRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+// DeleteShareResponse 是关闭结果，无业务字段。
+type DeleteShareResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteShareResponse) Reset() {
+	*x = DeleteShareResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[95]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteShareResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteShareResponse) ProtoMessage() {}
+
+func (x *DeleteShareResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[95]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteShareResponse.ProtoReflect.Descriptor instead.
+func (*DeleteShareResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{95}
+}
+
+// GetShareRequest 是按路径查询分享参数。
+type GetShareRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享路径。
+	Path          string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetShareRequest) Reset() {
+	*x = GetShareRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[96]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetShareRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetShareRequest) ProtoMessage() {}
+
+func (x *GetShareRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[96]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetShareRequest.ProtoReflect.Descriptor instead.
+func (*GetShareRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{96}
+}
+
+func (x *GetShareRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+// GetShareResponse 是分享详情。
+type GetShareResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享信息。
+	Share         *FileShareInfo `protobuf:"bytes,1,opt,name=share,proto3" json:"share,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetShareResponse) Reset() {
+	*x = GetShareResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[97]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetShareResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetShareResponse) ProtoMessage() {}
+
+func (x *GetShareResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[97]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetShareResponse.ProtoReflect.Descriptor instead.
+func (*GetShareResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{97}
+}
+
+func (x *GetShareResponse) GetShare() *FileShareInfo {
+	if x != nil {
+		return x.Share
+	}
+	return nil
+}
+
+// GetPublicShareRequest 是公开分享信息查询参数。
+type GetPublicShareRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享码。
+	Code          string `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPublicShareRequest) Reset() {
+	*x = GetPublicShareRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[98]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPublicShareRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPublicShareRequest) ProtoMessage() {}
+
+func (x *GetPublicShareRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[98]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPublicShareRequest.ProtoReflect.Descriptor instead.
+func (*GetPublicShareRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{98}
+}
+
+func (x *GetPublicShareRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+// GetPublicShareResponse 是公开分享信息。
+type GetPublicShareResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件名。
+	FileName string `protobuf:"bytes,1,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// 过期时间戳，单位秒；永久分享为 0。
+	ExpiresAt int64 `protobuf:"varint,2,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	// 是否永久有效。
+	Permanent bool `protobuf:"varint,3,opt,name=permanent,proto3" json:"permanent,omitempty"`
+	// 是否设置了访问密码。
+	HasPassword   bool `protobuf:"varint,4,opt,name=has_password,json=hasPassword,proto3" json:"has_password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPublicShareResponse) Reset() {
+	*x = GetPublicShareResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[99]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPublicShareResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPublicShareResponse) ProtoMessage() {}
+
+func (x *GetPublicShareResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[99]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPublicShareResponse.ProtoReflect.Descriptor instead.
+func (*GetPublicShareResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{99}
+}
+
+func (x *GetPublicShareResponse) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *GetPublicShareResponse) GetExpiresAt() int64 {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return 0
+}
+
+func (x *GetPublicShareResponse) GetPermanent() bool {
+	if x != nil {
+		return x.Permanent
+	}
+	return false
+}
+
+func (x *GetPublicShareResponse) GetHasPassword() bool {
+	if x != nil {
+		return x.HasPassword
+	}
+	return false
+}
+
+// CheckShareRequest 是分享校验参数。
+type CheckShareRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分享码。
+	Code string `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	// 访问密码。
+	Password      string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckShareRequest) Reset() {
+	*x = CheckShareRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[100]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckShareRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckShareRequest) ProtoMessage() {}
+
+func (x *CheckShareRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[100]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckShareRequest.ProtoReflect.Descriptor instead.
+func (*CheckShareRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{100}
+}
+
+func (x *CheckShareRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *CheckShareRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+// CheckShareResponse 是校验结果，无业务字段。
+type CheckShareResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckShareResponse) Reset() {
+	*x = CheckShareResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[101]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckShareResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckShareResponse) ProtoMessage() {}
+
+func (x *CheckShareResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[101]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckShareResponse.ProtoReflect.Descriptor instead.
+func (*CheckShareResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{101}
+}
+
+// SearchSharesRequest 是分享记录分页查询参数。
+type SearchSharesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 100。
+	PageSize      int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchSharesRequest) Reset() {
+	*x = SearchSharesRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[102]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchSharesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchSharesRequest) ProtoMessage() {}
+
+func (x *SearchSharesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[102]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchSharesRequest.ProtoReflect.Descriptor instead.
+func (*SearchSharesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{102}
+}
+
+func (x *SearchSharesRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchSharesRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+// SearchSharesResponse 是分享记录列表结果。
+type SearchSharesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 当前页的分享记录。
+	Items []*FileShareInfo `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	// 符合条件的记录总数。
+	Total         int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchSharesResponse) Reset() {
+	*x = SearchSharesResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[103]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchSharesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchSharesResponse) ProtoMessage() {}
+
+func (x *SearchSharesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[103]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchSharesResponse.ProtoReflect.Descriptor instead.
+func (*SearchSharesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{103}
+}
+
+func (x *SearchSharesResponse) GetItems() []*FileShareInfo {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *SearchSharesResponse) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+// WgetRequest 是远程下载参数。
+type WgetRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 下载地址。
+	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	// 保存目录。
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+	// 保存文件名。
+	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	// 是否忽略证书错误。
+	IgnoreCertificate bool `protobuf:"varint,4,opt,name=ignore_certificate,json=ignoreCertificate,proto3" json:"ignore_certificate,omitempty"`
+	// 是否使用代理。
+	UseProxy bool `protobuf:"varint,5,opt,name=use_proxy,json=useProxy,proto3" json:"use_proxy,omitempty"`
+	// 是否使用服务端返回的文件名。
+	UseServerFilename bool `protobuf:"varint,6,opt,name=use_server_filename,json=useServerFilename,proto3" json:"use_server_filename,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *WgetRequest) Reset() {
+	*x = WgetRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[104]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WgetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WgetRequest) ProtoMessage() {}
+
+func (x *WgetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[104]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WgetRequest.ProtoReflect.Descriptor instead.
+func (*WgetRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{104}
+}
+
+func (x *WgetRequest) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+func (x *WgetRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *WgetRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *WgetRequest) GetIgnoreCertificate() bool {
+	if x != nil {
+		return x.IgnoreCertificate
+	}
+	return false
+}
+
+func (x *WgetRequest) GetUseProxy() bool {
+	if x != nil {
+		return x.UseProxy
+	}
+	return false
+}
+
+func (x *WgetRequest) GetUseServerFilename() bool {
+	if x != nil {
+		return x.UseServerFilename
+	}
+	return false
+}
+
+// WgetResponse 是远程下载任务启动结果。
+type WgetResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务键，用于查询进度或停止任务。
+	Key           string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WgetResponse) Reset() {
+	*x = WgetResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[105]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WgetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WgetResponse) ProtoMessage() {}
+
+func (x *WgetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[105]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WgetResponse.ProtoReflect.Descriptor instead.
+func (*WgetResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{105}
+}
+
+func (x *WgetResponse) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+// StopWgetRequest 是停止远程下载参数。
+type StopWgetRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务键。
+	Key           string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopWgetRequest) Reset() {
+	*x = StopWgetRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[106]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopWgetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopWgetRequest) ProtoMessage() {}
+
+func (x *StopWgetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[106]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopWgetRequest.ProtoReflect.Descriptor instead.
+func (*StopWgetRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{106}
+}
+
+func (x *StopWgetRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+// StopWgetResponse 是停止结果，无业务字段。
+type StopWgetResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StopWgetResponse) Reset() {
+	*x = StopWgetResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[107]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StopWgetResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StopWgetResponse) ProtoMessage() {}
+
+func (x *StopWgetResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[107]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StopWgetResponse.ProtoReflect.Descriptor instead.
+func (*StopWgetResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{107}
+}
+
+// GetWgetProcessKeysRequest 是下载任务键查询参数，无业务字段。
+type GetWgetProcessKeysRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWgetProcessKeysRequest) Reset() {
+	*x = GetWgetProcessKeysRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[108]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWgetProcessKeysRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWgetProcessKeysRequest) ProtoMessage() {}
+
+func (x *GetWgetProcessKeysRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[108]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWgetProcessKeysRequest.ProtoReflect.Descriptor instead.
+func (*GetWgetProcessKeysRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{108}
+}
+
+// GetWgetProcessKeysResponse 是下载任务键列表。
+type GetWgetProcessKeysResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务键。
+	Keys          []string `protobuf:"bytes,1,rep,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWgetProcessKeysResponse) Reset() {
+	*x = GetWgetProcessKeysResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[109]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWgetProcessKeysResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWgetProcessKeysResponse) ProtoMessage() {}
+
+func (x *GetWgetProcessKeysResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[109]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWgetProcessKeysResponse.ProtoReflect.Descriptor instead.
+func (*GetWgetProcessKeysResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{109}
+}
+
+func (x *GetWgetProcessKeysResponse) GetKeys() []string {
+	if x != nil {
+		return x.Keys
+	}
+	return nil
+}
+
+// RemoveWgetRecordsRequest 是移除下载记录参数。
+type RemoveWgetRecordsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务键列表。
+	Keys          []string `protobuf:"bytes,1,rep,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveWgetRecordsRequest) Reset() {
+	*x = RemoveWgetRecordsRequest{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[110]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveWgetRecordsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveWgetRecordsRequest) ProtoMessage() {}
+
+func (x *RemoveWgetRecordsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[110]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveWgetRecordsRequest.ProtoReflect.Descriptor instead.
+func (*RemoveWgetRecordsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{110}
+}
+
+func (x *RemoveWgetRecordsRequest) GetKeys() []string {
+	if x != nil {
+		return x.Keys
+	}
+	return nil
+}
+
+// RemoveWgetRecordsResponse 是移除后剩余的下载记录键。
+type RemoveWgetRecordsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 剩余任务键。
+	Keys          []string `protobuf:"bytes,1,rep,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveWgetRecordsResponse) Reset() {
+	*x = RemoveWgetRecordsResponse{}
+	mi := &file_panel_agent_v1_file_proto_msgTypes[111]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveWgetRecordsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveWgetRecordsResponse) ProtoMessage() {}
+
+func (x *RemoveWgetRecordsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_file_proto_msgTypes[111]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveWgetRecordsResponse.ProtoReflect.Descriptor instead.
+func (*RemoveWgetRecordsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_file_proto_rawDescGZIP(), []int{111}
+}
+
+func (x *RemoveWgetRecordsResponse) GetKeys() []string {
+	if x != nil {
+		return x.Keys
+	}
+	return nil
+}
+
 var File_panel_agent_v1_file_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_file_proto_rawDesc = "" +
@@ -2231,7 +6976,309 @@ const file_panel_agent_v1_file_proto_rawDesc = "" +
 	"created_at\x18\n" +
 	" \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\v \x01(\tR\tupdatedAt2\xfc\v\n" +
+	"updated_at\x18\v \x01(\tR\tupdatedAt\"\xe5\x01\n" +
+	"\x11CreateFileRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\x12\x15\n" +
+	"\x06is_dir\x18\x03 \x01(\bR\x05isDir\x12\x1b\n" +
+	"\x04mode\x18\x04 \x01(\x03B\a\xbaH\x04\"\x02(\x00R\x04mode\x12\x17\n" +
+	"\ais_link\x18\x05 \x01(\bR\x06isLink\x12\x1d\n" +
+	"\n" +
+	"is_symlink\x18\x06 \x01(\bR\tisSymlink\x12\x1b\n" +
+	"\tlink_path\x18\a \x01(\tR\blinkPath\x12\x10\n" +
+	"\x03sub\x18\b \x01(\bR\x03sub\"\x14\n" +
+	"\x12CreateFileResponse\"L\n" +
+	"\x10CheckFileRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x1b\n" +
+	"\twith_init\x18\x02 \x01(\bR\bwithInit\"+\n" +
+	"\x11CheckFileResponse\x12\x16\n" +
+	"\x06exists\x18\x01 \x01(\bR\x06exists\"8\n" +
+	"\x16BatchCheckFilesRequest\x12\x1e\n" +
+	"\x05paths\x18\x01 \x03(\tB\b\xbaH\x05\x92\x01\x02\b\x01R\x05paths\"N\n" +
+	"\x17BatchCheckFilesResponse\x123\n" +
+	"\x05items\x18\x01 \x03(\v2\x1d.panel.agent.v1.ExistFileInfoR\x05items\"}\n" +
+	"\rExistFileInfo\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
+	"\x04path\x18\x02 \x01(\tR\x04path\x12\x12\n" +
+	"\x04size\x18\x03 \x01(\x03R\x04size\x12\x19\n" +
+	"\bmod_time\x18\x04 \x01(\tR\amodTime\x12\x15\n" +
+	"\x06is_dir\x18\x05 \x01(\bR\x05isDir\"P\n" +
+	"\x17BatchDeleteFilesRequest\x12\x1e\n" +
+	"\x05paths\x18\x01 \x03(\tB\b\xbaH\x05\x92\x01\x02\b\x01R\x05paths\x12\x15\n" +
+	"\x06is_dir\x18\x02 \x01(\bR\x05isDir\"\x1a\n" +
+	"\x18BatchDeleteFilesResponse\"\xa3\x01\n" +
+	"\x16BatchChangeRoleRequest\x12\x1e\n" +
+	"\x05paths\x18\x01 \x03(\tB\b\xbaH\x05\x92\x01\x02\b\x01R\x05paths\x12\x1b\n" +
+	"\x04mode\x18\x02 \x01(\x03B\a\xbaH\x04\"\x02(\x00R\x04mode\x12\x1b\n" +
+	"\x04user\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04user\x12\x1d\n" +
+	"\x05group\x18\x04 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x05group\x12\x10\n" +
+	"\x03sub\x18\x05 \x01(\bR\x03sub\"\x19\n" +
+	"\x17BatchChangeRoleResponse\"\x7f\n" +
+	"\x12ChangeOwnerRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x1b\n" +
+	"\x04user\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04user\x12\x1d\n" +
+	"\x05group\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x05group\x12\x10\n" +
+	"\x03sub\x18\x04 \x01(\bR\x03sub\"\x15\n" +
+	"\x13ChangeOwnerResponse\"7\n" +
+	"\x13StopCompressRequest\x12 \n" +
+	"\atask_id\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06taskId\"\x16\n" +
+	"\x14StopCompressResponse\"9\n" +
+	"\x15StopDecompressRequest\x12 \n" +
+	"\atask_id\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06taskId\"\x18\n" +
+	"\x16StopDecompressResponse\"\xe7\x01\n" +
+	"\x10MoveFilesRequest\x12$\n" +
+	"\x04type\x18\x01 \x01(\tB\x10\xbaH\rr\vR\x03cutR\x04copyR\x04type\x12%\n" +
+	"\told_paths\x18\x02 \x03(\tB\b\xbaH\x05\x92\x01\x02\b\x01R\boldPaths\x12\"\n" +
+	"\bnew_path\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\anewPath\x12\x12\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12\x14\n" +
+	"\x05cover\x18\x05 \x01(\bR\x05cover\x12\x1f\n" +
+	"\vcover_paths\x18\x06 \x03(\tR\n" +
+	"coverPaths\x12\x17\n" +
+	"\atask_id\x18\a \x01(\tR\x06taskId\",\n" +
+	"\x11MoveFilesResponse\x12\x17\n" +
+	"\atask_id\x18\x01 \x01(\tR\x06taskId\"3\n" +
+	"\x0fStopMoveRequest\x12 \n" +
+	"\atask_id\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06taskId\"\x12\n" +
+	"\x10StopMoveResponse\"-\n" +
+	"\x0eGetSizeRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\"%\n" +
+	"\x0fGetSizeResponse\x12\x12\n" +
+	"\x04size\x18\x01 \x01(\x03R\x04size\"2\n" +
+	"\x13GetDepthSizeRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\"G\n" +
+	"\x14GetDepthSizeResponse\x12/\n" +
+	"\x05items\x18\x01 \x03(\v2\x19.panel.agent.v1.DepthSizeR\x05items\"3\n" +
+	"\tDepthSize\x12\x12\n" +
+	"\x04path\x18\x01 \x01(\tR\x04path\x12\x12\n" +
+	"\x04size\x18\x02 \x01(\x03R\x04size\"\x88\x02\n" +
+	"\x12GetFileTreeRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12 \n" +
+	"\x06search\x18\x02 \x01(\tB\b\xbaH\x05r\x03\x18\x80\x01R\x06search\x12\x1f\n" +
+	"\vcontain_sub\x18\x03 \x01(\bR\n" +
+	"containSub\x12\x10\n" +
+	"\x03dir\x18\x04 \x01(\bR\x03dir\x12\x1f\n" +
+	"\vshow_hidden\x18\x05 \x01(\bR\n" +
+	"showHidden\x12 \n" +
+	"\asort_by\x18\x06 \x01(\tB\a\xbaH\x04r\x02\x18 R\x06sortBy\x12=\n" +
+	"\n" +
+	"sort_order\x18\a \x01(\tB\x1e\xbaH\x1br\x19R\x00R\tascendingR\n" +
+	"descendingR\tsortOrder\"F\n" +
+	"\x10FileTreeResponse\x122\n" +
+	"\x05items\x18\x01 \x03(\v2\x1c.panel.agent.v1.FileTreeNodeR\x05items\"\xb5\x01\n" +
+	"\fFileTreeNode\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04path\x18\x03 \x01(\tR\x04path\x12\x15\n" +
+	"\x06is_dir\x18\x04 \x01(\bR\x05isDir\x12\x1c\n" +
+	"\textension\x18\x05 \x01(\tR\textension\x128\n" +
+	"\bchildren\x18\x06 \x03(\v2\x1c.panel.agent.v1.FileTreeNodeR\bchildren\"x\n" +
+	"\x13SearchUploadRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x1b\n" +
+	"\x04page\x18\x02 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12'\n" +
+	"\tpage_size\x18\x03 \x01(\x05B\n" +
+	"\xbaH\a\x1a\x05\x18\xe8\a(\x01R\bpageSize\"_\n" +
+	"\x14SearchUploadResponse\x121\n" +
+	"\x05items\x18\x01 \x03(\v2\x1b.panel.agent.v1.UploadEntryR\x05items\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x03R\x05total\"T\n" +
+	"\vUploadEntry\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
+	"\x04size\x18\x02 \x01(\x03R\x04size\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x03 \x01(\tR\tcreatedAt\"\x1a\n" +
+	"\x18GetUsersAndGroupsRequest\"e\n" +
+	"\x19GetUsersAndGroupsResponse\x120\n" +
+	"\x05users\x18\x01 \x03(\v2\x1a.panel.agent.v1.SystemUserR\x05users\x12\x16\n" +
+	"\x06groups\x18\x02 \x03(\tR\x06groups\">\n" +
+	"\n" +
+	"SystemUser\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
+	"\x05group\x18\x02 \x01(\tR\x05group\"3\n" +
+	"\x11GetRemarksRequest\x12\x1e\n" +
+	"\x05paths\x18\x01 \x03(\tB\b\xbaH\x05\x92\x01\x02\b\x01R\x05paths\"\x9b\x01\n" +
+	"\x12GetRemarksResponse\x12I\n" +
+	"\aremarks\x18\x01 \x03(\v2/.panel.agent.v1.GetRemarksResponse.RemarksEntryR\aremarks\x1a:\n" +
+	"\fRemarksEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"G\n" +
+	"\x10SetRemarkRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x16\n" +
+	"\x06remark\x18\x02 \x01(\tR\x06remark\"\x13\n" +
+	"\x11SetRemarkResponse\"N\n" +
+	"\x12PreviewFileRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x1b\n" +
+	"\tis_detail\x18\x02 \x01(\bR\bisDetail\"H\n" +
+	"\x0fSaveFileRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\"\x12\n" +
+	"\x10SaveFileResponse\"\xa3\x02\n" +
+	"\x14ReadFileLinesRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12$\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\bpageSize\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12\x0e\n" +
+	"\x02id\x18\x04 \x01(\rR\x02id\x12\x12\n" +
+	"\x04name\x18\x05 \x01(\tR\x04name\x12\x16\n" +
+	"\x06latest\x18\x06 \x01(\bR\x06latest\x12\x17\n" +
+	"\atask_id\x18\a \x01(\tR\x06taskId\x12\x1b\n" +
+	"\ttask_type\x18\b \x01(\tR\btaskType\x12!\n" +
+	"\ftask_operate\x18\t \x01(\tR\vtaskOperate\x12\x1f\n" +
+	"\vresource_id\x18\n" +
+	" \x01(\rR\n" +
+	"resourceId\"\xc1\x01\n" +
+	"\x15ReadFileLinesResponse\x12\x10\n" +
+	"\x03end\x18\x01 \x01(\bR\x03end\x12\x12\n" +
+	"\x04path\x18\x02 \x01(\tR\x04path\x12\x14\n" +
+	"\x05total\x18\x03 \x01(\x05R\x05total\x12\x1f\n" +
+	"\vtask_status\x18\x04 \x01(\tR\n" +
+	"taskStatus\x12\x14\n" +
+	"\x05lines\x18\x05 \x03(\tR\x05lines\x12\x14\n" +
+	"\x05scope\x18\x06 \x01(\tR\x05scope\x12\x1f\n" +
+	"\vtotal_lines\x18\a \x01(\x05R\n" +
+	"totalLines\"\x13\n" +
+	"\x11ListMountsRequest\"E\n" +
+	"\x12ListMountsResponse\x12/\n" +
+	"\x05items\x18\x01 \x03(\v2\x19.panel.agent.v1.MountInfoR\x05items\"\xc1\x02\n" +
+	"\tMountInfo\x12\x12\n" +
+	"\x04path\x18\x01 \x01(\tR\x04path\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x16\n" +
+	"\x06device\x18\x03 \x01(\tR\x06device\x12\x14\n" +
+	"\x05total\x18\x04 \x01(\x04R\x05total\x12\x12\n" +
+	"\x04free\x18\x05 \x01(\x04R\x04free\x12\x12\n" +
+	"\x04used\x18\x06 \x01(\x04R\x04used\x12!\n" +
+	"\fused_percent\x18\a \x01(\x01R\vusedPercent\x12!\n" +
+	"\finodes_total\x18\b \x01(\x04R\vinodesTotal\x12\x1f\n" +
+	"\vinodes_used\x18\t \x01(\x04R\n" +
+	"inodesUsed\x12\x1f\n" +
+	"\vinodes_free\x18\n" +
+	" \x01(\x04R\n" +
+	"inodesFree\x12.\n" +
+	"\x13inodes_used_percent\x18\v \x01(\x01R\x11inodesUsedPercent\"\x15\n" +
+	"\x13ClearRecycleRequest\"\x16\n" +
+	"\x14ClearRecycleResponse\"\x19\n" +
+	"\x17GetRecycleStatusRequest\"2\n" +
+	"\x18GetRecycleStatusResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\"3\n" +
+	"\x18GetHistoryContentRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\xb3\x04\n" +
+	"\x19GetHistoryContentResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x17\n" +
+	"\afile_id\x18\x02 \x01(\tR\x06fileId\x12\x12\n" +
+	"\x04path\x18\x03 \x01(\tR\x04path\x12!\n" +
+	"\fcurrent_path\x18\x04 \x01(\tR\vcurrentPath\x12\x1f\n" +
+	"\vprevious_id\x18\x05 \x01(\rR\n" +
+	"previousId\x12\x1f\n" +
+	"\vsource_path\x18\x06 \x01(\tR\n" +
+	"sourcePath\x12\x1f\n" +
+	"\vtarget_path\x18\a \x01(\tR\n" +
+	"targetPath\x12\x1b\n" +
+	"\tfile_name\x18\b \x01(\tR\bfileName\x12\x1c\n" +
+	"\textension\x18\t \x01(\tR\textension\x12\x1b\n" +
+	"\tfile_mode\x18\n" +
+	" \x01(\tR\bfileMode\x12\x1c\n" +
+	"\toperation\x18\v \x01(\tR\toperation\x12\x18\n" +
+	"\adeleted\x18\f \x01(\bR\adeleted\x12!\n" +
+	"\fcontent_size\x18\r \x01(\x03R\vcontentSize\x12\x1f\n" +
+	"\vcontent_sha\x18\x0e \x01(\tR\n" +
+	"contentSha\x12\x18\n" +
+	"\acontent\x18\x0f \x01(\tR\acontent\x12'\n" +
+	"\x0fcurrent_content\x18\x10 \x01(\tR\x0ecurrentContent\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x11 \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"\n" +
+	"updated_at\x18\x12 \x01(\tR\tupdatedAt\"2\n" +
+	"\x14DeleteHistoryRequest\x12\x1a\n" +
+	"\x03ids\x18\x01 \x03(\rB\b\xbaH\x05\x92\x01\x02\b\x01R\x03ids\"\x17\n" +
+	"\x15DeleteHistoryResponse\"0\n" +
+	"\x15RestoreHistoryRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\xbe\x01\n" +
+	"\x13ConvertFilesRequest\x12?\n" +
+	"\x05files\x18\x01 \x03(\v2\x1f.panel.agent.v1.ConvertFileItemB\b\xbaH\x05\x92\x01\x02\b\x01R\x05files\x12(\n" +
+	"\voutput_path\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\n" +
+	"outputPath\x12#\n" +
+	"\rdelete_source\x18\x03 \x01(\bR\fdeleteSource\x12\x17\n" +
+	"\atask_id\x18\x04 \x01(\tR\x06taskId\"\xe0\x01\n" +
+	"\x0fConvertFileItem\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x1b\n" +
+	"\x04type\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\x12&\n" +
+	"\n" +
+	"input_file\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\tinputFile\x12%\n" +
+	"\textension\x18\x04 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\textension\x12,\n" +
+	"\routput_format\x18\x05 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\foutputFormat\x12\x16\n" +
+	"\x06status\x18\x06 \x01(\tR\x06status\"\x16\n" +
+	"\x14ConvertFilesResponse\"`\n" +
+	"\x18SearchConvertLogsRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12'\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\n" +
+	"\xbaH\a\x1a\x05\x18\xe8\a(\x01R\bpageSize\"h\n" +
+	"\x19SearchConvertLogsResponse\x125\n" +
+	"\x05items\x18\x01 \x03(\v2\x1f.panel.agent.v1.ConvertLogEntryR\x05items\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x03R\x05total\"}\n" +
+	"\x0fConvertLogEntry\x12\x12\n" +
+	"\x04date\x18\x01 \x01(\tR\x04date\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x10\n" +
+	"\x03log\x18\x03 \x01(\tR\x03log\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\x12\x18\n" +
+	"\amessage\x18\x05 \x01(\tR\amessage\"\x92\x01\n" +
+	"\x12CreateShareRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x121\n" +
+	"\x0eexpire_minutes\x18\x02 \x01(\x05B\n" +
+	"\xbaH\a\x1a\x05\x18\xe0N(\x00R\rexpireMinutes\x12\x1f\n" +
+	"\bpassword\x18\x03 \x01(\tH\x00R\bpassword\x88\x01\x01B\v\n" +
+	"\t_password\"J\n" +
+	"\x13CreateShareResponse\x123\n" +
+	"\x05share\x18\x01 \x01(\v2\x1d.panel.agent.v1.FileShareInfoR\x05share\"\xd0\x01\n" +
+	"\rFileShareInfo\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\tR\x04code\x12\x12\n" +
+	"\x04path\x18\x02 \x01(\tR\x04path\x12\x1b\n" +
+	"\tfile_name\x18\x03 \x01(\tR\bfileName\x12\x1d\n" +
+	"\n" +
+	"expires_at\x18\x04 \x01(\x03R\texpiresAt\x12\x1c\n" +
+	"\tpermanent\x18\x05 \x01(\bR\tpermanent\x12!\n" +
+	"\fhas_password\x18\x06 \x01(\bR\vhasPassword\x12\x1a\n" +
+	"\bpassword\x18\a \x01(\tR\bpassword\"1\n" +
+	"\x12DeleteShareRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\"\x15\n" +
+	"\x13DeleteShareResponse\".\n" +
+	"\x0fGetShareRequest\x12\x1b\n" +
+	"\x04path\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\"G\n" +
+	"\x10GetShareResponse\x123\n" +
+	"\x05share\x18\x01 \x01(\v2\x1d.panel.agent.v1.FileShareInfoR\x05share\"4\n" +
+	"\x15GetPublicShareRequest\x12\x1b\n" +
+	"\x04code\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04code\"\x95\x01\n" +
+	"\x16GetPublicShareResponse\x12\x1b\n" +
+	"\tfile_name\x18\x01 \x01(\tR\bfileName\x12\x1d\n" +
+	"\n" +
+	"expires_at\x18\x02 \x01(\x03R\texpiresAt\x12\x1c\n" +
+	"\tpermanent\x18\x03 \x01(\bR\tpermanent\x12!\n" +
+	"\fhas_password\x18\x04 \x01(\bR\vhasPassword\"L\n" +
+	"\x11CheckShareRequest\x12\x1b\n" +
+	"\x04code\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04code\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"\x14\n" +
+	"\x12CheckShareResponse\"Z\n" +
+	"\x13SearchSharesRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12&\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\"a\n" +
+	"\x14SearchSharesResponse\x123\n" +
+	"\x05items\x18\x01 \x03(\v2\x1d.panel.agent.v1.FileShareInfoR\x05items\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x03R\x05total\"\xde\x01\n" +
+	"\vWgetRequest\x12\x19\n" +
+	"\x03url\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x03url\x12\x1b\n" +
+	"\x04path\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04path\x12\x1b\n" +
+	"\x04name\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04name\x12-\n" +
+	"\x12ignore_certificate\x18\x04 \x01(\bR\x11ignoreCertificate\x12\x1b\n" +
+	"\tuse_proxy\x18\x05 \x01(\bR\buseProxy\x12.\n" +
+	"\x13use_server_filename\x18\x06 \x01(\bR\x11useServerFilename\" \n" +
+	"\fWgetResponse\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\",\n" +
+	"\x0fStopWgetRequest\x12\x19\n" +
+	"\x03key\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x03key\"\x12\n" +
+	"\x10StopWgetResponse\"\x1b\n" +
+	"\x19GetWgetProcessKeysRequest\"0\n" +
+	"\x1aGetWgetProcessKeysResponse\x12\x12\n" +
+	"\x04keys\x18\x01 \x03(\tR\x04keys\";\n" +
+	"\x18RemoveWgetRecordsRequest\x12\x1f\n" +
+	"\x04keys\x18\x01 \x03(\tB\v\xbaH\b\x92\x01\x05\b\x01\x10\xe8\aR\x04keys\"/\n" +
+	"\x19RemoveWgetRecordsResponse\x12\x12\n" +
+	"\x04keys\x18\x01 \x03(\tR\x04keys2\xff.\n" +
 	"\vFileService\x12Q\n" +
 	"\tListFiles\x12 .panel.agent.v1.ListFilesRequest\x1a\x18.panel.agent.v1.FileList\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x87\x01\n" +
 	"\n" +
@@ -2248,7 +7295,52 @@ const file_panel_agent_v1_file_proto_rawDesc = "" +
 	"\n" +
 	"DeCompress\x12&.panel.agent.v1.DecompressFilesRequest\x1a'.panel.agent.v1.DecompressFilesResponse\"#\x8a\xb5\x18\x1f\"\f解压文件*\x0fDecompress file\x12{\n" +
 	"\bCompress\x12$.panel.agent.v1.CompressFilesRequest\x1a%.panel.agent.v1.CompressFilesResponse\"\"\x8a\xb5\x18\x1e\"\f压缩文件*\x0eCompress files\x12N\n" +
-	"\aGetFile\x12\x1e.panel.agent.v1.GetFileRequest\x1a\x19.panel.agent.v1.FileEntry\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\aGetFile\x12\x1e.panel.agent.v1.GetFileRequest\x1a\x19.panel.agent.v1.FileEntry\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12t\n" +
+	"\n" +
+	"CreateFile\x12!.panel.agent.v1.CreateFileRequest\x1a\".panel.agent.v1.CreateFileResponse\"\x1f\x8a\xb5\x18\x1b\"\f新建文件*\vCreate file\x12Z\n" +
+	"\tCheckFile\x12 .panel.agent.v1.CheckFileRequest\x1a!.panel.agent.v1.CheckFileResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12l\n" +
+	"\x0fBatchCheckFiles\x12&.panel.agent.v1.BatchCheckFilesRequest\x1a'.panel.agent.v1.BatchCheckFilesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x93\x01\n" +
+	"\x10BatchDeleteFiles\x12'.panel.agent.v1.BatchDeleteFilesRequest\x1a(.panel.agent.v1.BatchDeleteFilesResponse\",\x8a\xb5\x18(\"\x12批量删除文件*\x12Batch delete files\x12\x9a\x01\n" +
+	"\x0fBatchChangeRole\x12&.panel.agent.v1.BatchChangeRoleRequest\x1a'.panel.agent.v1.BatchChangeRoleResponse\"6\x8a\xb5\x182\"\x18批量修改文件权限*\x16Batch change file role\x12\x86\x01\n" +
+	"\vChangeOwner\x12\".panel.agent.v1.ChangeOwnerRequest\x1a#.panel.agent.v1.ChangeOwnerResponse\".\x8a\xb5\x18*\"\x15修改文件所有者*\x11Change file owner\x12\x87\x01\n" +
+	"\fStopCompress\x12#.panel.agent.v1.StopCompressRequest\x1a$.panel.agent.v1.StopCompressResponse\",\x8a\xb5\x18(\"\x12停止压缩任务*\x12Stop compress task\x12\x8f\x01\n" +
+	"\x0eStopDecompress\x12%.panel.agent.v1.StopDecompressRequest\x1a&.panel.agent.v1.StopDecompressResponse\".\x8a\xb5\x18*\"\x12停止解压任务*\x14Stop decompress task\x12p\n" +
+	"\tMoveFiles\x12 .panel.agent.v1.MoveFilesRequest\x1a!.panel.agent.v1.MoveFilesResponse\"\x1e\x8a\xb5\x18\x1a\"\f移动文件*\n" +
+	"Move files\x12w\n" +
+	"\bStopMove\x12\x1f.panel.agent.v1.StopMoveRequest\x1a .panel.agent.v1.StopMoveResponse\"(\x8a\xb5\x18$\"\x12停止移动任务*\x0eStop move task\x12T\n" +
+	"\aGetSize\x12\x1e.panel.agent.v1.GetSizeRequest\x1a\x1f.panel.agent.v1.GetSizeResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12c\n" +
+	"\fGetDepthSize\x12#.panel.agent.v1.GetDepthSizeRequest\x1a$.panel.agent.v1.GetDepthSizeResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12]\n" +
+	"\vGetFileTree\x12\".panel.agent.v1.GetFileTreeRequest\x1a .panel.agent.v1.FileTreeResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12c\n" +
+	"\fSearchUpload\x12#.panel.agent.v1.SearchUploadRequest\x1a$.panel.agent.v1.SearchUploadResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12r\n" +
+	"\x11GetUsersAndGroups\x12(.panel.agent.v1.GetUsersAndGroupsRequest\x1a).panel.agent.v1.GetUsersAndGroupsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12]\n" +
+	"\n" +
+	"GetRemarks\x12!.panel.agent.v1.GetRemarksRequest\x1a\".panel.agent.v1.GetRemarksResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12{\n" +
+	"\tSetRemark\x12 .panel.agent.v1.SetRemarkRequest\x1a!.panel.agent.v1.SetRemarkResponse\")\x8a\xb5\x18%\"\x12设置文件备注*\x0fSet file remark\x12V\n" +
+	"\vPreviewFile\x12\".panel.agent.v1.PreviewFileRequest\x1a\x19.panel.agent.v1.FileEntry\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12z\n" +
+	"\bSaveFile\x12\x1f.panel.agent.v1.SaveFileRequest\x1a .panel.agent.v1.SaveFileResponse\"+\x8a\xb5\x18'\"\x12保存文件内容*\x11Save file content\x12f\n" +
+	"\rReadFileLines\x12$.panel.agent.v1.ReadFileLinesRequest\x1a%.panel.agent.v1.ReadFileLinesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12]\n" +
+	"\n" +
+	"ListMounts\x12!.panel.agent.v1.ListMountsRequest\x1a\".panel.agent.v1.ListMountsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x83\x01\n" +
+	"\fClearRecycle\x12#.panel.agent.v1.ClearRecycleRequest\x1a$.panel.agent.v1.ClearRecycleResponse\"(\x8a\xb5\x18$\"\x0f清空回收站*\x11Clear recycle bin\x12o\n" +
+	"\x10GetRecycleStatus\x12'.panel.agent.v1.GetRecycleStatusRequest\x1a(.panel.agent.v1.GetRecycleStatusResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12r\n" +
+	"\x11GetHistoryContent\x12(.panel.agent.v1.GetHistoryContentRequest\x1a).panel.agent.v1.GetHistoryContentResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x8b\x01\n" +
+	"\rDeleteHistory\x12$.panel.agent.v1.DeleteHistoryRequest\x1a%.panel.agent.v1.DeleteHistoryResponse\"-\x8a\xb5\x18)\"\x12删除文件历史*\x13Delete file history\x12\x82\x01\n" +
+	"\x0eRestoreHistory\x12%.panel.agent.v1.RestoreHistoryRequest\x1a\x19.panel.agent.v1.FileEntry\".\x8a\xb5\x18*\"\x12还原文件历史*\x14Restore file history\x12\x82\x01\n" +
+	"\fConvertFiles\x12#.panel.agent.v1.ConvertFilesRequest\x1a$.panel.agent.v1.ConvertFilesResponse\"'\x8a\xb5\x18#\"\x12转换文件格式*\rConvert files\x12r\n" +
+	"\x11SearchConvertLogs\x12(.panel.agent.v1.SearchConvertLogsRequest\x1a).panel.agent.v1.SearchConvertLogsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x83\x01\n" +
+	"\vCreateShare\x12\".panel.agent.v1.CreateShareRequest\x1a#.panel.agent.v1.CreateShareResponse\"+\x8a\xb5\x18'\"\x12创建文件分享*\x11Create file share\x12\x83\x01\n" +
+	"\vDeleteShare\x12\".panel.agent.v1.DeleteShareRequest\x1a#.panel.agent.v1.DeleteShareResponse\"+\x8a\xb5\x18'\"\x12关闭文件分享*\x11Delete file share\x12W\n" +
+	"\bGetShare\x12\x1f.panel.agent.v1.GetShareRequest\x1a .panel.agent.v1.GetShareResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12k\n" +
+	"\x0eGetPublicShare\x12%.panel.agent.v1.GetPublicShareRequest\x1a&.panel.agent.v1.GetPublicShareResponse\"\n" +
+	"\x8a\xb5\x18\x06\b\x01\x18\x010\x01\x12_\n" +
+	"\n" +
+	"CheckShare\x12!.panel.agent.v1.CheckShareRequest\x1a\".panel.agent.v1.CheckShareResponse\"\n" +
+	"\x8a\xb5\x18\x06\b\x01\x18\x010\x01\x12c\n" +
+	"\fSearchShares\x12#.panel.agent.v1.SearchSharesRequest\x1a$.panel.agent.v1.SearchSharesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12q\n" +
+	"\x04Wget\x12\x1b.panel.agent.v1.WgetRequest\x1a\x1c.panel.agent.v1.WgetResponse\".\x8a\xb5\x18*\"\x12远程下载文件*\x14Download file by URL\x12}\n" +
+	"\bStopWget\x12\x1f.panel.agent.v1.StopWgetRequest\x1a .panel.agent.v1.StopWgetResponse\".\x8a\xb5\x18*\"\x12停止远程下载*\x14Stop remote download\x12u\n" +
+	"\x12GetWgetProcessKeys\x12).panel.agent.v1.GetWgetProcessKeysRequest\x1a*.panel.agent.v1.GetWgetProcessKeysResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x9b\x01\n" +
+	"\x11RemoveWgetRecords\x12(.panel.agent.v1.RemoveWgetRecordsRequest\x1a).panel.agent.v1.RemoveWgetRecordsResponse\"1\x8a\xb5\x18-\"\x12移除下载记录*\x17Remove download recordsB-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_file_proto_rawDescOnce sync.Once
@@ -2262,75 +7354,248 @@ func file_panel_agent_v1_file_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_file_proto_rawDescData
 }
 
-var file_panel_agent_v1_file_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
+var file_panel_agent_v1_file_proto_msgTypes = make([]protoimpl.MessageInfo, 113)
 var file_panel_agent_v1_file_proto_goTypes = []any{
-	(*ListFilesRequest)(nil),          // 0: panel.agent.v1.ListFilesRequest
-	(*GetFileRequest)(nil),            // 1: panel.agent.v1.GetFileRequest
-	(*FileList)(nil),                  // 2: panel.agent.v1.FileList
-	(*FileEntry)(nil),                 // 3: panel.agent.v1.FileEntry
-	(*ChangeFileModeRequest)(nil),     // 4: panel.agent.v1.ChangeFileModeRequest
-	(*ChangeFileModeResponse)(nil),    // 5: panel.agent.v1.ChangeFileModeResponse
-	(*CompressFilesRequest)(nil),      // 6: panel.agent.v1.CompressFilesRequest
-	(*CompressFilesResponse)(nil),     // 7: panel.agent.v1.CompressFilesResponse
-	(*DeleteFilesRequest)(nil),        // 8: panel.agent.v1.DeleteFilesRequest
-	(*DeleteFilesResponse)(nil),       // 9: panel.agent.v1.DeleteFilesResponse
-	(*ChangeFileNameRequest)(nil),     // 10: panel.agent.v1.ChangeFileNameRequest
-	(*ChangeFileNameResponse)(nil),    // 11: panel.agent.v1.ChangeFileNameResponse
-	(*DecompressFilesRequest)(nil),    // 12: panel.agent.v1.DecompressFilesRequest
-	(*DecompressFilesResponse)(nil),   // 13: panel.agent.v1.DecompressFilesResponse
-	(*SearchFavoritesRequest)(nil),    // 14: panel.agent.v1.SearchFavoritesRequest
-	(*SearchFavoritesResponse)(nil),   // 15: panel.agent.v1.SearchFavoritesResponse
-	(*FavoriteEntry)(nil),             // 16: panel.agent.v1.FavoriteEntry
-	(*RestoreRecycleRequest)(nil),     // 17: panel.agent.v1.RestoreRecycleRequest
-	(*RestoreRecycleResponse)(nil),    // 18: panel.agent.v1.RestoreRecycleResponse
-	(*SearchRecycleRequest)(nil),      // 19: panel.agent.v1.SearchRecycleRequest
-	(*SearchRecycleResponse)(nil),     // 20: panel.agent.v1.SearchRecycleResponse
-	(*RecycleEntry)(nil),              // 21: panel.agent.v1.RecycleEntry
-	(*AddFavoriteRequest)(nil),        // 22: panel.agent.v1.AddFavoriteRequest
-	(*AddFavoriteResponse)(nil),       // 23: panel.agent.v1.AddFavoriteResponse
-	(*DeleteFavoriteRequest)(nil),     // 24: panel.agent.v1.DeleteFavoriteRequest
-	(*DeleteFavoriteResponse)(nil),    // 25: panel.agent.v1.DeleteFavoriteResponse
-	(*SearchFileHistoryRequest)(nil),  // 26: panel.agent.v1.SearchFileHistoryRequest
-	(*SearchFileHistoryResponse)(nil), // 27: panel.agent.v1.SearchFileHistoryResponse
-	(*FileHistoryEntry)(nil),          // 28: panel.agent.v1.FileHistoryEntry
+	(*ListFilesRequest)(nil),           // 0: panel.agent.v1.ListFilesRequest
+	(*GetFileRequest)(nil),             // 1: panel.agent.v1.GetFileRequest
+	(*FileList)(nil),                   // 2: panel.agent.v1.FileList
+	(*FileEntry)(nil),                  // 3: panel.agent.v1.FileEntry
+	(*ChangeFileModeRequest)(nil),      // 4: panel.agent.v1.ChangeFileModeRequest
+	(*ChangeFileModeResponse)(nil),     // 5: panel.agent.v1.ChangeFileModeResponse
+	(*CompressFilesRequest)(nil),       // 6: panel.agent.v1.CompressFilesRequest
+	(*CompressFilesResponse)(nil),      // 7: panel.agent.v1.CompressFilesResponse
+	(*DeleteFilesRequest)(nil),         // 8: panel.agent.v1.DeleteFilesRequest
+	(*DeleteFilesResponse)(nil),        // 9: panel.agent.v1.DeleteFilesResponse
+	(*ChangeFileNameRequest)(nil),      // 10: panel.agent.v1.ChangeFileNameRequest
+	(*ChangeFileNameResponse)(nil),     // 11: panel.agent.v1.ChangeFileNameResponse
+	(*DecompressFilesRequest)(nil),     // 12: panel.agent.v1.DecompressFilesRequest
+	(*DecompressFilesResponse)(nil),    // 13: panel.agent.v1.DecompressFilesResponse
+	(*SearchFavoritesRequest)(nil),     // 14: panel.agent.v1.SearchFavoritesRequest
+	(*SearchFavoritesResponse)(nil),    // 15: panel.agent.v1.SearchFavoritesResponse
+	(*FavoriteEntry)(nil),              // 16: panel.agent.v1.FavoriteEntry
+	(*RestoreRecycleRequest)(nil),      // 17: panel.agent.v1.RestoreRecycleRequest
+	(*RestoreRecycleResponse)(nil),     // 18: panel.agent.v1.RestoreRecycleResponse
+	(*SearchRecycleRequest)(nil),       // 19: panel.agent.v1.SearchRecycleRequest
+	(*SearchRecycleResponse)(nil),      // 20: panel.agent.v1.SearchRecycleResponse
+	(*RecycleEntry)(nil),               // 21: panel.agent.v1.RecycleEntry
+	(*AddFavoriteRequest)(nil),         // 22: panel.agent.v1.AddFavoriteRequest
+	(*AddFavoriteResponse)(nil),        // 23: panel.agent.v1.AddFavoriteResponse
+	(*DeleteFavoriteRequest)(nil),      // 24: panel.agent.v1.DeleteFavoriteRequest
+	(*DeleteFavoriteResponse)(nil),     // 25: panel.agent.v1.DeleteFavoriteResponse
+	(*SearchFileHistoryRequest)(nil),   // 26: panel.agent.v1.SearchFileHistoryRequest
+	(*SearchFileHistoryResponse)(nil),  // 27: panel.agent.v1.SearchFileHistoryResponse
+	(*FileHistoryEntry)(nil),           // 28: panel.agent.v1.FileHistoryEntry
+	(*CreateFileRequest)(nil),          // 29: panel.agent.v1.CreateFileRequest
+	(*CreateFileResponse)(nil),         // 30: panel.agent.v1.CreateFileResponse
+	(*CheckFileRequest)(nil),           // 31: panel.agent.v1.CheckFileRequest
+	(*CheckFileResponse)(nil),          // 32: panel.agent.v1.CheckFileResponse
+	(*BatchCheckFilesRequest)(nil),     // 33: panel.agent.v1.BatchCheckFilesRequest
+	(*BatchCheckFilesResponse)(nil),    // 34: panel.agent.v1.BatchCheckFilesResponse
+	(*ExistFileInfo)(nil),              // 35: panel.agent.v1.ExistFileInfo
+	(*BatchDeleteFilesRequest)(nil),    // 36: panel.agent.v1.BatchDeleteFilesRequest
+	(*BatchDeleteFilesResponse)(nil),   // 37: panel.agent.v1.BatchDeleteFilesResponse
+	(*BatchChangeRoleRequest)(nil),     // 38: panel.agent.v1.BatchChangeRoleRequest
+	(*BatchChangeRoleResponse)(nil),    // 39: panel.agent.v1.BatchChangeRoleResponse
+	(*ChangeOwnerRequest)(nil),         // 40: panel.agent.v1.ChangeOwnerRequest
+	(*ChangeOwnerResponse)(nil),        // 41: panel.agent.v1.ChangeOwnerResponse
+	(*StopCompressRequest)(nil),        // 42: panel.agent.v1.StopCompressRequest
+	(*StopCompressResponse)(nil),       // 43: panel.agent.v1.StopCompressResponse
+	(*StopDecompressRequest)(nil),      // 44: panel.agent.v1.StopDecompressRequest
+	(*StopDecompressResponse)(nil),     // 45: panel.agent.v1.StopDecompressResponse
+	(*MoveFilesRequest)(nil),           // 46: panel.agent.v1.MoveFilesRequest
+	(*MoveFilesResponse)(nil),          // 47: panel.agent.v1.MoveFilesResponse
+	(*StopMoveRequest)(nil),            // 48: panel.agent.v1.StopMoveRequest
+	(*StopMoveResponse)(nil),           // 49: panel.agent.v1.StopMoveResponse
+	(*GetSizeRequest)(nil),             // 50: panel.agent.v1.GetSizeRequest
+	(*GetSizeResponse)(nil),            // 51: panel.agent.v1.GetSizeResponse
+	(*GetDepthSizeRequest)(nil),        // 52: panel.agent.v1.GetDepthSizeRequest
+	(*GetDepthSizeResponse)(nil),       // 53: panel.agent.v1.GetDepthSizeResponse
+	(*DepthSize)(nil),                  // 54: panel.agent.v1.DepthSize
+	(*GetFileTreeRequest)(nil),         // 55: panel.agent.v1.GetFileTreeRequest
+	(*FileTreeResponse)(nil),           // 56: panel.agent.v1.FileTreeResponse
+	(*FileTreeNode)(nil),               // 57: panel.agent.v1.FileTreeNode
+	(*SearchUploadRequest)(nil),        // 58: panel.agent.v1.SearchUploadRequest
+	(*SearchUploadResponse)(nil),       // 59: panel.agent.v1.SearchUploadResponse
+	(*UploadEntry)(nil),                // 60: panel.agent.v1.UploadEntry
+	(*GetUsersAndGroupsRequest)(nil),   // 61: panel.agent.v1.GetUsersAndGroupsRequest
+	(*GetUsersAndGroupsResponse)(nil),  // 62: panel.agent.v1.GetUsersAndGroupsResponse
+	(*SystemUser)(nil),                 // 63: panel.agent.v1.SystemUser
+	(*GetRemarksRequest)(nil),          // 64: panel.agent.v1.GetRemarksRequest
+	(*GetRemarksResponse)(nil),         // 65: panel.agent.v1.GetRemarksResponse
+	(*SetRemarkRequest)(nil),           // 66: panel.agent.v1.SetRemarkRequest
+	(*SetRemarkResponse)(nil),          // 67: panel.agent.v1.SetRemarkResponse
+	(*PreviewFileRequest)(nil),         // 68: panel.agent.v1.PreviewFileRequest
+	(*SaveFileRequest)(nil),            // 69: panel.agent.v1.SaveFileRequest
+	(*SaveFileResponse)(nil),           // 70: panel.agent.v1.SaveFileResponse
+	(*ReadFileLinesRequest)(nil),       // 71: panel.agent.v1.ReadFileLinesRequest
+	(*ReadFileLinesResponse)(nil),      // 72: panel.agent.v1.ReadFileLinesResponse
+	(*ListMountsRequest)(nil),          // 73: panel.agent.v1.ListMountsRequest
+	(*ListMountsResponse)(nil),         // 74: panel.agent.v1.ListMountsResponse
+	(*MountInfo)(nil),                  // 75: panel.agent.v1.MountInfo
+	(*ClearRecycleRequest)(nil),        // 76: panel.agent.v1.ClearRecycleRequest
+	(*ClearRecycleResponse)(nil),       // 77: panel.agent.v1.ClearRecycleResponse
+	(*GetRecycleStatusRequest)(nil),    // 78: panel.agent.v1.GetRecycleStatusRequest
+	(*GetRecycleStatusResponse)(nil),   // 79: panel.agent.v1.GetRecycleStatusResponse
+	(*GetHistoryContentRequest)(nil),   // 80: panel.agent.v1.GetHistoryContentRequest
+	(*GetHistoryContentResponse)(nil),  // 81: panel.agent.v1.GetHistoryContentResponse
+	(*DeleteHistoryRequest)(nil),       // 82: panel.agent.v1.DeleteHistoryRequest
+	(*DeleteHistoryResponse)(nil),      // 83: panel.agent.v1.DeleteHistoryResponse
+	(*RestoreHistoryRequest)(nil),      // 84: panel.agent.v1.RestoreHistoryRequest
+	(*ConvertFilesRequest)(nil),        // 85: panel.agent.v1.ConvertFilesRequest
+	(*ConvertFileItem)(nil),            // 86: panel.agent.v1.ConvertFileItem
+	(*ConvertFilesResponse)(nil),       // 87: panel.agent.v1.ConvertFilesResponse
+	(*SearchConvertLogsRequest)(nil),   // 88: panel.agent.v1.SearchConvertLogsRequest
+	(*SearchConvertLogsResponse)(nil),  // 89: panel.agent.v1.SearchConvertLogsResponse
+	(*ConvertLogEntry)(nil),            // 90: panel.agent.v1.ConvertLogEntry
+	(*CreateShareRequest)(nil),         // 91: panel.agent.v1.CreateShareRequest
+	(*CreateShareResponse)(nil),        // 92: panel.agent.v1.CreateShareResponse
+	(*FileShareInfo)(nil),              // 93: panel.agent.v1.FileShareInfo
+	(*DeleteShareRequest)(nil),         // 94: panel.agent.v1.DeleteShareRequest
+	(*DeleteShareResponse)(nil),        // 95: panel.agent.v1.DeleteShareResponse
+	(*GetShareRequest)(nil),            // 96: panel.agent.v1.GetShareRequest
+	(*GetShareResponse)(nil),           // 97: panel.agent.v1.GetShareResponse
+	(*GetPublicShareRequest)(nil),      // 98: panel.agent.v1.GetPublicShareRequest
+	(*GetPublicShareResponse)(nil),     // 99: panel.agent.v1.GetPublicShareResponse
+	(*CheckShareRequest)(nil),          // 100: panel.agent.v1.CheckShareRequest
+	(*CheckShareResponse)(nil),         // 101: panel.agent.v1.CheckShareResponse
+	(*SearchSharesRequest)(nil),        // 102: panel.agent.v1.SearchSharesRequest
+	(*SearchSharesResponse)(nil),       // 103: panel.agent.v1.SearchSharesResponse
+	(*WgetRequest)(nil),                // 104: panel.agent.v1.WgetRequest
+	(*WgetResponse)(nil),               // 105: panel.agent.v1.WgetResponse
+	(*StopWgetRequest)(nil),            // 106: panel.agent.v1.StopWgetRequest
+	(*StopWgetResponse)(nil),           // 107: panel.agent.v1.StopWgetResponse
+	(*GetWgetProcessKeysRequest)(nil),  // 108: panel.agent.v1.GetWgetProcessKeysRequest
+	(*GetWgetProcessKeysResponse)(nil), // 109: panel.agent.v1.GetWgetProcessKeysResponse
+	(*RemoveWgetRecordsRequest)(nil),   // 110: panel.agent.v1.RemoveWgetRecordsRequest
+	(*RemoveWgetRecordsResponse)(nil),  // 111: panel.agent.v1.RemoveWgetRecordsResponse
+	nil,                                // 112: panel.agent.v1.GetRemarksResponse.RemarksEntry
 }
 var file_panel_agent_v1_file_proto_depIdxs = []int32{
-	3,  // 0: panel.agent.v1.FileList.items:type_name -> panel.agent.v1.FileEntry
-	3,  // 1: panel.agent.v1.FileEntry.items:type_name -> panel.agent.v1.FileEntry
-	16, // 2: panel.agent.v1.SearchFavoritesResponse.items:type_name -> panel.agent.v1.FavoriteEntry
-	21, // 3: panel.agent.v1.SearchRecycleResponse.items:type_name -> panel.agent.v1.RecycleEntry
-	28, // 4: panel.agent.v1.SearchFileHistoryResponse.items:type_name -> panel.agent.v1.FileHistoryEntry
-	0,  // 5: panel.agent.v1.FileService.ListFiles:input_type -> panel.agent.v1.ListFilesRequest
-	4,  // 6: panel.agent.v1.FileService.ChangeMode:input_type -> panel.agent.v1.ChangeFileModeRequest
-	22, // 7: panel.agent.v1.FileService.AddFavorite:input_type -> panel.agent.v1.AddFavoriteRequest
-	24, // 8: panel.agent.v1.FileService.DeleteFavorite:input_type -> panel.agent.v1.DeleteFavoriteRequest
-	26, // 9: panel.agent.v1.FileService.SearchHistory:input_type -> panel.agent.v1.SearchFileHistoryRequest
-	14, // 10: panel.agent.v1.FileService.SearchFavorites:input_type -> panel.agent.v1.SearchFavoritesRequest
-	17, // 11: panel.agent.v1.FileService.RestoreRecycle:input_type -> panel.agent.v1.RestoreRecycleRequest
-	19, // 12: panel.agent.v1.FileService.SearchRecycle:input_type -> panel.agent.v1.SearchRecycleRequest
-	8,  // 13: panel.agent.v1.FileService.Delete:input_type -> panel.agent.v1.DeleteFilesRequest
-	10, // 14: panel.agent.v1.FileService.ChangeName:input_type -> panel.agent.v1.ChangeFileNameRequest
-	12, // 15: panel.agent.v1.FileService.DeCompress:input_type -> panel.agent.v1.DecompressFilesRequest
-	6,  // 16: panel.agent.v1.FileService.Compress:input_type -> panel.agent.v1.CompressFilesRequest
-	1,  // 17: panel.agent.v1.FileService.GetFile:input_type -> panel.agent.v1.GetFileRequest
-	2,  // 18: panel.agent.v1.FileService.ListFiles:output_type -> panel.agent.v1.FileList
-	5,  // 19: panel.agent.v1.FileService.ChangeMode:output_type -> panel.agent.v1.ChangeFileModeResponse
-	23, // 20: panel.agent.v1.FileService.AddFavorite:output_type -> panel.agent.v1.AddFavoriteResponse
-	25, // 21: panel.agent.v1.FileService.DeleteFavorite:output_type -> panel.agent.v1.DeleteFavoriteResponse
-	27, // 22: panel.agent.v1.FileService.SearchHistory:output_type -> panel.agent.v1.SearchFileHistoryResponse
-	15, // 23: panel.agent.v1.FileService.SearchFavorites:output_type -> panel.agent.v1.SearchFavoritesResponse
-	18, // 24: panel.agent.v1.FileService.RestoreRecycle:output_type -> panel.agent.v1.RestoreRecycleResponse
-	20, // 25: panel.agent.v1.FileService.SearchRecycle:output_type -> panel.agent.v1.SearchRecycleResponse
-	9,  // 26: panel.agent.v1.FileService.Delete:output_type -> panel.agent.v1.DeleteFilesResponse
-	11, // 27: panel.agent.v1.FileService.ChangeName:output_type -> panel.agent.v1.ChangeFileNameResponse
-	13, // 28: panel.agent.v1.FileService.DeCompress:output_type -> panel.agent.v1.DecompressFilesResponse
-	7,  // 29: panel.agent.v1.FileService.Compress:output_type -> panel.agent.v1.CompressFilesResponse
-	3,  // 30: panel.agent.v1.FileService.GetFile:output_type -> panel.agent.v1.FileEntry
-	18, // [18:31] is the sub-list for method output_type
-	5,  // [5:18] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	3,   // 0: panel.agent.v1.FileList.items:type_name -> panel.agent.v1.FileEntry
+	3,   // 1: panel.agent.v1.FileEntry.items:type_name -> panel.agent.v1.FileEntry
+	16,  // 2: panel.agent.v1.SearchFavoritesResponse.items:type_name -> panel.agent.v1.FavoriteEntry
+	21,  // 3: panel.agent.v1.SearchRecycleResponse.items:type_name -> panel.agent.v1.RecycleEntry
+	28,  // 4: panel.agent.v1.SearchFileHistoryResponse.items:type_name -> panel.agent.v1.FileHistoryEntry
+	35,  // 5: panel.agent.v1.BatchCheckFilesResponse.items:type_name -> panel.agent.v1.ExistFileInfo
+	54,  // 6: panel.agent.v1.GetDepthSizeResponse.items:type_name -> panel.agent.v1.DepthSize
+	57,  // 7: panel.agent.v1.FileTreeResponse.items:type_name -> panel.agent.v1.FileTreeNode
+	57,  // 8: panel.agent.v1.FileTreeNode.children:type_name -> panel.agent.v1.FileTreeNode
+	60,  // 9: panel.agent.v1.SearchUploadResponse.items:type_name -> panel.agent.v1.UploadEntry
+	63,  // 10: panel.agent.v1.GetUsersAndGroupsResponse.users:type_name -> panel.agent.v1.SystemUser
+	112, // 11: panel.agent.v1.GetRemarksResponse.remarks:type_name -> panel.agent.v1.GetRemarksResponse.RemarksEntry
+	75,  // 12: panel.agent.v1.ListMountsResponse.items:type_name -> panel.agent.v1.MountInfo
+	86,  // 13: panel.agent.v1.ConvertFilesRequest.files:type_name -> panel.agent.v1.ConvertFileItem
+	90,  // 14: panel.agent.v1.SearchConvertLogsResponse.items:type_name -> panel.agent.v1.ConvertLogEntry
+	93,  // 15: panel.agent.v1.CreateShareResponse.share:type_name -> panel.agent.v1.FileShareInfo
+	93,  // 16: panel.agent.v1.GetShareResponse.share:type_name -> panel.agent.v1.FileShareInfo
+	93,  // 17: panel.agent.v1.SearchSharesResponse.items:type_name -> panel.agent.v1.FileShareInfo
+	0,   // 18: panel.agent.v1.FileService.ListFiles:input_type -> panel.agent.v1.ListFilesRequest
+	4,   // 19: panel.agent.v1.FileService.ChangeMode:input_type -> panel.agent.v1.ChangeFileModeRequest
+	22,  // 20: panel.agent.v1.FileService.AddFavorite:input_type -> panel.agent.v1.AddFavoriteRequest
+	24,  // 21: panel.agent.v1.FileService.DeleteFavorite:input_type -> panel.agent.v1.DeleteFavoriteRequest
+	26,  // 22: panel.agent.v1.FileService.SearchHistory:input_type -> panel.agent.v1.SearchFileHistoryRequest
+	14,  // 23: panel.agent.v1.FileService.SearchFavorites:input_type -> panel.agent.v1.SearchFavoritesRequest
+	17,  // 24: panel.agent.v1.FileService.RestoreRecycle:input_type -> panel.agent.v1.RestoreRecycleRequest
+	19,  // 25: panel.agent.v1.FileService.SearchRecycle:input_type -> panel.agent.v1.SearchRecycleRequest
+	8,   // 26: panel.agent.v1.FileService.Delete:input_type -> panel.agent.v1.DeleteFilesRequest
+	10,  // 27: panel.agent.v1.FileService.ChangeName:input_type -> panel.agent.v1.ChangeFileNameRequest
+	12,  // 28: panel.agent.v1.FileService.DeCompress:input_type -> panel.agent.v1.DecompressFilesRequest
+	6,   // 29: panel.agent.v1.FileService.Compress:input_type -> panel.agent.v1.CompressFilesRequest
+	1,   // 30: panel.agent.v1.FileService.GetFile:input_type -> panel.agent.v1.GetFileRequest
+	29,  // 31: panel.agent.v1.FileService.CreateFile:input_type -> panel.agent.v1.CreateFileRequest
+	31,  // 32: panel.agent.v1.FileService.CheckFile:input_type -> panel.agent.v1.CheckFileRequest
+	33,  // 33: panel.agent.v1.FileService.BatchCheckFiles:input_type -> panel.agent.v1.BatchCheckFilesRequest
+	36,  // 34: panel.agent.v1.FileService.BatchDeleteFiles:input_type -> panel.agent.v1.BatchDeleteFilesRequest
+	38,  // 35: panel.agent.v1.FileService.BatchChangeRole:input_type -> panel.agent.v1.BatchChangeRoleRequest
+	40,  // 36: panel.agent.v1.FileService.ChangeOwner:input_type -> panel.agent.v1.ChangeOwnerRequest
+	42,  // 37: panel.agent.v1.FileService.StopCompress:input_type -> panel.agent.v1.StopCompressRequest
+	44,  // 38: panel.agent.v1.FileService.StopDecompress:input_type -> panel.agent.v1.StopDecompressRequest
+	46,  // 39: panel.agent.v1.FileService.MoveFiles:input_type -> panel.agent.v1.MoveFilesRequest
+	48,  // 40: panel.agent.v1.FileService.StopMove:input_type -> panel.agent.v1.StopMoveRequest
+	50,  // 41: panel.agent.v1.FileService.GetSize:input_type -> panel.agent.v1.GetSizeRequest
+	52,  // 42: panel.agent.v1.FileService.GetDepthSize:input_type -> panel.agent.v1.GetDepthSizeRequest
+	55,  // 43: panel.agent.v1.FileService.GetFileTree:input_type -> panel.agent.v1.GetFileTreeRequest
+	58,  // 44: panel.agent.v1.FileService.SearchUpload:input_type -> panel.agent.v1.SearchUploadRequest
+	61,  // 45: panel.agent.v1.FileService.GetUsersAndGroups:input_type -> panel.agent.v1.GetUsersAndGroupsRequest
+	64,  // 46: panel.agent.v1.FileService.GetRemarks:input_type -> panel.agent.v1.GetRemarksRequest
+	66,  // 47: panel.agent.v1.FileService.SetRemark:input_type -> panel.agent.v1.SetRemarkRequest
+	68,  // 48: panel.agent.v1.FileService.PreviewFile:input_type -> panel.agent.v1.PreviewFileRequest
+	69,  // 49: panel.agent.v1.FileService.SaveFile:input_type -> panel.agent.v1.SaveFileRequest
+	71,  // 50: panel.agent.v1.FileService.ReadFileLines:input_type -> panel.agent.v1.ReadFileLinesRequest
+	73,  // 51: panel.agent.v1.FileService.ListMounts:input_type -> panel.agent.v1.ListMountsRequest
+	76,  // 52: panel.agent.v1.FileService.ClearRecycle:input_type -> panel.agent.v1.ClearRecycleRequest
+	78,  // 53: panel.agent.v1.FileService.GetRecycleStatus:input_type -> panel.agent.v1.GetRecycleStatusRequest
+	80,  // 54: panel.agent.v1.FileService.GetHistoryContent:input_type -> panel.agent.v1.GetHistoryContentRequest
+	82,  // 55: panel.agent.v1.FileService.DeleteHistory:input_type -> panel.agent.v1.DeleteHistoryRequest
+	84,  // 56: panel.agent.v1.FileService.RestoreHistory:input_type -> panel.agent.v1.RestoreHistoryRequest
+	85,  // 57: panel.agent.v1.FileService.ConvertFiles:input_type -> panel.agent.v1.ConvertFilesRequest
+	88,  // 58: panel.agent.v1.FileService.SearchConvertLogs:input_type -> panel.agent.v1.SearchConvertLogsRequest
+	91,  // 59: panel.agent.v1.FileService.CreateShare:input_type -> panel.agent.v1.CreateShareRequest
+	94,  // 60: panel.agent.v1.FileService.DeleteShare:input_type -> panel.agent.v1.DeleteShareRequest
+	96,  // 61: panel.agent.v1.FileService.GetShare:input_type -> panel.agent.v1.GetShareRequest
+	98,  // 62: panel.agent.v1.FileService.GetPublicShare:input_type -> panel.agent.v1.GetPublicShareRequest
+	100, // 63: panel.agent.v1.FileService.CheckShare:input_type -> panel.agent.v1.CheckShareRequest
+	102, // 64: panel.agent.v1.FileService.SearchShares:input_type -> panel.agent.v1.SearchSharesRequest
+	104, // 65: panel.agent.v1.FileService.Wget:input_type -> panel.agent.v1.WgetRequest
+	106, // 66: panel.agent.v1.FileService.StopWget:input_type -> panel.agent.v1.StopWgetRequest
+	108, // 67: panel.agent.v1.FileService.GetWgetProcessKeys:input_type -> panel.agent.v1.GetWgetProcessKeysRequest
+	110, // 68: panel.agent.v1.FileService.RemoveWgetRecords:input_type -> panel.agent.v1.RemoveWgetRecordsRequest
+	2,   // 69: panel.agent.v1.FileService.ListFiles:output_type -> panel.agent.v1.FileList
+	5,   // 70: panel.agent.v1.FileService.ChangeMode:output_type -> panel.agent.v1.ChangeFileModeResponse
+	23,  // 71: panel.agent.v1.FileService.AddFavorite:output_type -> panel.agent.v1.AddFavoriteResponse
+	25,  // 72: panel.agent.v1.FileService.DeleteFavorite:output_type -> panel.agent.v1.DeleteFavoriteResponse
+	27,  // 73: panel.agent.v1.FileService.SearchHistory:output_type -> panel.agent.v1.SearchFileHistoryResponse
+	15,  // 74: panel.agent.v1.FileService.SearchFavorites:output_type -> panel.agent.v1.SearchFavoritesResponse
+	18,  // 75: panel.agent.v1.FileService.RestoreRecycle:output_type -> panel.agent.v1.RestoreRecycleResponse
+	20,  // 76: panel.agent.v1.FileService.SearchRecycle:output_type -> panel.agent.v1.SearchRecycleResponse
+	9,   // 77: panel.agent.v1.FileService.Delete:output_type -> panel.agent.v1.DeleteFilesResponse
+	11,  // 78: panel.agent.v1.FileService.ChangeName:output_type -> panel.agent.v1.ChangeFileNameResponse
+	13,  // 79: panel.agent.v1.FileService.DeCompress:output_type -> panel.agent.v1.DecompressFilesResponse
+	7,   // 80: panel.agent.v1.FileService.Compress:output_type -> panel.agent.v1.CompressFilesResponse
+	3,   // 81: panel.agent.v1.FileService.GetFile:output_type -> panel.agent.v1.FileEntry
+	30,  // 82: panel.agent.v1.FileService.CreateFile:output_type -> panel.agent.v1.CreateFileResponse
+	32,  // 83: panel.agent.v1.FileService.CheckFile:output_type -> panel.agent.v1.CheckFileResponse
+	34,  // 84: panel.agent.v1.FileService.BatchCheckFiles:output_type -> panel.agent.v1.BatchCheckFilesResponse
+	37,  // 85: panel.agent.v1.FileService.BatchDeleteFiles:output_type -> panel.agent.v1.BatchDeleteFilesResponse
+	39,  // 86: panel.agent.v1.FileService.BatchChangeRole:output_type -> panel.agent.v1.BatchChangeRoleResponse
+	41,  // 87: panel.agent.v1.FileService.ChangeOwner:output_type -> panel.agent.v1.ChangeOwnerResponse
+	43,  // 88: panel.agent.v1.FileService.StopCompress:output_type -> panel.agent.v1.StopCompressResponse
+	45,  // 89: panel.agent.v1.FileService.StopDecompress:output_type -> panel.agent.v1.StopDecompressResponse
+	47,  // 90: panel.agent.v1.FileService.MoveFiles:output_type -> panel.agent.v1.MoveFilesResponse
+	49,  // 91: panel.agent.v1.FileService.StopMove:output_type -> panel.agent.v1.StopMoveResponse
+	51,  // 92: panel.agent.v1.FileService.GetSize:output_type -> panel.agent.v1.GetSizeResponse
+	53,  // 93: panel.agent.v1.FileService.GetDepthSize:output_type -> panel.agent.v1.GetDepthSizeResponse
+	56,  // 94: panel.agent.v1.FileService.GetFileTree:output_type -> panel.agent.v1.FileTreeResponse
+	59,  // 95: panel.agent.v1.FileService.SearchUpload:output_type -> panel.agent.v1.SearchUploadResponse
+	62,  // 96: panel.agent.v1.FileService.GetUsersAndGroups:output_type -> panel.agent.v1.GetUsersAndGroupsResponse
+	65,  // 97: panel.agent.v1.FileService.GetRemarks:output_type -> panel.agent.v1.GetRemarksResponse
+	67,  // 98: panel.agent.v1.FileService.SetRemark:output_type -> panel.agent.v1.SetRemarkResponse
+	3,   // 99: panel.agent.v1.FileService.PreviewFile:output_type -> panel.agent.v1.FileEntry
+	70,  // 100: panel.agent.v1.FileService.SaveFile:output_type -> panel.agent.v1.SaveFileResponse
+	72,  // 101: panel.agent.v1.FileService.ReadFileLines:output_type -> panel.agent.v1.ReadFileLinesResponse
+	74,  // 102: panel.agent.v1.FileService.ListMounts:output_type -> panel.agent.v1.ListMountsResponse
+	77,  // 103: panel.agent.v1.FileService.ClearRecycle:output_type -> panel.agent.v1.ClearRecycleResponse
+	79,  // 104: panel.agent.v1.FileService.GetRecycleStatus:output_type -> panel.agent.v1.GetRecycleStatusResponse
+	81,  // 105: panel.agent.v1.FileService.GetHistoryContent:output_type -> panel.agent.v1.GetHistoryContentResponse
+	83,  // 106: panel.agent.v1.FileService.DeleteHistory:output_type -> panel.agent.v1.DeleteHistoryResponse
+	3,   // 107: panel.agent.v1.FileService.RestoreHistory:output_type -> panel.agent.v1.FileEntry
+	87,  // 108: panel.agent.v1.FileService.ConvertFiles:output_type -> panel.agent.v1.ConvertFilesResponse
+	89,  // 109: panel.agent.v1.FileService.SearchConvertLogs:output_type -> panel.agent.v1.SearchConvertLogsResponse
+	92,  // 110: panel.agent.v1.FileService.CreateShare:output_type -> panel.agent.v1.CreateShareResponse
+	95,  // 111: panel.agent.v1.FileService.DeleteShare:output_type -> panel.agent.v1.DeleteShareResponse
+	97,  // 112: panel.agent.v1.FileService.GetShare:output_type -> panel.agent.v1.GetShareResponse
+	99,  // 113: panel.agent.v1.FileService.GetPublicShare:output_type -> panel.agent.v1.GetPublicShareResponse
+	101, // 114: panel.agent.v1.FileService.CheckShare:output_type -> panel.agent.v1.CheckShareResponse
+	103, // 115: panel.agent.v1.FileService.SearchShares:output_type -> panel.agent.v1.SearchSharesResponse
+	105, // 116: panel.agent.v1.FileService.Wget:output_type -> panel.agent.v1.WgetResponse
+	107, // 117: panel.agent.v1.FileService.StopWget:output_type -> panel.agent.v1.StopWgetResponse
+	109, // 118: panel.agent.v1.FileService.GetWgetProcessKeys:output_type -> panel.agent.v1.GetWgetProcessKeysResponse
+	111, // 119: panel.agent.v1.FileService.RemoveWgetRecords:output_type -> panel.agent.v1.RemoveWgetRecordsResponse
+	69,  // [69:120] is the sub-list for method output_type
+	18,  // [18:69] is the sub-list for method input_type
+	18,  // [18:18] is the sub-list for extension type_name
+	18,  // [18:18] is the sub-list for extension extendee
+	0,   // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_file_proto_init() }
@@ -2338,13 +7603,14 @@ func file_panel_agent_v1_file_proto_init() {
 	if File_panel_agent_v1_file_proto != nil {
 		return
 	}
+	file_panel_agent_v1_file_proto_msgTypes[91].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_file_proto_rawDesc), len(file_panel_agent_v1_file_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   29,
+			NumMessages:   113,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -116,6 +116,312 @@ service FileService {
       no_audit: true
     };
   }
+
+  // 新建文件或目录，也可创建符号链接。
+  rpc CreateFile(CreateFileRequest) returns (CreateFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "新建文件"
+      audit_action_en: "Create file"
+    };
+  }
+
+  // 检查路径是否存在，可选择在不存在时初始化目录。
+  rpc CheckFile(CheckFileRequest) returns (CheckFileResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 批量检查路径是否存在。
+  rpc BatchCheckFiles(BatchCheckFilesRequest) returns (BatchCheckFilesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 批量删除文件或目录。
+  rpc BatchDeleteFiles(BatchDeleteFilesRequest) returns (BatchDeleteFilesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "批量删除文件"
+      audit_action_en: "Batch delete files"
+    };
+  }
+
+  // 批量修改权限与所属用户/组。
+  rpc BatchChangeRole(BatchChangeRoleRequest) returns (BatchChangeRoleResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "批量修改文件权限"
+      audit_action_en: "Batch change file role"
+    };
+  }
+
+  // 修改文件或目录的所有者。
+  rpc ChangeOwner(ChangeOwnerRequest) returns (ChangeOwnerResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改文件所有者"
+      audit_action_en: "Change file owner"
+    };
+  }
+
+  // 停止压缩任务。
+  rpc StopCompress(StopCompressRequest) returns (StopCompressResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "停止压缩任务"
+      audit_action_en: "Stop compress task"
+    };
+  }
+
+  // 停止解压任务。
+  rpc StopDecompress(StopDecompressRequest) returns (StopDecompressResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "停止解压任务"
+      audit_action_en: "Stop decompress task"
+    };
+  }
+
+  // 移动或复制文件与目录。
+  rpc MoveFiles(MoveFilesRequest) returns (MoveFilesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "移动文件"
+      audit_action_en: "Move files"
+    };
+  }
+
+  // 停止移动任务。
+  rpc StopMove(StopMoveRequest) returns (StopMoveResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "停止移动任务"
+      audit_action_en: "Stop move task"
+    };
+  }
+
+  // 统计目录占用的总大小。
+  rpc GetSize(GetSizeRequest) returns (GetSizeResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按一级子项统计目录占用大小。
+  rpc GetDepthSize(GetDepthSizeRequest) returns (GetDepthSizeResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 获取目录树。
+  rpc GetFileTree(GetFileTreeRequest) returns (FileTreeResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页列出目录下已上传的文件（按修改时间倒序）。
+  rpc SearchUpload(SearchUploadRequest) returns (SearchUploadResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出可选的系统用户与用户组，用于修改文件所有者。
+  rpc GetUsersAndGroups(GetUsersAndGroupsRequest) returns (GetUsersAndGroupsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 批量读取文件备注。
+  rpc GetRemarks(GetRemarksRequest) returns (GetRemarksResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 设置或清除文件备注。
+  rpc SetRemark(SetRemarkRequest) returns (SetRemarkResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "设置文件备注"
+      audit_action_en: "Set file remark"
+    };
+  }
+
+  // 读取文件预览内容。
+  rpc PreviewFile(PreviewFileRequest) returns (FileEntry) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 保存文件内容。
+  rpc SaveFile(SaveFileRequest) returns (SaveFileResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "保存文件内容"
+      audit_action_en: "Save file content"
+    };
+  }
+
+  // 按行读取日志类文件。
+  rpc ReadFileLines(ReadFileLinesRequest) returns (ReadFileLinesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出系统挂载点。
+  rpc ListMounts(ListMountsRequest) returns (ListMountsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 清空回收站。
+  rpc ClearRecycle(ClearRecycleRequest) returns (ClearRecycleResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清空回收站"
+      audit_action_en: "Clear recycle bin"
+    };
+  }
+
+  // 查询回收站开关状态。
+  rpc GetRecycleStatus(GetRecycleStatusRequest) returns (GetRecycleStatusResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 读取文件历史版本的内容。
+  rpc GetHistoryContent(GetHistoryContentRequest) returns (GetHistoryContentResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 删除文件历史版本记录。
+  rpc DeleteHistory(DeleteHistoryRequest) returns (DeleteHistoryResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除文件历史"
+      audit_action_en: "Delete file history"
+    };
+  }
+
+  // 还原文件历史版本。
+  rpc RestoreHistory(RestoreHistoryRequest) returns (FileEntry) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "还原文件历史"
+      audit_action_en: "Restore file history"
+    };
+  }
+
+  // 触发文件格式转换任务。
+  rpc ConvertFiles(ConvertFilesRequest) returns (ConvertFilesResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "转换文件格式"
+      audit_action_en: "Convert files"
+    };
+  }
+
+  // 分页查询文件转换日志。
+  rpc SearchConvertLogs(SearchConvertLogsRequest) returns (SearchConvertLogsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建文件分享链接。
+  rpc CreateShare(CreateShareRequest) returns (CreateShareResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建文件分享"
+      audit_action_en: "Create file share"
+    };
+  }
+
+  // 按路径关闭文件分享。
+  rpc DeleteShare(DeleteShareRequest) returns (DeleteShareResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "关闭文件分享"
+      audit_action_en: "Delete file share"
+    };
+  }
+
+  // 按路径查询文件分享详情。
+  rpc GetShare(GetShareRequest) returns (GetShareResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按分享码查询公开分享信息，分享页未登录也要能读。
+  rpc GetPublicShare(GetPublicShareRequest) returns (GetPublicShareResponse) {
+    option (panel.common.v1.policy) = {
+      public: true
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 校验分享码与访问密码，分享页未登录也要能调用。
+  rpc CheckShare(CheckShareRequest) returns (CheckShareResponse) {
+    option (panel.common.v1.policy) = {
+      public: true
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询文件分享记录。
+  rpc SearchShares(SearchSharesRequest) returns (SearchSharesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 创建远程下载任务。
+  rpc Wget(WgetRequest) returns (WgetResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "远程下载文件"
+      audit_action_en: "Download file by URL"
+    };
+  }
+
+  // 停止远程下载任务。
+  rpc StopWget(StopWgetRequest) returns (StopWgetResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "停止远程下载"
+      audit_action_en: "Stop remote download"
+    };
+  }
+
+  // 列出下载任务的缓存键。
+  rpc GetWgetProcessKeys(GetWgetProcessKeysRequest) returns (GetWgetProcessKeysResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 移除已结束的下载进度记录，不删除文件本身。
+  rpc RemoveWgetRecords(RemoveWgetRecordsRequest) returns (RemoveWgetRecordsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "移除下载记录"
+      audit_action_en: "Remove download records"
+    };
+  }
 }
 
 // ListFilesRequest 是目录浏览/搜索参数。
@@ -550,4 +856,837 @@ message FileHistoryEntry {
 
   // 更新时间，RFC3339 格式。
   string updated_at = 11;
+}
+
+// CreateFileRequest 是新建文件/目录参数。
+message CreateFileRequest {
+  // 目标路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 文件内容；新建目录时忽略。
+  string content = 2;
+
+  // 是否创建目录。
+  bool is_dir = 3;
+
+  // 权限位；0 表示使用默认权限。
+  int64 mode = 4 [(buf.validate.field).int64.gte = 0];
+
+  // 是否创建普通链接。
+  bool is_link = 5;
+
+  // 是否创建符号链接。
+  bool is_symlink = 6;
+
+  // 链接目标。
+  string link_path = 7;
+
+  // 是否递归处理子目录。
+  bool sub = 8;
+}
+
+// CreateFileResponse 是新建结果，无业务字段。
+message CreateFileResponse {}
+
+// CheckFileRequest 是路径存在性检查参数。
+message CheckFileRequest {
+  // 待检查路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 路径不存在时是否自动初始化目录。
+  bool with_init = 2;
+}
+
+// CheckFileResponse 是路径存在性结果。
+message CheckFileResponse {
+  // 路径是否存在（或在 with_init 下是否初始化成功）。
+  bool exists = 1;
+}
+
+// BatchCheckFilesRequest 是批量路径检查参数。
+message BatchCheckFilesRequest {
+  // 待检查的路径列表。
+  repeated string paths = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// BatchCheckFilesResponse 是批量检查结果。
+message BatchCheckFilesResponse {
+  // 存在的文件条目。
+  repeated ExistFileInfo items = 1;
+}
+
+// ExistFileInfo 是一个存在文件的摘要。
+message ExistFileInfo {
+  // 文件名。
+  string name = 1;
+
+  // 完整路径。
+  string path = 2;
+
+  // 大小，单位字节。
+  int64 size = 3;
+
+  // 修改时间，RFC3339 格式。
+  string mod_time = 4;
+
+  // 是否为目录。
+  bool is_dir = 5;
+}
+
+// BatchDeleteFilesRequest 是批量删除参数。
+message BatchDeleteFilesRequest {
+  // 待删除的路径列表。
+  repeated string paths = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 是否按目录删除。
+  bool is_dir = 2;
+}
+
+// BatchDeleteFilesResponse 是批量删除结果，无业务字段。
+message BatchDeleteFilesResponse {}
+
+// BatchChangeRoleRequest 是批量修改权限与所有者的参数。
+message BatchChangeRoleRequest {
+  // 目标路径列表。
+  repeated string paths = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 权限位。
+  int64 mode = 2 [(buf.validate.field).int64.gte = 0];
+
+  // 所有者用户名。
+  string user = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 所属组名。
+  string group = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 是否递归处理子目录。
+  bool sub = 5;
+}
+
+// BatchChangeRoleResponse 是批量修改结果，无业务字段。
+message BatchChangeRoleResponse {}
+
+// ChangeOwnerRequest 是修改所有者参数。
+message ChangeOwnerRequest {
+  // 目标路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 所有者用户名。
+  string user = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 所属组名。
+  string group = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 是否递归处理子目录。
+  bool sub = 4;
+}
+
+// ChangeOwnerResponse 是修改结果，无业务字段。
+message ChangeOwnerResponse {}
+
+// StopCompressRequest 是停止压缩任务参数。
+message StopCompressRequest {
+  // 任务 ID。
+  string task_id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// StopCompressResponse 是停止结果，无业务字段。
+message StopCompressResponse {}
+
+// StopDecompressRequest 是停止解压任务参数。
+message StopDecompressRequest {
+  // 任务 ID。
+  string task_id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// StopDecompressResponse 是停止结果，无业务字段。
+message StopDecompressResponse {}
+
+// MoveFilesRequest 是移动/复制参数。
+message MoveFilesRequest {
+  // 操作类型：cut（移动）或 copy（复制）。
+  string type = 1 [(buf.validate.field).string = {
+    in: [
+      "cut",
+      "copy"
+    ]
+  }];
+
+  // 源路径列表。
+  repeated string old_paths = 2 [(buf.validate.field).repeated.min_items = 1];
+
+  // 目标目录。
+  string new_path = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 目标名称；为空表示沿用原名称。
+  string name = 4;
+
+  // 同名文件是否覆盖。
+  bool cover = 5;
+
+  // 允许覆盖的路径列表。
+  repeated string cover_paths = 6;
+
+  // 前端生成的任务 ID，用于轮询进度。
+  string task_id = 7;
+}
+
+// MoveFilesResponse 是移动任务启动结果。
+message MoveFilesResponse {
+  // 任务 ID，与请求中的 task_id 一致。
+  string task_id = 1;
+}
+
+// StopMoveRequest 是停止移动任务参数。
+message StopMoveRequest {
+  // 任务 ID。
+  string task_id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// StopMoveResponse 是停止结果，无业务字段。
+message StopMoveResponse {}
+
+// GetSizeRequest 是目录大小统计参数。
+message GetSizeRequest {
+  // 目标路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetSizeResponse 是目录大小结果。
+message GetSizeResponse {
+  // 占用大小，单位字节。
+  int64 size = 1;
+}
+
+// GetDepthSizeRequest 是按一级子项统计的参数。
+message GetDepthSizeRequest {
+  // 目标路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetDepthSizeResponse 是按一级子项统计的结果。
+message GetDepthSizeResponse {
+  // 各子项的占用大小。
+  repeated DepthSize items = 1;
+}
+
+// DepthSize 是一个子项的占用大小。
+message DepthSize {
+  // 子项路径。
+  string path = 1;
+
+  // 占用大小，单位字节。
+  int64 size = 2;
+}
+
+// GetFileTreeRequest 是目录树查询参数。
+message GetFileTreeRequest {
+  // 目录绝对路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 搜索关键字，为空表示浏览目录。
+  string search = 2 [(buf.validate.field).string.max_len = 128];
+
+  // 是否递归搜索子目录。
+  bool contain_sub = 3;
+
+  // 是否只返回目录。
+  bool dir = 4;
+
+  // 是否显示隐藏文件。
+  bool show_hidden = 5;
+
+  // 排序字段，例如 name、size、modTime。
+  string sort_by = 6 [(buf.validate.field).string.max_len = 32];
+
+  // 排序方向：ascending 或 descending。
+  string sort_order = 7 [(buf.validate.field).string = {
+    in: [
+      "",
+      "ascending",
+      "descending"
+    ]
+  }];
+}
+
+// FileTreeResponse 是目录树结果。
+message FileTreeResponse {
+  // 顶层节点。
+  repeated FileTreeNode items = 1;
+}
+
+// FileTreeNode 是目录树中的一个节点。
+message FileTreeNode {
+  // 节点 ID，通常为路径。
+  string id = 1;
+
+  // 名称。
+  string name = 2;
+
+  // 完整路径。
+  string path = 3;
+
+  // 是否为目录。
+  bool is_dir = 4;
+
+  // 扩展名。
+  string extension = 5;
+
+  // 子节点。
+  repeated FileTreeNode children = 6;
+}
+
+// SearchUploadRequest 是已上传文件分页查询参数。
+message SearchUploadRequest {
+  // 目录路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 页码，从 1 开始。
+  int32 page = 2 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 1000。
+  int32 page_size = 3 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 1000
+  }];
+}
+
+// SearchUploadResponse 是已上传文件列表结果。
+message SearchUploadResponse {
+  // 当前页的条目。
+  repeated UploadEntry items = 1;
+
+  // 符合条件的条目总数。
+  int64 total = 2;
+}
+
+// UploadEntry 是一个已上传文件的摘要。
+message UploadEntry {
+  // 文件名。
+  string name = 1;
+
+  // 大小，单位字节。
+  int64 size = 2;
+
+  // 修改时间。
+  string created_at = 3;
+}
+
+// GetUsersAndGroupsRequest 是系统用户与用户组查询参数，无业务字段。
+message GetUsersAndGroupsRequest {}
+
+// GetUsersAndGroupsResponse 是系统用户与用户组列表。
+message GetUsersAndGroupsResponse {
+  // 可选用户。
+  repeated SystemUser users = 1;
+
+  // 可选用户组。
+  repeated string groups = 2;
+}
+
+// SystemUser 是一个系统用户及其主组。
+message SystemUser {
+  // 用户名。
+  string username = 1;
+
+  // 主组名。
+  string group = 2;
+}
+
+// GetRemarksRequest 是批量读取备注参数。
+message GetRemarksRequest {
+  // 文件路径列表。
+  repeated string paths = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// GetRemarksResponse 是备注查询结果。
+message GetRemarksResponse {
+  // 路径到备注的映射；没有备注的路径不出现。
+  map<string, string> remarks = 1;
+}
+
+// SetRemarkRequest 是设置备注参数。
+message SetRemarkRequest {
+  // 目标路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 备注内容；为空表示清除备注。
+  string remark = 2;
+}
+
+// SetRemarkResponse 是设置结果，无业务字段。
+message SetRemarkResponse {}
+
+// PreviewFileRequest 是预览参数。
+message PreviewFileRequest {
+  // 文件路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 是否返回完整详情。
+  bool is_detail = 2;
+}
+
+// SaveFileRequest 是保存文件内容参数。
+message SaveFileRequest {
+  // 文件路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 文件内容。
+  string content = 2;
+}
+
+// SaveFileResponse 是保存结果，无业务字段。
+message SaveFileResponse {}
+
+// ReadFileLinesRequest 是按行读取日志文件参数。
+message ReadFileLinesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页行数。
+  int32 page_size = 2 [(buf.validate.field).int32.gte = 1];
+
+  // 读取类型，例如 log、task。
+  string type = 3;
+
+  // 资源 ID。
+  uint32 id = 4;
+
+  // 文件名。
+  string name = 5;
+
+  // 是否只取最新内容。
+  bool latest = 6;
+
+  // 任务 ID。
+  string task_id = 7;
+
+  // 任务类型。
+  string task_type = 8;
+
+  // 任务操作。
+  string task_operate = 9;
+
+  // 资源 ID（任务上下文）。
+  uint32 resource_id = 10;
+}
+
+// ReadFileLinesResponse 是按行读取结果。
+message ReadFileLinesResponse {
+  // 是否已到文件末尾。
+  bool end = 1;
+
+  // 文件路径。
+  string path = 2;
+
+  // 当前页行数。
+  int32 total = 3;
+
+  // 任务状态。
+  string task_status = 4;
+
+  // 行内容。
+  repeated string lines = 5;
+
+  // 读取范围。
+  string scope = 6;
+
+  // 文件总行数。
+  int32 total_lines = 7;
+}
+
+// ListMountsRequest 是挂载点查询参数，无业务字段。
+message ListMountsRequest {}
+
+// ListMountsResponse 是挂载点列表结果。
+message ListMountsResponse {
+  // 挂载点信息。
+  repeated MountInfo items = 1;
+}
+
+// MountInfo 是一个挂载点的容量信息。
+message MountInfo {
+  // 挂载路径。
+  string path = 1;
+
+  // 文件系统类型。
+  string type = 2;
+
+  // 设备名。
+  string device = 3;
+
+  // 总容量，单位字节。
+  uint64 total = 4;
+
+  // 剩余容量，单位字节。
+  uint64 free = 5;
+
+  // 已用容量，单位字节。
+  uint64 used = 6;
+
+  // 使用率百分比。
+  double used_percent = 7;
+
+  // inode 总数。
+  uint64 inodes_total = 8;
+
+  // 已用 inode 数。
+  uint64 inodes_used = 9;
+
+  // 剩余 inode 数。
+  uint64 inodes_free = 10;
+
+  // inode 使用率百分比。
+  double inodes_used_percent = 11;
+}
+
+// ClearRecycleRequest 是清空回收站参数，无业务字段。
+message ClearRecycleRequest {}
+
+// ClearRecycleResponse 是清空结果，无业务字段。
+message ClearRecycleResponse {}
+
+// GetRecycleStatusRequest 是回收站状态查询参数，无业务字段。
+message GetRecycleStatusRequest {}
+
+// GetRecycleStatusResponse 是回收站状态结果。
+message GetRecycleStatusResponse {
+  // 开关状态：Enable 或 Disable。
+  string status = 1;
+}
+
+// GetHistoryContentRequest 是历史版本内容查询参数。
+message GetHistoryContentRequest {
+  // 历史记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// GetHistoryContentResponse 是历史版本内容详情。
+message GetHistoryContentResponse {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 文件 ID。
+  string file_id = 2;
+
+  // 路径。
+  string path = 3;
+
+  // 当前路径。
+  string current_path = 4;
+
+  // 上一版本 ID。
+  uint32 previous_id = 5;
+
+  // 操作来源路径。
+  string source_path = 6;
+
+  // 操作目标路径。
+  string target_path = 7;
+
+  // 文件名。
+  string file_name = 8;
+
+  // 扩展名。
+  string extension = 9;
+
+  // 文件权限。
+  string file_mode = 10;
+
+  // 操作类型。
+  string operation = 11;
+
+  // 是否已删除。
+  bool deleted = 12;
+
+  // 内容大小，单位字节。
+  int64 content_size = 13;
+
+  // 内容 SHA 摘要。
+  string content_sha = 14;
+
+  // 历史版本内容。
+  string content = 15;
+
+  // 当前文件内容。
+  string current_content = 16;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 17;
+
+  // 更新时间，RFC3339 格式。
+  string updated_at = 18;
+}
+
+// DeleteHistoryRequest 是删除历史记录参数。
+message DeleteHistoryRequest {
+  // 历史记录 ID 列表。
+  repeated uint32 ids = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// DeleteHistoryResponse 是删除结果，无业务字段。
+message DeleteHistoryResponse {}
+
+// RestoreHistoryRequest 是还原历史版本参数。
+message RestoreHistoryRequest {
+  // 历史记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// ConvertFilesRequest 是文件格式转换参数。
+message ConvertFilesRequest {
+  // 待转换文件。
+  repeated ConvertFileItem files = 1 [(buf.validate.field).repeated.min_items = 1];
+
+  // 输出目录。
+  string output_path = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 是否删除源文件。
+  bool delete_source = 3;
+
+  // 前端生成的任务 ID。
+  string task_id = 4;
+}
+
+// ConvertFileItem 是单个待转换文件。
+message ConvertFileItem {
+  // 文件路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 转换类型。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 输入文件名。
+  string input_file = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 输入扩展名。
+  string extension = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 输出格式。
+  string output_format = 5 [(buf.validate.field).string.min_len = 1];
+
+  // 转换状态。
+  string status = 6;
+}
+
+// ConvertFilesResponse 是转换任务启动结果，无业务字段。
+message ConvertFilesResponse {}
+
+// SearchConvertLogsRequest 是转换日志查询参数。
+message SearchConvertLogsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 1000。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 1000
+  }];
+}
+
+// SearchConvertLogsResponse 是转换日志列表结果。
+message SearchConvertLogsResponse {
+  // 当前页的日志。
+  repeated ConvertLogEntry items = 1;
+
+  // 符合条件的日志总数。
+  int64 total = 2;
+}
+
+// ConvertLogEntry 是一条转换日志。
+message ConvertLogEntry {
+  // 日期。
+  string date = 1;
+
+  // 转换类型。
+  string type = 2;
+
+  // 日志内容。
+  string log = 3;
+
+  // 状态。
+  string status = 4;
+
+  // 消息。
+  string message = 5;
+}
+
+// CreateShareRequest 是创建分享参数。
+message CreateShareRequest {
+  // 分享的文件或目录路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 过期时间，单位分钟；0 表示永久。
+  int32 expire_minutes = 2 [(buf.validate.field).int32 = {
+    gte: 0
+    lte: 10080
+  }];
+
+  // 访问密码；未设置时为空。
+  optional string password = 3;
+}
+
+// CreateShareResponse 是创建分享结果。
+message CreateShareResponse {
+  // 分享信息。
+  FileShareInfo share = 1;
+}
+
+// FileShareInfo 是一条文件分享记录。
+message FileShareInfo {
+  // 分享码。
+  string code = 1;
+
+  // 分享路径。
+  string path = 2;
+
+  // 文件名。
+  string file_name = 3;
+
+  // 过期时间戳，单位秒；永久分享为 0。
+  int64 expires_at = 4;
+
+  // 是否永久有效。
+  bool permanent = 5;
+
+  // 是否设置了访问密码。
+  bool has_password = 6;
+
+  // 访问密码；仅在创建分享时返回。
+  string password = 7;
+}
+
+// DeleteShareRequest 是关闭分享参数。
+message DeleteShareRequest {
+  // 分享路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// DeleteShareResponse 是关闭结果，无业务字段。
+message DeleteShareResponse {}
+
+// GetShareRequest 是按路径查询分享参数。
+message GetShareRequest {
+  // 分享路径。
+  string path = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetShareResponse 是分享详情。
+message GetShareResponse {
+  // 分享信息。
+  FileShareInfo share = 1;
+}
+
+// GetPublicShareRequest 是公开分享信息查询参数。
+message GetPublicShareRequest {
+  // 分享码。
+  string code = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetPublicShareResponse 是公开分享信息。
+message GetPublicShareResponse {
+  // 文件名。
+  string file_name = 1;
+
+  // 过期时间戳，单位秒；永久分享为 0。
+  int64 expires_at = 2;
+
+  // 是否永久有效。
+  bool permanent = 3;
+
+  // 是否设置了访问密码。
+  bool has_password = 4;
+}
+
+// CheckShareRequest 是分享校验参数。
+message CheckShareRequest {
+  // 分享码。
+  string code = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 访问密码。
+  string password = 2;
+}
+
+// CheckShareResponse 是校验结果，无业务字段。
+message CheckShareResponse {}
+
+// SearchSharesRequest 是分享记录分页查询参数。
+message SearchSharesRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+}
+
+// SearchSharesResponse 是分享记录列表结果。
+message SearchSharesResponse {
+  // 当前页的分享记录。
+  repeated FileShareInfo items = 1;
+
+  // 符合条件的记录总数。
+  int64 total = 2;
+}
+
+// WgetRequest 是远程下载参数。
+message WgetRequest {
+  // 下载地址。
+  string url = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 保存目录。
+  string path = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 保存文件名。
+  string name = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 是否忽略证书错误。
+  bool ignore_certificate = 4;
+
+  // 是否使用代理。
+  bool use_proxy = 5;
+
+  // 是否使用服务端返回的文件名。
+  bool use_server_filename = 6;
+}
+
+// WgetResponse 是远程下载任务启动结果。
+message WgetResponse {
+  // 任务键，用于查询进度或停止任务。
+  string key = 1;
+}
+
+// StopWgetRequest 是停止远程下载参数。
+message StopWgetRequest {
+  // 任务键。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// StopWgetResponse 是停止结果，无业务字段。
+message StopWgetResponse {}
+
+// GetWgetProcessKeysRequest 是下载任务键查询参数，无业务字段。
+message GetWgetProcessKeysRequest {}
+
+// GetWgetProcessKeysResponse 是下载任务键列表。
+message GetWgetProcessKeysResponse {
+  // 任务键。
+  repeated string keys = 1;
+}
+
+// RemoveWgetRecordsRequest 是移除下载记录参数。
+message RemoveWgetRecordsRequest {
+  // 任务键列表。
+  repeated string keys = 1 [(buf.validate.field).repeated = {
+    min_items: 1
+    max_items: 1000
+  }];
+}
+
+// RemoveWgetRecordsResponse 是移除后剩余的下载记录键。
+message RemoveWgetRecordsResponse {
+  // 剩余任务键。
+  repeated string keys = 1;
 }

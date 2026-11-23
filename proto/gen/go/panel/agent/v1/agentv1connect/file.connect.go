@@ -69,6 +69,102 @@ const (
 	FileServiceCompressProcedure = "/panel.agent.v1.FileService/Compress"
 	// FileServiceGetFileProcedure is the fully-qualified name of the FileService's GetFile RPC.
 	FileServiceGetFileProcedure = "/panel.agent.v1.FileService/GetFile"
+	// FileServiceCreateFileProcedure is the fully-qualified name of the FileService's CreateFile RPC.
+	FileServiceCreateFileProcedure = "/panel.agent.v1.FileService/CreateFile"
+	// FileServiceCheckFileProcedure is the fully-qualified name of the FileService's CheckFile RPC.
+	FileServiceCheckFileProcedure = "/panel.agent.v1.FileService/CheckFile"
+	// FileServiceBatchCheckFilesProcedure is the fully-qualified name of the FileService's
+	// BatchCheckFiles RPC.
+	FileServiceBatchCheckFilesProcedure = "/panel.agent.v1.FileService/BatchCheckFiles"
+	// FileServiceBatchDeleteFilesProcedure is the fully-qualified name of the FileService's
+	// BatchDeleteFiles RPC.
+	FileServiceBatchDeleteFilesProcedure = "/panel.agent.v1.FileService/BatchDeleteFiles"
+	// FileServiceBatchChangeRoleProcedure is the fully-qualified name of the FileService's
+	// BatchChangeRole RPC.
+	FileServiceBatchChangeRoleProcedure = "/panel.agent.v1.FileService/BatchChangeRole"
+	// FileServiceChangeOwnerProcedure is the fully-qualified name of the FileService's ChangeOwner RPC.
+	FileServiceChangeOwnerProcedure = "/panel.agent.v1.FileService/ChangeOwner"
+	// FileServiceStopCompressProcedure is the fully-qualified name of the FileService's StopCompress
+	// RPC.
+	FileServiceStopCompressProcedure = "/panel.agent.v1.FileService/StopCompress"
+	// FileServiceStopDecompressProcedure is the fully-qualified name of the FileService's
+	// StopDecompress RPC.
+	FileServiceStopDecompressProcedure = "/panel.agent.v1.FileService/StopDecompress"
+	// FileServiceMoveFilesProcedure is the fully-qualified name of the FileService's MoveFiles RPC.
+	FileServiceMoveFilesProcedure = "/panel.agent.v1.FileService/MoveFiles"
+	// FileServiceStopMoveProcedure is the fully-qualified name of the FileService's StopMove RPC.
+	FileServiceStopMoveProcedure = "/panel.agent.v1.FileService/StopMove"
+	// FileServiceGetSizeProcedure is the fully-qualified name of the FileService's GetSize RPC.
+	FileServiceGetSizeProcedure = "/panel.agent.v1.FileService/GetSize"
+	// FileServiceGetDepthSizeProcedure is the fully-qualified name of the FileService's GetDepthSize
+	// RPC.
+	FileServiceGetDepthSizeProcedure = "/panel.agent.v1.FileService/GetDepthSize"
+	// FileServiceGetFileTreeProcedure is the fully-qualified name of the FileService's GetFileTree RPC.
+	FileServiceGetFileTreeProcedure = "/panel.agent.v1.FileService/GetFileTree"
+	// FileServiceSearchUploadProcedure is the fully-qualified name of the FileService's SearchUpload
+	// RPC.
+	FileServiceSearchUploadProcedure = "/panel.agent.v1.FileService/SearchUpload"
+	// FileServiceGetUsersAndGroupsProcedure is the fully-qualified name of the FileService's
+	// GetUsersAndGroups RPC.
+	FileServiceGetUsersAndGroupsProcedure = "/panel.agent.v1.FileService/GetUsersAndGroups"
+	// FileServiceGetRemarksProcedure is the fully-qualified name of the FileService's GetRemarks RPC.
+	FileServiceGetRemarksProcedure = "/panel.agent.v1.FileService/GetRemarks"
+	// FileServiceSetRemarkProcedure is the fully-qualified name of the FileService's SetRemark RPC.
+	FileServiceSetRemarkProcedure = "/panel.agent.v1.FileService/SetRemark"
+	// FileServicePreviewFileProcedure is the fully-qualified name of the FileService's PreviewFile RPC.
+	FileServicePreviewFileProcedure = "/panel.agent.v1.FileService/PreviewFile"
+	// FileServiceSaveFileProcedure is the fully-qualified name of the FileService's SaveFile RPC.
+	FileServiceSaveFileProcedure = "/panel.agent.v1.FileService/SaveFile"
+	// FileServiceReadFileLinesProcedure is the fully-qualified name of the FileService's ReadFileLines
+	// RPC.
+	FileServiceReadFileLinesProcedure = "/panel.agent.v1.FileService/ReadFileLines"
+	// FileServiceListMountsProcedure is the fully-qualified name of the FileService's ListMounts RPC.
+	FileServiceListMountsProcedure = "/panel.agent.v1.FileService/ListMounts"
+	// FileServiceClearRecycleProcedure is the fully-qualified name of the FileService's ClearRecycle
+	// RPC.
+	FileServiceClearRecycleProcedure = "/panel.agent.v1.FileService/ClearRecycle"
+	// FileServiceGetRecycleStatusProcedure is the fully-qualified name of the FileService's
+	// GetRecycleStatus RPC.
+	FileServiceGetRecycleStatusProcedure = "/panel.agent.v1.FileService/GetRecycleStatus"
+	// FileServiceGetHistoryContentProcedure is the fully-qualified name of the FileService's
+	// GetHistoryContent RPC.
+	FileServiceGetHistoryContentProcedure = "/panel.agent.v1.FileService/GetHistoryContent"
+	// FileServiceDeleteHistoryProcedure is the fully-qualified name of the FileService's DeleteHistory
+	// RPC.
+	FileServiceDeleteHistoryProcedure = "/panel.agent.v1.FileService/DeleteHistory"
+	// FileServiceRestoreHistoryProcedure is the fully-qualified name of the FileService's
+	// RestoreHistory RPC.
+	FileServiceRestoreHistoryProcedure = "/panel.agent.v1.FileService/RestoreHistory"
+	// FileServiceConvertFilesProcedure is the fully-qualified name of the FileService's ConvertFiles
+	// RPC.
+	FileServiceConvertFilesProcedure = "/panel.agent.v1.FileService/ConvertFiles"
+	// FileServiceSearchConvertLogsProcedure is the fully-qualified name of the FileService's
+	// SearchConvertLogs RPC.
+	FileServiceSearchConvertLogsProcedure = "/panel.agent.v1.FileService/SearchConvertLogs"
+	// FileServiceCreateShareProcedure is the fully-qualified name of the FileService's CreateShare RPC.
+	FileServiceCreateShareProcedure = "/panel.agent.v1.FileService/CreateShare"
+	// FileServiceDeleteShareProcedure is the fully-qualified name of the FileService's DeleteShare RPC.
+	FileServiceDeleteShareProcedure = "/panel.agent.v1.FileService/DeleteShare"
+	// FileServiceGetShareProcedure is the fully-qualified name of the FileService's GetShare RPC.
+	FileServiceGetShareProcedure = "/panel.agent.v1.FileService/GetShare"
+	// FileServiceGetPublicShareProcedure is the fully-qualified name of the FileService's
+	// GetPublicShare RPC.
+	FileServiceGetPublicShareProcedure = "/panel.agent.v1.FileService/GetPublicShare"
+	// FileServiceCheckShareProcedure is the fully-qualified name of the FileService's CheckShare RPC.
+	FileServiceCheckShareProcedure = "/panel.agent.v1.FileService/CheckShare"
+	// FileServiceSearchSharesProcedure is the fully-qualified name of the FileService's SearchShares
+	// RPC.
+	FileServiceSearchSharesProcedure = "/panel.agent.v1.FileService/SearchShares"
+	// FileServiceWgetProcedure is the fully-qualified name of the FileService's Wget RPC.
+	FileServiceWgetProcedure = "/panel.agent.v1.FileService/Wget"
+	// FileServiceStopWgetProcedure is the fully-qualified name of the FileService's StopWget RPC.
+	FileServiceStopWgetProcedure = "/panel.agent.v1.FileService/StopWget"
+	// FileServiceGetWgetProcessKeysProcedure is the fully-qualified name of the FileService's
+	// GetWgetProcessKeys RPC.
+	FileServiceGetWgetProcessKeysProcedure = "/panel.agent.v1.FileService/GetWgetProcessKeys"
+	// FileServiceRemoveWgetRecordsProcedure is the fully-qualified name of the FileService's
+	// RemoveWgetRecords RPC.
+	FileServiceRemoveWgetRecordsProcedure = "/panel.agent.v1.FileService/RemoveWgetRecords"
 )
 
 // FileServiceClient is a client for the panel.agent.v1.FileService service.
@@ -99,6 +195,82 @@ type FileServiceClient interface {
 	Compress(context.Context, *connect.Request[v1.CompressFilesRequest]) (*connect.Response[v1.CompressFilesResponse], error)
 	// 查询单个文件或目录的详情（含内容、权限、所有者）。
 	GetFile(context.Context, *connect.Request[v1.GetFileRequest]) (*connect.Response[v1.FileEntry], error)
+	// 新建文件或目录，也可创建符号链接。
+	CreateFile(context.Context, *connect.Request[v1.CreateFileRequest]) (*connect.Response[v1.CreateFileResponse], error)
+	// 检查路径是否存在，可选择在不存在时初始化目录。
+	CheckFile(context.Context, *connect.Request[v1.CheckFileRequest]) (*connect.Response[v1.CheckFileResponse], error)
+	// 批量检查路径是否存在。
+	BatchCheckFiles(context.Context, *connect.Request[v1.BatchCheckFilesRequest]) (*connect.Response[v1.BatchCheckFilesResponse], error)
+	// 批量删除文件或目录。
+	BatchDeleteFiles(context.Context, *connect.Request[v1.BatchDeleteFilesRequest]) (*connect.Response[v1.BatchDeleteFilesResponse], error)
+	// 批量修改权限与所属用户/组。
+	BatchChangeRole(context.Context, *connect.Request[v1.BatchChangeRoleRequest]) (*connect.Response[v1.BatchChangeRoleResponse], error)
+	// 修改文件或目录的所有者。
+	ChangeOwner(context.Context, *connect.Request[v1.ChangeOwnerRequest]) (*connect.Response[v1.ChangeOwnerResponse], error)
+	// 停止压缩任务。
+	StopCompress(context.Context, *connect.Request[v1.StopCompressRequest]) (*connect.Response[v1.StopCompressResponse], error)
+	// 停止解压任务。
+	StopDecompress(context.Context, *connect.Request[v1.StopDecompressRequest]) (*connect.Response[v1.StopDecompressResponse], error)
+	// 移动或复制文件与目录。
+	MoveFiles(context.Context, *connect.Request[v1.MoveFilesRequest]) (*connect.Response[v1.MoveFilesResponse], error)
+	// 停止移动任务。
+	StopMove(context.Context, *connect.Request[v1.StopMoveRequest]) (*connect.Response[v1.StopMoveResponse], error)
+	// 统计目录占用的总大小。
+	GetSize(context.Context, *connect.Request[v1.GetSizeRequest]) (*connect.Response[v1.GetSizeResponse], error)
+	// 按一级子项统计目录占用大小。
+	GetDepthSize(context.Context, *connect.Request[v1.GetDepthSizeRequest]) (*connect.Response[v1.GetDepthSizeResponse], error)
+	// 获取目录树。
+	GetFileTree(context.Context, *connect.Request[v1.GetFileTreeRequest]) (*connect.Response[v1.FileTreeResponse], error)
+	// 分页列出目录下已上传的文件（按修改时间倒序）。
+	SearchUpload(context.Context, *connect.Request[v1.SearchUploadRequest]) (*connect.Response[v1.SearchUploadResponse], error)
+	// 列出可选的系统用户与用户组，用于修改文件所有者。
+	GetUsersAndGroups(context.Context, *connect.Request[v1.GetUsersAndGroupsRequest]) (*connect.Response[v1.GetUsersAndGroupsResponse], error)
+	// 批量读取文件备注。
+	GetRemarks(context.Context, *connect.Request[v1.GetRemarksRequest]) (*connect.Response[v1.GetRemarksResponse], error)
+	// 设置或清除文件备注。
+	SetRemark(context.Context, *connect.Request[v1.SetRemarkRequest]) (*connect.Response[v1.SetRemarkResponse], error)
+	// 读取文件预览内容。
+	PreviewFile(context.Context, *connect.Request[v1.PreviewFileRequest]) (*connect.Response[v1.FileEntry], error)
+	// 保存文件内容。
+	SaveFile(context.Context, *connect.Request[v1.SaveFileRequest]) (*connect.Response[v1.SaveFileResponse], error)
+	// 按行读取日志类文件。
+	ReadFileLines(context.Context, *connect.Request[v1.ReadFileLinesRequest]) (*connect.Response[v1.ReadFileLinesResponse], error)
+	// 列出系统挂载点。
+	ListMounts(context.Context, *connect.Request[v1.ListMountsRequest]) (*connect.Response[v1.ListMountsResponse], error)
+	// 清空回收站。
+	ClearRecycle(context.Context, *connect.Request[v1.ClearRecycleRequest]) (*connect.Response[v1.ClearRecycleResponse], error)
+	// 查询回收站开关状态。
+	GetRecycleStatus(context.Context, *connect.Request[v1.GetRecycleStatusRequest]) (*connect.Response[v1.GetRecycleStatusResponse], error)
+	// 读取文件历史版本的内容。
+	GetHistoryContent(context.Context, *connect.Request[v1.GetHistoryContentRequest]) (*connect.Response[v1.GetHistoryContentResponse], error)
+	// 删除文件历史版本记录。
+	DeleteHistory(context.Context, *connect.Request[v1.DeleteHistoryRequest]) (*connect.Response[v1.DeleteHistoryResponse], error)
+	// 还原文件历史版本。
+	RestoreHistory(context.Context, *connect.Request[v1.RestoreHistoryRequest]) (*connect.Response[v1.FileEntry], error)
+	// 触发文件格式转换任务。
+	ConvertFiles(context.Context, *connect.Request[v1.ConvertFilesRequest]) (*connect.Response[v1.ConvertFilesResponse], error)
+	// 分页查询文件转换日志。
+	SearchConvertLogs(context.Context, *connect.Request[v1.SearchConvertLogsRequest]) (*connect.Response[v1.SearchConvertLogsResponse], error)
+	// 创建文件分享链接。
+	CreateShare(context.Context, *connect.Request[v1.CreateShareRequest]) (*connect.Response[v1.CreateShareResponse], error)
+	// 按路径关闭文件分享。
+	DeleteShare(context.Context, *connect.Request[v1.DeleteShareRequest]) (*connect.Response[v1.DeleteShareResponse], error)
+	// 按路径查询文件分享详情。
+	GetShare(context.Context, *connect.Request[v1.GetShareRequest]) (*connect.Response[v1.GetShareResponse], error)
+	// 按分享码查询公开分享信息，分享页未登录也要能读。
+	GetPublicShare(context.Context, *connect.Request[v1.GetPublicShareRequest]) (*connect.Response[v1.GetPublicShareResponse], error)
+	// 校验分享码与访问密码，分享页未登录也要能调用。
+	CheckShare(context.Context, *connect.Request[v1.CheckShareRequest]) (*connect.Response[v1.CheckShareResponse], error)
+	// 分页查询文件分享记录。
+	SearchShares(context.Context, *connect.Request[v1.SearchSharesRequest]) (*connect.Response[v1.SearchSharesResponse], error)
+	// 创建远程下载任务。
+	Wget(context.Context, *connect.Request[v1.WgetRequest]) (*connect.Response[v1.WgetResponse], error)
+	// 停止远程下载任务。
+	StopWget(context.Context, *connect.Request[v1.StopWgetRequest]) (*connect.Response[v1.StopWgetResponse], error)
+	// 列出下载任务的缓存键。
+	GetWgetProcessKeys(context.Context, *connect.Request[v1.GetWgetProcessKeysRequest]) (*connect.Response[v1.GetWgetProcessKeysResponse], error)
+	// 移除已结束的下载进度记录，不删除文件本身。
+	RemoveWgetRecords(context.Context, *connect.Request[v1.RemoveWgetRecordsRequest]) (*connect.Response[v1.RemoveWgetRecordsResponse], error)
 }
 
 // NewFileServiceClient constructs a client for the panel.agent.v1.FileService service. By default,
@@ -190,24 +362,290 @@ func NewFileServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(fileServiceMethods.ByName("GetFile")),
 			connect.WithClientOptions(opts...),
 		),
+		createFile: connect.NewClient[v1.CreateFileRequest, v1.CreateFileResponse](
+			httpClient,
+			baseURL+FileServiceCreateFileProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("CreateFile")),
+			connect.WithClientOptions(opts...),
+		),
+		checkFile: connect.NewClient[v1.CheckFileRequest, v1.CheckFileResponse](
+			httpClient,
+			baseURL+FileServiceCheckFileProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("CheckFile")),
+			connect.WithClientOptions(opts...),
+		),
+		batchCheckFiles: connect.NewClient[v1.BatchCheckFilesRequest, v1.BatchCheckFilesResponse](
+			httpClient,
+			baseURL+FileServiceBatchCheckFilesProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("BatchCheckFiles")),
+			connect.WithClientOptions(opts...),
+		),
+		batchDeleteFiles: connect.NewClient[v1.BatchDeleteFilesRequest, v1.BatchDeleteFilesResponse](
+			httpClient,
+			baseURL+FileServiceBatchDeleteFilesProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("BatchDeleteFiles")),
+			connect.WithClientOptions(opts...),
+		),
+		batchChangeRole: connect.NewClient[v1.BatchChangeRoleRequest, v1.BatchChangeRoleResponse](
+			httpClient,
+			baseURL+FileServiceBatchChangeRoleProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("BatchChangeRole")),
+			connect.WithClientOptions(opts...),
+		),
+		changeOwner: connect.NewClient[v1.ChangeOwnerRequest, v1.ChangeOwnerResponse](
+			httpClient,
+			baseURL+FileServiceChangeOwnerProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("ChangeOwner")),
+			connect.WithClientOptions(opts...),
+		),
+		stopCompress: connect.NewClient[v1.StopCompressRequest, v1.StopCompressResponse](
+			httpClient,
+			baseURL+FileServiceStopCompressProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("StopCompress")),
+			connect.WithClientOptions(opts...),
+		),
+		stopDecompress: connect.NewClient[v1.StopDecompressRequest, v1.StopDecompressResponse](
+			httpClient,
+			baseURL+FileServiceStopDecompressProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("StopDecompress")),
+			connect.WithClientOptions(opts...),
+		),
+		moveFiles: connect.NewClient[v1.MoveFilesRequest, v1.MoveFilesResponse](
+			httpClient,
+			baseURL+FileServiceMoveFilesProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("MoveFiles")),
+			connect.WithClientOptions(opts...),
+		),
+		stopMove: connect.NewClient[v1.StopMoveRequest, v1.StopMoveResponse](
+			httpClient,
+			baseURL+FileServiceStopMoveProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("StopMove")),
+			connect.WithClientOptions(opts...),
+		),
+		getSize: connect.NewClient[v1.GetSizeRequest, v1.GetSizeResponse](
+			httpClient,
+			baseURL+FileServiceGetSizeProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetSize")),
+			connect.WithClientOptions(opts...),
+		),
+		getDepthSize: connect.NewClient[v1.GetDepthSizeRequest, v1.GetDepthSizeResponse](
+			httpClient,
+			baseURL+FileServiceGetDepthSizeProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetDepthSize")),
+			connect.WithClientOptions(opts...),
+		),
+		getFileTree: connect.NewClient[v1.GetFileTreeRequest, v1.FileTreeResponse](
+			httpClient,
+			baseURL+FileServiceGetFileTreeProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetFileTree")),
+			connect.WithClientOptions(opts...),
+		),
+		searchUpload: connect.NewClient[v1.SearchUploadRequest, v1.SearchUploadResponse](
+			httpClient,
+			baseURL+FileServiceSearchUploadProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("SearchUpload")),
+			connect.WithClientOptions(opts...),
+		),
+		getUsersAndGroups: connect.NewClient[v1.GetUsersAndGroupsRequest, v1.GetUsersAndGroupsResponse](
+			httpClient,
+			baseURL+FileServiceGetUsersAndGroupsProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetUsersAndGroups")),
+			connect.WithClientOptions(opts...),
+		),
+		getRemarks: connect.NewClient[v1.GetRemarksRequest, v1.GetRemarksResponse](
+			httpClient,
+			baseURL+FileServiceGetRemarksProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetRemarks")),
+			connect.WithClientOptions(opts...),
+		),
+		setRemark: connect.NewClient[v1.SetRemarkRequest, v1.SetRemarkResponse](
+			httpClient,
+			baseURL+FileServiceSetRemarkProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("SetRemark")),
+			connect.WithClientOptions(opts...),
+		),
+		previewFile: connect.NewClient[v1.PreviewFileRequest, v1.FileEntry](
+			httpClient,
+			baseURL+FileServicePreviewFileProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("PreviewFile")),
+			connect.WithClientOptions(opts...),
+		),
+		saveFile: connect.NewClient[v1.SaveFileRequest, v1.SaveFileResponse](
+			httpClient,
+			baseURL+FileServiceSaveFileProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("SaveFile")),
+			connect.WithClientOptions(opts...),
+		),
+		readFileLines: connect.NewClient[v1.ReadFileLinesRequest, v1.ReadFileLinesResponse](
+			httpClient,
+			baseURL+FileServiceReadFileLinesProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("ReadFileLines")),
+			connect.WithClientOptions(opts...),
+		),
+		listMounts: connect.NewClient[v1.ListMountsRequest, v1.ListMountsResponse](
+			httpClient,
+			baseURL+FileServiceListMountsProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("ListMounts")),
+			connect.WithClientOptions(opts...),
+		),
+		clearRecycle: connect.NewClient[v1.ClearRecycleRequest, v1.ClearRecycleResponse](
+			httpClient,
+			baseURL+FileServiceClearRecycleProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("ClearRecycle")),
+			connect.WithClientOptions(opts...),
+		),
+		getRecycleStatus: connect.NewClient[v1.GetRecycleStatusRequest, v1.GetRecycleStatusResponse](
+			httpClient,
+			baseURL+FileServiceGetRecycleStatusProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetRecycleStatus")),
+			connect.WithClientOptions(opts...),
+		),
+		getHistoryContent: connect.NewClient[v1.GetHistoryContentRequest, v1.GetHistoryContentResponse](
+			httpClient,
+			baseURL+FileServiceGetHistoryContentProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetHistoryContent")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteHistory: connect.NewClient[v1.DeleteHistoryRequest, v1.DeleteHistoryResponse](
+			httpClient,
+			baseURL+FileServiceDeleteHistoryProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("DeleteHistory")),
+			connect.WithClientOptions(opts...),
+		),
+		restoreHistory: connect.NewClient[v1.RestoreHistoryRequest, v1.FileEntry](
+			httpClient,
+			baseURL+FileServiceRestoreHistoryProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("RestoreHistory")),
+			connect.WithClientOptions(opts...),
+		),
+		convertFiles: connect.NewClient[v1.ConvertFilesRequest, v1.ConvertFilesResponse](
+			httpClient,
+			baseURL+FileServiceConvertFilesProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("ConvertFiles")),
+			connect.WithClientOptions(opts...),
+		),
+		searchConvertLogs: connect.NewClient[v1.SearchConvertLogsRequest, v1.SearchConvertLogsResponse](
+			httpClient,
+			baseURL+FileServiceSearchConvertLogsProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("SearchConvertLogs")),
+			connect.WithClientOptions(opts...),
+		),
+		createShare: connect.NewClient[v1.CreateShareRequest, v1.CreateShareResponse](
+			httpClient,
+			baseURL+FileServiceCreateShareProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("CreateShare")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteShare: connect.NewClient[v1.DeleteShareRequest, v1.DeleteShareResponse](
+			httpClient,
+			baseURL+FileServiceDeleteShareProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("DeleteShare")),
+			connect.WithClientOptions(opts...),
+		),
+		getShare: connect.NewClient[v1.GetShareRequest, v1.GetShareResponse](
+			httpClient,
+			baseURL+FileServiceGetShareProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetShare")),
+			connect.WithClientOptions(opts...),
+		),
+		getPublicShare: connect.NewClient[v1.GetPublicShareRequest, v1.GetPublicShareResponse](
+			httpClient,
+			baseURL+FileServiceGetPublicShareProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetPublicShare")),
+			connect.WithClientOptions(opts...),
+		),
+		checkShare: connect.NewClient[v1.CheckShareRequest, v1.CheckShareResponse](
+			httpClient,
+			baseURL+FileServiceCheckShareProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("CheckShare")),
+			connect.WithClientOptions(opts...),
+		),
+		searchShares: connect.NewClient[v1.SearchSharesRequest, v1.SearchSharesResponse](
+			httpClient,
+			baseURL+FileServiceSearchSharesProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("SearchShares")),
+			connect.WithClientOptions(opts...),
+		),
+		wget: connect.NewClient[v1.WgetRequest, v1.WgetResponse](
+			httpClient,
+			baseURL+FileServiceWgetProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("Wget")),
+			connect.WithClientOptions(opts...),
+		),
+		stopWget: connect.NewClient[v1.StopWgetRequest, v1.StopWgetResponse](
+			httpClient,
+			baseURL+FileServiceStopWgetProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("StopWget")),
+			connect.WithClientOptions(opts...),
+		),
+		getWgetProcessKeys: connect.NewClient[v1.GetWgetProcessKeysRequest, v1.GetWgetProcessKeysResponse](
+			httpClient,
+			baseURL+FileServiceGetWgetProcessKeysProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("GetWgetProcessKeys")),
+			connect.WithClientOptions(opts...),
+		),
+		removeWgetRecords: connect.NewClient[v1.RemoveWgetRecordsRequest, v1.RemoveWgetRecordsResponse](
+			httpClient,
+			baseURL+FileServiceRemoveWgetRecordsProcedure,
+			connect.WithSchema(fileServiceMethods.ByName("RemoveWgetRecords")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // fileServiceClient implements FileServiceClient.
 type fileServiceClient struct {
-	listFiles       *connect.Client[v1.ListFilesRequest, v1.FileList]
-	changeMode      *connect.Client[v1.ChangeFileModeRequest, v1.ChangeFileModeResponse]
-	addFavorite     *connect.Client[v1.AddFavoriteRequest, v1.AddFavoriteResponse]
-	deleteFavorite  *connect.Client[v1.DeleteFavoriteRequest, v1.DeleteFavoriteResponse]
-	searchHistory   *connect.Client[v1.SearchFileHistoryRequest, v1.SearchFileHistoryResponse]
-	searchFavorites *connect.Client[v1.SearchFavoritesRequest, v1.SearchFavoritesResponse]
-	restoreRecycle  *connect.Client[v1.RestoreRecycleRequest, v1.RestoreRecycleResponse]
-	searchRecycle   *connect.Client[v1.SearchRecycleRequest, v1.SearchRecycleResponse]
-	delete          *connect.Client[v1.DeleteFilesRequest, v1.DeleteFilesResponse]
-	changeName      *connect.Client[v1.ChangeFileNameRequest, v1.ChangeFileNameResponse]
-	deCompress      *connect.Client[v1.DecompressFilesRequest, v1.DecompressFilesResponse]
-	compress        *connect.Client[v1.CompressFilesRequest, v1.CompressFilesResponse]
-	getFile         *connect.Client[v1.GetFileRequest, v1.FileEntry]
+	listFiles          *connect.Client[v1.ListFilesRequest, v1.FileList]
+	changeMode         *connect.Client[v1.ChangeFileModeRequest, v1.ChangeFileModeResponse]
+	addFavorite        *connect.Client[v1.AddFavoriteRequest, v1.AddFavoriteResponse]
+	deleteFavorite     *connect.Client[v1.DeleteFavoriteRequest, v1.DeleteFavoriteResponse]
+	searchHistory      *connect.Client[v1.SearchFileHistoryRequest, v1.SearchFileHistoryResponse]
+	searchFavorites    *connect.Client[v1.SearchFavoritesRequest, v1.SearchFavoritesResponse]
+	restoreRecycle     *connect.Client[v1.RestoreRecycleRequest, v1.RestoreRecycleResponse]
+	searchRecycle      *connect.Client[v1.SearchRecycleRequest, v1.SearchRecycleResponse]
+	delete             *connect.Client[v1.DeleteFilesRequest, v1.DeleteFilesResponse]
+	changeName         *connect.Client[v1.ChangeFileNameRequest, v1.ChangeFileNameResponse]
+	deCompress         *connect.Client[v1.DecompressFilesRequest, v1.DecompressFilesResponse]
+	compress           *connect.Client[v1.CompressFilesRequest, v1.CompressFilesResponse]
+	getFile            *connect.Client[v1.GetFileRequest, v1.FileEntry]
+	createFile         *connect.Client[v1.CreateFileRequest, v1.CreateFileResponse]
+	checkFile          *connect.Client[v1.CheckFileRequest, v1.CheckFileResponse]
+	batchCheckFiles    *connect.Client[v1.BatchCheckFilesRequest, v1.BatchCheckFilesResponse]
+	batchDeleteFiles   *connect.Client[v1.BatchDeleteFilesRequest, v1.BatchDeleteFilesResponse]
+	batchChangeRole    *connect.Client[v1.BatchChangeRoleRequest, v1.BatchChangeRoleResponse]
+	changeOwner        *connect.Client[v1.ChangeOwnerRequest, v1.ChangeOwnerResponse]
+	stopCompress       *connect.Client[v1.StopCompressRequest, v1.StopCompressResponse]
+	stopDecompress     *connect.Client[v1.StopDecompressRequest, v1.StopDecompressResponse]
+	moveFiles          *connect.Client[v1.MoveFilesRequest, v1.MoveFilesResponse]
+	stopMove           *connect.Client[v1.StopMoveRequest, v1.StopMoveResponse]
+	getSize            *connect.Client[v1.GetSizeRequest, v1.GetSizeResponse]
+	getDepthSize       *connect.Client[v1.GetDepthSizeRequest, v1.GetDepthSizeResponse]
+	getFileTree        *connect.Client[v1.GetFileTreeRequest, v1.FileTreeResponse]
+	searchUpload       *connect.Client[v1.SearchUploadRequest, v1.SearchUploadResponse]
+	getUsersAndGroups  *connect.Client[v1.GetUsersAndGroupsRequest, v1.GetUsersAndGroupsResponse]
+	getRemarks         *connect.Client[v1.GetRemarksRequest, v1.GetRemarksResponse]
+	setRemark          *connect.Client[v1.SetRemarkRequest, v1.SetRemarkResponse]
+	previewFile        *connect.Client[v1.PreviewFileRequest, v1.FileEntry]
+	saveFile           *connect.Client[v1.SaveFileRequest, v1.SaveFileResponse]
+	readFileLines      *connect.Client[v1.ReadFileLinesRequest, v1.ReadFileLinesResponse]
+	listMounts         *connect.Client[v1.ListMountsRequest, v1.ListMountsResponse]
+	clearRecycle       *connect.Client[v1.ClearRecycleRequest, v1.ClearRecycleResponse]
+	getRecycleStatus   *connect.Client[v1.GetRecycleStatusRequest, v1.GetRecycleStatusResponse]
+	getHistoryContent  *connect.Client[v1.GetHistoryContentRequest, v1.GetHistoryContentResponse]
+	deleteHistory      *connect.Client[v1.DeleteHistoryRequest, v1.DeleteHistoryResponse]
+	restoreHistory     *connect.Client[v1.RestoreHistoryRequest, v1.FileEntry]
+	convertFiles       *connect.Client[v1.ConvertFilesRequest, v1.ConvertFilesResponse]
+	searchConvertLogs  *connect.Client[v1.SearchConvertLogsRequest, v1.SearchConvertLogsResponse]
+	createShare        *connect.Client[v1.CreateShareRequest, v1.CreateShareResponse]
+	deleteShare        *connect.Client[v1.DeleteShareRequest, v1.DeleteShareResponse]
+	getShare           *connect.Client[v1.GetShareRequest, v1.GetShareResponse]
+	getPublicShare     *connect.Client[v1.GetPublicShareRequest, v1.GetPublicShareResponse]
+	checkShare         *connect.Client[v1.CheckShareRequest, v1.CheckShareResponse]
+	searchShares       *connect.Client[v1.SearchSharesRequest, v1.SearchSharesResponse]
+	wget               *connect.Client[v1.WgetRequest, v1.WgetResponse]
+	stopWget           *connect.Client[v1.StopWgetRequest, v1.StopWgetResponse]
+	getWgetProcessKeys *connect.Client[v1.GetWgetProcessKeysRequest, v1.GetWgetProcessKeysResponse]
+	removeWgetRecords  *connect.Client[v1.RemoveWgetRecordsRequest, v1.RemoveWgetRecordsResponse]
 }
 
 // ListFiles calls panel.agent.v1.FileService.ListFiles.
@@ -275,6 +713,196 @@ func (c *fileServiceClient) GetFile(ctx context.Context, req *connect.Request[v1
 	return c.getFile.CallUnary(ctx, req)
 }
 
+// CreateFile calls panel.agent.v1.FileService.CreateFile.
+func (c *fileServiceClient) CreateFile(ctx context.Context, req *connect.Request[v1.CreateFileRequest]) (*connect.Response[v1.CreateFileResponse], error) {
+	return c.createFile.CallUnary(ctx, req)
+}
+
+// CheckFile calls panel.agent.v1.FileService.CheckFile.
+func (c *fileServiceClient) CheckFile(ctx context.Context, req *connect.Request[v1.CheckFileRequest]) (*connect.Response[v1.CheckFileResponse], error) {
+	return c.checkFile.CallUnary(ctx, req)
+}
+
+// BatchCheckFiles calls panel.agent.v1.FileService.BatchCheckFiles.
+func (c *fileServiceClient) BatchCheckFiles(ctx context.Context, req *connect.Request[v1.BatchCheckFilesRequest]) (*connect.Response[v1.BatchCheckFilesResponse], error) {
+	return c.batchCheckFiles.CallUnary(ctx, req)
+}
+
+// BatchDeleteFiles calls panel.agent.v1.FileService.BatchDeleteFiles.
+func (c *fileServiceClient) BatchDeleteFiles(ctx context.Context, req *connect.Request[v1.BatchDeleteFilesRequest]) (*connect.Response[v1.BatchDeleteFilesResponse], error) {
+	return c.batchDeleteFiles.CallUnary(ctx, req)
+}
+
+// BatchChangeRole calls panel.agent.v1.FileService.BatchChangeRole.
+func (c *fileServiceClient) BatchChangeRole(ctx context.Context, req *connect.Request[v1.BatchChangeRoleRequest]) (*connect.Response[v1.BatchChangeRoleResponse], error) {
+	return c.batchChangeRole.CallUnary(ctx, req)
+}
+
+// ChangeOwner calls panel.agent.v1.FileService.ChangeOwner.
+func (c *fileServiceClient) ChangeOwner(ctx context.Context, req *connect.Request[v1.ChangeOwnerRequest]) (*connect.Response[v1.ChangeOwnerResponse], error) {
+	return c.changeOwner.CallUnary(ctx, req)
+}
+
+// StopCompress calls panel.agent.v1.FileService.StopCompress.
+func (c *fileServiceClient) StopCompress(ctx context.Context, req *connect.Request[v1.StopCompressRequest]) (*connect.Response[v1.StopCompressResponse], error) {
+	return c.stopCompress.CallUnary(ctx, req)
+}
+
+// StopDecompress calls panel.agent.v1.FileService.StopDecompress.
+func (c *fileServiceClient) StopDecompress(ctx context.Context, req *connect.Request[v1.StopDecompressRequest]) (*connect.Response[v1.StopDecompressResponse], error) {
+	return c.stopDecompress.CallUnary(ctx, req)
+}
+
+// MoveFiles calls panel.agent.v1.FileService.MoveFiles.
+func (c *fileServiceClient) MoveFiles(ctx context.Context, req *connect.Request[v1.MoveFilesRequest]) (*connect.Response[v1.MoveFilesResponse], error) {
+	return c.moveFiles.CallUnary(ctx, req)
+}
+
+// StopMove calls panel.agent.v1.FileService.StopMove.
+func (c *fileServiceClient) StopMove(ctx context.Context, req *connect.Request[v1.StopMoveRequest]) (*connect.Response[v1.StopMoveResponse], error) {
+	return c.stopMove.CallUnary(ctx, req)
+}
+
+// GetSize calls panel.agent.v1.FileService.GetSize.
+func (c *fileServiceClient) GetSize(ctx context.Context, req *connect.Request[v1.GetSizeRequest]) (*connect.Response[v1.GetSizeResponse], error) {
+	return c.getSize.CallUnary(ctx, req)
+}
+
+// GetDepthSize calls panel.agent.v1.FileService.GetDepthSize.
+func (c *fileServiceClient) GetDepthSize(ctx context.Context, req *connect.Request[v1.GetDepthSizeRequest]) (*connect.Response[v1.GetDepthSizeResponse], error) {
+	return c.getDepthSize.CallUnary(ctx, req)
+}
+
+// GetFileTree calls panel.agent.v1.FileService.GetFileTree.
+func (c *fileServiceClient) GetFileTree(ctx context.Context, req *connect.Request[v1.GetFileTreeRequest]) (*connect.Response[v1.FileTreeResponse], error) {
+	return c.getFileTree.CallUnary(ctx, req)
+}
+
+// SearchUpload calls panel.agent.v1.FileService.SearchUpload.
+func (c *fileServiceClient) SearchUpload(ctx context.Context, req *connect.Request[v1.SearchUploadRequest]) (*connect.Response[v1.SearchUploadResponse], error) {
+	return c.searchUpload.CallUnary(ctx, req)
+}
+
+// GetUsersAndGroups calls panel.agent.v1.FileService.GetUsersAndGroups.
+func (c *fileServiceClient) GetUsersAndGroups(ctx context.Context, req *connect.Request[v1.GetUsersAndGroupsRequest]) (*connect.Response[v1.GetUsersAndGroupsResponse], error) {
+	return c.getUsersAndGroups.CallUnary(ctx, req)
+}
+
+// GetRemarks calls panel.agent.v1.FileService.GetRemarks.
+func (c *fileServiceClient) GetRemarks(ctx context.Context, req *connect.Request[v1.GetRemarksRequest]) (*connect.Response[v1.GetRemarksResponse], error) {
+	return c.getRemarks.CallUnary(ctx, req)
+}
+
+// SetRemark calls panel.agent.v1.FileService.SetRemark.
+func (c *fileServiceClient) SetRemark(ctx context.Context, req *connect.Request[v1.SetRemarkRequest]) (*connect.Response[v1.SetRemarkResponse], error) {
+	return c.setRemark.CallUnary(ctx, req)
+}
+
+// PreviewFile calls panel.agent.v1.FileService.PreviewFile.
+func (c *fileServiceClient) PreviewFile(ctx context.Context, req *connect.Request[v1.PreviewFileRequest]) (*connect.Response[v1.FileEntry], error) {
+	return c.previewFile.CallUnary(ctx, req)
+}
+
+// SaveFile calls panel.agent.v1.FileService.SaveFile.
+func (c *fileServiceClient) SaveFile(ctx context.Context, req *connect.Request[v1.SaveFileRequest]) (*connect.Response[v1.SaveFileResponse], error) {
+	return c.saveFile.CallUnary(ctx, req)
+}
+
+// ReadFileLines calls panel.agent.v1.FileService.ReadFileLines.
+func (c *fileServiceClient) ReadFileLines(ctx context.Context, req *connect.Request[v1.ReadFileLinesRequest]) (*connect.Response[v1.ReadFileLinesResponse], error) {
+	return c.readFileLines.CallUnary(ctx, req)
+}
+
+// ListMounts calls panel.agent.v1.FileService.ListMounts.
+func (c *fileServiceClient) ListMounts(ctx context.Context, req *connect.Request[v1.ListMountsRequest]) (*connect.Response[v1.ListMountsResponse], error) {
+	return c.listMounts.CallUnary(ctx, req)
+}
+
+// ClearRecycle calls panel.agent.v1.FileService.ClearRecycle.
+func (c *fileServiceClient) ClearRecycle(ctx context.Context, req *connect.Request[v1.ClearRecycleRequest]) (*connect.Response[v1.ClearRecycleResponse], error) {
+	return c.clearRecycle.CallUnary(ctx, req)
+}
+
+// GetRecycleStatus calls panel.agent.v1.FileService.GetRecycleStatus.
+func (c *fileServiceClient) GetRecycleStatus(ctx context.Context, req *connect.Request[v1.GetRecycleStatusRequest]) (*connect.Response[v1.GetRecycleStatusResponse], error) {
+	return c.getRecycleStatus.CallUnary(ctx, req)
+}
+
+// GetHistoryContent calls panel.agent.v1.FileService.GetHistoryContent.
+func (c *fileServiceClient) GetHistoryContent(ctx context.Context, req *connect.Request[v1.GetHistoryContentRequest]) (*connect.Response[v1.GetHistoryContentResponse], error) {
+	return c.getHistoryContent.CallUnary(ctx, req)
+}
+
+// DeleteHistory calls panel.agent.v1.FileService.DeleteHistory.
+func (c *fileServiceClient) DeleteHistory(ctx context.Context, req *connect.Request[v1.DeleteHistoryRequest]) (*connect.Response[v1.DeleteHistoryResponse], error) {
+	return c.deleteHistory.CallUnary(ctx, req)
+}
+
+// RestoreHistory calls panel.agent.v1.FileService.RestoreHistory.
+func (c *fileServiceClient) RestoreHistory(ctx context.Context, req *connect.Request[v1.RestoreHistoryRequest]) (*connect.Response[v1.FileEntry], error) {
+	return c.restoreHistory.CallUnary(ctx, req)
+}
+
+// ConvertFiles calls panel.agent.v1.FileService.ConvertFiles.
+func (c *fileServiceClient) ConvertFiles(ctx context.Context, req *connect.Request[v1.ConvertFilesRequest]) (*connect.Response[v1.ConvertFilesResponse], error) {
+	return c.convertFiles.CallUnary(ctx, req)
+}
+
+// SearchConvertLogs calls panel.agent.v1.FileService.SearchConvertLogs.
+func (c *fileServiceClient) SearchConvertLogs(ctx context.Context, req *connect.Request[v1.SearchConvertLogsRequest]) (*connect.Response[v1.SearchConvertLogsResponse], error) {
+	return c.searchConvertLogs.CallUnary(ctx, req)
+}
+
+// CreateShare calls panel.agent.v1.FileService.CreateShare.
+func (c *fileServiceClient) CreateShare(ctx context.Context, req *connect.Request[v1.CreateShareRequest]) (*connect.Response[v1.CreateShareResponse], error) {
+	return c.createShare.CallUnary(ctx, req)
+}
+
+// DeleteShare calls panel.agent.v1.FileService.DeleteShare.
+func (c *fileServiceClient) DeleteShare(ctx context.Context, req *connect.Request[v1.DeleteShareRequest]) (*connect.Response[v1.DeleteShareResponse], error) {
+	return c.deleteShare.CallUnary(ctx, req)
+}
+
+// GetShare calls panel.agent.v1.FileService.GetShare.
+func (c *fileServiceClient) GetShare(ctx context.Context, req *connect.Request[v1.GetShareRequest]) (*connect.Response[v1.GetShareResponse], error) {
+	return c.getShare.CallUnary(ctx, req)
+}
+
+// GetPublicShare calls panel.agent.v1.FileService.GetPublicShare.
+func (c *fileServiceClient) GetPublicShare(ctx context.Context, req *connect.Request[v1.GetPublicShareRequest]) (*connect.Response[v1.GetPublicShareResponse], error) {
+	return c.getPublicShare.CallUnary(ctx, req)
+}
+
+// CheckShare calls panel.agent.v1.FileService.CheckShare.
+func (c *fileServiceClient) CheckShare(ctx context.Context, req *connect.Request[v1.CheckShareRequest]) (*connect.Response[v1.CheckShareResponse], error) {
+	return c.checkShare.CallUnary(ctx, req)
+}
+
+// SearchShares calls panel.agent.v1.FileService.SearchShares.
+func (c *fileServiceClient) SearchShares(ctx context.Context, req *connect.Request[v1.SearchSharesRequest]) (*connect.Response[v1.SearchSharesResponse], error) {
+	return c.searchShares.CallUnary(ctx, req)
+}
+
+// Wget calls panel.agent.v1.FileService.Wget.
+func (c *fileServiceClient) Wget(ctx context.Context, req *connect.Request[v1.WgetRequest]) (*connect.Response[v1.WgetResponse], error) {
+	return c.wget.CallUnary(ctx, req)
+}
+
+// StopWget calls panel.agent.v1.FileService.StopWget.
+func (c *fileServiceClient) StopWget(ctx context.Context, req *connect.Request[v1.StopWgetRequest]) (*connect.Response[v1.StopWgetResponse], error) {
+	return c.stopWget.CallUnary(ctx, req)
+}
+
+// GetWgetProcessKeys calls panel.agent.v1.FileService.GetWgetProcessKeys.
+func (c *fileServiceClient) GetWgetProcessKeys(ctx context.Context, req *connect.Request[v1.GetWgetProcessKeysRequest]) (*connect.Response[v1.GetWgetProcessKeysResponse], error) {
+	return c.getWgetProcessKeys.CallUnary(ctx, req)
+}
+
+// RemoveWgetRecords calls panel.agent.v1.FileService.RemoveWgetRecords.
+func (c *fileServiceClient) RemoveWgetRecords(ctx context.Context, req *connect.Request[v1.RemoveWgetRecordsRequest]) (*connect.Response[v1.RemoveWgetRecordsResponse], error) {
+	return c.removeWgetRecords.CallUnary(ctx, req)
+}
+
 // FileServiceHandler is an implementation of the panel.agent.v1.FileService service.
 type FileServiceHandler interface {
 	// 列出目录内容或按关键字搜索文件。
@@ -303,6 +931,82 @@ type FileServiceHandler interface {
 	Compress(context.Context, *connect.Request[v1.CompressFilesRequest]) (*connect.Response[v1.CompressFilesResponse], error)
 	// 查询单个文件或目录的详情（含内容、权限、所有者）。
 	GetFile(context.Context, *connect.Request[v1.GetFileRequest]) (*connect.Response[v1.FileEntry], error)
+	// 新建文件或目录，也可创建符号链接。
+	CreateFile(context.Context, *connect.Request[v1.CreateFileRequest]) (*connect.Response[v1.CreateFileResponse], error)
+	// 检查路径是否存在，可选择在不存在时初始化目录。
+	CheckFile(context.Context, *connect.Request[v1.CheckFileRequest]) (*connect.Response[v1.CheckFileResponse], error)
+	// 批量检查路径是否存在。
+	BatchCheckFiles(context.Context, *connect.Request[v1.BatchCheckFilesRequest]) (*connect.Response[v1.BatchCheckFilesResponse], error)
+	// 批量删除文件或目录。
+	BatchDeleteFiles(context.Context, *connect.Request[v1.BatchDeleteFilesRequest]) (*connect.Response[v1.BatchDeleteFilesResponse], error)
+	// 批量修改权限与所属用户/组。
+	BatchChangeRole(context.Context, *connect.Request[v1.BatchChangeRoleRequest]) (*connect.Response[v1.BatchChangeRoleResponse], error)
+	// 修改文件或目录的所有者。
+	ChangeOwner(context.Context, *connect.Request[v1.ChangeOwnerRequest]) (*connect.Response[v1.ChangeOwnerResponse], error)
+	// 停止压缩任务。
+	StopCompress(context.Context, *connect.Request[v1.StopCompressRequest]) (*connect.Response[v1.StopCompressResponse], error)
+	// 停止解压任务。
+	StopDecompress(context.Context, *connect.Request[v1.StopDecompressRequest]) (*connect.Response[v1.StopDecompressResponse], error)
+	// 移动或复制文件与目录。
+	MoveFiles(context.Context, *connect.Request[v1.MoveFilesRequest]) (*connect.Response[v1.MoveFilesResponse], error)
+	// 停止移动任务。
+	StopMove(context.Context, *connect.Request[v1.StopMoveRequest]) (*connect.Response[v1.StopMoveResponse], error)
+	// 统计目录占用的总大小。
+	GetSize(context.Context, *connect.Request[v1.GetSizeRequest]) (*connect.Response[v1.GetSizeResponse], error)
+	// 按一级子项统计目录占用大小。
+	GetDepthSize(context.Context, *connect.Request[v1.GetDepthSizeRequest]) (*connect.Response[v1.GetDepthSizeResponse], error)
+	// 获取目录树。
+	GetFileTree(context.Context, *connect.Request[v1.GetFileTreeRequest]) (*connect.Response[v1.FileTreeResponse], error)
+	// 分页列出目录下已上传的文件（按修改时间倒序）。
+	SearchUpload(context.Context, *connect.Request[v1.SearchUploadRequest]) (*connect.Response[v1.SearchUploadResponse], error)
+	// 列出可选的系统用户与用户组，用于修改文件所有者。
+	GetUsersAndGroups(context.Context, *connect.Request[v1.GetUsersAndGroupsRequest]) (*connect.Response[v1.GetUsersAndGroupsResponse], error)
+	// 批量读取文件备注。
+	GetRemarks(context.Context, *connect.Request[v1.GetRemarksRequest]) (*connect.Response[v1.GetRemarksResponse], error)
+	// 设置或清除文件备注。
+	SetRemark(context.Context, *connect.Request[v1.SetRemarkRequest]) (*connect.Response[v1.SetRemarkResponse], error)
+	// 读取文件预览内容。
+	PreviewFile(context.Context, *connect.Request[v1.PreviewFileRequest]) (*connect.Response[v1.FileEntry], error)
+	// 保存文件内容。
+	SaveFile(context.Context, *connect.Request[v1.SaveFileRequest]) (*connect.Response[v1.SaveFileResponse], error)
+	// 按行读取日志类文件。
+	ReadFileLines(context.Context, *connect.Request[v1.ReadFileLinesRequest]) (*connect.Response[v1.ReadFileLinesResponse], error)
+	// 列出系统挂载点。
+	ListMounts(context.Context, *connect.Request[v1.ListMountsRequest]) (*connect.Response[v1.ListMountsResponse], error)
+	// 清空回收站。
+	ClearRecycle(context.Context, *connect.Request[v1.ClearRecycleRequest]) (*connect.Response[v1.ClearRecycleResponse], error)
+	// 查询回收站开关状态。
+	GetRecycleStatus(context.Context, *connect.Request[v1.GetRecycleStatusRequest]) (*connect.Response[v1.GetRecycleStatusResponse], error)
+	// 读取文件历史版本的内容。
+	GetHistoryContent(context.Context, *connect.Request[v1.GetHistoryContentRequest]) (*connect.Response[v1.GetHistoryContentResponse], error)
+	// 删除文件历史版本记录。
+	DeleteHistory(context.Context, *connect.Request[v1.DeleteHistoryRequest]) (*connect.Response[v1.DeleteHistoryResponse], error)
+	// 还原文件历史版本。
+	RestoreHistory(context.Context, *connect.Request[v1.RestoreHistoryRequest]) (*connect.Response[v1.FileEntry], error)
+	// 触发文件格式转换任务。
+	ConvertFiles(context.Context, *connect.Request[v1.ConvertFilesRequest]) (*connect.Response[v1.ConvertFilesResponse], error)
+	// 分页查询文件转换日志。
+	SearchConvertLogs(context.Context, *connect.Request[v1.SearchConvertLogsRequest]) (*connect.Response[v1.SearchConvertLogsResponse], error)
+	// 创建文件分享链接。
+	CreateShare(context.Context, *connect.Request[v1.CreateShareRequest]) (*connect.Response[v1.CreateShareResponse], error)
+	// 按路径关闭文件分享。
+	DeleteShare(context.Context, *connect.Request[v1.DeleteShareRequest]) (*connect.Response[v1.DeleteShareResponse], error)
+	// 按路径查询文件分享详情。
+	GetShare(context.Context, *connect.Request[v1.GetShareRequest]) (*connect.Response[v1.GetShareResponse], error)
+	// 按分享码查询公开分享信息，分享页未登录也要能读。
+	GetPublicShare(context.Context, *connect.Request[v1.GetPublicShareRequest]) (*connect.Response[v1.GetPublicShareResponse], error)
+	// 校验分享码与访问密码，分享页未登录也要能调用。
+	CheckShare(context.Context, *connect.Request[v1.CheckShareRequest]) (*connect.Response[v1.CheckShareResponse], error)
+	// 分页查询文件分享记录。
+	SearchShares(context.Context, *connect.Request[v1.SearchSharesRequest]) (*connect.Response[v1.SearchSharesResponse], error)
+	// 创建远程下载任务。
+	Wget(context.Context, *connect.Request[v1.WgetRequest]) (*connect.Response[v1.WgetResponse], error)
+	// 停止远程下载任务。
+	StopWget(context.Context, *connect.Request[v1.StopWgetRequest]) (*connect.Response[v1.StopWgetResponse], error)
+	// 列出下载任务的缓存键。
+	GetWgetProcessKeys(context.Context, *connect.Request[v1.GetWgetProcessKeysRequest]) (*connect.Response[v1.GetWgetProcessKeysResponse], error)
+	// 移除已结束的下载进度记录，不删除文件本身。
+	RemoveWgetRecords(context.Context, *connect.Request[v1.RemoveWgetRecordsRequest]) (*connect.Response[v1.RemoveWgetRecordsResponse], error)
 }
 
 // NewFileServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -390,6 +1094,234 @@ func NewFileServiceHandler(svc FileServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(fileServiceMethods.ByName("GetFile")),
 		connect.WithHandlerOptions(opts...),
 	)
+	fileServiceCreateFileHandler := connect.NewUnaryHandler(
+		FileServiceCreateFileProcedure,
+		svc.CreateFile,
+		connect.WithSchema(fileServiceMethods.ByName("CreateFile")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceCheckFileHandler := connect.NewUnaryHandler(
+		FileServiceCheckFileProcedure,
+		svc.CheckFile,
+		connect.WithSchema(fileServiceMethods.ByName("CheckFile")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceBatchCheckFilesHandler := connect.NewUnaryHandler(
+		FileServiceBatchCheckFilesProcedure,
+		svc.BatchCheckFiles,
+		connect.WithSchema(fileServiceMethods.ByName("BatchCheckFiles")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceBatchDeleteFilesHandler := connect.NewUnaryHandler(
+		FileServiceBatchDeleteFilesProcedure,
+		svc.BatchDeleteFiles,
+		connect.WithSchema(fileServiceMethods.ByName("BatchDeleteFiles")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceBatchChangeRoleHandler := connect.NewUnaryHandler(
+		FileServiceBatchChangeRoleProcedure,
+		svc.BatchChangeRole,
+		connect.WithSchema(fileServiceMethods.ByName("BatchChangeRole")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceChangeOwnerHandler := connect.NewUnaryHandler(
+		FileServiceChangeOwnerProcedure,
+		svc.ChangeOwner,
+		connect.WithSchema(fileServiceMethods.ByName("ChangeOwner")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceStopCompressHandler := connect.NewUnaryHandler(
+		FileServiceStopCompressProcedure,
+		svc.StopCompress,
+		connect.WithSchema(fileServiceMethods.ByName("StopCompress")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceStopDecompressHandler := connect.NewUnaryHandler(
+		FileServiceStopDecompressProcedure,
+		svc.StopDecompress,
+		connect.WithSchema(fileServiceMethods.ByName("StopDecompress")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceMoveFilesHandler := connect.NewUnaryHandler(
+		FileServiceMoveFilesProcedure,
+		svc.MoveFiles,
+		connect.WithSchema(fileServiceMethods.ByName("MoveFiles")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceStopMoveHandler := connect.NewUnaryHandler(
+		FileServiceStopMoveProcedure,
+		svc.StopMove,
+		connect.WithSchema(fileServiceMethods.ByName("StopMove")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetSizeHandler := connect.NewUnaryHandler(
+		FileServiceGetSizeProcedure,
+		svc.GetSize,
+		connect.WithSchema(fileServiceMethods.ByName("GetSize")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetDepthSizeHandler := connect.NewUnaryHandler(
+		FileServiceGetDepthSizeProcedure,
+		svc.GetDepthSize,
+		connect.WithSchema(fileServiceMethods.ByName("GetDepthSize")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetFileTreeHandler := connect.NewUnaryHandler(
+		FileServiceGetFileTreeProcedure,
+		svc.GetFileTree,
+		connect.WithSchema(fileServiceMethods.ByName("GetFileTree")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceSearchUploadHandler := connect.NewUnaryHandler(
+		FileServiceSearchUploadProcedure,
+		svc.SearchUpload,
+		connect.WithSchema(fileServiceMethods.ByName("SearchUpload")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetUsersAndGroupsHandler := connect.NewUnaryHandler(
+		FileServiceGetUsersAndGroupsProcedure,
+		svc.GetUsersAndGroups,
+		connect.WithSchema(fileServiceMethods.ByName("GetUsersAndGroups")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetRemarksHandler := connect.NewUnaryHandler(
+		FileServiceGetRemarksProcedure,
+		svc.GetRemarks,
+		connect.WithSchema(fileServiceMethods.ByName("GetRemarks")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceSetRemarkHandler := connect.NewUnaryHandler(
+		FileServiceSetRemarkProcedure,
+		svc.SetRemark,
+		connect.WithSchema(fileServiceMethods.ByName("SetRemark")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServicePreviewFileHandler := connect.NewUnaryHandler(
+		FileServicePreviewFileProcedure,
+		svc.PreviewFile,
+		connect.WithSchema(fileServiceMethods.ByName("PreviewFile")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceSaveFileHandler := connect.NewUnaryHandler(
+		FileServiceSaveFileProcedure,
+		svc.SaveFile,
+		connect.WithSchema(fileServiceMethods.ByName("SaveFile")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceReadFileLinesHandler := connect.NewUnaryHandler(
+		FileServiceReadFileLinesProcedure,
+		svc.ReadFileLines,
+		connect.WithSchema(fileServiceMethods.ByName("ReadFileLines")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceListMountsHandler := connect.NewUnaryHandler(
+		FileServiceListMountsProcedure,
+		svc.ListMounts,
+		connect.WithSchema(fileServiceMethods.ByName("ListMounts")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceClearRecycleHandler := connect.NewUnaryHandler(
+		FileServiceClearRecycleProcedure,
+		svc.ClearRecycle,
+		connect.WithSchema(fileServiceMethods.ByName("ClearRecycle")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetRecycleStatusHandler := connect.NewUnaryHandler(
+		FileServiceGetRecycleStatusProcedure,
+		svc.GetRecycleStatus,
+		connect.WithSchema(fileServiceMethods.ByName("GetRecycleStatus")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetHistoryContentHandler := connect.NewUnaryHandler(
+		FileServiceGetHistoryContentProcedure,
+		svc.GetHistoryContent,
+		connect.WithSchema(fileServiceMethods.ByName("GetHistoryContent")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceDeleteHistoryHandler := connect.NewUnaryHandler(
+		FileServiceDeleteHistoryProcedure,
+		svc.DeleteHistory,
+		connect.WithSchema(fileServiceMethods.ByName("DeleteHistory")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceRestoreHistoryHandler := connect.NewUnaryHandler(
+		FileServiceRestoreHistoryProcedure,
+		svc.RestoreHistory,
+		connect.WithSchema(fileServiceMethods.ByName("RestoreHistory")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceConvertFilesHandler := connect.NewUnaryHandler(
+		FileServiceConvertFilesProcedure,
+		svc.ConvertFiles,
+		connect.WithSchema(fileServiceMethods.ByName("ConvertFiles")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceSearchConvertLogsHandler := connect.NewUnaryHandler(
+		FileServiceSearchConvertLogsProcedure,
+		svc.SearchConvertLogs,
+		connect.WithSchema(fileServiceMethods.ByName("SearchConvertLogs")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceCreateShareHandler := connect.NewUnaryHandler(
+		FileServiceCreateShareProcedure,
+		svc.CreateShare,
+		connect.WithSchema(fileServiceMethods.ByName("CreateShare")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceDeleteShareHandler := connect.NewUnaryHandler(
+		FileServiceDeleteShareProcedure,
+		svc.DeleteShare,
+		connect.WithSchema(fileServiceMethods.ByName("DeleteShare")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetShareHandler := connect.NewUnaryHandler(
+		FileServiceGetShareProcedure,
+		svc.GetShare,
+		connect.WithSchema(fileServiceMethods.ByName("GetShare")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetPublicShareHandler := connect.NewUnaryHandler(
+		FileServiceGetPublicShareProcedure,
+		svc.GetPublicShare,
+		connect.WithSchema(fileServiceMethods.ByName("GetPublicShare")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceCheckShareHandler := connect.NewUnaryHandler(
+		FileServiceCheckShareProcedure,
+		svc.CheckShare,
+		connect.WithSchema(fileServiceMethods.ByName("CheckShare")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceSearchSharesHandler := connect.NewUnaryHandler(
+		FileServiceSearchSharesProcedure,
+		svc.SearchShares,
+		connect.WithSchema(fileServiceMethods.ByName("SearchShares")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceWgetHandler := connect.NewUnaryHandler(
+		FileServiceWgetProcedure,
+		svc.Wget,
+		connect.WithSchema(fileServiceMethods.ByName("Wget")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceStopWgetHandler := connect.NewUnaryHandler(
+		FileServiceStopWgetProcedure,
+		svc.StopWget,
+		connect.WithSchema(fileServiceMethods.ByName("StopWget")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceGetWgetProcessKeysHandler := connect.NewUnaryHandler(
+		FileServiceGetWgetProcessKeysProcedure,
+		svc.GetWgetProcessKeys,
+		connect.WithSchema(fileServiceMethods.ByName("GetWgetProcessKeys")),
+		connect.WithHandlerOptions(opts...),
+	)
+	fileServiceRemoveWgetRecordsHandler := connect.NewUnaryHandler(
+		FileServiceRemoveWgetRecordsProcedure,
+		svc.RemoveWgetRecords,
+		connect.WithSchema(fileServiceMethods.ByName("RemoveWgetRecords")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.FileService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case FileServiceListFilesProcedure:
@@ -418,6 +1350,82 @@ func NewFileServiceHandler(svc FileServiceHandler, opts ...connect.HandlerOption
 			fileServiceCompressHandler.ServeHTTP(w, r)
 		case FileServiceGetFileProcedure:
 			fileServiceGetFileHandler.ServeHTTP(w, r)
+		case FileServiceCreateFileProcedure:
+			fileServiceCreateFileHandler.ServeHTTP(w, r)
+		case FileServiceCheckFileProcedure:
+			fileServiceCheckFileHandler.ServeHTTP(w, r)
+		case FileServiceBatchCheckFilesProcedure:
+			fileServiceBatchCheckFilesHandler.ServeHTTP(w, r)
+		case FileServiceBatchDeleteFilesProcedure:
+			fileServiceBatchDeleteFilesHandler.ServeHTTP(w, r)
+		case FileServiceBatchChangeRoleProcedure:
+			fileServiceBatchChangeRoleHandler.ServeHTTP(w, r)
+		case FileServiceChangeOwnerProcedure:
+			fileServiceChangeOwnerHandler.ServeHTTP(w, r)
+		case FileServiceStopCompressProcedure:
+			fileServiceStopCompressHandler.ServeHTTP(w, r)
+		case FileServiceStopDecompressProcedure:
+			fileServiceStopDecompressHandler.ServeHTTP(w, r)
+		case FileServiceMoveFilesProcedure:
+			fileServiceMoveFilesHandler.ServeHTTP(w, r)
+		case FileServiceStopMoveProcedure:
+			fileServiceStopMoveHandler.ServeHTTP(w, r)
+		case FileServiceGetSizeProcedure:
+			fileServiceGetSizeHandler.ServeHTTP(w, r)
+		case FileServiceGetDepthSizeProcedure:
+			fileServiceGetDepthSizeHandler.ServeHTTP(w, r)
+		case FileServiceGetFileTreeProcedure:
+			fileServiceGetFileTreeHandler.ServeHTTP(w, r)
+		case FileServiceSearchUploadProcedure:
+			fileServiceSearchUploadHandler.ServeHTTP(w, r)
+		case FileServiceGetUsersAndGroupsProcedure:
+			fileServiceGetUsersAndGroupsHandler.ServeHTTP(w, r)
+		case FileServiceGetRemarksProcedure:
+			fileServiceGetRemarksHandler.ServeHTTP(w, r)
+		case FileServiceSetRemarkProcedure:
+			fileServiceSetRemarkHandler.ServeHTTP(w, r)
+		case FileServicePreviewFileProcedure:
+			fileServicePreviewFileHandler.ServeHTTP(w, r)
+		case FileServiceSaveFileProcedure:
+			fileServiceSaveFileHandler.ServeHTTP(w, r)
+		case FileServiceReadFileLinesProcedure:
+			fileServiceReadFileLinesHandler.ServeHTTP(w, r)
+		case FileServiceListMountsProcedure:
+			fileServiceListMountsHandler.ServeHTTP(w, r)
+		case FileServiceClearRecycleProcedure:
+			fileServiceClearRecycleHandler.ServeHTTP(w, r)
+		case FileServiceGetRecycleStatusProcedure:
+			fileServiceGetRecycleStatusHandler.ServeHTTP(w, r)
+		case FileServiceGetHistoryContentProcedure:
+			fileServiceGetHistoryContentHandler.ServeHTTP(w, r)
+		case FileServiceDeleteHistoryProcedure:
+			fileServiceDeleteHistoryHandler.ServeHTTP(w, r)
+		case FileServiceRestoreHistoryProcedure:
+			fileServiceRestoreHistoryHandler.ServeHTTP(w, r)
+		case FileServiceConvertFilesProcedure:
+			fileServiceConvertFilesHandler.ServeHTTP(w, r)
+		case FileServiceSearchConvertLogsProcedure:
+			fileServiceSearchConvertLogsHandler.ServeHTTP(w, r)
+		case FileServiceCreateShareProcedure:
+			fileServiceCreateShareHandler.ServeHTTP(w, r)
+		case FileServiceDeleteShareProcedure:
+			fileServiceDeleteShareHandler.ServeHTTP(w, r)
+		case FileServiceGetShareProcedure:
+			fileServiceGetShareHandler.ServeHTTP(w, r)
+		case FileServiceGetPublicShareProcedure:
+			fileServiceGetPublicShareHandler.ServeHTTP(w, r)
+		case FileServiceCheckShareProcedure:
+			fileServiceCheckShareHandler.ServeHTTP(w, r)
+		case FileServiceSearchSharesProcedure:
+			fileServiceSearchSharesHandler.ServeHTTP(w, r)
+		case FileServiceWgetProcedure:
+			fileServiceWgetHandler.ServeHTTP(w, r)
+		case FileServiceStopWgetProcedure:
+			fileServiceStopWgetHandler.ServeHTTP(w, r)
+		case FileServiceGetWgetProcessKeysProcedure:
+			fileServiceGetWgetProcessKeysHandler.ServeHTTP(w, r)
+		case FileServiceRemoveWgetRecordsProcedure:
+			fileServiceRemoveWgetRecordsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -477,4 +1485,156 @@ func (UnimplementedFileServiceHandler) Compress(context.Context, *connect.Reques
 
 func (UnimplementedFileServiceHandler) GetFile(context.Context, *connect.Request[v1.GetFileRequest]) (*connect.Response[v1.FileEntry], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetFile is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) CreateFile(context.Context, *connect.Request[v1.CreateFileRequest]) (*connect.Response[v1.CreateFileResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.CreateFile is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) CheckFile(context.Context, *connect.Request[v1.CheckFileRequest]) (*connect.Response[v1.CheckFileResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.CheckFile is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) BatchCheckFiles(context.Context, *connect.Request[v1.BatchCheckFilesRequest]) (*connect.Response[v1.BatchCheckFilesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.BatchCheckFiles is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) BatchDeleteFiles(context.Context, *connect.Request[v1.BatchDeleteFilesRequest]) (*connect.Response[v1.BatchDeleteFilesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.BatchDeleteFiles is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) BatchChangeRole(context.Context, *connect.Request[v1.BatchChangeRoleRequest]) (*connect.Response[v1.BatchChangeRoleResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.BatchChangeRole is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) ChangeOwner(context.Context, *connect.Request[v1.ChangeOwnerRequest]) (*connect.Response[v1.ChangeOwnerResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.ChangeOwner is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) StopCompress(context.Context, *connect.Request[v1.StopCompressRequest]) (*connect.Response[v1.StopCompressResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.StopCompress is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) StopDecompress(context.Context, *connect.Request[v1.StopDecompressRequest]) (*connect.Response[v1.StopDecompressResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.StopDecompress is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) MoveFiles(context.Context, *connect.Request[v1.MoveFilesRequest]) (*connect.Response[v1.MoveFilesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.MoveFiles is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) StopMove(context.Context, *connect.Request[v1.StopMoveRequest]) (*connect.Response[v1.StopMoveResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.StopMove is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetSize(context.Context, *connect.Request[v1.GetSizeRequest]) (*connect.Response[v1.GetSizeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetSize is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetDepthSize(context.Context, *connect.Request[v1.GetDepthSizeRequest]) (*connect.Response[v1.GetDepthSizeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetDepthSize is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetFileTree(context.Context, *connect.Request[v1.GetFileTreeRequest]) (*connect.Response[v1.FileTreeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetFileTree is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) SearchUpload(context.Context, *connect.Request[v1.SearchUploadRequest]) (*connect.Response[v1.SearchUploadResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.SearchUpload is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetUsersAndGroups(context.Context, *connect.Request[v1.GetUsersAndGroupsRequest]) (*connect.Response[v1.GetUsersAndGroupsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetUsersAndGroups is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetRemarks(context.Context, *connect.Request[v1.GetRemarksRequest]) (*connect.Response[v1.GetRemarksResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetRemarks is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) SetRemark(context.Context, *connect.Request[v1.SetRemarkRequest]) (*connect.Response[v1.SetRemarkResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.SetRemark is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) PreviewFile(context.Context, *connect.Request[v1.PreviewFileRequest]) (*connect.Response[v1.FileEntry], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.PreviewFile is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) SaveFile(context.Context, *connect.Request[v1.SaveFileRequest]) (*connect.Response[v1.SaveFileResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.SaveFile is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) ReadFileLines(context.Context, *connect.Request[v1.ReadFileLinesRequest]) (*connect.Response[v1.ReadFileLinesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.ReadFileLines is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) ListMounts(context.Context, *connect.Request[v1.ListMountsRequest]) (*connect.Response[v1.ListMountsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.ListMounts is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) ClearRecycle(context.Context, *connect.Request[v1.ClearRecycleRequest]) (*connect.Response[v1.ClearRecycleResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.ClearRecycle is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetRecycleStatus(context.Context, *connect.Request[v1.GetRecycleStatusRequest]) (*connect.Response[v1.GetRecycleStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetRecycleStatus is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetHistoryContent(context.Context, *connect.Request[v1.GetHistoryContentRequest]) (*connect.Response[v1.GetHistoryContentResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetHistoryContent is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) DeleteHistory(context.Context, *connect.Request[v1.DeleteHistoryRequest]) (*connect.Response[v1.DeleteHistoryResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.DeleteHistory is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) RestoreHistory(context.Context, *connect.Request[v1.RestoreHistoryRequest]) (*connect.Response[v1.FileEntry], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.RestoreHistory is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) ConvertFiles(context.Context, *connect.Request[v1.ConvertFilesRequest]) (*connect.Response[v1.ConvertFilesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.ConvertFiles is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) SearchConvertLogs(context.Context, *connect.Request[v1.SearchConvertLogsRequest]) (*connect.Response[v1.SearchConvertLogsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.SearchConvertLogs is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) CreateShare(context.Context, *connect.Request[v1.CreateShareRequest]) (*connect.Response[v1.CreateShareResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.CreateShare is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) DeleteShare(context.Context, *connect.Request[v1.DeleteShareRequest]) (*connect.Response[v1.DeleteShareResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.DeleteShare is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetShare(context.Context, *connect.Request[v1.GetShareRequest]) (*connect.Response[v1.GetShareResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetShare is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetPublicShare(context.Context, *connect.Request[v1.GetPublicShareRequest]) (*connect.Response[v1.GetPublicShareResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetPublicShare is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) CheckShare(context.Context, *connect.Request[v1.CheckShareRequest]) (*connect.Response[v1.CheckShareResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.CheckShare is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) SearchShares(context.Context, *connect.Request[v1.SearchSharesRequest]) (*connect.Response[v1.SearchSharesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.SearchShares is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) Wget(context.Context, *connect.Request[v1.WgetRequest]) (*connect.Response[v1.WgetResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.Wget is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) StopWget(context.Context, *connect.Request[v1.StopWgetRequest]) (*connect.Response[v1.StopWgetResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.StopWget is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) GetWgetProcessKeys(context.Context, *connect.Request[v1.GetWgetProcessKeysRequest]) (*connect.Response[v1.GetWgetProcessKeysResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.GetWgetProcessKeys is not implemented"))
+}
+
+func (UnimplementedFileServiceHandler) RemoveWgetRecords(context.Context, *connect.Request[v1.RemoveWgetRecordsRequest]) (*connect.Response[v1.RemoveWgetRecordsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.FileService.RemoveWgetRecords is not implemented"))
 }

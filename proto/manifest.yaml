@@ -55,6 +55,23 @@ excluded_prefixes:
     reason: 数据库模块已整体剔除
   - prefix: /core/auth/api/keys
     reason: 多 API Key 管理依赖 xpack 的 APIKeyOwnerProvider，社区版未实现，随 xpack 一并剔除
+  - prefix: /files/ai-search
+    reason: 文件 AI 搜索依赖模型服务，mypanel 不迁移 AI 能力
+  - prefix: /files/chunkdownload
+    reason: 分块下载是二进制流通道，保留 HTTP 实现
+  - prefix: /files/chunkupload
+    reason: 分块上传是二进制流通道，保留 HTTP 实现
+  - prefix: /files/download
+    reason: 文件下载是二进制流通道，保留 HTTP 实现
+  - prefix: /files/share/download
+    reason: 分享下载是二进制流通道，保留 HTTP 实现
+  - prefix: /files/share/qrcode
+    reason: 分享二维码返回 PNG 图片，保留 HTTP 实现
+  - prefix: /files/upload
+    exact: true
+    reason: 文件上传是 multipart 二进制通道，保留 HTTP 实现
+  - prefix: /files/wget/process
+    reason: 下载进度是 WebSocket 推送通道，不是普通 JSON 接口
 
 routes:
   "GET /apps/:key": panel.agent.v1.AppService.GetApp
@@ -87,6 +104,9 @@ routes:
   "GET /dashboard/base/os": panel.agent.v1.DashboardService.GetOsInfo
   "GET /dashboard/current/:ioOption/:netOption": panel.agent.v1.DashboardService.CurrentInfo
   "GET /dashboard/quick/option": panel.agent.v1.DashboardService.QuickJumps
+  "GET /files/recycle/status": panel.agent.v1.FileService.GetRecycleStatus
+  "GET /files/share/check": panel.agent.v1.FileService.CheckShare
+  "GET /files/share/info": panel.agent.v1.FileService.GetPublicShare
   "GET /hosts/components/:name": panel.agent.v1.HostService.CheckComponent
   "GET /hosts/diagnostics/goroutines": panel.agent.v1.HostService.GetDiagnosticsGoroutines
   "GET /hosts/diagnostics/summary": panel.agent.v1.HostService.GetDiagnosticsSummary
@@ -237,19 +257,52 @@ routes:
   "POST /cronjobs/records/log": panel.agent.v1.CronjobService.LoadRecordLog
   "POST /cronjobs/search": panel.agent.v1.CronjobService.Search
   "POST /cronjobs/search/records": panel.agent.v1.CronjobService.SearchRecords
+  "POST /files": panel.agent.v1.FileService.CreateFile
+  "POST /files/batch/check": panel.agent.v1.FileService.BatchCheckFiles
+  "POST /files/batch/del": panel.agent.v1.FileService.BatchDeleteFiles
+  "POST /files/batch/role": panel.agent.v1.FileService.BatchChangeRole
+  "POST /files/check": panel.agent.v1.FileService.CheckFile
   "POST /files/compress": panel.agent.v1.FileService.Compress
+  "POST /files/compress/stop": panel.agent.v1.FileService.StopCompress
   "POST /files/content": panel.agent.v1.FileService.GetFile
+  "POST /files/convert": panel.agent.v1.FileService.ConvertFiles
+  "POST /files/convert/log": panel.agent.v1.FileService.SearchConvertLogs
   "POST /files/decompress": panel.agent.v1.FileService.DeCompress
+  "POST /files/decompress/stop": panel.agent.v1.FileService.StopDecompress
   "POST /files/del": panel.agent.v1.FileService.Delete
+  "POST /files/depth/size": panel.agent.v1.FileService.GetDepthSize
   "POST /files/favorite": panel.agent.v1.FileService.AddFavorite
   "POST /files/favorite/del": panel.agent.v1.FileService.DeleteFavorite
   "POST /files/favorite/search": panel.agent.v1.FileService.SearchFavorites
+  "POST /files/history/content": panel.agent.v1.FileService.GetHistoryContent
+  "POST /files/history/del": panel.agent.v1.FileService.DeleteHistory
+  "POST /files/history/restore": panel.agent.v1.FileService.RestoreHistory
   "POST /files/history/search": panel.agent.v1.FileService.SearchHistory
   "POST /files/mode": panel.agent.v1.FileService.ChangeMode
+  "POST /files/mount": panel.agent.v1.FileService.ListMounts
+  "POST /files/move": panel.agent.v1.FileService.MoveFiles
+  "POST /files/move/stop": panel.agent.v1.FileService.StopMove
+  "POST /files/owner": panel.agent.v1.FileService.ChangeOwner
+  "POST /files/preview": panel.agent.v1.FileService.PreviewFile
+  "POST /files/read/:type": panel.agent.v1.FileService.ReadFileLines
+  "POST /files/recycle/clear": panel.agent.v1.FileService.ClearRecycle
   "POST /files/recycle/reduce": panel.agent.v1.FileService.RestoreRecycle
   "POST /files/recycle/search": panel.agent.v1.FileService.SearchRecycle
+  "POST /files/remark": panel.agent.v1.FileService.SetRemark
+  "POST /files/remarks": panel.agent.v1.FileService.GetRemarks
   "POST /files/rename": panel.agent.v1.FileService.ChangeName
+  "POST /files/save": panel.agent.v1.FileService.SaveFile
   "POST /files/search": panel.agent.v1.FileService.ListFiles
+  "POST /files/share/create": panel.agent.v1.FileService.CreateShare
+  "POST /files/share/del": panel.agent.v1.FileService.DeleteShare
+  "POST /files/share/detail": panel.agent.v1.FileService.GetShare
+  "POST /files/share/search": panel.agent.v1.FileService.SearchShares
+  "POST /files/size": panel.agent.v1.FileService.GetSize
+  "POST /files/tree": panel.agent.v1.FileService.GetFileTree
+  "POST /files/upload/search": panel.agent.v1.FileService.SearchUpload
+  "POST /files/user/group": panel.agent.v1.FileService.GetUsersAndGroups
+  "POST /files/wget": panel.agent.v1.FileService.Wget
+  "POST /files/wget/stop": panel.agent.v1.FileService.StopWget
   "POST /hosts": panel.agent.v1.HostService.Create
   "POST /hosts/del": panel.agent.v1.HostService.DeleteHosts
   "POST /hosts/diagnostics/profiles": panel.agent.v1.HostService.CreateDiagnosticsProfile

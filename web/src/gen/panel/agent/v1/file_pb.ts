@@ -17,7 +17,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file panel/agent/v1/file.proto.
  */
 export const file_panel_agent_v1_file: GenFile = /*@__PURE__*/
-  fileDesc("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Z2VudC52MS5GaWxlSGlzdG9yeUVudHJ5Eg0KBXRvdGFsGAIgASgDItsBChBGaWxlSGlzdG9yeUVudHJ5EgoKAmlkGAEgASgNEg8KB2ZpbGVfaWQYAiABKAkSDAoEcGF0aBgDIAEoCRIUCgxjdXJyZW50X3BhdGgYBCABKAkSEQoJZmlsZV9uYW1lGAUgASgJEhEKCWV4dGVuc2lvbhgGIAEoCRIRCglvcGVyYXRpb24YByABKAkSDwoHZGVsZXRlZBgIIAEoCBIUCgxjb250ZW50X3NpemUYCSABKAMSEgoKY3JlYXRlZF9hdBgKIAEoCRISCgp1cGRhdGVkX2F0GAsgASgJMvwLCgtGaWxlU2VydmljZRJRCglMaXN0RmlsZXMSIC5wYW5lbC5hZ2VudC52MS5MaXN0RmlsZXNSZXF1ZXN0GhgucGFuZWwuYWdlbnQudjEuRmlsZUxpc3QiCIq1GAQYATABEocBCgpDaGFuZ2VNb2RlEiUucGFuZWwuYWdlbnQudjEuQ2hhbmdlRmlsZU1vZGVSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuQ2hhbmdlRmlsZU1vZGVSZXNwb25zZSIqirUYJiIS5L+u5pS55paH5Lu25p2D6ZmQKhBDaGFuZ2UgZmlsZSBtb2RlEngKC0FkZEZhdm9yaXRlEiIucGFuZWwuYWdlbnQudjEuQWRkRmF2b3JpdGVSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuQWRkRmF2b3JpdGVSZXNwb25zZSIgirUYHCIM5re75Yqg5pS26JePKgxBZGQgZmF2b3JpdGUShAEKDkRlbGV0ZUZhdm9yaXRlEiUucGFuZWwuYWdlbnQudjEuRGVsZXRlRmF2b3JpdGVSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuRGVsZXRlRmF2b3JpdGVSZXNwb25zZSIjirUYHyIM5Yig6Zmk5pS26JePKg9EZWxldGUgZmF2b3JpdGUSbgoNU2VhcmNoSGlzdG9yeRIoLnBhbmVsLmFnZW50LnYxLlNlYXJjaEZpbGVIaXN0b3J5UmVxdWVzdBopLnBhbmVsLmFnZW50LnYxLlNlYXJjaEZpbGVIaXN0b3J5UmVzcG9uc2UiCIq1GAQYATABEmwKD1NlYXJjaEZhdm9yaXRlcxImLnBhbmVsLmFnZW50LnYxLlNlYXJjaEZhdm9yaXRlc1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5TZWFyY2hGYXZvcml0ZXNSZXNwb25zZSIIirUYBBgBMAESgQEKDlJlc3RvcmVSZWN5Y2xlEiUucGFuZWwuYWdlbnQudjEuUmVzdG9yZVJlY3ljbGVSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuUmVzdG9yZVJlY3ljbGVSZXNwb25zZSIgirUYHCIM6L+Y5Y6f5paH5Lu2KgxSZXN0b3JlIGZpbGUSZgoNU2VhcmNoUmVjeWNsZRIkLnBhbmVsLmFnZW50LnYxLlNlYXJjaFJlY3ljbGVSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuU2VhcmNoUmVjeWNsZVJlc3BvbnNlIgiKtRgEGAEwARJyCgZEZWxldGUSIi5wYW5lbC5hZ2VudC52MS5EZWxldGVGaWxlc1JlcXVlc3QaIy5wYW5lbC5hZ2VudC52MS5EZWxldGVGaWxlc1Jlc3BvbnNlIh+KtRgbIgzliKDpmaTmlofku7YqC0RlbGV0ZSBmaWxlEn8KCkNoYW5nZU5hbWUSJS5wYW5lbC5hZ2VudC52MS5DaGFuZ2VGaWxlTmFtZVJlcXVlc3QaJi5wYW5lbC5hZ2VudC52MS5DaGFuZ2VGaWxlTmFtZVJlc3BvbnNlIiKKtRgeIg/ph43lkb3lkI3mlofku7YqC1JlbmFtZSBmaWxlEoIBCgpEZUNvbXByZXNzEiYucGFuZWwuYWdlbnQudjEuRGVjb21wcmVzc0ZpbGVzUmVxdWVzdBonLnBhbmVsLmFnZW50LnYxLkRlY29tcHJlc3NGaWxlc1Jlc3BvbnNlIiOKtRgfIgzop6Pljovmlofku7YqD0RlY29tcHJlc3MgZmlsZRJ7CghDb21wcmVzcxIkLnBhbmVsLmFnZW50LnYxLkNvbXByZXNzRmlsZXNSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuQ29tcHJlc3NGaWxlc1Jlc3BvbnNlIiKKtRgeIgzljovnvKnmlofku7YqDkNvbXByZXNzIGZpbGVzEk4KB0dldEZpbGUSHi5wYW5lbC5hZ2VudC52MS5HZXRGaWxlUmVxdWVzdBoZLnBhbmVsLmFnZW50LnYxLkZpbGVFbnRyeSIIirUYBBgBMAFCLVorbXlwYW5lbC9wcm90by9nZW4vZ28vcGFuZWwvYWdlbnQvdjE7YWdlbnR2MWIGcHJvdG8z", [file_buf_validate_validate, file_panel_common_v1_options]);
+  fileDesc("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Z2VudC52MS5GaWxlSGlzdG9yeUVudHJ5Eg0KBXRvdGFsGAIgASgDItsBChBGaWxlSGlzdG9yeUVudHJ5EgoKAmlkGAEgASgNEg8KB2ZpbGVfaWQYAiABKAkSDAoEcGF0aBgDIAEoCRIUCgxjdXJyZW50X3BhdGgYBCABKAkSEQoJZmlsZV9uYW1lGAUgASgJEhEKCWV4dGVuc2lvbhgGIAEoCRIRCglvcGVyYXRpb24YByABKAkSDwoHZGVsZXRlZBgIIAEoCBIUCgxjb250ZW50X3NpemUYCSABKAMSEgoKY3JlYXRlZF9hdBgKIAEoCRISCgp1cGRhdGVkX2F0GAsgASgJIqcBChFDcmVhdGVGaWxlUmVxdWVzdBIVCgRwYXRoGAEgASgJQge6SARyAhABEg8KB2NvbnRlbnQYAiABKAkSDgoGaXNfZGlyGAMgASgIEhUKBG1vZGUYBCABKANCB7pIBCICKAASDwoHaXNfbGluaxgFIAEoCBISCgppc19zeW1saW5rGAYgASgIEhEKCWxpbmtfcGF0aBgHIAEoCRILCgNzdWIYCCABKAgiFAoSQ3JlYXRlRmlsZVJlc3BvbnNlIjwKEENoZWNrRmlsZVJlcXVlc3QSFQoEcGF0aBgBIAEoCUIHukgEcgIQARIRCgl3aXRoX2luaXQYAiABKAgiIwoRQ2hlY2tGaWxlUmVzcG9uc2USDgoGZXhpc3RzGAEgASgIIjEKFkJhdGNoQ2hlY2tGaWxlc1JlcXVlc3QSFwoFcGF0aHMYASADKAlCCLpIBZIBAggBIkcKF0JhdGNoQ2hlY2tGaWxlc1Jlc3BvbnNlEiwKBWl0ZW1zGAEgAygLMh0ucGFuZWwuYWdlbnQudjEuRXhpc3RGaWxlSW5mbyJbCg1FeGlzdEZpbGVJbmZvEgwKBG5hbWUYASABKAkSDAoEcGF0aBgCIAEoCRIMCgRzaXplGAMgASgDEhAKCG1vZF90aW1lGAQgASgJEg4KBmlzX2RpchgFIAEoCCJCChdCYXRjaERlbGV0ZUZpbGVzUmVxdWVzdBIXCgVwYXRocxgBIAMoCUIIukgFkgECCAESDgoGaXNfZGlyGAIgASgIIhoKGEJhdGNoRGVsZXRlRmlsZXNSZXNwb25zZSKEAQoWQmF0Y2hDaGFuZ2VSb2xlUmVxdWVzdBIXCgVwYXRocxgBIAMoCUIIukgFkgECCAESFQoEbW9kZRgCIAEoA0IHukgEIgIoABIVCgR1c2VyGAMgASgJQge6SARyAhABEhYKBWdyb3VwGAQgASgJQge6SARyAhABEgsKA3N1YhgFIAEoCCIZChdCYXRjaENoYW5nZVJvbGVSZXNwb25zZSJnChJDaGFuZ2VPd25lclJlcXVlc3QSFQoEcGF0aBgBIAEoCUIHukgEcgIQARIVCgR1c2VyGAIgASgJQge6SARyAhABEhYKBWdyb3VwGAMgASgJQge6SARyAhABEgsKA3N1YhgEIAEoCCIVChNDaGFuZ2VPd25lclJlc3BvbnNlIi8KE1N0b3BDb21wcmVzc1JlcXVlc3QSGAoHdGFza19pZBgBIAEoCUIHukgEcgIQASIWChRTdG9wQ29tcHJlc3NSZXNwb25zZSIxChVTdG9wRGVjb21wcmVzc1JlcXVlc3QSGAoHdGFza19pZBgBIAEoCUIHukgEcgIQASIYChZTdG9wRGVjb21wcmVzc1Jlc3BvbnNlIq0BChBNb3ZlRmlsZXNSZXF1ZXN0Eh4KBHR5cGUYASABKAlCELpIDXILUgNjdXRSBGNvcHkSGwoJb2xkX3BhdGhzGAIgAygJQgi6SAWSAQIIARIZCghuZXdfcGF0aBgDIAEoCUIHukgEcgIQARIMCgRuYW1lGAQgASgJEg0KBWNvdmVyGAUgASgIEhMKC2NvdmVyX3BhdGhzGAYgAygJEg8KB3Rhc2tfaWQYByABKAkiJAoRTW92ZUZpbGVzUmVzcG9uc2USDwoHdGFza19pZBgBIAEoCSIrCg9TdG9wTW92ZVJlcXVlc3QSGAoHdGFza19pZBgBIAEoCUIHukgEcgIQASISChBTdG9wTW92ZVJlc3BvbnNlIicKDkdldFNpemVSZXF1ZXN0EhUKBHBhdGgYASABKAlCB7pIBHICEAEiHwoPR2V0U2l6ZVJlc3BvbnNlEgwKBHNpemUYASABKAMiLAoTR2V0RGVwdGhTaXplUmVxdWVzdBIVCgRwYXRoGAEgASgJQge6SARyAhABIkAKFEdldERlcHRoU2l6ZVJlc3BvbnNlEigKBWl0ZW1zGAEgAygLMhkucGFuZWwuYWdlbnQudjEuRGVwdGhTaXplIicKCURlcHRoU2l6ZRIMCgRwYXRoGAEgASgJEgwKBHNpemUYAiABKAMiygEKEkdldEZpbGVUcmVlUmVxdWVzdBIVCgRwYXRoGAEgASgJQge6SARyAhABEhgKBnNlYXJjaBgCIAEoCUIIukgFcgMYgAESEwoLY29udGFpbl9zdWIYAyABKAgSCwoDZGlyGAQgASgIEhMKC3Nob3dfaGlkZGVuGAUgASgIEhgKB3NvcnRfYnkYBiABKAlCB7pIBHICGCASMgoKc29ydF9vcmRlchgHIAEoCUIeukgbchlSAFIJYXNjZW5kaW5nUgpkZXNjZW5kaW5nIj8KEEZpbGVUcmVlUmVzcG9uc2USKwoFaXRlbXMYASADKAsyHC5wYW5lbC5hZ2VudC52MS5GaWxlVHJlZU5vZGUiiQEKDEZpbGVUcmVlTm9kZRIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEgwKBHBhdGgYAyABKAkSDgoGaXNfZGlyGAQgASgIEhEKCWV4dGVuc2lvbhgFIAEoCRIuCghjaGlsZHJlbhgGIAMoCzIcLnBhbmVsLmFnZW50LnYxLkZpbGVUcmVlTm9kZSJiChNTZWFyY2hVcGxvYWRSZXF1ZXN0EhUKBHBhdGgYASABKAlCB7pIBHICEAESFQoEcGFnZRgCIAEoBUIHukgEGgIoARIdCglwYWdlX3NpemUYAyABKAVCCrpIBxoFGOgHKAEiUQoUU2VhcmNoVXBsb2FkUmVzcG9uc2USKgoFaXRlbXMYASADKAsyGy5wYW5lbC5hZ2VudC52MS5VcGxvYWRFbnRyeRINCgV0b3RhbBgCIAEoAyI9CgtVcGxvYWRFbnRyeRIMCgRuYW1lGAEgASgJEgwKBHNpemUYAiABKAMSEgoKY3JlYXRlZF9hdBgDIAEoCSIaChhHZXRVc2Vyc0FuZEdyb3Vwc1JlcXVlc3QiVgoZR2V0VXNlcnNBbmRHcm91cHNSZXNwb25zZRIpCgV1c2VycxgBIAMoCzIaLnBhbmVsLmFnZW50LnYxLlN5c3RlbVVzZXISDgoGZ3JvdXBzGAIgAygJIi0KClN5c3RlbVVzZXISEAoIdXNlcm5hbWUYASABKAkSDQoFZ3JvdXAYAiABKAkiLAoRR2V0UmVtYXJrc1JlcXVlc3QSFwoFcGF0aHMYASADKAlCCLpIBZIBAggBIoYBChJHZXRSZW1hcmtzUmVzcG9uc2USQAoHcmVtYXJrcxgBIAMoCzIvLnBhbmVsLmFnZW50LnYxLkdldFJlbWFya3NSZXNwb25zZS5SZW1hcmtzRW50cnkaLgoMUmVtYXJrc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEiOQoQU2V0UmVtYXJrUmVxdWVzdBIVCgRwYXRoGAEgASgJQge6SARyAhABEg4KBnJlbWFyaxgCIAEoCSITChFTZXRSZW1hcmtSZXNwb25zZSI+ChJQcmV2aWV3RmlsZVJlcXVlc3QSFQoEcGF0aBgBIAEoCUIHukgEcgIQARIRCglpc19kZXRhaWwYAiABKAgiOQoPU2F2ZUZpbGVSZXF1ZXN0EhUKBHBhdGgYASABKAlCB7pIBHICEAESDwoHY29udGVudBgCIAEoCSISChBTYXZlRmlsZVJlc3BvbnNlItABChRSZWFkRmlsZUxpbmVzUmVxdWVzdBIVCgRwYWdlGAEgASgFQge6SAQaAigBEhoKCXBhZ2Vfc2l6ZRgCIAEoBUIHukgEGgIoARIMCgR0eXBlGAMgASgJEgoKAmlkGAQgASgNEgwKBG5hbWUYBSABKAkSDgoGbGF0ZXN0GAYgASgIEg8KB3Rhc2tfaWQYByABKAkSEQoJdGFza190eXBlGAggASgJEhQKDHRhc2tfb3BlcmF0ZRgJIAEoCRITCgtyZXNvdXJjZV9pZBgKIAEoDSKJAQoVUmVhZEZpbGVMaW5lc1Jlc3BvbnNlEgsKA2VuZBgBIAEoCBIMCgRwYXRoGAIgASgJEg0KBXRvdGFsGAMgASgFEhMKC3Rhc2tfc3RhdHVzGAQgASgJEg0KBWxpbmVzGAUgAygJEg0KBXNjb3BlGAYgASgJEhMKC3RvdGFsX2xpbmVzGAcgASgFIhMKEUxpc3RNb3VudHNSZXF1ZXN0Ij4KEkxpc3RNb3VudHNSZXNwb25zZRIoCgVpdGVtcxgBIAMoCzIZLnBhbmVsLmFnZW50LnYxLk1vdW50SW5mbyLVAQoJTW91bnRJbmZvEgwKBHBhdGgYASABKAkSDAoEdHlwZRgCIAEoCRIOCgZkZXZpY2UYAyABKAkSDQoFdG90YWwYBCABKAQSDAoEZnJlZRgFIAEoBBIMCgR1c2VkGAYgASgEEhQKDHVzZWRfcGVyY2VudBgHIAEoARIUCgxpbm9kZXNfdG90YWwYCCABKAQSEwoLaW5vZGVzX3VzZWQYCSABKAQSEwoLaW5vZGVzX2ZyZWUYCiABKAQSGwoTaW5vZGVzX3VzZWRfcGVyY2VudBgLIAEoASIVChNDbGVhclJlY3ljbGVSZXF1ZXN0IhYKFENsZWFyUmVjeWNsZVJlc3BvbnNlIhkKF0dldFJlY3ljbGVTdGF0dXNSZXF1ZXN0IioKGEdldFJlY3ljbGVTdGF0dXNSZXNwb25zZRIOCgZzdGF0dXMYASABKAkiLwoYR2V0SGlzdG9yeUNvbnRlbnRSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIvUCChlHZXRIaXN0b3J5Q29udGVudFJlc3BvbnNlEgoKAmlkGAEgASgNEg8KB2ZpbGVfaWQYAiABKAkSDAoEcGF0aBgDIAEoCRIUCgxjdXJyZW50X3BhdGgYBCABKAkSEwoLcHJldmlvdXNfaWQYBSABKA0SEwoLc291cmNlX3BhdGgYBiABKAkSEwoLdGFyZ2V0X3BhdGgYByABKAkSEQoJZmlsZV9uYW1lGAggASgJEhEKCWV4dGVuc2lvbhgJIAEoCRIRCglmaWxlX21vZGUYCiABKAkSEQoJb3BlcmF0aW9uGAsgASgJEg8KB2RlbGV0ZWQYDCABKAgSFAoMY29udGVudF9zaXplGA0gASgDEhMKC2NvbnRlbnRfc2hhGA4gASgJEg8KB2NvbnRlbnQYDyABKAkSFwoPY3VycmVudF9jb250ZW50GBAgASgJEhIKCmNyZWF0ZWRfYXQYESABKAkSEgoKdXBkYXRlZF9hdBgSIAEoCSItChREZWxldGVIaXN0b3J5UmVxdWVzdBIVCgNpZHMYASADKA1CCLpIBZIBAggBIhcKFURlbGV0ZUhpc3RvcnlSZXNwb25zZSIsChVSZXN0b3JlSGlzdG9yeVJlcXVlc3QSEwoCaWQYASABKA1CB7pIBCoCIAAilQEKE0NvbnZlcnRGaWxlc1JlcXVlc3QSOAoFZmlsZXMYASADKAsyHy5wYW5lbC5hZ2VudC52MS5Db252ZXJ0RmlsZUl0ZW1CCLpIBZIBAggBEhwKC291dHB1dF9wYXRoGAIgASgJQge6SARyAhABEhUKDWRlbGV0ZV9zb3VyY2UYAyABKAgSDwoHdGFza19pZBgEIAEoCSKoAQoPQ29udmVydEZpbGVJdGVtEhUKBHBhdGgYASABKAlCB7pIBHICEAESFQoEdHlwZRgCIAEoCUIHukgEcgIQARIbCgppbnB1dF9maWxlGAMgASgJQge6SARyAhABEhoKCWV4dGVuc2lvbhgEIAEoCUIHukgEcgIQARIeCg1vdXRwdXRfZm9ybWF0GAUgASgJQge6SARyAhABEg4KBnN0YXR1cxgGIAEoCSIWChRDb252ZXJ0RmlsZXNSZXNwb25zZSJQChhTZWFyY2hDb252ZXJ0TG9nc1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIdCglwYWdlX3NpemUYAiABKAVCCrpIBxoFGOgHKAEiWgoZU2VhcmNoQ29udmVydExvZ3NSZXNwb25zZRIuCgVpdGVtcxgBIAMoCzIfLnBhbmVsLmFnZW50LnYxLkNvbnZlcnRMb2dFbnRyeRINCgV0b3RhbBgCIAEoAyJbCg9Db252ZXJ0TG9nRW50cnkSDAoEZGF0ZRgBIAEoCRIMCgR0eXBlGAIgASgJEgsKA2xvZxgDIAEoCRIOCgZzdGF0dXMYBCABKAkSDwoHbWVzc2FnZRgFIAEoCSJzChJDcmVhdGVTaGFyZVJlcXVlc3QSFQoEcGF0aBgBIAEoCUIHukgEcgIQARIiCg5leHBpcmVfbWludXRlcxgCIAEoBUIKukgHGgUY4E4oABIVCghwYXNzd29yZBgDIAEoCUgAiAEBQgsKCV9wYXNzd29yZCJDChNDcmVhdGVTaGFyZVJlc3BvbnNlEiwKBXNoYXJlGAEgASgLMh0ucGFuZWwuYWdlbnQudjEuRmlsZVNoYXJlSW5mbyKNAQoNRmlsZVNoYXJlSW5mbxIMCgRjb2RlGAEgASgJEgwKBHBhdGgYAiABKAkSEQoJZmlsZV9uYW1lGAMgASgJEhIKCmV4cGlyZXNfYXQYBCABKAMSEQoJcGVybWFuZW50GAUgASgIEhQKDGhhc19wYXNzd29yZBgGIAEoCBIQCghwYXNzd29yZBgHIAEoCSIrChJEZWxldGVTaGFyZVJlcXVlc3QSFQoEcGF0aBgBIAEoCUIHukgEcgIQASIVChNEZWxldGVTaGFyZVJlc3BvbnNlIigKD0dldFNoYXJlUmVxdWVzdBIVCgRwYXRoGAEgASgJQge6SARyAhABIkAKEEdldFNoYXJlUmVzcG9uc2USLAoFc2hhcmUYASABKAsyHS5wYW5lbC5hZ2VudC52MS5GaWxlU2hhcmVJbmZvIi4KFUdldFB1YmxpY1NoYXJlUmVxdWVzdBIVCgRjb2RlGAEgASgJQge6SARyAhABImgKFkdldFB1YmxpY1NoYXJlUmVzcG9uc2USEQoJZmlsZV9uYW1lGAEgASgJEhIKCmV4cGlyZXNfYXQYAiABKAMSEQoJcGVybWFuZW50GAMgASgIEhQKDGhhc19wYXNzd29yZBgEIAEoCCI8ChFDaGVja1NoYXJlUmVxdWVzdBIVCgRjb2RlGAEgASgJQge6SARyAhABEhAKCHBhc3N3b3JkGAIgASgJIhQKEkNoZWNrU2hhcmVSZXNwb25zZSJKChNTZWFyY2hTaGFyZXNSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAEiUwoUU2VhcmNoU2hhcmVzUmVzcG9uc2USLAoFaXRlbXMYASADKAsyHS5wYW5lbC5hZ2VudC52MS5GaWxlU2hhcmVJbmZvEg0KBXRvdGFsGAIgASgDIp0BCgtXZ2V0UmVxdWVzdBIUCgN1cmwYASABKAlCB7pIBHICEAESFQoEcGF0aBgCIAEoCUIHukgEcgIQARIVCgRuYW1lGAMgASgJQge6SARyAhABEhoKEmlnbm9yZV9jZXJ0aWZpY2F0ZRgEIAEoCBIRCgl1c2VfcHJveHkYBSABKAgSGwoTdXNlX3NlcnZlcl9maWxlbmFtZRgGIAEoCCIbCgxXZ2V0UmVzcG9uc2USCwoDa2V5GAEgASgJIicKD1N0b3BXZ2V0UmVxdWVzdBIUCgNrZXkYASABKAlCB7pIBHICEAEiEgoQU3RvcFdnZXRSZXNwb25zZSIbChlHZXRXZ2V0UHJvY2Vzc0tleXNSZXF1ZXN0IioKGkdldFdnZXRQcm9jZXNzS2V5c1Jlc3BvbnNlEgwKBGtleXMYASADKAkiNQoYUmVtb3ZlV2dldFJlY29yZHNSZXF1ZXN0EhkKBGtleXMYASADKAlCC7pICJIBBQgBEOgHIikKGVJlbW92ZVdnZXRSZWNvcmRzUmVzcG9uc2USDAoEa2V5cxgBIAMoCTL/LgoLRmlsZVNlcnZpY2USUQoJTGlzdEZpbGVzEiAucGFuZWwuYWdlbnQudjEuTGlzdEZpbGVzUmVxdWVzdBoYLnBhbmVsLmFnZW50LnYxLkZpbGVMaXN0IgiKtRgEGAEwARKHAQoKQ2hhbmdlTW9kZRIlLnBhbmVsLmFnZW50LnYxLkNoYW5nZUZpbGVNb2RlUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLkNoYW5nZUZpbGVNb2RlUmVzcG9uc2UiKoq1GCYiEuS/ruaUueaWh+S7tuadg+mZkCoQQ2hhbmdlIGZpbGUgbW9kZRJ4CgtBZGRGYXZvcml0ZRIiLnBhbmVsLmFnZW50LnYxLkFkZEZhdm9yaXRlUmVxdWVzdBojLnBhbmVsLmFnZW50LnYxLkFkZEZhdm9yaXRlUmVzcG9uc2UiIIq1GBwiDOa3u+WKoOaUtuiXjyoMQWRkIGZhdm9yaXRlEoQBCg5EZWxldGVGYXZvcml0ZRIlLnBhbmVsLmFnZW50LnYxLkRlbGV0ZUZhdm9yaXRlUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLkRlbGV0ZUZhdm9yaXRlUmVzcG9uc2UiI4q1GB8iDOWIoOmZpOaUtuiXjyoPRGVsZXRlIGZhdm9yaXRlEm4KDVNlYXJjaEhpc3RvcnkSKC5wYW5lbC5hZ2VudC52MS5TZWFyY2hGaWxlSGlzdG9yeVJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5TZWFyY2hGaWxlSGlzdG9yeVJlc3BvbnNlIgiKtRgEGAEwARJsCg9TZWFyY2hGYXZvcml0ZXMSJi5wYW5lbC5hZ2VudC52MS5TZWFyY2hGYXZvcml0ZXNSZXF1ZXN0GicucGFuZWwuYWdlbnQudjEuU2VhcmNoRmF2b3JpdGVzUmVzcG9uc2UiCIq1GAQYATABEoEBCg5SZXN0b3JlUmVjeWNsZRIlLnBhbmVsLmFnZW50LnYxLlJlc3RvcmVSZWN5Y2xlUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLlJlc3RvcmVSZWN5Y2xlUmVzcG9uc2UiIIq1GBwiDOi/mOWOn+aWh+S7tioMUmVzdG9yZSBmaWxlEmYKDVNlYXJjaFJlY3ljbGUSJC5wYW5lbC5hZ2VudC52MS5TZWFyY2hSZWN5Y2xlUmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLlNlYXJjaFJlY3ljbGVSZXNwb25zZSIIirUYBBgBMAEScgoGRGVsZXRlEiIucGFuZWwuYWdlbnQudjEuRGVsZXRlRmlsZXNSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuRGVsZXRlRmlsZXNSZXNwb25zZSIfirUYGyIM5Yig6Zmk5paH5Lu2KgtEZWxldGUgZmlsZRJ/CgpDaGFuZ2VOYW1lEiUucGFuZWwuYWdlbnQudjEuQ2hhbmdlRmlsZU5hbWVSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuQ2hhbmdlRmlsZU5hbWVSZXNwb25zZSIiirUYHiIP6YeN5ZG95ZCN5paH5Lu2KgtSZW5hbWUgZmlsZRKCAQoKRGVDb21wcmVzcxImLnBhbmVsLmFnZW50LnYxLkRlY29tcHJlc3NGaWxlc1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5EZWNvbXByZXNzRmlsZXNSZXNwb25zZSIjirUYHyIM6Kej5Y6L5paH5Lu2Kg9EZWNvbXByZXNzIGZpbGUSewoIQ29tcHJlc3MSJC5wYW5lbC5hZ2VudC52MS5Db21wcmVzc0ZpbGVzUmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLkNvbXByZXNzRmlsZXNSZXNwb25zZSIiirUYHiIM5Y6L57yp5paH5Lu2Kg5Db21wcmVzcyBmaWxlcxJOCgdHZXRGaWxlEh4ucGFuZWwuYWdlbnQudjEuR2V0RmlsZVJlcXVlc3QaGS5wYW5lbC5hZ2VudC52MS5GaWxlRW50cnkiCIq1GAQYATABEnQKCkNyZWF0ZUZpbGUSIS5wYW5lbC5hZ2VudC52MS5DcmVhdGVGaWxlUmVxdWVzdBoiLnBhbmVsLmFnZW50LnYxLkNyZWF0ZUZpbGVSZXNwb25zZSIfirUYGyIM5paw5bu65paH5Lu2KgtDcmVhdGUgZmlsZRJaCglDaGVja0ZpbGUSIC5wYW5lbC5hZ2VudC52MS5DaGVja0ZpbGVSZXF1ZXN0GiEucGFuZWwuYWdlbnQudjEuQ2hlY2tGaWxlUmVzcG9uc2UiCIq1GAQYATABEmwKD0JhdGNoQ2hlY2tGaWxlcxImLnBhbmVsLmFnZW50LnYxLkJhdGNoQ2hlY2tGaWxlc1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5CYXRjaENoZWNrRmlsZXNSZXNwb25zZSIIirUYBBgBMAESkwEKEEJhdGNoRGVsZXRlRmlsZXMSJy5wYW5lbC5hZ2VudC52MS5CYXRjaERlbGV0ZUZpbGVzUmVxdWVzdBooLnBhbmVsLmFnZW50LnYxLkJhdGNoRGVsZXRlRmlsZXNSZXNwb25zZSIsirUYKCIS5om56YeP5Yig6Zmk5paH5Lu2KhJCYXRjaCBkZWxldGUgZmlsZXMSmgEKD0JhdGNoQ2hhbmdlUm9sZRImLnBhbmVsLmFnZW50LnYxLkJhdGNoQ2hhbmdlUm9sZVJlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5CYXRjaENoYW5nZVJvbGVSZXNwb25zZSI2irUYMiIY5om56YeP5L+u5pS55paH5Lu25p2D6ZmQKhZCYXRjaCBjaGFuZ2UgZmlsZSByb2xlEoYBCgtDaGFuZ2VPd25lchIiLnBhbmVsLmFnZW50LnYxLkNoYW5nZU93bmVyUmVxdWVzdBojLnBhbmVsLmFnZW50LnYxLkNoYW5nZU93bmVyUmVzcG9uc2UiLoq1GCoiFeS/ruaUueaWh+S7tuaJgOacieiAhSoRQ2hhbmdlIGZpbGUgb3duZXIShwEKDFN0b3BDb21wcmVzcxIjLnBhbmVsLmFnZW50LnYxLlN0b3BDb21wcmVzc1JlcXVlc3QaJC5wYW5lbC5hZ2VudC52MS5TdG9wQ29tcHJlc3NSZXNwb25zZSIsirUYKCIS5YGc5q2i5Y6L57yp5Lu75YqhKhJTdG9wIGNvbXByZXNzIHRhc2sSjwEKDlN0b3BEZWNvbXByZXNzEiUucGFuZWwuYWdlbnQudjEuU3RvcERlY29tcHJlc3NSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuU3RvcERlY29tcHJlc3NSZXNwb25zZSIuirUYKiIS5YGc5q2i6Kej5Y6L5Lu75YqhKhRTdG9wIGRlY29tcHJlc3MgdGFzaxJwCglNb3ZlRmlsZXMSIC5wYW5lbC5hZ2VudC52MS5Nb3ZlRmlsZXNSZXF1ZXN0GiEucGFuZWwuYWdlbnQudjEuTW92ZUZpbGVzUmVzcG9uc2UiHoq1GBoiDOenu+WKqOaWh+S7tioKTW92ZSBmaWxlcxJ3CghTdG9wTW92ZRIfLnBhbmVsLmFnZW50LnYxLlN0b3BNb3ZlUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLlN0b3BNb3ZlUmVzcG9uc2UiKIq1GCQiEuWBnOatouenu+WKqOS7u+WKoSoOU3RvcCBtb3ZlIHRhc2sSVAoHR2V0U2l6ZRIeLnBhbmVsLmFnZW50LnYxLkdldFNpemVSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuR2V0U2l6ZVJlc3BvbnNlIgiKtRgEGAEwARJjCgxHZXREZXB0aFNpemUSIy5wYW5lbC5hZ2VudC52MS5HZXREZXB0aFNpemVSZXF1ZXN0GiQucGFuZWwuYWdlbnQudjEuR2V0RGVwdGhTaXplUmVzcG9uc2UiCIq1GAQYATABEl0KC0dldEZpbGVUcmVlEiIucGFuZWwuYWdlbnQudjEuR2V0RmlsZVRyZWVSZXF1ZXN0GiAucGFuZWwuYWdlbnQudjEuRmlsZVRyZWVSZXNwb25zZSIIirUYBBgBMAESYwoMU2VhcmNoVXBsb2FkEiMucGFuZWwuYWdlbnQudjEuU2VhcmNoVXBsb2FkUmVxdWVzdBokLnBhbmVsLmFnZW50LnYxLlNlYXJjaFVwbG9hZFJlc3BvbnNlIgiKtRgEGAEwARJyChFHZXRVc2Vyc0FuZEdyb3VwcxIoLnBhbmVsLmFnZW50LnYxLkdldFVzZXJzQW5kR3JvdXBzUmVxdWVzdBopLnBhbmVsLmFnZW50LnYxLkdldFVzZXJzQW5kR3JvdXBzUmVzcG9uc2UiCIq1GAQYATABEl0KCkdldFJlbWFya3MSIS5wYW5lbC5hZ2VudC52MS5HZXRSZW1hcmtzUmVxdWVzdBoiLnBhbmVsLmFnZW50LnYxLkdldFJlbWFya3NSZXNwb25zZSIIirUYBBgBMAESewoJU2V0UmVtYXJrEiAucGFuZWwuYWdlbnQudjEuU2V0UmVtYXJrUmVxdWVzdBohLnBhbmVsLmFnZW50LnYxLlNldFJlbWFya1Jlc3BvbnNlIimKtRglIhLorr7nva7mlofku7blpIfms6gqD1NldCBmaWxlIHJlbWFyaxJWCgtQcmV2aWV3RmlsZRIiLnBhbmVsLmFnZW50LnYxLlByZXZpZXdGaWxlUmVxdWVzdBoZLnBhbmVsLmFnZW50LnYxLkZpbGVFbnRyeSIIirUYBBgBMAESegoIU2F2ZUZpbGUSHy5wYW5lbC5hZ2VudC52MS5TYXZlRmlsZVJlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5TYXZlRmlsZVJlc3BvbnNlIiuKtRgnIhLkv53lrZjmlofku7blhoXlrrkqEVNhdmUgZmlsZSBjb250ZW50EmYKDVJlYWRGaWxlTGluZXMSJC5wYW5lbC5hZ2VudC52MS5SZWFkRmlsZUxpbmVzUmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLlJlYWRGaWxlTGluZXNSZXNwb25zZSIIirUYBBgBMAESXQoKTGlzdE1vdW50cxIhLnBhbmVsLmFnZW50LnYxLkxpc3RNb3VudHNSZXF1ZXN0GiIucGFuZWwuYWdlbnQudjEuTGlzdE1vdW50c1Jlc3BvbnNlIgiKtRgEGAEwARKDAQoMQ2xlYXJSZWN5Y2xlEiMucGFuZWwuYWdlbnQudjEuQ2xlYXJSZWN5Y2xlUmVxdWVzdBokLnBhbmVsLmFnZW50LnYxLkNsZWFyUmVjeWNsZVJlc3BvbnNlIiiKtRgkIg/muIXnqbrlm57mlLbnq5kqEUNsZWFyIHJlY3ljbGUgYmluEm8KEEdldFJlY3ljbGVTdGF0dXMSJy5wYW5lbC5hZ2VudC52MS5HZXRSZWN5Y2xlU3RhdHVzUmVxdWVzdBooLnBhbmVsLmFnZW50LnYxLkdldFJlY3ljbGVTdGF0dXNSZXNwb25zZSIIirUYBBgBMAEScgoRR2V0SGlzdG9yeUNvbnRlbnQSKC5wYW5lbC5hZ2VudC52MS5HZXRIaXN0b3J5Q29udGVudFJlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5HZXRIaXN0b3J5Q29udGVudFJlc3BvbnNlIgiKtRgEGAEwARKLAQoNRGVsZXRlSGlzdG9yeRIkLnBhbmVsLmFnZW50LnYxLkRlbGV0ZUhpc3RvcnlSZXF1ZXN0GiUucGFuZWwuYWdlbnQudjEuRGVsZXRlSGlzdG9yeVJlc3BvbnNlIi2KtRgpIhLliKDpmaTmlofku7bljoblj7IqE0RlbGV0ZSBmaWxlIGhpc3RvcnkSggEKDlJlc3RvcmVIaXN0b3J5EiUucGFuZWwuYWdlbnQudjEuUmVzdG9yZUhpc3RvcnlSZXF1ZXN0GhkucGFuZWwuYWdlbnQudjEuRmlsZUVudHJ5Ii6KtRgqIhLov5jljp/mlofku7bljoblj7IqFFJlc3RvcmUgZmlsZSBoaXN0b3J5EoIBCgxDb252ZXJ0RmlsZXMSIy5wYW5lbC5hZ2VudC52MS5Db252ZXJ0RmlsZXNSZXF1ZXN0GiQucGFuZWwuYWdlbnQudjEuQ29udmVydEZpbGVzUmVzcG9uc2UiJ4q1GCMiEui9rOaNouaWh+S7tuagvOW8jyoNQ29udmVydCBmaWxlcxJyChFTZWFyY2hDb252ZXJ0TG9ncxIoLnBhbmVsLmFnZW50LnYxLlNlYXJjaENvbnZlcnRMb2dzUmVxdWVzdBopLnBhbmVsLmFnZW50LnYxLlNlYXJjaENvbnZlcnRMb2dzUmVzcG9uc2UiCIq1GAQYATABEoMBCgtDcmVhdGVTaGFyZRIiLnBhbmVsLmFnZW50LnYxLkNyZWF0ZVNoYXJlUmVxdWVzdBojLnBhbmVsLmFnZW50LnYxLkNyZWF0ZVNoYXJlUmVzcG9uc2UiK4q1GCciEuWIm+W7uuaWh+S7tuWIhuS6qyoRQ3JlYXRlIGZpbGUgc2hhcmUSgwEKC0RlbGV0ZVNoYXJlEiIucGFuZWwuYWdlbnQudjEuRGVsZXRlU2hhcmVSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuRGVsZXRlU2hhcmVSZXNwb25zZSIrirUYJyIS5YWz6Zet5paH5Lu25YiG5LqrKhFEZWxldGUgZmlsZSBzaGFyZRJXCghHZXRTaGFyZRIfLnBhbmVsLmFnZW50LnYxLkdldFNoYXJlUmVxdWVzdBogLnBhbmVsLmFnZW50LnYxLkdldFNoYXJlUmVzcG9uc2UiCIq1GAQYATABEmsKDkdldFB1YmxpY1NoYXJlEiUucGFuZWwuYWdlbnQudjEuR2V0UHVibGljU2hhcmVSZXF1ZXN0GiYucGFuZWwuYWdlbnQudjEuR2V0UHVibGljU2hhcmVSZXNwb25zZSIKirUYBggBGAEwARJfCgpDaGVja1NoYXJlEiEucGFuZWwuYWdlbnQudjEuQ2hlY2tTaGFyZVJlcXVlc3QaIi5wYW5lbC5hZ2VudC52MS5DaGVja1NoYXJlUmVzcG9uc2UiCoq1GAYIARgBMAESYwoMU2VhcmNoU2hhcmVzEiMucGFuZWwuYWdlbnQudjEuU2VhcmNoU2hhcmVzUmVxdWVzdBokLnBhbmVsLmFnZW50LnYxLlNlYXJjaFNoYXJlc1Jlc3BvbnNlIgiKtRgEGAEwARJxCgRXZ2V0EhsucGFuZWwuYWdlbnQudjEuV2dldFJlcXVlc3QaHC5wYW5lbC5hZ2VudC52MS5XZ2V0UmVzcG9uc2UiLoq1GCoiEui/nOeoi+S4i+i9veaWh+S7tioURG93bmxvYWQgZmlsZSBieSBVUkwSfQoIU3RvcFdnZXQSHy5wYW5lbC5hZ2VudC52MS5TdG9wV2dldFJlcXVlc3QaIC5wYW5lbC5hZ2VudC52MS5TdG9wV2dldFJlc3BvbnNlIi6KtRgqIhLlgZzmraLov5znqIvkuIvovb0qFFN0b3AgcmVtb3RlIGRvd25sb2FkEnUKEkdldFdnZXRQcm9jZXNzS2V5cxIpLnBhbmVsLmFnZW50LnYxLkdldFdnZXRQcm9jZXNzS2V5c1JlcXVlc3QaKi5wYW5lbC5hZ2VudC52MS5HZXRXZ2V0UHJvY2Vzc0tleXNSZXNwb25zZSIIirUYBBgBMAESmwEKEVJlbW92ZVdnZXRSZWNvcmRzEigucGFuZWwuYWdlbnQudjEuUmVtb3ZlV2dldFJlY29yZHNSZXF1ZXN0GikucGFuZWwuYWdlbnQudjEuUmVtb3ZlV2dldFJlY29yZHNSZXNwb25zZSIxirUYLSIS56e76Zmk5LiL6L296K6w5b2VKhdSZW1vdmUgZG93bmxvYWQgcmVjb3Jkc0ItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM", [file_buf_validate_validate, file_panel_common_v1_options]);
 
 /**
  * ListFilesRequest 是目录浏览/搜索参数。
@@ -1188,6 +1188,2490 @@ export const FileHistoryEntrySchema: GenMessage<FileHistoryEntry> = /*@__PURE__*
   messageDesc(file_panel_agent_v1_file, 28);
 
 /**
+ * CreateFileRequest 是新建文件/目录参数。
+ *
+ * @generated from message panel.agent.v1.CreateFileRequest
+ */
+export type CreateFileRequest = Message<"panel.agent.v1.CreateFileRequest"> & {
+  /**
+   * 目标路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 文件内容；新建目录时忽略。
+   *
+   * @generated from field: string content = 2;
+   */
+  content: string;
+
+  /**
+   * 是否创建目录。
+   *
+   * @generated from field: bool is_dir = 3;
+   */
+  isDir: boolean;
+
+  /**
+   * 权限位；0 表示使用默认权限。
+   *
+   * @generated from field: int64 mode = 4;
+   */
+  mode: bigint;
+
+  /**
+   * 是否创建普通链接。
+   *
+   * @generated from field: bool is_link = 5;
+   */
+  isLink: boolean;
+
+  /**
+   * 是否创建符号链接。
+   *
+   * @generated from field: bool is_symlink = 6;
+   */
+  isSymlink: boolean;
+
+  /**
+   * 链接目标。
+   *
+   * @generated from field: string link_path = 7;
+   */
+  linkPath: string;
+
+  /**
+   * 是否递归处理子目录。
+   *
+   * @generated from field: bool sub = 8;
+   */
+  sub: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateFileRequest.
+ * Use `create(CreateFileRequestSchema)` to create a new message.
+ */
+export const CreateFileRequestSchema: GenMessage<CreateFileRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 29);
+
+/**
+ * CreateFileResponse 是新建结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CreateFileResponse
+ */
+export type CreateFileResponse = Message<"panel.agent.v1.CreateFileResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateFileResponse.
+ * Use `create(CreateFileResponseSchema)` to create a new message.
+ */
+export const CreateFileResponseSchema: GenMessage<CreateFileResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 30);
+
+/**
+ * CheckFileRequest 是路径存在性检查参数。
+ *
+ * @generated from message panel.agent.v1.CheckFileRequest
+ */
+export type CheckFileRequest = Message<"panel.agent.v1.CheckFileRequest"> & {
+  /**
+   * 待检查路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 路径不存在时是否自动初始化目录。
+   *
+   * @generated from field: bool with_init = 2;
+   */
+  withInit: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.CheckFileRequest.
+ * Use `create(CheckFileRequestSchema)` to create a new message.
+ */
+export const CheckFileRequestSchema: GenMessage<CheckFileRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 31);
+
+/**
+ * CheckFileResponse 是路径存在性结果。
+ *
+ * @generated from message panel.agent.v1.CheckFileResponse
+ */
+export type CheckFileResponse = Message<"panel.agent.v1.CheckFileResponse"> & {
+  /**
+   * 路径是否存在（或在 with_init 下是否初始化成功）。
+   *
+   * @generated from field: bool exists = 1;
+   */
+  exists: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.CheckFileResponse.
+ * Use `create(CheckFileResponseSchema)` to create a new message.
+ */
+export const CheckFileResponseSchema: GenMessage<CheckFileResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 32);
+
+/**
+ * BatchCheckFilesRequest 是批量路径检查参数。
+ *
+ * @generated from message panel.agent.v1.BatchCheckFilesRequest
+ */
+export type BatchCheckFilesRequest = Message<"panel.agent.v1.BatchCheckFilesRequest"> & {
+  /**
+   * 待检查的路径列表。
+   *
+   * @generated from field: repeated string paths = 1;
+   */
+  paths: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.BatchCheckFilesRequest.
+ * Use `create(BatchCheckFilesRequestSchema)` to create a new message.
+ */
+export const BatchCheckFilesRequestSchema: GenMessage<BatchCheckFilesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 33);
+
+/**
+ * BatchCheckFilesResponse 是批量检查结果。
+ *
+ * @generated from message panel.agent.v1.BatchCheckFilesResponse
+ */
+export type BatchCheckFilesResponse = Message<"panel.agent.v1.BatchCheckFilesResponse"> & {
+  /**
+   * 存在的文件条目。
+   *
+   * @generated from field: repeated panel.agent.v1.ExistFileInfo items = 1;
+   */
+  items: ExistFileInfo[];
+};
+
+/**
+ * Describes the message panel.agent.v1.BatchCheckFilesResponse.
+ * Use `create(BatchCheckFilesResponseSchema)` to create a new message.
+ */
+export const BatchCheckFilesResponseSchema: GenMessage<BatchCheckFilesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 34);
+
+/**
+ * ExistFileInfo 是一个存在文件的摘要。
+ *
+ * @generated from message panel.agent.v1.ExistFileInfo
+ */
+export type ExistFileInfo = Message<"panel.agent.v1.ExistFileInfo"> & {
+  /**
+   * 文件名。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * 完整路径。
+   *
+   * @generated from field: string path = 2;
+   */
+  path: string;
+
+  /**
+   * 大小，单位字节。
+   *
+   * @generated from field: int64 size = 3;
+   */
+  size: bigint;
+
+  /**
+   * 修改时间，RFC3339 格式。
+   *
+   * @generated from field: string mod_time = 4;
+   */
+  modTime: string;
+
+  /**
+   * 是否为目录。
+   *
+   * @generated from field: bool is_dir = 5;
+   */
+  isDir: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.ExistFileInfo.
+ * Use `create(ExistFileInfoSchema)` to create a new message.
+ */
+export const ExistFileInfoSchema: GenMessage<ExistFileInfo> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 35);
+
+/**
+ * BatchDeleteFilesRequest 是批量删除参数。
+ *
+ * @generated from message panel.agent.v1.BatchDeleteFilesRequest
+ */
+export type BatchDeleteFilesRequest = Message<"panel.agent.v1.BatchDeleteFilesRequest"> & {
+  /**
+   * 待删除的路径列表。
+   *
+   * @generated from field: repeated string paths = 1;
+   */
+  paths: string[];
+
+  /**
+   * 是否按目录删除。
+   *
+   * @generated from field: bool is_dir = 2;
+   */
+  isDir: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.BatchDeleteFilesRequest.
+ * Use `create(BatchDeleteFilesRequestSchema)` to create a new message.
+ */
+export const BatchDeleteFilesRequestSchema: GenMessage<BatchDeleteFilesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 36);
+
+/**
+ * BatchDeleteFilesResponse 是批量删除结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.BatchDeleteFilesResponse
+ */
+export type BatchDeleteFilesResponse = Message<"panel.agent.v1.BatchDeleteFilesResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.BatchDeleteFilesResponse.
+ * Use `create(BatchDeleteFilesResponseSchema)` to create a new message.
+ */
+export const BatchDeleteFilesResponseSchema: GenMessage<BatchDeleteFilesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 37);
+
+/**
+ * BatchChangeRoleRequest 是批量修改权限与所有者的参数。
+ *
+ * @generated from message panel.agent.v1.BatchChangeRoleRequest
+ */
+export type BatchChangeRoleRequest = Message<"panel.agent.v1.BatchChangeRoleRequest"> & {
+  /**
+   * 目标路径列表。
+   *
+   * @generated from field: repeated string paths = 1;
+   */
+  paths: string[];
+
+  /**
+   * 权限位。
+   *
+   * @generated from field: int64 mode = 2;
+   */
+  mode: bigint;
+
+  /**
+   * 所有者用户名。
+   *
+   * @generated from field: string user = 3;
+   */
+  user: string;
+
+  /**
+   * 所属组名。
+   *
+   * @generated from field: string group = 4;
+   */
+  group: string;
+
+  /**
+   * 是否递归处理子目录。
+   *
+   * @generated from field: bool sub = 5;
+   */
+  sub: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.BatchChangeRoleRequest.
+ * Use `create(BatchChangeRoleRequestSchema)` to create a new message.
+ */
+export const BatchChangeRoleRequestSchema: GenMessage<BatchChangeRoleRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 38);
+
+/**
+ * BatchChangeRoleResponse 是批量修改结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.BatchChangeRoleResponse
+ */
+export type BatchChangeRoleResponse = Message<"panel.agent.v1.BatchChangeRoleResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.BatchChangeRoleResponse.
+ * Use `create(BatchChangeRoleResponseSchema)` to create a new message.
+ */
+export const BatchChangeRoleResponseSchema: GenMessage<BatchChangeRoleResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 39);
+
+/**
+ * ChangeOwnerRequest 是修改所有者参数。
+ *
+ * @generated from message panel.agent.v1.ChangeOwnerRequest
+ */
+export type ChangeOwnerRequest = Message<"panel.agent.v1.ChangeOwnerRequest"> & {
+  /**
+   * 目标路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 所有者用户名。
+   *
+   * @generated from field: string user = 2;
+   */
+  user: string;
+
+  /**
+   * 所属组名。
+   *
+   * @generated from field: string group = 3;
+   */
+  group: string;
+
+  /**
+   * 是否递归处理子目录。
+   *
+   * @generated from field: bool sub = 4;
+   */
+  sub: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.ChangeOwnerRequest.
+ * Use `create(ChangeOwnerRequestSchema)` to create a new message.
+ */
+export const ChangeOwnerRequestSchema: GenMessage<ChangeOwnerRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 40);
+
+/**
+ * ChangeOwnerResponse 是修改结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.ChangeOwnerResponse
+ */
+export type ChangeOwnerResponse = Message<"panel.agent.v1.ChangeOwnerResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.ChangeOwnerResponse.
+ * Use `create(ChangeOwnerResponseSchema)` to create a new message.
+ */
+export const ChangeOwnerResponseSchema: GenMessage<ChangeOwnerResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 41);
+
+/**
+ * StopCompressRequest 是停止压缩任务参数。
+ *
+ * @generated from message panel.agent.v1.StopCompressRequest
+ */
+export type StopCompressRequest = Message<"panel.agent.v1.StopCompressRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: string task_id = 1;
+   */
+  taskId: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.StopCompressRequest.
+ * Use `create(StopCompressRequestSchema)` to create a new message.
+ */
+export const StopCompressRequestSchema: GenMessage<StopCompressRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 42);
+
+/**
+ * StopCompressResponse 是停止结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.StopCompressResponse
+ */
+export type StopCompressResponse = Message<"panel.agent.v1.StopCompressResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.StopCompressResponse.
+ * Use `create(StopCompressResponseSchema)` to create a new message.
+ */
+export const StopCompressResponseSchema: GenMessage<StopCompressResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 43);
+
+/**
+ * StopDecompressRequest 是停止解压任务参数。
+ *
+ * @generated from message panel.agent.v1.StopDecompressRequest
+ */
+export type StopDecompressRequest = Message<"panel.agent.v1.StopDecompressRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: string task_id = 1;
+   */
+  taskId: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.StopDecompressRequest.
+ * Use `create(StopDecompressRequestSchema)` to create a new message.
+ */
+export const StopDecompressRequestSchema: GenMessage<StopDecompressRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 44);
+
+/**
+ * StopDecompressResponse 是停止结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.StopDecompressResponse
+ */
+export type StopDecompressResponse = Message<"panel.agent.v1.StopDecompressResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.StopDecompressResponse.
+ * Use `create(StopDecompressResponseSchema)` to create a new message.
+ */
+export const StopDecompressResponseSchema: GenMessage<StopDecompressResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 45);
+
+/**
+ * MoveFilesRequest 是移动/复制参数。
+ *
+ * @generated from message panel.agent.v1.MoveFilesRequest
+ */
+export type MoveFilesRequest = Message<"panel.agent.v1.MoveFilesRequest"> & {
+  /**
+   * 操作类型：cut（移动）或 copy（复制）。
+   *
+   * @generated from field: string type = 1;
+   */
+  type: string;
+
+  /**
+   * 源路径列表。
+   *
+   * @generated from field: repeated string old_paths = 2;
+   */
+  oldPaths: string[];
+
+  /**
+   * 目标目录。
+   *
+   * @generated from field: string new_path = 3;
+   */
+  newPath: string;
+
+  /**
+   * 目标名称；为空表示沿用原名称。
+   *
+   * @generated from field: string name = 4;
+   */
+  name: string;
+
+  /**
+   * 同名文件是否覆盖。
+   *
+   * @generated from field: bool cover = 5;
+   */
+  cover: boolean;
+
+  /**
+   * 允许覆盖的路径列表。
+   *
+   * @generated from field: repeated string cover_paths = 6;
+   */
+  coverPaths: string[];
+
+  /**
+   * 前端生成的任务 ID，用于轮询进度。
+   *
+   * @generated from field: string task_id = 7;
+   */
+  taskId: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.MoveFilesRequest.
+ * Use `create(MoveFilesRequestSchema)` to create a new message.
+ */
+export const MoveFilesRequestSchema: GenMessage<MoveFilesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 46);
+
+/**
+ * MoveFilesResponse 是移动任务启动结果。
+ *
+ * @generated from message panel.agent.v1.MoveFilesResponse
+ */
+export type MoveFilesResponse = Message<"panel.agent.v1.MoveFilesResponse"> & {
+  /**
+   * 任务 ID，与请求中的 task_id 一致。
+   *
+   * @generated from field: string task_id = 1;
+   */
+  taskId: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.MoveFilesResponse.
+ * Use `create(MoveFilesResponseSchema)` to create a new message.
+ */
+export const MoveFilesResponseSchema: GenMessage<MoveFilesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 47);
+
+/**
+ * StopMoveRequest 是停止移动任务参数。
+ *
+ * @generated from message panel.agent.v1.StopMoveRequest
+ */
+export type StopMoveRequest = Message<"panel.agent.v1.StopMoveRequest"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: string task_id = 1;
+   */
+  taskId: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.StopMoveRequest.
+ * Use `create(StopMoveRequestSchema)` to create a new message.
+ */
+export const StopMoveRequestSchema: GenMessage<StopMoveRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 48);
+
+/**
+ * StopMoveResponse 是停止结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.StopMoveResponse
+ */
+export type StopMoveResponse = Message<"panel.agent.v1.StopMoveResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.StopMoveResponse.
+ * Use `create(StopMoveResponseSchema)` to create a new message.
+ */
+export const StopMoveResponseSchema: GenMessage<StopMoveResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 49);
+
+/**
+ * GetSizeRequest 是目录大小统计参数。
+ *
+ * @generated from message panel.agent.v1.GetSizeRequest
+ */
+export type GetSizeRequest = Message<"panel.agent.v1.GetSizeRequest"> & {
+  /**
+   * 目标路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetSizeRequest.
+ * Use `create(GetSizeRequestSchema)` to create a new message.
+ */
+export const GetSizeRequestSchema: GenMessage<GetSizeRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 50);
+
+/**
+ * GetSizeResponse 是目录大小结果。
+ *
+ * @generated from message panel.agent.v1.GetSizeResponse
+ */
+export type GetSizeResponse = Message<"panel.agent.v1.GetSizeResponse"> & {
+  /**
+   * 占用大小，单位字节。
+   *
+   * @generated from field: int64 size = 1;
+   */
+  size: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetSizeResponse.
+ * Use `create(GetSizeResponseSchema)` to create a new message.
+ */
+export const GetSizeResponseSchema: GenMessage<GetSizeResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 51);
+
+/**
+ * GetDepthSizeRequest 是按一级子项统计的参数。
+ *
+ * @generated from message panel.agent.v1.GetDepthSizeRequest
+ */
+export type GetDepthSizeRequest = Message<"panel.agent.v1.GetDepthSizeRequest"> & {
+  /**
+   * 目标路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetDepthSizeRequest.
+ * Use `create(GetDepthSizeRequestSchema)` to create a new message.
+ */
+export const GetDepthSizeRequestSchema: GenMessage<GetDepthSizeRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 52);
+
+/**
+ * GetDepthSizeResponse 是按一级子项统计的结果。
+ *
+ * @generated from message panel.agent.v1.GetDepthSizeResponse
+ */
+export type GetDepthSizeResponse = Message<"panel.agent.v1.GetDepthSizeResponse"> & {
+  /**
+   * 各子项的占用大小。
+   *
+   * @generated from field: repeated panel.agent.v1.DepthSize items = 1;
+   */
+  items: DepthSize[];
+};
+
+/**
+ * Describes the message panel.agent.v1.GetDepthSizeResponse.
+ * Use `create(GetDepthSizeResponseSchema)` to create a new message.
+ */
+export const GetDepthSizeResponseSchema: GenMessage<GetDepthSizeResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 53);
+
+/**
+ * DepthSize 是一个子项的占用大小。
+ *
+ * @generated from message panel.agent.v1.DepthSize
+ */
+export type DepthSize = Message<"panel.agent.v1.DepthSize"> & {
+  /**
+   * 子项路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 占用大小，单位字节。
+   *
+   * @generated from field: int64 size = 2;
+   */
+  size: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.DepthSize.
+ * Use `create(DepthSizeSchema)` to create a new message.
+ */
+export const DepthSizeSchema: GenMessage<DepthSize> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 54);
+
+/**
+ * GetFileTreeRequest 是目录树查询参数。
+ *
+ * @generated from message panel.agent.v1.GetFileTreeRequest
+ */
+export type GetFileTreeRequest = Message<"panel.agent.v1.GetFileTreeRequest"> & {
+  /**
+   * 目录绝对路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 搜索关键字，为空表示浏览目录。
+   *
+   * @generated from field: string search = 2;
+   */
+  search: string;
+
+  /**
+   * 是否递归搜索子目录。
+   *
+   * @generated from field: bool contain_sub = 3;
+   */
+  containSub: boolean;
+
+  /**
+   * 是否只返回目录。
+   *
+   * @generated from field: bool dir = 4;
+   */
+  dir: boolean;
+
+  /**
+   * 是否显示隐藏文件。
+   *
+   * @generated from field: bool show_hidden = 5;
+   */
+  showHidden: boolean;
+
+  /**
+   * 排序字段，例如 name、size、modTime。
+   *
+   * @generated from field: string sort_by = 6;
+   */
+  sortBy: string;
+
+  /**
+   * 排序方向：ascending 或 descending。
+   *
+   * @generated from field: string sort_order = 7;
+   */
+  sortOrder: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetFileTreeRequest.
+ * Use `create(GetFileTreeRequestSchema)` to create a new message.
+ */
+export const GetFileTreeRequestSchema: GenMessage<GetFileTreeRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 55);
+
+/**
+ * FileTreeResponse 是目录树结果。
+ *
+ * @generated from message panel.agent.v1.FileTreeResponse
+ */
+export type FileTreeResponse = Message<"panel.agent.v1.FileTreeResponse"> & {
+  /**
+   * 顶层节点。
+   *
+   * @generated from field: repeated panel.agent.v1.FileTreeNode items = 1;
+   */
+  items: FileTreeNode[];
+};
+
+/**
+ * Describes the message panel.agent.v1.FileTreeResponse.
+ * Use `create(FileTreeResponseSchema)` to create a new message.
+ */
+export const FileTreeResponseSchema: GenMessage<FileTreeResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 56);
+
+/**
+ * FileTreeNode 是目录树中的一个节点。
+ *
+ * @generated from message panel.agent.v1.FileTreeNode
+ */
+export type FileTreeNode = Message<"panel.agent.v1.FileTreeNode"> & {
+  /**
+   * 节点 ID，通常为路径。
+   *
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * 名称。
+   *
+   * @generated from field: string name = 2;
+   */
+  name: string;
+
+  /**
+   * 完整路径。
+   *
+   * @generated from field: string path = 3;
+   */
+  path: string;
+
+  /**
+   * 是否为目录。
+   *
+   * @generated from field: bool is_dir = 4;
+   */
+  isDir: boolean;
+
+  /**
+   * 扩展名。
+   *
+   * @generated from field: string extension = 5;
+   */
+  extension: string;
+
+  /**
+   * 子节点。
+   *
+   * @generated from field: repeated panel.agent.v1.FileTreeNode children = 6;
+   */
+  children: FileTreeNode[];
+};
+
+/**
+ * Describes the message panel.agent.v1.FileTreeNode.
+ * Use `create(FileTreeNodeSchema)` to create a new message.
+ */
+export const FileTreeNodeSchema: GenMessage<FileTreeNode> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 57);
+
+/**
+ * SearchUploadRequest 是已上传文件分页查询参数。
+ *
+ * @generated from message panel.agent.v1.SearchUploadRequest
+ */
+export type SearchUploadRequest = Message<"panel.agent.v1.SearchUploadRequest"> & {
+  /**
+   * 目录路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 2;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 1000。
+   *
+   * @generated from field: int32 page_size = 3;
+   */
+  pageSize: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchUploadRequest.
+ * Use `create(SearchUploadRequestSchema)` to create a new message.
+ */
+export const SearchUploadRequestSchema: GenMessage<SearchUploadRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 58);
+
+/**
+ * SearchUploadResponse 是已上传文件列表结果。
+ *
+ * @generated from message panel.agent.v1.SearchUploadResponse
+ */
+export type SearchUploadResponse = Message<"panel.agent.v1.SearchUploadResponse"> & {
+  /**
+   * 当前页的条目。
+   *
+   * @generated from field: repeated panel.agent.v1.UploadEntry items = 1;
+   */
+  items: UploadEntry[];
+
+  /**
+   * 符合条件的条目总数。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchUploadResponse.
+ * Use `create(SearchUploadResponseSchema)` to create a new message.
+ */
+export const SearchUploadResponseSchema: GenMessage<SearchUploadResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 59);
+
+/**
+ * UploadEntry 是一个已上传文件的摘要。
+ *
+ * @generated from message panel.agent.v1.UploadEntry
+ */
+export type UploadEntry = Message<"panel.agent.v1.UploadEntry"> & {
+  /**
+   * 文件名。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * 大小，单位字节。
+   *
+   * @generated from field: int64 size = 2;
+   */
+  size: bigint;
+
+  /**
+   * 修改时间。
+   *
+   * @generated from field: string created_at = 3;
+   */
+  createdAt: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UploadEntry.
+ * Use `create(UploadEntrySchema)` to create a new message.
+ */
+export const UploadEntrySchema: GenMessage<UploadEntry> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 60);
+
+/**
+ * GetUsersAndGroupsRequest 是系统用户与用户组查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.GetUsersAndGroupsRequest
+ */
+export type GetUsersAndGroupsRequest = Message<"panel.agent.v1.GetUsersAndGroupsRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.GetUsersAndGroupsRequest.
+ * Use `create(GetUsersAndGroupsRequestSchema)` to create a new message.
+ */
+export const GetUsersAndGroupsRequestSchema: GenMessage<GetUsersAndGroupsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 61);
+
+/**
+ * GetUsersAndGroupsResponse 是系统用户与用户组列表。
+ *
+ * @generated from message panel.agent.v1.GetUsersAndGroupsResponse
+ */
+export type GetUsersAndGroupsResponse = Message<"panel.agent.v1.GetUsersAndGroupsResponse"> & {
+  /**
+   * 可选用户。
+   *
+   * @generated from field: repeated panel.agent.v1.SystemUser users = 1;
+   */
+  users: SystemUser[];
+
+  /**
+   * 可选用户组。
+   *
+   * @generated from field: repeated string groups = 2;
+   */
+  groups: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.GetUsersAndGroupsResponse.
+ * Use `create(GetUsersAndGroupsResponseSchema)` to create a new message.
+ */
+export const GetUsersAndGroupsResponseSchema: GenMessage<GetUsersAndGroupsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 62);
+
+/**
+ * SystemUser 是一个系统用户及其主组。
+ *
+ * @generated from message panel.agent.v1.SystemUser
+ */
+export type SystemUser = Message<"panel.agent.v1.SystemUser"> & {
+  /**
+   * 用户名。
+   *
+   * @generated from field: string username = 1;
+   */
+  username: string;
+
+  /**
+   * 主组名。
+   *
+   * @generated from field: string group = 2;
+   */
+  group: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.SystemUser.
+ * Use `create(SystemUserSchema)` to create a new message.
+ */
+export const SystemUserSchema: GenMessage<SystemUser> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 63);
+
+/**
+ * GetRemarksRequest 是批量读取备注参数。
+ *
+ * @generated from message panel.agent.v1.GetRemarksRequest
+ */
+export type GetRemarksRequest = Message<"panel.agent.v1.GetRemarksRequest"> & {
+  /**
+   * 文件路径列表。
+   *
+   * @generated from field: repeated string paths = 1;
+   */
+  paths: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.GetRemarksRequest.
+ * Use `create(GetRemarksRequestSchema)` to create a new message.
+ */
+export const GetRemarksRequestSchema: GenMessage<GetRemarksRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 64);
+
+/**
+ * GetRemarksResponse 是备注查询结果。
+ *
+ * @generated from message panel.agent.v1.GetRemarksResponse
+ */
+export type GetRemarksResponse = Message<"panel.agent.v1.GetRemarksResponse"> & {
+  /**
+   * 路径到备注的映射；没有备注的路径不出现。
+   *
+   * @generated from field: map<string, string> remarks = 1;
+   */
+  remarks: { [key: string]: string };
+};
+
+/**
+ * Describes the message panel.agent.v1.GetRemarksResponse.
+ * Use `create(GetRemarksResponseSchema)` to create a new message.
+ */
+export const GetRemarksResponseSchema: GenMessage<GetRemarksResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 65);
+
+/**
+ * SetRemarkRequest 是设置备注参数。
+ *
+ * @generated from message panel.agent.v1.SetRemarkRequest
+ */
+export type SetRemarkRequest = Message<"panel.agent.v1.SetRemarkRequest"> & {
+  /**
+   * 目标路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 备注内容；为空表示清除备注。
+   *
+   * @generated from field: string remark = 2;
+   */
+  remark: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.SetRemarkRequest.
+ * Use `create(SetRemarkRequestSchema)` to create a new message.
+ */
+export const SetRemarkRequestSchema: GenMessage<SetRemarkRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 66);
+
+/**
+ * SetRemarkResponse 是设置结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.SetRemarkResponse
+ */
+export type SetRemarkResponse = Message<"panel.agent.v1.SetRemarkResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.SetRemarkResponse.
+ * Use `create(SetRemarkResponseSchema)` to create a new message.
+ */
+export const SetRemarkResponseSchema: GenMessage<SetRemarkResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 67);
+
+/**
+ * PreviewFileRequest 是预览参数。
+ *
+ * @generated from message panel.agent.v1.PreviewFileRequest
+ */
+export type PreviewFileRequest = Message<"panel.agent.v1.PreviewFileRequest"> & {
+  /**
+   * 文件路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 是否返回完整详情。
+   *
+   * @generated from field: bool is_detail = 2;
+   */
+  isDetail: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.PreviewFileRequest.
+ * Use `create(PreviewFileRequestSchema)` to create a new message.
+ */
+export const PreviewFileRequestSchema: GenMessage<PreviewFileRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 68);
+
+/**
+ * SaveFileRequest 是保存文件内容参数。
+ *
+ * @generated from message panel.agent.v1.SaveFileRequest
+ */
+export type SaveFileRequest = Message<"panel.agent.v1.SaveFileRequest"> & {
+  /**
+   * 文件路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 文件内容。
+   *
+   * @generated from field: string content = 2;
+   */
+  content: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.SaveFileRequest.
+ * Use `create(SaveFileRequestSchema)` to create a new message.
+ */
+export const SaveFileRequestSchema: GenMessage<SaveFileRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 69);
+
+/**
+ * SaveFileResponse 是保存结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.SaveFileResponse
+ */
+export type SaveFileResponse = Message<"panel.agent.v1.SaveFileResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.SaveFileResponse.
+ * Use `create(SaveFileResponseSchema)` to create a new message.
+ */
+export const SaveFileResponseSchema: GenMessage<SaveFileResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 70);
+
+/**
+ * ReadFileLinesRequest 是按行读取日志文件参数。
+ *
+ * @generated from message panel.agent.v1.ReadFileLinesRequest
+ */
+export type ReadFileLinesRequest = Message<"panel.agent.v1.ReadFileLinesRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页行数。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+
+  /**
+   * 读取类型，例如 log、task。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
+
+  /**
+   * 资源 ID。
+   *
+   * @generated from field: uint32 id = 4;
+   */
+  id: number;
+
+  /**
+   * 文件名。
+   *
+   * @generated from field: string name = 5;
+   */
+  name: string;
+
+  /**
+   * 是否只取最新内容。
+   *
+   * @generated from field: bool latest = 6;
+   */
+  latest: boolean;
+
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: string task_id = 7;
+   */
+  taskId: string;
+
+  /**
+   * 任务类型。
+   *
+   * @generated from field: string task_type = 8;
+   */
+  taskType: string;
+
+  /**
+   * 任务操作。
+   *
+   * @generated from field: string task_operate = 9;
+   */
+  taskOperate: string;
+
+  /**
+   * 资源 ID（任务上下文）。
+   *
+   * @generated from field: uint32 resource_id = 10;
+   */
+  resourceId: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.ReadFileLinesRequest.
+ * Use `create(ReadFileLinesRequestSchema)` to create a new message.
+ */
+export const ReadFileLinesRequestSchema: GenMessage<ReadFileLinesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 71);
+
+/**
+ * ReadFileLinesResponse 是按行读取结果。
+ *
+ * @generated from message panel.agent.v1.ReadFileLinesResponse
+ */
+export type ReadFileLinesResponse = Message<"panel.agent.v1.ReadFileLinesResponse"> & {
+  /**
+   * 是否已到文件末尾。
+   *
+   * @generated from field: bool end = 1;
+   */
+  end: boolean;
+
+  /**
+   * 文件路径。
+   *
+   * @generated from field: string path = 2;
+   */
+  path: string;
+
+  /**
+   * 当前页行数。
+   *
+   * @generated from field: int32 total = 3;
+   */
+  total: number;
+
+  /**
+   * 任务状态。
+   *
+   * @generated from field: string task_status = 4;
+   */
+  taskStatus: string;
+
+  /**
+   * 行内容。
+   *
+   * @generated from field: repeated string lines = 5;
+   */
+  lines: string[];
+
+  /**
+   * 读取范围。
+   *
+   * @generated from field: string scope = 6;
+   */
+  scope: string;
+
+  /**
+   * 文件总行数。
+   *
+   * @generated from field: int32 total_lines = 7;
+   */
+  totalLines: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.ReadFileLinesResponse.
+ * Use `create(ReadFileLinesResponseSchema)` to create a new message.
+ */
+export const ReadFileLinesResponseSchema: GenMessage<ReadFileLinesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 72);
+
+/**
+ * ListMountsRequest 是挂载点查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.ListMountsRequest
+ */
+export type ListMountsRequest = Message<"panel.agent.v1.ListMountsRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.ListMountsRequest.
+ * Use `create(ListMountsRequestSchema)` to create a new message.
+ */
+export const ListMountsRequestSchema: GenMessage<ListMountsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 73);
+
+/**
+ * ListMountsResponse 是挂载点列表结果。
+ *
+ * @generated from message panel.agent.v1.ListMountsResponse
+ */
+export type ListMountsResponse = Message<"panel.agent.v1.ListMountsResponse"> & {
+  /**
+   * 挂载点信息。
+   *
+   * @generated from field: repeated panel.agent.v1.MountInfo items = 1;
+   */
+  items: MountInfo[];
+};
+
+/**
+ * Describes the message panel.agent.v1.ListMountsResponse.
+ * Use `create(ListMountsResponseSchema)` to create a new message.
+ */
+export const ListMountsResponseSchema: GenMessage<ListMountsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 74);
+
+/**
+ * MountInfo 是一个挂载点的容量信息。
+ *
+ * @generated from message panel.agent.v1.MountInfo
+ */
+export type MountInfo = Message<"panel.agent.v1.MountInfo"> & {
+  /**
+   * 挂载路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 文件系统类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 设备名。
+   *
+   * @generated from field: string device = 3;
+   */
+  device: string;
+
+  /**
+   * 总容量，单位字节。
+   *
+   * @generated from field: uint64 total = 4;
+   */
+  total: bigint;
+
+  /**
+   * 剩余容量，单位字节。
+   *
+   * @generated from field: uint64 free = 5;
+   */
+  free: bigint;
+
+  /**
+   * 已用容量，单位字节。
+   *
+   * @generated from field: uint64 used = 6;
+   */
+  used: bigint;
+
+  /**
+   * 使用率百分比。
+   *
+   * @generated from field: double used_percent = 7;
+   */
+  usedPercent: number;
+
+  /**
+   * inode 总数。
+   *
+   * @generated from field: uint64 inodes_total = 8;
+   */
+  inodesTotal: bigint;
+
+  /**
+   * 已用 inode 数。
+   *
+   * @generated from field: uint64 inodes_used = 9;
+   */
+  inodesUsed: bigint;
+
+  /**
+   * 剩余 inode 数。
+   *
+   * @generated from field: uint64 inodes_free = 10;
+   */
+  inodesFree: bigint;
+
+  /**
+   * inode 使用率百分比。
+   *
+   * @generated from field: double inodes_used_percent = 11;
+   */
+  inodesUsedPercent: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.MountInfo.
+ * Use `create(MountInfoSchema)` to create a new message.
+ */
+export const MountInfoSchema: GenMessage<MountInfo> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 75);
+
+/**
+ * ClearRecycleRequest 是清空回收站参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.ClearRecycleRequest
+ */
+export type ClearRecycleRequest = Message<"panel.agent.v1.ClearRecycleRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.ClearRecycleRequest.
+ * Use `create(ClearRecycleRequestSchema)` to create a new message.
+ */
+export const ClearRecycleRequestSchema: GenMessage<ClearRecycleRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 76);
+
+/**
+ * ClearRecycleResponse 是清空结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.ClearRecycleResponse
+ */
+export type ClearRecycleResponse = Message<"panel.agent.v1.ClearRecycleResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.ClearRecycleResponse.
+ * Use `create(ClearRecycleResponseSchema)` to create a new message.
+ */
+export const ClearRecycleResponseSchema: GenMessage<ClearRecycleResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 77);
+
+/**
+ * GetRecycleStatusRequest 是回收站状态查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.GetRecycleStatusRequest
+ */
+export type GetRecycleStatusRequest = Message<"panel.agent.v1.GetRecycleStatusRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.GetRecycleStatusRequest.
+ * Use `create(GetRecycleStatusRequestSchema)` to create a new message.
+ */
+export const GetRecycleStatusRequestSchema: GenMessage<GetRecycleStatusRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 78);
+
+/**
+ * GetRecycleStatusResponse 是回收站状态结果。
+ *
+ * @generated from message panel.agent.v1.GetRecycleStatusResponse
+ */
+export type GetRecycleStatusResponse = Message<"panel.agent.v1.GetRecycleStatusResponse"> & {
+  /**
+   * 开关状态：Enable 或 Disable。
+   *
+   * @generated from field: string status = 1;
+   */
+  status: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetRecycleStatusResponse.
+ * Use `create(GetRecycleStatusResponseSchema)` to create a new message.
+ */
+export const GetRecycleStatusResponseSchema: GenMessage<GetRecycleStatusResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 79);
+
+/**
+ * GetHistoryContentRequest 是历史版本内容查询参数。
+ *
+ * @generated from message panel.agent.v1.GetHistoryContentRequest
+ */
+export type GetHistoryContentRequest = Message<"panel.agent.v1.GetHistoryContentRequest"> & {
+  /**
+   * 历史记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetHistoryContentRequest.
+ * Use `create(GetHistoryContentRequestSchema)` to create a new message.
+ */
+export const GetHistoryContentRequestSchema: GenMessage<GetHistoryContentRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 80);
+
+/**
+ * GetHistoryContentResponse 是历史版本内容详情。
+ *
+ * @generated from message panel.agent.v1.GetHistoryContentResponse
+ */
+export type GetHistoryContentResponse = Message<"panel.agent.v1.GetHistoryContentResponse"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 文件 ID。
+   *
+   * @generated from field: string file_id = 2;
+   */
+  fileId: string;
+
+  /**
+   * 路径。
+   *
+   * @generated from field: string path = 3;
+   */
+  path: string;
+
+  /**
+   * 当前路径。
+   *
+   * @generated from field: string current_path = 4;
+   */
+  currentPath: string;
+
+  /**
+   * 上一版本 ID。
+   *
+   * @generated from field: uint32 previous_id = 5;
+   */
+  previousId: number;
+
+  /**
+   * 操作来源路径。
+   *
+   * @generated from field: string source_path = 6;
+   */
+  sourcePath: string;
+
+  /**
+   * 操作目标路径。
+   *
+   * @generated from field: string target_path = 7;
+   */
+  targetPath: string;
+
+  /**
+   * 文件名。
+   *
+   * @generated from field: string file_name = 8;
+   */
+  fileName: string;
+
+  /**
+   * 扩展名。
+   *
+   * @generated from field: string extension = 9;
+   */
+  extension: string;
+
+  /**
+   * 文件权限。
+   *
+   * @generated from field: string file_mode = 10;
+   */
+  fileMode: string;
+
+  /**
+   * 操作类型。
+   *
+   * @generated from field: string operation = 11;
+   */
+  operation: string;
+
+  /**
+   * 是否已删除。
+   *
+   * @generated from field: bool deleted = 12;
+   */
+  deleted: boolean;
+
+  /**
+   * 内容大小，单位字节。
+   *
+   * @generated from field: int64 content_size = 13;
+   */
+  contentSize: bigint;
+
+  /**
+   * 内容 SHA 摘要。
+   *
+   * @generated from field: string content_sha = 14;
+   */
+  contentSha: string;
+
+  /**
+   * 历史版本内容。
+   *
+   * @generated from field: string content = 15;
+   */
+  content: string;
+
+  /**
+   * 当前文件内容。
+   *
+   * @generated from field: string current_content = 16;
+   */
+  currentContent: string;
+
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 17;
+   */
+  createdAt: string;
+
+  /**
+   * 更新时间，RFC3339 格式。
+   *
+   * @generated from field: string updated_at = 18;
+   */
+  updatedAt: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetHistoryContentResponse.
+ * Use `create(GetHistoryContentResponseSchema)` to create a new message.
+ */
+export const GetHistoryContentResponseSchema: GenMessage<GetHistoryContentResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 81);
+
+/**
+ * DeleteHistoryRequest 是删除历史记录参数。
+ *
+ * @generated from message panel.agent.v1.DeleteHistoryRequest
+ */
+export type DeleteHistoryRequest = Message<"panel.agent.v1.DeleteHistoryRequest"> & {
+  /**
+   * 历史记录 ID 列表。
+   *
+   * @generated from field: repeated uint32 ids = 1;
+   */
+  ids: number[];
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteHistoryRequest.
+ * Use `create(DeleteHistoryRequestSchema)` to create a new message.
+ */
+export const DeleteHistoryRequestSchema: GenMessage<DeleteHistoryRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 82);
+
+/**
+ * DeleteHistoryResponse 是删除结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.DeleteHistoryResponse
+ */
+export type DeleteHistoryResponse = Message<"panel.agent.v1.DeleteHistoryResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteHistoryResponse.
+ * Use `create(DeleteHistoryResponseSchema)` to create a new message.
+ */
+export const DeleteHistoryResponseSchema: GenMessage<DeleteHistoryResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 83);
+
+/**
+ * RestoreHistoryRequest 是还原历史版本参数。
+ *
+ * @generated from message panel.agent.v1.RestoreHistoryRequest
+ */
+export type RestoreHistoryRequest = Message<"panel.agent.v1.RestoreHistoryRequest"> & {
+  /**
+   * 历史记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.RestoreHistoryRequest.
+ * Use `create(RestoreHistoryRequestSchema)` to create a new message.
+ */
+export const RestoreHistoryRequestSchema: GenMessage<RestoreHistoryRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 84);
+
+/**
+ * ConvertFilesRequest 是文件格式转换参数。
+ *
+ * @generated from message panel.agent.v1.ConvertFilesRequest
+ */
+export type ConvertFilesRequest = Message<"panel.agent.v1.ConvertFilesRequest"> & {
+  /**
+   * 待转换文件。
+   *
+   * @generated from field: repeated panel.agent.v1.ConvertFileItem files = 1;
+   */
+  files: ConvertFileItem[];
+
+  /**
+   * 输出目录。
+   *
+   * @generated from field: string output_path = 2;
+   */
+  outputPath: string;
+
+  /**
+   * 是否删除源文件。
+   *
+   * @generated from field: bool delete_source = 3;
+   */
+  deleteSource: boolean;
+
+  /**
+   * 前端生成的任务 ID。
+   *
+   * @generated from field: string task_id = 4;
+   */
+  taskId: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.ConvertFilesRequest.
+ * Use `create(ConvertFilesRequestSchema)` to create a new message.
+ */
+export const ConvertFilesRequestSchema: GenMessage<ConvertFilesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 85);
+
+/**
+ * ConvertFileItem 是单个待转换文件。
+ *
+ * @generated from message panel.agent.v1.ConvertFileItem
+ */
+export type ConvertFileItem = Message<"panel.agent.v1.ConvertFileItem"> & {
+  /**
+   * 文件路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 转换类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 输入文件名。
+   *
+   * @generated from field: string input_file = 3;
+   */
+  inputFile: string;
+
+  /**
+   * 输入扩展名。
+   *
+   * @generated from field: string extension = 4;
+   */
+  extension: string;
+
+  /**
+   * 输出格式。
+   *
+   * @generated from field: string output_format = 5;
+   */
+  outputFormat: string;
+
+  /**
+   * 转换状态。
+   *
+   * @generated from field: string status = 6;
+   */
+  status: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.ConvertFileItem.
+ * Use `create(ConvertFileItemSchema)` to create a new message.
+ */
+export const ConvertFileItemSchema: GenMessage<ConvertFileItem> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 86);
+
+/**
+ * ConvertFilesResponse 是转换任务启动结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.ConvertFilesResponse
+ */
+export type ConvertFilesResponse = Message<"panel.agent.v1.ConvertFilesResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.ConvertFilesResponse.
+ * Use `create(ConvertFilesResponseSchema)` to create a new message.
+ */
+export const ConvertFilesResponseSchema: GenMessage<ConvertFilesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 87);
+
+/**
+ * SearchConvertLogsRequest 是转换日志查询参数。
+ *
+ * @generated from message panel.agent.v1.SearchConvertLogsRequest
+ */
+export type SearchConvertLogsRequest = Message<"panel.agent.v1.SearchConvertLogsRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 1000。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchConvertLogsRequest.
+ * Use `create(SearchConvertLogsRequestSchema)` to create a new message.
+ */
+export const SearchConvertLogsRequestSchema: GenMessage<SearchConvertLogsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 88);
+
+/**
+ * SearchConvertLogsResponse 是转换日志列表结果。
+ *
+ * @generated from message panel.agent.v1.SearchConvertLogsResponse
+ */
+export type SearchConvertLogsResponse = Message<"panel.agent.v1.SearchConvertLogsResponse"> & {
+  /**
+   * 当前页的日志。
+   *
+   * @generated from field: repeated panel.agent.v1.ConvertLogEntry items = 1;
+   */
+  items: ConvertLogEntry[];
+
+  /**
+   * 符合条件的日志总数。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchConvertLogsResponse.
+ * Use `create(SearchConvertLogsResponseSchema)` to create a new message.
+ */
+export const SearchConvertLogsResponseSchema: GenMessage<SearchConvertLogsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 89);
+
+/**
+ * ConvertLogEntry 是一条转换日志。
+ *
+ * @generated from message panel.agent.v1.ConvertLogEntry
+ */
+export type ConvertLogEntry = Message<"panel.agent.v1.ConvertLogEntry"> & {
+  /**
+   * 日期。
+   *
+   * @generated from field: string date = 1;
+   */
+  date: string;
+
+  /**
+   * 转换类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 日志内容。
+   *
+   * @generated from field: string log = 3;
+   */
+  log: string;
+
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 4;
+   */
+  status: string;
+
+  /**
+   * 消息。
+   *
+   * @generated from field: string message = 5;
+   */
+  message: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.ConvertLogEntry.
+ * Use `create(ConvertLogEntrySchema)` to create a new message.
+ */
+export const ConvertLogEntrySchema: GenMessage<ConvertLogEntry> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 90);
+
+/**
+ * CreateShareRequest 是创建分享参数。
+ *
+ * @generated from message panel.agent.v1.CreateShareRequest
+ */
+export type CreateShareRequest = Message<"panel.agent.v1.CreateShareRequest"> & {
+  /**
+   * 分享的文件或目录路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 过期时间，单位分钟；0 表示永久。
+   *
+   * @generated from field: int32 expire_minutes = 2;
+   */
+  expireMinutes: number;
+
+  /**
+   * 访问密码；未设置时为空。
+   *
+   * @generated from field: optional string password = 3;
+   */
+  password?: string | undefined;
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateShareRequest.
+ * Use `create(CreateShareRequestSchema)` to create a new message.
+ */
+export const CreateShareRequestSchema: GenMessage<CreateShareRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 91);
+
+/**
+ * CreateShareResponse 是创建分享结果。
+ *
+ * @generated from message panel.agent.v1.CreateShareResponse
+ */
+export type CreateShareResponse = Message<"panel.agent.v1.CreateShareResponse"> & {
+  /**
+   * 分享信息。
+   *
+   * @generated from field: panel.agent.v1.FileShareInfo share = 1;
+   */
+  share?: FileShareInfo | undefined;
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateShareResponse.
+ * Use `create(CreateShareResponseSchema)` to create a new message.
+ */
+export const CreateShareResponseSchema: GenMessage<CreateShareResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 92);
+
+/**
+ * FileShareInfo 是一条文件分享记录。
+ *
+ * @generated from message panel.agent.v1.FileShareInfo
+ */
+export type FileShareInfo = Message<"panel.agent.v1.FileShareInfo"> & {
+  /**
+   * 分享码。
+   *
+   * @generated from field: string code = 1;
+   */
+  code: string;
+
+  /**
+   * 分享路径。
+   *
+   * @generated from field: string path = 2;
+   */
+  path: string;
+
+  /**
+   * 文件名。
+   *
+   * @generated from field: string file_name = 3;
+   */
+  fileName: string;
+
+  /**
+   * 过期时间戳，单位秒；永久分享为 0。
+   *
+   * @generated from field: int64 expires_at = 4;
+   */
+  expiresAt: bigint;
+
+  /**
+   * 是否永久有效。
+   *
+   * @generated from field: bool permanent = 5;
+   */
+  permanent: boolean;
+
+  /**
+   * 是否设置了访问密码。
+   *
+   * @generated from field: bool has_password = 6;
+   */
+  hasPassword: boolean;
+
+  /**
+   * 访问密码；仅在创建分享时返回。
+   *
+   * @generated from field: string password = 7;
+   */
+  password: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.FileShareInfo.
+ * Use `create(FileShareInfoSchema)` to create a new message.
+ */
+export const FileShareInfoSchema: GenMessage<FileShareInfo> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 93);
+
+/**
+ * DeleteShareRequest 是关闭分享参数。
+ *
+ * @generated from message panel.agent.v1.DeleteShareRequest
+ */
+export type DeleteShareRequest = Message<"panel.agent.v1.DeleteShareRequest"> & {
+  /**
+   * 分享路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteShareRequest.
+ * Use `create(DeleteShareRequestSchema)` to create a new message.
+ */
+export const DeleteShareRequestSchema: GenMessage<DeleteShareRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 94);
+
+/**
+ * DeleteShareResponse 是关闭结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.DeleteShareResponse
+ */
+export type DeleteShareResponse = Message<"panel.agent.v1.DeleteShareResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteShareResponse.
+ * Use `create(DeleteShareResponseSchema)` to create a new message.
+ */
+export const DeleteShareResponseSchema: GenMessage<DeleteShareResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 95);
+
+/**
+ * GetShareRequest 是按路径查询分享参数。
+ *
+ * @generated from message panel.agent.v1.GetShareRequest
+ */
+export type GetShareRequest = Message<"panel.agent.v1.GetShareRequest"> & {
+  /**
+   * 分享路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetShareRequest.
+ * Use `create(GetShareRequestSchema)` to create a new message.
+ */
+export const GetShareRequestSchema: GenMessage<GetShareRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 96);
+
+/**
+ * GetShareResponse 是分享详情。
+ *
+ * @generated from message panel.agent.v1.GetShareResponse
+ */
+export type GetShareResponse = Message<"panel.agent.v1.GetShareResponse"> & {
+  /**
+   * 分享信息。
+   *
+   * @generated from field: panel.agent.v1.FileShareInfo share = 1;
+   */
+  share?: FileShareInfo | undefined;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetShareResponse.
+ * Use `create(GetShareResponseSchema)` to create a new message.
+ */
+export const GetShareResponseSchema: GenMessage<GetShareResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 97);
+
+/**
+ * GetPublicShareRequest 是公开分享信息查询参数。
+ *
+ * @generated from message panel.agent.v1.GetPublicShareRequest
+ */
+export type GetPublicShareRequest = Message<"panel.agent.v1.GetPublicShareRequest"> & {
+  /**
+   * 分享码。
+   *
+   * @generated from field: string code = 1;
+   */
+  code: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetPublicShareRequest.
+ * Use `create(GetPublicShareRequestSchema)` to create a new message.
+ */
+export const GetPublicShareRequestSchema: GenMessage<GetPublicShareRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 98);
+
+/**
+ * GetPublicShareResponse 是公开分享信息。
+ *
+ * @generated from message panel.agent.v1.GetPublicShareResponse
+ */
+export type GetPublicShareResponse = Message<"panel.agent.v1.GetPublicShareResponse"> & {
+  /**
+   * 文件名。
+   *
+   * @generated from field: string file_name = 1;
+   */
+  fileName: string;
+
+  /**
+   * 过期时间戳，单位秒；永久分享为 0。
+   *
+   * @generated from field: int64 expires_at = 2;
+   */
+  expiresAt: bigint;
+
+  /**
+   * 是否永久有效。
+   *
+   * @generated from field: bool permanent = 3;
+   */
+  permanent: boolean;
+
+  /**
+   * 是否设置了访问密码。
+   *
+   * @generated from field: bool has_password = 4;
+   */
+  hasPassword: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetPublicShareResponse.
+ * Use `create(GetPublicShareResponseSchema)` to create a new message.
+ */
+export const GetPublicShareResponseSchema: GenMessage<GetPublicShareResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 99);
+
+/**
+ * CheckShareRequest 是分享校验参数。
+ *
+ * @generated from message panel.agent.v1.CheckShareRequest
+ */
+export type CheckShareRequest = Message<"panel.agent.v1.CheckShareRequest"> & {
+  /**
+   * 分享码。
+   *
+   * @generated from field: string code = 1;
+   */
+  code: string;
+
+  /**
+   * 访问密码。
+   *
+   * @generated from field: string password = 2;
+   */
+  password: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.CheckShareRequest.
+ * Use `create(CheckShareRequestSchema)` to create a new message.
+ */
+export const CheckShareRequestSchema: GenMessage<CheckShareRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 100);
+
+/**
+ * CheckShareResponse 是校验结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CheckShareResponse
+ */
+export type CheckShareResponse = Message<"panel.agent.v1.CheckShareResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CheckShareResponse.
+ * Use `create(CheckShareResponseSchema)` to create a new message.
+ */
+export const CheckShareResponseSchema: GenMessage<CheckShareResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 101);
+
+/**
+ * SearchSharesRequest 是分享记录分页查询参数。
+ *
+ * @generated from message panel.agent.v1.SearchSharesRequest
+ */
+export type SearchSharesRequest = Message<"panel.agent.v1.SearchSharesRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchSharesRequest.
+ * Use `create(SearchSharesRequestSchema)` to create a new message.
+ */
+export const SearchSharesRequestSchema: GenMessage<SearchSharesRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 102);
+
+/**
+ * SearchSharesResponse 是分享记录列表结果。
+ *
+ * @generated from message panel.agent.v1.SearchSharesResponse
+ */
+export type SearchSharesResponse = Message<"panel.agent.v1.SearchSharesResponse"> & {
+  /**
+   * 当前页的分享记录。
+   *
+   * @generated from field: repeated panel.agent.v1.FileShareInfo items = 1;
+   */
+  items: FileShareInfo[];
+
+  /**
+   * 符合条件的记录总数。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchSharesResponse.
+ * Use `create(SearchSharesResponseSchema)` to create a new message.
+ */
+export const SearchSharesResponseSchema: GenMessage<SearchSharesResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 103);
+
+/**
+ * WgetRequest 是远程下载参数。
+ *
+ * @generated from message panel.agent.v1.WgetRequest
+ */
+export type WgetRequest = Message<"panel.agent.v1.WgetRequest"> & {
+  /**
+   * 下载地址。
+   *
+   * @generated from field: string url = 1;
+   */
+  url: string;
+
+  /**
+   * 保存目录。
+   *
+   * @generated from field: string path = 2;
+   */
+  path: string;
+
+  /**
+   * 保存文件名。
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
+
+  /**
+   * 是否忽略证书错误。
+   *
+   * @generated from field: bool ignore_certificate = 4;
+   */
+  ignoreCertificate: boolean;
+
+  /**
+   * 是否使用代理。
+   *
+   * @generated from field: bool use_proxy = 5;
+   */
+  useProxy: boolean;
+
+  /**
+   * 是否使用服务端返回的文件名。
+   *
+   * @generated from field: bool use_server_filename = 6;
+   */
+  useServerFilename: boolean;
+};
+
+/**
+ * Describes the message panel.agent.v1.WgetRequest.
+ * Use `create(WgetRequestSchema)` to create a new message.
+ */
+export const WgetRequestSchema: GenMessage<WgetRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 104);
+
+/**
+ * WgetResponse 是远程下载任务启动结果。
+ *
+ * @generated from message panel.agent.v1.WgetResponse
+ */
+export type WgetResponse = Message<"panel.agent.v1.WgetResponse"> & {
+  /**
+   * 任务键，用于查询进度或停止任务。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.WgetResponse.
+ * Use `create(WgetResponseSchema)` to create a new message.
+ */
+export const WgetResponseSchema: GenMessage<WgetResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 105);
+
+/**
+ * StopWgetRequest 是停止远程下载参数。
+ *
+ * @generated from message panel.agent.v1.StopWgetRequest
+ */
+export type StopWgetRequest = Message<"panel.agent.v1.StopWgetRequest"> & {
+  /**
+   * 任务键。
+   *
+   * @generated from field: string key = 1;
+   */
+  key: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.StopWgetRequest.
+ * Use `create(StopWgetRequestSchema)` to create a new message.
+ */
+export const StopWgetRequestSchema: GenMessage<StopWgetRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 106);
+
+/**
+ * StopWgetResponse 是停止结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.StopWgetResponse
+ */
+export type StopWgetResponse = Message<"panel.agent.v1.StopWgetResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.StopWgetResponse.
+ * Use `create(StopWgetResponseSchema)` to create a new message.
+ */
+export const StopWgetResponseSchema: GenMessage<StopWgetResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 107);
+
+/**
+ * GetWgetProcessKeysRequest 是下载任务键查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.GetWgetProcessKeysRequest
+ */
+export type GetWgetProcessKeysRequest = Message<"panel.agent.v1.GetWgetProcessKeysRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.GetWgetProcessKeysRequest.
+ * Use `create(GetWgetProcessKeysRequestSchema)` to create a new message.
+ */
+export const GetWgetProcessKeysRequestSchema: GenMessage<GetWgetProcessKeysRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 108);
+
+/**
+ * GetWgetProcessKeysResponse 是下载任务键列表。
+ *
+ * @generated from message panel.agent.v1.GetWgetProcessKeysResponse
+ */
+export type GetWgetProcessKeysResponse = Message<"panel.agent.v1.GetWgetProcessKeysResponse"> & {
+  /**
+   * 任务键。
+   *
+   * @generated from field: repeated string keys = 1;
+   */
+  keys: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.GetWgetProcessKeysResponse.
+ * Use `create(GetWgetProcessKeysResponseSchema)` to create a new message.
+ */
+export const GetWgetProcessKeysResponseSchema: GenMessage<GetWgetProcessKeysResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 109);
+
+/**
+ * RemoveWgetRecordsRequest 是移除下载记录参数。
+ *
+ * @generated from message panel.agent.v1.RemoveWgetRecordsRequest
+ */
+export type RemoveWgetRecordsRequest = Message<"panel.agent.v1.RemoveWgetRecordsRequest"> & {
+  /**
+   * 任务键列表。
+   *
+   * @generated from field: repeated string keys = 1;
+   */
+  keys: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.RemoveWgetRecordsRequest.
+ * Use `create(RemoveWgetRecordsRequestSchema)` to create a new message.
+ */
+export const RemoveWgetRecordsRequestSchema: GenMessage<RemoveWgetRecordsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 110);
+
+/**
+ * RemoveWgetRecordsResponse 是移除后剩余的下载记录键。
+ *
+ * @generated from message panel.agent.v1.RemoveWgetRecordsResponse
+ */
+export type RemoveWgetRecordsResponse = Message<"panel.agent.v1.RemoveWgetRecordsResponse"> & {
+  /**
+   * 剩余任务键。
+   *
+   * @generated from field: repeated string keys = 1;
+   */
+  keys: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.RemoveWgetRecordsResponse.
+ * Use `create(RemoveWgetRecordsResponseSchema)` to create a new message.
+ */
+export const RemoveWgetRecordsResponseSchema: GenMessage<RemoveWgetRecordsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_file, 111);
+
+/**
  * FileService 对应 1Panel 的文件管理域。
  *
  * @generated from service panel.agent.v1.FileService
@@ -1322,6 +3806,386 @@ export const FileService: GenService<{
     methodKind: "unary";
     input: typeof GetFileRequestSchema;
     output: typeof FileEntrySchema;
+  },
+  /**
+   * 新建文件或目录，也可创建符号链接。
+   *
+   * @generated from rpc panel.agent.v1.FileService.CreateFile
+   */
+  createFile: {
+    methodKind: "unary";
+    input: typeof CreateFileRequestSchema;
+    output: typeof CreateFileResponseSchema;
+  },
+  /**
+   * 检查路径是否存在，可选择在不存在时初始化目录。
+   *
+   * @generated from rpc panel.agent.v1.FileService.CheckFile
+   */
+  checkFile: {
+    methodKind: "unary";
+    input: typeof CheckFileRequestSchema;
+    output: typeof CheckFileResponseSchema;
+  },
+  /**
+   * 批量检查路径是否存在。
+   *
+   * @generated from rpc panel.agent.v1.FileService.BatchCheckFiles
+   */
+  batchCheckFiles: {
+    methodKind: "unary";
+    input: typeof BatchCheckFilesRequestSchema;
+    output: typeof BatchCheckFilesResponseSchema;
+  },
+  /**
+   * 批量删除文件或目录。
+   *
+   * @generated from rpc panel.agent.v1.FileService.BatchDeleteFiles
+   */
+  batchDeleteFiles: {
+    methodKind: "unary";
+    input: typeof BatchDeleteFilesRequestSchema;
+    output: typeof BatchDeleteFilesResponseSchema;
+  },
+  /**
+   * 批量修改权限与所属用户/组。
+   *
+   * @generated from rpc panel.agent.v1.FileService.BatchChangeRole
+   */
+  batchChangeRole: {
+    methodKind: "unary";
+    input: typeof BatchChangeRoleRequestSchema;
+    output: typeof BatchChangeRoleResponseSchema;
+  },
+  /**
+   * 修改文件或目录的所有者。
+   *
+   * @generated from rpc panel.agent.v1.FileService.ChangeOwner
+   */
+  changeOwner: {
+    methodKind: "unary";
+    input: typeof ChangeOwnerRequestSchema;
+    output: typeof ChangeOwnerResponseSchema;
+  },
+  /**
+   * 停止压缩任务。
+   *
+   * @generated from rpc panel.agent.v1.FileService.StopCompress
+   */
+  stopCompress: {
+    methodKind: "unary";
+    input: typeof StopCompressRequestSchema;
+    output: typeof StopCompressResponseSchema;
+  },
+  /**
+   * 停止解压任务。
+   *
+   * @generated from rpc panel.agent.v1.FileService.StopDecompress
+   */
+  stopDecompress: {
+    methodKind: "unary";
+    input: typeof StopDecompressRequestSchema;
+    output: typeof StopDecompressResponseSchema;
+  },
+  /**
+   * 移动或复制文件与目录。
+   *
+   * @generated from rpc panel.agent.v1.FileService.MoveFiles
+   */
+  moveFiles: {
+    methodKind: "unary";
+    input: typeof MoveFilesRequestSchema;
+    output: typeof MoveFilesResponseSchema;
+  },
+  /**
+   * 停止移动任务。
+   *
+   * @generated from rpc panel.agent.v1.FileService.StopMove
+   */
+  stopMove: {
+    methodKind: "unary";
+    input: typeof StopMoveRequestSchema;
+    output: typeof StopMoveResponseSchema;
+  },
+  /**
+   * 统计目录占用的总大小。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetSize
+   */
+  getSize: {
+    methodKind: "unary";
+    input: typeof GetSizeRequestSchema;
+    output: typeof GetSizeResponseSchema;
+  },
+  /**
+   * 按一级子项统计目录占用大小。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetDepthSize
+   */
+  getDepthSize: {
+    methodKind: "unary";
+    input: typeof GetDepthSizeRequestSchema;
+    output: typeof GetDepthSizeResponseSchema;
+  },
+  /**
+   * 获取目录树。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetFileTree
+   */
+  getFileTree: {
+    methodKind: "unary";
+    input: typeof GetFileTreeRequestSchema;
+    output: typeof FileTreeResponseSchema;
+  },
+  /**
+   * 分页列出目录下已上传的文件（按修改时间倒序）。
+   *
+   * @generated from rpc panel.agent.v1.FileService.SearchUpload
+   */
+  searchUpload: {
+    methodKind: "unary";
+    input: typeof SearchUploadRequestSchema;
+    output: typeof SearchUploadResponseSchema;
+  },
+  /**
+   * 列出可选的系统用户与用户组，用于修改文件所有者。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetUsersAndGroups
+   */
+  getUsersAndGroups: {
+    methodKind: "unary";
+    input: typeof GetUsersAndGroupsRequestSchema;
+    output: typeof GetUsersAndGroupsResponseSchema;
+  },
+  /**
+   * 批量读取文件备注。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetRemarks
+   */
+  getRemarks: {
+    methodKind: "unary";
+    input: typeof GetRemarksRequestSchema;
+    output: typeof GetRemarksResponseSchema;
+  },
+  /**
+   * 设置或清除文件备注。
+   *
+   * @generated from rpc panel.agent.v1.FileService.SetRemark
+   */
+  setRemark: {
+    methodKind: "unary";
+    input: typeof SetRemarkRequestSchema;
+    output: typeof SetRemarkResponseSchema;
+  },
+  /**
+   * 读取文件预览内容。
+   *
+   * @generated from rpc panel.agent.v1.FileService.PreviewFile
+   */
+  previewFile: {
+    methodKind: "unary";
+    input: typeof PreviewFileRequestSchema;
+    output: typeof FileEntrySchema;
+  },
+  /**
+   * 保存文件内容。
+   *
+   * @generated from rpc panel.agent.v1.FileService.SaveFile
+   */
+  saveFile: {
+    methodKind: "unary";
+    input: typeof SaveFileRequestSchema;
+    output: typeof SaveFileResponseSchema;
+  },
+  /**
+   * 按行读取日志类文件。
+   *
+   * @generated from rpc panel.agent.v1.FileService.ReadFileLines
+   */
+  readFileLines: {
+    methodKind: "unary";
+    input: typeof ReadFileLinesRequestSchema;
+    output: typeof ReadFileLinesResponseSchema;
+  },
+  /**
+   * 列出系统挂载点。
+   *
+   * @generated from rpc panel.agent.v1.FileService.ListMounts
+   */
+  listMounts: {
+    methodKind: "unary";
+    input: typeof ListMountsRequestSchema;
+    output: typeof ListMountsResponseSchema;
+  },
+  /**
+   * 清空回收站。
+   *
+   * @generated from rpc panel.agent.v1.FileService.ClearRecycle
+   */
+  clearRecycle: {
+    methodKind: "unary";
+    input: typeof ClearRecycleRequestSchema;
+    output: typeof ClearRecycleResponseSchema;
+  },
+  /**
+   * 查询回收站开关状态。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetRecycleStatus
+   */
+  getRecycleStatus: {
+    methodKind: "unary";
+    input: typeof GetRecycleStatusRequestSchema;
+    output: typeof GetRecycleStatusResponseSchema;
+  },
+  /**
+   * 读取文件历史版本的内容。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetHistoryContent
+   */
+  getHistoryContent: {
+    methodKind: "unary";
+    input: typeof GetHistoryContentRequestSchema;
+    output: typeof GetHistoryContentResponseSchema;
+  },
+  /**
+   * 删除文件历史版本记录。
+   *
+   * @generated from rpc panel.agent.v1.FileService.DeleteHistory
+   */
+  deleteHistory: {
+    methodKind: "unary";
+    input: typeof DeleteHistoryRequestSchema;
+    output: typeof DeleteHistoryResponseSchema;
+  },
+  /**
+   * 还原文件历史版本。
+   *
+   * @generated from rpc panel.agent.v1.FileService.RestoreHistory
+   */
+  restoreHistory: {
+    methodKind: "unary";
+    input: typeof RestoreHistoryRequestSchema;
+    output: typeof FileEntrySchema;
+  },
+  /**
+   * 触发文件格式转换任务。
+   *
+   * @generated from rpc panel.agent.v1.FileService.ConvertFiles
+   */
+  convertFiles: {
+    methodKind: "unary";
+    input: typeof ConvertFilesRequestSchema;
+    output: typeof ConvertFilesResponseSchema;
+  },
+  /**
+   * 分页查询文件转换日志。
+   *
+   * @generated from rpc panel.agent.v1.FileService.SearchConvertLogs
+   */
+  searchConvertLogs: {
+    methodKind: "unary";
+    input: typeof SearchConvertLogsRequestSchema;
+    output: typeof SearchConvertLogsResponseSchema;
+  },
+  /**
+   * 创建文件分享链接。
+   *
+   * @generated from rpc panel.agent.v1.FileService.CreateShare
+   */
+  createShare: {
+    methodKind: "unary";
+    input: typeof CreateShareRequestSchema;
+    output: typeof CreateShareResponseSchema;
+  },
+  /**
+   * 按路径关闭文件分享。
+   *
+   * @generated from rpc panel.agent.v1.FileService.DeleteShare
+   */
+  deleteShare: {
+    methodKind: "unary";
+    input: typeof DeleteShareRequestSchema;
+    output: typeof DeleteShareResponseSchema;
+  },
+  /**
+   * 按路径查询文件分享详情。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetShare
+   */
+  getShare: {
+    methodKind: "unary";
+    input: typeof GetShareRequestSchema;
+    output: typeof GetShareResponseSchema;
+  },
+  /**
+   * 按分享码查询公开分享信息，分享页未登录也要能读。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetPublicShare
+   */
+  getPublicShare: {
+    methodKind: "unary";
+    input: typeof GetPublicShareRequestSchema;
+    output: typeof GetPublicShareResponseSchema;
+  },
+  /**
+   * 校验分享码与访问密码，分享页未登录也要能调用。
+   *
+   * @generated from rpc panel.agent.v1.FileService.CheckShare
+   */
+  checkShare: {
+    methodKind: "unary";
+    input: typeof CheckShareRequestSchema;
+    output: typeof CheckShareResponseSchema;
+  },
+  /**
+   * 分页查询文件分享记录。
+   *
+   * @generated from rpc panel.agent.v1.FileService.SearchShares
+   */
+  searchShares: {
+    methodKind: "unary";
+    input: typeof SearchSharesRequestSchema;
+    output: typeof SearchSharesResponseSchema;
+  },
+  /**
+   * 创建远程下载任务。
+   *
+   * @generated from rpc panel.agent.v1.FileService.Wget
+   */
+  wget: {
+    methodKind: "unary";
+    input: typeof WgetRequestSchema;
+    output: typeof WgetResponseSchema;
+  },
+  /**
+   * 停止远程下载任务。
+   *
+   * @generated from rpc panel.agent.v1.FileService.StopWget
+   */
+  stopWget: {
+    methodKind: "unary";
+    input: typeof StopWgetRequestSchema;
+    output: typeof StopWgetResponseSchema;
+  },
+  /**
+   * 列出下载任务的缓存键。
+   *
+   * @generated from rpc panel.agent.v1.FileService.GetWgetProcessKeys
+   */
+  getWgetProcessKeys: {
+    methodKind: "unary";
+    input: typeof GetWgetProcessKeysRequestSchema;
+    output: typeof GetWgetProcessKeysResponseSchema;
+  },
+  /**
+   * 移除已结束的下载进度记录，不删除文件本身。
+   *
+   * @generated from rpc panel.agent.v1.FileService.RemoveWgetRecords
+   */
+  removeWgetRecords: {
+    methodKind: "unary";
+    input: typeof RemoveWgetRecordsRequestSchema;
+    output: typeof RemoveWgetRecordsResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_panel_agent_v1_file, 0);
