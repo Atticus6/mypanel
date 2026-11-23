@@ -353,9 +353,9 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import GPUStatus from './gpu.vue';
 import { useMediaQuery } from '@vueuse/core';
 import { routerToFileWithPath, routerToNameWithQuery } from '@/utils/router';
-import { stopProcess } from '@/api/modules/process';
 import { loadTopCPU, loadTopMem } from '@/api/modules/dashboard';
 import { MsgSuccess } from '@/utils/message';
+import { rpc } from '@/lib/rpc';
 
 const hasFinePointer = useMediaQuery('(hover: hover) and (pointer: fine)');
 const props = defineProps<{ view: 'system' | 'gpu' }>();
@@ -496,7 +496,7 @@ const onKill = async (row: any) => {
     confirmConfRef.value!.acceptParams(params);
 };
 const submitKill = async () => {
-    await stopProcess({ PID: killProcessID.value }).then(() => {
+    await rpc.process.stopProcess({ pid: killProcessID.value }).then(() => {
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
     });
 };

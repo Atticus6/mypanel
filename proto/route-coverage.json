@@ -3224,27 +3224,42 @@
     {
       "method": "POST",
       "path": "/groups",
-      "covered": false
+      "target": "panel.agent.v1.GroupService.CreateGroup",
+      "service": "panel.agent.v1.GroupService",
+      "rpc": "CreateGroup",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/groups/del",
-      "covered": false
+      "target": "panel.agent.v1.GroupService.DeleteGroup",
+      "service": "panel.agent.v1.GroupService",
+      "rpc": "DeleteGroup",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/groups/search",
-      "covered": false
+      "target": "panel.agent.v1.GroupService.SearchGroups",
+      "service": "panel.agent.v1.GroupService",
+      "rpc": "SearchGroups",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/groups/update",
-      "covered": false
+      "target": "panel.agent.v1.GroupService.UpdateGroup",
+      "service": "panel.agent.v1.GroupService",
+      "rpc": "UpdateGroup",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/health/check",
-      "covered": false
+      "target": "panel.agent.v1.HealthService.Check",
+      "service": "panel.agent.v1.HealthService",
+      "rpc": "Check",
+      "covered": true
     },
     {
       "method": "POST",
@@ -3857,7 +3872,10 @@
     {
       "method": "POST",
       "path": "/logs/system/read",
-      "covered": false
+      "target": "panel.agent.v1.LogService.ReadSystemLogs",
+      "service": "panel.agent.v1.LogService",
+      "rpc": "ReadSystemLogs",
+      "covered": true
     },
     {
       "method": "GET",
@@ -3886,7 +3904,10 @@
     {
       "method": "POST",
       "path": "/logs/tasks/read",
-      "covered": false
+      "target": "panel.agent.v1.LogService.ReadTaskLogs",
+      "service": "panel.agent.v1.LogService",
+      "rpc": "ReadTaskLogs",
+      "covered": true
     },
     {
       "method": "POST",
@@ -3949,22 +3970,32 @@
     {
       "method": "POST",
       "path": "/process/listening",
-      "covered": false
+      "target": "panel.agent.v1.ProcessService.ListListeningProcess",
+      "service": "panel.agent.v1.ProcessService",
+      "rpc": "ListListeningProcess",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/process/stop",
-      "covered": false
+      "target": "panel.agent.v1.ProcessService.StopProcess",
+      "service": "panel.agent.v1.ProcessService",
+      "rpc": "StopProcess",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/process/ws",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "GET",
       "path": "/process/{pid}",
-      "covered": false
+      "target": "panel.agent.v1.ProcessService.GetProcessInfo",
+      "service": "panel.agent.v1.ProcessService",
+      "rpc": "GetProcessInfo",
+      "covered": true
     },
     {
       "method": "POST",

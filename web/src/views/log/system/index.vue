@@ -38,8 +38,8 @@
 import LogFile from '@/components/log/file/index.vue';
 import LogRouter from '@/views/log/router/index.vue';
 import { nextTick, onMounted, reactive, ref } from 'vue';
-import { getSystemFiles } from '@/api/modules/log';
 import { useGlobalStore } from '@/composables/useGlobalStore';
+import { rpc } from '@/lib/rpc';
 const { currentNode } = useGlobalStore();
 
 const loading = ref();
@@ -62,8 +62,8 @@ const changeTail = () => {
 };
 
 const loadFiles = async () => {
-    const res = await getSystemFiles();
-    fileList.value = res.data || [];
+    const res = await rpc.log.listSystemFiles({});
+    fileList.value = res.files || [];
     if (fileList.value) {
         itemName.value = fileList.value[0];
         search();

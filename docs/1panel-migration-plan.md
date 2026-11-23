@@ -2212,13 +2212,14 @@ bun run build
 | 数据库模块剔除 | `/databases/*`（63 条）整体剔除：前端数据库页面与路由、后端 `DatabaseService` RPC 与 agent 的数据库 REST 接口全部删除 |
 | 文件域补全 | `files` 域 46 条路由全部落地：38 条走 `FileService` RPC（新建/检查/批量删除/移动/大小统计/目录树/备注/预览保存/历史版本/转换日志/分享/远程下载），8 条二进制或流式通道列入剔除前缀 |
 | 应用域补全 | `apps` 域 24 条路由全部落地：23 条走 `AppService` RPC（详情、标签、更新检查、忽略升级、已安装摘要/参数/运行信息/排序/端口/连接信息、商店同步），`/apps/icon` 为二进制图标响应列入剔除前缀 |
+| 分组/日志/进程/健康补全 | `groups`、`logs/*/read`、`process/*`、`health/check` 共 11 条路由落地；`/process/ws` 为 WebSocket 通道列入剔除前缀 |
 
 ### 当前进度（2026-11-23）
 
 | 指标 | 数值 |
 | --- | --- |
-| proto RPC 方法数 | 407 |
-| 精确路由覆盖 | 402 / 830（剔除 334，未映射 94） |
+| proto RPC 方法数 | 417 |
+| 精确路由覆盖 | 412 / 830（剔除 335，未映射 83） |
 | 已迁移页面与对话框 | 约 315 个（数据库页面已移除） |
 
 `web/src/api/modules/setting.ts`、`firewall.ts`、`host.ts` 已整体删除：面板设置、agent 设置与系统快照全部走 RPC。
@@ -2254,6 +2255,9 @@ bun run build
 其余文件操作全部走 `FileService`。
 
 应用域的 `/apps/icon/:key` 返回 PNG 或 302 跳转，同样保留 HTTP；其余应用接口全部走 `AppService`。
+
+进程详情里的环境变量、打开文件与连接列表同样用 `detail_json` 透传；前端 `api/modules/group.ts`、
+`process.ts`、`log.ts` 已整体删除，分组、进程与日志全部走 RPC。
 应用详情、参数与 Compose 片段结构随应用定义变化，proto 里用 `detail_json`、`params_json`、
 `container_json` 这类 JSON 字段透传，避免为每个应用定义维护一套消息。
 

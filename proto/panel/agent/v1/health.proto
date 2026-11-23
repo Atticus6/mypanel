@@ -1,0 +1,25 @@
+// panel/agent/v1/health.proto 定义面板健康检查 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "panel/common/v1/options.proto";
+
+// HealthService 提供轻量的存活检查，供前端启动时确认后端可用。
+service HealthService {
+  // 检查服务是否就绪；成功即表示进程与数据库已初始化。
+  rpc Check(CheckHealthRequest) returns (CheckHealthResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// CheckHealthRequest 是健康检查请求，无业务字段。
+message CheckHealthRequest {}
+
+// CheckHealthResponse 是健康检查结果，无业务字段。
+message CheckHealthResponse {}

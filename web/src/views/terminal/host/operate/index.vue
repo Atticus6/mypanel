@@ -78,7 +78,6 @@
 import { ref, reactive } from 'vue';
 import type { ElForm } from 'element-plus';
 import { Rules } from '@/global/form-rules';
-import { getAgentGroupList } from '@/api/modules/group';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
@@ -119,8 +118,8 @@ const rules = reactive({
 });
 
 const loadGroups = async () => {
-    const res = await getAgentGroupList('host');
-    groupList.value = res.data;
+    const res = await rpc.group.searchGroups({ type: 'host' });
+    groupList.value = res.items;
     if (dialogData.value.title === 'create') {
         for (const item of groupList.value) {
             if (item.isDefault) {
@@ -152,7 +151,8 @@ const submitAddHost = (formEl: FormInstance | undefined, ops: string) => {
         if (!valid) return;
         if (ops === 'create') {
             loading.value = true;
-            await rpc.host.create(hostPayload(dialogData.value.rowData))
+            await rpc.host
+                .create(hostPayload(dialogData.value.rowData))
                 .then(() => {
                     loading.value = false;
                     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -165,7 +165,8 @@ const submitAddHost = (formEl: FormInstance | undefined, ops: string) => {
         }
         if (ops === 'edit') {
             loading.value = true;
-            await rpc.host.updateHost({ ...hostPayload(dialogData.value.rowData), id: dialogData.value.rowData.id })
+            await rpc.host
+                .updateHost({ ...hostPayload(dialogData.value.rowData), id: dialogData.value.rowData.id })
                 .then(() => {
                     loading.value = false;
                     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

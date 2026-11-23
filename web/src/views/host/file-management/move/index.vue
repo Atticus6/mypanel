@@ -114,7 +114,6 @@
 <script lang="ts" setup>
 import { rpc } from '@/lib/rpc';
 import { Log } from '@/api/interface/log';
-import { searchTasks } from '@/api/modules/log';
 import TaskLog from '@/components/log/task/index.vue';
 import FileList from '@/components/file-list/index.vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -200,7 +199,7 @@ const syncTaskStorage = () => {
     if (currentTaskID.value && status === 'Executing') {
         localStorage.setItem(
             storageKey,
-            JSON.stringify({ taskID: currentTaskID.value, status, type: type.value, node }),
+            JSON.stringify({ taskId: currentTaskID.value, status, type: type.value, node }),
         );
         return;
     }
@@ -270,24 +269,21 @@ const loadTaskInfo = async () => {
     const taskID = currentTaskID.value;
     const taskNode = currentTaskNode.value || currentNode.value;
     try {
-        const res = await searchTasks(
-            {
-                taskID,
-                type: '',
-                status: '',
-                page: 1,
-                pageSize: 1,
-            },
-            taskNode,
-        );
+        const res = await rpc.task.search({
+            taskId: taskID,
+            type: '',
+            status: '',
+            page: 1,
+            pageSize: 1,
+        });
         if (currentTaskID.value !== taskID || currentTaskNode.value !== taskNode) {
             return;
         }
-        const item = res.data.items?.[0];
+        const item = res.items?.[0];
         if (!item) {
             return;
         }
-        taskInfo.value = item;
+        taskInfo.value = item as any;
         syncTaskStorage();
         if (item.status === 'Executing') {
             return;

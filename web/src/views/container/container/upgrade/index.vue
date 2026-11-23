@@ -96,7 +96,6 @@ import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import { ElMessageBox, type CheckboxValueType, type FormInstance } from 'element-plus';
 import { Container } from '@/api/interface/container';
 import { upgradeContainer } from '@/api/modules/container';
-import { searchTasks } from '@/api/modules/log';
 import { Rules } from '@/global/form-rules';
 import { newUUID } from '@/utils/id';
 import i18n from '@/lang';
@@ -218,12 +217,15 @@ const acceptParams = async (props: DialogProps | Container.ContainerInfo[]) => {
 
 const refreshGroup = async (group: UpgradeGroup, version = generation) => {
     try {
-        const res = await searchTasks(
-            { page: 1, pageSize: 1, type: 'Image', status: '', taskID: group.taskID },
-            operateNode,
-        );
+        const res = await rpc.task.search({
+            page: 1,
+            pageSize: 1,
+            type: 'Image',
+            status: '',
+            taskId: group.taskID,
+        });
         if (!visible.value || version !== generation) return false;
-        const task = res.data.items?.[0];
+        const task = res.items?.[0];
         if (!task) return false;
         group.state = 'submitted';
         group.taskStatus = task.status;

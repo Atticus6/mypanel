@@ -51,7 +51,6 @@
 <script lang="ts" setup>
 import { nextTick, onMounted, onUnmounted, reactive, ref, computed } from 'vue';
 import { downloadFile } from '@/utils/file';
-import { readTaskLogByLine } from '@/api/modules/log';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import bus from '@/global/bus';
@@ -281,7 +280,15 @@ const getContent = async (pre: boolean) => {
     try {
         const operateNode = props.config.operateNode || currentNode.value;
         if (readReq.type === 'task') {
-            res = (await readTaskLogByLine(readReq, operateNode)).data;
+            res = await rpc.log.readTaskLogs({
+                page: readReq.page,
+                pageSize: readReq.pageSize,
+                latest: readReq.latest,
+                taskId: readReq.taskID,
+                taskType: readReq.taskType,
+                taskOperate: readReq.taskOperate,
+                resourceId: readReq.resourceID,
+            });
         } else if (readReq.type === 'website') {
             // 网站日志已迁移到 RPC；把返回的 content 适配成通用日志组件需要的数据结构。
             const log = await rpc.website.getLog({

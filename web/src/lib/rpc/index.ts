@@ -27,6 +27,9 @@ import { SnapshotService } from '@/gen/panel/agent/v1/snapshot_pb';
 import { TerminalService } from '@/gen/panel/agent/v1/terminal_pb';
 import { SSHService } from '@/gen/panel/agent/v1/ssh_pb';
 import { MonitorService } from '@/gen/panel/agent/v1/monitor_pb';
+import { GroupService as AgentGroupService } from '@/gen/panel/agent/v1/group_pb';
+import { HealthService } from '@/gen/panel/agent/v1/health_pb';
+import { ProcessService } from '@/gen/panel/agent/v1/process_pb';
 import { createRpc } from './create-rpc';
 import { transport } from './transport';
 
@@ -70,6 +73,9 @@ const services = {
     terminal: TerminalService,
     ssh: SSHService,
     monitor: MonitorService,
+    group: AgentGroupService,
+    health: HealthService,
+    process: ProcessService,
 } as const satisfies Record<string, DescService | Record<string, DescService>>;
 
 export const rpc = createRpc(services, transport);

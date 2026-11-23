@@ -28,10 +28,10 @@ import { useSearchState } from '@/utils/search-reset';
 import FireRouter from '@/views/host/ssh/index.vue';
 import { toRef, ref, onMounted, onUnmounted, reactive } from 'vue';
 import i18n from '@/lang';
-import { stopProcess } from '@/api/modules/process';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { checkStreamAuth } from '@/utils/stream-auth';
+import { rpc } from '@/lib/rpc';
 const { currentNode: globalCurrentNode } = useGlobalStore();
 
 const sshSearch = reactive({
@@ -135,7 +135,7 @@ const stop = async (PID: number) => {
     })
         .then(async () => {
             try {
-                await stopProcess({ PID: PID });
+                await rpc.process.stopProcess({ pid: PID });
                 data.value = data.value.filter((item: any) => item.PID !== PID);
                 search();
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));

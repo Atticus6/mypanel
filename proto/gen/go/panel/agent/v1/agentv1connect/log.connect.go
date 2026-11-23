@@ -43,6 +43,11 @@ const (
 	LogServiceListRunningServicesProcedure = "/panel.agent.v1.LogService/ListRunningServices"
 	// LogServiceSystemStatusProcedure is the fully-qualified name of the LogService's SystemStatus RPC.
 	LogServiceSystemStatusProcedure = "/panel.agent.v1.LogService/SystemStatus"
+	// LogServiceReadSystemLogsProcedure is the fully-qualified name of the LogService's ReadSystemLogs
+	// RPC.
+	LogServiceReadSystemLogsProcedure = "/panel.agent.v1.LogService/ReadSystemLogs"
+	// LogServiceReadTaskLogsProcedure is the fully-qualified name of the LogService's ReadTaskLogs RPC.
+	LogServiceReadTaskLogsProcedure = "/panel.agent.v1.LogService/ReadTaskLogs"
 )
 
 // LogServiceClient is a client for the panel.agent.v1.LogService service.
@@ -53,6 +58,10 @@ type LogServiceClient interface {
 	ListRunningServices(context.Context, *connect.Request[v1.ListRunningServicesRequest]) (*connect.Response[v1.ListRunningServicesResponse], error)
 	// 读取系统日志能力与状态。
 	SystemStatus(context.Context, *connect.Request[v1.SystemStatusRequest]) (*connect.Response[v1.SystemLogStatus], error)
+	// 分页读取系统日志。
+	ReadSystemLogs(context.Context, *connect.Request[v1.ReadSystemLogsRequest]) (*connect.Response[v1.SystemLogBatch], error)
+	// 按行读取任务日志。
+	ReadTaskLogs(context.Context, *connect.Request[v1.ReadTaskLogsRequest]) (*connect.Response[v1.TaskLogLines], error)
 }
 
 // NewLogServiceClient constructs a client for the panel.agent.v1.LogService service. By default, it
@@ -84,6 +93,18 @@ func NewLogServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...
 			connect.WithSchema(logServiceMethods.ByName("SystemStatus")),
 			connect.WithClientOptions(opts...),
 		),
+		readSystemLogs: connect.NewClient[v1.ReadSystemLogsRequest, v1.SystemLogBatch](
+			httpClient,
+			baseURL+LogServiceReadSystemLogsProcedure,
+			connect.WithSchema(logServiceMethods.ByName("ReadSystemLogs")),
+			connect.WithClientOptions(opts...),
+		),
+		readTaskLogs: connect.NewClient[v1.ReadTaskLogsRequest, v1.TaskLogLines](
+			httpClient,
+			baseURL+LogServiceReadTaskLogsProcedure,
+			connect.WithSchema(logServiceMethods.ByName("ReadTaskLogs")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -92,6 +113,8 @@ type logServiceClient struct {
 	listSystemFiles     *connect.Client[v1.ListSystemFilesRequest, v1.ListSystemFilesResponse]
 	listRunningServices *connect.Client[v1.ListRunningServicesRequest, v1.ListRunningServicesResponse]
 	systemStatus        *connect.Client[v1.SystemStatusRequest, v1.SystemLogStatus]
+	readSystemLogs      *connect.Client[v1.ReadSystemLogsRequest, v1.SystemLogBatch]
+	readTaskLogs        *connect.Client[v1.ReadTaskLogsRequest, v1.TaskLogLines]
 }
 
 // ListSystemFiles calls panel.agent.v1.LogService.ListSystemFiles.
@@ -109,6 +132,16 @@ func (c *logServiceClient) SystemStatus(ctx context.Context, req *connect.Reques
 	return c.systemStatus.CallUnary(ctx, req)
 }
 
+// ReadSystemLogs calls panel.agent.v1.LogService.ReadSystemLogs.
+func (c *logServiceClient) ReadSystemLogs(ctx context.Context, req *connect.Request[v1.ReadSystemLogsRequest]) (*connect.Response[v1.SystemLogBatch], error) {
+	return c.readSystemLogs.CallUnary(ctx, req)
+}
+
+// ReadTaskLogs calls panel.agent.v1.LogService.ReadTaskLogs.
+func (c *logServiceClient) ReadTaskLogs(ctx context.Context, req *connect.Request[v1.ReadTaskLogsRequest]) (*connect.Response[v1.TaskLogLines], error) {
+	return c.readTaskLogs.CallUnary(ctx, req)
+}
+
 // LogServiceHandler is an implementation of the panel.agent.v1.LogService service.
 type LogServiceHandler interface {
 	// 列出可读的系统日志文件。
@@ -117,6 +150,10 @@ type LogServiceHandler interface {
 	ListRunningServices(context.Context, *connect.Request[v1.ListRunningServicesRequest]) (*connect.Response[v1.ListRunningServicesResponse], error)
 	// 读取系统日志能力与状态。
 	SystemStatus(context.Context, *connect.Request[v1.SystemStatusRequest]) (*connect.Response[v1.SystemLogStatus], error)
+	// 分页读取系统日志。
+	ReadSystemLogs(context.Context, *connect.Request[v1.ReadSystemLogsRequest]) (*connect.Response[v1.SystemLogBatch], error)
+	// 按行读取任务日志。
+	ReadTaskLogs(context.Context, *connect.Request[v1.ReadTaskLogsRequest]) (*connect.Response[v1.TaskLogLines], error)
 }
 
 // NewLogServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -144,6 +181,18 @@ func NewLogServiceHandler(svc LogServiceHandler, opts ...connect.HandlerOption) 
 		connect.WithSchema(logServiceMethods.ByName("SystemStatus")),
 		connect.WithHandlerOptions(opts...),
 	)
+	logServiceReadSystemLogsHandler := connect.NewUnaryHandler(
+		LogServiceReadSystemLogsProcedure,
+		svc.ReadSystemLogs,
+		connect.WithSchema(logServiceMethods.ByName("ReadSystemLogs")),
+		connect.WithHandlerOptions(opts...),
+	)
+	logServiceReadTaskLogsHandler := connect.NewUnaryHandler(
+		LogServiceReadTaskLogsProcedure,
+		svc.ReadTaskLogs,
+		connect.WithSchema(logServiceMethods.ByName("ReadTaskLogs")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.LogService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case LogServiceListSystemFilesProcedure:
@@ -152,6 +201,10 @@ func NewLogServiceHandler(svc LogServiceHandler, opts ...connect.HandlerOption) 
 			logServiceListRunningServicesHandler.ServeHTTP(w, r)
 		case LogServiceSystemStatusProcedure:
 			logServiceSystemStatusHandler.ServeHTTP(w, r)
+		case LogServiceReadSystemLogsProcedure:
+			logServiceReadSystemLogsHandler.ServeHTTP(w, r)
+		case LogServiceReadTaskLogsProcedure:
+			logServiceReadTaskLogsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -171,4 +224,12 @@ func (UnimplementedLogServiceHandler) ListRunningServices(context.Context, *conn
 
 func (UnimplementedLogServiceHandler) SystemStatus(context.Context, *connect.Request[v1.SystemStatusRequest]) (*connect.Response[v1.SystemLogStatus], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.LogService.SystemStatus is not implemented"))
+}
+
+func (UnimplementedLogServiceHandler) ReadSystemLogs(context.Context, *connect.Request[v1.ReadSystemLogsRequest]) (*connect.Response[v1.SystemLogBatch], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.LogService.ReadSystemLogs is not implemented"))
+}
+
+func (UnimplementedLogServiceHandler) ReadTaskLogs(context.Context, *connect.Request[v1.ReadTaskLogsRequest]) (*connect.Response[v1.TaskLogLines], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.LogService.ReadTaskLogs is not implemented"))
 }

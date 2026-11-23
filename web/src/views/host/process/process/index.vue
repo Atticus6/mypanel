@@ -73,12 +73,12 @@ import FireRouter from '@/views/host/process/index.vue';
 import { ref, onMounted, onUnmounted, computed, watch, h, resolveDirective, withDirectives } from 'vue';
 import ProcessDetail from './detail/index.vue';
 import i18n from '@/lang';
-import { stopProcess } from '@/api/modules/process';
 import { ProcessStore } from '@/store';
 import { SortBy, TableV2SortOrder, ElButton } from 'element-plus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import RuntimeDiagnostics from './diagnostics/index.vue';
 import { useMediaQuery } from '@vueuse/core';
+import { rpc } from '@/lib/rpc';
 
 const { currentNode } = useGlobalStore();
 const isCompactTable = useMediaQuery('(max-width: 1024px)');
@@ -301,8 +301,8 @@ const stop = async (row: any) => {
             i18n.global.t('menu.process'),
             i18n.global.t('process.stopProcess'),
         ]),
-        api: stopProcess,
-        params: { PID: row.PID },
+        api: (params: { pid: number }) => rpc.process.stopProcess(params),
+        params: { pid: row.PID },
         successMsg: i18n.global.t('commons.msg.operationSuccess'),
     });
 };

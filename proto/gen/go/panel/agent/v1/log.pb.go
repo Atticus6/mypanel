@@ -9,6 +9,7 @@
 package agentv1
 
 import (
+	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "mypanel/proto/gen/go/panel/common/v1"
@@ -300,11 +301,466 @@ func (x *SystemLogStatus) GetMessage() string {
 	return ""
 }
 
+// ReadSystemLogsRequest 是系统日志读取参数。
+type ReadSystemLogsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 每页条数，最大 500。
+	PageSize int32 `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 游标；为空表示从头读取。
+	Cursor string `protobuf:"bytes,2,opt,name=cursor,proto3" json:"cursor,omitempty"`
+	// 起始时间，RFC3339 格式。
+	StartTime string `protobuf:"bytes,3,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	// 结束时间，RFC3339 格式。
+	EndTime string `protobuf:"bytes,4,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+	// 关键字过滤。
+	Keyword string `protobuf:"bytes,5,opt,name=keyword,proto3" json:"keyword,omitempty"`
+	// 日志级别过滤。
+	Priority string `protobuf:"bytes,6,opt,name=priority,proto3" json:"priority,omitempty"`
+	// 服务名过滤。
+	Service       string `protobuf:"bytes,7,opt,name=service,proto3" json:"service,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReadSystemLogsRequest) Reset() {
+	*x = ReadSystemLogsRequest{}
+	mi := &file_panel_agent_v1_log_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReadSystemLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadSystemLogsRequest) ProtoMessage() {}
+
+func (x *ReadSystemLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_log_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadSystemLogsRequest.ProtoReflect.Descriptor instead.
+func (*ReadSystemLogsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_log_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ReadSystemLogsRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *ReadSystemLogsRequest) GetCursor() string {
+	if x != nil {
+		return x.Cursor
+	}
+	return ""
+}
+
+func (x *ReadSystemLogsRequest) GetStartTime() string {
+	if x != nil {
+		return x.StartTime
+	}
+	return ""
+}
+
+func (x *ReadSystemLogsRequest) GetEndTime() string {
+	if x != nil {
+		return x.EndTime
+	}
+	return ""
+}
+
+func (x *ReadSystemLogsRequest) GetKeyword() string {
+	if x != nil {
+		return x.Keyword
+	}
+	return ""
+}
+
+func (x *ReadSystemLogsRequest) GetPriority() string {
+	if x != nil {
+		return x.Priority
+	}
+	return ""
+}
+
+func (x *ReadSystemLogsRequest) GetService() string {
+	if x != nil {
+		return x.Service
+	}
+	return ""
+}
+
+// SystemLogBatch 是一批系统日志。
+type SystemLogBatch struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 日志来源。
+	Source string `protobuf:"bytes,1,opt,name=source,proto3" json:"source,omitempty"`
+	// 日志条目。
+	Items []*SystemLogEntry `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	// 是否还有更多。
+	HasMore bool `protobuf:"varint,3,opt,name=has_more,json=hasMore,proto3" json:"has_more,omitempty"`
+	// 下一页游标。
+	NextCursor    string `protobuf:"bytes,4,opt,name=next_cursor,json=nextCursor,proto3" json:"next_cursor,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SystemLogBatch) Reset() {
+	*x = SystemLogBatch{}
+	mi := &file_panel_agent_v1_log_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SystemLogBatch) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemLogBatch) ProtoMessage() {}
+
+func (x *SystemLogBatch) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_log_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemLogBatch.ProtoReflect.Descriptor instead.
+func (*SystemLogBatch) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_log_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *SystemLogBatch) GetSource() string {
+	if x != nil {
+		return x.Source
+	}
+	return ""
+}
+
+func (x *SystemLogBatch) GetItems() []*SystemLogEntry {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *SystemLogBatch) GetHasMore() bool {
+	if x != nil {
+		return x.HasMore
+	}
+	return false
+}
+
+func (x *SystemLogBatch) GetNextCursor() string {
+	if x != nil {
+		return x.NextCursor
+	}
+	return ""
+}
+
+// SystemLogEntry 是一条系统日志。
+type SystemLogEntry struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 时间。
+	Time string `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
+	// 日志级别。
+	Priority string `protobuf:"bytes,2,opt,name=priority,proto3" json:"priority,omitempty"`
+	// 服务名。
+	Service string `protobuf:"bytes,3,opt,name=service,proto3" json:"service,omitempty"`
+	// 日志正文。
+	Message string `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
+	// 原始日志行。
+	Raw           string `protobuf:"bytes,5,opt,name=raw,proto3" json:"raw,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SystemLogEntry) Reset() {
+	*x = SystemLogEntry{}
+	mi := &file_panel_agent_v1_log_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SystemLogEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemLogEntry) ProtoMessage() {}
+
+func (x *SystemLogEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_log_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemLogEntry.ProtoReflect.Descriptor instead.
+func (*SystemLogEntry) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_log_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *SystemLogEntry) GetTime() string {
+	if x != nil {
+		return x.Time
+	}
+	return ""
+}
+
+func (x *SystemLogEntry) GetPriority() string {
+	if x != nil {
+		return x.Priority
+	}
+	return ""
+}
+
+func (x *SystemLogEntry) GetService() string {
+	if x != nil {
+		return x.Service
+	}
+	return ""
+}
+
+func (x *SystemLogEntry) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *SystemLogEntry) GetRaw() string {
+	if x != nil {
+		return x.Raw
+	}
+	return ""
+}
+
+// ReadTaskLogsRequest 是任务日志读取参数。
+type ReadTaskLogsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页行数。
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 是否只取最新内容。
+	Latest bool `protobuf:"varint,3,opt,name=latest,proto3" json:"latest,omitempty"`
+	// 任务 ID。
+	TaskId string `protobuf:"bytes,4,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	// 任务类型。
+	TaskType string `protobuf:"bytes,5,opt,name=task_type,json=taskType,proto3" json:"task_type,omitempty"`
+	// 任务操作。
+	TaskOperate string `protobuf:"bytes,6,opt,name=task_operate,json=taskOperate,proto3" json:"task_operate,omitempty"`
+	// 资源 ID。
+	ResourceId    uint32 `protobuf:"varint,7,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReadTaskLogsRequest) Reset() {
+	*x = ReadTaskLogsRequest{}
+	mi := &file_panel_agent_v1_log_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReadTaskLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadTaskLogsRequest) ProtoMessage() {}
+
+func (x *ReadTaskLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_log_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadTaskLogsRequest.ProtoReflect.Descriptor instead.
+func (*ReadTaskLogsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_log_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ReadTaskLogsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *ReadTaskLogsRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *ReadTaskLogsRequest) GetLatest() bool {
+	if x != nil {
+		return x.Latest
+	}
+	return false
+}
+
+func (x *ReadTaskLogsRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+func (x *ReadTaskLogsRequest) GetTaskType() string {
+	if x != nil {
+		return x.TaskType
+	}
+	return ""
+}
+
+func (x *ReadTaskLogsRequest) GetTaskOperate() string {
+	if x != nil {
+		return x.TaskOperate
+	}
+	return ""
+}
+
+func (x *ReadTaskLogsRequest) GetResourceId() uint32 {
+	if x != nil {
+		return x.ResourceId
+	}
+	return 0
+}
+
+// TaskLogLines 是任务日志的行内容。
+type TaskLogLines struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 是否已到文件末尾。
+	End bool `protobuf:"varint,1,opt,name=end,proto3" json:"end,omitempty"`
+	// 日志路径。
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+	// 当前页行数。
+	Total int32 `protobuf:"varint,3,opt,name=total,proto3" json:"total,omitempty"`
+	// 任务状态。
+	TaskStatus string `protobuf:"bytes,4,opt,name=task_status,json=taskStatus,proto3" json:"task_status,omitempty"`
+	// 行内容。
+	Lines []string `protobuf:"bytes,5,rep,name=lines,proto3" json:"lines,omitempty"`
+	// 读取范围。
+	Scope string `protobuf:"bytes,6,opt,name=scope,proto3" json:"scope,omitempty"`
+	// 总行数。
+	TotalLines    int32 `protobuf:"varint,7,opt,name=total_lines,json=totalLines,proto3" json:"total_lines,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TaskLogLines) Reset() {
+	*x = TaskLogLines{}
+	mi := &file_panel_agent_v1_log_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TaskLogLines) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TaskLogLines) ProtoMessage() {}
+
+func (x *TaskLogLines) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_log_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TaskLogLines.ProtoReflect.Descriptor instead.
+func (*TaskLogLines) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_log_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *TaskLogLines) GetEnd() bool {
+	if x != nil {
+		return x.End
+	}
+	return false
+}
+
+func (x *TaskLogLines) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *TaskLogLines) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *TaskLogLines) GetTaskStatus() string {
+	if x != nil {
+		return x.TaskStatus
+	}
+	return ""
+}
+
+func (x *TaskLogLines) GetLines() []string {
+	if x != nil {
+		return x.Lines
+	}
+	return nil
+}
+
+func (x *TaskLogLines) GetScope() string {
+	if x != nil {
+		return x.Scope
+	}
+	return ""
+}
+
+func (x *TaskLogLines) GetTotalLines() int32 {
+	if x != nil {
+		return x.TotalLines
+	}
+	return 0
+}
+
 var File_panel_agent_v1_log_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_log_proto_rawDesc = "" +
 	"\n" +
-	"\x18panel/agent/v1/log.proto\x12\x0epanel.agent.v1\x1a\x1dpanel/common/v1/options.proto\"\x18\n" +
+	"\x18panel/agent/v1/log.proto\x12\x0epanel.agent.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1dpanel/common/v1/options.proto\"\x18\n" +
 	"\x16ListSystemFilesRequest\"/\n" +
 	"\x17ListSystemFilesResponse\x12\x14\n" +
 	"\x05files\x18\x01 \x03(\tR\x05files\"\x1c\n" +
@@ -316,12 +772,55 @@ const file_panel_agent_v1_log_proto_rawDesc = "" +
 	"\x06source\x18\x01 \x01(\tR\x06source\x12\x18\n" +
 	"\aversion\x18\x02 \x01(\tR\aversion\x128\n" +
 	"\x18keyword_filter_supported\x18\x03 \x01(\bR\x16keywordFilterSupported\x12\x18\n" +
-	"\amessage\x18\x04 \x01(\tR\amessage2\xd4\x02\n" +
+	"\amessage\x18\x04 \x01(\tR\amessage\"\xe2\x01\n" +
+	"\x15ReadSystemLogsRequest\x12'\n" +
+	"\tpage_size\x18\x01 \x01(\x05B\n" +
+	"\xbaH\a\x1a\x05\x18\xf4\x03(\x00R\bpageSize\x12\x16\n" +
+	"\x06cursor\x18\x02 \x01(\tR\x06cursor\x12\x1d\n" +
+	"\n" +
+	"start_time\x18\x03 \x01(\tR\tstartTime\x12\x19\n" +
+	"\bend_time\x18\x04 \x01(\tR\aendTime\x12\x18\n" +
+	"\akeyword\x18\x05 \x01(\tR\akeyword\x12\x1a\n" +
+	"\bpriority\x18\x06 \x01(\tR\bpriority\x12\x18\n" +
+	"\aservice\x18\a \x01(\tR\aservice\"\x9a\x01\n" +
+	"\x0eSystemLogBatch\x12\x16\n" +
+	"\x06source\x18\x01 \x01(\tR\x06source\x124\n" +
+	"\x05items\x18\x02 \x03(\v2\x1e.panel.agent.v1.SystemLogEntryR\x05items\x12\x19\n" +
+	"\bhas_more\x18\x03 \x01(\bR\ahasMore\x12\x1f\n" +
+	"\vnext_cursor\x18\x04 \x01(\tR\n" +
+	"nextCursor\"\x86\x01\n" +
+	"\x0eSystemLogEntry\x12\x12\n" +
+	"\x04time\x18\x01 \x01(\tR\x04time\x12\x1a\n" +
+	"\bpriority\x18\x02 \x01(\tR\bpriority\x12\x18\n" +
+	"\aservice\x18\x03 \x01(\tR\aservice\x12\x18\n" +
+	"\amessage\x18\x04 \x01(\tR\amessage\x12\x10\n" +
+	"\x03raw\x18\x05 \x01(\tR\x03raw\"\xea\x01\n" +
+	"\x13ReadTaskLogsRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12$\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\bpageSize\x12\x16\n" +
+	"\x06latest\x18\x03 \x01(\bR\x06latest\x12\x17\n" +
+	"\atask_id\x18\x04 \x01(\tR\x06taskId\x12\x1b\n" +
+	"\ttask_type\x18\x05 \x01(\tR\btaskType\x12!\n" +
+	"\ftask_operate\x18\x06 \x01(\tR\vtaskOperate\x12\x1f\n" +
+	"\vresource_id\x18\a \x01(\rR\n" +
+	"resourceId\"\xb8\x01\n" +
+	"\fTaskLogLines\x12\x10\n" +
+	"\x03end\x18\x01 \x01(\bR\x03end\x12\x12\n" +
+	"\x04path\x18\x02 \x01(\tR\x04path\x12\x14\n" +
+	"\x05total\x18\x03 \x01(\x05R\x05total\x12\x1f\n" +
+	"\vtask_status\x18\x04 \x01(\tR\n" +
+	"taskStatus\x12\x14\n" +
+	"\x05lines\x18\x05 \x03(\tR\x05lines\x12\x14\n" +
+	"\x05scope\x18\x06 \x01(\tR\x05scope\x12\x1f\n" +
+	"\vtotal_lines\x18\a \x01(\x05R\n" +
+	"totalLines2\x94\x04\n" +
 	"\n" +
 	"LogService\x12l\n" +
 	"\x0fListSystemFiles\x12&.panel.agent.v1.ListSystemFilesRequest\x1a'.panel.agent.v1.ListSystemFilesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12x\n" +
 	"\x13ListRunningServices\x12*.panel.agent.v1.ListRunningServicesRequest\x1a+.panel.agent.v1.ListRunningServicesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12^\n" +
-	"\fSystemStatus\x12#.panel.agent.v1.SystemStatusRequest\x1a\x1f.panel.agent.v1.SystemLogStatus\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\fSystemStatus\x12#.panel.agent.v1.SystemStatusRequest\x1a\x1f.panel.agent.v1.SystemLogStatus\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12a\n" +
+	"\x0eReadSystemLogs\x12%.panel.agent.v1.ReadSystemLogsRequest\x1a\x1e.panel.agent.v1.SystemLogBatch\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12[\n" +
+	"\fReadTaskLogs\x12#.panel.agent.v1.ReadTaskLogsRequest\x1a\x1c.panel.agent.v1.TaskLogLines\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_log_proto_rawDescOnce sync.Once
@@ -335,7 +834,7 @@ func file_panel_agent_v1_log_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_log_proto_rawDescData
 }
 
-var file_panel_agent_v1_log_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_panel_agent_v1_log_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_panel_agent_v1_log_proto_goTypes = []any{
 	(*ListSystemFilesRequest)(nil),      // 0: panel.agent.v1.ListSystemFilesRequest
 	(*ListSystemFilesResponse)(nil),     // 1: panel.agent.v1.ListSystemFilesResponse
@@ -343,19 +842,29 @@ var file_panel_agent_v1_log_proto_goTypes = []any{
 	(*ListRunningServicesResponse)(nil), // 3: panel.agent.v1.ListRunningServicesResponse
 	(*SystemStatusRequest)(nil),         // 4: panel.agent.v1.SystemStatusRequest
 	(*SystemLogStatus)(nil),             // 5: panel.agent.v1.SystemLogStatus
+	(*ReadSystemLogsRequest)(nil),       // 6: panel.agent.v1.ReadSystemLogsRequest
+	(*SystemLogBatch)(nil),              // 7: panel.agent.v1.SystemLogBatch
+	(*SystemLogEntry)(nil),              // 8: panel.agent.v1.SystemLogEntry
+	(*ReadTaskLogsRequest)(nil),         // 9: panel.agent.v1.ReadTaskLogsRequest
+	(*TaskLogLines)(nil),                // 10: panel.agent.v1.TaskLogLines
 }
 var file_panel_agent_v1_log_proto_depIdxs = []int32{
-	0, // 0: panel.agent.v1.LogService.ListSystemFiles:input_type -> panel.agent.v1.ListSystemFilesRequest
-	2, // 1: panel.agent.v1.LogService.ListRunningServices:input_type -> panel.agent.v1.ListRunningServicesRequest
-	4, // 2: panel.agent.v1.LogService.SystemStatus:input_type -> panel.agent.v1.SystemStatusRequest
-	1, // 3: panel.agent.v1.LogService.ListSystemFiles:output_type -> panel.agent.v1.ListSystemFilesResponse
-	3, // 4: panel.agent.v1.LogService.ListRunningServices:output_type -> panel.agent.v1.ListRunningServicesResponse
-	5, // 5: panel.agent.v1.LogService.SystemStatus:output_type -> panel.agent.v1.SystemLogStatus
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	8,  // 0: panel.agent.v1.SystemLogBatch.items:type_name -> panel.agent.v1.SystemLogEntry
+	0,  // 1: panel.agent.v1.LogService.ListSystemFiles:input_type -> panel.agent.v1.ListSystemFilesRequest
+	2,  // 2: panel.agent.v1.LogService.ListRunningServices:input_type -> panel.agent.v1.ListRunningServicesRequest
+	4,  // 3: panel.agent.v1.LogService.SystemStatus:input_type -> panel.agent.v1.SystemStatusRequest
+	6,  // 4: panel.agent.v1.LogService.ReadSystemLogs:input_type -> panel.agent.v1.ReadSystemLogsRequest
+	9,  // 5: panel.agent.v1.LogService.ReadTaskLogs:input_type -> panel.agent.v1.ReadTaskLogsRequest
+	1,  // 6: panel.agent.v1.LogService.ListSystemFiles:output_type -> panel.agent.v1.ListSystemFilesResponse
+	3,  // 7: panel.agent.v1.LogService.ListRunningServices:output_type -> panel.agent.v1.ListRunningServicesResponse
+	5,  // 8: panel.agent.v1.LogService.SystemStatus:output_type -> panel.agent.v1.SystemLogStatus
+	7,  // 9: panel.agent.v1.LogService.ReadSystemLogs:output_type -> panel.agent.v1.SystemLogBatch
+	10, // 10: panel.agent.v1.LogService.ReadTaskLogs:output_type -> panel.agent.v1.TaskLogLines
+	6,  // [6:11] is the sub-list for method output_type
+	1,  // [1:6] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_log_proto_init() }
@@ -369,7 +878,7 @@ func file_panel_agent_v1_log_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_log_proto_rawDesc), len(file_panel_agent_v1_log_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

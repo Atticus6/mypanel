@@ -308,7 +308,6 @@ import { Firewall } from '@/api/interface/firewall';
 import { TABLE_TOOLTIP_OPTIONS, type FuTableOperationButton } from '@/components/table/shared';
 import { buildHostRuleExport } from './transfer';
 import { Process } from '@/api/interface/process';
-import { getListeningProcess } from '@/api/modules/process';
 import i18n from '@/lang';
 import { getCurrentDateFormatted } from '@/utils/date';
 import { downloadWithContent } from '@/utils/file';
@@ -647,9 +646,20 @@ const loadUsage = async () => {
     const requestID = ++usageRequestID;
     usageLoading.value = true;
     usageFailed.value = false;
-    const [processes, containers] = await Promise.allSettled([getListeningProcess(), rpc.firewall.listDockerEndpoints({})]);
+    const [processes, containers] = await Promise.allSettled([
+        rpc.process.listListeningProcess({}),
+        rpc.firewall.listDockerEndpoints({}),
+    ]);
     if (requestID !== usageRequestID) return;
-    listeningProcesses.value = processes.status === 'fulfilled' ? processes.value.data || [] : [];
+    listeningProcesses.value =
+        processes.status === 'fulfilled'
+            ? (processes.value.items || []).map((item) => ({
+                  PID: item.pid,
+                  Port: Object.fromEntries(item.ports.map((port) => [port, {}])),
+                  Protocol: item.protocol,
+                  Name: item.name,
+              }))
+            : [];
     dockerEndpoints.value =
         containers.status === 'fulfilled'
             ? ((containers.value.items || []) as any[]).flatMap((container) => container.endpoints || [])

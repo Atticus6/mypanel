@@ -88,7 +88,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getProcessByID } from '@/api/modules/process';
+import { rpc } from '@/lib/rpc';
 import { ref } from 'vue';
 
 const open = ref(false);
@@ -129,8 +129,8 @@ const acceptParams = async (pid: number): Promise<void> => {
     activeName.value = 'basic';
     loading.value = true;
     try {
-        const res = await getProcessByID(pid);
-        data.value = res.data;
+        const res = await rpc.process.getProcessInfo({ pid });
+        data.value = JSON.parse(res.detailJson || '{}');
         resourceName.value = data.value.name;
         if (data.value.envs) {
             envStr.value = data.value.envs.join('\n');

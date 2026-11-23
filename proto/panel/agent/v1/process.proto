@@ -1,0 +1,161 @@
+// panel/agent/v1/process.proto 定义主机进程相关的 RPC。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// ProcessService 提供进程查询与终止能力。
+service ProcessService {
+  // 终止指定进程。
+  rpc StopProcess(StopProcessRequest) returns (StopProcessResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "结束进程"
+      audit_action_en: "Stop process"
+    };
+  }
+
+  // 查询单个进程的详情。
+  rpc GetProcessInfo(GetProcessInfoRequest) returns (ProcessInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出正在监听的进程。
+  rpc ListListeningProcess(ListListeningProcessRequest) returns (ListListeningProcessResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// StopProcessRequest 是终止进程参数。
+message StopProcessRequest {
+  // 进程 PID。
+  int32 pid = 1 [(buf.validate.field).int32.gt = 0];
+}
+
+// StopProcessResponse 是终止结果，无业务字段。
+message StopProcessResponse {}
+
+// GetProcessInfoRequest 是进程详情查询参数。
+message GetProcessInfoRequest {
+  // 进程 PID。
+  int32 pid = 1 [(buf.validate.field).int32.gt = 0];
+}
+
+// ProcessInfo 是一个进程的运行信息。
+message ProcessInfo {
+  // 进程 PID。
+  int32 pid = 1;
+
+  // 进程名。
+  string name = 2;
+
+  // 父进程 PID。
+  int32 ppid = 3;
+
+  // 运行用户。
+  string username = 4;
+
+  // 进程状态。
+  string status = 5;
+
+  // 启动时间。
+  string start_time = 6;
+
+  // 线程数。
+  int32 num_threads = 7;
+
+  // 连接数。
+  int32 num_connections = 8;
+
+  // CPU 使用率。
+  string cpu_percent = 9;
+
+  // 磁盘读取量。
+  string disk_read = 10;
+
+  // 磁盘写入量。
+  string disk_write = 11;
+
+  // 命令行。
+  string cmd_line = 12;
+
+  // 常驻内存。
+  string rss = 13;
+
+  // 虚拟内存。
+  string vms = 14;
+
+  // 内存峰值。
+  string hwm = 15;
+
+  // 数据段。
+  string data = 16;
+
+  // 栈大小。
+  string stack = 17;
+
+  // 锁定内存。
+  string locked = 18;
+
+  // 交换区。
+  string swap = 19;
+
+  // 脏页。
+  string dirty = 20;
+
+  // PSS。
+  string pss = 21;
+
+  // USS。
+  string uss = 22;
+
+  // 共享内存。
+  string shared = 23;
+
+  // 代码段。
+  string text = 24;
+
+  // CPU 数值。
+  double cpu_value = 25;
+
+  // 常驻内存数值，单位字节。
+  uint64 rss_value = 26;
+
+  // 完整进程详情的 JSON 字符串（含环境变量、打开文件与连接）。
+  //
+  // 这些字段结构随系统变化，无法稳定映射成 proto，原样透传给前端。
+  string detail_json = 27;
+}
+
+// ListListeningProcessRequest 是监听进程查询参数，无业务字段。
+message ListListeningProcessRequest {}
+
+// ListListeningProcessResponse 是监听进程列表。
+message ListListeningProcessResponse {
+  // 监听进程。
+  repeated ListeningProcess items = 1;
+}
+
+// ListeningProcess 是一个监听端口的进程。
+message ListeningProcess {
+  // 进程 PID。
+  int32 pid = 1;
+
+  // 监听端口列表。
+  repeated uint32 ports = 2;
+
+  // 协议号。
+  uint32 protocol = 3;
+
+  // 进程名。
+  string name = 4;
+}

@@ -57,12 +57,12 @@ import TaskLog from '@/components/log/task/index.vue';
 import NodeSelect from '@/components/node-select/index.vue';
 
 import { dateFormat } from '@/utils/date';
-import { searchTasks } from '@/api/modules/log';
 import { reactive, ref } from 'vue';
 import { Log } from '@/api/interface/log';
 import bus from '@/global/bus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { translateTaskText } from '@/utils/task';
+import { rpc } from '@/lib/rpc';
 const { currentNode } = useGlobalStore();
 
 const open = ref(false);
@@ -93,10 +93,15 @@ const search = async () => {
     req.pageSize = paginationConfig.pageSize;
     loading.value = true;
     try {
-        const res = await searchTasks(req, targeNode.value);
+        const res = await rpc.task.search({
+            page: req.page,
+            pageSize: req.pageSize,
+            status: req.status,
+            type: req.type,
+        });
         loading.value = false;
-        data.value = res.data.items;
-        paginationConfig.total = res.data.total;
+        data.value = res.items;
+        paginationConfig.total = Number(res.total);
     } catch (error) {
     } finally {
         loading.value = false;

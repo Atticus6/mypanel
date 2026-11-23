@@ -361,7 +361,6 @@ import { dateFormatSimple } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useI18n } from 'vue-i18n';
-import { getAgentGroupList } from '@/api/modules/group';
 import { Group } from '@/api/interface/group';
 import { getWebsiteTypes } from '@/global/mimetype';
 import { routerToFileWithPath, routerToNameWithParams, routerToNameWithQuery } from '@/utils/router';
@@ -510,8 +509,8 @@ const search = async () => {
 };
 
 const listGroup = async (searchOnReset = true) => {
-    const res = await getAgentGroupList('website');
-    groups.value = res.data;
+    const res = await rpc.group.searchGroups({ type: 'website' });
+    groups.value = (res.items || []).map((item) => ({ ...item, isDelete: false }));
     if (req.websiteGroupId !== 0 && !groups.value.some((group) => group.id === req.websiteGroupId)) {
         req.websiteGroupId = 0;
         paginationConfig.currentPage = 1;

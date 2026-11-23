@@ -83,7 +83,6 @@
 
 <script setup lang="ts">
 import { MenuStore } from '@/store';
-import { countExecutingTask } from '@/api/modules/log';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
@@ -245,8 +244,8 @@ const showNodes = () => {
 const taskCount = ref(0);
 const checkTask = async () => {
     try {
-        const res = await countExecutingTask();
-        taskCount.value = res.data;
+        const res = await rpc.task.countExecuting({});
+        taskCount.value = Number(res.count);
     } catch (error) {}
 };
 

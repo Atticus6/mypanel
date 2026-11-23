@@ -104,7 +104,6 @@ import { FormInstance, FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import { CompressExtension, CompressType } from '@/enums/files';
 import { rpc } from '@/lib/rpc';
-import { searchTasks } from '@/api/modules/log';
 import FileList from '@/components/file-list/index.vue';
 import TaskLog from '@/components/log/task/index.vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
@@ -194,21 +193,18 @@ const loadTaskInfo = async () => {
         return;
     }
     try {
-        const res = await searchTasks(
-            {
-                taskID: currentTaskID.value,
-                type: '',
-                status: '',
-                page: 1,
-                pageSize: 1,
-            },
-            currentNode.value,
-        );
-        const item = res.data.items?.[0];
+        const res = await rpc.task.search({
+            taskId: currentTaskID.value,
+            type: '',
+            status: '',
+            page: 1,
+            pageSize: 1,
+        });
+        const item = res.items?.[0];
         if (!item) {
             return;
         }
-        taskInfo.value = item;
+        taskInfo.value = item as any;
         emitTaskChange();
         if (taskInfo.value.status !== 'Executing') {
             stopTaskPolling();

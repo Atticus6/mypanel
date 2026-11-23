@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue';
 import { Group } from '@/api/interface/group';
-import { getAgentGroupList } from '@/api/modules/group';
+import { rpc } from '@/lib/rpc';
 
 const props = defineProps({
     modelValue: {
@@ -36,8 +36,8 @@ const selectedValue = computed({
 });
 
 onMounted(async () => {
-    const res = await getAgentGroupList(props.groupType);
-    groups.value = res.data;
+    const res = await rpc.group.searchGroups({ type: props.groupType });
+    groups.value = (res.items || []).map((item) => ({ ...item, isDelete: false }));
     if (groups.value.length > 0 && !props.modelValue && props.modelValue == 0) {
         selectedValue.value = groups.value[0].id;
     }

@@ -75,7 +75,6 @@ import { useSearchState } from '@/utils/search-reset';
 import GroupDialog from '@/components/agent-group/index.vue';
 import OperateDialog from '@/views/terminal/host/operate/index.vue';
 import { rpc } from '@/lib/rpc';
-import { getAgentGroupList } from '@/api/modules/group';
 import { toRef, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { Host } from '@/api/interface/host';
@@ -150,8 +149,8 @@ const onBatchDelete = async (row: Host.Host | null) => {
 };
 
 const loadGroups = async () => {
-    const res = await getAgentGroupList('host');
-    groupList.value = res.data;
+    const res = await rpc.group.searchGroups({ type: 'host' });
+    groupList.value = res.items;
 };
 
 const updateGroup = async (row: any) => {

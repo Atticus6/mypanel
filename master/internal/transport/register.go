@@ -71,6 +71,9 @@ func Services() []server.RPCService {
 	terminalPath, terminalHandler := agentv1connect.NewTerminalServiceHandler(agenttransport.NewTerminalServer(), handlerOpts...)
 	sshPath, sshHandler := agentv1connect.NewSSHServiceHandler(agenttransport.NewSSHServer(), handlerOpts...)
 	monitorPath, monitorHandler := agentv1connect.NewMonitorServiceHandler(agenttransport.NewMonitorServer(), handlerOpts...)
+	agentGroupPath, agentGroupHandler := agentv1connect.NewGroupServiceHandler(agenttransport.NewGroupServer(), handlerOpts...)
+	healthPath, healthHandler := agentv1connect.NewHealthServiceHandler(agenttransport.NewHealthServer(), handlerOpts...)
+	processPath, processHandler := agentv1connect.NewProcessServiceHandler(agenttransport.NewProcessServer(), handlerOpts...)
 
 	return []server.RPCService{
 		{
@@ -208,6 +211,21 @@ func Services() []server.RPCService {
 			Path:    transferPath,
 			Handler: transferHandler,
 		},
+		{
+			Name:    agentv1connect.GroupServiceName,
+			Path:    agentGroupPath,
+			Handler: agentGroupHandler,
+		},
+		{
+			Name:    agentv1connect.HealthServiceName,
+			Path:    healthPath,
+			Handler: healthHandler,
+		},
+		{
+			Name:    agentv1connect.ProcessServiceName,
+			Path:    processPath,
+			Handler: processHandler,
+		},
 	}
 }
 
@@ -267,6 +285,9 @@ func ServiceDescriptors() []protoreflect.ServiceDescriptor {
 		agentv1.File_panel_agent_v1_terminal_proto,
 		agentv1.File_panel_agent_v1_ssh_proto,
 		agentv1.File_panel_agent_v1_monitor_proto,
+		agentv1.File_panel_agent_v1_group_proto,
+		agentv1.File_panel_agent_v1_health_proto,
+		agentv1.File_panel_agent_v1_process_proto,
 	} {
 		for i := 0; i < file.Services().Len(); i++ {
 			descriptors = append(descriptors, file.Services().Get(i))

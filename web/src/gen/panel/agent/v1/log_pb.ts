@@ -4,145 +4,430 @@
 // @generated from file panel/agent/v1/log.proto (package panel.agent.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
-import { file_panel_common_v1_options } from "../../common/v1/options_pb";
-import type { Message } from "@bufbuild/protobuf";
+import type { GenFile, GenMessage, GenService } from '@bufbuild/protobuf/codegenv2';
+import { fileDesc, messageDesc, serviceDesc } from '@bufbuild/protobuf/codegenv2';
+import { file_buf_validate_validate } from '../../../buf/validate/validate_pb';
+import { file_panel_common_v1_options } from '../../common/v1/options_pb';
+import type { Message } from '@bufbuild/protobuf';
 
 /**
  * Describes the file panel/agent/v1/log.proto.
  */
-export const file_panel_agent_v1_log: GenFile = /*@__PURE__*/
-  fileDesc("ChhwYW5lbC9hZ2VudC92MS9sb2cucHJvdG8SDnBhbmVsLmFnZW50LnYxIhgKFkxpc3RTeXN0ZW1GaWxlc1JlcXVlc3QiKAoXTGlzdFN5c3RlbUZpbGVzUmVzcG9uc2USDQoFZmlsZXMYASADKAkiHAoaTGlzdFJ1bm5pbmdTZXJ2aWNlc1JlcXVlc3QiLwobTGlzdFJ1bm5pbmdTZXJ2aWNlc1Jlc3BvbnNlEhAKCHNlcnZpY2VzGAEgAygJIhUKE1N5c3RlbVN0YXR1c1JlcXVlc3QiZQoPU3lzdGVtTG9nU3RhdHVzEg4KBnNvdXJjZRgBIAEoCRIPCgd2ZXJzaW9uGAIgASgJEiAKGGtleXdvcmRfZmlsdGVyX3N1cHBvcnRlZBgDIAEoCBIPCgdtZXNzYWdlGAQgASgJMtQCCgpMb2dTZXJ2aWNlEmwKD0xpc3RTeXN0ZW1GaWxlcxImLnBhbmVsLmFnZW50LnYxLkxpc3RTeXN0ZW1GaWxlc1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5MaXN0U3lzdGVtRmlsZXNSZXNwb25zZSIIirUYBBgBMAESeAoTTGlzdFJ1bm5pbmdTZXJ2aWNlcxIqLnBhbmVsLmFnZW50LnYxLkxpc3RSdW5uaW5nU2VydmljZXNSZXF1ZXN0GisucGFuZWwuYWdlbnQudjEuTGlzdFJ1bm5pbmdTZXJ2aWNlc1Jlc3BvbnNlIgiKtRgEGAEwARJeCgxTeXN0ZW1TdGF0dXMSIy5wYW5lbC5hZ2VudC52MS5TeXN0ZW1TdGF0dXNSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuU3lzdGVtTG9nU3RhdHVzIgiKtRgEGAEwAUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM", [file_panel_common_v1_options]);
+export const file_panel_agent_v1_log: GenFile =
+    /*@__PURE__*/
+    fileDesc(
+        'ChhwYW5lbC9hZ2VudC92MS9sb2cucHJvdG8SDnBhbmVsLmFnZW50LnYxIhgKFkxpc3RTeXN0ZW1GaWxlc1JlcXVlc3QiKAoXTGlzdFN5c3RlbUZpbGVzUmVzcG9uc2USDQoFZmlsZXMYASADKAkiHAoaTGlzdFJ1bm5pbmdTZXJ2aWNlc1JlcXVlc3QiLwobTGlzdFJ1bm5pbmdTZXJ2aWNlc1Jlc3BvbnNlEhAKCHNlcnZpY2VzGAEgAygJIhUKE1N5c3RlbVN0YXR1c1JlcXVlc3QiZQoPU3lzdGVtTG9nU3RhdHVzEg4KBnNvdXJjZRgBIAEoCRIPCgd2ZXJzaW9uGAIgASgJEiAKGGtleXdvcmRfZmlsdGVyX3N1cHBvcnRlZBgDIAEoCBIPCgdtZXNzYWdlGAQgASgJIqABChVSZWFkU3lzdGVtTG9nc1JlcXVlc3QSHQoJcGFnZV9zaXplGAEgASgFQgq6SAcaBRj0AygAEg4KBmN1cnNvchgCIAEoCRISCgpzdGFydF90aW1lGAMgASgJEhAKCGVuZF90aW1lGAQgASgJEg8KB2tleXdvcmQYBSABKAkSEAoIcHJpb3JpdHkYBiABKAkSDwoHc2VydmljZRgHIAEoCSJ2Cg5TeXN0ZW1Mb2dCYXRjaBIOCgZzb3VyY2UYASABKAkSLQoFaXRlbXMYAiADKAsyHi5wYW5lbC5hZ2VudC52MS5TeXN0ZW1Mb2dFbnRyeRIQCghoYXNfbW9yZRgDIAEoCBITCgtuZXh0X2N1cnNvchgEIAEoCSJfCg5TeXN0ZW1Mb2dFbnRyeRIMCgR0aW1lGAEgASgJEhAKCHByaW9yaXR5GAIgASgJEg8KB3NlcnZpY2UYAyABKAkSDwoHbWVzc2FnZRgEIAEoCRILCgNyYXcYBSABKAkipwEKE1JlYWRUYXNrTG9nc1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIaCglwYWdlX3NpemUYAiABKAVCB7pIBBoCKAESDgoGbGF0ZXN0GAMgASgIEg8KB3Rhc2tfaWQYBCABKAkSEQoJdGFza190eXBlGAUgASgJEhQKDHRhc2tfb3BlcmF0ZRgGIAEoCRITCgtyZXNvdXJjZV9pZBgHIAEoDSKAAQoMVGFza0xvZ0xpbmVzEgsKA2VuZBgBIAEoCBIMCgRwYXRoGAIgASgJEg0KBXRvdGFsGAMgASgFEhMKC3Rhc2tfc3RhdHVzGAQgASgJEg0KBWxpbmVzGAUgAygJEg0KBXNjb3BlGAYgASgJEhMKC3RvdGFsX2xpbmVzGAcgASgFMpQECgpMb2dTZXJ2aWNlEmwKD0xpc3RTeXN0ZW1GaWxlcxImLnBhbmVsLmFnZW50LnYxLkxpc3RTeXN0ZW1GaWxlc1JlcXVlc3QaJy5wYW5lbC5hZ2VudC52MS5MaXN0U3lzdGVtRmlsZXNSZXNwb25zZSIIirUYBBgBMAESeAoTTGlzdFJ1bm5pbmdTZXJ2aWNlcxIqLnBhbmVsLmFnZW50LnYxLkxpc3RSdW5uaW5nU2VydmljZXNSZXF1ZXN0GisucGFuZWwuYWdlbnQudjEuTGlzdFJ1bm5pbmdTZXJ2aWNlc1Jlc3BvbnNlIgiKtRgEGAEwARJeCgxTeXN0ZW1TdGF0dXMSIy5wYW5lbC5hZ2VudC52MS5TeXN0ZW1TdGF0dXNSZXF1ZXN0Gh8ucGFuZWwuYWdlbnQudjEuU3lzdGVtTG9nU3RhdHVzIgiKtRgEGAEwARJhCg5SZWFkU3lzdGVtTG9ncxIlLnBhbmVsLmFnZW50LnYxLlJlYWRTeXN0ZW1Mb2dzUmVxdWVzdBoeLnBhbmVsLmFnZW50LnYxLlN5c3RlbUxvZ0JhdGNoIgiKtRgEGAEwARJbCgxSZWFkVGFza0xvZ3MSIy5wYW5lbC5hZ2VudC52MS5SZWFkVGFza0xvZ3NSZXF1ZXN0GhwucGFuZWwuYWdlbnQudjEuVGFza0xvZ0xpbmVzIgiKtRgEGAEwAUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM',
+        [file_buf_validate_validate, file_panel_common_v1_options],
+    );
 
 /**
  * ListSystemFilesRequest 是日志文件列表请求，无业务字段。
  *
  * @generated from message panel.agent.v1.ListSystemFilesRequest
  */
-export type ListSystemFilesRequest = Message<"panel.agent.v1.ListSystemFilesRequest"> & {
-};
+export type ListSystemFilesRequest = Message<'panel.agent.v1.ListSystemFilesRequest'> & {};
 
 /**
  * Describes the message panel.agent.v1.ListSystemFilesRequest.
  * Use `create(ListSystemFilesRequestSchema)` to create a new message.
  */
-export const ListSystemFilesRequestSchema: GenMessage<ListSystemFilesRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_log, 0);
+export const ListSystemFilesRequestSchema: GenMessage<ListSystemFilesRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_log, 0);
 
 /**
  * ListSystemFilesResponse 是日志文件日期列表。
  *
  * @generated from message panel.agent.v1.ListSystemFilesResponse
  */
-export type ListSystemFilesResponse = Message<"panel.agent.v1.ListSystemFilesResponse"> & {
-  /**
-   * 可读的日志文件（按日期命名）。
-   *
-   * @generated from field: repeated string files = 1;
-   */
-  files: string[];
+export type ListSystemFilesResponse = Message<'panel.agent.v1.ListSystemFilesResponse'> & {
+    /**
+     * 可读的日志文件（按日期命名）。
+     *
+     * @generated from field: repeated string files = 1;
+     */
+    files: string[];
 };
 
 /**
  * Describes the message panel.agent.v1.ListSystemFilesResponse.
  * Use `create(ListSystemFilesResponseSchema)` to create a new message.
  */
-export const ListSystemFilesResponseSchema: GenMessage<ListSystemFilesResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_log, 1);
+export const ListSystemFilesResponseSchema: GenMessage<ListSystemFilesResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_log, 1);
 
 /**
  * ListRunningServicesRequest 是运行中服务列表请求，无业务字段。
  *
  * @generated from message panel.agent.v1.ListRunningServicesRequest
  */
-export type ListRunningServicesRequest = Message<"panel.agent.v1.ListRunningServicesRequest"> & {
-};
+export type ListRunningServicesRequest = Message<'panel.agent.v1.ListRunningServicesRequest'> & {};
 
 /**
  * Describes the message panel.agent.v1.ListRunningServicesRequest.
  * Use `create(ListRunningServicesRequestSchema)` to create a new message.
  */
-export const ListRunningServicesRequestSchema: GenMessage<ListRunningServicesRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_log, 2);
+export const ListRunningServicesRequestSchema: GenMessage<ListRunningServicesRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_log, 2);
 
 /**
  * ListRunningServicesResponse 是运行中的系统服务列表。
  *
  * @generated from message panel.agent.v1.ListRunningServicesResponse
  */
-export type ListRunningServicesResponse = Message<"panel.agent.v1.ListRunningServicesResponse"> & {
-  /**
-   * 服务名列表。
-   *
-   * @generated from field: repeated string services = 1;
-   */
-  services: string[];
+export type ListRunningServicesResponse = Message<'panel.agent.v1.ListRunningServicesResponse'> & {
+    /**
+     * 服务名列表。
+     *
+     * @generated from field: repeated string services = 1;
+     */
+    services: string[];
 };
 
 /**
  * Describes the message panel.agent.v1.ListRunningServicesResponse.
  * Use `create(ListRunningServicesResponseSchema)` to create a new message.
  */
-export const ListRunningServicesResponseSchema: GenMessage<ListRunningServicesResponse> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_log, 3);
+export const ListRunningServicesResponseSchema: GenMessage<ListRunningServicesResponse> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_log, 3);
 
 /**
  * SystemStatusRequest 是系统日志状态请求，无业务字段。
  *
  * @generated from message panel.agent.v1.SystemStatusRequest
  */
-export type SystemStatusRequest = Message<"panel.agent.v1.SystemStatusRequest"> & {
-};
+export type SystemStatusRequest = Message<'panel.agent.v1.SystemStatusRequest'> & {};
 
 /**
  * Describes the message panel.agent.v1.SystemStatusRequest.
  * Use `create(SystemStatusRequestSchema)` to create a new message.
  */
-export const SystemStatusRequestSchema: GenMessage<SystemStatusRequest> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_log, 4);
+export const SystemStatusRequestSchema: GenMessage<SystemStatusRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_log, 4);
 
 /**
  * SystemLogStatus 是系统日志能力说明。
  *
  * @generated from message panel.agent.v1.SystemLogStatus
  */
-export type SystemLogStatus = Message<"panel.agent.v1.SystemLogStatus"> & {
-  /**
-   * 日志来源，例如 journalctl、syslog。
-   *
-   * @generated from field: string source = 1;
-   */
-  source: string;
+export type SystemLogStatus = Message<'panel.agent.v1.SystemLogStatus'> & {
+    /**
+     * 日志来源，例如 journalctl、syslog。
+     *
+     * @generated from field: string source = 1;
+     */
+    source: string;
 
-  /**
-   * 日志来源版本。
-   *
-   * @generated from field: string version = 2;
-   */
-  version: string;
+    /**
+     * 日志来源版本。
+     *
+     * @generated from field: string version = 2;
+     */
+    version: string;
 
-  /**
-   * 是否支持关键字过滤。
-   *
-   * @generated from field: bool keyword_filter_supported = 3;
-   */
-  keywordFilterSupported: boolean;
+    /**
+     * 是否支持关键字过滤。
+     *
+     * @generated from field: bool keyword_filter_supported = 3;
+     */
+    keywordFilterSupported: boolean;
 
-  /**
-   * 状态说明。
-   *
-   * @generated from field: string message = 4;
-   */
-  message: string;
+    /**
+     * 状态说明。
+     *
+     * @generated from field: string message = 4;
+     */
+    message: string;
 };
 
 /**
  * Describes the message panel.agent.v1.SystemLogStatus.
  * Use `create(SystemLogStatusSchema)` to create a new message.
  */
-export const SystemLogStatusSchema: GenMessage<SystemLogStatus> = /*@__PURE__*/
-  messageDesc(file_panel_agent_v1_log, 5);
+export const SystemLogStatusSchema: GenMessage<SystemLogStatus> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_log, 5);
+
+/**
+ * ReadSystemLogsRequest 是系统日志读取参数。
+ *
+ * @generated from message panel.agent.v1.ReadSystemLogsRequest
+ */
+export type ReadSystemLogsRequest = Message<'panel.agent.v1.ReadSystemLogsRequest'> & {
+    /**
+     * 每页条数，最大 500。
+     *
+     * @generated from field: int32 page_size = 1;
+     */
+    pageSize: number;
+
+    /**
+     * 游标；为空表示从头读取。
+     *
+     * @generated from field: string cursor = 2;
+     */
+    cursor: string;
+
+    /**
+     * 起始时间，RFC3339 格式。
+     *
+     * @generated from field: string start_time = 3;
+     */
+    startTime: string;
+
+    /**
+     * 结束时间，RFC3339 格式。
+     *
+     * @generated from field: string end_time = 4;
+     */
+    endTime: string;
+
+    /**
+     * 关键字过滤。
+     *
+     * @generated from field: string keyword = 5;
+     */
+    keyword: string;
+
+    /**
+     * 日志级别过滤。
+     *
+     * @generated from field: string priority = 6;
+     */
+    priority: string;
+
+    /**
+     * 服务名过滤。
+     *
+     * @generated from field: string service = 7;
+     */
+    service: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.ReadSystemLogsRequest.
+ * Use `create(ReadSystemLogsRequestSchema)` to create a new message.
+ */
+export const ReadSystemLogsRequestSchema: GenMessage<ReadSystemLogsRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_log, 6);
+
+/**
+ * SystemLogBatch 是一批系统日志。
+ *
+ * @generated from message panel.agent.v1.SystemLogBatch
+ */
+export type SystemLogBatch = Message<'panel.agent.v1.SystemLogBatch'> & {
+    /**
+     * 日志来源。
+     *
+     * @generated from field: string source = 1;
+     */
+    source: string;
+
+    /**
+     * 日志条目。
+     *
+     * @generated from field: repeated panel.agent.v1.SystemLogEntry items = 2;
+     */
+    items: SystemLogEntry[];
+
+    /**
+     * 是否还有更多。
+     *
+     * @generated from field: bool has_more = 3;
+     */
+    hasMore: boolean;
+
+    /**
+     * 下一页游标。
+     *
+     * @generated from field: string next_cursor = 4;
+     */
+    nextCursor: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.SystemLogBatch.
+ * Use `create(SystemLogBatchSchema)` to create a new message.
+ */
+export const SystemLogBatchSchema: GenMessage<SystemLogBatch> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_log, 7);
+
+/**
+ * SystemLogEntry 是一条系统日志。
+ *
+ * @generated from message panel.agent.v1.SystemLogEntry
+ */
+export type SystemLogEntry = Message<'panel.agent.v1.SystemLogEntry'> & {
+    /**
+     * 时间。
+     *
+     * @generated from field: string time = 1;
+     */
+    time: string;
+
+    /**
+     * 日志级别。
+     *
+     * @generated from field: string priority = 2;
+     */
+    priority: string;
+
+    /**
+     * 服务名。
+     *
+     * @generated from field: string service = 3;
+     */
+    service: string;
+
+    /**
+     * 日志正文。
+     *
+     * @generated from field: string message = 4;
+     */
+    message: string;
+
+    /**
+     * 原始日志行。
+     *
+     * @generated from field: string raw = 5;
+     */
+    raw: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.SystemLogEntry.
+ * Use `create(SystemLogEntrySchema)` to create a new message.
+ */
+export const SystemLogEntrySchema: GenMessage<SystemLogEntry> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_log, 8);
+
+/**
+ * ReadTaskLogsRequest 是任务日志读取参数。
+ *
+ * @generated from message panel.agent.v1.ReadTaskLogsRequest
+ */
+export type ReadTaskLogsRequest = Message<'panel.agent.v1.ReadTaskLogsRequest'> & {
+    /**
+     * 页码，从 1 开始。
+     *
+     * @generated from field: int32 page = 1;
+     */
+    page: number;
+
+    /**
+     * 每页行数。
+     *
+     * @generated from field: int32 page_size = 2;
+     */
+    pageSize: number;
+
+    /**
+     * 是否只取最新内容。
+     *
+     * @generated from field: bool latest = 3;
+     */
+    latest: boolean;
+
+    /**
+     * 任务 ID。
+     *
+     * @generated from field: string task_id = 4;
+     */
+    taskId: string;
+
+    /**
+     * 任务类型。
+     *
+     * @generated from field: string task_type = 5;
+     */
+    taskType: string;
+
+    /**
+     * 任务操作。
+     *
+     * @generated from field: string task_operate = 6;
+     */
+    taskOperate: string;
+
+    /**
+     * 资源 ID。
+     *
+     * @generated from field: uint32 resource_id = 7;
+     */
+    resourceId: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.ReadTaskLogsRequest.
+ * Use `create(ReadTaskLogsRequestSchema)` to create a new message.
+ */
+export const ReadTaskLogsRequestSchema: GenMessage<ReadTaskLogsRequest> =
+    /*@__PURE__*/
+    messageDesc(file_panel_agent_v1_log, 9);
+
+/**
+ * TaskLogLines 是任务日志的行内容。
+ *
+ * @generated from message panel.agent.v1.TaskLogLines
+ */
+export type TaskLogLines = Message<'panel.agent.v1.TaskLogLines'> & {
+    /**
+     * 是否已到文件末尾。
+     *
+     * @generated from field: bool end = 1;
+     */
+    end: boolean;
+
+    /**
+     * 日志路径。
+     *
+     * @generated from field: string path = 2;
+     */
+    path: string;
+
+    /**
+     * 当前页行数。
+     *
+     * @generated from field: int32 total = 3;
+     */
+    total: number;
+
+    /**
+     * 任务状态。
+     *
+     * @generated from field: string task_status = 4;
+     */
+    taskStatus: string;
+
+    /**
+     * 行内容。
+     *
+     * @generated from field: repeated string lines = 5;
+     */
+    lines: string[];
+
+    /**
+     * 读取范围。
+     *
+     * @generated from field: string scope = 6;
+     */
+    scope: string;
+
+    /**
+     * 总行数。
+     *
+     * @generated from field: int32 total_lines = 7;
+     */
+    totalLines: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.TaskLogLines.
+ * Use `create(TaskLogLinesSchema)` to create a new message.
+ */
+export const TaskLogLinesSchema: GenMessage<TaskLogLines> = /*@__PURE__*/ messageDesc(file_panel_agent_v1_log, 10);
 
 /**
  * LogService 对应 1Panel 的日志域。
@@ -150,36 +435,54 @@ export const SystemLogStatusSchema: GenMessage<SystemLogStatus> = /*@__PURE__*/
  * @generated from service panel.agent.v1.LogService
  */
 export const LogService: GenService<{
-  /**
-   * 列出可读的系统日志文件。
-   *
-   * @generated from rpc panel.agent.v1.LogService.ListSystemFiles
-   */
-  listSystemFiles: {
-    methodKind: "unary";
-    input: typeof ListSystemFilesRequestSchema;
-    output: typeof ListSystemFilesResponseSchema;
-  },
-  /**
-   * 列出正在运行的系统服务。
-   *
-   * @generated from rpc panel.agent.v1.LogService.ListRunningServices
-   */
-  listRunningServices: {
-    methodKind: "unary";
-    input: typeof ListRunningServicesRequestSchema;
-    output: typeof ListRunningServicesResponseSchema;
-  },
-  /**
-   * 读取系统日志能力与状态。
-   *
-   * @generated from rpc panel.agent.v1.LogService.SystemStatus
-   */
-  systemStatus: {
-    methodKind: "unary";
-    input: typeof SystemStatusRequestSchema;
-    output: typeof SystemLogStatusSchema;
-  },
-}> = /*@__PURE__*/
-  serviceDesc(file_panel_agent_v1_log, 0);
-
+    /**
+     * 列出可读的系统日志文件。
+     *
+     * @generated from rpc panel.agent.v1.LogService.ListSystemFiles
+     */
+    listSystemFiles: {
+        methodKind: 'unary';
+        input: typeof ListSystemFilesRequestSchema;
+        output: typeof ListSystemFilesResponseSchema;
+    };
+    /**
+     * 列出正在运行的系统服务。
+     *
+     * @generated from rpc panel.agent.v1.LogService.ListRunningServices
+     */
+    listRunningServices: {
+        methodKind: 'unary';
+        input: typeof ListRunningServicesRequestSchema;
+        output: typeof ListRunningServicesResponseSchema;
+    };
+    /**
+     * 读取系统日志能力与状态。
+     *
+     * @generated from rpc panel.agent.v1.LogService.SystemStatus
+     */
+    systemStatus: {
+        methodKind: 'unary';
+        input: typeof SystemStatusRequestSchema;
+        output: typeof SystemLogStatusSchema;
+    };
+    /**
+     * 分页读取系统日志。
+     *
+     * @generated from rpc panel.agent.v1.LogService.ReadSystemLogs
+     */
+    readSystemLogs: {
+        methodKind: 'unary';
+        input: typeof ReadSystemLogsRequestSchema;
+        output: typeof SystemLogBatchSchema;
+    };
+    /**
+     * 按行读取任务日志。
+     *
+     * @generated from rpc panel.agent.v1.LogService.ReadTaskLogs
+     */
+    readTaskLogs: {
+        methodKind: 'unary';
+        input: typeof ReadTaskLogsRequestSchema;
+        output: typeof TaskLogLinesSchema;
+    };
+}> = /*@__PURE__*/ serviceDesc(file_panel_agent_v1_log, 0);

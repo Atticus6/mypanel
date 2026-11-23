@@ -70,7 +70,6 @@ import { editHost } from '@/api/modules/terminal';
 import i18n from '@/lang';
 import { reactive, ref } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { getAgentGroupList } from '@/api/modules/group';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 
@@ -129,8 +128,8 @@ const handleClose = () => {
 const emit = defineEmits(['on-conn-terminal', 'on-new-local', 'load-host-tree']);
 
 const loadGroups = async () => {
-    const res = await getAgentGroupList('host', targetNode.value);
-    groupList.value = res.data;
+    const res = await rpc.group.searchGroups({ type: 'host' });
+    groupList.value = res.items;
     for (const item of groupList.value) {
         if (item.isDefault) {
             defaultGroup.value = item.id;
@@ -189,9 +188,7 @@ const submitAddHost = (formEl: FormInstance | undefined, ops: string) => {
                     description: form.description,
                     groupId: Number(form.groupID) || 0,
                 };
-                const test = form.isLocal
-                    ? rpc.agentSetting.testConnByInfo(form as any)
-                    : rpc.host.testByInfo(payload);
+                const test = form.isLocal ? rpc.agentSetting.testConnByInfo(form as any) : rpc.host.testByInfo(payload);
                 await test.then((res) => {
                     if (res.ok) {
                         isOK.value = true;

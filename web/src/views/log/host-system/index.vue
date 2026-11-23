@@ -111,10 +111,10 @@ import { panelCacheKey, writePanelCache, readCachedPageSize } from '@/utils/pane
 import { useSearchState } from '@/utils/search-reset';
 import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { Log } from '@/api/interface/log';
-import { getSystemLogStatus, listRunningServices, readSystemLogs } from '@/api/modules/log';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { shortcuts } from '@/utils/shortcuts';
+import { rpc } from '@/lib/rpc';
 
 const { currentNode } = useGlobalStore();
 const logs = ref<Log.SystemLogItem[]>([]);
@@ -157,23 +157,20 @@ const loadLogs = async (cursor = cursorHistory.value[cursorIndex.value]) => {
     const currentRequestID = ++requestID;
     loading.value = true;
     try {
-        const res = await readSystemLogs(
-            {
-                pageSize: paginationConfig.pageSize,
-                cursor,
-                startTime: timeRange.value?.[0],
-                endTime: timeRange.value?.[1],
-                keyword: keyword.value,
-                priority: priority.value,
-                service: service.value,
-            },
-            currentNode.value,
-        );
+        const res = await rpc.log.readSystemLogs({
+            pageSize: paginationConfig.pageSize,
+            cursor,
+            startTime: timeRange.value?.[0] ? new Date(timeRange.value[0]).toISOString() : '',
+            endTime: timeRange.value?.[1] ? new Date(timeRange.value[1]).toISOString() : '',
+            keyword: keyword.value,
+            priority: priority.value,
+            service: service.value,
+        });
         if (currentRequestID !== requestID) return;
-        logs.value = res.data.items || [];
-        hasMore.value = res.data.hasMore;
-        if (res.data.nextCursor) {
-            cursorHistory.value[cursorIndex.value + 1] = res.data.nextCursor;
+        logs.value = res.items || [];
+        hasMore.value = res.hasMore;
+        if (res.nextCursor) {
+            cursorHistory.value[cursorIndex.value + 1] = res.nextCursor;
         }
     } finally {
         if (currentRequestID === requestID) loading.value = false;
@@ -207,8 +204,8 @@ const changePageSize = () => {
 
 const loadServices = async () => {
     try {
-        const res = await listRunningServices(currentNode.value);
-        services.value = res.data || [];
+        const res = await rpc.log.listRunningServices({});
+        services.value = res.services || [];
     } catch {
         services.value = [];
     }
@@ -216,8 +213,13 @@ const loadServices = async () => {
 
 const loadSystemLogStatus = async () => {
     try {
-        const res = await getSystemLogStatus(currentNode.value);
-        systemLogStatus.value = res.data;
+        const res = await rpc.log.systemStatus({});
+        systemLogStatus.value = {
+            source: res.source as 'file' | 'journalctl',
+            version: res.version,
+            keywordFilterSupported: res.keywordFilterSupported,
+            message: res.message,
+        };
     } catch {
         systemLogStatus.value = undefined;
     } finally {

@@ -1,0 +1,115 @@
+// panel/agent/v1/group.proto 定义资源分组相关的 RPC。
+//
+// 这里的组用于网站、应用等资源归类，与系统用户组无关。
+syntax = "proto3";
+
+package panel.agent.v1;
+
+option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
+
+import "buf/validate/validate.proto";
+import "panel/common/v1/options.proto";
+
+// GroupService 管理资源分组。
+service GroupService {
+  // 创建分组。
+  rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建分组"
+      audit_action_en: "Create group"
+    };
+  }
+
+  // 删除分组。
+  rpc DeleteGroup(DeleteGroupRequest) returns (DeleteGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除分组"
+      audit_action_en: "Delete group"
+    };
+  }
+
+  // 更新分组。
+  rpc UpdateGroup(UpdateGroupRequest) returns (UpdateGroupResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新分组"
+      audit_action_en: "Update group"
+    };
+  }
+
+  // 按类型查询分组列表。
+  rpc SearchGroups(SearchGroupsRequest) returns (SearchGroupsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+}
+
+// Group 是一个资源分组。
+message Group {
+  // 分组 ID。
+  uint32 id = 1;
+
+  // 分组名称。
+  string name = 2;
+
+  // 分组类型，例如 website、app。
+  string type = 3;
+
+  // 是否为默认分组。
+  bool is_default = 4;
+}
+
+// CreateGroupRequest 是创建分组参数。
+message CreateGroupRequest {
+  // 预分配 ID；0 表示由服务端生成。
+  uint32 id = 1;
+
+  // 分组名称。
+  string name = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 分组类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// CreateGroupResponse 是创建结果，无业务字段。
+message CreateGroupResponse {}
+
+// DeleteGroupRequest 是删除分组参数。
+message DeleteGroupRequest {
+  // 分组 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteGroupResponse 是删除结果，无业务字段。
+message DeleteGroupResponse {}
+
+// UpdateGroupRequest 是更新分组参数。
+message UpdateGroupRequest {
+  // 分组 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 分组名称。
+  string name = 2;
+
+  // 分组类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+
+  // 是否设为默认分组。
+  bool is_default = 4;
+}
+
+// UpdateGroupResponse 是更新结果，无业务字段。
+message UpdateGroupResponse {}
+
+// SearchGroupsRequest 是分组查询参数。
+message SearchGroupsRequest {
+  // 分组类型；为空表示全部类型。
+  string type = 1;
+}
+
+// SearchGroupsResponse 是分组列表结果。
+message SearchGroupsResponse {
+  // 分组列表。
+  repeated Group items = 1;
+}

@@ -5,6 +5,7 @@ package panel.agent.v1;
 
 option go_package = "mypanel/proto/gen/go/panel/agent/v1;agentv1";
 
+import "buf/validate/validate.proto";
 import "panel/common/v1/options.proto";
 
 // LogService 对应 1Panel 的日志域。
@@ -27,6 +28,22 @@ service LogService {
 
   // 读取系统日志能力与状态。
   rpc SystemStatus(SystemStatusRequest) returns (SystemLogStatus) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页读取系统日志。
+  rpc ReadSystemLogs(ReadSystemLogsRequest) returns (SystemLogBatch) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按行读取任务日志。
+  rpc ReadTaskLogs(ReadTaskLogsRequest) returns (TaskLogLines) {
     option (panel.common.v1.policy) = {
       read_only: true
       no_audit: true
@@ -68,4 +85,112 @@ message SystemLogStatus {
 
   // 状态说明。
   string message = 4;
+}
+
+// ReadSystemLogsRequest 是系统日志读取参数。
+message ReadSystemLogsRequest {
+  // 每页条数，最大 500。
+  int32 page_size = 1 [(buf.validate.field).int32 = {
+    gte: 0
+    lte: 500
+  }];
+
+  // 游标；为空表示从头读取。
+  string cursor = 2;
+
+  // 起始时间，RFC3339 格式。
+  string start_time = 3;
+
+  // 结束时间，RFC3339 格式。
+  string end_time = 4;
+
+  // 关键字过滤。
+  string keyword = 5;
+
+  // 日志级别过滤。
+  string priority = 6;
+
+  // 服务名过滤。
+  string service = 7;
+}
+
+// SystemLogBatch 是一批系统日志。
+message SystemLogBatch {
+  // 日志来源。
+  string source = 1;
+
+  // 日志条目。
+  repeated SystemLogEntry items = 2;
+
+  // 是否还有更多。
+  bool has_more = 3;
+
+  // 下一页游标。
+  string next_cursor = 4;
+}
+
+// SystemLogEntry 是一条系统日志。
+message SystemLogEntry {
+  // 时间。
+  string time = 1;
+
+  // 日志级别。
+  string priority = 2;
+
+  // 服务名。
+  string service = 3;
+
+  // 日志正文。
+  string message = 4;
+
+  // 原始日志行。
+  string raw = 5;
+}
+
+// ReadTaskLogsRequest 是任务日志读取参数。
+message ReadTaskLogsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页行数。
+  int32 page_size = 2 [(buf.validate.field).int32.gte = 1];
+
+  // 是否只取最新内容。
+  bool latest = 3;
+
+  // 任务 ID。
+  string task_id = 4;
+
+  // 任务类型。
+  string task_type = 5;
+
+  // 任务操作。
+  string task_operate = 6;
+
+  // 资源 ID。
+  uint32 resource_id = 7;
+}
+
+// TaskLogLines 是任务日志的行内容。
+message TaskLogLines {
+  // 是否已到文件末尾。
+  bool end = 1;
+
+  // 日志路径。
+  string path = 2;
+
+  // 当前页行数。
+  int32 total = 3;
+
+  // 任务状态。
+  string task_status = 4;
+
+  // 行内容。
+  repeated string lines = 5;
+
+  // 读取范围。
+  string scope = 6;
+
+  // 总行数。
+  int32 total_lines = 7;
 }

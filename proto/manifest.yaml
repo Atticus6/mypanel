@@ -55,6 +55,8 @@ excluded_prefixes:
     reason: 数据库模块已整体剔除
   - prefix: /core/auth/api/keys
     reason: 多 API Key 管理依赖 xpack 的 APIKeyOwnerProvider，社区版未实现，随 xpack 一并剔除
+  - prefix: /process/ws
+    reason: 进程列表实时刷新是 WebSocket 通道，不是普通 JSON 接口
   - prefix: /apps/icon
     reason: 应用图标返回 PNG 或 302 跳转，属于二进制响应，保留 HTTP 实现
   - prefix: /files/ai-search
@@ -120,6 +122,7 @@ routes:
   "GET /files/recycle/status": panel.agent.v1.FileService.GetRecycleStatus
   "GET /files/share/check": panel.agent.v1.FileService.CheckShare
   "GET /files/share/info": panel.agent.v1.FileService.GetPublicShare
+  "GET /health/check": panel.agent.v1.HealthService.Check
   "GET /hosts/components/:name": panel.agent.v1.HostService.CheckComponent
   "GET /hosts/diagnostics/goroutines": panel.agent.v1.HostService.GetDiagnosticsGoroutines
   "GET /hosts/diagnostics/summary": panel.agent.v1.HostService.GetDiagnosticsSummary
@@ -135,6 +138,7 @@ routes:
   "GET /logs/system/services": panel.agent.v1.LogService.ListRunningServices
   "GET /logs/system/status": panel.agent.v1.LogService.SystemStatus
   "GET /logs/tasks/executing/count": panel.agent.v1.TaskService.CountExecuting
+  "GET /process/:pid": panel.agent.v1.ProcessService.GetProcessInfo
   "GET /settings/basedir": panel.agent.v1.AgentSettingService.GetBaseDir
   "GET /settings/search/available": panel.agent.v1.AgentSettingService.GetSystemAvailable
   "GET /settings/snapshot/load": panel.agent.v1.SnapshotService.LoadData
@@ -328,6 +332,10 @@ routes:
   "POST /files/user/group": panel.agent.v1.FileService.GetUsersAndGroups
   "POST /files/wget": panel.agent.v1.FileService.Wget
   "POST /files/wget/stop": panel.agent.v1.FileService.StopWget
+  "POST /groups": panel.agent.v1.GroupService.CreateGroup
+  "POST /groups/del": panel.agent.v1.GroupService.DeleteGroup
+  "POST /groups/search": panel.agent.v1.GroupService.SearchGroups
+  "POST /groups/update": panel.agent.v1.GroupService.UpdateGroup
   "POST /hosts": panel.agent.v1.HostService.Create
   "POST /hosts/del": panel.agent.v1.HostService.DeleteHosts
   "POST /hosts/diagnostics/profiles": panel.agent.v1.HostService.CreateDiagnosticsProfile
@@ -383,7 +391,11 @@ routes:
   "POST /hosts/tree": panel.agent.v1.HostService.Tree
   "POST /hosts/update": panel.agent.v1.HostService.UpdateHost
   "POST /hosts/update/group": panel.agent.v1.HostService.UpdateHostGroup
+  "POST /logs/system/read": panel.agent.v1.LogService.ReadSystemLogs
+  "POST /logs/tasks/read": panel.agent.v1.LogService.ReadTaskLogs
   "POST /logs/tasks/search": panel.agent.v1.TaskService.Search
+  "POST /process/listening": panel.agent.v1.ProcessService.ListListeningProcess
+  "POST /process/stop": panel.agent.v1.ProcessService.StopProcess
   "POST /settings/description/save": panel.agent.v1.AgentSettingService.SaveDescription
   "POST /settings/file-history/search": panel.agent.v1.AgentSettingService.GetFileHistory
   "POST /settings/file-history/update": panel.agent.v1.AgentSettingService.UpdateFileHistory

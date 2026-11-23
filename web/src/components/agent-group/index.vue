@@ -65,7 +65,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import i18n from '@/lang';
-import { createAgentGroup, deleteAgentGroup, getAgentGroupList, updateAgentGroup } from '@/api/modules/group';
+import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
 import { Group } from '@/api/interface/group';
 import { Rules } from '@/global/form-rules';
@@ -92,8 +92,8 @@ const acceptParams = (params: DialogProps): void => {
 const emit = defineEmits<{ (e: 'search'): void }>();
 
 const search = () => {
-    getAgentGroupList(type.value).then((res) => {
-        data.value = res.data || [];
+    rpc.group.searchGroups({ type: type.value }).then((res) => {
+        data.value = res.items || [];
     });
 };
 
@@ -105,15 +105,17 @@ const saveGroup = async (formEl: FormInstance, group: Group.GroupInfo) => {
         }
         group.type = type.value;
         if (group.id == 0) {
-            createAgentGroup(group).then(() => {
+            rpc.group.createGroup({ id: group.id, name: group.name, type: group.type }).then(() => {
                 MsgSuccess(i18n.global.t('commons.msg.createSuccess'));
                 search();
             });
         } else {
-            updateAgentGroup(group).then(() => {
-                MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
-                search();
-            });
+            rpc.group
+                .updateGroup({ id: group.id, name: group.name, type: group.type, isDefault: group.isDefault })
+                .then(() => {
+                    MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
+                    search();
+                });
         }
     });
 };
@@ -121,7 +123,7 @@ const saveGroup = async (formEl: FormInstance, group: Group.GroupInfo) => {
 const setDefault = (group: Group.GroupInfo) => {
     group.isDefault = true;
     group.type = type.value;
-    updateAgentGroup(group).then(() => {
+    rpc.group.updateGroup({ id: group.id, name: group.name, type: group.type, isDefault: group.isDefault }).then(() => {
         MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
         search();
     });
@@ -150,7 +152,7 @@ const removeGroup = (index: number) => {
     const group = data.value[index];
 
     if (group.id > 0) {
-        deleteAgentGroup(group.id).then(() => {
+        rpc.group.deleteGroup({ id: group.id }).then(() => {
             data.value.splice(index, 1);
             MsgSuccess(i18n.global.t('commons.msg.deleteSuccess'));
         });
