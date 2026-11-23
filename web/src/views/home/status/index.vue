@@ -346,6 +346,27 @@
 </template>
 
 <script setup lang="ts">
+interface NPUInfo {
+    type: 'ascend';
+    index: number;
+    npuIndex: number;
+    chipIndex: number;
+    productName: string;
+    busID: string;
+    health: string;
+    temperature: string;
+    powerDraw: string;
+    aiCore: string;
+    memUsed: string;
+    memTotal: string;
+    memoryUsed: string;
+    memoryTotal: string;
+    hbmUsed: string;
+    hbmTotal: string;
+    hugepagesUsed: string;
+    hugepagesTotal: string;
+}
+
 import { Dashboard } from '@/types/dashboard';
 import { computeSize } from '@/utils/size';
 import i18n from '@/lang';
@@ -520,7 +541,7 @@ function formatNumber(val: number) {
 const normalizeDashboardAccelerators = (current: Dashboard.CurrentInfo) => {
     const legacyNPUs = (current.gpuData || [])
         .filter((item) => item.type === 'ascend')
-        .map<Dashboard.NPUInfo>((item) => ({
+        .map<NPUInfo>((item) => ({
             type: 'ascend',
             index: item.index,
             npuIndex: item.npuIndex,

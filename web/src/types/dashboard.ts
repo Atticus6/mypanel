@@ -22,30 +22,9 @@ export namespace Dashboard {
     export type QuickDirectory = Init<typeof QuickDirectorySchema>;
     export type QuickJump = Init<typeof QuickJumpSchema>;
 
-    export interface AppLauncher {
-        key: string;
-        icon: string;
-        limit: number;
-        shortDescEn: string;
-        shortDescZh: string;
-        currentRow: InstallDetail;
-        isInstall: boolean;
-        isRecommend: boolean;
-        detail: Array<InstallDetail>;
-    }
+
     export type AppLauncherOption = Init<typeof LauncherOptionSchema>;
-    export interface InstallDetail {
-        installID: number;
-        detailID: string;
-        name: string;
-        version: string;
-        path: string;
-        status: string;
-        appType: string;
-        webUI: string;
-        httpPort: string;
-        httpsPort: string;
-    }
+
 
     export type BaseInfo = Omit<Init<typeof DashboardBaseSchema>, 'currentInfo' | 'quickJumps'> & {
         httpProxy?: string;
@@ -100,9 +79,9 @@ export namespace Dashboard {
         runningTime?: RunningTime;
         diskData?: DiskInfo[];
         shotTime?: Date;
-        gpuData?: GPUInfo[];
-        npuData?: NPUInfo[];
-        xpuData?: XPUInfo[];
+        gpuData?: any[];
+        npuData?: any[];
+        xpuData?: any[];
         topCPUItems?: Process[];
         topMemItems?: Process[];
     };
@@ -126,54 +105,7 @@ export namespace Dashboard {
         inodesFree?: number;
     };
 
-    export interface GPUInfo {
-        sharedMemory?: boolean;
-        type: string;
-        index: number;
-        npuIndex: number;
-        chipIndex: number;
-        productName: string;
-        busID: string;
-        gpuUtil: string;
-        temperature: string;
-        performanceState: string;
-        powerUsage: string;
-        powerDraw: string;
-        maxPowerLimit: string;
-        memoryUsage: string;
-        memUsed: string;
-        memTotal: string;
-        fanSpeed: string;
-    }
-    export interface NPUInfo {
-        type: 'ascend';
-        index: number;
-        npuIndex: number;
-        chipIndex: number;
-        productName: string;
-        busID: string;
-        health: string;
-        temperature: string;
-        powerDraw: string;
-        aiCore: string;
-        memUsed: string;
-        memTotal: string;
-        memoryUsed: string;
-        memoryTotal: string;
-        hbmUsed: string;
-        hbmTotal: string;
-        hugepagesUsed: string;
-        hugepagesTotal: string;
-    }
-    export interface XPUInfo {
-        deviceID: number;
-        deviceName: string;
-        pciBdfAddress: string;
-        memory: string;
-        temperature: string;
-        gpuUtil: string;
-        memoryUsed: string;
-        power: string;
-        memoryUtil: string;
-    }
+
+
+
 }
