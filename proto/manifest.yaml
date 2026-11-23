@@ -51,6 +51,8 @@ excluded_prefixes:
     reason: 容器日志导出是二进制下载通道
   - prefix: /containers/daemonjson/file
     reason: daemon.json 文件上传下载是二进制通道
+  - prefix: /databases
+    reason: 数据库管理交给 DBX 接管，mypanel 不再提供数据库实例管理接口
   - prefix: /core/auth/api/keys
     reason: 多 API Key 管理依赖 xpack 的 APIKeyOwnerProvider，社区版未实现，随 xpack 一并剔除
 
@@ -85,8 +87,6 @@ routes:
   "GET /dashboard/base/os": panel.agent.v1.DashboardService.GetOsInfo
   "GET /dashboard/current/:ioOption/:netOption": panel.agent.v1.DashboardService.CurrentInfo
   "GET /dashboard/quick/option": panel.agent.v1.DashboardService.QuickJumps
-  "GET /databases/db/list/:type": panel.agent.v1.DatabaseService.List
-  "GET /databases/redis/check": panel.agent.v1.DatabaseService.CheckRedisCli
   "GET /hosts/components/:name": panel.agent.v1.HostService.CheckComponent
   "GET /hosts/diagnostics/goroutines": panel.agent.v1.HostService.GetDiagnosticsGoroutines
   "GET /hosts/diagnostics/summary": panel.agent.v1.HostService.GetDiagnosticsSummary
@@ -237,12 +237,6 @@ routes:
   "POST /cronjobs/records/log": panel.agent.v1.CronjobService.LoadRecordLog
   "POST /cronjobs/search": panel.agent.v1.CronjobService.Search
   "POST /cronjobs/search/records": panel.agent.v1.CronjobService.SearchRecords
-  "POST /databases/db/search": panel.agent.v1.DatabaseService.SearchRemote
-  "POST /databases/mongodb/search": panel.agent.v1.DatabaseService.SearchMongoDB
-  "POST /databases/redis/conf": panel.agent.v1.DatabaseService.GetRedisConf
-  "POST /databases/redis/persistence/conf": panel.agent.v1.DatabaseService.GetRedisPersistenceConf
-  "POST /databases/redis/status": panel.agent.v1.DatabaseService.GetRedisStatus
-  "POST /databases/users/search": panel.agent.v1.DatabaseService.ListMySQLUsers
   "POST /files/compress": panel.agent.v1.FileService.Compress
   "POST /files/content": panel.agent.v1.FileService.GetFile
   "POST /files/decompress": panel.agent.v1.FileService.DeCompress

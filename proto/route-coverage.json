@@ -2324,340 +2324,379 @@
     {
       "method": "POST",
       "path": "/databases",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/change/access",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/change/password",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/common/info",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/common/load/file",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/common/update/conf",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/db",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "GET",
       "path": "/databases/db/:name",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/db/check",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/db/del",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/db/del/check",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "GET",
       "path": "/databases/db/item/:type",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "GET",
       "path": "/databases/db/list/:type",
-      "target": "panel.agent.v1.DatabaseService.List",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "List",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/db/search",
-      "target": "panel.agent.v1.DatabaseService.SearchRemote",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "SearchRemote",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/db/update",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/del",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/del/check",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/description/update",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/format/options",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/grants",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/grants/del",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/grants/search",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/grants/summary",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/load",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/bind",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/del",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/del/check",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/description",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/load",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/password",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/privileges",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/privileges/change",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/root/password",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/mongodb/search",
-      "target": "panel.agent.v1.DatabaseService.SearchMongoDB",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "SearchMongoDB",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/:database/load",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/bind",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/del",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/del/check",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/description",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/password",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/privileges",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/pg/search",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "GET",
       "path": "/databases/redis/check",
-      "target": "panel.agent.v1.DatabaseService.CheckRedisCli",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "CheckRedisCli",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/redis/conf",
-      "target": "panel.agent.v1.DatabaseService.GetRedisConf",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "GetRedisConf",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/redis/conf/update",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/redis/install/cli",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/redis/password",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/redis/persistence/conf",
-      "target": "panel.agent.v1.DatabaseService.GetRedisPersistenceConf",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "GetRedisPersistenceConf",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/redis/persistence/update",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/redis/status",
-      "target": "panel.agent.v1.DatabaseService.GetRedisStatus",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "GetRedisStatus",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/remote",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/search",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/status",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/users",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/users/del",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/users/password",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/users/password/save",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/users/search",
-      "target": "panel.agent.v1.DatabaseService.ListMySQLUsers",
-      "service": "panel.agent.v1.DatabaseService",
-      "rpc": "ListMySQLUsers",
-      "covered": true
+      "excluded": true,
+      "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/users/update",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/variables",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/databases/variables/update",
+      "excluded": true,
       "covered": false
     },
     {

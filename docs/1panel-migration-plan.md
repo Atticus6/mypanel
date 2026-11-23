@@ -2209,13 +2209,14 @@ bun run build
 | 认证收尾 | `AuthService` 增 7 个方法：Passkey 注册 begin/finish、MFA 生成/绑定/关闭、当前用户修改、过期密码重置；17 条 `/core/auth/*` 路由全部建立映射 |
 | 代理与域名 | `WebsiteService` 增至 69 个方法：反向代理新增/文件/删除/状态/缓存清理、访问认证与路径认证、重定向文件、四层代理、关联资源、域名增删改、DNS 账号、数据库绑定、负载均衡文件、日志开关 |
 | 多节点接口清理 | 前端 `listNodeOptions`/`listAllSimpleNodes`/`updateNodeFavorite` 已改为本地单节点实现，不再请求 xpack 的 `/core/nodes*` |
+| 数据库域剔除 | `/databases/*`（63 条）不再迁移：数据库实例与连接管理交给 DBX 接管，mypanel 只保留网站绑定数据库这一条链路 |
 
 ### 当前进度（2026-11-23）
 
 | 指标 | 数值 |
 | --- | --- |
-| proto RPC 方法数 | 356 |
-| 精确路由覆盖 | 351 / 830（剔除 260，未映射 219） |
+| proto RPC 方法数 | 356（含已剔除域遗留的 DatabaseService，待清理） |
+| 精确路由覆盖 | 343 / 830（剔除 323，未映射 164） |
 | 已迁移页面与对话框 | 约 320 个 |
 
 `web/src/api/modules/setting.ts`、`firewall.ts`、`host.ts` 已整体删除：面板设置、agent 设置与系统快照全部走 RPC。
@@ -2229,6 +2230,9 @@ bun run build
 脚本执行（`/core/script/run`）与终端数据流一样属于 WebSocket 通道；命令 CSV 上传
 （`/core/commands/upload`）是 multipart 二进制通道，两者都已列入剔除前缀并注明原因。
 
+数据库域（`/databases/*`）已整体列入剔除前缀。数据库实例管理由 DBX 负责，
+mypanel 侧只保留「网站绑定数据库」这条链路（`/websites/databases`）。
+
 终端数据流（`/hosts/terminal/local|ssh|container`）与 Toolbox（`/hosts/tool/*`）已显式列入
 `manifest.yaml` 的 `excluded_prefixes`，不再算作未映射。`-update-manifest` 现在会保留现有剔除前缀，
 避免重新生成 routes 时把人工决策丢掉。
@@ -2239,11 +2243,22 @@ bun run build
 覆盖率权威命令：`./scripts/check-rpc-coverage.sh`；映射维护在 `master/cmd/rpc-coverage/main.go` 的 `overrides`，
 快照 `proto/route-coverage.json` 随映射一起更新。
 
+### 待清理（数据库域）
+
+路由与映射已剔除，但代码仍在，删除时按以下顺序做，避免中途编译不过：
+
+1. 前端：删除 `web/src/views/database/**`，同时移除 `web/src/routers/modules/database.ts` 与侧边栏菜单项；
+2. 前端数据层：删除 `web/src/api/modules/database.ts`、`web/src/api/interface/database.ts`，以及 `lib/rpc/index.ts` 里的 `database` 注册；
+3. 后端：删除 `proto/panel/agent/v1/database.proto`（连同生成产物）、`master/internal/transport/agent/database.go` 与 `register.go` 中的注册项；
+4. 模块内保留 `master/internal/agent/app/api/v2/database*.go` 与 `app/service/database*.go`，直到确认没有其它模块（如应用安装）反向依赖，再单独删除；
+5. 跑 `./scripts/gen.sh && ./scripts/check-rpc-coverage.sh`，确认覆盖统计从 343 起不再变化。
+
 ### 与原文的偏差
 
 1. **OIDC / SAML 不适用**：当前 1Panel 社区版源码（`v2.5.1`）中没有 `oidc` / `saml2` 的 handler，相关能力位于未开源的 enterprise/xpack 目录。剔除 xpack 后这些端点不存在，白名单中保留路径仅为将来接入 IdP 预留，不能凭空实现。
-2. **多 API Key 管理不实现**：`/core/auth/api/keys/*`（9 条）依赖 xpack 的 `APIKeyOwnerProvider`；社区版 `authHelper` 未实现该接口，调用会直接返回 `ErrApiConfigStatusInvalid`。只保留 legacy 的生成密钥与配置更新两个接口。
-3. **AI service 层未完全删除**：AI 的 API 与路由已删，但 OpenClaw/Ollama 的应用安装与升级钩子仍依赖 `app/service/agents_*.go`、`ai_gateway_*.go` 中的函数。彻底删除需要一并重写应用商店的 AI 应用安装/升级流程，单独提交。
-4. **Toolbox 底层能力保留**：`device_clean`、`FTP` 被计划任务与网站模块复用，只删除了 Toolbox 的 API 与路由。
-5. **多节点能力不保留**：单进程下固定本地节点，`CurrentNode` 透传已移除。
+2. **数据库域剔除**：`/databases/*`（63 条路由）不再迁移。原因是数据库连接与查询能力已由 DBX 提供，重复实现会形成两套连接管理与两套权限模型。当前只做了「路由剔除 + 映射清理」，`panel.agent.v1.DatabaseService` 与其前端页面尚未删除——删除会牵动侧边栏菜单、路由表与 i18n，需要单独一次清理提交（见「待清理」）。
+3. **多 API Key 管理不实现**：`/core/auth/api/keys/*`（9 条）依赖 xpack 的 `APIKeyOwnerProvider`；社区版 `authHelper` 未实现该接口，调用会直接返回 `ErrApiConfigStatusInvalid`。只保留 legacy 的生成密钥与配置更新两个接口。
+4. **AI service 层未完全删除**：AI 的 API 与路由已删，但 OpenClaw/Ollama 的应用安装与升级钩子仍依赖 `app/service/agents_*.go`、`ai_gateway_*.go` 中的函数。彻底删除需要一并重写应用商店的 AI 应用安装/升级流程，单独提交。
+5. **Toolbox 底层能力保留**：`device_clean`、`FTP` 被计划任务与网站模块复用，只删除了 Toolbox 的 API 与路由。
+6. **多节点能力不保留**：单进程下固定本地节点，`CurrentNode` 透传已移除。
 
