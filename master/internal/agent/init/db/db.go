@@ -1,21 +1,22 @@
 package db
 
 import (
-	"os"
-	"path"
+	"fmt"
 
 	"mypanel/agent/global"
-	"mypanel/agent/utils/common"
+	"mypanel/shareddb"
 )
 
+// Init 让 agent 的所有连接指向同一个共享 SQLite 连接池。
 func Init() {
-	global.DB = common.LoadDBConnByPath(path.Join(global.Dir.DbDir, "agent.db"), "agent")
-	global.TaskDB = common.LoadDBConnByPath(path.Join(global.Dir.DbDir, "task.db"), "task")
-	global.MonitorDB = common.LoadDBConnByPath(path.Join(global.Dir.DbDir, "monitor.db"), "monitor")
-	global.GPUMonitorDB = common.LoadDBConnByPath(path.Join(global.Dir.DbDir, "gpu_monitor.db"), "gpu_monitor")
-	global.AlertDB = common.LoadDBConnByPath(path.Join(global.Dir.DbDir, "alert.db"), "alert")
-
-	if _, err := os.Stat(path.Join(global.Dir.DbDir, "core.db")); err == nil {
-		global.CoreDB = common.LoadDBConnByPath(path.Join(global.Dir.DbDir, "core.db"), "core")
+	handle := shareddb.Handle()
+	if handle == nil {
+		panic(fmt.Errorf("agent 数据库初始化前必须先调用 shareddb.Init"))
 	}
+	global.DB = handle
+	global.TaskDB = handle
+	global.MonitorDB = handle
+	global.GPUMonitorDB = handle
+	global.AlertDB = handle
+	global.CoreDB = handle
 }

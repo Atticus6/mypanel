@@ -23,8 +23,9 @@ npm相关的命令都使用bun 包括bunx
 
 `go.work` 同时包含 `master`、`master/internal/core`、`master/internal/agent`、`node`、`proto` 五个 module。**新增 Go module 必须同步加进 `go.work`**，否则 `go build ./...` 找不到它。
 
-`master/internal/core`（`mypanel/core`）与 `master/internal/agent`（`mypanel/agent`）保持独立 module 与独立数据库连接，
-只共享进程与 HTTP server；它们之间**不允许互相 import**，未来拆分回双进程时只需把 agent 移到 `node/`。
+`master/internal/core`（`mypanel/core`）与 `master/internal/agent`（`mypanel/agent`）保持独立 module，
+但共享同一个 SQLite 连接（`mypanel/shareddb`）；迁移表按模块命名，业务表共用。
+它们之间**不允许互相 import**，只通过 `shareddb` 与进程内 HTTP server 协作。
 
 ## 注释规范
 

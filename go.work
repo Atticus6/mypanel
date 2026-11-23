@@ -6,4 +6,5 @@ use (
 	./master/internal/core
 	./node
 	./proto
+	./shareddb
 )

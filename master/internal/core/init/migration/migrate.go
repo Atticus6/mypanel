@@ -8,7 +8,9 @@ import (
 )
 
 func Init() {
-	m := gormigrate.New(global.DB, gormigrate.DefaultOptions, coreMigrations())
+	options := *gormigrate.DefaultOptions
+	options.TableName = "core_migrations"
+	m := gormigrate.New(global.DB, &options, coreMigrations())
 	if err := m.Migrate(); err != nil {
 		global.LOG.Error(err)
 		panic(err)

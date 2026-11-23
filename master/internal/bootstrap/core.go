@@ -23,6 +23,7 @@ import (
 	"mypanel/core/init/validator"
 	coreviper "mypanel/core/init/viper"
 	"mypanel/core/utils/re"
+	"mypanel/shareddb"
 )
 
 // CoreOptions 是初始化 core 所需的参数。
@@ -68,6 +69,9 @@ func InitCore(opts CoreOptions) error {
 	})
 
 	log.Init()
+	if _, err := shareddb.Init(abs); err != nil {
+		return fmt.Errorf("初始化共享数据库失败: %w", err)
+	}
 	db.Init()
 	migration.Init()
 	i18n.Init()

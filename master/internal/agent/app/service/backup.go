@@ -73,11 +73,20 @@ func NewIBackupService() IBackupService {
 }
 
 func (u *BackupService) GetLocalDir() (string, error) {
-	account, err := backupRepo.Get(repo.WithByType(constant.Local))
+	// 共享库里 core/agent 都可能写入 LOCAL 记录，优先返回有有效路径的那条。
+	accounts, err := backupRepo.List(repo.WithByType(constant.Local))
 	if err != nil {
 		return "", err
 	}
-	return account.BackupPath, nil
+	for _, item := range accounts {
+		if item.BackupPath != "" {
+			return item.BackupPath, nil
+		}
+	}
+	if len(accounts) > 0 {
+		return accounts[0].BackupPath, nil
+	}
+	return "", fmt.Errorf("local backup account not found")
 }
 
 func (u *BackupService) SearchWithPage(req dto.SearchPageWithType) (int64, interface{}, error) {

@@ -328,9 +328,10 @@ var InitOneDrive = &gormigrate.Migration{
 			return err
 		}
 		if err := tx.Create(&model.BackupAccount{
-			Name: "localhost",
-			Type: "LOCAL",
-			Vars: fmt.Sprintf("{\"dir\":\"%s\"}", path.Join(global.CONF.Base.InstallDir, "1panel/backup")),
+			Name:       "localhost",
+			Type:       "LOCAL",
+			BackupPath: path.Join(global.CONF.Base.InstallDir, "1panel/backup"),
+			Vars:       fmt.Sprintf("{\"dir\":\"%s\"}", path.Join(global.CONF.Base.InstallDir, "1panel/backup")),
 		}).Error; err != nil {
 			return err
 		}

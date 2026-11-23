@@ -41,7 +41,7 @@ print(f"rpc 方法数: {total}")
 PY
 
 echo "==> 检查 HTTP 例外白名单"
-allowed="/rpc/ /healthz /ws/terminal /files/upload /files/download /assets/ /api/v2/static/ /api/v2/images/ /api/v2/apps/icon/ /mcp /api/v2/core/auth/oidc/ /api/v2/core/auth/saml2/ /api/v2/containers/search/log"
+allowed="/rpc/ /healthz /ws/terminal /files/upload /files/download /assets/ /api/v2/static/ /api/v2/images/ /api/v2/apps/icon/ /mcp /api/v2/containers/search/log"
 echo "允许的 HTTP 例外: $allowed"
 # /api/v2/containers/search/log 是 SSE 流，已在 manifest.yaml 中列入剔除前缀，
 # 不能用 Connect/gRPC 承载，因此作为 HTTP 例外放行。

@@ -34,7 +34,7 @@ func transferFirewalldSSHService(ctx context.Context, db *gorm.DB, client lifecy
 		return nil
 	}
 	var count int64
-	if err := db.WithContext(ctx).Table("migrations").Where("id = ?", firewalldSSHServiceMigrationID).Count(&count).Error; err != nil {
+	if err := db.WithContext(ctx).Table("agent_migrations").Where("id = ?", firewalldSSHServiceMigrationID).Count(&count).Error; err != nil {
 		return fmt.Errorf("check firewalld SSH service migration: %w", err)
 	}
 	if count > 0 {
@@ -50,7 +50,7 @@ func transferFirewalldSSHService(ctx context.Context, db *gorm.DB, client lifecy
 	if err := providers.RemoveFirewalldSSHService(); err != nil {
 		return fmt.Errorf("transfer firewalld SSH access to whitelist: %w", err)
 	}
-	if err := db.WithContext(ctx).Table("migrations").Clauses(clause.OnConflict{DoNothing: true}).
+	if err := db.WithContext(ctx).Table("agent_migrations").Clauses(clause.OnConflict{DoNothing: true}).
 		Create(map[string]interface{}{"id": firewalldSSHServiceMigrationID}).Error; err != nil {
 		return fmt.Errorf("record firewalld SSH service migration: %w", err)
 	}

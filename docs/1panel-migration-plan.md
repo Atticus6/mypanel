@@ -170,8 +170,6 @@
 │   ├── /assets/*         前端静态资源                        │
 │   ├── /api/v2/static/*  1Panel 静态资源（例外）              │
 │   ├── /mcp              MCP 协议端点（例外）                │
-│   ├── /api/v2/core/auth/oidc/*   OIDC 跳转/回调（例外）      │
-│   ├── /api/v2/core/auth/saml2/*  SAML 跳转/回调（例外）      │
 │   └── /*                SPA 静态资源与 fallback             │
 │                                                            │
 │  internal/transport                                        │
@@ -847,20 +845,10 @@ return resp, nil
 - 拦截器校验签名、时间窗、权限。
 - 外部调用方从 REST 改为 Connect/gRPC，这是**破坏性变更**，需要单独通知与文档。
 
-#### 4.6.5 OIDC / SAML
+#### 4.6.5 OIDC / SAML（已剔除）
 
-这两类流程依赖浏览器 302 跳转和表单 POST 回调，不能改成普通 RPC。**保留 1Panel 的原始路径**，避免已经配置在 IdP 里的 Redirect URI / ACS URL 失效：
-
-```text
-GET  /api/v2/core/auth/oidc/begin
-GET  /api/v2/core/auth/oidc/finish
-POST /api/v2/core/auth/saml2/begin
-POST /api/v2/core/auth/saml2/acs
-POST /api/v2/core/auth/saml2/finish
-POST /api/v2/core/auth/saml2/logout
-```
-
-它们不属于“业务 REST API”，在路由门禁中按协议例外精确放行。回调成功后写 Session Cookie，再 302 回首页。
+社区版 1Panel 源码没有 OIDC/SAML handler（实现位于未开源的 xpack）。按用户决定，这两类SSO 能力整体剔除：
+前端登录页不再展示 LDAP/OIDC/SAML 入口，外部登录票据解析工具与外部登录等待遮罩已删除；后端不保留回调白名单。需要企业 SSO 时应通过反向代理或独立 IdP 网关实现，不在 mypanel 内承载。
 
 #### 4.6.6 其他中间件
 
@@ -1759,8 +1747,6 @@ const res = await mutateAsync({ name, password, entranceCode })
 | `/apps/icon/*` | 静态 | 应用图标 |
 | `/favicon.ico` | 静态 | 图标 |
 | `/mcp`、`/mcp/*` | MCP 协议 | 外部 MCP 客户端要求 HTTP/SSE |
-| `/api/v2/core/auth/oidc/*` | 浏览器跳转 | OIDC 协议，保留原回调地址 |
-| `/api/v2/core/auth/saml2/*` | 浏览器跳转/表单 | SAML 协议，保留原回调地址 |
 | `/`、`/*` | SPA fallback | 前端路由 |
 
 除此之外，`/api/v2/**` 不允许存在业务 JSON 路由。白名单按**精确路径或前缀**配置，不能用整个 `/api/v2/core/auth/` 前缀放行。
@@ -2098,7 +2084,7 @@ bun run build
 - [ ] core/agent 代码已复制，import 已重写
 - [ ] go.mod 合并，`go build ./...` 通过
 - [ ] 单进程初始化顺序确定
-- [ ] core/agent 数据库连接合并
+- [x] core/agent 数据库连接合并：两个 module 通过 `mypanel/shareddb` 共享同一 SQLite 连接，迁移表按模块区分（旧库可用 `scripts/merge-db.sh` 合并）
 - [ ] core→agent 反向代理删除
 - [ ] 业务 REST 路由删除
 - [ ] Connect 服务注册完成
@@ -2108,7 +2094,7 @@ bun run build
 - [ ] proto 每个字段/消息/枚举/服务/方法都有注释，`buf lint` 通过
 - [ ] 终端 WebSocket 完成
 - [ ] 文件上传下载票据完成
-- [ ] OIDC/SAML 回调完成
+- [x] OIDC/SAML 已剔除：社区版无 handler，按用户决定不再保留回调白名单与前端入口
 - [ ] MCP 端点保留
 - [ ] gRPC reflection 可用
 - [ ] 覆盖率 100%
@@ -2127,7 +2113,7 @@ bun run build
 - [ ] 登录/路由守卫/401 处理完成
 - [ ] CSRF 拦截器完成
 - [ ] 约 50 个 api 模块替换完成
-- [ ] 类型统一从 `web/src/gen` 导入，`api/interface` 已删除
+- [ ] 类型统一从 `web/src/gen` 导入，`api/interface` 已删除（DTO 已改为 gen 派生，剩余 UI-only 类型尚未全部下沉）
 - [ ] 334 个页面可打开
 - [ ] 终端 WS 完成
 - [ ] 容器日志流式完成
@@ -2273,6 +2259,10 @@ bun run build
 剩余 358 个 `export interface` 主要属于没有 proto 对应物的 UI-only 状态与剔除域表单结构。
 `api/interface` 已删除，但「类型统一从 `@/gen` 导入」尚未完全达成。
 
+core 与 agent 现在通过 `mypanel/shareddb` 共享同一个 SQLite 连接池（`1panel/db/mypanel.db`），
+迁移表按模块命名为 `core_migrations` / `agent_migrations` / `agent_task_migrations` / `agent_alert_migrations`，
+避免迁移 ID 冲突。旧版分库可用 `scripts/merge-db.sh` 合并；共享库测试见 `TestCoreAndAgentShareDatabase`。
+
 `web/src/api/modules` 中仅剩 8 个模块：`files.ts`、`container.ts`、`website.ts`、`cronjob.ts`
 （二进制上传下载/导出），以及 `ai.ts`、`alert.ts`、`app.ts`（xpack 能力的本地空桩，返回空数据而不是
 调用不存在的 REST）。`command.ts` 只保留 multipart 上传；认证、多密钥管理、Toolbox、VM、
@@ -2304,7 +2294,7 @@ runtime 等页面入口已删除或改为本地实现。`views/ai` 仅保留被�
 
 ### 与原文的偏差
 
-1. **OIDC / SAML 不适用**：当前 1Panel 社区版源码（`v2.5.1`）中没有 `oidc` / `saml2` 的 handler，相关能力位于未开源的 enterprise/xpack 目录。剔除 xpack 后这些端点不存在，白名单中保留路径仅为将来接入 IdP 预留，不能凭空实现。
+1. **OIDC / SAML 已剔除**：社区版源码没有对应 handler；按用户决定移除前端入口与路由白名单，不作为待实现项。
 2. **数据库模块剔除**：`/databases/*`（63 条路由）整体不迁移，前端页面/路由/菜单、后端 RPC 与 REST 接口均已删除。模块内部的 `master/internal/agent/app/service/database*.go` 暂时保留：应用安装、备份与计划任务仍在调用其中的数据库创建/查询函数，删除需要先把这些调用点迁到 DBX 或独立包。
 3. **多 API Key 管理不实现**：`/core/auth/api/keys/*`（9 条）依赖 xpack 的 `APIKeyOwnerProvider`；社区版 `authHelper` 未实现该接口，调用会直接返回 `ErrApiConfigStatusInvalid`。只保留 legacy 的生成密钥与配置更新两个接口。
 4. **AI service 层未完全删除**：AI 的 API 与路由已删，但 OpenClaw/Ollama 的应用安装与升级钩子仍依赖 `app/service/agents_*.go`、`ai_gateway_*.go` 中的函数。彻底删除需要一并重写应用商店的 AI 应用安装/升级流程，单独提交。

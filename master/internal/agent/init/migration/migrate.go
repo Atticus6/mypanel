@@ -16,7 +16,9 @@ func Init() {
 }
 
 func InitAgentDB() {
-	m := gormigrate.New(global.DB, gormigrate.DefaultOptions, agentDBMigrations())
+	options := *gormigrate.DefaultOptions
+	options.TableName = "agent_migrations"
+	m := gormigrate.New(global.DB, &options, agentDBMigrations())
 	if err := m.Migrate(); err != nil {
 		global.LOG.Error(err)
 		panic(err)
@@ -125,7 +127,9 @@ func agentDBMigrations() []*gormigrate.Migration {
 }
 
 func InitTaskDB() {
-	m := gormigrate.New(global.TaskDB, gormigrate.DefaultOptions, []*gormigrate.Migration{
+	options := *gormigrate.DefaultOptions
+	options.TableName = "agent_task_migrations"
+	m := gormigrate.New(global.TaskDB, &options, []*gormigrate.Migration{
 		migrations.AddTaskTable,
 	})
 	if err := m.Migrate(); err != nil {
@@ -143,6 +147,7 @@ func InitAlertDB() {
 
 func migrateAlertDB(db *gorm.DB) error {
 	options := *gormigrate.DefaultOptions
+	options.TableName = "agent_alert_migrations"
 	options.UseTransaction = true
 	m := gormigrate.New(db, &options, []*gormigrate.Migration{
 		migrations.AddAlertConfigUIDAndSecret,

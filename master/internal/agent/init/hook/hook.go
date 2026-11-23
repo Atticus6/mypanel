@@ -127,16 +127,28 @@ func handleCronJobAlert(cronjob *model.Cronjob) {
 }
 
 func loadLocalDir() {
-	var account model.BackupAccount
-	if err := global.DB.Where("`type` = ?", constant.Local).First(&account).Error; err != nil {
+	// 共享库里可能存在多条 LOCAL 记录（core 与 agent 各自的历史种子），
+	// 选第一个有有效路径的，避免空路径让快照/备份功能失效。
+	var accounts []model.BackupAccount
+	if err := global.DB.Where("`type` = ?", constant.Local).Find(&accounts).Error; err != nil {
 		global.LOG.Errorf("load local backup account info failed, err: %v", err)
 		return
 	}
-	global.Dir.LocalBackupDir = account.BackupPath
+	backupPath := ""
+	for _, item := range accounts {
+		if item.BackupPath != "" {
+			backupPath = item.BackupPath
+			break
+		}
+	}
+	if backupPath == "" && len(accounts) > 0 {
+		backupPath = accounts[0].BackupPath
+	}
+	global.Dir.LocalBackupDir = backupPath
 
-	if _, err := os.Stat(account.BackupPath); err != nil && os.IsNotExist(err) {
-		if err = os.MkdirAll(account.BackupPath, os.ModePerm); err != nil {
-			global.LOG.Errorf("mkdir %s failed, err: %v", account.BackupPath, err)
+	if _, err := os.Stat(backupPath); err != nil && os.IsNotExist(err) {
+		if err = os.MkdirAll(backupPath, os.ModePerm); err != nil {
+			global.LOG.Errorf("mkdir %s failed, err: %v", backupPath, err)
 		}
 	}
 }

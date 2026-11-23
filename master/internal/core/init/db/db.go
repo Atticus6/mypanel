@@ -1,15 +1,20 @@
 package db
 
 import (
-	"path"
+	"fmt"
 
 	"mypanel/core/global"
-	"mypanel/core/utils/common"
+	"mypanel/shareddb"
 )
 
+// Init 让 core 的所有连接指向同一个共享 SQLite 连接池。
 func Init() {
-	global.DB = common.LoadDBConnByPath(path.Join(global.CONF.Base.InstallDir, "1panel/db/core.db"), "core")
-	global.TaskDB = common.LoadDBConnByPath(path.Join(global.CONF.Base.InstallDir, "1panel/db/task.db"), "task")
-	global.AgentDB = common.LoadDBConnByPath(path.Join(global.CONF.Base.InstallDir, "1panel/db/agent.db"), "agent")
-	global.AlertDB = common.LoadDBConnByPath(path.Join(global.CONF.Base.InstallDir, "1panel/db/alert.db"), "alert")
+	handle := shareddb.Handle()
+	if handle == nil {
+		panic(fmt.Errorf("core 数据库初始化前必须先调用 shareddb.Init"))
+	}
+	global.DB = handle
+	global.TaskDB = handle
+	global.AgentDB = handle
+	global.AlertDB = handle
 }

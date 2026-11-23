@@ -56,7 +56,7 @@ stop_master() {
 }
 
 sentinel_count() {
-    sqlite3 "$data/1panel/db/core.db" \
+    sqlite3 "$data/1panel/db/mypanel.db" \
         "SELECT COUNT(*) FROM settings WHERE key='RollbackDrillSentinel';" 2>/dev/null || echo 0
 }
 
@@ -69,7 +69,7 @@ archive="$(MYPANEL_DATA_DIR="$data" MYPANEL_BACKUP_DIR="$backups" "$root/scripts
 echo "备份归档: $archive"
 
 echo "==> 3. 制造变更后再次启动，确认变更可见"
-sqlite3 "$data/1panel/db/core.db" \
+sqlite3 "$data/1panel/db/mypanel.db" \
     "INSERT OR REPLACE INTO settings(key,value,about) VALUES('RollbackDrillSentinel','present','rollback drill');"
 if [ "$(sentinel_count)" != "1" ]; then
     echo "标记记录写入失败" >&2
