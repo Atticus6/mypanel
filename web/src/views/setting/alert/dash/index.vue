@@ -170,7 +170,7 @@ import i18n from '@/lang';
 import { ElMessageBox } from 'element-plus';
 import AddTask from '@/views/setting/alert/dash/task/index.vue';
 import { Alert } from '@/api/interface/alert';
-import { UpdateAlertStatus, DeleteAlert, PageAlertConfigs } from '@/api/modules/alert';
+import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { rpc } from '@/lib/rpc';
 import {
     cronjobAlertTypes,
@@ -298,9 +298,11 @@ const configMap = ref<Map<string, Alert.AlertConfigInfo>>(new Map());
 
 const loadConfigMap = async () => {
     try {
-        const res = await PageAlertConfigs({ page: 1, pageSize: 1000 });
+        const res = await rpc.alert.getAlertConfig({
+            excludeTypes: resolveAlertConfigExcludeTypes(),
+        });
         const map = new Map<string, Alert.AlertConfigInfo>();
-        for (const c of res.data?.items || []) {
+        for (const c of res.items || []) {
             map.set(String(c.id), c);
         }
         configMap.value = map;
@@ -369,7 +371,7 @@ const onDelete = (row: Alert.AlertInfo) => {
         confirmButtonText: i18n.global.t('commons.button.confirm'),
         cancelButtonText: i18n.global.t('commons.button.cancel'),
     }).then(async () => {
-        await DeleteAlert({ id: row.id });
+        await rpc.alert.deleteAlert({ id: row.id });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         await search();
     });
@@ -381,7 +383,7 @@ const updateAlertStatus = (status: string, id: number) => {
         cancelButtonText: i18n.global.t('commons.button.cancel'),
     }).then(async () => {
         let itemStatus = status.toLowerCase() === 'enable' ? 'Enable' : 'Disable';
-        await UpdateAlertStatus({ id: id, status: itemStatus });
+        await rpc.alert.updateAlertStatus({ id: id, status: itemStatus });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         await search();
     });

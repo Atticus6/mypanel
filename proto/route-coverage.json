@@ -592,67 +592,106 @@
     {
       "method": "POST",
       "path": "/alert",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.CreateAlert",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "CreateAlert",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/alert/clams/list",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.GetAlertClams",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "GetAlertClams",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/config/del",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.DeleteAlertConfig",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "DeleteAlertConfig",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/config/info",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.GetAlertConfig",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "GetAlertConfig",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/config/search",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.SearchAlertConfigs",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "SearchAlertConfigs",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/config/status",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.UpdateAlertConfigStatus",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "UpdateAlertConfigStatus",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/config/test",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.TestAlertConfig",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "TestAlertConfig",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/config/update",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.UpdateAlertConfig",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "UpdateAlertConfig",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/cronjob/list",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.GetAlertCronJobs",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "GetAlertCronJobs",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/del",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.DeleteAlert",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "DeleteAlert",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/alert/disks/list",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.GetAlertDisks",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "GetAlertDisks",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/logs/clean",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.CleanAlertLogs",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "CleanAlertLogs",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/logs/search",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.SearchAlertLogs",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "SearchAlertLogs",
+      "covered": true
     },
     {
       "method": "POST",
@@ -665,12 +704,18 @@
     {
       "method": "POST",
       "path": "/alert/status",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.UpdateAlertStatus",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "UpdateAlertStatus",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/alert/update",
-      "covered": false
+      "target": "panel.agent.v1.AlertService.UpdateAlert",
+      "service": "panel.agent.v1.AlertService",
+      "rpc": "UpdateAlert",
+      "covered": true
     },
     {
       "method": "GET",

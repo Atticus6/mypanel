@@ -407,7 +407,7 @@
 import { reactive, ref, onMounted, computed } from 'vue';
 import { ElForm } from 'element-plus';
 import { Alert } from '@/api/interface/alert';
-import { CreateAlert, ListDisks, UpdateAlert, ListClams, ListCronJob, ListAlertConfigs } from '@/api/modules/alert';
+import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
@@ -423,8 +423,10 @@ const { isMaster, isProductPro, isEE, isIntl } = useGlobalStore();
 const alertConfigs = ref<Alert.AlertConfigInfo[]>([]);
 const loadAlertConfigs = async () => {
     try {
-        const res = await ListAlertConfigs();
-        alertConfigs.value = res.data?.filter((item: Alert.AlertConfigInfo) => item.type !== 'common') || [];
+        const res = await rpc.alert.getAlertConfig({
+            excludeTypes: resolveAlertConfigExcludeTypes(),
+        });
+        alertConfigs.value = (res.items || []).filter((item) => item.type !== 'common') as Alert.AlertConfigInfo[];
     } catch {}
 };
 onMounted(() => {
@@ -836,23 +838,22 @@ const loadSSLs = async () => {
 };
 
 const loadDisks = async () => {
-    const res = await ListDisks();
-    diskOptions.value = res.data || [];
+    diskOptions.value = (await rpc.alert.getAlertDisks({})).items;
 };
 
 const loadClams = async () => {
-    const res = await ListClams();
-    clamsOptions.value = res.data || [];
+    clamsOptions.value = (await rpc.alert.getAlertClams({})).items;
     dialogData.value.rowData.project = dialogData.value.rowData.project || String(clamsOptions.value[0].id);
 };
 
 const loadCronJob = async (jobType: string) => {
-    const res = await ListCronJob({
-        type: jobType,
-        name: '',
-        status: '',
-    });
-    cronJobOptions.value = res.data || [];
+    cronJobOptions.value = (
+        await rpc.alert.getAlertCronJobs({
+            type: jobType,
+            name: '',
+            status: '',
+        })
+    ).items;
     dialogData.value.rowData.project = dialogData.value.rowData.project || String(cronJobOptions.value[0]?.id || '');
 };
 
@@ -935,10 +936,10 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         }
         try {
             if (dialogData.value.title === 'create') {
-                await CreateAlert(payload);
+                await rpc.alert.createAlert(payload);
                 MsgSuccess(i18n.global.t('commons.msg.createSuccess'));
             } else if (dialogData.value.title === 'edit') {
-                await UpdateAlert(payload);
+                await rpc.alert.updateAlert(payload);
                 MsgSuccess(i18n.global.t('commons.msg.updateSuccess'));
             }
             emit('search');

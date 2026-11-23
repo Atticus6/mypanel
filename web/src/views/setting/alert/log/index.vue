@@ -100,15 +100,8 @@ import { dateFormat } from '@/utils/date';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { Alert } from '@/api/interface/alert';
-import {
-    SearchAlertLogs,
-    SyncAlertInfo,
-    CleanAlertLogs,
-    SyncAlertAll,
-    SyncOfflineAlert,
-    ListAlertConfigs,
-    PageAlertConfigs,
-} from '@/api/modules/alert';
+import { SyncAlertInfo, SyncAlertAll, SyncOfflineAlert, resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
+import { rpc } from '@/lib/rpc';
 import { ElMessageBox } from 'element-plus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { getAlertConfigDisplayName } from '@/views/setting/alert/setting/drawer/secret-field';
@@ -123,9 +116,13 @@ const configMap = ref<Map<string, Alert.AlertConfigInfo>>(new Map());
 
 const loadConfigMap = async () => {
     try {
-        const res = await PageAlertConfigs({ page: 1, pageSize: 1000 });
+        const res = await rpc.alert.searchAlertConfigs({
+            page: 1,
+            pageSize: 1000,
+            excludeTypes: resolveAlertConfigExcludeTypes(),
+        });
         const map = new Map<string, Alert.AlertConfigInfo>();
-        for (const c of res.data?.items || []) {
+        for (const c of res.items || []) {
             map.set(String(c.id), c);
         }
         configMap.value = map;
@@ -316,13 +313,15 @@ const search = async () => {
     let params = {
         page: paginationConfig.currentPage,
         pageSize: paginationConfig.pageSize,
-        count: req.count,
+        count: req.count ?? 0,
         status: req.status,
+        startTime: '',
+        endTime: '',
     };
     try {
-        const res = await SearchAlertLogs(params);
-        data.value = res.data.items || [];
-        paginationConfig.total = res.data.total || 0;
+        const res = await rpc.alert.searchAlertLogs(params);
+        data.value = res.items || [];
+        paginationConfig.total = Number(res.total) || 0;
     } catch (error) {
     } finally {
         loading.value = false;
@@ -355,7 +354,8 @@ const onClean = async () => {
         type: 'info',
     }).then(async () => {
         loading.value = true;
-        await CleanAlertLogs()
+        await rpc.alert
+            .cleanAlertLogs({})
             .then(() => {
                 loading.value = false;
                 MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -371,8 +371,8 @@ const searchAlertInfo = async () => {
     if (!isMaster.value) {
         loading.value = true;
         try {
-            const res = await ListAlertConfigs();
-            const commonFound = res.data.find((s: any) => s.type === 'common');
+            const res = await rpc.alert.getAlertConfig({ excludeTypes: resolveAlertConfigExcludeTypes() });
+            const commonFound = res.items.find((s: any) => s.type === 'common');
             const config: Alert.CommonConfig = JSON.parse(commonFound.config);
             isOffline.value = config.isOffline;
         } finally {

@@ -17,6 +17,126 @@ service AlertService {
       no_audit: true
     };
   }
+
+  // 创建告警任务。
+  rpc CreateAlert(CreateAlertRequest) returns (CreateAlertResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "创建告警任务"
+      audit_action_en: "Create alert"
+    };
+  }
+
+  // 删除告警任务。
+  rpc DeleteAlert(DeleteAlertRequest) returns (DeleteAlertResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除告警任务"
+      audit_action_en: "Delete alert"
+    };
+  }
+
+  // 更新告警任务。
+  rpc UpdateAlert(UpdateAlertRequest) returns (UpdateAlertResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新告警任务"
+      audit_action_en: "Update alert"
+    };
+  }
+
+  // 更新告警任务状态。
+  rpc UpdateAlertStatus(UpdateAlertStatusRequest) returns (UpdateAlertStatusResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新告警状态"
+      audit_action_en: "Update alert status"
+    };
+  }
+
+  // 列出可用于告警的磁盘。
+  rpc GetAlertDisks(GetAlertDisksRequest) returns (AlertDisksResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询告警日志。
+  rpc SearchAlertLogs(SearchAlertLogsRequest) returns (AlertLogsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 清空告警日志。
+  rpc CleanAlertLogs(CleanAlertLogsRequest) returns (CleanAlertLogsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "清空告警日志"
+      audit_action_en: "Clean alert logs"
+    };
+  }
+
+  // 列出杀毒扫描结果供告警选择。
+  rpc GetAlertClams(GetAlertClamsRequest) returns (AlertClamsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 列出可用于告警的计划任务。
+  rpc GetAlertCronJobs(GetAlertCronJobsRequest) returns (AlertCronJobsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 查询告警通知配置。
+  rpc GetAlertConfig(GetAlertConfigRequest) returns (AlertConfigsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 分页查询告警通知配置。
+  rpc SearchAlertConfigs(SearchAlertConfigsRequest) returns (AlertConfigsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新告警通知配置。
+  rpc UpdateAlertConfig(UpdateAlertConfigRequest) returns (UpdateAlertConfigResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新告警配置"
+      audit_action_en: "Update alert config"
+    };
+  }
+
+  // 更新告警通知配置状态。
+  rpc UpdateAlertConfigStatus(UpdateAlertConfigStatusRequest) returns (UpdateAlertConfigStatusResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新告警配置状态"
+      audit_action_en: "Update alert config status"
+    };
+  }
+
+  // 删除告警通知配置。
+  rpc DeleteAlertConfig(DeleteAlertConfigRequest) returns (DeleteAlertConfigResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "删除告警配置"
+      audit_action_en: "Delete alert config"
+    };
+  }
+
+  // 测试告警通知配置是否可用。
+  rpc TestAlertConfig(TestAlertConfigRequest) returns (TestAlertConfigResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
 }
 
 // SearchAlertsRequest 是告警列表查询参数。
@@ -119,4 +239,453 @@ message Alert {
 
   // 更新时间，RFC3339 格式。
   string updated_at = 15;
+}
+
+// CreateAlertRequest 是创建告警任务参数。
+message CreateAlertRequest {
+  // 告警类型。
+  string type = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 检查周期，单位分钟。
+  uint32 cycle = 2;
+
+  // 连续触发次数。
+  uint32 count = 3;
+
+  // 发送方式。
+  string method = 4 [(buf.validate.field).string.min_len = 1];
+
+  // 告警标题。
+  string title = 5;
+
+  // 关联项目。
+  string project = 6;
+
+  // 状态：Enable 或 Disable。
+  string status = 7;
+
+  // 已发送次数。
+  uint32 send_count = 8;
+
+  // 高级参数（JSON 字符串）。
+  string advanced_params = 9;
+}
+
+// CreateAlertResponse 是创建结果，无业务字段。
+message CreateAlertResponse {}
+
+// DeleteAlertRequest 是删除告警任务参数。
+message DeleteAlertRequest {
+  // 告警 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteAlertResponse 是删除结果，无业务字段。
+message DeleteAlertResponse {}
+
+// UpdateAlertRequest 是更新告警任务参数。
+message UpdateAlertRequest {
+  // 告警 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 告警类型。
+  string type = 2;
+
+  // 检查周期，单位分钟。
+  uint32 cycle = 3;
+
+  // 连续触发次数。
+  uint32 count = 4;
+
+  // 发送方式。
+  string method = 5;
+
+  // 告警标题。
+  string title = 6;
+
+  // 关联项目。
+  string project = 7;
+
+  // 状态：Enable 或 Disable。
+  string status = 8;
+
+  // 已发送次数。
+  uint32 send_count = 9;
+
+  // 高级参数（JSON 字符串）。
+  string advanced_params = 10;
+}
+
+// UpdateAlertResponse 是更新结果，无业务字段。
+message UpdateAlertResponse {}
+
+// UpdateAlertStatusRequest 是告警状态更新参数。
+message UpdateAlertStatusRequest {
+  // 告警 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 目标状态。
+  string status = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateAlertStatusResponse 是更新结果，无业务字段。
+message UpdateAlertStatusResponse {}
+
+// GetAlertDisksRequest 是磁盘列表查询参数，无业务字段。
+message GetAlertDisksRequest {}
+
+// AlertDisksResponse 是可告警磁盘列表。
+message AlertDisksResponse {
+  // 磁盘列表。
+  repeated AlertDisk items = 1;
+}
+
+// AlertDisk 是一个可用于告警的磁盘。
+message AlertDisk {
+  // 挂载路径。
+  string path = 1;
+
+  // 文件系统类型。
+  string type = 2;
+
+  // 设备名。
+  string device = 3;
+
+  // 总容量，单位字节。
+  uint64 total = 4;
+
+  // 剩余容量，单位字节。
+  uint64 free = 5;
+
+  // 已用容量，单位字节。
+  uint64 used = 6;
+
+  // 使用率百分比。
+  double used_percent = 7;
+
+  // inode 总数。
+  uint64 inodes_total = 8;
+
+  // 已用 inode 数。
+  uint64 inodes_used = 9;
+
+  // 剩余 inode 数。
+  uint64 inodes_free = 10;
+
+  // inode 使用率百分比。
+  double inodes_used_percent = 11;
+}
+
+// SearchAlertLogsRequest 是告警日志查询参数。
+message SearchAlertLogsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 触发次数过滤。
+  uint32 count = 3;
+
+  // 状态过滤。
+  string status = 4;
+
+  // 起始时间，RFC3339 格式。
+  string start_time = 5;
+
+  // 结束时间，RFC3339 格式。
+  string end_time = 6;
+}
+
+// AlertLogsResponse 是告警日志列表结果。
+message AlertLogsResponse {
+  // 当前页日志。
+  repeated AlertLogEntry items = 1;
+
+  // 符合条件的日志总数。
+  int64 total = 2;
+}
+
+// AlertLogEntry 是一条告警日志。
+message AlertLogEntry {
+  // 日志 ID。
+  uint32 id = 1;
+
+  // 告警类型。
+  string type = 2;
+
+  // 触发次数。
+  uint32 count = 3;
+
+  // 告警 ID。
+  uint32 alert_id = 4;
+
+  // 告警详情 JSON。
+  string alert_detail_json = 5;
+
+  // 告警规则 JSON。
+  string alert_rule_json = 6;
+
+  // 状态。
+  string status = 7;
+
+  // 发送方式。
+  string method = 8;
+
+  // 消息。
+  string message = 9;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 10;
+
+  // 更新时间，RFC3339 格式。
+  string updated_at = 11;
+}
+
+// CleanAlertLogsRequest 是清空日志参数，无业务字段。
+message CleanAlertLogsRequest {}
+
+// CleanAlertLogsResponse 是清空结果，无业务字段。
+message CleanAlertLogsResponse {}
+
+// GetAlertClamsRequest 是杀毒扫描结果查询参数，无业务字段。
+message GetAlertClamsRequest {}
+
+// AlertClamsResponse 是杀毒扫描结果列表。
+message AlertClamsResponse {
+  // 扫描项。
+  repeated AlertClam items = 1;
+}
+
+// AlertClam 是一条杀毒扫描结果。
+message AlertClam {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 更新时间，RFC3339 格式。
+  string updated_at = 3;
+
+  // 名称。
+  string name = 4;
+
+  // 状态。
+  string status = 5;
+
+  // 扫描路径。
+  string path = 6;
+}
+
+// GetAlertCronJobsRequest 是计划任务列表查询参数。
+message GetAlertCronJobsRequest {
+  // 任务名称过滤。
+  string name = 1;
+
+  // 状态过滤。
+  string status = 2;
+
+  // 任务类型过滤。
+  string type = 3;
+}
+
+// AlertCronJobsResponse 是计划任务列表结果。
+message AlertCronJobsResponse {
+  // 任务列表。
+  repeated AlertCronJob items = 1;
+}
+
+// AlertCronJob 是一个可用于告警的计划任务。
+message AlertCronJob {
+  // 任务 ID。
+  uint32 id = 1;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 2;
+
+  // 更新时间，RFC3339 格式。
+  string updated_at = 3;
+
+  // 任务名称。
+  string name = 4;
+
+  // 状态。
+  string status = 5;
+
+  // 任务类型。
+  string type = 6;
+}
+
+// GetAlertConfigRequest 是通知配置查询参数。
+message GetAlertConfigRequest {
+  // 需要排除的配置类型。
+  repeated string exclude_types = 1;
+}
+
+// SearchAlertConfigsRequest 是通知配置分页查询参数。
+message SearchAlertConfigsRequest {
+  // 页码，从 1 开始。
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+
+  // 每页条数，最大 100。
+  int32 page_size = 2 [(buf.validate.field).int32 = {
+    gte: 1
+    lte: 100
+  }];
+
+  // 需要排除的配置类型。
+  repeated string exclude_types = 3;
+}
+
+// AlertConfigsResponse 是通知配置列表结果。
+message AlertConfigsResponse {
+  // 当前页配置。
+  repeated AlertConfigEntry items = 1;
+
+  // 分页查询时的总数；非分页查询为 0。
+  int64 total = 2;
+}
+
+// AlertConfigEntry 是一条告警通知配置。
+message AlertConfigEntry {
+  // 配置 ID。
+  uint32 id = 1;
+
+  // 配置 UID。
+  string uid = 2;
+
+  // 配置类型。
+  string type = 3;
+
+  // 标题。
+  string title = 4;
+
+  // 状态。
+  string status = 5;
+
+  // 配置内容（JSON 字符串）。
+  string config = 6;
+
+  // 创建人。
+  string create_user = 7;
+
+  // 更新人。
+  string update_user = 8;
+
+  // 创建时间，RFC3339 格式。
+  string created_at = 9;
+
+  // 更新时间，RFC3339 格式。
+  string updated_at = 10;
+}
+
+// UpdateAlertConfigRequest 是通知配置更新参数。
+message UpdateAlertConfigRequest {
+  // 配置 ID。
+  uint32 id = 1;
+
+  // 配置类型。
+  string type = 2;
+
+  // 标题。
+  string title = 3;
+
+  // 状态。
+  string status = 4;
+
+  // 配置内容（JSON 字符串）。
+  string config = 5;
+
+  // 展示名称。
+  string display_name = 6;
+
+  // 更新时间，RFC3339 格式；用于乐观锁校验。
+  string revision = 7;
+}
+
+// UpdateAlertConfigResponse 是更新结果，无业务字段。
+message UpdateAlertConfigResponse {}
+
+// UpdateAlertConfigStatusRequest 是配置状态更新参数。
+message UpdateAlertConfigStatusRequest {
+  // 配置 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 目标状态：Enable 或 Disable。
+  string status = 2 [(buf.validate.field).string = {
+    in: [
+      "Enable",
+      "Disable"
+    ]
+  }];
+}
+
+// UpdateAlertConfigStatusResponse 是更新结果，无业务字段。
+message UpdateAlertConfigStatusResponse {}
+
+// DeleteAlertConfigRequest 是配置删除参数。
+message DeleteAlertConfigRequest {
+  // 配置 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// DeleteAlertConfigResponse 是删除结果，无业务字段。
+message DeleteAlertConfigResponse {}
+
+// TestAlertConfigRequest 是通知配置测试参数。
+message TestAlertConfigRequest {
+  // 配置 ID。
+  uint32 id = 1;
+
+  // 配置类型；custom 表示自定义 Webhook。
+  string type = 2;
+
+  // 配置内容（JSON 字符串）。
+  string config = 3;
+
+  // SMTP 主机。
+  string host = 4;
+
+  // SMTP 端口。
+  int32 port = 5;
+
+  // 发件人。
+  string sender = 6;
+
+  // 用户名。
+  string user_name = 7;
+
+  // 密码。
+  string password = 8;
+
+  // 展示名称。
+  string display_name = 9;
+
+  // 加密方式：ssl、tls 或 none。
+  string encryption = 10;
+
+  // 收件人。
+  string recipient = 11;
+}
+
+// TestAlertConfigResponse 是测试结果。
+message TestAlertConfigResponse {
+  // 是否测试成功。
+  bool success = 1;
+
+  // HTTP 状态码；仅 Webhook 测试返回。
+  int32 status_code = 2;
+
+  // 耗时，单位毫秒。
+  int64 duration = 3;
+
+  // 失败原因。
+  string message = 4;
+
+  // 响应内容；为安全起见返回值始终为空。
+  string response = 5;
 }

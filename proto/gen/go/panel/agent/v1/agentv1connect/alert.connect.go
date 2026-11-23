@@ -37,12 +37,87 @@ const (
 const (
 	// AlertServicePageProcedure is the fully-qualified name of the AlertService's Page RPC.
 	AlertServicePageProcedure = "/panel.agent.v1.AlertService/Page"
+	// AlertServiceCreateAlertProcedure is the fully-qualified name of the AlertService's CreateAlert
+	// RPC.
+	AlertServiceCreateAlertProcedure = "/panel.agent.v1.AlertService/CreateAlert"
+	// AlertServiceDeleteAlertProcedure is the fully-qualified name of the AlertService's DeleteAlert
+	// RPC.
+	AlertServiceDeleteAlertProcedure = "/panel.agent.v1.AlertService/DeleteAlert"
+	// AlertServiceUpdateAlertProcedure is the fully-qualified name of the AlertService's UpdateAlert
+	// RPC.
+	AlertServiceUpdateAlertProcedure = "/panel.agent.v1.AlertService/UpdateAlert"
+	// AlertServiceUpdateAlertStatusProcedure is the fully-qualified name of the AlertService's
+	// UpdateAlertStatus RPC.
+	AlertServiceUpdateAlertStatusProcedure = "/panel.agent.v1.AlertService/UpdateAlertStatus"
+	// AlertServiceGetAlertDisksProcedure is the fully-qualified name of the AlertService's
+	// GetAlertDisks RPC.
+	AlertServiceGetAlertDisksProcedure = "/panel.agent.v1.AlertService/GetAlertDisks"
+	// AlertServiceSearchAlertLogsProcedure is the fully-qualified name of the AlertService's
+	// SearchAlertLogs RPC.
+	AlertServiceSearchAlertLogsProcedure = "/panel.agent.v1.AlertService/SearchAlertLogs"
+	// AlertServiceCleanAlertLogsProcedure is the fully-qualified name of the AlertService's
+	// CleanAlertLogs RPC.
+	AlertServiceCleanAlertLogsProcedure = "/panel.agent.v1.AlertService/CleanAlertLogs"
+	// AlertServiceGetAlertClamsProcedure is the fully-qualified name of the AlertService's
+	// GetAlertClams RPC.
+	AlertServiceGetAlertClamsProcedure = "/panel.agent.v1.AlertService/GetAlertClams"
+	// AlertServiceGetAlertCronJobsProcedure is the fully-qualified name of the AlertService's
+	// GetAlertCronJobs RPC.
+	AlertServiceGetAlertCronJobsProcedure = "/panel.agent.v1.AlertService/GetAlertCronJobs"
+	// AlertServiceGetAlertConfigProcedure is the fully-qualified name of the AlertService's
+	// GetAlertConfig RPC.
+	AlertServiceGetAlertConfigProcedure = "/panel.agent.v1.AlertService/GetAlertConfig"
+	// AlertServiceSearchAlertConfigsProcedure is the fully-qualified name of the AlertService's
+	// SearchAlertConfigs RPC.
+	AlertServiceSearchAlertConfigsProcedure = "/panel.agent.v1.AlertService/SearchAlertConfigs"
+	// AlertServiceUpdateAlertConfigProcedure is the fully-qualified name of the AlertService's
+	// UpdateAlertConfig RPC.
+	AlertServiceUpdateAlertConfigProcedure = "/panel.agent.v1.AlertService/UpdateAlertConfig"
+	// AlertServiceUpdateAlertConfigStatusProcedure is the fully-qualified name of the AlertService's
+	// UpdateAlertConfigStatus RPC.
+	AlertServiceUpdateAlertConfigStatusProcedure = "/panel.agent.v1.AlertService/UpdateAlertConfigStatus"
+	// AlertServiceDeleteAlertConfigProcedure is the fully-qualified name of the AlertService's
+	// DeleteAlertConfig RPC.
+	AlertServiceDeleteAlertConfigProcedure = "/panel.agent.v1.AlertService/DeleteAlertConfig"
+	// AlertServiceTestAlertConfigProcedure is the fully-qualified name of the AlertService's
+	// TestAlertConfig RPC.
+	AlertServiceTestAlertConfigProcedure = "/panel.agent.v1.AlertService/TestAlertConfig"
 )
 
 // AlertServiceClient is a client for the panel.agent.v1.AlertService service.
 type AlertServiceClient interface {
 	// 分页查询告警记录。
 	Page(context.Context, *connect.Request[v1.SearchAlertsRequest]) (*connect.Response[v1.SearchAlertsResponse], error)
+	// 创建告警任务。
+	CreateAlert(context.Context, *connect.Request[v1.CreateAlertRequest]) (*connect.Response[v1.CreateAlertResponse], error)
+	// 删除告警任务。
+	DeleteAlert(context.Context, *connect.Request[v1.DeleteAlertRequest]) (*connect.Response[v1.DeleteAlertResponse], error)
+	// 更新告警任务。
+	UpdateAlert(context.Context, *connect.Request[v1.UpdateAlertRequest]) (*connect.Response[v1.UpdateAlertResponse], error)
+	// 更新告警任务状态。
+	UpdateAlertStatus(context.Context, *connect.Request[v1.UpdateAlertStatusRequest]) (*connect.Response[v1.UpdateAlertStatusResponse], error)
+	// 列出可用于告警的磁盘。
+	GetAlertDisks(context.Context, *connect.Request[v1.GetAlertDisksRequest]) (*connect.Response[v1.AlertDisksResponse], error)
+	// 分页查询告警日志。
+	SearchAlertLogs(context.Context, *connect.Request[v1.SearchAlertLogsRequest]) (*connect.Response[v1.AlertLogsResponse], error)
+	// 清空告警日志。
+	CleanAlertLogs(context.Context, *connect.Request[v1.CleanAlertLogsRequest]) (*connect.Response[v1.CleanAlertLogsResponse], error)
+	// 列出杀毒扫描结果供告警选择。
+	GetAlertClams(context.Context, *connect.Request[v1.GetAlertClamsRequest]) (*connect.Response[v1.AlertClamsResponse], error)
+	// 列出可用于告警的计划任务。
+	GetAlertCronJobs(context.Context, *connect.Request[v1.GetAlertCronJobsRequest]) (*connect.Response[v1.AlertCronJobsResponse], error)
+	// 查询告警通知配置。
+	GetAlertConfig(context.Context, *connect.Request[v1.GetAlertConfigRequest]) (*connect.Response[v1.AlertConfigsResponse], error)
+	// 分页查询告警通知配置。
+	SearchAlertConfigs(context.Context, *connect.Request[v1.SearchAlertConfigsRequest]) (*connect.Response[v1.AlertConfigsResponse], error)
+	// 更新告警通知配置。
+	UpdateAlertConfig(context.Context, *connect.Request[v1.UpdateAlertConfigRequest]) (*connect.Response[v1.UpdateAlertConfigResponse], error)
+	// 更新告警通知配置状态。
+	UpdateAlertConfigStatus(context.Context, *connect.Request[v1.UpdateAlertConfigStatusRequest]) (*connect.Response[v1.UpdateAlertConfigStatusResponse], error)
+	// 删除告警通知配置。
+	DeleteAlertConfig(context.Context, *connect.Request[v1.DeleteAlertConfigRequest]) (*connect.Response[v1.DeleteAlertConfigResponse], error)
+	// 测试告警通知配置是否可用。
+	TestAlertConfig(context.Context, *connect.Request[v1.TestAlertConfigRequest]) (*connect.Response[v1.TestAlertConfigResponse], error)
 }
 
 // NewAlertServiceClient constructs a client for the panel.agent.v1.AlertService service. By
@@ -62,12 +137,117 @@ func NewAlertServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			connect.WithSchema(alertServiceMethods.ByName("Page")),
 			connect.WithClientOptions(opts...),
 		),
+		createAlert: connect.NewClient[v1.CreateAlertRequest, v1.CreateAlertResponse](
+			httpClient,
+			baseURL+AlertServiceCreateAlertProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("CreateAlert")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteAlert: connect.NewClient[v1.DeleteAlertRequest, v1.DeleteAlertResponse](
+			httpClient,
+			baseURL+AlertServiceDeleteAlertProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("DeleteAlert")),
+			connect.WithClientOptions(opts...),
+		),
+		updateAlert: connect.NewClient[v1.UpdateAlertRequest, v1.UpdateAlertResponse](
+			httpClient,
+			baseURL+AlertServiceUpdateAlertProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("UpdateAlert")),
+			connect.WithClientOptions(opts...),
+		),
+		updateAlertStatus: connect.NewClient[v1.UpdateAlertStatusRequest, v1.UpdateAlertStatusResponse](
+			httpClient,
+			baseURL+AlertServiceUpdateAlertStatusProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("UpdateAlertStatus")),
+			connect.WithClientOptions(opts...),
+		),
+		getAlertDisks: connect.NewClient[v1.GetAlertDisksRequest, v1.AlertDisksResponse](
+			httpClient,
+			baseURL+AlertServiceGetAlertDisksProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("GetAlertDisks")),
+			connect.WithClientOptions(opts...),
+		),
+		searchAlertLogs: connect.NewClient[v1.SearchAlertLogsRequest, v1.AlertLogsResponse](
+			httpClient,
+			baseURL+AlertServiceSearchAlertLogsProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("SearchAlertLogs")),
+			connect.WithClientOptions(opts...),
+		),
+		cleanAlertLogs: connect.NewClient[v1.CleanAlertLogsRequest, v1.CleanAlertLogsResponse](
+			httpClient,
+			baseURL+AlertServiceCleanAlertLogsProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("CleanAlertLogs")),
+			connect.WithClientOptions(opts...),
+		),
+		getAlertClams: connect.NewClient[v1.GetAlertClamsRequest, v1.AlertClamsResponse](
+			httpClient,
+			baseURL+AlertServiceGetAlertClamsProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("GetAlertClams")),
+			connect.WithClientOptions(opts...),
+		),
+		getAlertCronJobs: connect.NewClient[v1.GetAlertCronJobsRequest, v1.AlertCronJobsResponse](
+			httpClient,
+			baseURL+AlertServiceGetAlertCronJobsProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("GetAlertCronJobs")),
+			connect.WithClientOptions(opts...),
+		),
+		getAlertConfig: connect.NewClient[v1.GetAlertConfigRequest, v1.AlertConfigsResponse](
+			httpClient,
+			baseURL+AlertServiceGetAlertConfigProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("GetAlertConfig")),
+			connect.WithClientOptions(opts...),
+		),
+		searchAlertConfigs: connect.NewClient[v1.SearchAlertConfigsRequest, v1.AlertConfigsResponse](
+			httpClient,
+			baseURL+AlertServiceSearchAlertConfigsProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("SearchAlertConfigs")),
+			connect.WithClientOptions(opts...),
+		),
+		updateAlertConfig: connect.NewClient[v1.UpdateAlertConfigRequest, v1.UpdateAlertConfigResponse](
+			httpClient,
+			baseURL+AlertServiceUpdateAlertConfigProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("UpdateAlertConfig")),
+			connect.WithClientOptions(opts...),
+		),
+		updateAlertConfigStatus: connect.NewClient[v1.UpdateAlertConfigStatusRequest, v1.UpdateAlertConfigStatusResponse](
+			httpClient,
+			baseURL+AlertServiceUpdateAlertConfigStatusProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("UpdateAlertConfigStatus")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteAlertConfig: connect.NewClient[v1.DeleteAlertConfigRequest, v1.DeleteAlertConfigResponse](
+			httpClient,
+			baseURL+AlertServiceDeleteAlertConfigProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("DeleteAlertConfig")),
+			connect.WithClientOptions(opts...),
+		),
+		testAlertConfig: connect.NewClient[v1.TestAlertConfigRequest, v1.TestAlertConfigResponse](
+			httpClient,
+			baseURL+AlertServiceTestAlertConfigProcedure,
+			connect.WithSchema(alertServiceMethods.ByName("TestAlertConfig")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // alertServiceClient implements AlertServiceClient.
 type alertServiceClient struct {
-	page *connect.Client[v1.SearchAlertsRequest, v1.SearchAlertsResponse]
+	page                    *connect.Client[v1.SearchAlertsRequest, v1.SearchAlertsResponse]
+	createAlert             *connect.Client[v1.CreateAlertRequest, v1.CreateAlertResponse]
+	deleteAlert             *connect.Client[v1.DeleteAlertRequest, v1.DeleteAlertResponse]
+	updateAlert             *connect.Client[v1.UpdateAlertRequest, v1.UpdateAlertResponse]
+	updateAlertStatus       *connect.Client[v1.UpdateAlertStatusRequest, v1.UpdateAlertStatusResponse]
+	getAlertDisks           *connect.Client[v1.GetAlertDisksRequest, v1.AlertDisksResponse]
+	searchAlertLogs         *connect.Client[v1.SearchAlertLogsRequest, v1.AlertLogsResponse]
+	cleanAlertLogs          *connect.Client[v1.CleanAlertLogsRequest, v1.CleanAlertLogsResponse]
+	getAlertClams           *connect.Client[v1.GetAlertClamsRequest, v1.AlertClamsResponse]
+	getAlertCronJobs        *connect.Client[v1.GetAlertCronJobsRequest, v1.AlertCronJobsResponse]
+	getAlertConfig          *connect.Client[v1.GetAlertConfigRequest, v1.AlertConfigsResponse]
+	searchAlertConfigs      *connect.Client[v1.SearchAlertConfigsRequest, v1.AlertConfigsResponse]
+	updateAlertConfig       *connect.Client[v1.UpdateAlertConfigRequest, v1.UpdateAlertConfigResponse]
+	updateAlertConfigStatus *connect.Client[v1.UpdateAlertConfigStatusRequest, v1.UpdateAlertConfigStatusResponse]
+	deleteAlertConfig       *connect.Client[v1.DeleteAlertConfigRequest, v1.DeleteAlertConfigResponse]
+	testAlertConfig         *connect.Client[v1.TestAlertConfigRequest, v1.TestAlertConfigResponse]
 }
 
 // Page calls panel.agent.v1.AlertService.Page.
@@ -75,10 +255,115 @@ func (c *alertServiceClient) Page(ctx context.Context, req *connect.Request[v1.S
 	return c.page.CallUnary(ctx, req)
 }
 
+// CreateAlert calls panel.agent.v1.AlertService.CreateAlert.
+func (c *alertServiceClient) CreateAlert(ctx context.Context, req *connect.Request[v1.CreateAlertRequest]) (*connect.Response[v1.CreateAlertResponse], error) {
+	return c.createAlert.CallUnary(ctx, req)
+}
+
+// DeleteAlert calls panel.agent.v1.AlertService.DeleteAlert.
+func (c *alertServiceClient) DeleteAlert(ctx context.Context, req *connect.Request[v1.DeleteAlertRequest]) (*connect.Response[v1.DeleteAlertResponse], error) {
+	return c.deleteAlert.CallUnary(ctx, req)
+}
+
+// UpdateAlert calls panel.agent.v1.AlertService.UpdateAlert.
+func (c *alertServiceClient) UpdateAlert(ctx context.Context, req *connect.Request[v1.UpdateAlertRequest]) (*connect.Response[v1.UpdateAlertResponse], error) {
+	return c.updateAlert.CallUnary(ctx, req)
+}
+
+// UpdateAlertStatus calls panel.agent.v1.AlertService.UpdateAlertStatus.
+func (c *alertServiceClient) UpdateAlertStatus(ctx context.Context, req *connect.Request[v1.UpdateAlertStatusRequest]) (*connect.Response[v1.UpdateAlertStatusResponse], error) {
+	return c.updateAlertStatus.CallUnary(ctx, req)
+}
+
+// GetAlertDisks calls panel.agent.v1.AlertService.GetAlertDisks.
+func (c *alertServiceClient) GetAlertDisks(ctx context.Context, req *connect.Request[v1.GetAlertDisksRequest]) (*connect.Response[v1.AlertDisksResponse], error) {
+	return c.getAlertDisks.CallUnary(ctx, req)
+}
+
+// SearchAlertLogs calls panel.agent.v1.AlertService.SearchAlertLogs.
+func (c *alertServiceClient) SearchAlertLogs(ctx context.Context, req *connect.Request[v1.SearchAlertLogsRequest]) (*connect.Response[v1.AlertLogsResponse], error) {
+	return c.searchAlertLogs.CallUnary(ctx, req)
+}
+
+// CleanAlertLogs calls panel.agent.v1.AlertService.CleanAlertLogs.
+func (c *alertServiceClient) CleanAlertLogs(ctx context.Context, req *connect.Request[v1.CleanAlertLogsRequest]) (*connect.Response[v1.CleanAlertLogsResponse], error) {
+	return c.cleanAlertLogs.CallUnary(ctx, req)
+}
+
+// GetAlertClams calls panel.agent.v1.AlertService.GetAlertClams.
+func (c *alertServiceClient) GetAlertClams(ctx context.Context, req *connect.Request[v1.GetAlertClamsRequest]) (*connect.Response[v1.AlertClamsResponse], error) {
+	return c.getAlertClams.CallUnary(ctx, req)
+}
+
+// GetAlertCronJobs calls panel.agent.v1.AlertService.GetAlertCronJobs.
+func (c *alertServiceClient) GetAlertCronJobs(ctx context.Context, req *connect.Request[v1.GetAlertCronJobsRequest]) (*connect.Response[v1.AlertCronJobsResponse], error) {
+	return c.getAlertCronJobs.CallUnary(ctx, req)
+}
+
+// GetAlertConfig calls panel.agent.v1.AlertService.GetAlertConfig.
+func (c *alertServiceClient) GetAlertConfig(ctx context.Context, req *connect.Request[v1.GetAlertConfigRequest]) (*connect.Response[v1.AlertConfigsResponse], error) {
+	return c.getAlertConfig.CallUnary(ctx, req)
+}
+
+// SearchAlertConfigs calls panel.agent.v1.AlertService.SearchAlertConfigs.
+func (c *alertServiceClient) SearchAlertConfigs(ctx context.Context, req *connect.Request[v1.SearchAlertConfigsRequest]) (*connect.Response[v1.AlertConfigsResponse], error) {
+	return c.searchAlertConfigs.CallUnary(ctx, req)
+}
+
+// UpdateAlertConfig calls panel.agent.v1.AlertService.UpdateAlertConfig.
+func (c *alertServiceClient) UpdateAlertConfig(ctx context.Context, req *connect.Request[v1.UpdateAlertConfigRequest]) (*connect.Response[v1.UpdateAlertConfigResponse], error) {
+	return c.updateAlertConfig.CallUnary(ctx, req)
+}
+
+// UpdateAlertConfigStatus calls panel.agent.v1.AlertService.UpdateAlertConfigStatus.
+func (c *alertServiceClient) UpdateAlertConfigStatus(ctx context.Context, req *connect.Request[v1.UpdateAlertConfigStatusRequest]) (*connect.Response[v1.UpdateAlertConfigStatusResponse], error) {
+	return c.updateAlertConfigStatus.CallUnary(ctx, req)
+}
+
+// DeleteAlertConfig calls panel.agent.v1.AlertService.DeleteAlertConfig.
+func (c *alertServiceClient) DeleteAlertConfig(ctx context.Context, req *connect.Request[v1.DeleteAlertConfigRequest]) (*connect.Response[v1.DeleteAlertConfigResponse], error) {
+	return c.deleteAlertConfig.CallUnary(ctx, req)
+}
+
+// TestAlertConfig calls panel.agent.v1.AlertService.TestAlertConfig.
+func (c *alertServiceClient) TestAlertConfig(ctx context.Context, req *connect.Request[v1.TestAlertConfigRequest]) (*connect.Response[v1.TestAlertConfigResponse], error) {
+	return c.testAlertConfig.CallUnary(ctx, req)
+}
+
 // AlertServiceHandler is an implementation of the panel.agent.v1.AlertService service.
 type AlertServiceHandler interface {
 	// 分页查询告警记录。
 	Page(context.Context, *connect.Request[v1.SearchAlertsRequest]) (*connect.Response[v1.SearchAlertsResponse], error)
+	// 创建告警任务。
+	CreateAlert(context.Context, *connect.Request[v1.CreateAlertRequest]) (*connect.Response[v1.CreateAlertResponse], error)
+	// 删除告警任务。
+	DeleteAlert(context.Context, *connect.Request[v1.DeleteAlertRequest]) (*connect.Response[v1.DeleteAlertResponse], error)
+	// 更新告警任务。
+	UpdateAlert(context.Context, *connect.Request[v1.UpdateAlertRequest]) (*connect.Response[v1.UpdateAlertResponse], error)
+	// 更新告警任务状态。
+	UpdateAlertStatus(context.Context, *connect.Request[v1.UpdateAlertStatusRequest]) (*connect.Response[v1.UpdateAlertStatusResponse], error)
+	// 列出可用于告警的磁盘。
+	GetAlertDisks(context.Context, *connect.Request[v1.GetAlertDisksRequest]) (*connect.Response[v1.AlertDisksResponse], error)
+	// 分页查询告警日志。
+	SearchAlertLogs(context.Context, *connect.Request[v1.SearchAlertLogsRequest]) (*connect.Response[v1.AlertLogsResponse], error)
+	// 清空告警日志。
+	CleanAlertLogs(context.Context, *connect.Request[v1.CleanAlertLogsRequest]) (*connect.Response[v1.CleanAlertLogsResponse], error)
+	// 列出杀毒扫描结果供告警选择。
+	GetAlertClams(context.Context, *connect.Request[v1.GetAlertClamsRequest]) (*connect.Response[v1.AlertClamsResponse], error)
+	// 列出可用于告警的计划任务。
+	GetAlertCronJobs(context.Context, *connect.Request[v1.GetAlertCronJobsRequest]) (*connect.Response[v1.AlertCronJobsResponse], error)
+	// 查询告警通知配置。
+	GetAlertConfig(context.Context, *connect.Request[v1.GetAlertConfigRequest]) (*connect.Response[v1.AlertConfigsResponse], error)
+	// 分页查询告警通知配置。
+	SearchAlertConfigs(context.Context, *connect.Request[v1.SearchAlertConfigsRequest]) (*connect.Response[v1.AlertConfigsResponse], error)
+	// 更新告警通知配置。
+	UpdateAlertConfig(context.Context, *connect.Request[v1.UpdateAlertConfigRequest]) (*connect.Response[v1.UpdateAlertConfigResponse], error)
+	// 更新告警通知配置状态。
+	UpdateAlertConfigStatus(context.Context, *connect.Request[v1.UpdateAlertConfigStatusRequest]) (*connect.Response[v1.UpdateAlertConfigStatusResponse], error)
+	// 删除告警通知配置。
+	DeleteAlertConfig(context.Context, *connect.Request[v1.DeleteAlertConfigRequest]) (*connect.Response[v1.DeleteAlertConfigResponse], error)
+	// 测试告警通知配置是否可用。
+	TestAlertConfig(context.Context, *connect.Request[v1.TestAlertConfigRequest]) (*connect.Response[v1.TestAlertConfigResponse], error)
 }
 
 // NewAlertServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -94,10 +379,130 @@ func NewAlertServiceHandler(svc AlertServiceHandler, opts ...connect.HandlerOpti
 		connect.WithSchema(alertServiceMethods.ByName("Page")),
 		connect.WithHandlerOptions(opts...),
 	)
+	alertServiceCreateAlertHandler := connect.NewUnaryHandler(
+		AlertServiceCreateAlertProcedure,
+		svc.CreateAlert,
+		connect.WithSchema(alertServiceMethods.ByName("CreateAlert")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceDeleteAlertHandler := connect.NewUnaryHandler(
+		AlertServiceDeleteAlertProcedure,
+		svc.DeleteAlert,
+		connect.WithSchema(alertServiceMethods.ByName("DeleteAlert")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceUpdateAlertHandler := connect.NewUnaryHandler(
+		AlertServiceUpdateAlertProcedure,
+		svc.UpdateAlert,
+		connect.WithSchema(alertServiceMethods.ByName("UpdateAlert")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceUpdateAlertStatusHandler := connect.NewUnaryHandler(
+		AlertServiceUpdateAlertStatusProcedure,
+		svc.UpdateAlertStatus,
+		connect.WithSchema(alertServiceMethods.ByName("UpdateAlertStatus")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceGetAlertDisksHandler := connect.NewUnaryHandler(
+		AlertServiceGetAlertDisksProcedure,
+		svc.GetAlertDisks,
+		connect.WithSchema(alertServiceMethods.ByName("GetAlertDisks")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceSearchAlertLogsHandler := connect.NewUnaryHandler(
+		AlertServiceSearchAlertLogsProcedure,
+		svc.SearchAlertLogs,
+		connect.WithSchema(alertServiceMethods.ByName("SearchAlertLogs")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceCleanAlertLogsHandler := connect.NewUnaryHandler(
+		AlertServiceCleanAlertLogsProcedure,
+		svc.CleanAlertLogs,
+		connect.WithSchema(alertServiceMethods.ByName("CleanAlertLogs")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceGetAlertClamsHandler := connect.NewUnaryHandler(
+		AlertServiceGetAlertClamsProcedure,
+		svc.GetAlertClams,
+		connect.WithSchema(alertServiceMethods.ByName("GetAlertClams")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceGetAlertCronJobsHandler := connect.NewUnaryHandler(
+		AlertServiceGetAlertCronJobsProcedure,
+		svc.GetAlertCronJobs,
+		connect.WithSchema(alertServiceMethods.ByName("GetAlertCronJobs")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceGetAlertConfigHandler := connect.NewUnaryHandler(
+		AlertServiceGetAlertConfigProcedure,
+		svc.GetAlertConfig,
+		connect.WithSchema(alertServiceMethods.ByName("GetAlertConfig")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceSearchAlertConfigsHandler := connect.NewUnaryHandler(
+		AlertServiceSearchAlertConfigsProcedure,
+		svc.SearchAlertConfigs,
+		connect.WithSchema(alertServiceMethods.ByName("SearchAlertConfigs")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceUpdateAlertConfigHandler := connect.NewUnaryHandler(
+		AlertServiceUpdateAlertConfigProcedure,
+		svc.UpdateAlertConfig,
+		connect.WithSchema(alertServiceMethods.ByName("UpdateAlertConfig")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceUpdateAlertConfigStatusHandler := connect.NewUnaryHandler(
+		AlertServiceUpdateAlertConfigStatusProcedure,
+		svc.UpdateAlertConfigStatus,
+		connect.WithSchema(alertServiceMethods.ByName("UpdateAlertConfigStatus")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceDeleteAlertConfigHandler := connect.NewUnaryHandler(
+		AlertServiceDeleteAlertConfigProcedure,
+		svc.DeleteAlertConfig,
+		connect.WithSchema(alertServiceMethods.ByName("DeleteAlertConfig")),
+		connect.WithHandlerOptions(opts...),
+	)
+	alertServiceTestAlertConfigHandler := connect.NewUnaryHandler(
+		AlertServiceTestAlertConfigProcedure,
+		svc.TestAlertConfig,
+		connect.WithSchema(alertServiceMethods.ByName("TestAlertConfig")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.AlertService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AlertServicePageProcedure:
 			alertServicePageHandler.ServeHTTP(w, r)
+		case AlertServiceCreateAlertProcedure:
+			alertServiceCreateAlertHandler.ServeHTTP(w, r)
+		case AlertServiceDeleteAlertProcedure:
+			alertServiceDeleteAlertHandler.ServeHTTP(w, r)
+		case AlertServiceUpdateAlertProcedure:
+			alertServiceUpdateAlertHandler.ServeHTTP(w, r)
+		case AlertServiceUpdateAlertStatusProcedure:
+			alertServiceUpdateAlertStatusHandler.ServeHTTP(w, r)
+		case AlertServiceGetAlertDisksProcedure:
+			alertServiceGetAlertDisksHandler.ServeHTTP(w, r)
+		case AlertServiceSearchAlertLogsProcedure:
+			alertServiceSearchAlertLogsHandler.ServeHTTP(w, r)
+		case AlertServiceCleanAlertLogsProcedure:
+			alertServiceCleanAlertLogsHandler.ServeHTTP(w, r)
+		case AlertServiceGetAlertClamsProcedure:
+			alertServiceGetAlertClamsHandler.ServeHTTP(w, r)
+		case AlertServiceGetAlertCronJobsProcedure:
+			alertServiceGetAlertCronJobsHandler.ServeHTTP(w, r)
+		case AlertServiceGetAlertConfigProcedure:
+			alertServiceGetAlertConfigHandler.ServeHTTP(w, r)
+		case AlertServiceSearchAlertConfigsProcedure:
+			alertServiceSearchAlertConfigsHandler.ServeHTTP(w, r)
+		case AlertServiceUpdateAlertConfigProcedure:
+			alertServiceUpdateAlertConfigHandler.ServeHTTP(w, r)
+		case AlertServiceUpdateAlertConfigStatusProcedure:
+			alertServiceUpdateAlertConfigStatusHandler.ServeHTTP(w, r)
+		case AlertServiceDeleteAlertConfigProcedure:
+			alertServiceDeleteAlertConfigHandler.ServeHTTP(w, r)
+		case AlertServiceTestAlertConfigProcedure:
+			alertServiceTestAlertConfigHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -109,4 +514,64 @@ type UnimplementedAlertServiceHandler struct{}
 
 func (UnimplementedAlertServiceHandler) Page(context.Context, *connect.Request[v1.SearchAlertsRequest]) (*connect.Response[v1.SearchAlertsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.Page is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) CreateAlert(context.Context, *connect.Request[v1.CreateAlertRequest]) (*connect.Response[v1.CreateAlertResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.CreateAlert is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) DeleteAlert(context.Context, *connect.Request[v1.DeleteAlertRequest]) (*connect.Response[v1.DeleteAlertResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.DeleteAlert is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) UpdateAlert(context.Context, *connect.Request[v1.UpdateAlertRequest]) (*connect.Response[v1.UpdateAlertResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.UpdateAlert is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) UpdateAlertStatus(context.Context, *connect.Request[v1.UpdateAlertStatusRequest]) (*connect.Response[v1.UpdateAlertStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.UpdateAlertStatus is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) GetAlertDisks(context.Context, *connect.Request[v1.GetAlertDisksRequest]) (*connect.Response[v1.AlertDisksResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.GetAlertDisks is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) SearchAlertLogs(context.Context, *connect.Request[v1.SearchAlertLogsRequest]) (*connect.Response[v1.AlertLogsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.SearchAlertLogs is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) CleanAlertLogs(context.Context, *connect.Request[v1.CleanAlertLogsRequest]) (*connect.Response[v1.CleanAlertLogsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.CleanAlertLogs is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) GetAlertClams(context.Context, *connect.Request[v1.GetAlertClamsRequest]) (*connect.Response[v1.AlertClamsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.GetAlertClams is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) GetAlertCronJobs(context.Context, *connect.Request[v1.GetAlertCronJobsRequest]) (*connect.Response[v1.AlertCronJobsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.GetAlertCronJobs is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) GetAlertConfig(context.Context, *connect.Request[v1.GetAlertConfigRequest]) (*connect.Response[v1.AlertConfigsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.GetAlertConfig is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) SearchAlertConfigs(context.Context, *connect.Request[v1.SearchAlertConfigsRequest]) (*connect.Response[v1.AlertConfigsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.SearchAlertConfigs is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) UpdateAlertConfig(context.Context, *connect.Request[v1.UpdateAlertConfigRequest]) (*connect.Response[v1.UpdateAlertConfigResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.UpdateAlertConfig is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) UpdateAlertConfigStatus(context.Context, *connect.Request[v1.UpdateAlertConfigStatusRequest]) (*connect.Response[v1.UpdateAlertConfigStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.UpdateAlertConfigStatus is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) DeleteAlertConfig(context.Context, *connect.Request[v1.DeleteAlertConfigRequest]) (*connect.Response[v1.DeleteAlertConfigResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.DeleteAlertConfig is not implemented"))
+}
+
+func (UnimplementedAlertServiceHandler) TestAlertConfig(context.Context, *connect.Request[v1.TestAlertConfigRequest]) (*connect.Response[v1.TestAlertConfigResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AlertService.TestAlertConfig is not implemented"))
 }

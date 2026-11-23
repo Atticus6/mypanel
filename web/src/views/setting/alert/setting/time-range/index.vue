@@ -68,7 +68,7 @@ import { computed, ComputedRef, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { FormInstance } from 'element-plus';
-import { UpdateAlertConfig } from '@/api/modules/alert';
+import { rpc } from '@/lib/rpc';
 import { Alert } from '@/api/interface/alert';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 
@@ -209,7 +209,7 @@ const onSave = async () => {
             config.value.status = 'Enable';
             config.value.config = JSON.stringify(configInfo.value);
             config.value.displayName = i18n.global.t('xpack.alert.commonConfig');
-            await UpdateAlertConfig(config.value);
+            await rpc.alert.updateAlertConfig(config.value);
 
             loading.value = false;
             handleClose();

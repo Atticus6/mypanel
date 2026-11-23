@@ -795,7 +795,7 @@ import { addCronjob, editCronjob, loadCronjobInfo, loadNextHandle, loadScriptOpt
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useRouter } from 'vue-router';
 import { Alert } from '@/api/interface/alert';
-import { ListAlertConfigs } from '@/api/modules/alert';
+import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import {
     loadDefaultSpec,
     loadDefaultSpecCustom,
@@ -829,8 +829,8 @@ const defaultGroupID = ref();
 const alertConfigs = ref<Alert.AlertConfigInfo[]>([]);
 const loadAlertConfigs = async () => {
     try {
-        const res = await ListAlertConfigs();
-        alertConfigs.value = res.data?.filter((item: Alert.AlertConfigInfo) => item.type !== 'common') || [];
+        const res = await rpc.alert.getAlertConfig({ excludeTypes: resolveAlertConfigExcludeTypes() });
+        alertConfigs.value = res.items.filter((item: Alert.AlertConfigInfo) => item.type !== 'common') || [];
     } catch {}
 };
 onMounted(() => {

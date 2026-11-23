@@ -78,6 +78,8 @@ excluded_prefixes:
     reason: 下载进度是 WebSocket 推送通道，不是普通 JSON 接口
 
 routes:
+  "GET /alert/clams/list": panel.agent.v1.AlertService.GetAlertClams
+  "GET /alert/disks/list": panel.agent.v1.AlertService.GetAlertDisks
   "GET /apps/:key": panel.agent.v1.AppService.GetApp
   "GET /apps/checkupdate": panel.agent.v1.AppService.GetAppUpdate
   "GET /apps/detail/:appId/:version/:type": panel.agent.v1.AppService.GetAppDetail
@@ -163,7 +165,20 @@ routes:
   "GET /websites/rewrite/custom": panel.agent.v1.WebsiteService.ListCustomRewrite
   "GET /websites/ssl/:id": panel.agent.v1.WebsiteSSLService.GetByID
   "GET /websites/ssl/website/:websiteId": panel.agent.v1.WebsiteSSLService.GetByWebsite
+  "POST /alert": panel.agent.v1.AlertService.CreateAlert
+  "POST /alert/config/del": panel.agent.v1.AlertService.DeleteAlertConfig
+  "POST /alert/config/info": panel.agent.v1.AlertService.GetAlertConfig
+  "POST /alert/config/search": panel.agent.v1.AlertService.SearchAlertConfigs
+  "POST /alert/config/status": panel.agent.v1.AlertService.UpdateAlertConfigStatus
+  "POST /alert/config/test": panel.agent.v1.AlertService.TestAlertConfig
+  "POST /alert/config/update": panel.agent.v1.AlertService.UpdateAlertConfig
+  "POST /alert/cronjob/list": panel.agent.v1.AlertService.GetAlertCronJobs
+  "POST /alert/del": panel.agent.v1.AlertService.DeleteAlert
+  "POST /alert/logs/clean": panel.agent.v1.AlertService.CleanAlertLogs
+  "POST /alert/logs/search": panel.agent.v1.AlertService.SearchAlertLogs
   "POST /alert/search": panel.agent.v1.AlertService.Page
+  "POST /alert/status": panel.agent.v1.AlertService.UpdateAlertStatus
+  "POST /alert/update": panel.agent.v1.AlertService.UpdateAlert
   "POST /apps/ignored/cancel": panel.agent.v1.AppService.CancelIgnoreAppUpgrade
   "POST /apps/install": panel.agent.v1.AppService.Install
   "POST /apps/installed/check": panel.agent.v1.AppService.CheckInstalled

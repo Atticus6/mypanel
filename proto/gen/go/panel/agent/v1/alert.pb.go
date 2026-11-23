@@ -352,6 +352,2272 @@ func (x *Alert) GetUpdatedAt() string {
 	return ""
 }
 
+// CreateAlertRequest 是创建告警任务参数。
+type CreateAlertRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 告警类型。
+	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	// 检查周期，单位分钟。
+	Cycle uint32 `protobuf:"varint,2,opt,name=cycle,proto3" json:"cycle,omitempty"`
+	// 连续触发次数。
+	Count uint32 `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
+	// 发送方式。
+	Method string `protobuf:"bytes,4,opt,name=method,proto3" json:"method,omitempty"`
+	// 告警标题。
+	Title string `protobuf:"bytes,5,opt,name=title,proto3" json:"title,omitempty"`
+	// 关联项目。
+	Project string `protobuf:"bytes,6,opt,name=project,proto3" json:"project,omitempty"`
+	// 状态：Enable 或 Disable。
+	Status string `protobuf:"bytes,7,opt,name=status,proto3" json:"status,omitempty"`
+	// 已发送次数。
+	SendCount uint32 `protobuf:"varint,8,opt,name=send_count,json=sendCount,proto3" json:"send_count,omitempty"`
+	// 高级参数（JSON 字符串）。
+	AdvancedParams string `protobuf:"bytes,9,opt,name=advanced_params,json=advancedParams,proto3" json:"advanced_params,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *CreateAlertRequest) Reset() {
+	*x = CreateAlertRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateAlertRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateAlertRequest) ProtoMessage() {}
+
+func (x *CreateAlertRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateAlertRequest.ProtoReflect.Descriptor instead.
+func (*CreateAlertRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CreateAlertRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *CreateAlertRequest) GetCycle() uint32 {
+	if x != nil {
+		return x.Cycle
+	}
+	return 0
+}
+
+func (x *CreateAlertRequest) GetCount() uint32 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+func (x *CreateAlertRequest) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *CreateAlertRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *CreateAlertRequest) GetProject() string {
+	if x != nil {
+		return x.Project
+	}
+	return ""
+}
+
+func (x *CreateAlertRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *CreateAlertRequest) GetSendCount() uint32 {
+	if x != nil {
+		return x.SendCount
+	}
+	return 0
+}
+
+func (x *CreateAlertRequest) GetAdvancedParams() string {
+	if x != nil {
+		return x.AdvancedParams
+	}
+	return ""
+}
+
+// CreateAlertResponse 是创建结果，无业务字段。
+type CreateAlertResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateAlertResponse) Reset() {
+	*x = CreateAlertResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateAlertResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateAlertResponse) ProtoMessage() {}
+
+func (x *CreateAlertResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateAlertResponse.ProtoReflect.Descriptor instead.
+func (*CreateAlertResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{4}
+}
+
+// DeleteAlertRequest 是删除告警任务参数。
+type DeleteAlertRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 告警 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteAlertRequest) Reset() {
+	*x = DeleteAlertRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteAlertRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAlertRequest) ProtoMessage() {}
+
+func (x *DeleteAlertRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAlertRequest.ProtoReflect.Descriptor instead.
+func (*DeleteAlertRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *DeleteAlertRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// DeleteAlertResponse 是删除结果，无业务字段。
+type DeleteAlertResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteAlertResponse) Reset() {
+	*x = DeleteAlertResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteAlertResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAlertResponse) ProtoMessage() {}
+
+func (x *DeleteAlertResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAlertResponse.ProtoReflect.Descriptor instead.
+func (*DeleteAlertResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{6}
+}
+
+// UpdateAlertRequest 是更新告警任务参数。
+type UpdateAlertRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 告警 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 告警类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 检查周期，单位分钟。
+	Cycle uint32 `protobuf:"varint,3,opt,name=cycle,proto3" json:"cycle,omitempty"`
+	// 连续触发次数。
+	Count uint32 `protobuf:"varint,4,opt,name=count,proto3" json:"count,omitempty"`
+	// 发送方式。
+	Method string `protobuf:"bytes,5,opt,name=method,proto3" json:"method,omitempty"`
+	// 告警标题。
+	Title string `protobuf:"bytes,6,opt,name=title,proto3" json:"title,omitempty"`
+	// 关联项目。
+	Project string `protobuf:"bytes,7,opt,name=project,proto3" json:"project,omitempty"`
+	// 状态：Enable 或 Disable。
+	Status string `protobuf:"bytes,8,opt,name=status,proto3" json:"status,omitempty"`
+	// 已发送次数。
+	SendCount uint32 `protobuf:"varint,9,opt,name=send_count,json=sendCount,proto3" json:"send_count,omitempty"`
+	// 高级参数（JSON 字符串）。
+	AdvancedParams string `protobuf:"bytes,10,opt,name=advanced_params,json=advancedParams,proto3" json:"advanced_params,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *UpdateAlertRequest) Reset() {
+	*x = UpdateAlertRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertRequest) ProtoMessage() {}
+
+func (x *UpdateAlertRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertRequest.ProtoReflect.Descriptor instead.
+func (*UpdateAlertRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateAlertRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateAlertRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *UpdateAlertRequest) GetCycle() uint32 {
+	if x != nil {
+		return x.Cycle
+	}
+	return 0
+}
+
+func (x *UpdateAlertRequest) GetCount() uint32 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+func (x *UpdateAlertRequest) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *UpdateAlertRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *UpdateAlertRequest) GetProject() string {
+	if x != nil {
+		return x.Project
+	}
+	return ""
+}
+
+func (x *UpdateAlertRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *UpdateAlertRequest) GetSendCount() uint32 {
+	if x != nil {
+		return x.SendCount
+	}
+	return 0
+}
+
+func (x *UpdateAlertRequest) GetAdvancedParams() string {
+	if x != nil {
+		return x.AdvancedParams
+	}
+	return ""
+}
+
+// UpdateAlertResponse 是更新结果，无业务字段。
+type UpdateAlertResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAlertResponse) Reset() {
+	*x = UpdateAlertResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertResponse) ProtoMessage() {}
+
+func (x *UpdateAlertResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertResponse.ProtoReflect.Descriptor instead.
+func (*UpdateAlertResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{8}
+}
+
+// UpdateAlertStatusRequest 是告警状态更新参数。
+type UpdateAlertStatusRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 告警 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 目标状态。
+	Status        string `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAlertStatusRequest) Reset() {
+	*x = UpdateAlertStatusRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertStatusRequest) ProtoMessage() {}
+
+func (x *UpdateAlertStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertStatusRequest.ProtoReflect.Descriptor instead.
+func (*UpdateAlertStatusRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *UpdateAlertStatusRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateAlertStatusRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+// UpdateAlertStatusResponse 是更新结果，无业务字段。
+type UpdateAlertStatusResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAlertStatusResponse) Reset() {
+	*x = UpdateAlertStatusResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertStatusResponse) ProtoMessage() {}
+
+func (x *UpdateAlertStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertStatusResponse.ProtoReflect.Descriptor instead.
+func (*UpdateAlertStatusResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{10}
+}
+
+// GetAlertDisksRequest 是磁盘列表查询参数，无业务字段。
+type GetAlertDisksRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAlertDisksRequest) Reset() {
+	*x = GetAlertDisksRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAlertDisksRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAlertDisksRequest) ProtoMessage() {}
+
+func (x *GetAlertDisksRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAlertDisksRequest.ProtoReflect.Descriptor instead.
+func (*GetAlertDisksRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{11}
+}
+
+// AlertDisksResponse 是可告警磁盘列表。
+type AlertDisksResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 磁盘列表。
+	Items         []*AlertDisk `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertDisksResponse) Reset() {
+	*x = AlertDisksResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertDisksResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertDisksResponse) ProtoMessage() {}
+
+func (x *AlertDisksResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertDisksResponse.ProtoReflect.Descriptor instead.
+func (*AlertDisksResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *AlertDisksResponse) GetItems() []*AlertDisk {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// AlertDisk 是一个可用于告警的磁盘。
+type AlertDisk struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 挂载路径。
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	// 文件系统类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 设备名。
+	Device string `protobuf:"bytes,3,opt,name=device,proto3" json:"device,omitempty"`
+	// 总容量，单位字节。
+	Total uint64 `protobuf:"varint,4,opt,name=total,proto3" json:"total,omitempty"`
+	// 剩余容量，单位字节。
+	Free uint64 `protobuf:"varint,5,opt,name=free,proto3" json:"free,omitempty"`
+	// 已用容量，单位字节。
+	Used uint64 `protobuf:"varint,6,opt,name=used,proto3" json:"used,omitempty"`
+	// 使用率百分比。
+	UsedPercent float64 `protobuf:"fixed64,7,opt,name=used_percent,json=usedPercent,proto3" json:"used_percent,omitempty"`
+	// inode 总数。
+	InodesTotal uint64 `protobuf:"varint,8,opt,name=inodes_total,json=inodesTotal,proto3" json:"inodes_total,omitempty"`
+	// 已用 inode 数。
+	InodesUsed uint64 `protobuf:"varint,9,opt,name=inodes_used,json=inodesUsed,proto3" json:"inodes_used,omitempty"`
+	// 剩余 inode 数。
+	InodesFree uint64 `protobuf:"varint,10,opt,name=inodes_free,json=inodesFree,proto3" json:"inodes_free,omitempty"`
+	// inode 使用率百分比。
+	InodesUsedPercent float64 `protobuf:"fixed64,11,opt,name=inodes_used_percent,json=inodesUsedPercent,proto3" json:"inodes_used_percent,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *AlertDisk) Reset() {
+	*x = AlertDisk{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertDisk) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertDisk) ProtoMessage() {}
+
+func (x *AlertDisk) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertDisk.ProtoReflect.Descriptor instead.
+func (*AlertDisk) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *AlertDisk) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *AlertDisk) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *AlertDisk) GetDevice() string {
+	if x != nil {
+		return x.Device
+	}
+	return ""
+}
+
+func (x *AlertDisk) GetTotal() uint64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *AlertDisk) GetFree() uint64 {
+	if x != nil {
+		return x.Free
+	}
+	return 0
+}
+
+func (x *AlertDisk) GetUsed() uint64 {
+	if x != nil {
+		return x.Used
+	}
+	return 0
+}
+
+func (x *AlertDisk) GetUsedPercent() float64 {
+	if x != nil {
+		return x.UsedPercent
+	}
+	return 0
+}
+
+func (x *AlertDisk) GetInodesTotal() uint64 {
+	if x != nil {
+		return x.InodesTotal
+	}
+	return 0
+}
+
+func (x *AlertDisk) GetInodesUsed() uint64 {
+	if x != nil {
+		return x.InodesUsed
+	}
+	return 0
+}
+
+func (x *AlertDisk) GetInodesFree() uint64 {
+	if x != nil {
+		return x.InodesFree
+	}
+	return 0
+}
+
+func (x *AlertDisk) GetInodesUsedPercent() float64 {
+	if x != nil {
+		return x.InodesUsedPercent
+	}
+	return 0
+}
+
+// SearchAlertLogsRequest 是告警日志查询参数。
+type SearchAlertLogsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 100。
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 触发次数过滤。
+	Count uint32 `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
+	// 状态过滤。
+	Status string `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	// 起始时间，RFC3339 格式。
+	StartTime string `protobuf:"bytes,5,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	// 结束时间，RFC3339 格式。
+	EndTime       string `protobuf:"bytes,6,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchAlertLogsRequest) Reset() {
+	*x = SearchAlertLogsRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchAlertLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchAlertLogsRequest) ProtoMessage() {}
+
+func (x *SearchAlertLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchAlertLogsRequest.ProtoReflect.Descriptor instead.
+func (*SearchAlertLogsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *SearchAlertLogsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchAlertLogsRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *SearchAlertLogsRequest) GetCount() uint32 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+func (x *SearchAlertLogsRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *SearchAlertLogsRequest) GetStartTime() string {
+	if x != nil {
+		return x.StartTime
+	}
+	return ""
+}
+
+func (x *SearchAlertLogsRequest) GetEndTime() string {
+	if x != nil {
+		return x.EndTime
+	}
+	return ""
+}
+
+// AlertLogsResponse 是告警日志列表结果。
+type AlertLogsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 当前页日志。
+	Items []*AlertLogEntry `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	// 符合条件的日志总数。
+	Total         int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertLogsResponse) Reset() {
+	*x = AlertLogsResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertLogsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertLogsResponse) ProtoMessage() {}
+
+func (x *AlertLogsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertLogsResponse.ProtoReflect.Descriptor instead.
+func (*AlertLogsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *AlertLogsResponse) GetItems() []*AlertLogEntry {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *AlertLogsResponse) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+// AlertLogEntry 是一条告警日志。
+type AlertLogEntry struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 日志 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 告警类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 触发次数。
+	Count uint32 `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
+	// 告警 ID。
+	AlertId uint32 `protobuf:"varint,4,opt,name=alert_id,json=alertId,proto3" json:"alert_id,omitempty"`
+	// 告警详情 JSON。
+	AlertDetailJson string `protobuf:"bytes,5,opt,name=alert_detail_json,json=alertDetailJson,proto3" json:"alert_detail_json,omitempty"`
+	// 告警规则 JSON。
+	AlertRuleJson string `protobuf:"bytes,6,opt,name=alert_rule_json,json=alertRuleJson,proto3" json:"alert_rule_json,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,7,opt,name=status,proto3" json:"status,omitempty"`
+	// 发送方式。
+	Method string `protobuf:"bytes,8,opt,name=method,proto3" json:"method,omitempty"`
+	// 消息。
+	Message string `protobuf:"bytes,9,opt,name=message,proto3" json:"message,omitempty"`
+	// 创建时间，RFC3339 格式。
+	CreatedAt string `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 更新时间，RFC3339 格式。
+	UpdatedAt     string `protobuf:"bytes,11,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertLogEntry) Reset() {
+	*x = AlertLogEntry{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertLogEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertLogEntry) ProtoMessage() {}
+
+func (x *AlertLogEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertLogEntry.ProtoReflect.Descriptor instead.
+func (*AlertLogEntry) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *AlertLogEntry) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AlertLogEntry) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *AlertLogEntry) GetCount() uint32 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+func (x *AlertLogEntry) GetAlertId() uint32 {
+	if x != nil {
+		return x.AlertId
+	}
+	return 0
+}
+
+func (x *AlertLogEntry) GetAlertDetailJson() string {
+	if x != nil {
+		return x.AlertDetailJson
+	}
+	return ""
+}
+
+func (x *AlertLogEntry) GetAlertRuleJson() string {
+	if x != nil {
+		return x.AlertRuleJson
+	}
+	return ""
+}
+
+func (x *AlertLogEntry) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *AlertLogEntry) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *AlertLogEntry) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *AlertLogEntry) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *AlertLogEntry) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+// CleanAlertLogsRequest 是清空日志参数，无业务字段。
+type CleanAlertLogsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CleanAlertLogsRequest) Reset() {
+	*x = CleanAlertLogsRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CleanAlertLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CleanAlertLogsRequest) ProtoMessage() {}
+
+func (x *CleanAlertLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CleanAlertLogsRequest.ProtoReflect.Descriptor instead.
+func (*CleanAlertLogsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{17}
+}
+
+// CleanAlertLogsResponse 是清空结果，无业务字段。
+type CleanAlertLogsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CleanAlertLogsResponse) Reset() {
+	*x = CleanAlertLogsResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CleanAlertLogsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CleanAlertLogsResponse) ProtoMessage() {}
+
+func (x *CleanAlertLogsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CleanAlertLogsResponse.ProtoReflect.Descriptor instead.
+func (*CleanAlertLogsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{18}
+}
+
+// GetAlertClamsRequest 是杀毒扫描结果查询参数，无业务字段。
+type GetAlertClamsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAlertClamsRequest) Reset() {
+	*x = GetAlertClamsRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAlertClamsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAlertClamsRequest) ProtoMessage() {}
+
+func (x *GetAlertClamsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAlertClamsRequest.ProtoReflect.Descriptor instead.
+func (*GetAlertClamsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{19}
+}
+
+// AlertClamsResponse 是杀毒扫描结果列表。
+type AlertClamsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 扫描项。
+	Items         []*AlertClam `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertClamsResponse) Reset() {
+	*x = AlertClamsResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertClamsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertClamsResponse) ProtoMessage() {}
+
+func (x *AlertClamsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertClamsResponse.ProtoReflect.Descriptor instead.
+func (*AlertClamsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *AlertClamsResponse) GetItems() []*AlertClam {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// AlertClam 是一条杀毒扫描结果。
+type AlertClam struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 创建时间，RFC3339 格式。
+	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 更新时间，RFC3339 格式。
+	UpdatedAt string `protobuf:"bytes,3,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	// 名称。
+	Name string `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,5,opt,name=status,proto3" json:"status,omitempty"`
+	// 扫描路径。
+	Path          string `protobuf:"bytes,6,opt,name=path,proto3" json:"path,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertClam) Reset() {
+	*x = AlertClam{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertClam) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertClam) ProtoMessage() {}
+
+func (x *AlertClam) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertClam.ProtoReflect.Descriptor instead.
+func (*AlertClam) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *AlertClam) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AlertClam) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *AlertClam) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+func (x *AlertClam) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *AlertClam) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *AlertClam) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+// GetAlertCronJobsRequest 是计划任务列表查询参数。
+type GetAlertCronJobsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务名称过滤。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 状态过滤。
+	Status string `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	// 任务类型过滤。
+	Type          string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAlertCronJobsRequest) Reset() {
+	*x = GetAlertCronJobsRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAlertCronJobsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAlertCronJobsRequest) ProtoMessage() {}
+
+func (x *GetAlertCronJobsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAlertCronJobsRequest.ProtoReflect.Descriptor instead.
+func (*GetAlertCronJobsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *GetAlertCronJobsRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *GetAlertCronJobsRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *GetAlertCronJobsRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+// AlertCronJobsResponse 是计划任务列表结果。
+type AlertCronJobsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务列表。
+	Items         []*AlertCronJob `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertCronJobsResponse) Reset() {
+	*x = AlertCronJobsResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertCronJobsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertCronJobsResponse) ProtoMessage() {}
+
+func (x *AlertCronJobsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertCronJobsResponse.ProtoReflect.Descriptor instead.
+func (*AlertCronJobsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *AlertCronJobsResponse) GetItems() []*AlertCronJob {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// AlertCronJob 是一个可用于告警的计划任务。
+type AlertCronJob struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 任务 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 创建时间，RFC3339 格式。
+	CreatedAt string `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 更新时间，RFC3339 格式。
+	UpdatedAt string `protobuf:"bytes,3,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	// 任务名称。
+	Name string `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,5,opt,name=status,proto3" json:"status,omitempty"`
+	// 任务类型。
+	Type          string `protobuf:"bytes,6,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertCronJob) Reset() {
+	*x = AlertCronJob{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertCronJob) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertCronJob) ProtoMessage() {}
+
+func (x *AlertCronJob) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertCronJob.ProtoReflect.Descriptor instead.
+func (*AlertCronJob) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *AlertCronJob) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AlertCronJob) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *AlertCronJob) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+func (x *AlertCronJob) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *AlertCronJob) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *AlertCronJob) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+// GetAlertConfigRequest 是通知配置查询参数。
+type GetAlertConfigRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 需要排除的配置类型。
+	ExcludeTypes  []string `protobuf:"bytes,1,rep,name=exclude_types,json=excludeTypes,proto3" json:"exclude_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAlertConfigRequest) Reset() {
+	*x = GetAlertConfigRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAlertConfigRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAlertConfigRequest) ProtoMessage() {}
+
+func (x *GetAlertConfigRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAlertConfigRequest.ProtoReflect.Descriptor instead.
+func (*GetAlertConfigRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *GetAlertConfigRequest) GetExcludeTypes() []string {
+	if x != nil {
+		return x.ExcludeTypes
+	}
+	return nil
+}
+
+// SearchAlertConfigsRequest 是通知配置分页查询参数。
+type SearchAlertConfigsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 页码，从 1 开始。
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 每页条数，最大 100。
+	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	// 需要排除的配置类型。
+	ExcludeTypes  []string `protobuf:"bytes,3,rep,name=exclude_types,json=excludeTypes,proto3" json:"exclude_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchAlertConfigsRequest) Reset() {
+	*x = SearchAlertConfigsRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchAlertConfigsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchAlertConfigsRequest) ProtoMessage() {}
+
+func (x *SearchAlertConfigsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchAlertConfigsRequest.ProtoReflect.Descriptor instead.
+func (*SearchAlertConfigsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *SearchAlertConfigsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchAlertConfigsRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *SearchAlertConfigsRequest) GetExcludeTypes() []string {
+	if x != nil {
+		return x.ExcludeTypes
+	}
+	return nil
+}
+
+// AlertConfigsResponse 是通知配置列表结果。
+type AlertConfigsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 当前页配置。
+	Items []*AlertConfigEntry `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	// 分页查询时的总数；非分页查询为 0。
+	Total         int64 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertConfigsResponse) Reset() {
+	*x = AlertConfigsResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertConfigsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertConfigsResponse) ProtoMessage() {}
+
+func (x *AlertConfigsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertConfigsResponse.ProtoReflect.Descriptor instead.
+func (*AlertConfigsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *AlertConfigsResponse) GetItems() []*AlertConfigEntry {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *AlertConfigsResponse) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+// AlertConfigEntry 是一条告警通知配置。
+type AlertConfigEntry struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 配置 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 配置 UID。
+	Uid string `protobuf:"bytes,2,opt,name=uid,proto3" json:"uid,omitempty"`
+	// 配置类型。
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	// 标题。
+	Title string `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,5,opt,name=status,proto3" json:"status,omitempty"`
+	// 配置内容（JSON 字符串）。
+	Config string `protobuf:"bytes,6,opt,name=config,proto3" json:"config,omitempty"`
+	// 创建人。
+	CreateUser string `protobuf:"bytes,7,opt,name=create_user,json=createUser,proto3" json:"create_user,omitempty"`
+	// 更新人。
+	UpdateUser string `protobuf:"bytes,8,opt,name=update_user,json=updateUser,proto3" json:"update_user,omitempty"`
+	// 创建时间，RFC3339 格式。
+	CreatedAt string `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// 更新时间，RFC3339 格式。
+	UpdatedAt     string `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AlertConfigEntry) Reset() {
+	*x = AlertConfigEntry{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AlertConfigEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AlertConfigEntry) ProtoMessage() {}
+
+func (x *AlertConfigEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AlertConfigEntry.ProtoReflect.Descriptor instead.
+func (*AlertConfigEntry) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *AlertConfigEntry) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AlertConfigEntry) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetConfig() string {
+	if x != nil {
+		return x.Config
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetCreateUser() string {
+	if x != nil {
+		return x.CreateUser
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetUpdateUser() string {
+	if x != nil {
+		return x.UpdateUser
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *AlertConfigEntry) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+// UpdateAlertConfigRequest 是通知配置更新参数。
+type UpdateAlertConfigRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 配置 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 配置类型。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 标题。
+	Title string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	// 配置内容（JSON 字符串）。
+	Config string `protobuf:"bytes,5,opt,name=config,proto3" json:"config,omitempty"`
+	// 展示名称。
+	DisplayName string `protobuf:"bytes,6,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
+	// 更新时间，RFC3339 格式；用于乐观锁校验。
+	Revision      string `protobuf:"bytes,7,opt,name=revision,proto3" json:"revision,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAlertConfigRequest) Reset() {
+	*x = UpdateAlertConfigRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertConfigRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertConfigRequest) ProtoMessage() {}
+
+func (x *UpdateAlertConfigRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertConfigRequest.ProtoReflect.Descriptor instead.
+func (*UpdateAlertConfigRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *UpdateAlertConfigRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateAlertConfigRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *UpdateAlertConfigRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *UpdateAlertConfigRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *UpdateAlertConfigRequest) GetConfig() string {
+	if x != nil {
+		return x.Config
+	}
+	return ""
+}
+
+func (x *UpdateAlertConfigRequest) GetDisplayName() string {
+	if x != nil {
+		return x.DisplayName
+	}
+	return ""
+}
+
+func (x *UpdateAlertConfigRequest) GetRevision() string {
+	if x != nil {
+		return x.Revision
+	}
+	return ""
+}
+
+// UpdateAlertConfigResponse 是更新结果，无业务字段。
+type UpdateAlertConfigResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAlertConfigResponse) Reset() {
+	*x = UpdateAlertConfigResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertConfigResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertConfigResponse) ProtoMessage() {}
+
+func (x *UpdateAlertConfigResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertConfigResponse.ProtoReflect.Descriptor instead.
+func (*UpdateAlertConfigResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{30}
+}
+
+// UpdateAlertConfigStatusRequest 是配置状态更新参数。
+type UpdateAlertConfigStatusRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 配置 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 目标状态：Enable 或 Disable。
+	Status        string `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAlertConfigStatusRequest) Reset() {
+	*x = UpdateAlertConfigStatusRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertConfigStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertConfigStatusRequest) ProtoMessage() {}
+
+func (x *UpdateAlertConfigStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertConfigStatusRequest.ProtoReflect.Descriptor instead.
+func (*UpdateAlertConfigStatusRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *UpdateAlertConfigStatusRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateAlertConfigStatusRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+// UpdateAlertConfigStatusResponse 是更新结果，无业务字段。
+type UpdateAlertConfigStatusResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAlertConfigStatusResponse) Reset() {
+	*x = UpdateAlertConfigStatusResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAlertConfigStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAlertConfigStatusResponse) ProtoMessage() {}
+
+func (x *UpdateAlertConfigStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAlertConfigStatusResponse.ProtoReflect.Descriptor instead.
+func (*UpdateAlertConfigStatusResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{32}
+}
+
+// DeleteAlertConfigRequest 是配置删除参数。
+type DeleteAlertConfigRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 配置 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteAlertConfigRequest) Reset() {
+	*x = DeleteAlertConfigRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteAlertConfigRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAlertConfigRequest) ProtoMessage() {}
+
+func (x *DeleteAlertConfigRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAlertConfigRequest.ProtoReflect.Descriptor instead.
+func (*DeleteAlertConfigRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *DeleteAlertConfigRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// DeleteAlertConfigResponse 是删除结果，无业务字段。
+type DeleteAlertConfigResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteAlertConfigResponse) Reset() {
+	*x = DeleteAlertConfigResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteAlertConfigResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAlertConfigResponse) ProtoMessage() {}
+
+func (x *DeleteAlertConfigResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAlertConfigResponse.ProtoReflect.Descriptor instead.
+func (*DeleteAlertConfigResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{34}
+}
+
+// TestAlertConfigRequest 是通知配置测试参数。
+type TestAlertConfigRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 配置 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 配置类型；custom 表示自定义 Webhook。
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// 配置内容（JSON 字符串）。
+	Config string `protobuf:"bytes,3,opt,name=config,proto3" json:"config,omitempty"`
+	// SMTP 主机。
+	Host string `protobuf:"bytes,4,opt,name=host,proto3" json:"host,omitempty"`
+	// SMTP 端口。
+	Port int32 `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
+	// 发件人。
+	Sender string `protobuf:"bytes,6,opt,name=sender,proto3" json:"sender,omitempty"`
+	// 用户名。
+	UserName string `protobuf:"bytes,7,opt,name=user_name,json=userName,proto3" json:"user_name,omitempty"`
+	// 密码。
+	Password string `protobuf:"bytes,8,opt,name=password,proto3" json:"password,omitempty"`
+	// 展示名称。
+	DisplayName string `protobuf:"bytes,9,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
+	// 加密方式：ssl、tls 或 none。
+	Encryption string `protobuf:"bytes,10,opt,name=encryption,proto3" json:"encryption,omitempty"`
+	// 收件人。
+	Recipient     string `protobuf:"bytes,11,opt,name=recipient,proto3" json:"recipient,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TestAlertConfigRequest) Reset() {
+	*x = TestAlertConfigRequest{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TestAlertConfigRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TestAlertConfigRequest) ProtoMessage() {}
+
+func (x *TestAlertConfigRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TestAlertConfigRequest.ProtoReflect.Descriptor instead.
+func (*TestAlertConfigRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *TestAlertConfigRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *TestAlertConfigRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetConfig() string {
+	if x != nil {
+		return x.Config
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetHost() string {
+	if x != nil {
+		return x.Host
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetPort() int32 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
+func (x *TestAlertConfigRequest) GetSender() string {
+	if x != nil {
+		return x.Sender
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetUserName() string {
+	if x != nil {
+		return x.UserName
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetDisplayName() string {
+	if x != nil {
+		return x.DisplayName
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetEncryption() string {
+	if x != nil {
+		return x.Encryption
+	}
+	return ""
+}
+
+func (x *TestAlertConfigRequest) GetRecipient() string {
+	if x != nil {
+		return x.Recipient
+	}
+	return ""
+}
+
+// TestAlertConfigResponse 是测试结果。
+type TestAlertConfigResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 是否测试成功。
+	Success bool `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	// HTTP 状态码；仅 Webhook 测试返回。
+	StatusCode int32 `protobuf:"varint,2,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
+	// 耗时，单位毫秒。
+	Duration int64 `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
+	// 失败原因。
+	Message string `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
+	// 响应内容；为安全起见返回值始终为空。
+	Response      string `protobuf:"bytes,5,opt,name=response,proto3" json:"response,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TestAlertConfigResponse) Reset() {
+	*x = TestAlertConfigResponse{}
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TestAlertConfigResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TestAlertConfigResponse) ProtoMessage() {}
+
+func (x *TestAlertConfigResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_alert_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TestAlertConfigResponse.ProtoReflect.Descriptor instead.
+func (*TestAlertConfigResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_alert_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *TestAlertConfigResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *TestAlertConfigResponse) GetStatusCode() int32 {
+	if x != nil {
+		return x.StatusCode
+	}
+	return 0
+}
+
+func (x *TestAlertConfigResponse) GetDuration() int64 {
+	if x != nil {
+		return x.Duration
+	}
+	return 0
+}
+
+func (x *TestAlertConfigResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *TestAlertConfigResponse) GetResponse() string {
+	if x != nil {
+		return x.Response
+	}
+	return ""
+}
+
 var File_panel_agent_v1_alert_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_alert_proto_rawDesc = "" +
@@ -390,9 +2656,193 @@ const file_panel_agent_v1_alert_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x0e \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\x0f \x01(\tR\tupdatedAt2k\n" +
+	"updated_at\x18\x0f \x01(\tR\tupdatedAt\"\x8e\x02\n" +
+	"\x12CreateAlertRequest\x12\x1b\n" +
+	"\x04type\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\x12\x14\n" +
+	"\x05cycle\x18\x02 \x01(\rR\x05cycle\x12\x14\n" +
+	"\x05count\x18\x03 \x01(\rR\x05count\x12\x1f\n" +
+	"\x06method\x18\x04 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06method\x12\x14\n" +
+	"\x05title\x18\x05 \x01(\tR\x05title\x12\x18\n" +
+	"\aproject\x18\x06 \x01(\tR\aproject\x12\x16\n" +
+	"\x06status\x18\a \x01(\tR\x06status\x12\x1d\n" +
+	"\n" +
+	"send_count\x18\b \x01(\rR\tsendCount\x12'\n" +
+	"\x0fadvanced_params\x18\t \x01(\tR\x0eadvancedParams\"\x15\n" +
+	"\x13CreateAlertResponse\"-\n" +
+	"\x12DeleteAlertRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\x15\n" +
+	"\x13DeleteAlertResponse\"\x95\x02\n" +
+	"\x12UpdateAlertRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +
+	"\x05cycle\x18\x03 \x01(\rR\x05cycle\x12\x14\n" +
+	"\x05count\x18\x04 \x01(\rR\x05count\x12\x16\n" +
+	"\x06method\x18\x05 \x01(\tR\x06method\x12\x14\n" +
+	"\x05title\x18\x06 \x01(\tR\x05title\x12\x18\n" +
+	"\aproject\x18\a \x01(\tR\aproject\x12\x16\n" +
+	"\x06status\x18\b \x01(\tR\x06status\x12\x1d\n" +
+	"\n" +
+	"send_count\x18\t \x01(\rR\tsendCount\x12'\n" +
+	"\x0fadvanced_params\x18\n" +
+	" \x01(\tR\x0eadvancedParams\"\x15\n" +
+	"\x13UpdateAlertResponse\"T\n" +
+	"\x18UpdateAlertStatusRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12\x1f\n" +
+	"\x06status\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06status\"\x1b\n" +
+	"\x19UpdateAlertStatusResponse\"\x16\n" +
+	"\x14GetAlertDisksRequest\"E\n" +
+	"\x12AlertDisksResponse\x12/\n" +
+	"\x05items\x18\x01 \x03(\v2\x19.panel.agent.v1.AlertDiskR\x05items\"\xc1\x02\n" +
+	"\tAlertDisk\x12\x12\n" +
+	"\x04path\x18\x01 \x01(\tR\x04path\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x16\n" +
+	"\x06device\x18\x03 \x01(\tR\x06device\x12\x14\n" +
+	"\x05total\x18\x04 \x01(\x04R\x05total\x12\x12\n" +
+	"\x04free\x18\x05 \x01(\x04R\x04free\x12\x12\n" +
+	"\x04used\x18\x06 \x01(\x04R\x04used\x12!\n" +
+	"\fused_percent\x18\a \x01(\x01R\vusedPercent\x12!\n" +
+	"\finodes_total\x18\b \x01(\x04R\vinodesTotal\x12\x1f\n" +
+	"\vinodes_used\x18\t \x01(\x04R\n" +
+	"inodesUsed\x12\x1f\n" +
+	"\vinodes_free\x18\n" +
+	" \x01(\x04R\n" +
+	"inodesFree\x12.\n" +
+	"\x13inodes_used_percent\x18\v \x01(\x01R\x11inodesUsedPercent\"\xc5\x01\n" +
+	"\x16SearchAlertLogsRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12&\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\x12\x14\n" +
+	"\x05count\x18\x03 \x01(\rR\x05count\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\x12\x1d\n" +
+	"\n" +
+	"start_time\x18\x05 \x01(\tR\tstartTime\x12\x19\n" +
+	"\bend_time\x18\x06 \x01(\tR\aendTime\"^\n" +
+	"\x11AlertLogsResponse\x123\n" +
+	"\x05items\x18\x01 \x03(\v2\x1d.panel.agent.v1.AlertLogEntryR\x05items\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x03R\x05total\"\xc0\x02\n" +
+	"\rAlertLogEntry\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +
+	"\x05count\x18\x03 \x01(\rR\x05count\x12\x19\n" +
+	"\balert_id\x18\x04 \x01(\rR\aalertId\x12*\n" +
+	"\x11alert_detail_json\x18\x05 \x01(\tR\x0falertDetailJson\x12&\n" +
+	"\x0falert_rule_json\x18\x06 \x01(\tR\ralertRuleJson\x12\x16\n" +
+	"\x06status\x18\a \x01(\tR\x06status\x12\x16\n" +
+	"\x06method\x18\b \x01(\tR\x06method\x12\x18\n" +
+	"\amessage\x18\t \x01(\tR\amessage\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\n" +
+	" \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"\n" +
+	"updated_at\x18\v \x01(\tR\tupdatedAt\"\x17\n" +
+	"\x15CleanAlertLogsRequest\"\x18\n" +
+	"\x16CleanAlertLogsResponse\"\x16\n" +
+	"\x14GetAlertClamsRequest\"E\n" +
+	"\x12AlertClamsResponse\x12/\n" +
+	"\x05items\x18\x01 \x03(\v2\x19.panel.agent.v1.AlertClamR\x05items\"\x99\x01\n" +
+	"\tAlertClam\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x02 \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"\n" +
+	"updated_at\x18\x03 \x01(\tR\tupdatedAt\x12\x12\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12\x16\n" +
+	"\x06status\x18\x05 \x01(\tR\x06status\x12\x12\n" +
+	"\x04path\x18\x06 \x01(\tR\x04path\"Y\n" +
+	"\x17GetAlertCronJobsRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\"K\n" +
+	"\x15AlertCronJobsResponse\x122\n" +
+	"\x05items\x18\x01 \x03(\v2\x1c.panel.agent.v1.AlertCronJobR\x05items\"\x9c\x01\n" +
+	"\fAlertCronJob\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x02 \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"\n" +
+	"updated_at\x18\x03 \x01(\tR\tupdatedAt\x12\x12\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12\x16\n" +
+	"\x06status\x18\x05 \x01(\tR\x06status\x12\x12\n" +
+	"\x04type\x18\x06 \x01(\tR\x04type\"<\n" +
+	"\x15GetAlertConfigRequest\x12#\n" +
+	"\rexclude_types\x18\x01 \x03(\tR\fexcludeTypes\"\x85\x01\n" +
+	"\x19SearchAlertConfigsRequest\x12\x1b\n" +
+	"\x04page\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\x04page\x12&\n" +
+	"\tpage_size\x18\x02 \x01(\x05B\t\xbaH\x06\x1a\x04\x18d(\x01R\bpageSize\x12#\n" +
+	"\rexclude_types\x18\x03 \x03(\tR\fexcludeTypes\"d\n" +
+	"\x14AlertConfigsResponse\x126\n" +
+	"\x05items\x18\x01 \x03(\v2 .panel.agent.v1.AlertConfigEntryR\x05items\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x03R\x05total\"\x8e\x02\n" +
+	"\x10AlertConfigEntry\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x10\n" +
+	"\x03uid\x18\x02 \x01(\tR\x03uid\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12\x14\n" +
+	"\x05title\x18\x04 \x01(\tR\x05title\x12\x16\n" +
+	"\x06status\x18\x05 \x01(\tR\x06status\x12\x16\n" +
+	"\x06config\x18\x06 \x01(\tR\x06config\x12\x1f\n" +
+	"\vcreate_user\x18\a \x01(\tR\n" +
+	"createUser\x12\x1f\n" +
+	"\vupdate_user\x18\b \x01(\tR\n" +
+	"updateUser\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\t \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"\n" +
+	"updated_at\x18\n" +
+	" \x01(\tR\tupdatedAt\"\xc3\x01\n" +
+	"\x18UpdateAlertConfigRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +
+	"\x05title\x18\x03 \x01(\tR\x05title\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\x12\x16\n" +
+	"\x06config\x18\x05 \x01(\tR\x06config\x12!\n" +
+	"\fdisplay_name\x18\x06 \x01(\tR\vdisplayName\x12\x1a\n" +
+	"\brevision\x18\a \x01(\tR\brevision\"\x1b\n" +
+	"\x19UpdateAlertConfigResponse\"i\n" +
+	"\x1eUpdateAlertConfigStatusRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\x12.\n" +
+	"\x06status\x18\x02 \x01(\tB\x16\xbaH\x13r\x11R\x06EnableR\aDisableR\x06status\"!\n" +
+	"\x1fUpdateAlertConfigStatusResponse\"3\n" +
+	"\x18DeleteAlertConfigRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"\x1b\n" +
+	"\x19DeleteAlertConfigResponse\"\xae\x02\n" +
+	"\x16TestAlertConfigRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x16\n" +
+	"\x06config\x18\x03 \x01(\tR\x06config\x12\x12\n" +
+	"\x04host\x18\x04 \x01(\tR\x04host\x12\x12\n" +
+	"\x04port\x18\x05 \x01(\x05R\x04port\x12\x16\n" +
+	"\x06sender\x18\x06 \x01(\tR\x06sender\x12\x1b\n" +
+	"\tuser_name\x18\a \x01(\tR\buserName\x12\x1a\n" +
+	"\bpassword\x18\b \x01(\tR\bpassword\x12!\n" +
+	"\fdisplay_name\x18\t \x01(\tR\vdisplayName\x12\x1e\n" +
+	"\n" +
+	"encryption\x18\n" +
+	" \x01(\tR\n" +
+	"encryption\x12\x1c\n" +
+	"\trecipient\x18\v \x01(\tR\trecipient\"\xa6\x01\n" +
+	"\x17TestAlertConfigResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1f\n" +
+	"\vstatus_code\x18\x02 \x01(\x05R\n" +
+	"statusCode\x12\x1a\n" +
+	"\bduration\x18\x03 \x01(\x03R\bduration\x12\x18\n" +
+	"\amessage\x18\x04 \x01(\tR\amessage\x12\x1a\n" +
+	"\bresponse\x18\x05 \x01(\tR\bresponse2\xe8\x0f\n" +
 	"\fAlertService\x12[\n" +
-	"\x04Page\x12#.panel.agent.v1.SearchAlertsRequest\x1a$.panel.agent.v1.SearchAlertsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\x04Page\x12#.panel.agent.v1.SearchAlertsRequest\x1a$.panel.agent.v1.SearchAlertsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12~\n" +
+	"\vCreateAlert\x12\".panel.agent.v1.CreateAlertRequest\x1a#.panel.agent.v1.CreateAlertResponse\"&\x8a\xb5\x18\"\"\x12创建告警任务*\fCreate alert\x12~\n" +
+	"\vDeleteAlert\x12\".panel.agent.v1.DeleteAlertRequest\x1a#.panel.agent.v1.DeleteAlertResponse\"&\x8a\xb5\x18\"\"\x12删除告警任务*\fDelete alert\x12~\n" +
+	"\vUpdateAlert\x12\".panel.agent.v1.UpdateAlertRequest\x1a#.panel.agent.v1.UpdateAlertResponse\"&\x8a\xb5\x18\"\"\x12更新告警任务*\fUpdate alert\x12\x97\x01\n" +
+	"\x11UpdateAlertStatus\x12(.panel.agent.v1.UpdateAlertStatusRequest\x1a).panel.agent.v1.UpdateAlertStatusResponse\"-\x8a\xb5\x18)\"\x12更新告警状态*\x13Update alert status\x12c\n" +
+	"\rGetAlertDisks\x12$.panel.agent.v1.GetAlertDisksRequest\x1a\".panel.agent.v1.AlertDisksResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12f\n" +
+	"\x0fSearchAlertLogs\x12&.panel.agent.v1.SearchAlertLogsRequest\x1a!.panel.agent.v1.AlertLogsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x8b\x01\n" +
+	"\x0eCleanAlertLogs\x12%.panel.agent.v1.CleanAlertLogsRequest\x1a&.panel.agent.v1.CleanAlertLogsResponse\"*\x8a\xb5\x18&\"\x12清空告警日志*\x10Clean alert logs\x12c\n" +
+	"\rGetAlertClams\x12$.panel.agent.v1.GetAlertClamsRequest\x1a\".panel.agent.v1.AlertClamsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12l\n" +
+	"\x10GetAlertCronJobs\x12'.panel.agent.v1.GetAlertCronJobsRequest\x1a%.panel.agent.v1.AlertCronJobsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12g\n" +
+	"\x0eGetAlertConfig\x12%.panel.agent.v1.GetAlertConfigRequest\x1a$.panel.agent.v1.AlertConfigsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12o\n" +
+	"\x12SearchAlertConfigs\x12).panel.agent.v1.SearchAlertConfigsRequest\x1a$.panel.agent.v1.AlertConfigsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x97\x01\n" +
+	"\x11UpdateAlertConfig\x12(.panel.agent.v1.UpdateAlertConfigRequest\x1a).panel.agent.v1.UpdateAlertConfigResponse\"-\x8a\xb5\x18)\"\x12更新告警配置*\x13Update alert config\x12\xb6\x01\n" +
+	"\x17UpdateAlertConfigStatus\x12..panel.agent.v1.UpdateAlertConfigStatusRequest\x1a/.panel.agent.v1.UpdateAlertConfigStatusResponse\":\x8a\xb5\x186\"\x18更新告警配置状态*\x1aUpdate alert config status\x12\x97\x01\n" +
+	"\x11DeleteAlertConfig\x12(.panel.agent.v1.DeleteAlertConfigRequest\x1a).panel.agent.v1.DeleteAlertConfigResponse\"-\x8a\xb5\x18)\"\x12删除告警配置*\x13Delete alert config\x12l\n" +
+	"\x0fTestAlertConfig\x12&.panel.agent.v1.TestAlertConfigRequest\x1a'.panel.agent.v1.TestAlertConfigResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_alert_proto_rawDescOnce sync.Once
@@ -406,21 +2856,90 @@ func file_panel_agent_v1_alert_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_alert_proto_rawDescData
 }
 
-var file_panel_agent_v1_alert_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_panel_agent_v1_alert_proto_msgTypes = make([]protoimpl.MessageInfo, 37)
 var file_panel_agent_v1_alert_proto_goTypes = []any{
-	(*SearchAlertsRequest)(nil),  // 0: panel.agent.v1.SearchAlertsRequest
-	(*SearchAlertsResponse)(nil), // 1: panel.agent.v1.SearchAlertsResponse
-	(*Alert)(nil),                // 2: panel.agent.v1.Alert
+	(*SearchAlertsRequest)(nil),             // 0: panel.agent.v1.SearchAlertsRequest
+	(*SearchAlertsResponse)(nil),            // 1: panel.agent.v1.SearchAlertsResponse
+	(*Alert)(nil),                           // 2: panel.agent.v1.Alert
+	(*CreateAlertRequest)(nil),              // 3: panel.agent.v1.CreateAlertRequest
+	(*CreateAlertResponse)(nil),             // 4: panel.agent.v1.CreateAlertResponse
+	(*DeleteAlertRequest)(nil),              // 5: panel.agent.v1.DeleteAlertRequest
+	(*DeleteAlertResponse)(nil),             // 6: panel.agent.v1.DeleteAlertResponse
+	(*UpdateAlertRequest)(nil),              // 7: panel.agent.v1.UpdateAlertRequest
+	(*UpdateAlertResponse)(nil),             // 8: panel.agent.v1.UpdateAlertResponse
+	(*UpdateAlertStatusRequest)(nil),        // 9: panel.agent.v1.UpdateAlertStatusRequest
+	(*UpdateAlertStatusResponse)(nil),       // 10: panel.agent.v1.UpdateAlertStatusResponse
+	(*GetAlertDisksRequest)(nil),            // 11: panel.agent.v1.GetAlertDisksRequest
+	(*AlertDisksResponse)(nil),              // 12: panel.agent.v1.AlertDisksResponse
+	(*AlertDisk)(nil),                       // 13: panel.agent.v1.AlertDisk
+	(*SearchAlertLogsRequest)(nil),          // 14: panel.agent.v1.SearchAlertLogsRequest
+	(*AlertLogsResponse)(nil),               // 15: panel.agent.v1.AlertLogsResponse
+	(*AlertLogEntry)(nil),                   // 16: panel.agent.v1.AlertLogEntry
+	(*CleanAlertLogsRequest)(nil),           // 17: panel.agent.v1.CleanAlertLogsRequest
+	(*CleanAlertLogsResponse)(nil),          // 18: panel.agent.v1.CleanAlertLogsResponse
+	(*GetAlertClamsRequest)(nil),            // 19: panel.agent.v1.GetAlertClamsRequest
+	(*AlertClamsResponse)(nil),              // 20: panel.agent.v1.AlertClamsResponse
+	(*AlertClam)(nil),                       // 21: panel.agent.v1.AlertClam
+	(*GetAlertCronJobsRequest)(nil),         // 22: panel.agent.v1.GetAlertCronJobsRequest
+	(*AlertCronJobsResponse)(nil),           // 23: panel.agent.v1.AlertCronJobsResponse
+	(*AlertCronJob)(nil),                    // 24: panel.agent.v1.AlertCronJob
+	(*GetAlertConfigRequest)(nil),           // 25: panel.agent.v1.GetAlertConfigRequest
+	(*SearchAlertConfigsRequest)(nil),       // 26: panel.agent.v1.SearchAlertConfigsRequest
+	(*AlertConfigsResponse)(nil),            // 27: panel.agent.v1.AlertConfigsResponse
+	(*AlertConfigEntry)(nil),                // 28: panel.agent.v1.AlertConfigEntry
+	(*UpdateAlertConfigRequest)(nil),        // 29: panel.agent.v1.UpdateAlertConfigRequest
+	(*UpdateAlertConfigResponse)(nil),       // 30: panel.agent.v1.UpdateAlertConfigResponse
+	(*UpdateAlertConfigStatusRequest)(nil),  // 31: panel.agent.v1.UpdateAlertConfigStatusRequest
+	(*UpdateAlertConfigStatusResponse)(nil), // 32: panel.agent.v1.UpdateAlertConfigStatusResponse
+	(*DeleteAlertConfigRequest)(nil),        // 33: panel.agent.v1.DeleteAlertConfigRequest
+	(*DeleteAlertConfigResponse)(nil),       // 34: panel.agent.v1.DeleteAlertConfigResponse
+	(*TestAlertConfigRequest)(nil),          // 35: panel.agent.v1.TestAlertConfigRequest
+	(*TestAlertConfigResponse)(nil),         // 36: panel.agent.v1.TestAlertConfigResponse
 }
 var file_panel_agent_v1_alert_proto_depIdxs = []int32{
-	2, // 0: panel.agent.v1.SearchAlertsResponse.items:type_name -> panel.agent.v1.Alert
-	0, // 1: panel.agent.v1.AlertService.Page:input_type -> panel.agent.v1.SearchAlertsRequest
-	1, // 2: panel.agent.v1.AlertService.Page:output_type -> panel.agent.v1.SearchAlertsResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2,  // 0: panel.agent.v1.SearchAlertsResponse.items:type_name -> panel.agent.v1.Alert
+	13, // 1: panel.agent.v1.AlertDisksResponse.items:type_name -> panel.agent.v1.AlertDisk
+	16, // 2: panel.agent.v1.AlertLogsResponse.items:type_name -> panel.agent.v1.AlertLogEntry
+	21, // 3: panel.agent.v1.AlertClamsResponse.items:type_name -> panel.agent.v1.AlertClam
+	24, // 4: panel.agent.v1.AlertCronJobsResponse.items:type_name -> panel.agent.v1.AlertCronJob
+	28, // 5: panel.agent.v1.AlertConfigsResponse.items:type_name -> panel.agent.v1.AlertConfigEntry
+	0,  // 6: panel.agent.v1.AlertService.Page:input_type -> panel.agent.v1.SearchAlertsRequest
+	3,  // 7: panel.agent.v1.AlertService.CreateAlert:input_type -> panel.agent.v1.CreateAlertRequest
+	5,  // 8: panel.agent.v1.AlertService.DeleteAlert:input_type -> panel.agent.v1.DeleteAlertRequest
+	7,  // 9: panel.agent.v1.AlertService.UpdateAlert:input_type -> panel.agent.v1.UpdateAlertRequest
+	9,  // 10: panel.agent.v1.AlertService.UpdateAlertStatus:input_type -> panel.agent.v1.UpdateAlertStatusRequest
+	11, // 11: panel.agent.v1.AlertService.GetAlertDisks:input_type -> panel.agent.v1.GetAlertDisksRequest
+	14, // 12: panel.agent.v1.AlertService.SearchAlertLogs:input_type -> panel.agent.v1.SearchAlertLogsRequest
+	17, // 13: panel.agent.v1.AlertService.CleanAlertLogs:input_type -> panel.agent.v1.CleanAlertLogsRequest
+	19, // 14: panel.agent.v1.AlertService.GetAlertClams:input_type -> panel.agent.v1.GetAlertClamsRequest
+	22, // 15: panel.agent.v1.AlertService.GetAlertCronJobs:input_type -> panel.agent.v1.GetAlertCronJobsRequest
+	25, // 16: panel.agent.v1.AlertService.GetAlertConfig:input_type -> panel.agent.v1.GetAlertConfigRequest
+	26, // 17: panel.agent.v1.AlertService.SearchAlertConfigs:input_type -> panel.agent.v1.SearchAlertConfigsRequest
+	29, // 18: panel.agent.v1.AlertService.UpdateAlertConfig:input_type -> panel.agent.v1.UpdateAlertConfigRequest
+	31, // 19: panel.agent.v1.AlertService.UpdateAlertConfigStatus:input_type -> panel.agent.v1.UpdateAlertConfigStatusRequest
+	33, // 20: panel.agent.v1.AlertService.DeleteAlertConfig:input_type -> panel.agent.v1.DeleteAlertConfigRequest
+	35, // 21: panel.agent.v1.AlertService.TestAlertConfig:input_type -> panel.agent.v1.TestAlertConfigRequest
+	1,  // 22: panel.agent.v1.AlertService.Page:output_type -> panel.agent.v1.SearchAlertsResponse
+	4,  // 23: panel.agent.v1.AlertService.CreateAlert:output_type -> panel.agent.v1.CreateAlertResponse
+	6,  // 24: panel.agent.v1.AlertService.DeleteAlert:output_type -> panel.agent.v1.DeleteAlertResponse
+	8,  // 25: panel.agent.v1.AlertService.UpdateAlert:output_type -> panel.agent.v1.UpdateAlertResponse
+	10, // 26: panel.agent.v1.AlertService.UpdateAlertStatus:output_type -> panel.agent.v1.UpdateAlertStatusResponse
+	12, // 27: panel.agent.v1.AlertService.GetAlertDisks:output_type -> panel.agent.v1.AlertDisksResponse
+	15, // 28: panel.agent.v1.AlertService.SearchAlertLogs:output_type -> panel.agent.v1.AlertLogsResponse
+	18, // 29: panel.agent.v1.AlertService.CleanAlertLogs:output_type -> panel.agent.v1.CleanAlertLogsResponse
+	20, // 30: panel.agent.v1.AlertService.GetAlertClams:output_type -> panel.agent.v1.AlertClamsResponse
+	23, // 31: panel.agent.v1.AlertService.GetAlertCronJobs:output_type -> panel.agent.v1.AlertCronJobsResponse
+	27, // 32: panel.agent.v1.AlertService.GetAlertConfig:output_type -> panel.agent.v1.AlertConfigsResponse
+	27, // 33: panel.agent.v1.AlertService.SearchAlertConfigs:output_type -> panel.agent.v1.AlertConfigsResponse
+	30, // 34: panel.agent.v1.AlertService.UpdateAlertConfig:output_type -> panel.agent.v1.UpdateAlertConfigResponse
+	32, // 35: panel.agent.v1.AlertService.UpdateAlertConfigStatus:output_type -> panel.agent.v1.UpdateAlertConfigStatusResponse
+	34, // 36: panel.agent.v1.AlertService.DeleteAlertConfig:output_type -> panel.agent.v1.DeleteAlertConfigResponse
+	36, // 37: panel.agent.v1.AlertService.TestAlertConfig:output_type -> panel.agent.v1.TestAlertConfigResponse
+	22, // [22:38] is the sub-list for method output_type
+	6,  // [6:22] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_alert_proto_init() }
@@ -434,7 +2953,7 @@ func file_panel_agent_v1_alert_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_alert_proto_rawDesc), len(file_panel_agent_v1_alert_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   37,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

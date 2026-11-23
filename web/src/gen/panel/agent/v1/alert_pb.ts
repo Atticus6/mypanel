@@ -14,7 +14,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file panel/agent/v1/alert.proto.
  */
 export const file_panel_agent_v1_alert: GenFile = /*@__PURE__*/
-  fileDesc("ChpwYW5lbC9hZ2VudC92MS9hbGVydC5wcm90bxIOcGFuZWwuYWdlbnQudjEi/wEKE1NlYXJjaEFsZXJ0c1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIVCgR0eXBlGAMgASgJQge6SARyAhhAEigKBnN0YXR1cxgEIAEoCUIYukgVchNSAFIGRW5hYmxlUgdEaXNhYmxlEhcKBm1ldGhvZBgFIAEoCUIHukgEcgIYQBIkCghvcmRlcl9ieRgGIAEoCUISukgPcg1SAFIJY3JlYXRlZEF0EjMKBW9yZGVyGAcgASgJQiS6SCFyH1IAUgRudWxsUglhc2NlbmRpbmdSCmRlc2NlbmRpbmciSwoUU2VhcmNoQWxlcnRzUmVzcG9uc2USJAoFaXRlbXMYASADKAsyFS5wYW5lbC5hZ2VudC52MS5BbGVydBINCgV0b3RhbBgCIAEoAyKRAgoFQWxlcnQSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVjeWNsZRgDIAEoDRINCgVjb3VudBgEIAEoDRIOCgZtZXRob2QYBSABKAkSDQoFdGl0bGUYBiABKAkSDwoHcHJvamVjdBgHIAEoCRIRCgl0YXNrX25hbWUYCCABKAkSDgoGc3RhdHVzGAkgASgJEhIKCnNlbmRfY291bnQYCiABKA0SFwoPYWR2YW5jZWRfcGFyYW1zGAsgASgJEhMKC2NyZWF0ZV91c2VyGAwgASgJEhMKC3VwZGF0ZV91c2VyGA0gASgJEhIKCmNyZWF0ZWRfYXQYDiABKAkSEgoKdXBkYXRlZF9hdBgPIAEoCTJrCgxBbGVydFNlcnZpY2USWwoEUGFnZRIjLnBhbmVsLmFnZW50LnYxLlNlYXJjaEFsZXJ0c1JlcXVlc3QaJC5wYW5lbC5hZ2VudC52MS5TZWFyY2hBbGVydHNSZXNwb25zZSIIirUYBBgBMAFCLVorbXlwYW5lbC9wcm90by9nZW4vZ28vcGFuZWwvYWdlbnQvdjE7YWdlbnR2MWIGcHJvdG8z", [file_buf_validate_validate, file_panel_common_v1_options]);
+  fileDesc("ChpwYW5lbC9hZ2VudC92MS9hbGVydC5wcm90bxIOcGFuZWwuYWdlbnQudjEi/wEKE1NlYXJjaEFsZXJ0c1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARIVCgR0eXBlGAMgASgJQge6SARyAhhAEigKBnN0YXR1cxgEIAEoCUIYukgVchNSAFIGRW5hYmxlUgdEaXNhYmxlEhcKBm1ldGhvZBgFIAEoCUIHukgEcgIYQBIkCghvcmRlcl9ieRgGIAEoCUISukgPcg1SAFIJY3JlYXRlZEF0EjMKBW9yZGVyGAcgASgJQiS6SCFyH1IAUgRudWxsUglhc2NlbmRpbmdSCmRlc2NlbmRpbmciSwoUU2VhcmNoQWxlcnRzUmVzcG9uc2USJAoFaXRlbXMYASADKAsyFS5wYW5lbC5hZ2VudC52MS5BbGVydBINCgV0b3RhbBgCIAEoAyKRAgoFQWxlcnQSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVjeWNsZRgDIAEoDRINCgVjb3VudBgEIAEoDRIOCgZtZXRob2QYBSABKAkSDQoFdGl0bGUYBiABKAkSDwoHcHJvamVjdBgHIAEoCRIRCgl0YXNrX25hbWUYCCABKAkSDgoGc3RhdHVzGAkgASgJEhIKCnNlbmRfY291bnQYCiABKA0SFwoPYWR2YW5jZWRfcGFyYW1zGAsgASgJEhMKC2NyZWF0ZV91c2VyGAwgASgJEhMKC3VwZGF0ZV91c2VyGA0gASgJEhIKCmNyZWF0ZWRfYXQYDiABKAkSEgoKdXBkYXRlZF9hdBgPIAEoCSK/AQoSQ3JlYXRlQWxlcnRSZXF1ZXN0EhUKBHR5cGUYASABKAlCB7pIBHICEAESDQoFY3ljbGUYAiABKA0SDQoFY291bnQYAyABKA0SFwoGbWV0aG9kGAQgASgJQge6SARyAhABEg0KBXRpdGxlGAUgASgJEg8KB3Byb2plY3QYBiABKAkSDgoGc3RhdHVzGAcgASgJEhIKCnNlbmRfY291bnQYCCABKA0SFwoPYWR2YW5jZWRfcGFyYW1zGAkgASgJIhUKE0NyZWF0ZUFsZXJ0UmVzcG9uc2UiKQoSRGVsZXRlQWxlcnRSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAIhUKE0RlbGV0ZUFsZXJ0UmVzcG9uc2UiwgEKElVwZGF0ZUFsZXJ0UmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgABIMCgR0eXBlGAIgASgJEg0KBWN5Y2xlGAMgASgNEg0KBWNvdW50GAQgASgNEg4KBm1ldGhvZBgFIAEoCRINCgV0aXRsZRgGIAEoCRIPCgdwcm9qZWN0GAcgASgJEg4KBnN0YXR1cxgIIAEoCRISCgpzZW5kX2NvdW50GAkgASgNEhcKD2FkdmFuY2VkX3BhcmFtcxgKIAEoCSIVChNVcGRhdGVBbGVydFJlc3BvbnNlIkgKGFVwZGF0ZUFsZXJ0U3RhdHVzUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgABIXCgZzdGF0dXMYAiABKAlCB7pIBHICEAEiGwoZVXBkYXRlQWxlcnRTdGF0dXNSZXNwb25zZSIWChRHZXRBbGVydERpc2tzUmVxdWVzdCI+ChJBbGVydERpc2tzUmVzcG9uc2USKAoFaXRlbXMYASADKAsyGS5wYW5lbC5hZ2VudC52MS5BbGVydERpc2si1QEKCUFsZXJ0RGlzaxIMCgRwYXRoGAEgASgJEgwKBHR5cGUYAiABKAkSDgoGZGV2aWNlGAMgASgJEg0KBXRvdGFsGAQgASgEEgwKBGZyZWUYBSABKAQSDAoEdXNlZBgGIAEoBBIUCgx1c2VkX3BlcmNlbnQYByABKAESFAoMaW5vZGVzX3RvdGFsGAggASgEEhMKC2lub2Rlc191c2VkGAkgASgEEhMKC2lub2Rlc19mcmVlGAogASgEEhsKE2lub2Rlc191c2VkX3BlcmNlbnQYCyABKAEikgEKFlNlYXJjaEFsZXJ0TG9nc1JlcXVlc3QSFQoEcGFnZRgBIAEoBUIHukgEGgIoARIcCglwYWdlX3NpemUYAiABKAVCCbpIBhoEGGQoARINCgVjb3VudBgDIAEoDRIOCgZzdGF0dXMYBCABKAkSEgoKc3RhcnRfdGltZRgFIAEoCRIQCghlbmRfdGltZRgGIAEoCSJQChFBbGVydExvZ3NSZXNwb25zZRIsCgVpdGVtcxgBIAMoCzIdLnBhbmVsLmFnZW50LnYxLkFsZXJ0TG9nRW50cnkSDQoFdG90YWwYAiABKAMi1wEKDUFsZXJ0TG9nRW50cnkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVjb3VudBgDIAEoDRIQCghhbGVydF9pZBgEIAEoDRIZChFhbGVydF9kZXRhaWxfanNvbhgFIAEoCRIXCg9hbGVydF9ydWxlX2pzb24YBiABKAkSDgoGc3RhdHVzGAcgASgJEg4KBm1ldGhvZBgIIAEoCRIPCgdtZXNzYWdlGAkgASgJEhIKCmNyZWF0ZWRfYXQYCiABKAkSEgoKdXBkYXRlZF9hdBgLIAEoCSIXChVDbGVhbkFsZXJ0TG9nc1JlcXVlc3QiGAoWQ2xlYW5BbGVydExvZ3NSZXNwb25zZSIWChRHZXRBbGVydENsYW1zUmVxdWVzdCI+ChJBbGVydENsYW1zUmVzcG9uc2USKAoFaXRlbXMYASADKAsyGS5wYW5lbC5hZ2VudC52MS5BbGVydENsYW0iawoJQWxlcnRDbGFtEgoKAmlkGAEgASgNEhIKCmNyZWF0ZWRfYXQYAiABKAkSEgoKdXBkYXRlZF9hdBgDIAEoCRIMCgRuYW1lGAQgASgJEg4KBnN0YXR1cxgFIAEoCRIMCgRwYXRoGAYgASgJIkUKF0dldEFsZXJ0Q3JvbkpvYnNSZXF1ZXN0EgwKBG5hbWUYASABKAkSDgoGc3RhdHVzGAIgASgJEgwKBHR5cGUYAyABKAkiRAoVQWxlcnRDcm9uSm9ic1Jlc3BvbnNlEisKBWl0ZW1zGAEgAygLMhwucGFuZWwuYWdlbnQudjEuQWxlcnRDcm9uSm9iIm4KDEFsZXJ0Q3JvbkpvYhIKCgJpZBgBIAEoDRISCgpjcmVhdGVkX2F0GAIgASgJEhIKCnVwZGF0ZWRfYXQYAyABKAkSDAoEbmFtZRgEIAEoCRIOCgZzdGF0dXMYBSABKAkSDAoEdHlwZRgGIAEoCSIuChVHZXRBbGVydENvbmZpZ1JlcXVlc3QSFQoNZXhjbHVkZV90eXBlcxgBIAMoCSJnChlTZWFyY2hBbGVydENvbmZpZ3NSZXF1ZXN0EhUKBHBhZ2UYASABKAVCB7pIBBoCKAESHAoJcGFnZV9zaXplGAIgASgFQgm6SAYaBBhkKAESFQoNZXhjbHVkZV90eXBlcxgDIAMoCSJWChRBbGVydENvbmZpZ3NSZXNwb25zZRIvCgVpdGVtcxgBIAMoCzIgLnBhbmVsLmFnZW50LnYxLkFsZXJ0Q29uZmlnRW50cnkSDQoFdG90YWwYAiABKAMiugEKEEFsZXJ0Q29uZmlnRW50cnkSCgoCaWQYASABKA0SCwoDdWlkGAIgASgJEgwKBHR5cGUYAyABKAkSDQoFdGl0bGUYBCABKAkSDgoGc3RhdHVzGAUgASgJEg4KBmNvbmZpZxgGIAEoCRITCgtjcmVhdGVfdXNlchgHIAEoCRITCgt1cGRhdGVfdXNlchgIIAEoCRISCgpjcmVhdGVkX2F0GAkgASgJEhIKCnVwZGF0ZWRfYXQYCiABKAkiiwEKGFVwZGF0ZUFsZXJ0Q29uZmlnUmVxdWVzdBIKCgJpZBgBIAEoDRIMCgR0eXBlGAIgASgJEg0KBXRpdGxlGAMgASgJEg4KBnN0YXR1cxgEIAEoCRIOCgZjb25maWcYBSABKAkSFAoMZGlzcGxheV9uYW1lGAYgASgJEhAKCHJldmlzaW9uGAcgASgJIhsKGVVwZGF0ZUFsZXJ0Q29uZmlnUmVzcG9uc2UiXQoeVXBkYXRlQWxlcnRDb25maWdTdGF0dXNSZXF1ZXN0EhMKAmlkGAEgASgNQge6SAQqAiAAEiYKBnN0YXR1cxgCIAEoCUIWukgTchFSBkVuYWJsZVIHRGlzYWJsZSIhCh9VcGRhdGVBbGVydENvbmZpZ1N0YXR1c1Jlc3BvbnNlIi8KGERlbGV0ZUFsZXJ0Q29uZmlnUmVxdWVzdBITCgJpZBgBIAEoDUIHukgEKgIgACIbChlEZWxldGVBbGVydENvbmZpZ1Jlc3BvbnNlItABChZUZXN0QWxlcnRDb25maWdSZXF1ZXN0EgoKAmlkGAEgASgNEgwKBHR5cGUYAiABKAkSDgoGY29uZmlnGAMgASgJEgwKBGhvc3QYBCABKAkSDAoEcG9ydBgFIAEoBRIOCgZzZW5kZXIYBiABKAkSEQoJdXNlcl9uYW1lGAcgASgJEhAKCHBhc3N3b3JkGAggASgJEhQKDGRpc3BsYXlfbmFtZRgJIAEoCRISCgplbmNyeXB0aW9uGAogASgJEhEKCXJlY2lwaWVudBgLIAEoCSJ0ChdUZXN0QWxlcnRDb25maWdSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEhMKC3N0YXR1c19jb2RlGAIgASgFEhAKCGR1cmF0aW9uGAMgASgDEg8KB21lc3NhZ2UYBCABKAkSEAoIcmVzcG9uc2UYBSABKAky6A8KDEFsZXJ0U2VydmljZRJbCgRQYWdlEiMucGFuZWwuYWdlbnQudjEuU2VhcmNoQWxlcnRzUmVxdWVzdBokLnBhbmVsLmFnZW50LnYxLlNlYXJjaEFsZXJ0c1Jlc3BvbnNlIgiKtRgEGAEwARJ+CgtDcmVhdGVBbGVydBIiLnBhbmVsLmFnZW50LnYxLkNyZWF0ZUFsZXJ0UmVxdWVzdBojLnBhbmVsLmFnZW50LnYxLkNyZWF0ZUFsZXJ0UmVzcG9uc2UiJoq1GCIiEuWIm+W7uuWRiuitpuS7u+WKoSoMQ3JlYXRlIGFsZXJ0En4KC0RlbGV0ZUFsZXJ0EiIucGFuZWwuYWdlbnQudjEuRGVsZXRlQWxlcnRSZXF1ZXN0GiMucGFuZWwuYWdlbnQudjEuRGVsZXRlQWxlcnRSZXNwb25zZSImirUYIiIS5Yig6Zmk5ZGK6K2m5Lu75YqhKgxEZWxldGUgYWxlcnQSfgoLVXBkYXRlQWxlcnQSIi5wYW5lbC5hZ2VudC52MS5VcGRhdGVBbGVydFJlcXVlc3QaIy5wYW5lbC5hZ2VudC52MS5VcGRhdGVBbGVydFJlc3BvbnNlIiaKtRgiIhLmm7TmlrDlkYrorabku7vliqEqDFVwZGF0ZSBhbGVydBKXAQoRVXBkYXRlQWxlcnRTdGF0dXMSKC5wYW5lbC5hZ2VudC52MS5VcGRhdGVBbGVydFN0YXR1c1JlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5VcGRhdGVBbGVydFN0YXR1c1Jlc3BvbnNlIi2KtRgpIhLmm7TmlrDlkYrorabnirbmgIEqE1VwZGF0ZSBhbGVydCBzdGF0dXMSYwoNR2V0QWxlcnREaXNrcxIkLnBhbmVsLmFnZW50LnYxLkdldEFsZXJ0RGlza3NSZXF1ZXN0GiIucGFuZWwuYWdlbnQudjEuQWxlcnREaXNrc1Jlc3BvbnNlIgiKtRgEGAEwARJmCg9TZWFyY2hBbGVydExvZ3MSJi5wYW5lbC5hZ2VudC52MS5TZWFyY2hBbGVydExvZ3NSZXF1ZXN0GiEucGFuZWwuYWdlbnQudjEuQWxlcnRMb2dzUmVzcG9uc2UiCIq1GAQYATABEosBCg5DbGVhbkFsZXJ0TG9ncxIlLnBhbmVsLmFnZW50LnYxLkNsZWFuQWxlcnRMb2dzUmVxdWVzdBomLnBhbmVsLmFnZW50LnYxLkNsZWFuQWxlcnRMb2dzUmVzcG9uc2UiKoq1GCYiEua4heepuuWRiuitpuaXpeW/lyoQQ2xlYW4gYWxlcnQgbG9ncxJjCg1HZXRBbGVydENsYW1zEiQucGFuZWwuYWdlbnQudjEuR2V0QWxlcnRDbGFtc1JlcXVlc3QaIi5wYW5lbC5hZ2VudC52MS5BbGVydENsYW1zUmVzcG9uc2UiCIq1GAQYATABEmwKEEdldEFsZXJ0Q3JvbkpvYnMSJy5wYW5lbC5hZ2VudC52MS5HZXRBbGVydENyb25Kb2JzUmVxdWVzdBolLnBhbmVsLmFnZW50LnYxLkFsZXJ0Q3JvbkpvYnNSZXNwb25zZSIIirUYBBgBMAESZwoOR2V0QWxlcnRDb25maWcSJS5wYW5lbC5hZ2VudC52MS5HZXRBbGVydENvbmZpZ1JlcXVlc3QaJC5wYW5lbC5hZ2VudC52MS5BbGVydENvbmZpZ3NSZXNwb25zZSIIirUYBBgBMAESbwoSU2VhcmNoQWxlcnRDb25maWdzEikucGFuZWwuYWdlbnQudjEuU2VhcmNoQWxlcnRDb25maWdzUmVxdWVzdBokLnBhbmVsLmFnZW50LnYxLkFsZXJ0Q29uZmlnc1Jlc3BvbnNlIgiKtRgEGAEwARKXAQoRVXBkYXRlQWxlcnRDb25maWcSKC5wYW5lbC5hZ2VudC52MS5VcGRhdGVBbGVydENvbmZpZ1JlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5VcGRhdGVBbGVydENvbmZpZ1Jlc3BvbnNlIi2KtRgpIhLmm7TmlrDlkYrorabphY3nva4qE1VwZGF0ZSBhbGVydCBjb25maWcStgEKF1VwZGF0ZUFsZXJ0Q29uZmlnU3RhdHVzEi4ucGFuZWwuYWdlbnQudjEuVXBkYXRlQWxlcnRDb25maWdTdGF0dXNSZXF1ZXN0Gi8ucGFuZWwuYWdlbnQudjEuVXBkYXRlQWxlcnRDb25maWdTdGF0dXNSZXNwb25zZSI6irUYNiIY5pu05paw5ZGK6K2m6YWN572u54q25oCBKhpVcGRhdGUgYWxlcnQgY29uZmlnIHN0YXR1cxKXAQoRRGVsZXRlQWxlcnRDb25maWcSKC5wYW5lbC5hZ2VudC52MS5EZWxldGVBbGVydENvbmZpZ1JlcXVlc3QaKS5wYW5lbC5hZ2VudC52MS5EZWxldGVBbGVydENvbmZpZ1Jlc3BvbnNlIi2KtRgpIhLliKDpmaTlkYrorabphY3nva4qE0RlbGV0ZSBhbGVydCBjb25maWcSbAoPVGVzdEFsZXJ0Q29uZmlnEiYucGFuZWwuYWdlbnQudjEuVGVzdEFsZXJ0Q29uZmlnUmVxdWVzdBonLnBhbmVsLmFnZW50LnYxLlRlc3RBbGVydENvbmZpZ1Jlc3BvbnNlIgiKtRgEGAEwAUItWitteXBhbmVsL3Byb3RvL2dlbi9nby9wYW5lbC9hZ2VudC92MTthZ2VudHYxYgZwcm90bzM", [file_buf_validate_validate, file_panel_common_v1_options]);
 
 /**
  * SearchAlertsRequest 是告警列表查询参数。
@@ -227,6 +227,1277 @@ export const AlertSchema: GenMessage<Alert> = /*@__PURE__*/
   messageDesc(file_panel_agent_v1_alert, 2);
 
 /**
+ * CreateAlertRequest 是创建告警任务参数。
+ *
+ * @generated from message panel.agent.v1.CreateAlertRequest
+ */
+export type CreateAlertRequest = Message<"panel.agent.v1.CreateAlertRequest"> & {
+  /**
+   * 告警类型。
+   *
+   * @generated from field: string type = 1;
+   */
+  type: string;
+
+  /**
+   * 检查周期，单位分钟。
+   *
+   * @generated from field: uint32 cycle = 2;
+   */
+  cycle: number;
+
+  /**
+   * 连续触发次数。
+   *
+   * @generated from field: uint32 count = 3;
+   */
+  count: number;
+
+  /**
+   * 发送方式。
+   *
+   * @generated from field: string method = 4;
+   */
+  method: string;
+
+  /**
+   * 告警标题。
+   *
+   * @generated from field: string title = 5;
+   */
+  title: string;
+
+  /**
+   * 关联项目。
+   *
+   * @generated from field: string project = 6;
+   */
+  project: string;
+
+  /**
+   * 状态：Enable 或 Disable。
+   *
+   * @generated from field: string status = 7;
+   */
+  status: string;
+
+  /**
+   * 已发送次数。
+   *
+   * @generated from field: uint32 send_count = 8;
+   */
+  sendCount: number;
+
+  /**
+   * 高级参数（JSON 字符串）。
+   *
+   * @generated from field: string advanced_params = 9;
+   */
+  advancedParams: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateAlertRequest.
+ * Use `create(CreateAlertRequestSchema)` to create a new message.
+ */
+export const CreateAlertRequestSchema: GenMessage<CreateAlertRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 3);
+
+/**
+ * CreateAlertResponse 是创建结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CreateAlertResponse
+ */
+export type CreateAlertResponse = Message<"panel.agent.v1.CreateAlertResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CreateAlertResponse.
+ * Use `create(CreateAlertResponseSchema)` to create a new message.
+ */
+export const CreateAlertResponseSchema: GenMessage<CreateAlertResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 4);
+
+/**
+ * DeleteAlertRequest 是删除告警任务参数。
+ *
+ * @generated from message panel.agent.v1.DeleteAlertRequest
+ */
+export type DeleteAlertRequest = Message<"panel.agent.v1.DeleteAlertRequest"> & {
+  /**
+   * 告警 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteAlertRequest.
+ * Use `create(DeleteAlertRequestSchema)` to create a new message.
+ */
+export const DeleteAlertRequestSchema: GenMessage<DeleteAlertRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 5);
+
+/**
+ * DeleteAlertResponse 是删除结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.DeleteAlertResponse
+ */
+export type DeleteAlertResponse = Message<"panel.agent.v1.DeleteAlertResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteAlertResponse.
+ * Use `create(DeleteAlertResponseSchema)` to create a new message.
+ */
+export const DeleteAlertResponseSchema: GenMessage<DeleteAlertResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 6);
+
+/**
+ * UpdateAlertRequest 是更新告警任务参数。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertRequest
+ */
+export type UpdateAlertRequest = Message<"panel.agent.v1.UpdateAlertRequest"> & {
+  /**
+   * 告警 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 告警类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 检查周期，单位分钟。
+   *
+   * @generated from field: uint32 cycle = 3;
+   */
+  cycle: number;
+
+  /**
+   * 连续触发次数。
+   *
+   * @generated from field: uint32 count = 4;
+   */
+  count: number;
+
+  /**
+   * 发送方式。
+   *
+   * @generated from field: string method = 5;
+   */
+  method: string;
+
+  /**
+   * 告警标题。
+   *
+   * @generated from field: string title = 6;
+   */
+  title: string;
+
+  /**
+   * 关联项目。
+   *
+   * @generated from field: string project = 7;
+   */
+  project: string;
+
+  /**
+   * 状态：Enable 或 Disable。
+   *
+   * @generated from field: string status = 8;
+   */
+  status: string;
+
+  /**
+   * 已发送次数。
+   *
+   * @generated from field: uint32 send_count = 9;
+   */
+  sendCount: number;
+
+  /**
+   * 高级参数（JSON 字符串）。
+   *
+   * @generated from field: string advanced_params = 10;
+   */
+  advancedParams: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertRequest.
+ * Use `create(UpdateAlertRequestSchema)` to create a new message.
+ */
+export const UpdateAlertRequestSchema: GenMessage<UpdateAlertRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 7);
+
+/**
+ * UpdateAlertResponse 是更新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertResponse
+ */
+export type UpdateAlertResponse = Message<"panel.agent.v1.UpdateAlertResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertResponse.
+ * Use `create(UpdateAlertResponseSchema)` to create a new message.
+ */
+export const UpdateAlertResponseSchema: GenMessage<UpdateAlertResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 8);
+
+/**
+ * UpdateAlertStatusRequest 是告警状态更新参数。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertStatusRequest
+ */
+export type UpdateAlertStatusRequest = Message<"panel.agent.v1.UpdateAlertStatusRequest"> & {
+  /**
+   * 告警 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 目标状态。
+   *
+   * @generated from field: string status = 2;
+   */
+  status: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertStatusRequest.
+ * Use `create(UpdateAlertStatusRequestSchema)` to create a new message.
+ */
+export const UpdateAlertStatusRequestSchema: GenMessage<UpdateAlertStatusRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 9);
+
+/**
+ * UpdateAlertStatusResponse 是更新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertStatusResponse
+ */
+export type UpdateAlertStatusResponse = Message<"panel.agent.v1.UpdateAlertStatusResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertStatusResponse.
+ * Use `create(UpdateAlertStatusResponseSchema)` to create a new message.
+ */
+export const UpdateAlertStatusResponseSchema: GenMessage<UpdateAlertStatusResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 10);
+
+/**
+ * GetAlertDisksRequest 是磁盘列表查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.GetAlertDisksRequest
+ */
+export type GetAlertDisksRequest = Message<"panel.agent.v1.GetAlertDisksRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.GetAlertDisksRequest.
+ * Use `create(GetAlertDisksRequestSchema)` to create a new message.
+ */
+export const GetAlertDisksRequestSchema: GenMessage<GetAlertDisksRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 11);
+
+/**
+ * AlertDisksResponse 是可告警磁盘列表。
+ *
+ * @generated from message panel.agent.v1.AlertDisksResponse
+ */
+export type AlertDisksResponse = Message<"panel.agent.v1.AlertDisksResponse"> & {
+  /**
+   * 磁盘列表。
+   *
+   * @generated from field: repeated panel.agent.v1.AlertDisk items = 1;
+   */
+  items: AlertDisk[];
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertDisksResponse.
+ * Use `create(AlertDisksResponseSchema)` to create a new message.
+ */
+export const AlertDisksResponseSchema: GenMessage<AlertDisksResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 12);
+
+/**
+ * AlertDisk 是一个可用于告警的磁盘。
+ *
+ * @generated from message panel.agent.v1.AlertDisk
+ */
+export type AlertDisk = Message<"panel.agent.v1.AlertDisk"> & {
+  /**
+   * 挂载路径。
+   *
+   * @generated from field: string path = 1;
+   */
+  path: string;
+
+  /**
+   * 文件系统类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 设备名。
+   *
+   * @generated from field: string device = 3;
+   */
+  device: string;
+
+  /**
+   * 总容量，单位字节。
+   *
+   * @generated from field: uint64 total = 4;
+   */
+  total: bigint;
+
+  /**
+   * 剩余容量，单位字节。
+   *
+   * @generated from field: uint64 free = 5;
+   */
+  free: bigint;
+
+  /**
+   * 已用容量，单位字节。
+   *
+   * @generated from field: uint64 used = 6;
+   */
+  used: bigint;
+
+  /**
+   * 使用率百分比。
+   *
+   * @generated from field: double used_percent = 7;
+   */
+  usedPercent: number;
+
+  /**
+   * inode 总数。
+   *
+   * @generated from field: uint64 inodes_total = 8;
+   */
+  inodesTotal: bigint;
+
+  /**
+   * 已用 inode 数。
+   *
+   * @generated from field: uint64 inodes_used = 9;
+   */
+  inodesUsed: bigint;
+
+  /**
+   * 剩余 inode 数。
+   *
+   * @generated from field: uint64 inodes_free = 10;
+   */
+  inodesFree: bigint;
+
+  /**
+   * inode 使用率百分比。
+   *
+   * @generated from field: double inodes_used_percent = 11;
+   */
+  inodesUsedPercent: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertDisk.
+ * Use `create(AlertDiskSchema)` to create a new message.
+ */
+export const AlertDiskSchema: GenMessage<AlertDisk> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 13);
+
+/**
+ * SearchAlertLogsRequest 是告警日志查询参数。
+ *
+ * @generated from message panel.agent.v1.SearchAlertLogsRequest
+ */
+export type SearchAlertLogsRequest = Message<"panel.agent.v1.SearchAlertLogsRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+
+  /**
+   * 触发次数过滤。
+   *
+   * @generated from field: uint32 count = 3;
+   */
+  count: number;
+
+  /**
+   * 状态过滤。
+   *
+   * @generated from field: string status = 4;
+   */
+  status: string;
+
+  /**
+   * 起始时间，RFC3339 格式。
+   *
+   * @generated from field: string start_time = 5;
+   */
+  startTime: string;
+
+  /**
+   * 结束时间，RFC3339 格式。
+   *
+   * @generated from field: string end_time = 6;
+   */
+  endTime: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchAlertLogsRequest.
+ * Use `create(SearchAlertLogsRequestSchema)` to create a new message.
+ */
+export const SearchAlertLogsRequestSchema: GenMessage<SearchAlertLogsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 14);
+
+/**
+ * AlertLogsResponse 是告警日志列表结果。
+ *
+ * @generated from message panel.agent.v1.AlertLogsResponse
+ */
+export type AlertLogsResponse = Message<"panel.agent.v1.AlertLogsResponse"> & {
+  /**
+   * 当前页日志。
+   *
+   * @generated from field: repeated panel.agent.v1.AlertLogEntry items = 1;
+   */
+  items: AlertLogEntry[];
+
+  /**
+   * 符合条件的日志总数。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertLogsResponse.
+ * Use `create(AlertLogsResponseSchema)` to create a new message.
+ */
+export const AlertLogsResponseSchema: GenMessage<AlertLogsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 15);
+
+/**
+ * AlertLogEntry 是一条告警日志。
+ *
+ * @generated from message panel.agent.v1.AlertLogEntry
+ */
+export type AlertLogEntry = Message<"panel.agent.v1.AlertLogEntry"> & {
+  /**
+   * 日志 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 告警类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 触发次数。
+   *
+   * @generated from field: uint32 count = 3;
+   */
+  count: number;
+
+  /**
+   * 告警 ID。
+   *
+   * @generated from field: uint32 alert_id = 4;
+   */
+  alertId: number;
+
+  /**
+   * 告警详情 JSON。
+   *
+   * @generated from field: string alert_detail_json = 5;
+   */
+  alertDetailJson: string;
+
+  /**
+   * 告警规则 JSON。
+   *
+   * @generated from field: string alert_rule_json = 6;
+   */
+  alertRuleJson: string;
+
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 7;
+   */
+  status: string;
+
+  /**
+   * 发送方式。
+   *
+   * @generated from field: string method = 8;
+   */
+  method: string;
+
+  /**
+   * 消息。
+   *
+   * @generated from field: string message = 9;
+   */
+  message: string;
+
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 10;
+   */
+  createdAt: string;
+
+  /**
+   * 更新时间，RFC3339 格式。
+   *
+   * @generated from field: string updated_at = 11;
+   */
+  updatedAt: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertLogEntry.
+ * Use `create(AlertLogEntrySchema)` to create a new message.
+ */
+export const AlertLogEntrySchema: GenMessage<AlertLogEntry> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 16);
+
+/**
+ * CleanAlertLogsRequest 是清空日志参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CleanAlertLogsRequest
+ */
+export type CleanAlertLogsRequest = Message<"panel.agent.v1.CleanAlertLogsRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CleanAlertLogsRequest.
+ * Use `create(CleanAlertLogsRequestSchema)` to create a new message.
+ */
+export const CleanAlertLogsRequestSchema: GenMessage<CleanAlertLogsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 17);
+
+/**
+ * CleanAlertLogsResponse 是清空结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.CleanAlertLogsResponse
+ */
+export type CleanAlertLogsResponse = Message<"panel.agent.v1.CleanAlertLogsResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.CleanAlertLogsResponse.
+ * Use `create(CleanAlertLogsResponseSchema)` to create a new message.
+ */
+export const CleanAlertLogsResponseSchema: GenMessage<CleanAlertLogsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 18);
+
+/**
+ * GetAlertClamsRequest 是杀毒扫描结果查询参数，无业务字段。
+ *
+ * @generated from message panel.agent.v1.GetAlertClamsRequest
+ */
+export type GetAlertClamsRequest = Message<"panel.agent.v1.GetAlertClamsRequest"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.GetAlertClamsRequest.
+ * Use `create(GetAlertClamsRequestSchema)` to create a new message.
+ */
+export const GetAlertClamsRequestSchema: GenMessage<GetAlertClamsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 19);
+
+/**
+ * AlertClamsResponse 是杀毒扫描结果列表。
+ *
+ * @generated from message panel.agent.v1.AlertClamsResponse
+ */
+export type AlertClamsResponse = Message<"panel.agent.v1.AlertClamsResponse"> & {
+  /**
+   * 扫描项。
+   *
+   * @generated from field: repeated panel.agent.v1.AlertClam items = 1;
+   */
+  items: AlertClam[];
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertClamsResponse.
+ * Use `create(AlertClamsResponseSchema)` to create a new message.
+ */
+export const AlertClamsResponseSchema: GenMessage<AlertClamsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 20);
+
+/**
+ * AlertClam 是一条杀毒扫描结果。
+ *
+ * @generated from message panel.agent.v1.AlertClam
+ */
+export type AlertClam = Message<"panel.agent.v1.AlertClam"> & {
+  /**
+   * 记录 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 2;
+   */
+  createdAt: string;
+
+  /**
+   * 更新时间，RFC3339 格式。
+   *
+   * @generated from field: string updated_at = 3;
+   */
+  updatedAt: string;
+
+  /**
+   * 名称。
+   *
+   * @generated from field: string name = 4;
+   */
+  name: string;
+
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 5;
+   */
+  status: string;
+
+  /**
+   * 扫描路径。
+   *
+   * @generated from field: string path = 6;
+   */
+  path: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertClam.
+ * Use `create(AlertClamSchema)` to create a new message.
+ */
+export const AlertClamSchema: GenMessage<AlertClam> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 21);
+
+/**
+ * GetAlertCronJobsRequest 是计划任务列表查询参数。
+ *
+ * @generated from message panel.agent.v1.GetAlertCronJobsRequest
+ */
+export type GetAlertCronJobsRequest = Message<"panel.agent.v1.GetAlertCronJobsRequest"> & {
+  /**
+   * 任务名称过滤。
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * 状态过滤。
+   *
+   * @generated from field: string status = 2;
+   */
+  status: string;
+
+  /**
+   * 任务类型过滤。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.GetAlertCronJobsRequest.
+ * Use `create(GetAlertCronJobsRequestSchema)` to create a new message.
+ */
+export const GetAlertCronJobsRequestSchema: GenMessage<GetAlertCronJobsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 22);
+
+/**
+ * AlertCronJobsResponse 是计划任务列表结果。
+ *
+ * @generated from message panel.agent.v1.AlertCronJobsResponse
+ */
+export type AlertCronJobsResponse = Message<"panel.agent.v1.AlertCronJobsResponse"> & {
+  /**
+   * 任务列表。
+   *
+   * @generated from field: repeated panel.agent.v1.AlertCronJob items = 1;
+   */
+  items: AlertCronJob[];
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertCronJobsResponse.
+ * Use `create(AlertCronJobsResponseSchema)` to create a new message.
+ */
+export const AlertCronJobsResponseSchema: GenMessage<AlertCronJobsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 23);
+
+/**
+ * AlertCronJob 是一个可用于告警的计划任务。
+ *
+ * @generated from message panel.agent.v1.AlertCronJob
+ */
+export type AlertCronJob = Message<"panel.agent.v1.AlertCronJob"> & {
+  /**
+   * 任务 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 2;
+   */
+  createdAt: string;
+
+  /**
+   * 更新时间，RFC3339 格式。
+   *
+   * @generated from field: string updated_at = 3;
+   */
+  updatedAt: string;
+
+  /**
+   * 任务名称。
+   *
+   * @generated from field: string name = 4;
+   */
+  name: string;
+
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 5;
+   */
+  status: string;
+
+  /**
+   * 任务类型。
+   *
+   * @generated from field: string type = 6;
+   */
+  type: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertCronJob.
+ * Use `create(AlertCronJobSchema)` to create a new message.
+ */
+export const AlertCronJobSchema: GenMessage<AlertCronJob> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 24);
+
+/**
+ * GetAlertConfigRequest 是通知配置查询参数。
+ *
+ * @generated from message panel.agent.v1.GetAlertConfigRequest
+ */
+export type GetAlertConfigRequest = Message<"panel.agent.v1.GetAlertConfigRequest"> & {
+  /**
+   * 需要排除的配置类型。
+   *
+   * @generated from field: repeated string exclude_types = 1;
+   */
+  excludeTypes: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.GetAlertConfigRequest.
+ * Use `create(GetAlertConfigRequestSchema)` to create a new message.
+ */
+export const GetAlertConfigRequestSchema: GenMessage<GetAlertConfigRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 25);
+
+/**
+ * SearchAlertConfigsRequest 是通知配置分页查询参数。
+ *
+ * @generated from message panel.agent.v1.SearchAlertConfigsRequest
+ */
+export type SearchAlertConfigsRequest = Message<"panel.agent.v1.SearchAlertConfigsRequest"> & {
+  /**
+   * 页码，从 1 开始。
+   *
+   * @generated from field: int32 page = 1;
+   */
+  page: number;
+
+  /**
+   * 每页条数，最大 100。
+   *
+   * @generated from field: int32 page_size = 2;
+   */
+  pageSize: number;
+
+  /**
+   * 需要排除的配置类型。
+   *
+   * @generated from field: repeated string exclude_types = 3;
+   */
+  excludeTypes: string[];
+};
+
+/**
+ * Describes the message panel.agent.v1.SearchAlertConfigsRequest.
+ * Use `create(SearchAlertConfigsRequestSchema)` to create a new message.
+ */
+export const SearchAlertConfigsRequestSchema: GenMessage<SearchAlertConfigsRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 26);
+
+/**
+ * AlertConfigsResponse 是通知配置列表结果。
+ *
+ * @generated from message panel.agent.v1.AlertConfigsResponse
+ */
+export type AlertConfigsResponse = Message<"panel.agent.v1.AlertConfigsResponse"> & {
+  /**
+   * 当前页配置。
+   *
+   * @generated from field: repeated panel.agent.v1.AlertConfigEntry items = 1;
+   */
+  items: AlertConfigEntry[];
+
+  /**
+   * 分页查询时的总数；非分页查询为 0。
+   *
+   * @generated from field: int64 total = 2;
+   */
+  total: bigint;
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertConfigsResponse.
+ * Use `create(AlertConfigsResponseSchema)` to create a new message.
+ */
+export const AlertConfigsResponseSchema: GenMessage<AlertConfigsResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 27);
+
+/**
+ * AlertConfigEntry 是一条告警通知配置。
+ *
+ * @generated from message panel.agent.v1.AlertConfigEntry
+ */
+export type AlertConfigEntry = Message<"panel.agent.v1.AlertConfigEntry"> & {
+  /**
+   * 配置 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 配置 UID。
+   *
+   * @generated from field: string uid = 2;
+   */
+  uid: string;
+
+  /**
+   * 配置类型。
+   *
+   * @generated from field: string type = 3;
+   */
+  type: string;
+
+  /**
+   * 标题。
+   *
+   * @generated from field: string title = 4;
+   */
+  title: string;
+
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 5;
+   */
+  status: string;
+
+  /**
+   * 配置内容（JSON 字符串）。
+   *
+   * @generated from field: string config = 6;
+   */
+  config: string;
+
+  /**
+   * 创建人。
+   *
+   * @generated from field: string create_user = 7;
+   */
+  createUser: string;
+
+  /**
+   * 更新人。
+   *
+   * @generated from field: string update_user = 8;
+   */
+  updateUser: string;
+
+  /**
+   * 创建时间，RFC3339 格式。
+   *
+   * @generated from field: string created_at = 9;
+   */
+  createdAt: string;
+
+  /**
+   * 更新时间，RFC3339 格式。
+   *
+   * @generated from field: string updated_at = 10;
+   */
+  updatedAt: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.AlertConfigEntry.
+ * Use `create(AlertConfigEntrySchema)` to create a new message.
+ */
+export const AlertConfigEntrySchema: GenMessage<AlertConfigEntry> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 28);
+
+/**
+ * UpdateAlertConfigRequest 是通知配置更新参数。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertConfigRequest
+ */
+export type UpdateAlertConfigRequest = Message<"panel.agent.v1.UpdateAlertConfigRequest"> & {
+  /**
+   * 配置 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 配置类型。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 标题。
+   *
+   * @generated from field: string title = 3;
+   */
+  title: string;
+
+  /**
+   * 状态。
+   *
+   * @generated from field: string status = 4;
+   */
+  status: string;
+
+  /**
+   * 配置内容（JSON 字符串）。
+   *
+   * @generated from field: string config = 5;
+   */
+  config: string;
+
+  /**
+   * 展示名称。
+   *
+   * @generated from field: string display_name = 6;
+   */
+  displayName: string;
+
+  /**
+   * 更新时间，RFC3339 格式；用于乐观锁校验。
+   *
+   * @generated from field: string revision = 7;
+   */
+  revision: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertConfigRequest.
+ * Use `create(UpdateAlertConfigRequestSchema)` to create a new message.
+ */
+export const UpdateAlertConfigRequestSchema: GenMessage<UpdateAlertConfigRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 29);
+
+/**
+ * UpdateAlertConfigResponse 是更新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertConfigResponse
+ */
+export type UpdateAlertConfigResponse = Message<"panel.agent.v1.UpdateAlertConfigResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertConfigResponse.
+ * Use `create(UpdateAlertConfigResponseSchema)` to create a new message.
+ */
+export const UpdateAlertConfigResponseSchema: GenMessage<UpdateAlertConfigResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 30);
+
+/**
+ * UpdateAlertConfigStatusRequest 是配置状态更新参数。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertConfigStatusRequest
+ */
+export type UpdateAlertConfigStatusRequest = Message<"panel.agent.v1.UpdateAlertConfigStatusRequest"> & {
+  /**
+   * 配置 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 目标状态：Enable 或 Disable。
+   *
+   * @generated from field: string status = 2;
+   */
+  status: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertConfigStatusRequest.
+ * Use `create(UpdateAlertConfigStatusRequestSchema)` to create a new message.
+ */
+export const UpdateAlertConfigStatusRequestSchema: GenMessage<UpdateAlertConfigStatusRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 31);
+
+/**
+ * UpdateAlertConfigStatusResponse 是更新结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.UpdateAlertConfigStatusResponse
+ */
+export type UpdateAlertConfigStatusResponse = Message<"panel.agent.v1.UpdateAlertConfigStatusResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.UpdateAlertConfigStatusResponse.
+ * Use `create(UpdateAlertConfigStatusResponseSchema)` to create a new message.
+ */
+export const UpdateAlertConfigStatusResponseSchema: GenMessage<UpdateAlertConfigStatusResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 32);
+
+/**
+ * DeleteAlertConfigRequest 是配置删除参数。
+ *
+ * @generated from message panel.agent.v1.DeleteAlertConfigRequest
+ */
+export type DeleteAlertConfigRequest = Message<"panel.agent.v1.DeleteAlertConfigRequest"> & {
+  /**
+   * 配置 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteAlertConfigRequest.
+ * Use `create(DeleteAlertConfigRequestSchema)` to create a new message.
+ */
+export const DeleteAlertConfigRequestSchema: GenMessage<DeleteAlertConfigRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 33);
+
+/**
+ * DeleteAlertConfigResponse 是删除结果，无业务字段。
+ *
+ * @generated from message panel.agent.v1.DeleteAlertConfigResponse
+ */
+export type DeleteAlertConfigResponse = Message<"panel.agent.v1.DeleteAlertConfigResponse"> & {
+};
+
+/**
+ * Describes the message panel.agent.v1.DeleteAlertConfigResponse.
+ * Use `create(DeleteAlertConfigResponseSchema)` to create a new message.
+ */
+export const DeleteAlertConfigResponseSchema: GenMessage<DeleteAlertConfigResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 34);
+
+/**
+ * TestAlertConfigRequest 是通知配置测试参数。
+ *
+ * @generated from message panel.agent.v1.TestAlertConfigRequest
+ */
+export type TestAlertConfigRequest = Message<"panel.agent.v1.TestAlertConfigRequest"> & {
+  /**
+   * 配置 ID。
+   *
+   * @generated from field: uint32 id = 1;
+   */
+  id: number;
+
+  /**
+   * 配置类型；custom 表示自定义 Webhook。
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * 配置内容（JSON 字符串）。
+   *
+   * @generated from field: string config = 3;
+   */
+  config: string;
+
+  /**
+   * SMTP 主机。
+   *
+   * @generated from field: string host = 4;
+   */
+  host: string;
+
+  /**
+   * SMTP 端口。
+   *
+   * @generated from field: int32 port = 5;
+   */
+  port: number;
+
+  /**
+   * 发件人。
+   *
+   * @generated from field: string sender = 6;
+   */
+  sender: string;
+
+  /**
+   * 用户名。
+   *
+   * @generated from field: string user_name = 7;
+   */
+  userName: string;
+
+  /**
+   * 密码。
+   *
+   * @generated from field: string password = 8;
+   */
+  password: string;
+
+  /**
+   * 展示名称。
+   *
+   * @generated from field: string display_name = 9;
+   */
+  displayName: string;
+
+  /**
+   * 加密方式：ssl、tls 或 none。
+   *
+   * @generated from field: string encryption = 10;
+   */
+  encryption: string;
+
+  /**
+   * 收件人。
+   *
+   * @generated from field: string recipient = 11;
+   */
+  recipient: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.TestAlertConfigRequest.
+ * Use `create(TestAlertConfigRequestSchema)` to create a new message.
+ */
+export const TestAlertConfigRequestSchema: GenMessage<TestAlertConfigRequest> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 35);
+
+/**
+ * TestAlertConfigResponse 是测试结果。
+ *
+ * @generated from message panel.agent.v1.TestAlertConfigResponse
+ */
+export type TestAlertConfigResponse = Message<"panel.agent.v1.TestAlertConfigResponse"> & {
+  /**
+   * 是否测试成功。
+   *
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  /**
+   * HTTP 状态码；仅 Webhook 测试返回。
+   *
+   * @generated from field: int32 status_code = 2;
+   */
+  statusCode: number;
+
+  /**
+   * 耗时，单位毫秒。
+   *
+   * @generated from field: int64 duration = 3;
+   */
+  duration: bigint;
+
+  /**
+   * 失败原因。
+   *
+   * @generated from field: string message = 4;
+   */
+  message: string;
+
+  /**
+   * 响应内容；为安全起见返回值始终为空。
+   *
+   * @generated from field: string response = 5;
+   */
+  response: string;
+};
+
+/**
+ * Describes the message panel.agent.v1.TestAlertConfigResponse.
+ * Use `create(TestAlertConfigResponseSchema)` to create a new message.
+ */
+export const TestAlertConfigResponseSchema: GenMessage<TestAlertConfigResponse> = /*@__PURE__*/
+  messageDesc(file_panel_agent_v1_alert, 36);
+
+/**
  * AlertService 对应 1Panel 的告警域。
  *
  * @generated from service panel.agent.v1.AlertService
@@ -241,6 +1512,156 @@ export const AlertService: GenService<{
     methodKind: "unary";
     input: typeof SearchAlertsRequestSchema;
     output: typeof SearchAlertsResponseSchema;
+  },
+  /**
+   * 创建告警任务。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.CreateAlert
+   */
+  createAlert: {
+    methodKind: "unary";
+    input: typeof CreateAlertRequestSchema;
+    output: typeof CreateAlertResponseSchema;
+  },
+  /**
+   * 删除告警任务。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.DeleteAlert
+   */
+  deleteAlert: {
+    methodKind: "unary";
+    input: typeof DeleteAlertRequestSchema;
+    output: typeof DeleteAlertResponseSchema;
+  },
+  /**
+   * 更新告警任务。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.UpdateAlert
+   */
+  updateAlert: {
+    methodKind: "unary";
+    input: typeof UpdateAlertRequestSchema;
+    output: typeof UpdateAlertResponseSchema;
+  },
+  /**
+   * 更新告警任务状态。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.UpdateAlertStatus
+   */
+  updateAlertStatus: {
+    methodKind: "unary";
+    input: typeof UpdateAlertStatusRequestSchema;
+    output: typeof UpdateAlertStatusResponseSchema;
+  },
+  /**
+   * 列出可用于告警的磁盘。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.GetAlertDisks
+   */
+  getAlertDisks: {
+    methodKind: "unary";
+    input: typeof GetAlertDisksRequestSchema;
+    output: typeof AlertDisksResponseSchema;
+  },
+  /**
+   * 分页查询告警日志。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.SearchAlertLogs
+   */
+  searchAlertLogs: {
+    methodKind: "unary";
+    input: typeof SearchAlertLogsRequestSchema;
+    output: typeof AlertLogsResponseSchema;
+  },
+  /**
+   * 清空告警日志。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.CleanAlertLogs
+   */
+  cleanAlertLogs: {
+    methodKind: "unary";
+    input: typeof CleanAlertLogsRequestSchema;
+    output: typeof CleanAlertLogsResponseSchema;
+  },
+  /**
+   * 列出杀毒扫描结果供告警选择。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.GetAlertClams
+   */
+  getAlertClams: {
+    methodKind: "unary";
+    input: typeof GetAlertClamsRequestSchema;
+    output: typeof AlertClamsResponseSchema;
+  },
+  /**
+   * 列出可用于告警的计划任务。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.GetAlertCronJobs
+   */
+  getAlertCronJobs: {
+    methodKind: "unary";
+    input: typeof GetAlertCronJobsRequestSchema;
+    output: typeof AlertCronJobsResponseSchema;
+  },
+  /**
+   * 查询告警通知配置。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.GetAlertConfig
+   */
+  getAlertConfig: {
+    methodKind: "unary";
+    input: typeof GetAlertConfigRequestSchema;
+    output: typeof AlertConfigsResponseSchema;
+  },
+  /**
+   * 分页查询告警通知配置。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.SearchAlertConfigs
+   */
+  searchAlertConfigs: {
+    methodKind: "unary";
+    input: typeof SearchAlertConfigsRequestSchema;
+    output: typeof AlertConfigsResponseSchema;
+  },
+  /**
+   * 更新告警通知配置。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.UpdateAlertConfig
+   */
+  updateAlertConfig: {
+    methodKind: "unary";
+    input: typeof UpdateAlertConfigRequestSchema;
+    output: typeof UpdateAlertConfigResponseSchema;
+  },
+  /**
+   * 更新告警通知配置状态。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.UpdateAlertConfigStatus
+   */
+  updateAlertConfigStatus: {
+    methodKind: "unary";
+    input: typeof UpdateAlertConfigStatusRequestSchema;
+    output: typeof UpdateAlertConfigStatusResponseSchema;
+  },
+  /**
+   * 删除告警通知配置。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.DeleteAlertConfig
+   */
+  deleteAlertConfig: {
+    methodKind: "unary";
+    input: typeof DeleteAlertConfigRequestSchema;
+    output: typeof DeleteAlertConfigResponseSchema;
+  },
+  /**
+   * 测试告警通知配置是否可用。
+   *
+   * @generated from rpc panel.agent.v1.AlertService.TestAlertConfig
+   */
+  testAlertConfig: {
+    methodKind: "unary";
+    input: typeof TestAlertConfigRequestSchema;
+    output: typeof TestAlertConfigResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_panel_agent_v1_alert, 0);

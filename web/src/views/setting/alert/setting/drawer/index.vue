@@ -159,7 +159,8 @@ import { computed, onMounted, reactive, ref, watch } from 'vue';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess, MsgWarning } from '@/utils/message';
 import { FormInstance } from 'element-plus';
-import { ListAlertConfigs, TestAlertConfig, TestCustomAlertConfig, UpdateAlertConfig } from '@/api/modules/alert';
+import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
+import { rpc } from '@/lib/rpc';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { Alert } from '@/api/interface/alert';
@@ -250,8 +251,8 @@ const alertConfigs = ref<Alert.AlertConfigInfo[]>([]);
 const loadAlertConfigs = async () => {
     loading.value = true;
     try {
-        const res = await ListAlertConfigs();
-        alertConfigs.value = res.data?.filter((item: Alert.AlertConfigInfo) => item.type !== 'common') || [];
+        const res = await rpc.alert.getAlertConfig({ excludeTypes: resolveAlertConfigExcludeTypes() });
+        alertConfigs.value = res.items.filter((item: Alert.AlertConfigInfo) => item.type !== 'common') || [];
     } catch {
         alertConfigs.value = [];
     } finally {
@@ -538,7 +539,7 @@ const validateCustomWebhook = async (formEl: FormInstance, allowClearedUrl = fal
 const saveAlertConfig = async () => {
     loading.value = true;
     try {
-        await UpdateAlertConfig(buildSavePayload());
+        await rpc.alert.updateAlertConfig(buildSavePayload());
         void loadAlertConfigs();
         handleClose();
         emit('search');
@@ -584,20 +585,18 @@ const onTest = async (formEl: FormInstance | undefined) => {
         try {
             if (!(await validateCustomWebhook(formEl)) || attempt !== customWebhookTestState.attempt) return;
             const config = JSON.stringify(serializeCustomWebhookDraft(form.customWebhook));
-            const res = await TestCustomAlertConfig({
+            const res = await rpc.alert.testAlertConfig({
                 ...(form.id ? { id: form.id } : {}),
                 type: 'custom',
                 config,
             });
-            const raw = res.data as Alert.AlertConfigCustomTestResult | boolean;
-            const result = typeof raw === 'boolean' ? undefined : raw;
-            const success = typeof raw === 'boolean' ? raw : result?.success === true;
+            const success = res.success === true;
             if (!completeCustomWebhookTest(customWebhookTestState, attempt, success)) return;
             if (success) {
                 MsgSuccess(i18n.global.t('xpack.alert.alertTestOk'));
                 return;
             }
-            MsgError(result?.message || i18n.global.t('xpack.alert.alertTestFailed'));
+            MsgError(res.message || i18n.global.t('xpack.alert.alertTestFailed'));
         } catch {
             return;
         } finally {
@@ -620,9 +619,9 @@ const onTest = async (formEl: FormInstance | undefined) => {
                 type: 'email',
                 config: JSON.stringify(emailConfig),
             };
-            const res = await TestAlertConfig(testConfig);
+            const res = await rpc.alert.testAlertConfig(testConfig);
             loading.value = false;
-            if (res.data) {
+            if (res.success) {
                 if (testedEmailRevision !== emailRevision.value) {
                     MsgWarning(i18n.global.t('xpack.alert.testResultStale'));
                     return;

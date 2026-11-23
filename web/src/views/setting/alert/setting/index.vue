@@ -154,13 +154,8 @@ import { toRef } from 'vue';
 import { useSearchState } from '@/utils/search-reset';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import {
-    ListAlertConfigs,
-    PageAlertConfigs,
-    DeleteAlertConfig,
-    UpdateAlertConfig,
-    UpdateAlertConfigStatus,
-} from '@/api/modules/alert';
+import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
+import { rpc } from '@/lib/rpc';
 import { ElMessageBox } from 'element-plus';
 import { Message, ChatDotRound, Bell, View, Hide, Link } from '@element-plus/icons-vue';
 import SendTimeRange from '@/views/setting/alert/setting/time-range/index.vue';
@@ -356,13 +351,14 @@ const searchConfigs = async () => {
     loading.value = true;
     try {
         const [configRes, pageRes] = await Promise.all([
-            ListAlertConfigs(),
-            PageAlertConfigs({
+            rpc.alert.getAlertConfig({ excludeTypes: resolveAlertConfigExcludeTypes() }),
+            rpc.alert.searchAlertConfigs({
                 page: paginationConfig.currentPage,
                 pageSize: paginationConfig.pageSize,
+                excludeTypes: resolveAlertConfigExcludeTypes(),
             }),
         ]);
-        const commonFound = configRes.data?.find((s: Alert.AlertConfigInfo) => s.type === 'common');
+        const commonFound = configRes.items.find((s: Alert.AlertConfigInfo) => s.type === 'common');
         if (commonFound) {
             const parsedConfig = parseConfig(commonFound, defaultCommonConfig.config);
             commonConfig.value = {
@@ -390,8 +386,8 @@ const searchConfigs = async () => {
         }
         isInitialized.value = true;
 
-        allConfigs.value = pageRes.data?.items || [];
-        paginationConfig.total = pageRes.data?.total || 0;
+        allConfigs.value = pageRes.items || [];
+        paginationConfig.total = Number(pageRes.total) || 0;
     } catch {
         allConfigs.value = [];
         paginationConfig.total = 0;
@@ -440,7 +436,7 @@ const onChangeOffline = async () => {
                     config.value.status = 'Enable';
                     config.value.config = JSON.stringify(commonConfig.value.config);
                     config.value.displayName = i18n.global.t('xpack.alert.commonConfig');
-                    await UpdateAlertConfig(config.value);
+                    await rpc.alert.updateAlertConfig(config.value);
                     loading.value = false;
                     await searchConfigs();
                     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -457,7 +453,7 @@ const onChangeOffline = async () => {
 
 const onStatusChange = async (row: Alert.AlertConfigInfo) => {
     try {
-        await UpdateAlertConfigStatus({
+        await rpc.alert.updateAlertConfigStatus({
             id: row.id!,
             status: row.status,
         });
@@ -477,7 +473,7 @@ const onDelete = (id: number) => {
         confirmButtonText: i18n.global.t('commons.button.confirm'),
         cancelButtonText: i18n.global.t('commons.button.cancel'),
     }).then(async () => {
-        await DeleteAlertConfig({ id: id });
+        await rpc.alert.deleteAlertConfig({ id: id });
         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
         await searchConfigs();
     });
