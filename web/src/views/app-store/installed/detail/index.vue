@@ -1,6 +1,3 @@
-import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-type Init<T extends DescMessage> = MessageInitShape<T>;
-import { UpdateInstalledConfigRequestSchema } from '@/gen/panel/agent/v1/app_pb';
 <template>
     <DrawerPro
         v-model="open"
@@ -238,6 +235,9 @@ import { UpdateInstalledConfigRequestSchema } from '@/gen/panel/agent/v1/app_pb'
     </DrawerPro>
 </template>
 <script lang="ts" setup>
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { UpdateInstalledConfigRequestSchema } from '@/gen/panel/agent/v1/app_pb';
 
 export type AppConfigUpdate = Init<typeof UpdateInstalledConfigRequestSchema> & {
     installID: number;

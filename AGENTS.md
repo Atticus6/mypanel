@@ -265,7 +265,7 @@ const website = await rpc.website.get({ id: 1 })                   // 直接调�
 
 ## 其它约定
 
-- 提交前跑一遍：`go vet ./master/... && go test ./master/... && gofmt -l master && cd web && bun run type-check && bun test && bun run build`。
+- 提交前跑一遍：`go vet ./master/... && go test ./master/... && gofmt -l master && cd web && bun run type-check && bun run fmt:check && bun test && bun run build`。
 - 不要提交 `.bin/`、`bin/`、`node_modules/`、`.DS_Store`。
 - 日志用 `log/slog` 结构化输出，字段名英文小写。
 - 前端与后端同源，**不要引入 CORS 配置**；开发期靠 vite proxy 解决。

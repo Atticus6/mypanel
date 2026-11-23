@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { benchmarkReportPlugin } from './build/benchmark-report';
 import { wrapperEnv } from './src/utils/get-env';
 import viteCompression from 'vite-plugin-compression';
-import eslintPlugin from 'vite-plugin-eslint2';
+import tailwindcss from '@tailwindcss/vite';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { defineConfig, loadEnv, ConfigEnv, UserConfig, Plugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -117,10 +117,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
             benchmarkReportPlugin(__dirname),
             patchCodeFilterOverflow(),
             vue(),
-            eslintPlugin({
-                cache: false,
-                exclude: ['**/*.js'],
-            }),
+            tailwindcss(),
             vueJsx(),
             reportPlugin,
             viteEnv.VITE_BUILD_GZIP &&

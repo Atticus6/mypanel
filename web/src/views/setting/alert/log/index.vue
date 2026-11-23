@@ -1,6 +1,3 @@
-import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-type Init<T extends DescMessage> = MessageInitShape<T>;
-import { AlertLogEntrySchema , AlertSchema                                                                                                                                                               } from '@/gen/panel/agent/v1/alert_pb';
 <template>
     <div>
         <LayoutContent :title="$t('xpack.alert.logs')" v-loading="loading">
@@ -95,6 +92,9 @@ import { AlertLogEntrySchema , AlertSchema                                      
 </template>
 
 <script lang="ts" setup>
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { AlertLogEntrySchema , AlertSchema                                                                                                                                                               } from '@/gen/panel/agent/v1/alert_pb';
 export type AlertInfo = Omit<Init<typeof AlertSchema>, '$typeName' | '$unknown'> & {
     type: string;
     title: string;

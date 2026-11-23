@@ -2,7 +2,7 @@
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 
 @config "../../tailwind.config.js";
-@source "../**/*.{vue,js,ts,jsx,tsx}";
+@source "../**/*.{js,ts,jsx,tsx}";
 @source not inline("[-:T]");
 @source not inline("[a-z:@A-Z0-9_/.-]");
 

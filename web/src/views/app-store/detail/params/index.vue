@@ -1,6 +1,3 @@
-import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-type Init<T extends DescMessage> = MessageInitShape<T>;
-import { AppServiceItemSchema } from '@/gen/panel/agent/v1/app_pb';
 <template>
     <div v-for="(p, index) in paramObjs" :key="index">
         <el-form-item :label="getLabel(p)" :prop="p.prop">
@@ -141,6 +138,9 @@ import { AppServiceItemSchema } from '@/gen/panel/agent/v1/app_pb';
     </div>
 </template>
 <script lang="ts" setup>
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { AppServiceItemSchema } from '@/gen/panel/agent/v1/app_pb';
 
 export type AppService = Init<typeof AppServiceItemSchema> & { config?: object }
 

@@ -81,7 +81,7 @@ function drawer(overrides = {}) {
     const ast = ts.createSourceFile('upgrade.ts', upgrade.scriptSetup.content, ts.ScriptTarget.Latest, true);
     const script = ast.statements
         .filter((statement) => !ts.isImportDeclaration(statement))
-        .map((statement) => statement.getText(ast))
+        .map((statement) => statement.getText(ast).replace(/^export\s+/gm, ''))
         .join('\n');
     const compiled = ts.transpileModule(script, { compilerOptions: { target: ts.ScriptTarget.ESNext } }).outputText;
     const state = new Function(

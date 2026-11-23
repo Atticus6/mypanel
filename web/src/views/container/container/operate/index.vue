@@ -1,6 +1,3 @@
-import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-type Init<T extends DescMessage> = MessageInitShape<T>;
-import { ContainerLimitSchema } from '@/gen/panel/agent/v1/container_pb';
 <template>
     <div>
         <LayoutContent
@@ -348,6 +345,9 @@ import { ContainerLimitSchema } from '@/gen/panel/agent/v1/container_pb';
 </template>
 
 <script lang="ts" setup>
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { ContainerLimitSchema } from '@/gen/panel/agent/v1/container_pb';
 
 export type ResourceLimit = Omit<Init<typeof ContainerLimitSchema>, 'memory'> & { memory: number }
 export interface ExtraHost {

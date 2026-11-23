@@ -1,6 +1,3 @@
-import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-type Init<T extends DescMessage> = MessageInitShape<T>;
-import { ContainerSchema } from '@/gen/panel/agent/v1/container_pb';
 <template>
     <DrawerPro
         v-model="visible"
@@ -95,6 +92,9 @@ import { ContainerSchema } from '@/gen/panel/agent/v1/container_pb';
 </template>
 
 <script lang="ts" setup>
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { ContainerSchema } from '@/gen/panel/agent/v1/container_pb';
 export interface ContainerNetwork {
     network: string;
     ipv4: string;

@@ -1,6 +1,3 @@
-import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-type Init<T extends DescMessage> = MessageInitShape<T>;
-import { WebsiteSSLSchema } from '@/gen/panel/agent/v1/website_ssl_pb';
 <template>
     <DrawerPro v-model="open" :header="$t('commons.button.create')" size="60%" @close="handleClose">
         <div v-loading="loading" :class="{ mask: !versionExist }">
@@ -442,6 +439,9 @@ import { WebsiteSSLSchema } from '@/gen/panel/agent/v1/website_ssl_pb';
 </template>
 
 <script lang="ts" setup>
+import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
+type Init<T extends DescMessage> = MessageInitShape<T>;
+import { WebsiteSSLSchema } from '@/gen/panel/agent/v1/website_ssl_pb';
 
 export interface InstallParams {
     labelZh: string;

@@ -1,0 +1,12 @@
+# bun fmt / bun check 配置：等价于移除前的 Prettier 风格（缩进 4、单引号、分号、120 宽度）。
+[fmt]
+printWidth = 120
+tabWidth = 4
+semi = true
+singleQuote = true
+jsxSingleQuote = false
+quoteProps = "as-needed"
+trailingComma = "all"
+bracketSpacing = true
+arrowParens = "always"
+endOfLine = "lf"
