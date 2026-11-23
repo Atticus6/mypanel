@@ -2138,7 +2138,7 @@ bun run build
 
 ### 发布
 
-- [ ] GPLv3 LICENSE / NOTICE 完成
+- [x] GPLv3 LICENSE / NOTICE 完成（LICENSE 来自 1Panel，NOTICE 说明衍生来源）
 - [ ] 数据备份脚本完成
 - [ ] 回滚演练完成
 - [ ] 监控与告警完成
