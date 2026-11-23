@@ -2211,13 +2211,14 @@ bun run build
 | 多节点接口清理 | 前端 `listNodeOptions`/`listAllSimpleNodes`/`updateNodeFavorite` 已改为本地单节点实现，不再请求 xpack 的 `/core/nodes*` |
 | 数据库模块剔除 | `/databases/*`（63 条）整体剔除：前端数据库页面与路由、后端 `DatabaseService` RPC 与 agent 的数据库 REST 接口全部删除 |
 | 文件域补全 | `files` 域 46 条路由全部落地：38 条走 `FileService` RPC（新建/检查/批量删除/移动/大小统计/目录树/备注/预览保存/历史版本/转换日志/分享/远程下载），8 条二进制或流式通道列入剔除前缀 |
+| 应用域补全 | `apps` 域 24 条路由全部落地：23 条走 `AppService` RPC（详情、标签、更新检查、忽略升级、已安装摘要/参数/运行信息/排序/端口/连接信息、商店同步），`/apps/icon` 为二进制图标响应列入剔除前缀 |
 
 ### 当前进度（2026-11-23）
 
 | 指标 | 数值 |
 | --- | --- |
-| proto RPC 方法数 | 384 |
-| 精确路由覆盖 | 379 / 830（剔除 333，未映射 118） |
+| proto RPC 方法数 | 407 |
+| 精确路由覆盖 | 402 / 830（剔除 334，未映射 94） |
 | 已迁移页面与对话框 | 约 315 个（数据库页面已移除） |
 
 `web/src/api/modules/setting.ts`、`firewall.ts`、`host.ts` 已整体删除：面板设置、agent 设置与系统快照全部走 RPC。
@@ -2251,6 +2252,10 @@ bun run build
 文件域的 `download`、`upload`、`chunkupload`、`chunkdownload`、`share/download`、`share/qrcode`、
 `wget/process` 与 `ai-search` 属于二进制、WebSocket 或 AI 通道，保留 HTTP 实现并列入剔除前缀；
 其余文件操作全部走 `FileService`。
+
+应用域的 `/apps/icon/:key` 返回 PNG 或 302 跳转，同样保留 HTTP；其余应用接口全部走 `AppService`。
+应用详情、参数与 Compose 片段结构随应用定义变化，proto 里用 `detail_json`、`params_json`、
+`container_json` 这类 JSON 字段透传，避免为每个应用定义维护一套消息。
 
 前端 `web/src/api/modules/files.ts` 已随之瘦身，只保留上述二进制/AI 通道；文件管理相关的
 页面、弹窗与通用组件（`components/file-list`、`components/upload`、`components/log/file` 等）

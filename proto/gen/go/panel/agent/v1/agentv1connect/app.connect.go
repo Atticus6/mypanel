@@ -52,6 +52,71 @@ const (
 	// AppServiceSearchInstalledProcedure is the fully-qualified name of the AppService's
 	// SearchInstalled RPC.
 	AppServiceSearchInstalledProcedure = "/panel.agent.v1.AppService/SearchInstalled"
+	// AppServiceGetAppDetailProcedure is the fully-qualified name of the AppService's GetAppDetail RPC.
+	AppServiceGetAppDetailProcedure = "/panel.agent.v1.AppService/GetAppDetail"
+	// AppServiceGetAppDetailByIDProcedure is the fully-qualified name of the AppService's
+	// GetAppDetailByID RPC.
+	AppServiceGetAppDetailByIDProcedure = "/panel.agent.v1.AppService/GetAppDetailByID"
+	// AppServiceGetAppDetailByKeyProcedure is the fully-qualified name of the AppService's
+	// GetAppDetailByKey RPC.
+	AppServiceGetAppDetailByKeyProcedure = "/panel.agent.v1.AppService/GetAppDetailByKey"
+	// AppServiceGetAppTagsProcedure is the fully-qualified name of the AppService's GetAppTags RPC.
+	AppServiceGetAppTagsProcedure = "/panel.agent.v1.AppService/GetAppTags"
+	// AppServiceGetAppUpdateProcedure is the fully-qualified name of the AppService's GetAppUpdate RPC.
+	AppServiceGetAppUpdateProcedure = "/panel.agent.v1.AppService/GetAppUpdate"
+	// AppServiceListIgnoredAppsProcedure is the fully-qualified name of the AppService's
+	// ListIgnoredApps RPC.
+	AppServiceListIgnoredAppsProcedure = "/panel.agent.v1.AppService/ListIgnoredApps"
+	// AppServiceIgnoreAppUpgradeProcedure is the fully-qualified name of the AppService's
+	// IgnoreAppUpgrade RPC.
+	AppServiceIgnoreAppUpgradeProcedure = "/panel.agent.v1.AppService/IgnoreAppUpgrade"
+	// AppServiceCancelIgnoreAppUpgradeProcedure is the fully-qualified name of the AppService's
+	// CancelIgnoreAppUpgrade RPC.
+	AppServiceCancelIgnoreAppUpgradeProcedure = "/panel.agent.v1.AppService/CancelIgnoreAppUpgrade"
+	// AppServiceListInstalledProcedure is the fully-qualified name of the AppService's ListInstalled
+	// RPC.
+	AppServiceListInstalledProcedure = "/panel.agent.v1.AppService/ListInstalled"
+	// AppServiceCheckDeleteInstalledProcedure is the fully-qualified name of the AppService's
+	// CheckDeleteInstalled RPC.
+	AppServiceCheckDeleteInstalledProcedure = "/panel.agent.v1.AppService/CheckDeleteInstalled"
+	// AppServiceSyncInstalledProcedure is the fully-qualified name of the AppService's SyncInstalled
+	// RPC.
+	AppServiceSyncInstalledProcedure = "/panel.agent.v1.AppService/SyncInstalled"
+	// AppServiceGetAppServicesProcedure is the fully-qualified name of the AppService's GetAppServices
+	// RPC.
+	AppServiceGetAppServicesProcedure = "/panel.agent.v1.AppService/GetAppServices"
+	// AppServiceChangeAppPortProcedure is the fully-qualified name of the AppService's ChangeAppPort
+	// RPC.
+	AppServiceChangeAppPortProcedure = "/panel.agent.v1.AppService/ChangeAppPort"
+	// AppServiceGetDefaultConfigProcedure is the fully-qualified name of the AppService's
+	// GetDefaultConfig RPC.
+	AppServiceGetDefaultConfigProcedure = "/panel.agent.v1.AppService/GetDefaultConfig"
+	// AppServiceGetInstalledParamsProcedure is the fully-qualified name of the AppService's
+	// GetInstalledParams RPC.
+	AppServiceGetInstalledParamsProcedure = "/panel.agent.v1.AppService/GetInstalledParams"
+	// AppServiceUpdateInstalledProcedure is the fully-qualified name of the AppService's
+	// UpdateInstalled RPC.
+	AppServiceUpdateInstalledProcedure = "/panel.agent.v1.AppService/UpdateInstalled"
+	// AppServiceUpdateInstalledConfigProcedure is the fully-qualified name of the AppService's
+	// UpdateInstalledConfig RPC.
+	AppServiceUpdateInstalledConfigProcedure = "/panel.agent.v1.AppService/UpdateInstalledConfig"
+	// AppServiceGetInstalledInfoProcedure is the fully-qualified name of the AppService's
+	// GetInstalledInfo RPC.
+	AppServiceGetInstalledInfoProcedure = "/panel.agent.v1.AppService/GetInstalledInfo"
+	// AppServiceUpdateInstalledSortProcedure is the fully-qualified name of the AppService's
+	// UpdateInstalledSort RPC.
+	AppServiceUpdateInstalledSortProcedure = "/panel.agent.v1.AppService/UpdateInstalledSort"
+	// AppServiceSyncAppsFromRemoteProcedure is the fully-qualified name of the AppService's
+	// SyncAppsFromRemote RPC.
+	AppServiceSyncAppsFromRemoteProcedure = "/panel.agent.v1.AppService/SyncAppsFromRemote"
+	// AppServiceSyncAppsFromLocalProcedure is the fully-qualified name of the AppService's
+	// SyncAppsFromLocal RPC.
+	AppServiceSyncAppsFromLocalProcedure = "/panel.agent.v1.AppService/SyncAppsFromLocal"
+	// AppServiceLoadAppPortProcedure is the fully-qualified name of the AppService's LoadAppPort RPC.
+	AppServiceLoadAppPortProcedure = "/panel.agent.v1.AppService/LoadAppPort"
+	// AppServiceLoadAppConnInfoProcedure is the fully-qualified name of the AppService's
+	// LoadAppConnInfo RPC.
+	AppServiceLoadAppConnInfoProcedure = "/panel.agent.v1.AppService/LoadAppConnInfo"
 )
 
 // AppServiceClient is a client for the panel.agent.v1.AppService service.
@@ -70,6 +135,52 @@ type AppServiceClient interface {
 	Operate(context.Context, *connect.Request[v1.OperateAppRequest]) (*connect.Response[v1.OperateAppResponse], error)
 	// 分页查询已安装应用。
 	SearchInstalled(context.Context, *connect.Request[v1.SearchInstalledAppsRequest]) (*connect.Response[v1.SearchInstalledAppsResponse], error)
+	// 按应用 ID、版本与类型查询应用详情。
+	GetAppDetail(context.Context, *connect.Request[v1.GetAppDetailRequest]) (*connect.Response[v1.AppDetailDocument], error)
+	// 按应用详情 ID 查询详情。
+	GetAppDetailByID(context.Context, *connect.Request[v1.GetAppDetailByIDRequest]) (*connect.Response[v1.AppDetailDocument], error)
+	// 按应用 key 与版本查询应用详情 ID。
+	GetAppDetailByKey(context.Context, *connect.Request[v1.GetAppDetailByKeyRequest]) (*connect.Response[v1.IdResponse], error)
+	// 查询应用商店标签。
+	GetAppTags(context.Context, *connect.Request[v1.GetAppTagsRequest]) (*connect.Response[v1.AppTagsResponse], error)
+	// 检查应用商店是否有更新。
+	GetAppUpdate(context.Context, *connect.Request[v1.GetAppUpdateRequest]) (*connect.Response[v1.AppUpdateInfo], error)
+	// 查询已忽略升级的应用。
+	ListIgnoredApps(context.Context, *connect.Request[v1.ListIgnoredAppsRequest]) (*connect.Response[v1.IgnoredAppsResponse], error)
+	// 忽略指定应用的升级。
+	IgnoreAppUpgrade(context.Context, *connect.Request[v1.IgnoreAppUpgradeRequest]) (*connect.Response[v1.IgnoreAppUpgradeResponse], error)
+	// 取消忽略应用升级。
+	CancelIgnoreAppUpgrade(context.Context, *connect.Request[v1.CancelIgnoreAppUpgradeRequest]) (*connect.Response[v1.CancelIgnoreAppUpgradeResponse], error)
+	// 列出全部已安装应用的摘要。
+	ListInstalled(context.Context, *connect.Request[v1.ListInstalledRequest]) (*connect.Response[v1.ListInstalledResponse], error)
+	// 删除安装前检查关联资源。
+	CheckDeleteInstalled(context.Context, *connect.Request[v1.CheckDeleteInstalledRequest]) (*connect.Response[v1.CheckDeleteInstalledResponse], error)
+	// 同步已安装应用列表。
+	SyncInstalled(context.Context, *connect.Request[v1.SyncInstalledRequest]) (*connect.Response[v1.SyncInstalledResponse], error)
+	// 查询应用定义里的服务列表。
+	GetAppServices(context.Context, *connect.Request[v1.GetAppServicesRequest]) (*connect.Response[v1.GetAppServicesResponse], error)
+	// 修改已安装应用的端口。
+	ChangeAppPort(context.Context, *connect.Request[v1.ChangeAppPortRequest]) (*connect.Response[v1.ChangeAppPortResponse], error)
+	// 查询应用默认配置文件内容。
+	GetDefaultConfig(context.Context, *connect.Request[v1.GetDefaultConfigRequest]) (*connect.Response[v1.GetDefaultConfigResponse], error)
+	// 查询已安装应用的参数。
+	GetInstalledParams(context.Context, *connect.Request[v1.GetInstalledParamsRequest]) (*connect.Response[v1.InstalledParamsResponse], error)
+	// 更新已安装应用的参数与容器配置。
+	UpdateInstalled(context.Context, *connect.Request[v1.UpdateInstalledRequest]) (*connect.Response[v1.UpdateInstalledResponse], error)
+	// 更新已安装应用的 WebUI 配置。
+	UpdateInstalledConfig(context.Context, *connect.Request[v1.UpdateInstalledConfigRequest]) (*connect.Response[v1.UpdateInstalledConfigResponse], error)
+	// 查询已安装应用的运行信息。
+	GetInstalledInfo(context.Context, *connect.Request[v1.GetInstalledInfoRequest]) (*connect.Response[v1.InstalledInfo], error)
+	// 更新已安装应用的排序。
+	UpdateInstalledSort(context.Context, *connect.Request[v1.UpdateInstalledSortRequest]) (*connect.Response[v1.UpdateInstalledSortResponse], error)
+	// 从远端同步应用商店列表。
+	SyncAppsFromRemote(context.Context, *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error)
+	// 从本地同步应用商店列表。
+	SyncAppsFromLocal(context.Context, *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error)
+	// 查询应用可用的端口。
+	LoadAppPort(context.Context, *connect.Request[v1.LoadAppPortRequest]) (*connect.Response[v1.LoadAppPortResponse], error)
+	// 查询应用数据库连接信息。
+	LoadAppConnInfo(context.Context, *connect.Request[v1.LoadAppConnInfoRequest]) (*connect.Response[v1.LoadAppConnInfoResponse], error)
 }
 
 // NewAppServiceClient constructs a client for the panel.agent.v1.AppService service. By default, it
@@ -125,18 +236,179 @@ func NewAppServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...
 			connect.WithSchema(appServiceMethods.ByName("SearchInstalled")),
 			connect.WithClientOptions(opts...),
 		),
+		getAppDetail: connect.NewClient[v1.GetAppDetailRequest, v1.AppDetailDocument](
+			httpClient,
+			baseURL+AppServiceGetAppDetailProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetAppDetail")),
+			connect.WithClientOptions(opts...),
+		),
+		getAppDetailByID: connect.NewClient[v1.GetAppDetailByIDRequest, v1.AppDetailDocument](
+			httpClient,
+			baseURL+AppServiceGetAppDetailByIDProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetAppDetailByID")),
+			connect.WithClientOptions(opts...),
+		),
+		getAppDetailByKey: connect.NewClient[v1.GetAppDetailByKeyRequest, v1.IdResponse](
+			httpClient,
+			baseURL+AppServiceGetAppDetailByKeyProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetAppDetailByKey")),
+			connect.WithClientOptions(opts...),
+		),
+		getAppTags: connect.NewClient[v1.GetAppTagsRequest, v1.AppTagsResponse](
+			httpClient,
+			baseURL+AppServiceGetAppTagsProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetAppTags")),
+			connect.WithClientOptions(opts...),
+		),
+		getAppUpdate: connect.NewClient[v1.GetAppUpdateRequest, v1.AppUpdateInfo](
+			httpClient,
+			baseURL+AppServiceGetAppUpdateProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetAppUpdate")),
+			connect.WithClientOptions(opts...),
+		),
+		listIgnoredApps: connect.NewClient[v1.ListIgnoredAppsRequest, v1.IgnoredAppsResponse](
+			httpClient,
+			baseURL+AppServiceListIgnoredAppsProcedure,
+			connect.WithSchema(appServiceMethods.ByName("ListIgnoredApps")),
+			connect.WithClientOptions(opts...),
+		),
+		ignoreAppUpgrade: connect.NewClient[v1.IgnoreAppUpgradeRequest, v1.IgnoreAppUpgradeResponse](
+			httpClient,
+			baseURL+AppServiceIgnoreAppUpgradeProcedure,
+			connect.WithSchema(appServiceMethods.ByName("IgnoreAppUpgrade")),
+			connect.WithClientOptions(opts...),
+		),
+		cancelIgnoreAppUpgrade: connect.NewClient[v1.CancelIgnoreAppUpgradeRequest, v1.CancelIgnoreAppUpgradeResponse](
+			httpClient,
+			baseURL+AppServiceCancelIgnoreAppUpgradeProcedure,
+			connect.WithSchema(appServiceMethods.ByName("CancelIgnoreAppUpgrade")),
+			connect.WithClientOptions(opts...),
+		),
+		listInstalled: connect.NewClient[v1.ListInstalledRequest, v1.ListInstalledResponse](
+			httpClient,
+			baseURL+AppServiceListInstalledProcedure,
+			connect.WithSchema(appServiceMethods.ByName("ListInstalled")),
+			connect.WithClientOptions(opts...),
+		),
+		checkDeleteInstalled: connect.NewClient[v1.CheckDeleteInstalledRequest, v1.CheckDeleteInstalledResponse](
+			httpClient,
+			baseURL+AppServiceCheckDeleteInstalledProcedure,
+			connect.WithSchema(appServiceMethods.ByName("CheckDeleteInstalled")),
+			connect.WithClientOptions(opts...),
+		),
+		syncInstalled: connect.NewClient[v1.SyncInstalledRequest, v1.SyncInstalledResponse](
+			httpClient,
+			baseURL+AppServiceSyncInstalledProcedure,
+			connect.WithSchema(appServiceMethods.ByName("SyncInstalled")),
+			connect.WithClientOptions(opts...),
+		),
+		getAppServices: connect.NewClient[v1.GetAppServicesRequest, v1.GetAppServicesResponse](
+			httpClient,
+			baseURL+AppServiceGetAppServicesProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetAppServices")),
+			connect.WithClientOptions(opts...),
+		),
+		changeAppPort: connect.NewClient[v1.ChangeAppPortRequest, v1.ChangeAppPortResponse](
+			httpClient,
+			baseURL+AppServiceChangeAppPortProcedure,
+			connect.WithSchema(appServiceMethods.ByName("ChangeAppPort")),
+			connect.WithClientOptions(opts...),
+		),
+		getDefaultConfig: connect.NewClient[v1.GetDefaultConfigRequest, v1.GetDefaultConfigResponse](
+			httpClient,
+			baseURL+AppServiceGetDefaultConfigProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetDefaultConfig")),
+			connect.WithClientOptions(opts...),
+		),
+		getInstalledParams: connect.NewClient[v1.GetInstalledParamsRequest, v1.InstalledParamsResponse](
+			httpClient,
+			baseURL+AppServiceGetInstalledParamsProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetInstalledParams")),
+			connect.WithClientOptions(opts...),
+		),
+		updateInstalled: connect.NewClient[v1.UpdateInstalledRequest, v1.UpdateInstalledResponse](
+			httpClient,
+			baseURL+AppServiceUpdateInstalledProcedure,
+			connect.WithSchema(appServiceMethods.ByName("UpdateInstalled")),
+			connect.WithClientOptions(opts...),
+		),
+		updateInstalledConfig: connect.NewClient[v1.UpdateInstalledConfigRequest, v1.UpdateInstalledConfigResponse](
+			httpClient,
+			baseURL+AppServiceUpdateInstalledConfigProcedure,
+			connect.WithSchema(appServiceMethods.ByName("UpdateInstalledConfig")),
+			connect.WithClientOptions(opts...),
+		),
+		getInstalledInfo: connect.NewClient[v1.GetInstalledInfoRequest, v1.InstalledInfo](
+			httpClient,
+			baseURL+AppServiceGetInstalledInfoProcedure,
+			connect.WithSchema(appServiceMethods.ByName("GetInstalledInfo")),
+			connect.WithClientOptions(opts...),
+		),
+		updateInstalledSort: connect.NewClient[v1.UpdateInstalledSortRequest, v1.UpdateInstalledSortResponse](
+			httpClient,
+			baseURL+AppServiceUpdateInstalledSortProcedure,
+			connect.WithSchema(appServiceMethods.ByName("UpdateInstalledSort")),
+			connect.WithClientOptions(opts...),
+		),
+		syncAppsFromRemote: connect.NewClient[v1.SyncAppsRequest, v1.SyncAppsResponse](
+			httpClient,
+			baseURL+AppServiceSyncAppsFromRemoteProcedure,
+			connect.WithSchema(appServiceMethods.ByName("SyncAppsFromRemote")),
+			connect.WithClientOptions(opts...),
+		),
+		syncAppsFromLocal: connect.NewClient[v1.SyncAppsRequest, v1.SyncAppsResponse](
+			httpClient,
+			baseURL+AppServiceSyncAppsFromLocalProcedure,
+			connect.WithSchema(appServiceMethods.ByName("SyncAppsFromLocal")),
+			connect.WithClientOptions(opts...),
+		),
+		loadAppPort: connect.NewClient[v1.LoadAppPortRequest, v1.LoadAppPortResponse](
+			httpClient,
+			baseURL+AppServiceLoadAppPortProcedure,
+			connect.WithSchema(appServiceMethods.ByName("LoadAppPort")),
+			connect.WithClientOptions(opts...),
+		),
+		loadAppConnInfo: connect.NewClient[v1.LoadAppConnInfoRequest, v1.LoadAppConnInfoResponse](
+			httpClient,
+			baseURL+AppServiceLoadAppConnInfoProcedure,
+			connect.WithSchema(appServiceMethods.ByName("LoadAppConnInfo")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // appServiceClient implements AppServiceClient.
 type appServiceClient struct {
-	getApp          *connect.Client[v1.GetAppRequest, v1.AppDetail]
-	checkInstalled  *connect.Client[v1.CheckInstalledAppRequest, v1.AppInstalledCheck]
-	install         *connect.Client[v1.InstallAppRequest, v1.InstalledApp]
-	searchApps      *connect.Client[v1.SearchAppsRequest, v1.SearchAppsResponse]
-	updateVersions  *connect.Client[v1.UpdateVersionsRequest, v1.UpdateVersionsResponse]
-	operate         *connect.Client[v1.OperateAppRequest, v1.OperateAppResponse]
-	searchInstalled *connect.Client[v1.SearchInstalledAppsRequest, v1.SearchInstalledAppsResponse]
+	getApp                 *connect.Client[v1.GetAppRequest, v1.AppDetail]
+	checkInstalled         *connect.Client[v1.CheckInstalledAppRequest, v1.AppInstalledCheck]
+	install                *connect.Client[v1.InstallAppRequest, v1.InstalledApp]
+	searchApps             *connect.Client[v1.SearchAppsRequest, v1.SearchAppsResponse]
+	updateVersions         *connect.Client[v1.UpdateVersionsRequest, v1.UpdateVersionsResponse]
+	operate                *connect.Client[v1.OperateAppRequest, v1.OperateAppResponse]
+	searchInstalled        *connect.Client[v1.SearchInstalledAppsRequest, v1.SearchInstalledAppsResponse]
+	getAppDetail           *connect.Client[v1.GetAppDetailRequest, v1.AppDetailDocument]
+	getAppDetailByID       *connect.Client[v1.GetAppDetailByIDRequest, v1.AppDetailDocument]
+	getAppDetailByKey      *connect.Client[v1.GetAppDetailByKeyRequest, v1.IdResponse]
+	getAppTags             *connect.Client[v1.GetAppTagsRequest, v1.AppTagsResponse]
+	getAppUpdate           *connect.Client[v1.GetAppUpdateRequest, v1.AppUpdateInfo]
+	listIgnoredApps        *connect.Client[v1.ListIgnoredAppsRequest, v1.IgnoredAppsResponse]
+	ignoreAppUpgrade       *connect.Client[v1.IgnoreAppUpgradeRequest, v1.IgnoreAppUpgradeResponse]
+	cancelIgnoreAppUpgrade *connect.Client[v1.CancelIgnoreAppUpgradeRequest, v1.CancelIgnoreAppUpgradeResponse]
+	listInstalled          *connect.Client[v1.ListInstalledRequest, v1.ListInstalledResponse]
+	checkDeleteInstalled   *connect.Client[v1.CheckDeleteInstalledRequest, v1.CheckDeleteInstalledResponse]
+	syncInstalled          *connect.Client[v1.SyncInstalledRequest, v1.SyncInstalledResponse]
+	getAppServices         *connect.Client[v1.GetAppServicesRequest, v1.GetAppServicesResponse]
+	changeAppPort          *connect.Client[v1.ChangeAppPortRequest, v1.ChangeAppPortResponse]
+	getDefaultConfig       *connect.Client[v1.GetDefaultConfigRequest, v1.GetDefaultConfigResponse]
+	getInstalledParams     *connect.Client[v1.GetInstalledParamsRequest, v1.InstalledParamsResponse]
+	updateInstalled        *connect.Client[v1.UpdateInstalledRequest, v1.UpdateInstalledResponse]
+	updateInstalledConfig  *connect.Client[v1.UpdateInstalledConfigRequest, v1.UpdateInstalledConfigResponse]
+	getInstalledInfo       *connect.Client[v1.GetInstalledInfoRequest, v1.InstalledInfo]
+	updateInstalledSort    *connect.Client[v1.UpdateInstalledSortRequest, v1.UpdateInstalledSortResponse]
+	syncAppsFromRemote     *connect.Client[v1.SyncAppsRequest, v1.SyncAppsResponse]
+	syncAppsFromLocal      *connect.Client[v1.SyncAppsRequest, v1.SyncAppsResponse]
+	loadAppPort            *connect.Client[v1.LoadAppPortRequest, v1.LoadAppPortResponse]
+	loadAppConnInfo        *connect.Client[v1.LoadAppConnInfoRequest, v1.LoadAppConnInfoResponse]
 }
 
 // GetApp calls panel.agent.v1.AppService.GetApp.
@@ -174,6 +446,121 @@ func (c *appServiceClient) SearchInstalled(ctx context.Context, req *connect.Req
 	return c.searchInstalled.CallUnary(ctx, req)
 }
 
+// GetAppDetail calls panel.agent.v1.AppService.GetAppDetail.
+func (c *appServiceClient) GetAppDetail(ctx context.Context, req *connect.Request[v1.GetAppDetailRequest]) (*connect.Response[v1.AppDetailDocument], error) {
+	return c.getAppDetail.CallUnary(ctx, req)
+}
+
+// GetAppDetailByID calls panel.agent.v1.AppService.GetAppDetailByID.
+func (c *appServiceClient) GetAppDetailByID(ctx context.Context, req *connect.Request[v1.GetAppDetailByIDRequest]) (*connect.Response[v1.AppDetailDocument], error) {
+	return c.getAppDetailByID.CallUnary(ctx, req)
+}
+
+// GetAppDetailByKey calls panel.agent.v1.AppService.GetAppDetailByKey.
+func (c *appServiceClient) GetAppDetailByKey(ctx context.Context, req *connect.Request[v1.GetAppDetailByKeyRequest]) (*connect.Response[v1.IdResponse], error) {
+	return c.getAppDetailByKey.CallUnary(ctx, req)
+}
+
+// GetAppTags calls panel.agent.v1.AppService.GetAppTags.
+func (c *appServiceClient) GetAppTags(ctx context.Context, req *connect.Request[v1.GetAppTagsRequest]) (*connect.Response[v1.AppTagsResponse], error) {
+	return c.getAppTags.CallUnary(ctx, req)
+}
+
+// GetAppUpdate calls panel.agent.v1.AppService.GetAppUpdate.
+func (c *appServiceClient) GetAppUpdate(ctx context.Context, req *connect.Request[v1.GetAppUpdateRequest]) (*connect.Response[v1.AppUpdateInfo], error) {
+	return c.getAppUpdate.CallUnary(ctx, req)
+}
+
+// ListIgnoredApps calls panel.agent.v1.AppService.ListIgnoredApps.
+func (c *appServiceClient) ListIgnoredApps(ctx context.Context, req *connect.Request[v1.ListIgnoredAppsRequest]) (*connect.Response[v1.IgnoredAppsResponse], error) {
+	return c.listIgnoredApps.CallUnary(ctx, req)
+}
+
+// IgnoreAppUpgrade calls panel.agent.v1.AppService.IgnoreAppUpgrade.
+func (c *appServiceClient) IgnoreAppUpgrade(ctx context.Context, req *connect.Request[v1.IgnoreAppUpgradeRequest]) (*connect.Response[v1.IgnoreAppUpgradeResponse], error) {
+	return c.ignoreAppUpgrade.CallUnary(ctx, req)
+}
+
+// CancelIgnoreAppUpgrade calls panel.agent.v1.AppService.CancelIgnoreAppUpgrade.
+func (c *appServiceClient) CancelIgnoreAppUpgrade(ctx context.Context, req *connect.Request[v1.CancelIgnoreAppUpgradeRequest]) (*connect.Response[v1.CancelIgnoreAppUpgradeResponse], error) {
+	return c.cancelIgnoreAppUpgrade.CallUnary(ctx, req)
+}
+
+// ListInstalled calls panel.agent.v1.AppService.ListInstalled.
+func (c *appServiceClient) ListInstalled(ctx context.Context, req *connect.Request[v1.ListInstalledRequest]) (*connect.Response[v1.ListInstalledResponse], error) {
+	return c.listInstalled.CallUnary(ctx, req)
+}
+
+// CheckDeleteInstalled calls panel.agent.v1.AppService.CheckDeleteInstalled.
+func (c *appServiceClient) CheckDeleteInstalled(ctx context.Context, req *connect.Request[v1.CheckDeleteInstalledRequest]) (*connect.Response[v1.CheckDeleteInstalledResponse], error) {
+	return c.checkDeleteInstalled.CallUnary(ctx, req)
+}
+
+// SyncInstalled calls panel.agent.v1.AppService.SyncInstalled.
+func (c *appServiceClient) SyncInstalled(ctx context.Context, req *connect.Request[v1.SyncInstalledRequest]) (*connect.Response[v1.SyncInstalledResponse], error) {
+	return c.syncInstalled.CallUnary(ctx, req)
+}
+
+// GetAppServices calls panel.agent.v1.AppService.GetAppServices.
+func (c *appServiceClient) GetAppServices(ctx context.Context, req *connect.Request[v1.GetAppServicesRequest]) (*connect.Response[v1.GetAppServicesResponse], error) {
+	return c.getAppServices.CallUnary(ctx, req)
+}
+
+// ChangeAppPort calls panel.agent.v1.AppService.ChangeAppPort.
+func (c *appServiceClient) ChangeAppPort(ctx context.Context, req *connect.Request[v1.ChangeAppPortRequest]) (*connect.Response[v1.ChangeAppPortResponse], error) {
+	return c.changeAppPort.CallUnary(ctx, req)
+}
+
+// GetDefaultConfig calls panel.agent.v1.AppService.GetDefaultConfig.
+func (c *appServiceClient) GetDefaultConfig(ctx context.Context, req *connect.Request[v1.GetDefaultConfigRequest]) (*connect.Response[v1.GetDefaultConfigResponse], error) {
+	return c.getDefaultConfig.CallUnary(ctx, req)
+}
+
+// GetInstalledParams calls panel.agent.v1.AppService.GetInstalledParams.
+func (c *appServiceClient) GetInstalledParams(ctx context.Context, req *connect.Request[v1.GetInstalledParamsRequest]) (*connect.Response[v1.InstalledParamsResponse], error) {
+	return c.getInstalledParams.CallUnary(ctx, req)
+}
+
+// UpdateInstalled calls panel.agent.v1.AppService.UpdateInstalled.
+func (c *appServiceClient) UpdateInstalled(ctx context.Context, req *connect.Request[v1.UpdateInstalledRequest]) (*connect.Response[v1.UpdateInstalledResponse], error) {
+	return c.updateInstalled.CallUnary(ctx, req)
+}
+
+// UpdateInstalledConfig calls panel.agent.v1.AppService.UpdateInstalledConfig.
+func (c *appServiceClient) UpdateInstalledConfig(ctx context.Context, req *connect.Request[v1.UpdateInstalledConfigRequest]) (*connect.Response[v1.UpdateInstalledConfigResponse], error) {
+	return c.updateInstalledConfig.CallUnary(ctx, req)
+}
+
+// GetInstalledInfo calls panel.agent.v1.AppService.GetInstalledInfo.
+func (c *appServiceClient) GetInstalledInfo(ctx context.Context, req *connect.Request[v1.GetInstalledInfoRequest]) (*connect.Response[v1.InstalledInfo], error) {
+	return c.getInstalledInfo.CallUnary(ctx, req)
+}
+
+// UpdateInstalledSort calls panel.agent.v1.AppService.UpdateInstalledSort.
+func (c *appServiceClient) UpdateInstalledSort(ctx context.Context, req *connect.Request[v1.UpdateInstalledSortRequest]) (*connect.Response[v1.UpdateInstalledSortResponse], error) {
+	return c.updateInstalledSort.CallUnary(ctx, req)
+}
+
+// SyncAppsFromRemote calls panel.agent.v1.AppService.SyncAppsFromRemote.
+func (c *appServiceClient) SyncAppsFromRemote(ctx context.Context, req *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error) {
+	return c.syncAppsFromRemote.CallUnary(ctx, req)
+}
+
+// SyncAppsFromLocal calls panel.agent.v1.AppService.SyncAppsFromLocal.
+func (c *appServiceClient) SyncAppsFromLocal(ctx context.Context, req *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error) {
+	return c.syncAppsFromLocal.CallUnary(ctx, req)
+}
+
+// LoadAppPort calls panel.agent.v1.AppService.LoadAppPort.
+func (c *appServiceClient) LoadAppPort(ctx context.Context, req *connect.Request[v1.LoadAppPortRequest]) (*connect.Response[v1.LoadAppPortResponse], error) {
+	return c.loadAppPort.CallUnary(ctx, req)
+}
+
+// LoadAppConnInfo calls panel.agent.v1.AppService.LoadAppConnInfo.
+func (c *appServiceClient) LoadAppConnInfo(ctx context.Context, req *connect.Request[v1.LoadAppConnInfoRequest]) (*connect.Response[v1.LoadAppConnInfoResponse], error) {
+	return c.loadAppConnInfo.CallUnary(ctx, req)
+}
+
 // AppServiceHandler is an implementation of the panel.agent.v1.AppService service.
 type AppServiceHandler interface {
 	// 按 key 查询应用信息（含版本与标签）。
@@ -190,6 +577,52 @@ type AppServiceHandler interface {
 	Operate(context.Context, *connect.Request[v1.OperateAppRequest]) (*connect.Response[v1.OperateAppResponse], error)
 	// 分页查询已安装应用。
 	SearchInstalled(context.Context, *connect.Request[v1.SearchInstalledAppsRequest]) (*connect.Response[v1.SearchInstalledAppsResponse], error)
+	// 按应用 ID、版本与类型查询应用详情。
+	GetAppDetail(context.Context, *connect.Request[v1.GetAppDetailRequest]) (*connect.Response[v1.AppDetailDocument], error)
+	// 按应用详情 ID 查询详情。
+	GetAppDetailByID(context.Context, *connect.Request[v1.GetAppDetailByIDRequest]) (*connect.Response[v1.AppDetailDocument], error)
+	// 按应用 key 与版本查询应用详情 ID。
+	GetAppDetailByKey(context.Context, *connect.Request[v1.GetAppDetailByKeyRequest]) (*connect.Response[v1.IdResponse], error)
+	// 查询应用商店标签。
+	GetAppTags(context.Context, *connect.Request[v1.GetAppTagsRequest]) (*connect.Response[v1.AppTagsResponse], error)
+	// 检查应用商店是否有更新。
+	GetAppUpdate(context.Context, *connect.Request[v1.GetAppUpdateRequest]) (*connect.Response[v1.AppUpdateInfo], error)
+	// 查询已忽略升级的应用。
+	ListIgnoredApps(context.Context, *connect.Request[v1.ListIgnoredAppsRequest]) (*connect.Response[v1.IgnoredAppsResponse], error)
+	// 忽略指定应用的升级。
+	IgnoreAppUpgrade(context.Context, *connect.Request[v1.IgnoreAppUpgradeRequest]) (*connect.Response[v1.IgnoreAppUpgradeResponse], error)
+	// 取消忽略应用升级。
+	CancelIgnoreAppUpgrade(context.Context, *connect.Request[v1.CancelIgnoreAppUpgradeRequest]) (*connect.Response[v1.CancelIgnoreAppUpgradeResponse], error)
+	// 列出全部已安装应用的摘要。
+	ListInstalled(context.Context, *connect.Request[v1.ListInstalledRequest]) (*connect.Response[v1.ListInstalledResponse], error)
+	// 删除安装前检查关联资源。
+	CheckDeleteInstalled(context.Context, *connect.Request[v1.CheckDeleteInstalledRequest]) (*connect.Response[v1.CheckDeleteInstalledResponse], error)
+	// 同步已安装应用列表。
+	SyncInstalled(context.Context, *connect.Request[v1.SyncInstalledRequest]) (*connect.Response[v1.SyncInstalledResponse], error)
+	// 查询应用定义里的服务列表。
+	GetAppServices(context.Context, *connect.Request[v1.GetAppServicesRequest]) (*connect.Response[v1.GetAppServicesResponse], error)
+	// 修改已安装应用的端口。
+	ChangeAppPort(context.Context, *connect.Request[v1.ChangeAppPortRequest]) (*connect.Response[v1.ChangeAppPortResponse], error)
+	// 查询应用默认配置文件内容。
+	GetDefaultConfig(context.Context, *connect.Request[v1.GetDefaultConfigRequest]) (*connect.Response[v1.GetDefaultConfigResponse], error)
+	// 查询已安装应用的参数。
+	GetInstalledParams(context.Context, *connect.Request[v1.GetInstalledParamsRequest]) (*connect.Response[v1.InstalledParamsResponse], error)
+	// 更新已安装应用的参数与容器配置。
+	UpdateInstalled(context.Context, *connect.Request[v1.UpdateInstalledRequest]) (*connect.Response[v1.UpdateInstalledResponse], error)
+	// 更新已安装应用的 WebUI 配置。
+	UpdateInstalledConfig(context.Context, *connect.Request[v1.UpdateInstalledConfigRequest]) (*connect.Response[v1.UpdateInstalledConfigResponse], error)
+	// 查询已安装应用的运行信息。
+	GetInstalledInfo(context.Context, *connect.Request[v1.GetInstalledInfoRequest]) (*connect.Response[v1.InstalledInfo], error)
+	// 更新已安装应用的排序。
+	UpdateInstalledSort(context.Context, *connect.Request[v1.UpdateInstalledSortRequest]) (*connect.Response[v1.UpdateInstalledSortResponse], error)
+	// 从远端同步应用商店列表。
+	SyncAppsFromRemote(context.Context, *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error)
+	// 从本地同步应用商店列表。
+	SyncAppsFromLocal(context.Context, *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error)
+	// 查询应用可用的端口。
+	LoadAppPort(context.Context, *connect.Request[v1.LoadAppPortRequest]) (*connect.Response[v1.LoadAppPortResponse], error)
+	// 查询应用数据库连接信息。
+	LoadAppConnInfo(context.Context, *connect.Request[v1.LoadAppConnInfoRequest]) (*connect.Response[v1.LoadAppConnInfoResponse], error)
 }
 
 // NewAppServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -241,6 +674,144 @@ func NewAppServiceHandler(svc AppServiceHandler, opts ...connect.HandlerOption) 
 		connect.WithSchema(appServiceMethods.ByName("SearchInstalled")),
 		connect.WithHandlerOptions(opts...),
 	)
+	appServiceGetAppDetailHandler := connect.NewUnaryHandler(
+		AppServiceGetAppDetailProcedure,
+		svc.GetAppDetail,
+		connect.WithSchema(appServiceMethods.ByName("GetAppDetail")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetAppDetailByIDHandler := connect.NewUnaryHandler(
+		AppServiceGetAppDetailByIDProcedure,
+		svc.GetAppDetailByID,
+		connect.WithSchema(appServiceMethods.ByName("GetAppDetailByID")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetAppDetailByKeyHandler := connect.NewUnaryHandler(
+		AppServiceGetAppDetailByKeyProcedure,
+		svc.GetAppDetailByKey,
+		connect.WithSchema(appServiceMethods.ByName("GetAppDetailByKey")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetAppTagsHandler := connect.NewUnaryHandler(
+		AppServiceGetAppTagsProcedure,
+		svc.GetAppTags,
+		connect.WithSchema(appServiceMethods.ByName("GetAppTags")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetAppUpdateHandler := connect.NewUnaryHandler(
+		AppServiceGetAppUpdateProcedure,
+		svc.GetAppUpdate,
+		connect.WithSchema(appServiceMethods.ByName("GetAppUpdate")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceListIgnoredAppsHandler := connect.NewUnaryHandler(
+		AppServiceListIgnoredAppsProcedure,
+		svc.ListIgnoredApps,
+		connect.WithSchema(appServiceMethods.ByName("ListIgnoredApps")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceIgnoreAppUpgradeHandler := connect.NewUnaryHandler(
+		AppServiceIgnoreAppUpgradeProcedure,
+		svc.IgnoreAppUpgrade,
+		connect.WithSchema(appServiceMethods.ByName("IgnoreAppUpgrade")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceCancelIgnoreAppUpgradeHandler := connect.NewUnaryHandler(
+		AppServiceCancelIgnoreAppUpgradeProcedure,
+		svc.CancelIgnoreAppUpgrade,
+		connect.WithSchema(appServiceMethods.ByName("CancelIgnoreAppUpgrade")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceListInstalledHandler := connect.NewUnaryHandler(
+		AppServiceListInstalledProcedure,
+		svc.ListInstalled,
+		connect.WithSchema(appServiceMethods.ByName("ListInstalled")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceCheckDeleteInstalledHandler := connect.NewUnaryHandler(
+		AppServiceCheckDeleteInstalledProcedure,
+		svc.CheckDeleteInstalled,
+		connect.WithSchema(appServiceMethods.ByName("CheckDeleteInstalled")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceSyncInstalledHandler := connect.NewUnaryHandler(
+		AppServiceSyncInstalledProcedure,
+		svc.SyncInstalled,
+		connect.WithSchema(appServiceMethods.ByName("SyncInstalled")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetAppServicesHandler := connect.NewUnaryHandler(
+		AppServiceGetAppServicesProcedure,
+		svc.GetAppServices,
+		connect.WithSchema(appServiceMethods.ByName("GetAppServices")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceChangeAppPortHandler := connect.NewUnaryHandler(
+		AppServiceChangeAppPortProcedure,
+		svc.ChangeAppPort,
+		connect.WithSchema(appServiceMethods.ByName("ChangeAppPort")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetDefaultConfigHandler := connect.NewUnaryHandler(
+		AppServiceGetDefaultConfigProcedure,
+		svc.GetDefaultConfig,
+		connect.WithSchema(appServiceMethods.ByName("GetDefaultConfig")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetInstalledParamsHandler := connect.NewUnaryHandler(
+		AppServiceGetInstalledParamsProcedure,
+		svc.GetInstalledParams,
+		connect.WithSchema(appServiceMethods.ByName("GetInstalledParams")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceUpdateInstalledHandler := connect.NewUnaryHandler(
+		AppServiceUpdateInstalledProcedure,
+		svc.UpdateInstalled,
+		connect.WithSchema(appServiceMethods.ByName("UpdateInstalled")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceUpdateInstalledConfigHandler := connect.NewUnaryHandler(
+		AppServiceUpdateInstalledConfigProcedure,
+		svc.UpdateInstalledConfig,
+		connect.WithSchema(appServiceMethods.ByName("UpdateInstalledConfig")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceGetInstalledInfoHandler := connect.NewUnaryHandler(
+		AppServiceGetInstalledInfoProcedure,
+		svc.GetInstalledInfo,
+		connect.WithSchema(appServiceMethods.ByName("GetInstalledInfo")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceUpdateInstalledSortHandler := connect.NewUnaryHandler(
+		AppServiceUpdateInstalledSortProcedure,
+		svc.UpdateInstalledSort,
+		connect.WithSchema(appServiceMethods.ByName("UpdateInstalledSort")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceSyncAppsFromRemoteHandler := connect.NewUnaryHandler(
+		AppServiceSyncAppsFromRemoteProcedure,
+		svc.SyncAppsFromRemote,
+		connect.WithSchema(appServiceMethods.ByName("SyncAppsFromRemote")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceSyncAppsFromLocalHandler := connect.NewUnaryHandler(
+		AppServiceSyncAppsFromLocalProcedure,
+		svc.SyncAppsFromLocal,
+		connect.WithSchema(appServiceMethods.ByName("SyncAppsFromLocal")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceLoadAppPortHandler := connect.NewUnaryHandler(
+		AppServiceLoadAppPortProcedure,
+		svc.LoadAppPort,
+		connect.WithSchema(appServiceMethods.ByName("LoadAppPort")),
+		connect.WithHandlerOptions(opts...),
+	)
+	appServiceLoadAppConnInfoHandler := connect.NewUnaryHandler(
+		AppServiceLoadAppConnInfoProcedure,
+		svc.LoadAppConnInfo,
+		connect.WithSchema(appServiceMethods.ByName("LoadAppConnInfo")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/panel.agent.v1.AppService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AppServiceGetAppProcedure:
@@ -257,6 +828,52 @@ func NewAppServiceHandler(svc AppServiceHandler, opts ...connect.HandlerOption) 
 			appServiceOperateHandler.ServeHTTP(w, r)
 		case AppServiceSearchInstalledProcedure:
 			appServiceSearchInstalledHandler.ServeHTTP(w, r)
+		case AppServiceGetAppDetailProcedure:
+			appServiceGetAppDetailHandler.ServeHTTP(w, r)
+		case AppServiceGetAppDetailByIDProcedure:
+			appServiceGetAppDetailByIDHandler.ServeHTTP(w, r)
+		case AppServiceGetAppDetailByKeyProcedure:
+			appServiceGetAppDetailByKeyHandler.ServeHTTP(w, r)
+		case AppServiceGetAppTagsProcedure:
+			appServiceGetAppTagsHandler.ServeHTTP(w, r)
+		case AppServiceGetAppUpdateProcedure:
+			appServiceGetAppUpdateHandler.ServeHTTP(w, r)
+		case AppServiceListIgnoredAppsProcedure:
+			appServiceListIgnoredAppsHandler.ServeHTTP(w, r)
+		case AppServiceIgnoreAppUpgradeProcedure:
+			appServiceIgnoreAppUpgradeHandler.ServeHTTP(w, r)
+		case AppServiceCancelIgnoreAppUpgradeProcedure:
+			appServiceCancelIgnoreAppUpgradeHandler.ServeHTTP(w, r)
+		case AppServiceListInstalledProcedure:
+			appServiceListInstalledHandler.ServeHTTP(w, r)
+		case AppServiceCheckDeleteInstalledProcedure:
+			appServiceCheckDeleteInstalledHandler.ServeHTTP(w, r)
+		case AppServiceSyncInstalledProcedure:
+			appServiceSyncInstalledHandler.ServeHTTP(w, r)
+		case AppServiceGetAppServicesProcedure:
+			appServiceGetAppServicesHandler.ServeHTTP(w, r)
+		case AppServiceChangeAppPortProcedure:
+			appServiceChangeAppPortHandler.ServeHTTP(w, r)
+		case AppServiceGetDefaultConfigProcedure:
+			appServiceGetDefaultConfigHandler.ServeHTTP(w, r)
+		case AppServiceGetInstalledParamsProcedure:
+			appServiceGetInstalledParamsHandler.ServeHTTP(w, r)
+		case AppServiceUpdateInstalledProcedure:
+			appServiceUpdateInstalledHandler.ServeHTTP(w, r)
+		case AppServiceUpdateInstalledConfigProcedure:
+			appServiceUpdateInstalledConfigHandler.ServeHTTP(w, r)
+		case AppServiceGetInstalledInfoProcedure:
+			appServiceGetInstalledInfoHandler.ServeHTTP(w, r)
+		case AppServiceUpdateInstalledSortProcedure:
+			appServiceUpdateInstalledSortHandler.ServeHTTP(w, r)
+		case AppServiceSyncAppsFromRemoteProcedure:
+			appServiceSyncAppsFromRemoteHandler.ServeHTTP(w, r)
+		case AppServiceSyncAppsFromLocalProcedure:
+			appServiceSyncAppsFromLocalHandler.ServeHTTP(w, r)
+		case AppServiceLoadAppPortProcedure:
+			appServiceLoadAppPortHandler.ServeHTTP(w, r)
+		case AppServiceLoadAppConnInfoProcedure:
+			appServiceLoadAppConnInfoHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -292,4 +909,96 @@ func (UnimplementedAppServiceHandler) Operate(context.Context, *connect.Request[
 
 func (UnimplementedAppServiceHandler) SearchInstalled(context.Context, *connect.Request[v1.SearchInstalledAppsRequest]) (*connect.Response[v1.SearchInstalledAppsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.SearchInstalled is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetAppDetail(context.Context, *connect.Request[v1.GetAppDetailRequest]) (*connect.Response[v1.AppDetailDocument], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetAppDetail is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetAppDetailByID(context.Context, *connect.Request[v1.GetAppDetailByIDRequest]) (*connect.Response[v1.AppDetailDocument], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetAppDetailByID is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetAppDetailByKey(context.Context, *connect.Request[v1.GetAppDetailByKeyRequest]) (*connect.Response[v1.IdResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetAppDetailByKey is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetAppTags(context.Context, *connect.Request[v1.GetAppTagsRequest]) (*connect.Response[v1.AppTagsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetAppTags is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetAppUpdate(context.Context, *connect.Request[v1.GetAppUpdateRequest]) (*connect.Response[v1.AppUpdateInfo], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetAppUpdate is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) ListIgnoredApps(context.Context, *connect.Request[v1.ListIgnoredAppsRequest]) (*connect.Response[v1.IgnoredAppsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.ListIgnoredApps is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) IgnoreAppUpgrade(context.Context, *connect.Request[v1.IgnoreAppUpgradeRequest]) (*connect.Response[v1.IgnoreAppUpgradeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.IgnoreAppUpgrade is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) CancelIgnoreAppUpgrade(context.Context, *connect.Request[v1.CancelIgnoreAppUpgradeRequest]) (*connect.Response[v1.CancelIgnoreAppUpgradeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.CancelIgnoreAppUpgrade is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) ListInstalled(context.Context, *connect.Request[v1.ListInstalledRequest]) (*connect.Response[v1.ListInstalledResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.ListInstalled is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) CheckDeleteInstalled(context.Context, *connect.Request[v1.CheckDeleteInstalledRequest]) (*connect.Response[v1.CheckDeleteInstalledResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.CheckDeleteInstalled is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) SyncInstalled(context.Context, *connect.Request[v1.SyncInstalledRequest]) (*connect.Response[v1.SyncInstalledResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.SyncInstalled is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetAppServices(context.Context, *connect.Request[v1.GetAppServicesRequest]) (*connect.Response[v1.GetAppServicesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetAppServices is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) ChangeAppPort(context.Context, *connect.Request[v1.ChangeAppPortRequest]) (*connect.Response[v1.ChangeAppPortResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.ChangeAppPort is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetDefaultConfig(context.Context, *connect.Request[v1.GetDefaultConfigRequest]) (*connect.Response[v1.GetDefaultConfigResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetDefaultConfig is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetInstalledParams(context.Context, *connect.Request[v1.GetInstalledParamsRequest]) (*connect.Response[v1.InstalledParamsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetInstalledParams is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) UpdateInstalled(context.Context, *connect.Request[v1.UpdateInstalledRequest]) (*connect.Response[v1.UpdateInstalledResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.UpdateInstalled is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) UpdateInstalledConfig(context.Context, *connect.Request[v1.UpdateInstalledConfigRequest]) (*connect.Response[v1.UpdateInstalledConfigResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.UpdateInstalledConfig is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) GetInstalledInfo(context.Context, *connect.Request[v1.GetInstalledInfoRequest]) (*connect.Response[v1.InstalledInfo], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.GetInstalledInfo is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) UpdateInstalledSort(context.Context, *connect.Request[v1.UpdateInstalledSortRequest]) (*connect.Response[v1.UpdateInstalledSortResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.UpdateInstalledSort is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) SyncAppsFromRemote(context.Context, *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.SyncAppsFromRemote is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) SyncAppsFromLocal(context.Context, *connect.Request[v1.SyncAppsRequest]) (*connect.Response[v1.SyncAppsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.SyncAppsFromLocal is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) LoadAppPort(context.Context, *connect.Request[v1.LoadAppPortRequest]) (*connect.Response[v1.LoadAppPortResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.LoadAppPort is not implemented"))
+}
+
+func (UnimplementedAppServiceHandler) LoadAppConnInfo(context.Context, *connect.Request[v1.LoadAppConnInfoRequest]) (*connect.Response[v1.LoadAppConnInfoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("panel.agent.v1.AppService.LoadAppConnInfo is not implemented"))
 }

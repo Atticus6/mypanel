@@ -683,37 +683,56 @@
     {
       "method": "GET",
       "path": "/apps/checkupdate",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetAppUpdate",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetAppUpdate",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/detail/:appId/:version/:type",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetAppDetail",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetAppDetail",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/detail/node/:appKey/:version",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetAppDetailByKey",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetAppDetailByKey",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/details/:id",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetAppDetailByID",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetAppDetailByID",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/icon/:key",
+      "excluded": true,
       "covered": false
     },
     {
       "method": "POST",
       "path": "/apps/ignored/cancel",
-      "covered": false
+      "target": "panel.agent.v1.AppService.CancelIgnoreAppUpgrade",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "CancelIgnoreAppUpgrade",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/ignored/detail",
-      "covered": false
+      "target": "panel.agent.v1.AppService.ListIgnoredApps",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "ListIgnoredApps",
+      "covered": true
     },
     {
       "method": "POST",
@@ -734,42 +753,66 @@
     {
       "method": "POST",
       "path": "/apps/installed/conf",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetDefaultConfig",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetDefaultConfig",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/installed/config/update",
-      "covered": false
+      "target": "panel.agent.v1.AppService.UpdateInstalledConfig",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "UpdateInstalledConfig",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/installed/conninfo",
-      "covered": false
+      "target": "panel.agent.v1.AppService.LoadAppConnInfo",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "LoadAppConnInfo",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/installed/delete/check/:appInstallId",
-      "covered": false
+      "target": "panel.agent.v1.AppService.CheckDeleteInstalled",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "CheckDeleteInstalled",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/installed/ignore",
-      "covered": false
+      "target": "panel.agent.v1.AppService.IgnoreAppUpgrade",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "IgnoreAppUpgrade",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/installed/info/:appInstallId",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetInstalledInfo",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetInstalledInfo",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/installed/list",
-      "covered": false
+      "target": "panel.agent.v1.AppService.ListInstalled",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "ListInstalled",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/installed/loadport",
-      "covered": false
+      "target": "panel.agent.v1.AppService.LoadAppPort",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "LoadAppPort",
+      "covered": true
     },
     {
       "method": "POST",
@@ -782,17 +825,26 @@
     {
       "method": "GET",
       "path": "/apps/installed/params/:appInstallId",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetInstalledParams",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetInstalledParams",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/installed/params/update",
-      "covered": false
+      "target": "panel.agent.v1.AppService.UpdateInstalled",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "UpdateInstalled",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/installed/port/change",
-      "covered": false
+      "target": "panel.agent.v1.AppService.ChangeAppPort",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "ChangeAppPort",
+      "covered": true
     },
     {
       "method": "POST",
@@ -805,12 +857,18 @@
     {
       "method": "POST",
       "path": "/apps/installed/sort/update",
-      "covered": false
+      "target": "panel.agent.v1.AppService.UpdateInstalledSort",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "UpdateInstalledSort",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/installed/sync",
-      "covered": false
+      "target": "panel.agent.v1.AppService.SyncInstalled",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "SyncInstalled",
+      "covered": true
     },
     {
       "method": "POST",
@@ -831,22 +889,34 @@
     {
       "method": "GET",
       "path": "/apps/services/:key",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetAppServices",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetAppServices",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/sync/local",
-      "covered": false
+      "target": "panel.agent.v1.AppService.SyncAppsFromLocal",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "SyncAppsFromLocal",
+      "covered": true
     },
     {
       "method": "POST",
       "path": "/apps/sync/remote",
-      "covered": false
+      "target": "panel.agent.v1.AppService.SyncAppsFromRemote",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "SyncAppsFromRemote",
+      "covered": true
     },
     {
       "method": "GET",
       "path": "/apps/tags",
-      "covered": false
+      "target": "panel.agent.v1.AppService.GetAppTags",
+      "service": "panel.agent.v1.AppService",
+      "rpc": "GetAppTags",
+      "covered": true
     },
     {
       "method": "POST",

@@ -1616,6 +1616,2634 @@ func (*OperateAppResponse) Descriptor() ([]byte, []int) {
 	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{15}
 }
 
+// GetAppDetailRequest 是应用详情查询参数。
+type GetAppDetailRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 ID。
+	AppId uint32 `protobuf:"varint,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	// 应用版本。
+	Version string `protobuf:"bytes,2,opt,name=version,proto3" json:"version,omitempty"`
+	// 应用类型。
+	Type          string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppDetailRequest) Reset() {
+	*x = GetAppDetailRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppDetailRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppDetailRequest) ProtoMessage() {}
+
+func (x *GetAppDetailRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppDetailRequest.ProtoReflect.Descriptor instead.
+func (*GetAppDetailRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetAppDetailRequest) GetAppId() uint32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
+}
+
+func (x *GetAppDetailRequest) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
+func (x *GetAppDetailRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+// GetAppDetailByIDRequest 是按详情 ID 查询参数。
+type GetAppDetailByIDRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用详情 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppDetailByIDRequest) Reset() {
+	*x = GetAppDetailByIDRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppDetailByIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppDetailByIDRequest) ProtoMessage() {}
+
+func (x *GetAppDetailByIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppDetailByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetAppDetailByIDRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GetAppDetailByIDRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// GetAppDetailByKeyRequest 是按 key 与版本查询参数。
+type GetAppDetailByKeyRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 key。
+	AppKey string `protobuf:"bytes,1,opt,name=app_key,json=appKey,proto3" json:"app_key,omitempty"`
+	// 应用版本。
+	Version       string `protobuf:"bytes,2,opt,name=version,proto3" json:"version,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppDetailByKeyRequest) Reset() {
+	*x = GetAppDetailByKeyRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppDetailByKeyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppDetailByKeyRequest) ProtoMessage() {}
+
+func (x *GetAppDetailByKeyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppDetailByKeyRequest.ProtoReflect.Descriptor instead.
+func (*GetAppDetailByKeyRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetAppDetailByKeyRequest) GetAppKey() string {
+	if x != nil {
+		return x.AppKey
+	}
+	return ""
+}
+
+func (x *GetAppDetailByKeyRequest) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
+// AppDetailDocument 是应用详情的 JSON 表示。
+//
+// 详情里的参数值、Compose 片段结构随应用定义变化，无法稳定映射成 proto 字段，
+// 因此原样序列化为 JSON，由前端按应用定义解释。
+type AppDetailDocument struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用详情的 JSON 字符串。
+	DetailJson    string `protobuf:"bytes,1,opt,name=detail_json,json=detailJson,proto3" json:"detail_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppDetailDocument) Reset() {
+	*x = AppDetailDocument{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppDetailDocument) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppDetailDocument) ProtoMessage() {}
+
+func (x *AppDetailDocument) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppDetailDocument.ProtoReflect.Descriptor instead.
+func (*AppDetailDocument) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *AppDetailDocument) GetDetailJson() string {
+	if x != nil {
+		return x.DetailJson
+	}
+	return ""
+}
+
+// IdResponse 仅返回一个 ID。
+type IdResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 目标 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IdResponse) Reset() {
+	*x = IdResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IdResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IdResponse) ProtoMessage() {}
+
+func (x *IdResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IdResponse.ProtoReflect.Descriptor instead.
+func (*IdResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *IdResponse) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// GetAppTagsRequest 是标签查询参数，无业务字段。
+type GetAppTagsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppTagsRequest) Reset() {
+	*x = GetAppTagsRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppTagsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppTagsRequest) ProtoMessage() {}
+
+func (x *GetAppTagsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppTagsRequest.ProtoReflect.Descriptor instead.
+func (*GetAppTagsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{21}
+}
+
+// AppTagsResponse 是标签列表结果。
+type AppTagsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 标签列表。
+	Items         []*AppTag `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppTagsResponse) Reset() {
+	*x = AppTagsResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppTagsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppTagsResponse) ProtoMessage() {}
+
+func (x *AppTagsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppTagsResponse.ProtoReflect.Descriptor instead.
+func (*AppTagsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *AppTagsResponse) GetItems() []*AppTag {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// AppTag 是一个应用标签。
+type AppTag struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 标签 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 标签键。
+	Key string `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
+	// 标签名称。
+	Name          string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppTag) Reset() {
+	*x = AppTag{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppTag) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppTag) ProtoMessage() {}
+
+func (x *AppTag) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppTag.ProtoReflect.Descriptor instead.
+func (*AppTag) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *AppTag) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AppTag) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *AppTag) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+// GetAppUpdateRequest 是应用商店更新检查参数，无业务字段。
+type GetAppUpdateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppUpdateRequest) Reset() {
+	*x = GetAppUpdateRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppUpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppUpdateRequest) ProtoMessage() {}
+
+func (x *GetAppUpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppUpdateRequest.ProtoReflect.Descriptor instead.
+func (*GetAppUpdateRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{24}
+}
+
+// AppUpdateInfo 是应用商店更新状态。
+type AppUpdateInfo struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 是否有可更新内容。
+	CanUpdate bool `protobuf:"varint,1,opt,name=can_update,json=canUpdate,proto3" json:"can_update,omitempty"`
+	// 是否正在同步。
+	IsSyncing bool `protobuf:"varint,2,opt,name=is_syncing,json=isSyncing,proto3" json:"is_syncing,omitempty"`
+	// 应用商店最近修改时间戳。
+	AppStoreLastModified int32 `protobuf:"varint,3,opt,name=app_store_last_modified,json=appStoreLastModified,proto3" json:"app_store_last_modified,omitempty"`
+	// 应用清单的 JSON 字符串。
+	AppListJson   string `protobuf:"bytes,4,opt,name=app_list_json,json=appListJson,proto3" json:"app_list_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppUpdateInfo) Reset() {
+	*x = AppUpdateInfo{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppUpdateInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppUpdateInfo) ProtoMessage() {}
+
+func (x *AppUpdateInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppUpdateInfo.ProtoReflect.Descriptor instead.
+func (*AppUpdateInfo) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *AppUpdateInfo) GetCanUpdate() bool {
+	if x != nil {
+		return x.CanUpdate
+	}
+	return false
+}
+
+func (x *AppUpdateInfo) GetIsSyncing() bool {
+	if x != nil {
+		return x.IsSyncing
+	}
+	return false
+}
+
+func (x *AppUpdateInfo) GetAppStoreLastModified() int32 {
+	if x != nil {
+		return x.AppStoreLastModified
+	}
+	return 0
+}
+
+func (x *AppUpdateInfo) GetAppListJson() string {
+	if x != nil {
+		return x.AppListJson
+	}
+	return ""
+}
+
+// ListIgnoredAppsRequest 是忽略列表查询参数，无业务字段。
+type ListIgnoredAppsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListIgnoredAppsRequest) Reset() {
+	*x = ListIgnoredAppsRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListIgnoredAppsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListIgnoredAppsRequest) ProtoMessage() {}
+
+func (x *ListIgnoredAppsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListIgnoredAppsRequest.ProtoReflect.Descriptor instead.
+func (*ListIgnoredAppsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{26}
+}
+
+// IgnoredAppsResponse 是忽略升级的应用列表。
+type IgnoredAppsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 忽略记录。
+	Items         []*IgnoredApp `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IgnoredAppsResponse) Reset() {
+	*x = IgnoredAppsResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IgnoredAppsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IgnoredAppsResponse) ProtoMessage() {}
+
+func (x *IgnoredAppsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IgnoredAppsResponse.ProtoReflect.Descriptor instead.
+func (*IgnoredAppsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *IgnoredAppsResponse) GetItems() []*IgnoredApp {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// IgnoredApp 是一条忽略升级记录。
+type IgnoredApp struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 记录 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 应用 ID。
+	AppId uint32 `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	// 应用详情 ID。
+	AppDetailId uint32 `protobuf:"varint,3,opt,name=app_detail_id,json=appDetailId,proto3" json:"app_detail_id,omitempty"`
+	// 忽略范围：all 或 version。
+	Scope string `protobuf:"bytes,4,opt,name=scope,proto3" json:"scope,omitempty"`
+	// 忽略的版本。
+	Version string `protobuf:"bytes,5,opt,name=version,proto3" json:"version,omitempty"`
+	// 应用名称。
+	Name          string `protobuf:"bytes,6,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IgnoredApp) Reset() {
+	*x = IgnoredApp{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IgnoredApp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IgnoredApp) ProtoMessage() {}
+
+func (x *IgnoredApp) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IgnoredApp.ProtoReflect.Descriptor instead.
+func (*IgnoredApp) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *IgnoredApp) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *IgnoredApp) GetAppId() uint32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
+}
+
+func (x *IgnoredApp) GetAppDetailId() uint32 {
+	if x != nil {
+		return x.AppDetailId
+	}
+	return 0
+}
+
+func (x *IgnoredApp) GetScope() string {
+	if x != nil {
+		return x.Scope
+	}
+	return ""
+}
+
+func (x *IgnoredApp) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
+func (x *IgnoredApp) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+// IgnoreAppUpgradeRequest 是忽略升级参数。
+type IgnoreAppUpgradeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 ID。
+	AppId uint32 `protobuf:"varint,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	// 应用详情 ID。
+	AppDetailId uint32 `protobuf:"varint,2,opt,name=app_detail_id,json=appDetailId,proto3" json:"app_detail_id,omitempty"`
+	// 忽略范围：all 表示全部版本，version 表示指定版本。
+	Scope         string `protobuf:"bytes,3,opt,name=scope,proto3" json:"scope,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IgnoreAppUpgradeRequest) Reset() {
+	*x = IgnoreAppUpgradeRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IgnoreAppUpgradeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IgnoreAppUpgradeRequest) ProtoMessage() {}
+
+func (x *IgnoreAppUpgradeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IgnoreAppUpgradeRequest.ProtoReflect.Descriptor instead.
+func (*IgnoreAppUpgradeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *IgnoreAppUpgradeRequest) GetAppId() uint32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
+}
+
+func (x *IgnoreAppUpgradeRequest) GetAppDetailId() uint32 {
+	if x != nil {
+		return x.AppDetailId
+	}
+	return 0
+}
+
+func (x *IgnoreAppUpgradeRequest) GetScope() string {
+	if x != nil {
+		return x.Scope
+	}
+	return ""
+}
+
+// IgnoreAppUpgradeResponse 是忽略结果，无业务字段。
+type IgnoreAppUpgradeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IgnoreAppUpgradeResponse) Reset() {
+	*x = IgnoreAppUpgradeResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IgnoreAppUpgradeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IgnoreAppUpgradeResponse) ProtoMessage() {}
+
+func (x *IgnoreAppUpgradeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IgnoreAppUpgradeResponse.ProtoReflect.Descriptor instead.
+func (*IgnoreAppUpgradeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{30}
+}
+
+// CancelIgnoreAppUpgradeRequest 是取消忽略参数。
+type CancelIgnoreAppUpgradeRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 忽略记录 ID。
+	Id            uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelIgnoreAppUpgradeRequest) Reset() {
+	*x = CancelIgnoreAppUpgradeRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelIgnoreAppUpgradeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelIgnoreAppUpgradeRequest) ProtoMessage() {}
+
+func (x *CancelIgnoreAppUpgradeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelIgnoreAppUpgradeRequest.ProtoReflect.Descriptor instead.
+func (*CancelIgnoreAppUpgradeRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *CancelIgnoreAppUpgradeRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// CancelIgnoreAppUpgradeResponse 是取消结果，无业务字段。
+type CancelIgnoreAppUpgradeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelIgnoreAppUpgradeResponse) Reset() {
+	*x = CancelIgnoreAppUpgradeResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelIgnoreAppUpgradeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelIgnoreAppUpgradeResponse) ProtoMessage() {}
+
+func (x *CancelIgnoreAppUpgradeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelIgnoreAppUpgradeResponse.ProtoReflect.Descriptor instead.
+func (*CancelIgnoreAppUpgradeResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{32}
+}
+
+// ListInstalledRequest 是已安装摘要查询参数，无业务字段。
+type ListInstalledRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListInstalledRequest) Reset() {
+	*x = ListInstalledRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListInstalledRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListInstalledRequest) ProtoMessage() {}
+
+func (x *ListInstalledRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListInstalledRequest.ProtoReflect.Descriptor instead.
+func (*ListInstalledRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{33}
+}
+
+// ListInstalledResponse 是已安装应用摘要列表。
+type ListInstalledResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用摘要。
+	Items         []*InstalledAppBrief `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListInstalledResponse) Reset() {
+	*x = ListInstalledResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListInstalledResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListInstalledResponse) ProtoMessage() {}
+
+func (x *ListInstalledResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListInstalledResponse.ProtoReflect.Descriptor instead.
+func (*ListInstalledResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *ListInstalledResponse) GetItems() []*InstalledAppBrief {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// InstalledAppBrief 是已安装应用的摘要。
+type InstalledAppBrief struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 应用 key。
+	Key string `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
+	// 安装名称。
+	Name          string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InstalledAppBrief) Reset() {
+	*x = InstalledAppBrief{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InstalledAppBrief) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InstalledAppBrief) ProtoMessage() {}
+
+func (x *InstalledAppBrief) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InstalledAppBrief.ProtoReflect.Descriptor instead.
+func (*InstalledAppBrief) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *InstalledAppBrief) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *InstalledAppBrief) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *InstalledAppBrief) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+// CheckDeleteInstalledRequest 是删除前检查参数。
+type CheckDeleteInstalledRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	AppInstallId  uint32 `protobuf:"varint,1,opt,name=app_install_id,json=appInstallId,proto3" json:"app_install_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckDeleteInstalledRequest) Reset() {
+	*x = CheckDeleteInstalledRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckDeleteInstalledRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckDeleteInstalledRequest) ProtoMessage() {}
+
+func (x *CheckDeleteInstalledRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckDeleteInstalledRequest.ProtoReflect.Descriptor instead.
+func (*CheckDeleteInstalledRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *CheckDeleteInstalledRequest) GetAppInstallId() uint32 {
+	if x != nil {
+		return x.AppInstallId
+	}
+	return 0
+}
+
+// CheckDeleteInstalledResponse 是关联资源列表。
+type CheckDeleteInstalledResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 关联资源。
+	Items         []*AppResource `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckDeleteInstalledResponse) Reset() {
+	*x = CheckDeleteInstalledResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckDeleteInstalledResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckDeleteInstalledResponse) ProtoMessage() {}
+
+func (x *CheckDeleteInstalledResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckDeleteInstalledResponse.ProtoReflect.Descriptor instead.
+func (*CheckDeleteInstalledResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *CheckDeleteInstalledResponse) GetItems() []*AppResource {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// AppResource 是一个关联资源。
+type AppResource struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 资源类型。
+	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	// 资源名称。
+	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppResource) Reset() {
+	*x = AppResource{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppResource) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppResource) ProtoMessage() {}
+
+func (x *AppResource) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppResource.ProtoReflect.Descriptor instead.
+func (*AppResource) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *AppResource) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *AppResource) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+// SyncInstalledRequest 是同步已安装应用参数，无业务字段。
+type SyncInstalledRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SyncInstalledRequest) Reset() {
+	*x = SyncInstalledRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SyncInstalledRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SyncInstalledRequest) ProtoMessage() {}
+
+func (x *SyncInstalledRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SyncInstalledRequest.ProtoReflect.Descriptor instead.
+func (*SyncInstalledRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{39}
+}
+
+// SyncInstalledResponse 是同步结果，无业务字段。
+type SyncInstalledResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SyncInstalledResponse) Reset() {
+	*x = SyncInstalledResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SyncInstalledResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SyncInstalledResponse) ProtoMessage() {}
+
+func (x *SyncInstalledResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SyncInstalledResponse.ProtoReflect.Descriptor instead.
+func (*SyncInstalledResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{40}
+}
+
+// GetAppServicesRequest 是服务查询参数。
+type GetAppServicesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 key。
+	Key           string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppServicesRequest) Reset() {
+	*x = GetAppServicesRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppServicesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppServicesRequest) ProtoMessage() {}
+
+func (x *GetAppServicesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppServicesRequest.ProtoReflect.Descriptor instead.
+func (*GetAppServicesRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *GetAppServicesRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+// GetAppServicesResponse 是应用服务列表。
+type GetAppServicesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 服务项。
+	Items         []*AppServiceItem `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppServicesResponse) Reset() {
+	*x = GetAppServicesResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppServicesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppServicesResponse) ProtoMessage() {}
+
+func (x *GetAppServicesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppServicesResponse.ProtoReflect.Descriptor instead.
+func (*GetAppServicesResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *GetAppServicesResponse) GetItems() []*AppServiceItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// AppServiceItem 是应用定义里的一个服务。
+type AppServiceItem struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 展示名称。
+	Label string `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
+	// 服务键。
+	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	// 来源。
+	From string `protobuf:"bytes,3,opt,name=from,proto3" json:"from,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	// 服务配置的 JSON 字符串。
+	ConfigJson    string `protobuf:"bytes,5,opt,name=config_json,json=configJson,proto3" json:"config_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AppServiceItem) Reset() {
+	*x = AppServiceItem{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AppServiceItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AppServiceItem) ProtoMessage() {}
+
+func (x *AppServiceItem) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AppServiceItem.ProtoReflect.Descriptor instead.
+func (*AppServiceItem) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *AppServiceItem) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+func (x *AppServiceItem) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+func (x *AppServiceItem) GetFrom() string {
+	if x != nil {
+		return x.From
+	}
+	return ""
+}
+
+func (x *AppServiceItem) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *AppServiceItem) GetConfigJson() string {
+	if x != nil {
+		return x.ConfigJson
+	}
+	return ""
+}
+
+// ChangeAppPortRequest 是端口修改参数。
+type ChangeAppPortRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 key。
+	Key string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	// 安装名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// 新端口。
+	Port          int64 `protobuf:"varint,3,opt,name=port,proto3" json:"port,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeAppPortRequest) Reset() {
+	*x = ChangeAppPortRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeAppPortRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeAppPortRequest) ProtoMessage() {}
+
+func (x *ChangeAppPortRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeAppPortRequest.ProtoReflect.Descriptor instead.
+func (*ChangeAppPortRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *ChangeAppPortRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *ChangeAppPortRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ChangeAppPortRequest) GetPort() int64 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
+// ChangeAppPortResponse 是修改结果，无业务字段。
+type ChangeAppPortResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeAppPortResponse) Reset() {
+	*x = ChangeAppPortResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeAppPortResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeAppPortResponse) ProtoMessage() {}
+
+func (x *ChangeAppPortResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeAppPortResponse.ProtoReflect.Descriptor instead.
+func (*ChangeAppPortResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{45}
+}
+
+// GetDefaultConfigRequest 是默认配置查询参数。
+type GetDefaultConfigRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装名称。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 配置类型。
+	Type          string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDefaultConfigRequest) Reset() {
+	*x = GetDefaultConfigRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[46]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDefaultConfigRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDefaultConfigRequest) ProtoMessage() {}
+
+func (x *GetDefaultConfigRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[46]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDefaultConfigRequest.ProtoReflect.Descriptor instead.
+func (*GetDefaultConfigRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *GetDefaultConfigRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *GetDefaultConfigRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+// GetDefaultConfigResponse 是默认配置内容。
+type GetDefaultConfigResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件内容。
+	Content       string `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDefaultConfigResponse) Reset() {
+	*x = GetDefaultConfigResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDefaultConfigResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDefaultConfigResponse) ProtoMessage() {}
+
+func (x *GetDefaultConfigResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDefaultConfigResponse.ProtoReflect.Descriptor instead.
+func (*GetDefaultConfigResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *GetDefaultConfigResponse) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+// GetInstalledParamsRequest 是已安装参数查询参数。
+type GetInstalledParamsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	AppInstallId  uint32 `protobuf:"varint,1,opt,name=app_install_id,json=appInstallId,proto3" json:"app_install_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetInstalledParamsRequest) Reset() {
+	*x = GetInstalledParamsRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[48]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetInstalledParamsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInstalledParamsRequest) ProtoMessage() {}
+
+func (x *GetInstalledParamsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[48]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInstalledParamsRequest.ProtoReflect.Descriptor instead.
+func (*GetInstalledParamsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *GetInstalledParamsRequest) GetAppInstallId() uint32 {
+	if x != nil {
+		return x.AppInstallId
+	}
+	return 0
+}
+
+// InstalledParamsResponse 是已安装应用参数。
+type InstalledParamsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 应用 key。
+	AppKey string `protobuf:"bytes,1,opt,name=app_key,json=appKey,proto3" json:"app_key,omitempty"`
+	// 安装名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// HTTP 端口。
+	HttpPort int32 `protobuf:"varint,3,opt,name=http_port,json=httpPort,proto3" json:"http_port,omitempty"`
+	// 是否同步模型账号。
+	SyncModelAccount bool `protobuf:"varint,4,opt,name=sync_model_account,json=syncModelAccount,proto3" json:"sync_model_account,omitempty"`
+	// 模型账号地址类型。
+	ModelAccountBaseUrlType string `protobuf:"bytes,5,opt,name=model_account_base_url_type,json=modelAccountBaseUrlType,proto3" json:"model_account_base_url_type,omitempty"`
+	// 模型账号地址。
+	ModelAccountBaseUrl string `protobuf:"bytes,6,opt,name=model_account_base_url,json=modelAccountBaseUrl,proto3" json:"model_account_base_url,omitempty"`
+	// 原始 Compose 内容。
+	RawCompose string `protobuf:"bytes,7,opt,name=raw_compose,json=rawCompose,proto3" json:"raw_compose,omitempty"`
+	// 是否可编辑。
+	IsEdit bool `protobuf:"varint,8,opt,name=is_edit,json=isEdit,proto3" json:"is_edit,omitempty"`
+	// 参数列表的 JSON 字符串。
+	ParamsJson string `protobuf:"bytes,9,opt,name=params_json,json=paramsJson,proto3" json:"params_json,omitempty"`
+	// 容器配置的 JSON 字符串。
+	ContainerJson string `protobuf:"bytes,10,opt,name=container_json,json=containerJson,proto3" json:"container_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InstalledParamsResponse) Reset() {
+	*x = InstalledParamsResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[49]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InstalledParamsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InstalledParamsResponse) ProtoMessage() {}
+
+func (x *InstalledParamsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[49]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InstalledParamsResponse.ProtoReflect.Descriptor instead.
+func (*InstalledParamsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{49}
+}
+
+func (x *InstalledParamsResponse) GetAppKey() string {
+	if x != nil {
+		return x.AppKey
+	}
+	return ""
+}
+
+func (x *InstalledParamsResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InstalledParamsResponse) GetHttpPort() int32 {
+	if x != nil {
+		return x.HttpPort
+	}
+	return 0
+}
+
+func (x *InstalledParamsResponse) GetSyncModelAccount() bool {
+	if x != nil {
+		return x.SyncModelAccount
+	}
+	return false
+}
+
+func (x *InstalledParamsResponse) GetModelAccountBaseUrlType() string {
+	if x != nil {
+		return x.ModelAccountBaseUrlType
+	}
+	return ""
+}
+
+func (x *InstalledParamsResponse) GetModelAccountBaseUrl() string {
+	if x != nil {
+		return x.ModelAccountBaseUrl
+	}
+	return ""
+}
+
+func (x *InstalledParamsResponse) GetRawCompose() string {
+	if x != nil {
+		return x.RawCompose
+	}
+	return ""
+}
+
+func (x *InstalledParamsResponse) GetIsEdit() bool {
+	if x != nil {
+		return x.IsEdit
+	}
+	return false
+}
+
+func (x *InstalledParamsResponse) GetParamsJson() string {
+	if x != nil {
+		return x.ParamsJson
+	}
+	return ""
+}
+
+func (x *InstalledParamsResponse) GetContainerJson() string {
+	if x != nil {
+		return x.ContainerJson
+	}
+	return ""
+}
+
+// UpdateInstalledRequest 是已安装参数更新参数。
+//
+// 参数与容器配置字段随应用定义变化，前端直接回传原请求体，这里用 JSON 透传。
+type UpdateInstalledRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	InstallId uint32 `protobuf:"varint,1,opt,name=install_id,json=installId,proto3" json:"install_id,omitempty"`
+	// 原始请求体的 JSON 字符串。
+	PayloadJson   string `protobuf:"bytes,2,opt,name=payload_json,json=payloadJson,proto3" json:"payload_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInstalledRequest) Reset() {
+	*x = UpdateInstalledRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[50]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInstalledRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInstalledRequest) ProtoMessage() {}
+
+func (x *UpdateInstalledRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[50]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInstalledRequest.ProtoReflect.Descriptor instead.
+func (*UpdateInstalledRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *UpdateInstalledRequest) GetInstallId() uint32 {
+	if x != nil {
+		return x.InstallId
+	}
+	return 0
+}
+
+func (x *UpdateInstalledRequest) GetPayloadJson() string {
+	if x != nil {
+		return x.PayloadJson
+	}
+	return ""
+}
+
+// UpdateInstalledResponse 是更新结果，无业务字段。
+type UpdateInstalledResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInstalledResponse) Reset() {
+	*x = UpdateInstalledResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[51]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInstalledResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInstalledResponse) ProtoMessage() {}
+
+func (x *UpdateInstalledResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[51]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInstalledResponse.ProtoReflect.Descriptor instead.
+func (*UpdateInstalledResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{51}
+}
+
+// UpdateInstalledConfigRequest 是 WebUI 配置更新参数。
+type UpdateInstalledConfigRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	InstallId uint32 `protobuf:"varint,1,opt,name=install_id,json=installId,proto3" json:"install_id,omitempty"`
+	// WebUI 地址。
+	WebUi         string `protobuf:"bytes,2,opt,name=web_ui,json=webUi,proto3" json:"web_ui,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInstalledConfigRequest) Reset() {
+	*x = UpdateInstalledConfigRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[52]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInstalledConfigRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInstalledConfigRequest) ProtoMessage() {}
+
+func (x *UpdateInstalledConfigRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[52]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInstalledConfigRequest.ProtoReflect.Descriptor instead.
+func (*UpdateInstalledConfigRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{52}
+}
+
+func (x *UpdateInstalledConfigRequest) GetInstallId() uint32 {
+	if x != nil {
+		return x.InstallId
+	}
+	return 0
+}
+
+func (x *UpdateInstalledConfigRequest) GetWebUi() string {
+	if x != nil {
+		return x.WebUi
+	}
+	return ""
+}
+
+// UpdateInstalledConfigResponse 是更新结果，无业务字段。
+type UpdateInstalledConfigResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInstalledConfigResponse) Reset() {
+	*x = UpdateInstalledConfigResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[53]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInstalledConfigResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInstalledConfigResponse) ProtoMessage() {}
+
+func (x *UpdateInstalledConfigResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[53]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInstalledConfigResponse.ProtoReflect.Descriptor instead.
+func (*UpdateInstalledConfigResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{53}
+}
+
+// GetInstalledInfoRequest 是运行信息查询参数。
+type GetInstalledInfoRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	AppInstallId  uint32 `protobuf:"varint,1,opt,name=app_install_id,json=appInstallId,proto3" json:"app_install_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetInstalledInfoRequest) Reset() {
+	*x = GetInstalledInfoRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[54]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetInstalledInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInstalledInfoRequest) ProtoMessage() {}
+
+func (x *GetInstalledInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[54]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInstalledInfoRequest.ProtoReflect.Descriptor instead.
+func (*GetInstalledInfoRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{54}
+}
+
+func (x *GetInstalledInfoRequest) GetAppInstallId() uint32 {
+	if x != nil {
+		return x.AppInstallId
+	}
+	return 0
+}
+
+// InstalledInfo 是已安装应用的运行信息。
+type InstalledInfo struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 安装名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// 版本。
+	Version string `protobuf:"bytes,3,opt,name=version,proto3" json:"version,omitempty"`
+	// 状态。
+	Status string `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	// 状态说明。
+	Message string `protobuf:"bytes,5,opt,name=message,proto3" json:"message,omitempty"`
+	// HTTP 端口。
+	HttpPort int32 `protobuf:"varint,6,opt,name=http_port,json=httpPort,proto3" json:"http_port,omitempty"`
+	// 容器名。
+	Container string `protobuf:"bytes,7,opt,name=container,proto3" json:"container,omitempty"`
+	// Compose 文件路径。
+	ComposePath string `protobuf:"bytes,8,opt,name=compose_path,json=composePath,proto3" json:"compose_path,omitempty"`
+	// 应用 key。
+	AppKey string `protobuf:"bytes,9,opt,name=app_key,json=appKey,proto3" json:"app_key,omitempty"`
+	// 应用端口列表。
+	AppPorts []int32 `protobuf:"varint,10,rep,packed,name=app_ports,json=appPorts,proto3" json:"app_ports,omitempty"`
+	// 环境变量的 JSON 字符串。
+	EnvJson       string `protobuf:"bytes,11,opt,name=env_json,json=envJson,proto3" json:"env_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InstalledInfo) Reset() {
+	*x = InstalledInfo{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[55]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InstalledInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InstalledInfo) ProtoMessage() {}
+
+func (x *InstalledInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[55]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InstalledInfo.ProtoReflect.Descriptor instead.
+func (*InstalledInfo) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{55}
+}
+
+func (x *InstalledInfo) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *InstalledInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InstalledInfo) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
+func (x *InstalledInfo) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *InstalledInfo) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *InstalledInfo) GetHttpPort() int32 {
+	if x != nil {
+		return x.HttpPort
+	}
+	return 0
+}
+
+func (x *InstalledInfo) GetContainer() string {
+	if x != nil {
+		return x.Container
+	}
+	return ""
+}
+
+func (x *InstalledInfo) GetComposePath() string {
+	if x != nil {
+		return x.ComposePath
+	}
+	return ""
+}
+
+func (x *InstalledInfo) GetAppKey() string {
+	if x != nil {
+		return x.AppKey
+	}
+	return ""
+}
+
+func (x *InstalledInfo) GetAppPorts() []int32 {
+	if x != nil {
+		return x.AppPorts
+	}
+	return nil
+}
+
+func (x *InstalledInfo) GetEnvJson() string {
+	if x != nil {
+		return x.EnvJson
+	}
+	return ""
+}
+
+// UpdateInstalledSortRequest 是排序更新参数。
+type UpdateInstalledSortRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 排序项。
+	Items         []*InstalledSortItem `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInstalledSortRequest) Reset() {
+	*x = UpdateInstalledSortRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[56]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInstalledSortRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInstalledSortRequest) ProtoMessage() {}
+
+func (x *UpdateInstalledSortRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[56]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInstalledSortRequest.ProtoReflect.Descriptor instead.
+func (*UpdateInstalledSortRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{56}
+}
+
+func (x *UpdateInstalledSortRequest) GetItems() []*InstalledSortItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+// InstalledSortItem 是一条排序记录。
+type InstalledSortItem struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装 ID。
+	InstallId uint32 `protobuf:"varint,1,opt,name=install_id,json=installId,proto3" json:"install_id,omitempty"`
+	// 排序序号。
+	SortOrder     int32 `protobuf:"varint,2,opt,name=sort_order,json=sortOrder,proto3" json:"sort_order,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InstalledSortItem) Reset() {
+	*x = InstalledSortItem{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[57]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InstalledSortItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InstalledSortItem) ProtoMessage() {}
+
+func (x *InstalledSortItem) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[57]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InstalledSortItem.ProtoReflect.Descriptor instead.
+func (*InstalledSortItem) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *InstalledSortItem) GetInstallId() uint32 {
+	if x != nil {
+		return x.InstallId
+	}
+	return 0
+}
+
+func (x *InstalledSortItem) GetSortOrder() int32 {
+	if x != nil {
+		return x.SortOrder
+	}
+	return 0
+}
+
+// UpdateInstalledSortResponse 是更新结果，无业务字段。
+type UpdateInstalledSortResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInstalledSortResponse) Reset() {
+	*x = UpdateInstalledSortResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[58]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInstalledSortResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInstalledSortResponse) ProtoMessage() {}
+
+func (x *UpdateInstalledSortResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[58]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInstalledSortResponse.ProtoReflect.Descriptor instead.
+func (*UpdateInstalledSortResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{58}
+}
+
+// SyncAppsRequest 是应用商店同步参数。
+type SyncAppsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 前端生成的任务 ID。
+	TaskId        string `protobuf:"bytes,1,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SyncAppsRequest) Reset() {
+	*x = SyncAppsRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[59]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SyncAppsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SyncAppsRequest) ProtoMessage() {}
+
+func (x *SyncAppsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[59]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SyncAppsRequest.ProtoReflect.Descriptor instead.
+func (*SyncAppsRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{59}
+}
+
+func (x *SyncAppsRequest) GetTaskId() string {
+	if x != nil {
+		return x.TaskId
+	}
+	return ""
+}
+
+// SyncAppsResponse 是同步结果，无业务字段。
+type SyncAppsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SyncAppsResponse) Reset() {
+	*x = SyncAppsResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[60]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SyncAppsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SyncAppsResponse) ProtoMessage() {}
+
+func (x *SyncAppsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[60]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SyncAppsResponse.ProtoReflect.Descriptor instead.
+func (*SyncAppsResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{60}
+}
+
+// LoadAppPortRequest 是端口查询参数。
+type LoadAppPortRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装名称。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 应用类型。
+	Type          string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadAppPortRequest) Reset() {
+	*x = LoadAppPortRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[61]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadAppPortRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadAppPortRequest) ProtoMessage() {}
+
+func (x *LoadAppPortRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[61]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadAppPortRequest.ProtoReflect.Descriptor instead.
+func (*LoadAppPortRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{61}
+}
+
+func (x *LoadAppPortRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *LoadAppPortRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+// LoadAppPortResponse 是可用端口。
+type LoadAppPortResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 端口号。
+	Port          int64 `protobuf:"varint,1,opt,name=port,proto3" json:"port,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadAppPortResponse) Reset() {
+	*x = LoadAppPortResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[62]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadAppPortResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadAppPortResponse) ProtoMessage() {}
+
+func (x *LoadAppPortResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[62]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadAppPortResponse.ProtoReflect.Descriptor instead.
+func (*LoadAppPortResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{62}
+}
+
+func (x *LoadAppPortResponse) GetPort() int64 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
+// LoadAppConnInfoRequest 是数据库连接查询参数。
+type LoadAppConnInfoRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 安装名称。
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// 应用类型。
+	Type          string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadAppConnInfoRequest) Reset() {
+	*x = LoadAppConnInfoRequest{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[63]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadAppConnInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadAppConnInfoRequest) ProtoMessage() {}
+
+func (x *LoadAppConnInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[63]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadAppConnInfoRequest.ProtoReflect.Descriptor instead.
+func (*LoadAppConnInfoRequest) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{63}
+}
+
+func (x *LoadAppConnInfoRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *LoadAppConnInfoRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+// LoadAppConnInfoResponse 是数据库连接信息。
+type LoadAppConnInfoResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 连接状态。
+	Status string `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	// 用户名。
+	Username string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	// 密码。
+	Password string `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	// 容器名。
+	ContainerName string `protobuf:"bytes,4,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
+	// 服务名。
+	ServiceName string `protobuf:"bytes,5,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	// 端口。
+	Port          int64 `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoadAppConnInfoResponse) Reset() {
+	*x = LoadAppConnInfoResponse{}
+	mi := &file_panel_agent_v1_app_proto_msgTypes[64]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoadAppConnInfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoadAppConnInfoResponse) ProtoMessage() {}
+
+func (x *LoadAppConnInfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_panel_agent_v1_app_proto_msgTypes[64]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoadAppConnInfoResponse.ProtoReflect.Descriptor instead.
+func (*LoadAppConnInfoResponse) Descriptor() ([]byte, []int) {
+	return file_panel_agent_v1_app_proto_rawDescGZIP(), []int{64}
+}
+
+func (x *LoadAppConnInfoResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *LoadAppConnInfoResponse) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *LoadAppConnInfoResponse) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *LoadAppConnInfoResponse) GetContainerName() string {
+	if x != nil {
+		return x.ContainerName
+	}
+	return ""
+}
+
+func (x *LoadAppConnInfoResponse) GetServiceName() string {
+	if x != nil {
+		return x.ServiceName
+	}
+	return ""
+}
+
+func (x *LoadAppConnInfoResponse) GetPort() int64 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
 var File_panel_agent_v1_app_proto protoreflect.FileDescriptor
 
 const file_panel_agent_v1_app_proto_rawDesc = "" +
@@ -1769,7 +4397,160 @@ const file_panel_agent_v1_app_proto_rawDesc = "" +
 	"\tdelete_db\x18\v \x01(\bR\bdeleteDb\x12\x1a\n" +
 	"\bfavorite\x18\f \x01(\bR\bfavorite\x12\x1b\n" +
 	"\tbackup_id\x18\r \x01(\rR\bbackupId\"\x14\n" +
-	"\x12OperateAppResponse2\xe3\x05\n" +
+	"\x12OperateAppResponse\"u\n" +
+	"\x13GetAppDetailRequest\x12\x1e\n" +
+	"\x06app_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x05appId\x12!\n" +
+	"\aversion\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\aversion\x12\x1b\n" +
+	"\x04type\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\"2\n" +
+	"\x17GetAppDetailByIDRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\"_\n" +
+	"\x18GetAppDetailByKeyRequest\x12 \n" +
+	"\aapp_key\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x06appKey\x12!\n" +
+	"\aversion\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\aversion\"4\n" +
+	"\x11AppDetailDocument\x12\x1f\n" +
+	"\vdetail_json\x18\x01 \x01(\tR\n" +
+	"detailJson\"\x1c\n" +
+	"\n" +
+	"IdResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\"\x13\n" +
+	"\x11GetAppTagsRequest\"?\n" +
+	"\x0fAppTagsResponse\x12,\n" +
+	"\x05items\x18\x01 \x03(\v2\x16.panel.agent.v1.AppTagR\x05items\">\n" +
+	"\x06AppTag\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x10\n" +
+	"\x03key\x18\x02 \x01(\tR\x03key\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\"\x15\n" +
+	"\x13GetAppUpdateRequest\"\xa8\x01\n" +
+	"\rAppUpdateInfo\x12\x1d\n" +
+	"\n" +
+	"can_update\x18\x01 \x01(\bR\tcanUpdate\x12\x1d\n" +
+	"\n" +
+	"is_syncing\x18\x02 \x01(\bR\tisSyncing\x125\n" +
+	"\x17app_store_last_modified\x18\x03 \x01(\x05R\x14appStoreLastModified\x12\"\n" +
+	"\rapp_list_json\x18\x04 \x01(\tR\vappListJson\"\x18\n" +
+	"\x16ListIgnoredAppsRequest\"G\n" +
+	"\x13IgnoredAppsResponse\x120\n" +
+	"\x05items\x18\x01 \x03(\v2\x1a.panel.agent.v1.IgnoredAppR\x05items\"\x9b\x01\n" +
+	"\n" +
+	"IgnoredApp\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x15\n" +
+	"\x06app_id\x18\x02 \x01(\rR\x05appId\x12\"\n" +
+	"\rapp_detail_id\x18\x03 \x01(\rR\vappDetailId\x12\x14\n" +
+	"\x05scope\x18\x04 \x01(\tR\x05scope\x12\x18\n" +
+	"\aversion\x18\x05 \x01(\tR\aversion\x12\x12\n" +
+	"\x04name\x18\x06 \x01(\tR\x04name\"\x88\x01\n" +
+	"\x17IgnoreAppUpgradeRequest\x12\x1e\n" +
+	"\x06app_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x05appId\x12\"\n" +
+	"\rapp_detail_id\x18\x02 \x01(\rR\vappDetailId\x12)\n" +
+	"\x05scope\x18\x03 \x01(\tB\x13\xbaH\x10r\x0eR\x03allR\aversionR\x05scope\"\x1a\n" +
+	"\x18IgnoreAppUpgradeResponse\"8\n" +
+	"\x1dCancelIgnoreAppUpgradeRequest\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\x02id\" \n" +
+	"\x1eCancelIgnoreAppUpgradeResponse\"\x16\n" +
+	"\x14ListInstalledRequest\"P\n" +
+	"\x15ListInstalledResponse\x127\n" +
+	"\x05items\x18\x01 \x03(\v2!.panel.agent.v1.InstalledAppBriefR\x05items\"I\n" +
+	"\x11InstalledAppBrief\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x10\n" +
+	"\x03key\x18\x02 \x01(\tR\x03key\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\"L\n" +
+	"\x1bCheckDeleteInstalledRequest\x12-\n" +
+	"\x0eapp_install_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\fappInstallId\"Q\n" +
+	"\x1cCheckDeleteInstalledResponse\x121\n" +
+	"\x05items\x18\x01 \x03(\v2\x1b.panel.agent.v1.AppResourceR\x05items\"5\n" +
+	"\vAppResource\x12\x12\n" +
+	"\x04type\x18\x01 \x01(\tR\x04type\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"\x16\n" +
+	"\x14SyncInstalledRequest\"\x17\n" +
+	"\x15SyncInstalledResponse\"2\n" +
+	"\x15GetAppServicesRequest\x12\x19\n" +
+	"\x03key\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x03key\"N\n" +
+	"\x16GetAppServicesResponse\x124\n" +
+	"\x05items\x18\x01 \x03(\v2\x1e.panel.agent.v1.AppServiceItemR\x05items\"\x89\x01\n" +
+	"\x0eAppServiceItem\x12\x14\n" +
+	"\x05label\x18\x01 \x01(\tR\x05label\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\x12\x12\n" +
+	"\x04from\x18\x03 \x01(\tR\x04from\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\x12\x1f\n" +
+	"\vconfig_json\x18\x05 \x01(\tR\n" +
+	"configJson\"Y\n" +
+	"\x14ChangeAppPortRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1b\n" +
+	"\x04port\x18\x03 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\x04port\"\x17\n" +
+	"\x15ChangeAppPortResponse\"J\n" +
+	"\x17GetDefaultConfigRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1b\n" +
+	"\x04type\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\"4\n" +
+	"\x18GetDefaultConfigResponse\x12\x18\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\"J\n" +
+	"\x19GetInstalledParamsRequest\x12-\n" +
+	"\x0eapp_install_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\fappInstallId\"\x86\x03\n" +
+	"\x17InstalledParamsResponse\x12\x17\n" +
+	"\aapp_key\x18\x01 \x01(\tR\x06appKey\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1b\n" +
+	"\thttp_port\x18\x03 \x01(\x05R\bhttpPort\x12,\n" +
+	"\x12sync_model_account\x18\x04 \x01(\bR\x10syncModelAccount\x12<\n" +
+	"\x1bmodel_account_base_url_type\x18\x05 \x01(\tR\x17modelAccountBaseUrlType\x123\n" +
+	"\x16model_account_base_url\x18\x06 \x01(\tR\x13modelAccountBaseUrl\x12\x1f\n" +
+	"\vraw_compose\x18\a \x01(\tR\n" +
+	"rawCompose\x12\x17\n" +
+	"\ais_edit\x18\b \x01(\bR\x06isEdit\x12\x1f\n" +
+	"\vparams_json\x18\t \x01(\tR\n" +
+	"paramsJson\x12%\n" +
+	"\x0econtainer_json\x18\n" +
+	" \x01(\tR\rcontainerJson\"l\n" +
+	"\x16UpdateInstalledRequest\x12&\n" +
+	"\n" +
+	"install_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\tinstallId\x12*\n" +
+	"\fpayload_json\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\vpayloadJson\"\x19\n" +
+	"\x17UpdateInstalledResponse\"]\n" +
+	"\x1cUpdateInstalledConfigRequest\x12&\n" +
+	"\n" +
+	"install_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\tinstallId\x12\x15\n" +
+	"\x06web_ui\x18\x02 \x01(\tR\x05webUi\"\x1f\n" +
+	"\x1dUpdateInstalledConfigResponse\"H\n" +
+	"\x17GetInstalledInfoRequest\x12-\n" +
+	"\x0eapp_install_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\fappInstallId\"\xae\x02\n" +
+	"\rInstalledInfo\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
+	"\aversion\x18\x03 \x01(\tR\aversion\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\x12\x18\n" +
+	"\amessage\x18\x05 \x01(\tR\amessage\x12\x1b\n" +
+	"\thttp_port\x18\x06 \x01(\x05R\bhttpPort\x12\x1c\n" +
+	"\tcontainer\x18\a \x01(\tR\tcontainer\x12!\n" +
+	"\fcompose_path\x18\b \x01(\tR\vcomposePath\x12\x17\n" +
+	"\aapp_key\x18\t \x01(\tR\x06appKey\x12\x1b\n" +
+	"\tapp_ports\x18\n" +
+	" \x03(\x05R\bappPorts\x12\x19\n" +
+	"\benv_json\x18\v \x01(\tR\aenvJson\"_\n" +
+	"\x1aUpdateInstalledSortRequest\x12A\n" +
+	"\x05items\x18\x01 \x03(\v2!.panel.agent.v1.InstalledSortItemB\b\xbaH\x05\x92\x01\x02\b\x01R\x05items\"Z\n" +
+	"\x11InstalledSortItem\x12&\n" +
+	"\n" +
+	"install_id\x18\x01 \x01(\rB\a\xbaH\x04*\x02 \x00R\tinstallId\x12\x1d\n" +
+	"\n" +
+	"sort_order\x18\x02 \x01(\x05R\tsortOrder\"\x1d\n" +
+	"\x1bUpdateInstalledSortResponse\"*\n" +
+	"\x0fSyncAppsRequest\x12\x17\n" +
+	"\atask_id\x18\x01 \x01(\tR\x06taskId\"\x12\n" +
+	"\x10SyncAppsResponse\"E\n" +
+	"\x12LoadAppPortRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1b\n" +
+	"\x04type\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\")\n" +
+	"\x13LoadAppPortResponse\x12\x12\n" +
+	"\x04port\x18\x01 \x01(\x03R\x04port\"I\n" +
+	"\x16LoadAppConnInfoRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1b\n" +
+	"\x04type\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x04type\"\xc7\x01\n" +
+	"\x17LoadAppConnInfoResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1a\n" +
+	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\x12%\n" +
+	"\x0econtainer_name\x18\x04 \x01(\tR\rcontainerName\x12!\n" +
+	"\fservice_name\x18\x05 \x01(\tR\vserviceName\x12\x12\n" +
+	"\x04port\x18\x06 \x01(\x03R\x04port2\xe3\x1b\n" +
 	"\n" +
 	"AppService\x12L\n" +
 	"\x06GetApp\x12\x1d.panel.agent.v1.GetAppRequest\x1a\x19.panel.agent.v1.AppDetail\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12g\n" +
@@ -1779,7 +4560,31 @@ const file_panel_agent_v1_app_proto_rawDesc = "" +
 	"SearchApps\x12!.panel.agent.v1.SearchAppsRequest\x1a\".panel.agent.v1.SearchAppsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12i\n" +
 	"\x0eUpdateVersions\x12%.panel.agent.v1.UpdateVersionsRequest\x1a&.panel.agent.v1.UpdateVersionsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12q\n" +
 	"\aOperate\x12!.panel.agent.v1.OperateAppRequest\x1a\".panel.agent.v1.OperateAppResponse\"\x1f\x8a\xb5\x18\x1b\"\f操作应用*\vOperate app\x12t\n" +
-	"\x0fSearchInstalled\x12*.panel.agent.v1.SearchInstalledAppsRequest\x1a+.panel.agent.v1.SearchInstalledAppsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
+	"\x0fSearchInstalled\x12*.panel.agent.v1.SearchInstalledAppsRequest\x1a+.panel.agent.v1.SearchInstalledAppsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12`\n" +
+	"\fGetAppDetail\x12#.panel.agent.v1.GetAppDetailRequest\x1a!.panel.agent.v1.AppDetailDocument\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12h\n" +
+	"\x10GetAppDetailByID\x12'.panel.agent.v1.GetAppDetailByIDRequest\x1a!.panel.agent.v1.AppDetailDocument\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12c\n" +
+	"\x11GetAppDetailByKey\x12(.panel.agent.v1.GetAppDetailByKeyRequest\x1a\x1a.panel.agent.v1.IdResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12Z\n" +
+	"\n" +
+	"GetAppTags\x12!.panel.agent.v1.GetAppTagsRequest\x1a\x1f.panel.agent.v1.AppTagsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\\\n" +
+	"\fGetAppUpdate\x12#.panel.agent.v1.GetAppUpdateRequest\x1a\x1d.panel.agent.v1.AppUpdateInfo\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12h\n" +
+	"\x0fListIgnoredApps\x12&.panel.agent.v1.ListIgnoredAppsRequest\x1a#.panel.agent.v1.IgnoredAppsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x93\x01\n" +
+	"\x10IgnoreAppUpgrade\x12'.panel.agent.v1.IgnoreAppUpgradeRequest\x1a(.panel.agent.v1.IgnoreAppUpgradeResponse\",\x8a\xb5\x18(\"\x12忽略应用升级*\x12Ignore app upgrade\x12\xb2\x01\n" +
+	"\x16CancelIgnoreAppUpgrade\x12-.panel.agent.v1.CancelIgnoreAppUpgradeRequest\x1a..panel.agent.v1.CancelIgnoreAppUpgradeResponse\"9\x8a\xb5\x185\"\x18取消忽略应用升级*\x19Cancel ignore app upgrade\x12f\n" +
+	"\rListInstalled\x12$.panel.agent.v1.ListInstalledRequest\x1a%.panel.agent.v1.ListInstalledResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12{\n" +
+	"\x14CheckDeleteInstalled\x12+.panel.agent.v1.CheckDeleteInstalledRequest\x1a,.panel.agent.v1.CheckDeleteInstalledResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x8e\x01\n" +
+	"\rSyncInstalled\x12$.panel.agent.v1.SyncInstalledRequest\x1a%.panel.agent.v1.SyncInstalledResponse\"0\x8a\xb5\x18,\"\x15同步已安装应用*\x13Sync installed apps\x12i\n" +
+	"\x0eGetAppServices\x12%.panel.agent.v1.GetAppServicesRequest\x1a&.panel.agent.v1.GetAppServicesResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x87\x01\n" +
+	"\rChangeAppPort\x12$.panel.agent.v1.ChangeAppPortRequest\x1a%.panel.agent.v1.ChangeAppPortResponse\")\x8a\xb5\x18%\"\x12修改应用端口*\x0fChange app port\x12o\n" +
+	"\x10GetDefaultConfig\x12'.panel.agent.v1.GetDefaultConfigRequest\x1a(.panel.agent.v1.GetDefaultConfigResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12r\n" +
+	"\x12GetInstalledParams\x12).panel.agent.v1.GetInstalledParamsRequest\x1a'.panel.agent.v1.InstalledParamsResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x8f\x01\n" +
+	"\x0fUpdateInstalled\x12&.panel.agent.v1.UpdateInstalledRequest\x1a'.panel.agent.v1.UpdateInstalledResponse\"+\x8a\xb5\x18'\"\x12修改应用参数*\x11Update app params\x12\xa1\x01\n" +
+	"\x15UpdateInstalledConfig\x12,.panel.agent.v1.UpdateInstalledConfigRequest\x1a-.panel.agent.v1.UpdateInstalledConfigResponse\"+\x8a\xb5\x18'\"\x12修改应用配置*\x11Update app config\x12d\n" +
+	"\x10GetInstalledInfo\x12'.panel.agent.v1.GetInstalledInfoRequest\x1a\x1d.panel.agent.v1.InstalledInfo\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12\x99\x01\n" +
+	"\x13UpdateInstalledSort\x12*.panel.agent.v1.UpdateInstalledSortRequest\x1a+.panel.agent.v1.UpdateInstalledSortResponse\")\x8a\xb5\x18%\"\x12更新应用排序*\x0fUpdate app sort\x12\x81\x01\n" +
+	"\x12SyncAppsFromRemote\x12\x1f.panel.agent.v1.SyncAppsRequest\x1a .panel.agent.v1.SyncAppsResponse\"(\x8a\xb5\x18$\"\x12同步应用商店*\x0eSync app store\x12\x81\x01\n" +
+	"\x11SyncAppsFromLocal\x12\x1f.panel.agent.v1.SyncAppsRequest\x1a .panel.agent.v1.SyncAppsResponse\")\x8a\xb5\x18%\"\x12同步本地应用*\x0fSync local apps\x12`\n" +
+	"\vLoadAppPort\x12\".panel.agent.v1.LoadAppPortRequest\x1a#.panel.agent.v1.LoadAppPortResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01\x12l\n" +
+	"\x0fLoadAppConnInfo\x12&.panel.agent.v1.LoadAppConnInfoRequest\x1a'.panel.agent.v1.LoadAppConnInfoResponse\"\b\x8a\xb5\x18\x04\x18\x010\x01B-Z+mypanel/proto/gen/go/panel/agent/v1;agentv1b\x06proto3"
 
 var (
 	file_panel_agent_v1_app_proto_rawDescOnce sync.Once
@@ -1793,50 +4598,151 @@ func file_panel_agent_v1_app_proto_rawDescGZIP() []byte {
 	return file_panel_agent_v1_app_proto_rawDescData
 }
 
-var file_panel_agent_v1_app_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_panel_agent_v1_app_proto_msgTypes = make([]protoimpl.MessageInfo, 66)
 var file_panel_agent_v1_app_proto_goTypes = []any{
-	(*SearchAppsRequest)(nil),           // 0: panel.agent.v1.SearchAppsRequest
-	(*SearchAppsResponse)(nil),          // 1: panel.agent.v1.SearchAppsResponse
-	(*AppItem)(nil),                     // 2: panel.agent.v1.AppItem
-	(*SearchInstalledAppsRequest)(nil),  // 3: panel.agent.v1.SearchInstalledAppsRequest
-	(*SearchInstalledAppsResponse)(nil), // 4: panel.agent.v1.SearchInstalledAppsResponse
-	(*InstalledApp)(nil),                // 5: panel.agent.v1.InstalledApp
-	(*UpdateVersionsRequest)(nil),       // 6: panel.agent.v1.UpdateVersionsRequest
-	(*UpdateVersionsResponse)(nil),      // 7: panel.agent.v1.UpdateVersionsResponse
-	(*AppVersion)(nil),                  // 8: panel.agent.v1.AppVersion
-	(*GetAppRequest)(nil),               // 9: panel.agent.v1.GetAppRequest
-	(*AppDetail)(nil),                   // 10: panel.agent.v1.AppDetail
-	(*CheckInstalledAppRequest)(nil),    // 11: panel.agent.v1.CheckInstalledAppRequest
-	(*AppInstalledCheck)(nil),           // 12: panel.agent.v1.AppInstalledCheck
-	(*InstallAppRequest)(nil),           // 13: panel.agent.v1.InstallAppRequest
-	(*OperateAppRequest)(nil),           // 14: panel.agent.v1.OperateAppRequest
-	(*OperateAppResponse)(nil),          // 15: panel.agent.v1.OperateAppResponse
-	nil,                                 // 16: panel.agent.v1.InstallAppRequest.ServicesEntry
+	(*SearchAppsRequest)(nil),              // 0: panel.agent.v1.SearchAppsRequest
+	(*SearchAppsResponse)(nil),             // 1: panel.agent.v1.SearchAppsResponse
+	(*AppItem)(nil),                        // 2: panel.agent.v1.AppItem
+	(*SearchInstalledAppsRequest)(nil),     // 3: panel.agent.v1.SearchInstalledAppsRequest
+	(*SearchInstalledAppsResponse)(nil),    // 4: panel.agent.v1.SearchInstalledAppsResponse
+	(*InstalledApp)(nil),                   // 5: panel.agent.v1.InstalledApp
+	(*UpdateVersionsRequest)(nil),          // 6: panel.agent.v1.UpdateVersionsRequest
+	(*UpdateVersionsResponse)(nil),         // 7: panel.agent.v1.UpdateVersionsResponse
+	(*AppVersion)(nil),                     // 8: panel.agent.v1.AppVersion
+	(*GetAppRequest)(nil),                  // 9: panel.agent.v1.GetAppRequest
+	(*AppDetail)(nil),                      // 10: panel.agent.v1.AppDetail
+	(*CheckInstalledAppRequest)(nil),       // 11: panel.agent.v1.CheckInstalledAppRequest
+	(*AppInstalledCheck)(nil),              // 12: panel.agent.v1.AppInstalledCheck
+	(*InstallAppRequest)(nil),              // 13: panel.agent.v1.InstallAppRequest
+	(*OperateAppRequest)(nil),              // 14: panel.agent.v1.OperateAppRequest
+	(*OperateAppResponse)(nil),             // 15: panel.agent.v1.OperateAppResponse
+	(*GetAppDetailRequest)(nil),            // 16: panel.agent.v1.GetAppDetailRequest
+	(*GetAppDetailByIDRequest)(nil),        // 17: panel.agent.v1.GetAppDetailByIDRequest
+	(*GetAppDetailByKeyRequest)(nil),       // 18: panel.agent.v1.GetAppDetailByKeyRequest
+	(*AppDetailDocument)(nil),              // 19: panel.agent.v1.AppDetailDocument
+	(*IdResponse)(nil),                     // 20: panel.agent.v1.IdResponse
+	(*GetAppTagsRequest)(nil),              // 21: panel.agent.v1.GetAppTagsRequest
+	(*AppTagsResponse)(nil),                // 22: panel.agent.v1.AppTagsResponse
+	(*AppTag)(nil),                         // 23: panel.agent.v1.AppTag
+	(*GetAppUpdateRequest)(nil),            // 24: panel.agent.v1.GetAppUpdateRequest
+	(*AppUpdateInfo)(nil),                  // 25: panel.agent.v1.AppUpdateInfo
+	(*ListIgnoredAppsRequest)(nil),         // 26: panel.agent.v1.ListIgnoredAppsRequest
+	(*IgnoredAppsResponse)(nil),            // 27: panel.agent.v1.IgnoredAppsResponse
+	(*IgnoredApp)(nil),                     // 28: panel.agent.v1.IgnoredApp
+	(*IgnoreAppUpgradeRequest)(nil),        // 29: panel.agent.v1.IgnoreAppUpgradeRequest
+	(*IgnoreAppUpgradeResponse)(nil),       // 30: panel.agent.v1.IgnoreAppUpgradeResponse
+	(*CancelIgnoreAppUpgradeRequest)(nil),  // 31: panel.agent.v1.CancelIgnoreAppUpgradeRequest
+	(*CancelIgnoreAppUpgradeResponse)(nil), // 32: panel.agent.v1.CancelIgnoreAppUpgradeResponse
+	(*ListInstalledRequest)(nil),           // 33: panel.agent.v1.ListInstalledRequest
+	(*ListInstalledResponse)(nil),          // 34: panel.agent.v1.ListInstalledResponse
+	(*InstalledAppBrief)(nil),              // 35: panel.agent.v1.InstalledAppBrief
+	(*CheckDeleteInstalledRequest)(nil),    // 36: panel.agent.v1.CheckDeleteInstalledRequest
+	(*CheckDeleteInstalledResponse)(nil),   // 37: panel.agent.v1.CheckDeleteInstalledResponse
+	(*AppResource)(nil),                    // 38: panel.agent.v1.AppResource
+	(*SyncInstalledRequest)(nil),           // 39: panel.agent.v1.SyncInstalledRequest
+	(*SyncInstalledResponse)(nil),          // 40: panel.agent.v1.SyncInstalledResponse
+	(*GetAppServicesRequest)(nil),          // 41: panel.agent.v1.GetAppServicesRequest
+	(*GetAppServicesResponse)(nil),         // 42: panel.agent.v1.GetAppServicesResponse
+	(*AppServiceItem)(nil),                 // 43: panel.agent.v1.AppServiceItem
+	(*ChangeAppPortRequest)(nil),           // 44: panel.agent.v1.ChangeAppPortRequest
+	(*ChangeAppPortResponse)(nil),          // 45: panel.agent.v1.ChangeAppPortResponse
+	(*GetDefaultConfigRequest)(nil),        // 46: panel.agent.v1.GetDefaultConfigRequest
+	(*GetDefaultConfigResponse)(nil),       // 47: panel.agent.v1.GetDefaultConfigResponse
+	(*GetInstalledParamsRequest)(nil),      // 48: panel.agent.v1.GetInstalledParamsRequest
+	(*InstalledParamsResponse)(nil),        // 49: panel.agent.v1.InstalledParamsResponse
+	(*UpdateInstalledRequest)(nil),         // 50: panel.agent.v1.UpdateInstalledRequest
+	(*UpdateInstalledResponse)(nil),        // 51: panel.agent.v1.UpdateInstalledResponse
+	(*UpdateInstalledConfigRequest)(nil),   // 52: panel.agent.v1.UpdateInstalledConfigRequest
+	(*UpdateInstalledConfigResponse)(nil),  // 53: panel.agent.v1.UpdateInstalledConfigResponse
+	(*GetInstalledInfoRequest)(nil),        // 54: panel.agent.v1.GetInstalledInfoRequest
+	(*InstalledInfo)(nil),                  // 55: panel.agent.v1.InstalledInfo
+	(*UpdateInstalledSortRequest)(nil),     // 56: panel.agent.v1.UpdateInstalledSortRequest
+	(*InstalledSortItem)(nil),              // 57: panel.agent.v1.InstalledSortItem
+	(*UpdateInstalledSortResponse)(nil),    // 58: panel.agent.v1.UpdateInstalledSortResponse
+	(*SyncAppsRequest)(nil),                // 59: panel.agent.v1.SyncAppsRequest
+	(*SyncAppsResponse)(nil),               // 60: panel.agent.v1.SyncAppsResponse
+	(*LoadAppPortRequest)(nil),             // 61: panel.agent.v1.LoadAppPortRequest
+	(*LoadAppPortResponse)(nil),            // 62: panel.agent.v1.LoadAppPortResponse
+	(*LoadAppConnInfoRequest)(nil),         // 63: panel.agent.v1.LoadAppConnInfoRequest
+	(*LoadAppConnInfoResponse)(nil),        // 64: panel.agent.v1.LoadAppConnInfoResponse
+	nil,                                    // 65: panel.agent.v1.InstallAppRequest.ServicesEntry
 }
 var file_panel_agent_v1_app_proto_depIdxs = []int32{
 	2,  // 0: panel.agent.v1.SearchAppsResponse.items:type_name -> panel.agent.v1.AppItem
 	5,  // 1: panel.agent.v1.SearchInstalledAppsResponse.items:type_name -> panel.agent.v1.InstalledApp
 	8,  // 2: panel.agent.v1.UpdateVersionsResponse.items:type_name -> panel.agent.v1.AppVersion
-	16, // 3: panel.agent.v1.InstallAppRequest.services:type_name -> panel.agent.v1.InstallAppRequest.ServicesEntry
-	9,  // 4: panel.agent.v1.AppService.GetApp:input_type -> panel.agent.v1.GetAppRequest
-	11, // 5: panel.agent.v1.AppService.CheckInstalled:input_type -> panel.agent.v1.CheckInstalledAppRequest
-	13, // 6: panel.agent.v1.AppService.Install:input_type -> panel.agent.v1.InstallAppRequest
-	0,  // 7: panel.agent.v1.AppService.SearchApps:input_type -> panel.agent.v1.SearchAppsRequest
-	6,  // 8: panel.agent.v1.AppService.UpdateVersions:input_type -> panel.agent.v1.UpdateVersionsRequest
-	14, // 9: panel.agent.v1.AppService.Operate:input_type -> panel.agent.v1.OperateAppRequest
-	3,  // 10: panel.agent.v1.AppService.SearchInstalled:input_type -> panel.agent.v1.SearchInstalledAppsRequest
-	10, // 11: panel.agent.v1.AppService.GetApp:output_type -> panel.agent.v1.AppDetail
-	12, // 12: panel.agent.v1.AppService.CheckInstalled:output_type -> panel.agent.v1.AppInstalledCheck
-	5,  // 13: panel.agent.v1.AppService.Install:output_type -> panel.agent.v1.InstalledApp
-	1,  // 14: panel.agent.v1.AppService.SearchApps:output_type -> panel.agent.v1.SearchAppsResponse
-	7,  // 15: panel.agent.v1.AppService.UpdateVersions:output_type -> panel.agent.v1.UpdateVersionsResponse
-	15, // 16: panel.agent.v1.AppService.Operate:output_type -> panel.agent.v1.OperateAppResponse
-	4,  // 17: panel.agent.v1.AppService.SearchInstalled:output_type -> panel.agent.v1.SearchInstalledAppsResponse
-	11, // [11:18] is the sub-list for method output_type
-	4,  // [4:11] is the sub-list for method input_type
-	4,  // [4:4] is the sub-list for extension type_name
-	4,  // [4:4] is the sub-list for extension extendee
-	0,  // [0:4] is the sub-list for field type_name
+	65, // 3: panel.agent.v1.InstallAppRequest.services:type_name -> panel.agent.v1.InstallAppRequest.ServicesEntry
+	23, // 4: panel.agent.v1.AppTagsResponse.items:type_name -> panel.agent.v1.AppTag
+	28, // 5: panel.agent.v1.IgnoredAppsResponse.items:type_name -> panel.agent.v1.IgnoredApp
+	35, // 6: panel.agent.v1.ListInstalledResponse.items:type_name -> panel.agent.v1.InstalledAppBrief
+	38, // 7: panel.agent.v1.CheckDeleteInstalledResponse.items:type_name -> panel.agent.v1.AppResource
+	43, // 8: panel.agent.v1.GetAppServicesResponse.items:type_name -> panel.agent.v1.AppServiceItem
+	57, // 9: panel.agent.v1.UpdateInstalledSortRequest.items:type_name -> panel.agent.v1.InstalledSortItem
+	9,  // 10: panel.agent.v1.AppService.GetApp:input_type -> panel.agent.v1.GetAppRequest
+	11, // 11: panel.agent.v1.AppService.CheckInstalled:input_type -> panel.agent.v1.CheckInstalledAppRequest
+	13, // 12: panel.agent.v1.AppService.Install:input_type -> panel.agent.v1.InstallAppRequest
+	0,  // 13: panel.agent.v1.AppService.SearchApps:input_type -> panel.agent.v1.SearchAppsRequest
+	6,  // 14: panel.agent.v1.AppService.UpdateVersions:input_type -> panel.agent.v1.UpdateVersionsRequest
+	14, // 15: panel.agent.v1.AppService.Operate:input_type -> panel.agent.v1.OperateAppRequest
+	3,  // 16: panel.agent.v1.AppService.SearchInstalled:input_type -> panel.agent.v1.SearchInstalledAppsRequest
+	16, // 17: panel.agent.v1.AppService.GetAppDetail:input_type -> panel.agent.v1.GetAppDetailRequest
+	17, // 18: panel.agent.v1.AppService.GetAppDetailByID:input_type -> panel.agent.v1.GetAppDetailByIDRequest
+	18, // 19: panel.agent.v1.AppService.GetAppDetailByKey:input_type -> panel.agent.v1.GetAppDetailByKeyRequest
+	21, // 20: panel.agent.v1.AppService.GetAppTags:input_type -> panel.agent.v1.GetAppTagsRequest
+	24, // 21: panel.agent.v1.AppService.GetAppUpdate:input_type -> panel.agent.v1.GetAppUpdateRequest
+	26, // 22: panel.agent.v1.AppService.ListIgnoredApps:input_type -> panel.agent.v1.ListIgnoredAppsRequest
+	29, // 23: panel.agent.v1.AppService.IgnoreAppUpgrade:input_type -> panel.agent.v1.IgnoreAppUpgradeRequest
+	31, // 24: panel.agent.v1.AppService.CancelIgnoreAppUpgrade:input_type -> panel.agent.v1.CancelIgnoreAppUpgradeRequest
+	33, // 25: panel.agent.v1.AppService.ListInstalled:input_type -> panel.agent.v1.ListInstalledRequest
+	36, // 26: panel.agent.v1.AppService.CheckDeleteInstalled:input_type -> panel.agent.v1.CheckDeleteInstalledRequest
+	39, // 27: panel.agent.v1.AppService.SyncInstalled:input_type -> panel.agent.v1.SyncInstalledRequest
+	41, // 28: panel.agent.v1.AppService.GetAppServices:input_type -> panel.agent.v1.GetAppServicesRequest
+	44, // 29: panel.agent.v1.AppService.ChangeAppPort:input_type -> panel.agent.v1.ChangeAppPortRequest
+	46, // 30: panel.agent.v1.AppService.GetDefaultConfig:input_type -> panel.agent.v1.GetDefaultConfigRequest
+	48, // 31: panel.agent.v1.AppService.GetInstalledParams:input_type -> panel.agent.v1.GetInstalledParamsRequest
+	50, // 32: panel.agent.v1.AppService.UpdateInstalled:input_type -> panel.agent.v1.UpdateInstalledRequest
+	52, // 33: panel.agent.v1.AppService.UpdateInstalledConfig:input_type -> panel.agent.v1.UpdateInstalledConfigRequest
+	54, // 34: panel.agent.v1.AppService.GetInstalledInfo:input_type -> panel.agent.v1.GetInstalledInfoRequest
+	56, // 35: panel.agent.v1.AppService.UpdateInstalledSort:input_type -> panel.agent.v1.UpdateInstalledSortRequest
+	59, // 36: panel.agent.v1.AppService.SyncAppsFromRemote:input_type -> panel.agent.v1.SyncAppsRequest
+	59, // 37: panel.agent.v1.AppService.SyncAppsFromLocal:input_type -> panel.agent.v1.SyncAppsRequest
+	61, // 38: panel.agent.v1.AppService.LoadAppPort:input_type -> panel.agent.v1.LoadAppPortRequest
+	63, // 39: panel.agent.v1.AppService.LoadAppConnInfo:input_type -> panel.agent.v1.LoadAppConnInfoRequest
+	10, // 40: panel.agent.v1.AppService.GetApp:output_type -> panel.agent.v1.AppDetail
+	12, // 41: panel.agent.v1.AppService.CheckInstalled:output_type -> panel.agent.v1.AppInstalledCheck
+	5,  // 42: panel.agent.v1.AppService.Install:output_type -> panel.agent.v1.InstalledApp
+	1,  // 43: panel.agent.v1.AppService.SearchApps:output_type -> panel.agent.v1.SearchAppsResponse
+	7,  // 44: panel.agent.v1.AppService.UpdateVersions:output_type -> panel.agent.v1.UpdateVersionsResponse
+	15, // 45: panel.agent.v1.AppService.Operate:output_type -> panel.agent.v1.OperateAppResponse
+	4,  // 46: panel.agent.v1.AppService.SearchInstalled:output_type -> panel.agent.v1.SearchInstalledAppsResponse
+	19, // 47: panel.agent.v1.AppService.GetAppDetail:output_type -> panel.agent.v1.AppDetailDocument
+	19, // 48: panel.agent.v1.AppService.GetAppDetailByID:output_type -> panel.agent.v1.AppDetailDocument
+	20, // 49: panel.agent.v1.AppService.GetAppDetailByKey:output_type -> panel.agent.v1.IdResponse
+	22, // 50: panel.agent.v1.AppService.GetAppTags:output_type -> panel.agent.v1.AppTagsResponse
+	25, // 51: panel.agent.v1.AppService.GetAppUpdate:output_type -> panel.agent.v1.AppUpdateInfo
+	27, // 52: panel.agent.v1.AppService.ListIgnoredApps:output_type -> panel.agent.v1.IgnoredAppsResponse
+	30, // 53: panel.agent.v1.AppService.IgnoreAppUpgrade:output_type -> panel.agent.v1.IgnoreAppUpgradeResponse
+	32, // 54: panel.agent.v1.AppService.CancelIgnoreAppUpgrade:output_type -> panel.agent.v1.CancelIgnoreAppUpgradeResponse
+	34, // 55: panel.agent.v1.AppService.ListInstalled:output_type -> panel.agent.v1.ListInstalledResponse
+	37, // 56: panel.agent.v1.AppService.CheckDeleteInstalled:output_type -> panel.agent.v1.CheckDeleteInstalledResponse
+	40, // 57: panel.agent.v1.AppService.SyncInstalled:output_type -> panel.agent.v1.SyncInstalledResponse
+	42, // 58: panel.agent.v1.AppService.GetAppServices:output_type -> panel.agent.v1.GetAppServicesResponse
+	45, // 59: panel.agent.v1.AppService.ChangeAppPort:output_type -> panel.agent.v1.ChangeAppPortResponse
+	47, // 60: panel.agent.v1.AppService.GetDefaultConfig:output_type -> panel.agent.v1.GetDefaultConfigResponse
+	49, // 61: panel.agent.v1.AppService.GetInstalledParams:output_type -> panel.agent.v1.InstalledParamsResponse
+	51, // 62: panel.agent.v1.AppService.UpdateInstalled:output_type -> panel.agent.v1.UpdateInstalledResponse
+	53, // 63: panel.agent.v1.AppService.UpdateInstalledConfig:output_type -> panel.agent.v1.UpdateInstalledConfigResponse
+	55, // 64: panel.agent.v1.AppService.GetInstalledInfo:output_type -> panel.agent.v1.InstalledInfo
+	58, // 65: panel.agent.v1.AppService.UpdateInstalledSort:output_type -> panel.agent.v1.UpdateInstalledSortResponse
+	60, // 66: panel.agent.v1.AppService.SyncAppsFromRemote:output_type -> panel.agent.v1.SyncAppsResponse
+	60, // 67: panel.agent.v1.AppService.SyncAppsFromLocal:output_type -> panel.agent.v1.SyncAppsResponse
+	62, // 68: panel.agent.v1.AppService.LoadAppPort:output_type -> panel.agent.v1.LoadAppPortResponse
+	64, // 69: panel.agent.v1.AppService.LoadAppConnInfo:output_type -> panel.agent.v1.LoadAppConnInfoResponse
+	40, // [40:70] is the sub-list for method output_type
+	10, // [10:40] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_panel_agent_v1_app_proto_init() }
@@ -1851,7 +4757,7 @@ func file_panel_agent_v1_app_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_panel_agent_v1_app_proto_rawDesc), len(file_panel_agent_v1_app_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   66,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -65,6 +65,190 @@ service AppService {
       no_audit: true
     };
   }
+
+  // 按应用 ID、版本与类型查询应用详情。
+  rpc GetAppDetail(GetAppDetailRequest) returns (AppDetailDocument) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按应用详情 ID 查询详情。
+  rpc GetAppDetailByID(GetAppDetailByIDRequest) returns (AppDetailDocument) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 按应用 key 与版本查询应用详情 ID。
+  rpc GetAppDetailByKey(GetAppDetailByKeyRequest) returns (IdResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 查询应用商店标签。
+  rpc GetAppTags(GetAppTagsRequest) returns (AppTagsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 检查应用商店是否有更新。
+  rpc GetAppUpdate(GetAppUpdateRequest) returns (AppUpdateInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 查询已忽略升级的应用。
+  rpc ListIgnoredApps(ListIgnoredAppsRequest) returns (IgnoredAppsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 忽略指定应用的升级。
+  rpc IgnoreAppUpgrade(IgnoreAppUpgradeRequest) returns (IgnoreAppUpgradeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "忽略应用升级"
+      audit_action_en: "Ignore app upgrade"
+    };
+  }
+
+  // 取消忽略应用升级。
+  rpc CancelIgnoreAppUpgrade(CancelIgnoreAppUpgradeRequest) returns (CancelIgnoreAppUpgradeResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "取消忽略应用升级"
+      audit_action_en: "Cancel ignore app upgrade"
+    };
+  }
+
+  // 列出全部已安装应用的摘要。
+  rpc ListInstalled(ListInstalledRequest) returns (ListInstalledResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 删除安装前检查关联资源。
+  rpc CheckDeleteInstalled(CheckDeleteInstalledRequest) returns (CheckDeleteInstalledResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 同步已安装应用列表。
+  rpc SyncInstalled(SyncInstalledRequest) returns (SyncInstalledResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "同步已安装应用"
+      audit_action_en: "Sync installed apps"
+    };
+  }
+
+  // 查询应用定义里的服务列表。
+  rpc GetAppServices(GetAppServicesRequest) returns (GetAppServicesResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 修改已安装应用的端口。
+  rpc ChangeAppPort(ChangeAppPortRequest) returns (ChangeAppPortResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改应用端口"
+      audit_action_en: "Change app port"
+    };
+  }
+
+  // 查询应用默认配置文件内容。
+  rpc GetDefaultConfig(GetDefaultConfigRequest) returns (GetDefaultConfigResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 查询已安装应用的参数。
+  rpc GetInstalledParams(GetInstalledParamsRequest) returns (InstalledParamsResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新已安装应用的参数与容器配置。
+  rpc UpdateInstalled(UpdateInstalledRequest) returns (UpdateInstalledResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改应用参数"
+      audit_action_en: "Update app params"
+    };
+  }
+
+  // 更新已安装应用的 WebUI 配置。
+  rpc UpdateInstalledConfig(UpdateInstalledConfigRequest) returns (UpdateInstalledConfigResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "修改应用配置"
+      audit_action_en: "Update app config"
+    };
+  }
+
+  // 查询已安装应用的运行信息。
+  rpc GetInstalledInfo(GetInstalledInfoRequest) returns (InstalledInfo) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 更新已安装应用的排序。
+  rpc UpdateInstalledSort(UpdateInstalledSortRequest) returns (UpdateInstalledSortResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "更新应用排序"
+      audit_action_en: "Update app sort"
+    };
+  }
+
+  // 从远端同步应用商店列表。
+  rpc SyncAppsFromRemote(SyncAppsRequest) returns (SyncAppsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "同步应用商店"
+      audit_action_en: "Sync app store"
+    };
+  }
+
+  // 从本地同步应用商店列表。
+  rpc SyncAppsFromLocal(SyncAppsRequest) returns (SyncAppsResponse) {
+    option (panel.common.v1.policy) = {
+      audit_action_zh: "同步本地应用"
+      audit_action_en: "Sync local apps"
+    };
+  }
+
+  // 查询应用可用的端口。
+  rpc LoadAppPort(LoadAppPortRequest) returns (LoadAppPortResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
+
+  // 查询应用数据库连接信息。
+  rpc LoadAppConnInfo(LoadAppConnInfoRequest) returns (LoadAppConnInfoResponse) {
+    option (panel.common.v1.policy) = {
+      read_only: true
+      no_audit: true
+    };
+  }
 }
 
 // SearchAppsRequest 是应用商店查询参数。
@@ -453,3 +637,430 @@ message OperateAppRequest {
 
 // OperateAppResponse 是操作结果，无业务字段。
 message OperateAppResponse {}
+
+// GetAppDetailRequest 是应用详情查询参数。
+message GetAppDetailRequest {
+  // 应用 ID。
+  uint32 app_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 应用版本。
+  string version = 2 [(buf.validate.field).string.min_len = 1];
+
+  // 应用类型。
+  string type = 3 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetAppDetailByIDRequest 是按详情 ID 查询参数。
+message GetAppDetailByIDRequest {
+  // 应用详情 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// GetAppDetailByKeyRequest 是按 key 与版本查询参数。
+message GetAppDetailByKeyRequest {
+  // 应用 key。
+  string app_key = 1 [(buf.validate.field).string.min_len = 1];
+
+  // 应用版本。
+  string version = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// AppDetailDocument 是应用详情的 JSON 表示。
+//
+// 详情里的参数值、Compose 片段结构随应用定义变化，无法稳定映射成 proto 字段，
+// 因此原样序列化为 JSON，由前端按应用定义解释。
+message AppDetailDocument {
+  // 应用详情的 JSON 字符串。
+  string detail_json = 1;
+}
+
+// IdResponse 仅返回一个 ID。
+message IdResponse {
+  // 目标 ID。
+  uint32 id = 1;
+}
+
+// GetAppTagsRequest 是标签查询参数，无业务字段。
+message GetAppTagsRequest {}
+
+// AppTagsResponse 是标签列表结果。
+message AppTagsResponse {
+  // 标签列表。
+  repeated AppTag items = 1;
+}
+
+// AppTag 是一个应用标签。
+message AppTag {
+  // 标签 ID。
+  uint32 id = 1;
+
+  // 标签键。
+  string key = 2;
+
+  // 标签名称。
+  string name = 3;
+}
+
+// GetAppUpdateRequest 是应用商店更新检查参数，无业务字段。
+message GetAppUpdateRequest {}
+
+// AppUpdateInfo 是应用商店更新状态。
+message AppUpdateInfo {
+  // 是否有可更新内容。
+  bool can_update = 1;
+
+  // 是否正在同步。
+  bool is_syncing = 2;
+
+  // 应用商店最近修改时间戳。
+  int32 app_store_last_modified = 3;
+
+  // 应用清单的 JSON 字符串。
+  string app_list_json = 4;
+}
+
+// ListIgnoredAppsRequest 是忽略列表查询参数，无业务字段。
+message ListIgnoredAppsRequest {}
+
+// IgnoredAppsResponse 是忽略升级的应用列表。
+message IgnoredAppsResponse {
+  // 忽略记录。
+  repeated IgnoredApp items = 1;
+}
+
+// IgnoredApp 是一条忽略升级记录。
+message IgnoredApp {
+  // 记录 ID。
+  uint32 id = 1;
+
+  // 应用 ID。
+  uint32 app_id = 2;
+
+  // 应用详情 ID。
+  uint32 app_detail_id = 3;
+
+  // 忽略范围：all 或 version。
+  string scope = 4;
+
+  // 忽略的版本。
+  string version = 5;
+
+  // 应用名称。
+  string name = 6;
+}
+
+// IgnoreAppUpgradeRequest 是忽略升级参数。
+message IgnoreAppUpgradeRequest {
+  // 应用 ID。
+  uint32 app_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 应用详情 ID。
+  uint32 app_detail_id = 2;
+
+  // 忽略范围：all 表示全部版本，version 表示指定版本。
+  string scope = 3 [(buf.validate.field).string = {
+    in: [
+      "all",
+      "version"
+    ]
+  }];
+}
+
+// IgnoreAppUpgradeResponse 是忽略结果，无业务字段。
+message IgnoreAppUpgradeResponse {}
+
+// CancelIgnoreAppUpgradeRequest 是取消忽略参数。
+message CancelIgnoreAppUpgradeRequest {
+  // 忽略记录 ID。
+  uint32 id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// CancelIgnoreAppUpgradeResponse 是取消结果，无业务字段。
+message CancelIgnoreAppUpgradeResponse {}
+
+// ListInstalledRequest 是已安装摘要查询参数，无业务字段。
+message ListInstalledRequest {}
+
+// ListInstalledResponse 是已安装应用摘要列表。
+message ListInstalledResponse {
+  // 应用摘要。
+  repeated InstalledAppBrief items = 1;
+}
+
+// InstalledAppBrief 是已安装应用的摘要。
+message InstalledAppBrief {
+  // 安装 ID。
+  uint32 id = 1;
+
+  // 应用 key。
+  string key = 2;
+
+  // 安装名称。
+  string name = 3;
+}
+
+// CheckDeleteInstalledRequest 是删除前检查参数。
+message CheckDeleteInstalledRequest {
+  // 安装 ID。
+  uint32 app_install_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// CheckDeleteInstalledResponse 是关联资源列表。
+message CheckDeleteInstalledResponse {
+  // 关联资源。
+  repeated AppResource items = 1;
+}
+
+// AppResource 是一个关联资源。
+message AppResource {
+  // 资源类型。
+  string type = 1;
+
+  // 资源名称。
+  string name = 2;
+}
+
+// SyncInstalledRequest 是同步已安装应用参数，无业务字段。
+message SyncInstalledRequest {}
+
+// SyncInstalledResponse 是同步结果，无业务字段。
+message SyncInstalledResponse {}
+
+// GetAppServicesRequest 是服务查询参数。
+message GetAppServicesRequest {
+  // 应用 key。
+  string key = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetAppServicesResponse 是应用服务列表。
+message GetAppServicesResponse {
+  // 服务项。
+  repeated AppServiceItem items = 1;
+}
+
+// AppServiceItem 是应用定义里的一个服务。
+message AppServiceItem {
+  // 展示名称。
+  string label = 1;
+
+  // 服务键。
+  string value = 2;
+
+  // 来源。
+  string from = 3;
+
+  // 状态。
+  string status = 4;
+
+  // 服务配置的 JSON 字符串。
+  string config_json = 5;
+}
+
+// ChangeAppPortRequest 是端口修改参数。
+message ChangeAppPortRequest {
+  // 应用 key。
+  string key = 1;
+
+  // 安装名称。
+  string name = 2;
+
+  // 新端口。
+  int64 port = 3 [(buf.validate.field).int64.gt = 0];
+}
+
+// ChangeAppPortResponse 是修改结果，无业务字段。
+message ChangeAppPortResponse {}
+
+// GetDefaultConfigRequest 是默认配置查询参数。
+message GetDefaultConfigRequest {
+  // 安装名称。
+  string name = 1;
+
+  // 配置类型。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// GetDefaultConfigResponse 是默认配置内容。
+message GetDefaultConfigResponse {
+  // 文件内容。
+  string content = 1;
+}
+
+// GetInstalledParamsRequest 是已安装参数查询参数。
+message GetInstalledParamsRequest {
+  // 安装 ID。
+  uint32 app_install_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// InstalledParamsResponse 是已安装应用参数。
+message InstalledParamsResponse {
+  // 应用 key。
+  string app_key = 1;
+
+  // 安装名称。
+  string name = 2;
+
+  // HTTP 端口。
+  int32 http_port = 3;
+
+  // 是否同步模型账号。
+  bool sync_model_account = 4;
+
+  // 模型账号地址类型。
+  string model_account_base_url_type = 5;
+
+  // 模型账号地址。
+  string model_account_base_url = 6;
+
+  // 原始 Compose 内容。
+  string raw_compose = 7;
+
+  // 是否可编辑。
+  bool is_edit = 8;
+
+  // 参数列表的 JSON 字符串。
+  string params_json = 9;
+
+  // 容器配置的 JSON 字符串。
+  string container_json = 10;
+}
+
+// UpdateInstalledRequest 是已安装参数更新参数。
+//
+// 参数与容器配置字段随应用定义变化，前端直接回传原请求体，这里用 JSON 透传。
+message UpdateInstalledRequest {
+  // 安装 ID。
+  uint32 install_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 原始请求体的 JSON 字符串。
+  string payload_json = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// UpdateInstalledResponse 是更新结果，无业务字段。
+message UpdateInstalledResponse {}
+
+// UpdateInstalledConfigRequest 是 WebUI 配置更新参数。
+message UpdateInstalledConfigRequest {
+  // 安装 ID。
+  uint32 install_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // WebUI 地址。
+  string web_ui = 2;
+}
+
+// UpdateInstalledConfigResponse 是更新结果，无业务字段。
+message UpdateInstalledConfigResponse {}
+
+// GetInstalledInfoRequest 是运行信息查询参数。
+message GetInstalledInfoRequest {
+  // 安装 ID。
+  uint32 app_install_id = 1 [(buf.validate.field).uint32.gt = 0];
+}
+
+// InstalledInfo 是已安装应用的运行信息。
+message InstalledInfo {
+  // 安装 ID。
+  uint32 id = 1;
+
+  // 安装名称。
+  string name = 2;
+
+  // 版本。
+  string version = 3;
+
+  // 状态。
+  string status = 4;
+
+  // 状态说明。
+  string message = 5;
+
+  // HTTP 端口。
+  int32 http_port = 6;
+
+  // 容器名。
+  string container = 7;
+
+  // Compose 文件路径。
+  string compose_path = 8;
+
+  // 应用 key。
+  string app_key = 9;
+
+  // 应用端口列表。
+  repeated int32 app_ports = 10;
+
+  // 环境变量的 JSON 字符串。
+  string env_json = 11;
+}
+
+// UpdateInstalledSortRequest 是排序更新参数。
+message UpdateInstalledSortRequest {
+  // 排序项。
+  repeated InstalledSortItem items = 1 [(buf.validate.field).repeated.min_items = 1];
+}
+
+// InstalledSortItem 是一条排序记录。
+message InstalledSortItem {
+  // 安装 ID。
+  uint32 install_id = 1 [(buf.validate.field).uint32.gt = 0];
+
+  // 排序序号。
+  int32 sort_order = 2;
+}
+
+// UpdateInstalledSortResponse 是更新结果，无业务字段。
+message UpdateInstalledSortResponse {}
+
+// SyncAppsRequest 是应用商店同步参数。
+message SyncAppsRequest {
+  // 前端生成的任务 ID。
+  string task_id = 1;
+}
+
+// SyncAppsResponse 是同步结果，无业务字段。
+message SyncAppsResponse {}
+
+// LoadAppPortRequest 是端口查询参数。
+message LoadAppPortRequest {
+  // 安装名称。
+  string name = 1;
+
+  // 应用类型。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// LoadAppPortResponse 是可用端口。
+message LoadAppPortResponse {
+  // 端口号。
+  int64 port = 1;
+}
+
+// LoadAppConnInfoRequest 是数据库连接查询参数。
+message LoadAppConnInfoRequest {
+  // 安装名称。
+  string name = 1;
+
+  // 应用类型。
+  string type = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+// LoadAppConnInfoResponse 是数据库连接信息。
+message LoadAppConnInfoResponse {
+  // 连接状态。
+  string status = 1;
+
+  // 用户名。
+  string username = 2;
+
+  // 密码。
+  string password = 3;
+
+  // 容器名。
+  string container_name = 4;
+
+  // 服务名。
+  string service_name = 5;
+
+  // 端口。
+  int64 port = 6;
+}
