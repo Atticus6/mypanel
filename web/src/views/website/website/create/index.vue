@@ -442,6 +442,22 @@ import { WebsiteSSLSchema } from '@/gen/panel/agent/v1/website_ssl_pb';
 </template>
 
 <script lang="ts" setup>
+
+export interface InstallParams {
+    labelZh: string;
+    labelEn: string;
+    value: any;
+    edit: boolean;
+    key: string;
+    rule: string;
+    type: string;
+    values?: any;
+    showValue?: string;
+    required?: boolean;
+    multiple?: boolean;
+    label: Locale;
+    showPassword: boolean;
+}
 export interface CommonModel {
 id: number;
 createdAt?: string;
@@ -523,7 +539,7 @@ export interface Runtime extends CommonModel {
     remark: string;
 }
 export interface RuntimeDTO extends Runtime {
-    appParams: App.InstallParams[];
+    appParams: InstallParams[];
     appID: number;
     source?: string;
     path?: string;
@@ -551,7 +567,6 @@ import GroupSelect from '@/views/website/website/components/group/index.vue';
 import WebsiteSSL from '@/views/website/website/components/website-ssl/index.vue';
 import LoadBalanceForm from '@/views/website/website/config/basic/load-balance/form/index.vue';
 
-import { App } from '@/types/app';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
@@ -678,7 +693,7 @@ const appReq = reactive({
     page: 1,
     pageSize: 100,
 });
-const apps = ref<App.AppItem[]>([]);
+const apps = ref<AppItem[]>([]);
 const preCheckRef = ref();
 const staticPath = ref('');
 const templateOutputs = ref<TemplateOutputDTO[]>([]);
