@@ -114,46 +114,9 @@ export namespace File {
     export type FileSharePublicInfo = Omit<Init<typeof GetPublicShareResponseSchema>, 'expiresAt'> & { expiresAt: number };
 
     // 文件 AI 搜索已剔除，以下结构只供抽屉组件的本地空桩使用。
-    export interface FileAISearchReq {
-        path: string;
-        query: string;
-        responseLanguage?: string;
-        containSub?: boolean;
-        maxItems?: number;
-        matchCase?: boolean;
-        wholeWord?: boolean;
-        useRegex?: boolean;
-        extensions?: string[];
-        minSize?: number;
-        maxSize?: number;
-        modifiedAfter?: string;
-        modifiedBefore?: string;
-        maxScanFiles?: number;
-        maxFileBytes?: number;
-        maxHitsPerFile?: number;
-        maxTotalHits?: number;
-        contentHitsPromptMaxBytes?: number;
-        llmMaxOutputTokens?: number;
-    }
-    export interface FileAIContentHit {
-        path: string;
-        line: number;
-        text: string;
-    }
-    export interface FileAISearchResult {
-        mode?: 'ai' | 'grep';
-        summary: string;
-        hits: FileAIContentHit[];
-        contentScannedFiles: number;
-        contentHitsTruncated: boolean;
-        truncated: boolean;
-        preFiltered: boolean;
-        itemCount: number;
-        promptTokens: number;
-        completionTokens: number;
-        totalTokens: number;
-        duration: string;
-    }
+
+
+
 
     export type CheckFileReq = Init<typeof CheckFileRequestSchema>;
 }

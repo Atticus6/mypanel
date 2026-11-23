@@ -491,6 +491,46 @@ import { fileAiSearch } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
 import { pageAgentAccounts } from '@/api/modules/ai';
 import { File } from '@/types/file';
+    export interface FileAISearchReq {
+        path: string;
+        query: string;
+        responseLanguage?: string;
+        containSub?: boolean;
+        maxItems?: number;
+        matchCase?: boolean;
+        wholeWord?: boolean;
+        useRegex?: boolean;
+        extensions?: string[];
+        minSize?: number;
+        maxSize?: number;
+        modifiedAfter?: string;
+        modifiedBefore?: string;
+        maxScanFiles?: number;
+        maxFileBytes?: number;
+        maxHitsPerFile?: number;
+        maxTotalHits?: number;
+        contentHitsPromptMaxBytes?: number;
+        llmMaxOutputTokens?: number;
+    }
+    export interface FileAIContentHit {
+        path: string;
+        line: number;
+        text: string;
+    }
+    export interface FileAISearchResult {
+        mode?: 'ai' | 'grep';
+        summary: string;
+        hits: FileAIContentHit[];
+        contentScannedFiles: number;
+        contentHitsTruncated: boolean;
+        truncated: boolean;
+        preFiltered: boolean;
+        itemCount: number;
+        promptTokens: number;
+        completionTokens: number;
+        totalTokens: number;
+        duration: string;
+    }
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { MsgSuccess, MsgWarning } from '@/utils/message';
@@ -547,7 +587,7 @@ const aiSearchMaxHitsPerFile = ref(AI_SEARCH_DEFAULT_MAX_HITS_PER_FILE);
 const aiSearchMaxTotalHits = ref(AI_SEARCH_DEFAULT_MAX_TOTAL_HITS);
 const aiSearchAdvancedActiveNames = ref<string[]>([]);
 const aiSearchLoading = ref(false);
-const aiSearchResult = ref<File.FileAISearchResult | null>(null);
+const aiSearchResult = ref<FileAISearchResult | null>(null);
 const aiSearchSelectedHitPath = ref('');
 
 function hitFileRowClass(p: string) {
@@ -576,7 +616,7 @@ const aiSearchHitsForSelected = computed(() => {
     const r = aiSearchResult.value;
     const p = aiSearchSelectedHitPath.value;
     if (!r?.hits?.length || !p) {
-        return [] as File.FileAIContentHit[];
+        return [] as FileAIContentHit[];
     }
     return r.hits.filter((h) => h.path === p);
 });
@@ -732,7 +772,7 @@ const handleAiSearchDrawerBeforeClose = (done: () => void) => {
     done();
 };
 
-const applyAiSearchTimeToPayload = (payload: File.FileAISearchReq) => {
+const applyAiSearchTimeToPayload = (payload: FileAISearchReq) => {
     const p = aiSearchTimePreset.value;
     if (p === 'custom') {
         const mr = aiSearchModifiedRange.value;
@@ -761,7 +801,7 @@ const applyAiSearchTimeToPayload = (payload: File.FileAISearchReq) => {
     }
 };
 
-const applyAiSearchSizeToPayload = (payload: File.FileAISearchReq) => {
+const applyAiSearchSizeToPayload = (payload: FileAISearchReq) => {
     const p = aiSearchSizePreset.value;
     const MB = 1024 * 1024;
     const GB = 1024 * MB;
@@ -804,7 +844,7 @@ const submitAiSearch = async () => {
             .map((s) => s.trim())
             .filter(Boolean);
         const rootPath = (aiSearchPath.value || props.listPath || '').trim() || props.listPath;
-        const payload: File.FileAISearchReq = {
+        const payload: FileAISearchReq = {
             path: rootPath,
             query: q,
             responseLanguage: language.value,
