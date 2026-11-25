@@ -13,8 +13,29 @@
 # 所有 npm/go 相关命令用 bun / go，遵循仓库约定。
 set -euo pipefail
 
-root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-bin_src="$root/bin/master"
+# 既支持在仓库 scripts/ 目录下运行，也支持在打包产物里运行。
+# 两种布局下二进制与配套文件的位置不同，这里统一探测。
+self_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "$self_dir/.." && pwd)"
+
+if [ -x "$self_dir/master" ]; then
+    # 打包布局：master、config.yaml、mypanelctl 与 install.sh 同级。
+    bin_src="$self_dir/master"
+    conf_src="$self_dir/config.yaml"
+    ctl_src="$self_dir/mypanelctl"
+    build_script=""
+elif [ -x "$repo_root/bin/master" ]; then
+    # 仓库布局：从 scripts/ 下运行。
+    bin_src="$repo_root/bin/master"
+    conf_src="$repo_root/config.yaml"
+    ctl_src="$repo_root/scripts/mypanelctl"
+    build_script="$repo_root/scripts/build.sh"
+else
+    bin_src=""
+    conf_src="$repo_root/config.yaml"
+    ctl_src="$repo_root/scripts/mypanelctl"
+    build_script="$repo_root/scripts/build.sh"
+fi
 
 PREFIX="/usr/local"
 DATA_DIR="/opt/mypanel/data"
@@ -71,10 +92,11 @@ if [ "$UNINSTALL" -eq 1 ]; then
 fi
 
 if [ "$DO_BUILD" -eq 1 ] || [ ! -x "$bin_src" ]; then
+    [ -n "$build_script" ] || die "打包产物里没有源码，不能使用 --build；请直接使用随包提供的 master"
     log "构建 master（scripts/build.sh）"
-    bash "$root/scripts/build.sh"
+    bash "$build_script"
 fi
-[ -x "$bin_src" ] || die "找不到 $bin_src，请先运行 ./scripts/build.sh"
+[ -x "$bin_src" ] || die "找不到 master，请先运行 ./scripts/build.sh"
 
 log "创建目录"
 mkdir -p "$BIN_DIR" "$CONF_DIR" "$DATA_DIR"
@@ -83,8 +105,8 @@ log "安装二进制到 $BIN_DIR/master"
 install -m 755 "$bin_src" "$BIN_DIR/master"
 
 log "安装配置文件到 $CONF_DIR/config.yaml"
-if [ -f "$root/config.yaml" ]; then
-    install -m 640 "$root/config.yaml" "$CONF_DIR/config.yaml"
+if [ -f "$conf_src" ]; then
+    install -m 640 "$conf_src" "$CONF_DIR/config.yaml"
 else
     cat > "$CONF_DIR/config.yaml" <<EOF
 addr: ":$PORT"
@@ -104,7 +126,7 @@ EOF
 chmod 600 "$CONF_DIR/config.local.yaml"
 
 log "安装命令行工具到 $CTL_PATH"
-install -m 755 "$root/scripts/mypanelctl" "$CTL_PATH"
+install -m 755 "$ctl_src" "$CTL_PATH"
 
 log "安装 systemd 单元 $UNIT_PATH"
 mkdir -p "$UNIT_DIR"

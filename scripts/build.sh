@@ -6,6 +6,9 @@ set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 embed_dir="$root/master/internal/webdist/dist"
 
+echo "==> installing web dependencies"
+(cd "$root/web" && bun install --frozen-lockfile)
+
 echo "==> building web"
 (cd "$root/web" && bun --bun run build)
 
