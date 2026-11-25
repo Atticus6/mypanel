@@ -50,6 +50,22 @@ func TestLoadUsesDefaults(t *testing.T) {
 	}
 }
 
+// TestListenPort 验证从各种监听地址写法中正确取出端口。
+func TestListenPort(t *testing.T) {
+	cases := map[string]string{
+		":8080":          "8080",
+		"127.0.0.1:9000": "9000",
+		"0.0.0.0:18090":  "18090",
+		"":               "",
+		"[::1]:8080":     "8080",
+	}
+	for addr, want := range cases {
+		if got := ListenPort(addr); got != want {
+			t.Errorf("ListenPort(%q) = %q, want %q", addr, got, want)
+		}
+	}
+}
+
 // TestLoadUpgradeURLEnvOverride 验证升级源可以完全由环境变量替换为用户自己的发布地址。
 func TestLoadUpgradeURLEnvOverride(t *testing.T) {
 	const custom = "https://example.com/my-release"

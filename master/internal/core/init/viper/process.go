@@ -21,6 +21,8 @@ type ProcessOptions struct {
 	AdminUser string
 	// AdminPassword 是首次启动时创建的管理员密码。
 	AdminPassword string
+	// Port 是面板实际监听端口（不含冒号）。
+	Port string
 	// Mode 是运行模式：stable 或 dev。
 	Mode string
 	// Language 是默认界面语言。
@@ -94,6 +96,10 @@ func InitProcess(opts ProcessOptions) {
 	// 为空会生成非法白名单，所以必须有确定值。
 	if serverConfig.Conn.Port == "" {
 		serverConfig.Conn.Port = "9999"
+	}
+	// 单进程下用 master 实际监听端口覆盖内置默认值，避免设置页显示 9999 而实际访问另一个端口。
+	if opts.Port != "" {
+		serverConfig.Conn.Port = opts.Port
 	}
 	if serverConfig.Conn.BindAddress == "" {
 		serverConfig.Conn.BindAddress = "0.0.0.0"

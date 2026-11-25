@@ -267,6 +267,16 @@ func newViper() *viper.Viper {
 // NewViper 供测试与外部使用，返回一个已配置好环境变量映射的实例。
 func NewViper() *viper.Viper { return newViper() }
 
+// ListenPort 从监听地址中取出端口号，供 core 的设置页展示。
+// 兼容 ":8080"、"127.0.0.1:8080" 与 "0.0.0.0:8080" 等写法。
+func ListenPort(addr string) string {
+	addr = strings.TrimSpace(addr)
+	if idx := strings.LastIndex(addr, ":"); idx >= 0 {
+		return addr[idx+1:]
+	}
+	return addr
+}
+
 // ResolvePath 把相对路径转成绝对路径，仅用于日志展示。
 //
 // 失败时原样返回：路径存在与否不影响「日志里能看到什么」这件事。

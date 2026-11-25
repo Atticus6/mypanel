@@ -28,6 +28,7 @@ func HandleGet(url string) (*http.Response, error) {
 		return nil, buserr.WithMap("ErrCreateHttpClient", map[string]interface{}{"err": err.Error()}, err)
 	}
 
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 	resp, err := client.Do(req)
 	if err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
@@ -69,6 +70,7 @@ func HandleRequestWithClient(client *http.Client, url, method string, timeout in
 		return 0, nil, err
 	}
 	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 	resp, err := client.Do(request)
 	if err != nil {
 		return 0, nil, err
@@ -141,6 +143,7 @@ func RequestFile(url, method string, timeout int) (io.ReadCloser, context.Cancel
 		return nil, cancel, err
 	}
 	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 	resp, err := client.Do(request)
 	if err != nil {
 		return nil, cancel, err

@@ -37,10 +37,11 @@ admin_user: "admin"
 # 生产环境请用环境变量 MYPANEL_ADMIN_PASSWORD 或 config.local.yaml 配置。
 admin_password: ""
 
-# 面板升级 / 应用商店的发布源根地址（这里设为本项目自己的发布地址）。
+# 面板升级 / 应用商店的资源根地址。
+# 升级包与升级资源用本项目自己的发布地址；应用商店资源必须保留原版官方源，
+# 因为应用清单与安装包托管在官方 CDN，指向自己的 release 会导致应用列表为空。
 # 留空时用内置的原版 1Panel 官方地址；想临时切换可用环境变量覆盖下面的字段。
 # 优先级：MYPANEL_UPGRADE_* 环境变量 > 本文件字段 > 内置原版官方地址。
-# 三个地址分别对应：升级包与版本文件、升级资源、应用商店资源。
 upgrade_repo_url: "https://github.com/Atticus6/mypanel/releases/download"
 upgrade_resource_url: "https://github.com/Atticus6/mypanel/releases/download"
-upgrade_app_url: "https://github.com/Atticus6/mypanel/releases/download"
+upgrade_app_url: "https://apps-assets.fit2cloud.com"

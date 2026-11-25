@@ -78,11 +78,15 @@ func main() {
 		adminPassword = randomPassword()
 		logger.Warn("admin_password 未配置，已生成随机密码，请立即记录并修改", "password", adminPassword)
 	}
+	// 从监听地址里取出端口，让 core 的「面板端口」与实际访问端口一致。
+	listenPort := config.ListenPort(cfg.Addr)
+
 	if err := bootstrap.InitCore(bootstrap.CoreOptions{
 		DataDir:       cfg.DataDir,
 		Version:       version,
 		AdminUser:     cfg.AdminUser,
 		AdminPassword: adminPassword,
+		Port:          listenPort,
 		Mode:          "stable",
 		Language:      "zh",
 	}); err != nil {

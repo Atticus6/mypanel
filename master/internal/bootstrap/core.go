@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"mypanel/core/app/repo"
 	"mypanel/core/global"
 	"mypanel/core/i18n"
 	"mypanel/core/init/auth"
@@ -36,6 +37,8 @@ type CoreOptions struct {
 	AdminUser string
 	// AdminPassword 是首次启动创建的管理员密码。
 	AdminPassword string
+	// Port 是面板实际监听端口（不含冒号），供 core 设置页展示。
+	Port string
 	// Mode 是运行模式：stable 或 dev。
 	Mode string
 	// Language 是默认界面语言。
@@ -64,6 +67,7 @@ func InitCore(opts CoreOptions) error {
 		Version:       opts.Version,
 		AdminUser:     opts.AdminUser,
 		AdminPassword: opts.AdminPassword,
+		Port:          opts.Port,
 		Mode:          opts.Mode,
 		Language:      opts.Language,
 	})
@@ -82,6 +86,15 @@ func InitCore(opts CoreOptions) error {
 
 	session.Init()
 	hook.Init()
+
+	// 迁移只在首次建库时写入 ServerPort，老库会保留旧的默认端口（9999）。
+	// 每次启动都用 master 实际监听端口覆盖，确保设置页展示的端口与访问地址一致。
+	if opts.Port != "" {
+		settingRepo := repo.NewISettingRepo()
+		if err := settingRepo.UpdateOrCreate("ServerPort", opts.Port); err != nil {
+			global.LOG.Warnf("同步面板端口到数据库失败: %v", err)
+		}
+	}
 
 	global.IPTracker = auth.NewIPTracker()
 
