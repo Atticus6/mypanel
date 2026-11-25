@@ -65,6 +65,7 @@ func provideHandler(cfg Config, services []server.RPCService) http.Handler {
 		FileUpload:    upload,
 		FileDownload:  download,
 		TerminalWS:    transport.TerminalWSHandler(),
+		ProcessWS:     transport.ProcessWSHandler(),
 		MCPHandler:    transport.MCPHandler(),
 		ContainerLogs: transport.ContainerLogsHandler(),
 	})

@@ -356,7 +356,7 @@ import { toRef, onMounted, reactive, ref, computed } from 'vue';
 import { Website } from '@/types/website';
 import { App } from '@/types/app';
 import { ElMessageBox } from 'element-plus';
-import { dateFormatSimple } from '@/utils/date';
+import { dateFormatSimple, isNeverExpire } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useI18n } from 'vue-i18n';
@@ -534,10 +534,7 @@ const openConfig = (id: number) => {
     routerToNameWithParams('WebsiteConfig', { id: id, tab: 'basic' });
 };
 
-const isEver = (time: string) => {
-    const expireDate = new Date(time);
-    return expireDate > new Date('9999-12-30');
-};
+const isEver = (time: string) => isNeverExpire(time);
 
 const isBeforeNow = (time: string) => {
     return new Date() > new Date(time);

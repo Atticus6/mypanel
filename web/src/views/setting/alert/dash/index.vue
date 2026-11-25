@@ -198,7 +198,7 @@ const paginationConfig = reactive({
     currentPage: 1,
     pageSize: 20,
     total: 0,
-    orderBy: 'created_at',
+    orderBy: 'createdAt',
     order: 'null',
 });
 useSearchState(
@@ -250,7 +250,8 @@ const openView = async (
 
 const changeSort = ({ prop, order }) => {
     if (order) {
-        paginationConfig.orderBy = prop == 'status' ? 'status' : prop;
+        // proto 的 order_by 仅允许空串、createdAt、orderBy，其它列名会被校验拒绝。
+        paginationConfig.orderBy = prop === 'createdAt' || prop === 'orderBy' ? prop : 'createdAt';
         paginationConfig.order = order;
     }
     search();

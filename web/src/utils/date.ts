@@ -83,7 +83,29 @@ export function dateFormatServerTimezone(row: any, col: any, dataStr: any) {
     return `${matched[1]}   ${matched[2]}`;
 }
 
+/**
+ * 判断时间是否代表「永不过期」。
+ * Go 零时间、空值、非法日期与超大哨兵时间（9999 年之后）都归入此类，
+ * 避免失效日期被渲染成 `NaN-NaN-NaN`。
+ */
+export function isNeverExpire(value: unknown): boolean {
+    if (value == null || value === '') {
+        return true;
+    }
+    const date = new Date(value as string);
+    if (Number.isNaN(date.getTime())) {
+        return true;
+    }
+    if (date.getFullYear() < 1000) {
+        return true;
+    }
+    return date > new Date('9999-12-30');
+}
+
 export function dateFormatSimple(dataStr: any) {
+    if (isNeverExpire(dataStr)) {
+        return '';
+    }
     const date = new Date(dataStr);
     const y = date.getFullYear();
     let m: string | number = date.getMonth() + 1;

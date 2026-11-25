@@ -183,7 +183,15 @@ const search = async () => {
         .then((res) => {
             loading.value = false;
             apps.value = res.items.map((item) => {
-                const detail = JSON.parse(item.detailJson || '[]');
+                // detailJson 可能为空或序列化成 "null"，JSON.parse 后不是数组，
+                // 直接取 detail[0] 会抛异常导致整页应用快捷入口消失。
+                let detail: any[] = [];
+                try {
+                    const parsed = JSON.parse(item.detailJson || '[]');
+                    if (Array.isArray(parsed)) detail = parsed;
+                } catch {
+                    detail = [];
+                }
                 return { ...item, detail, currentRow: detail[0] };
             });
         })

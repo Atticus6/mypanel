@@ -44,6 +44,8 @@ type Options struct {
 	FileDownload http.Handler
 	// TerminalWS 是 /ws/terminal 的 WebSocket 处理器；为 nil 时不注册。
 	TerminalWS gin.HandlerFunc
+	// ProcessWS 是 /api/v2/process/ws 的进程监控 WebSocket 处理器；为 nil 时不注册。
+	ProcessWS gin.HandlerFunc
 	// MCPHandler 是 /mcp 的处理器；为 nil 时不注册。
 	MCPHandler gin.HandlerFunc
 	// ContainerLogs 是容器日志 SSE 处理器；为 nil 时不注册。
@@ -126,6 +128,16 @@ func New(opts Options) http.Handler {
 	// 终端是唯一保留的双向流通道：浏览器端 Connect 不能可靠承载 PTY。
 	if opts.TerminalWS != nil {
 		r.GET("/ws/terminal", opts.TerminalWS)
+		// 兼容原版前端仍使用的旧路径，避免握手落到 SPA 返回 HTML。
+		r.GET("/api/v2/hosts/terminal/local", opts.TerminalWS)
+		r.GET("/api/v2/hosts/terminal/ssh", opts.TerminalWS)
+		r.GET("/api/v2/hosts/terminal/container", opts.TerminalWS)
+	}
+
+	// 进程监控沿用旧路径的 WebSocket：沿用 agent 的 PTY 之外流实现，
+	// 单进程下同样要走 core 会话鉴权，否则请求会回落到 SPA。
+	if opts.ProcessWS != nil {
+		r.GET("/api/v2/process/ws", opts.ProcessWS)
 	}
 
 	// 大文件走专用二进制 HTTP 通道，与 RPC 共用票据存储。

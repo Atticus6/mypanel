@@ -11,7 +11,9 @@ import (
 	agentv1 "mypanel/proto/gen/go/panel/agent/v1"
 
 	"mypanel/agent/utils/terminal"
+	terminalsession "mypanel/core/utils/terminal_session"
 
+	"mypanel/master/internal/transport/bridge"
 	"mypanel/master/internal/transport/errmap"
 )
 
@@ -25,10 +27,10 @@ func NewTerminalServer() *TerminalServer {
 
 // ListSessions 列出当前用户与登录会话下的终端会话。
 func (s *TerminalServer) ListSessions(
-	_ context.Context,
+	ctx context.Context,
 	req *connect.Request[agentv1.ListTerminalSessionsRequest],
 ) (*connect.Response[agentv1.ListTerminalSessionsResponse], error) {
-	identity, err := terminalIdentity(req.Header())
+	identity, err := terminalIdentity(ctx, req.Header())
 	if err != nil {
 		return nil, err
 	}
@@ -51,10 +53,10 @@ func (s *TerminalServer) ListSessions(
 
 // CloseSession 关闭指定终端会话。
 func (s *TerminalServer) CloseSession(
-	_ context.Context,
+	ctx context.Context,
 	req *connect.Request[agentv1.CloseTerminalSessionRequest],
 ) (*connect.Response[agentv1.CloseTerminalSessionResponse], error) {
-	identity, err := terminalIdentity(req.Header())
+	identity, err := terminalIdentity(ctx, req.Header())
 	if err != nil {
 		return nil, err
 	}
@@ -66,10 +68,10 @@ func (s *TerminalServer) CloseSession(
 
 // CloseAllSessions 关闭当前登录会话下的全部终端会话。
 func (s *TerminalServer) CloseAllSessions(
-	_ context.Context,
+	ctx context.Context,
 	req *connect.Request[agentv1.CloseAllTerminalSessionsRequest],
 ) (*connect.Response[agentv1.CloseAllTerminalSessionsResponse], error) {
-	identity, err := terminalIdentity(req.Header())
+	identity, err := terminalIdentity(ctx, req.Header())
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +83,19 @@ func (s *TerminalServer) CloseAllSessions(
 //
 // 终端身份与 WebSocket 共用同一组请求头；AuthLeaseUntil 由服务端校验上限，
 // 防止客户端把租约无限延长。
-func terminalIdentity(header interface{ Get(string) string }) (terminal.Identity, error) {
+func terminalIdentity(ctx context.Context, header interface{ Get(string) string }) (terminal.Identity, error) {
+	// 单进程 master 的会话拦截器已经完成鉴权并把用户写进 gin context；
+	// 优先从 context 派生身份，不信任客户端可伪造的转发头。
+	if c := bridge.GinContext(ctx); c != nil {
+		if fromContext, ok := terminalsession.FromContext(c); ok {
+			return terminal.Identity{
+				UserID:         fromContext.UserID,
+				AuthSessionID:  fromContext.AuthSessionID,
+				AuthLeaseUntil: fromContext.AuthLeaseUntil,
+			}, nil
+		}
+	}
+
 	identity := terminal.Identity{
 		UserID:        strings.TrimSpace(header.Get(terminal.HeaderUserID)),
 		AuthSessionID: strings.TrimSpace(header.Get(terminal.HeaderAuthSessionID)),

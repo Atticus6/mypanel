@@ -2,6 +2,7 @@ package transport
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 
@@ -49,8 +50,18 @@ func TerminalWSHandler() gin.HandlerFunc {
 		}
 		terminalsession.SetForwardedHeaders(c, identity)
 
-		// kind 由前端指定：local（默认）、ssh、container。
-		switch c.Query("kind") {
+		// kind 优先取查询参数；旧路径 /api/v2/hosts/terminal/{local,ssh,container}
+		// 没有 kind 参数，按路径末段推断，保持与原版前端一致。
+		kind := c.Query("kind")
+		if kind == "" {
+			switch {
+			case strings.HasSuffix(c.Request.URL.Path, "/ssh"):
+				kind = "ssh"
+			case strings.HasSuffix(c.Request.URL.Path, "/container"):
+				kind = "container"
+			}
+		}
+		switch kind {
 		case "ssh":
 			api.WsHostSSH(c)
 		case "container":
@@ -58,6 +69,27 @@ func TerminalWSHandler() gin.HandlerFunc {
 		default:
 			api.WsLocalTerminal(c)
 		}
+	}
+}
+
+// ProcessWSHandler 返回 /api/v2/process/ws 的进程监控 WebSocket 处理器。
+//
+// 单进程 master 没有 agent 的反向代理，因此这里复用 core 会话鉴权，
+// 再交给 agent 原有的 ProcessWs 升级逻辑，避免请求回落到 SPA 返回 HTML。
+func ProcessWSHandler() gin.HandlerFunc {
+	api := agentapi.BaseApi{}
+	return func(c *gin.Context) {
+		if coreglobal.SESSION == nil {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "message": "ErrNotLogin"})
+			return
+		}
+		session, err := coreglobal.SESSION.Get(c)
+		if err != nil || session.ID == "" || session.Name == "" {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "message": "ErrNotLogin"})
+			return
+		}
+		c.Set(psession.GinContextSessionUserKey, session)
+		api.ProcessWs(c)
 	}
 }
 
