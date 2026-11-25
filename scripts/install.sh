@@ -157,10 +157,48 @@ systemctl daemon-reload
 systemctl enable "$UNIT_NAME"
 systemctl restart "$UNIT_NAME"
 
-log "安装完成"
+# 等待服务监听端口，随后从启动日志里抓取随机密码（未显式设置密码时）。
+wait_for_port() {
+    local i
+    for i in $(seq 1 30); do
+        if command -v ss >/dev/null 2>&1 && ss -tln 2>/dev/null | grep -q ":$PORT "; then
+            return 0
+        fi
+        if command -v curl >/dev/null 2>&1 && curl -fsS --max-time 1 "http://127.0.0.1:$PORT/" >/dev/null 2>&1; then
+            return 0
+        fi
+        sleep 1
+    done
+    return 1
+}
+
+wait_for_port || warn "服务尚未监听 :$PORT，请用 systemctl status $UNIT_NAME 检查"
+
+# 取本机第一个非回环 IPv4 地址作为登录地址。
+local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
+[ -n "$local_ip" ] || local_ip="$(ip -4 addr show scope global 2>/dev/null | awk -F'[ /]+' '/inet /{print $3; exit}')"
+[ -n "$local_ip" ] || local_ip="<本机IP>"
+
+# 未指定密码时 master 会随机生成并打印一次，这里抓出来展示，省去用户翻日志。
+if [ -n "$ADMIN_PASSWORD" ]; then
+    shown_password="$ADMIN_PASSWORD"
+else
+    shown_password="$(journalctl -u "$UNIT_NAME" --no-pager 2>/dev/null \
+        | grep -o 'password=[^ ]*' | tail -1 | cut -d= -f2)"
+    [ -n "$shown_password" ] || shown_password="见启动日志（journalctl -u $UNIT_NAME）"
+fi
+
+admin_user="$(grep -E '^admin_user:' "$CONF_DIR/config.local.yaml" 2>/dev/null | tail -1 | sed -E 's/.*: *"?([^"]+)"?.*/\1/')"
+[ -n "$admin_user" ] || admin_user="admin"
+
+echo
+echo "========== 安装完成 =========="
+printf '  %-14s %s\n' '访问地址：' "http://$local_ip:$PORT"
+printf '  %-14s %s\n' '账号：' "$admin_user"
+printf '  %-14s %s\n' '密码：' "$shown_password"
+printf '  %-14s %s\n' '安全入口：' "未设置（可在面板「设置 - 安全」中启用）"
+echo "  --------------------------------"
 echo "  服务状态： systemctl status $UNIT_NAME"
 echo "  命令行：    mypanelctl status   （mypanelctl --help 查看全部）"
-echo "  访问地址： http://<本机IP>:$PORT"
-if [ -z "$ADMIN_PASSWORD" ] && grep -q '随机密码' "$CONF_DIR/config.local.yaml" 2>/dev/null; then
-    warn "管理员密码为随机生成，请查看 journalctl -u $UNIT_NAME 启动日志"
-fi
+echo "================================"
+echo

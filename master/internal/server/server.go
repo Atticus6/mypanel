@@ -16,6 +16,8 @@ import (
 
 	"connectrpc.com/grpcreflect"
 	"github.com/gin-gonic/gin"
+	coreglobal "mypanel/core/global"
+	coremiddleware "mypanel/core/middleware"
 )
 
 // RPCPrefix 是浏览器访问 RPC 时额外使用的路径前缀。
@@ -86,6 +88,18 @@ func New(opts Options) http.Handler {
 	// gin.New() 不带默认中间件；日志由下方基于 slog 的中间件统一处理。
 	r := gin.New()
 	r.Use(logRequests(logger))
+	// 单进程 master 没挂载 core 的 router，但登录页需要 panel_public_key Cookie
+	// 来加密密码；这里全局挂上，保证每个响应都带上当前服务端的 RSA 公钥。
+	// 否则浏览器用旧公钥（或明文）发密码，登录会以「解码 AES Key 失败」告终。
+	// core 的 repo 直接读全局 DB，DB 未初始化时跳过，避免单元测试里 panic。
+	setPublicKey := coremiddleware.SetPasswordPublicKey()
+	r.Use(func(c *gin.Context) {
+		if coreglobal.DB == nil {
+			c.Next()
+			return
+		}
+		setPublicKey(c)
+	})
 
 	// 同一个生成处理器同时支持 Connect、gRPC 与 gRPC-Web，因此只需注册一次，
 	// 然后按上文的理由挂载到两个路径。
