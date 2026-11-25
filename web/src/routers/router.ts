@@ -1,97 +1,68 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { Layout } from '@/routers/constant';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
+import { routes as generatedRoutes } from 'vue-router/auto-routes';
+import { GlobalStore } from '@/store';
 
-type AppRouteRecord = RouteRecordRaw & { sort?: number };
-type RouteModuleMap = Record<string, { default?: AppRouteRecord }>;
+// 由 src/pages 下的文件生成路由；这里的职责只剩两类无法写进 definePage 的调整：
+// 1. 带 store 判断的函数式重定向；2. 菜单排序与 catch-all。
 
-const modules = import.meta.glob('./modules/*.ts', { eager: true }) as RouteModuleMap;
-
-const homeRouter: RouteRecordRaw = {
-    path: '/',
-    name: 'Home-Menu',
-    component: Layout,
-    redirect: '/',
-    meta: {
-        title: 'menu.home',
-        icon: 'p-home',
-    },
-    children: [
-        {
-            path: '/',
-            name: 'home',
-            component: () => import('@/views/home/index.vue'),
-        },
-    ],
+const redirectToAvailableSetting = () => {
+    const globalStore = GlobalStore();
+    if (globalStore.isAdmin) {
+        return '/settings/panel';
+    }
+    if (globalStore.hasPermission('alert_view')) {
+        return '/settings/alert';
+    }
+    if (globalStore.hasPermission('backup_view')) {
+        return '/settings/backupaccount';
+    }
+    return '/settings/apikeys';
 };
 
-export const routerArray: RouteRecordRaw[] = [];
+// definePage 只接受静态字面量，设置模块的动态重定向在运行时补回。
+const applyRuntimeRedirects = (records: RouteRecordRaw[]): void => {
+    for (const record of records) {
+        if (record.name === 'Setting-Menu' || record.name === 'Setting') {
+            record.redirect = redirectToAvailableSetting;
+        }
+        if (Array.isArray(record.children)) {
+            applyRuntimeRedirects(record.children as RouteRecordRaw[]);
+        }
+    }
+};
 
-export const rolesRoutes = [
-    ...(
-        Object.keys(modules)
-            .map((key) => modules[key]['default'])
-            .filter(Boolean) as AppRouteRecord[]
-    ).sort((r1, r2) => {
-        r1.sort ??= Number.MAX_VALUE;
-        r2.sort ??= Number.MAX_VALUE;
-        return r1.sort - r2.sort;
-    }),
-];
+// 生成的路由是只读的，这里复制一份供运行时补正。
+const mutableRoutes = [...generatedRoutes] as unknown as RouteRecordRaw[];
+applyRuntimeRedirects(mutableRoutes);
 
-rolesRoutes.forEach((item) => {
-    const menu = item as RouteRecordRaw;
-    routerArray.push(menu);
-});
+// 菜单模块按 meta.sort 排序；sort 由各分组首页的 definePage 声明。
+export const rolesRoutes: RouteRecordRaw[] = mutableRoutes
+    .filter((route) => typeof route.meta?.sort === 'number')
+    .sort((a, b) => (a.meta?.sort as number) - (b.meta?.sort as number));
 
+export const routerArray: RouteRecordRaw[] = rolesRoutes;
+
+// 侧栏只展示未标记 meta.hidden 的直接子路由。
 export const menuList: RouteRecordRaw[] = [];
 rolesRoutes.forEach((item) => {
-    let menuItem = JSON.parse(JSON.stringify(item));
-    let menuChildren: RouteRecordRaw[] = [];
-    if (menuItem.children == undefined) {
-        return;
-    }
-    menuItem.children.forEach((child: any) => {
-        if (child.hidden == undefined || child.hidden == false) {
-            menuChildren.push(child);
-        }
-    });
-    menuItem.children = menuChildren as RouteRecordRaw[];
-    menuList.push(menuItem);
+    const menuItem = JSON.parse(JSON.stringify(item));
+    menuItem.children = (Array.isArray(menuItem.children) ? menuItem.children : []).filter(
+        (child: RouteRecordRaw) => !child.meta?.hidden,
+    );
+    menuList.push(menuItem as RouteRecordRaw);
 });
-menuList.unshift(homeRouter);
+
+const otherRoutes = mutableRoutes.filter((route) => typeof route.meta?.sort !== 'number');
 
 export const routes: RouteRecordRaw[] = [
-    homeRouter,
-    {
-        path: '/login',
-        name: 'login',
-        props: true,
-        component: () => import('@/views/login/index.vue'),
-        meta: {
-            key: 'login',
-        },
-    },
-    {
-        path: '/s/:code',
-        name: 'file-share',
-        component: () => import('@/views/share/index.vue'),
-        meta: {},
-    },
-    {
-        path: '/:code?',
-        name: 'entrance',
-        component: () => import('@/views/login/index.vue'),
-        props: true,
-    },
-    ...routerArray,
-    {
-        path: '/:pathMatch(.*)',
-        redirect: { name: '404' },
-    },
+    ...rolesRoutes,
+    ...otherRoutes,
+    { path: '/:path(.*)', redirect: { name: '404' } },
 ];
+
 const router = createRouter({
     history: createWebHistory('/'),
-    routes: routes as RouteRecordRaw[],
+    routes,
     strict: false,
     scrollBehavior: () => ({ left: 0, top: 0 }),
 });

@@ -94,11 +94,8 @@ class RequestHttp {
                     return Promise.reject(data);
                 }
                 if (data.code == ResultEnum.ERR_ENTERPRISE) {
+                    // 本构建没有企业版许可证页，标记状态后直接中断请求。
                     globalStore.isEnterpriseLicensed = false;
-                    const routeName = router.currentRoute.value.name;
-                    if (globalStore.isLogin && routeName !== 'EnterpriseLicenseRequired') {
-                        router.push({ name: 'EnterpriseLicenseRequired' });
-                    }
                     return Promise.reject(data);
                 }
                 if (data.code == ResultEnum.NODE_UNBIND) {

@@ -6,6 +6,10 @@ import { MsgError } from '@/utils/message';
 import type { RouteLocationRaw } from 'vue-router';
 import { panelCacheKey, readPanelCache, removePanelCache } from '@/utils/panel-cache';
 
+// 业务侧用字符串拼路由名，文件路由的编译期类型无法枚举，统一在此收口。
+type DynamicRouteLocation = { name: string; params?: any; query?: any };
+const toLocation = (value: DynamicRouteLocation): RouteLocationRaw => value as unknown as RouteLocationRaw;
+
 const pushWithAccessCheck = async (to: RouteLocationRaw) => {
     const resolvedRoute = router.resolve(to);
     if (!hasRouteAccess(resolvedRoute)) {
@@ -46,7 +50,7 @@ export const openMenu = async (to: RouteLocationRaw) => {
 };
 
 export const routerToName = async (name: string) => {
-    await openPage({ name: name });
+    await openPage(toLocation({ name }));
 };
 
 export const routerToPath = async (path: string) => {
@@ -58,7 +62,7 @@ export const routerToFileWithPath = async (pathItem: string) => {
 };
 
 export const routerToNameWithQuery = async (name: string, query: any) => {
-    await openPage({ name: name, query: query });
+    await openPage(toLocation({ name, query }));
 };
 
 export const routerToPathWithQuery = async (path: string, query: any) => {
@@ -70,7 +74,7 @@ export const jumpToPath = (router: any, path: string) => {
 };
 
 export const routerToNameWithParams = async (name: string, params: any) => {
-    await openPage({ name: name, params: params });
+    await openPage(toLocation({ name, params }));
 };
 
 const tabStoreMiddleWare = () => {

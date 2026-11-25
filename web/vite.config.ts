@@ -9,6 +9,7 @@ import vue from '@vitejs/plugin-vue';
 import pkg from './package.json';
 import dayjs from 'dayjs';
 
+import VueRouter from 'unplugin-vue-router/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -114,6 +115,8 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
             },
         },
         plugins: [
+            // 文件路由必须放在 vue() 之前，definePage 宏才能在 SFC 编译前被提取。
+            VueRouter({ dts: 'src/typed-router.d.ts' }),
             benchmarkReportPlugin(__dirname),
             patchCodeFilterOverflow(),
             vue(),
