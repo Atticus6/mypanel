@@ -20,6 +20,7 @@ import (
 	"mypanel/master/internal/app"
 	"mypanel/master/internal/bootstrap"
 	"mypanel/master/internal/config"
+	"mypanel/master/internal/ctl"
 	"mypanel/master/internal/webdist"
 )
 
@@ -33,6 +34,9 @@ func main() {
 	addr := flag.String("addr", "", "监听地址（默认取 MYPANEL_ADDR 或 :8080）")
 	webDir := flag.String("web-dir", "", "前端产物目录（默认取 MYPANEL_WEB_DIR；留空则用内置版本）")
 	debug := flag.Bool("debug", false, "打开 gin 调试模式（默认取 MYPANEL_DEBUG）")
+	// 运维操作：由 mypanelctl 调用，执行完即退出，不启动 HTTP 服务。
+	ctlAction := flag.String("ctl-action", "", "运维操作：password/port/listen-ip/entrance")
+	ctlValue := flag.String("ctl-value", "", "运维操作的值")
 	flag.Parse()
 
 	logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelInfo}))
@@ -93,6 +97,16 @@ func main() {
 		logger.Error("init core", "err", err)
 		os.Exit(1)
 	}
+	// 运维操作在 core 初始化后执行，确保 settingRepo 可更新缓存；执行完直接退出。
+	if *ctlAction != "" {
+		if err := ctl.Apply(*ctlAction, *ctlValue); err != nil {
+			logger.Error("ctl", "action", *ctlAction, "err", err)
+			os.Exit(1)
+		}
+		logger.Info("ctl applied", "action", *ctlAction)
+		return
+	}
+
 	// agent 的部分迁移会读 core 的设置，所以顺序必须是 core → agent。
 	if err := bootstrap.InitAgent(bootstrap.AgentOptions{
 		DataDir:  cfg.DataDir,

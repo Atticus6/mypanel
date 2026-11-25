@@ -16,8 +16,11 @@ import (
 
 	"connectrpc.com/grpcreflect"
 	"github.com/gin-gonic/gin"
+	coreauth "mypanel/core/app/auth"
+	coreservice "mypanel/core/app/service"
 	coreglobal "mypanel/core/global"
 	coremiddleware "mypanel/core/middleware"
+	coresecurity "mypanel/core/utils/security"
 )
 
 // RPCPrefix 是浏览器访问 RPC 时额外使用的路径前缀。
@@ -93,12 +96,17 @@ func New(opts Options) http.Handler {
 	// 否则浏览器用旧公钥（或明文）发密码，登录会以「解码 AES Key 失败」告终。
 	// core 的 repo 直接读全局 DB，DB 未初始化时跳过，避免单元测试里 panic。
 	setPublicKey := coremiddleware.SetPasswordPublicKey()
+	frontendFallback := coremiddleware.FrontendFallback()
 	r.Use(func(c *gin.Context) {
 		if coreglobal.DB == nil {
 			c.Next()
 			return
 		}
 		setPublicKey(c)
+		// 前端导航请求走 core 的安全检查：设置安全入口后，非入口路径
+		// 会显示「未认证设置」页面，而不是直接返回登录页。
+		// FrontendFallback 内部会过滤静态资源与 API，非 HTML 请求直接放行。
+		frontendFallback(c)
 	})
 
 	// 同一个生成处理器同时支持 Connect、gRPC 与 gRPC-Web，因此只需注册一次，
@@ -168,10 +176,57 @@ func New(opts Options) http.Handler {
 		c.String(http.StatusOK, "ok\n")
 	})
 
+	// 根路径与安全入口路径需要走 core 的安全检查：
+	// 设置了安全入口后，未认证访问 "/" 应显示「未认证设置」页面，
+	// 只有 /<entrance> 或已持有 SecurityEntrance Cookie 才显示登录页。
+	spa := gin.WrapH(spaHandler(opts.WebFS))
+	frontendGate := func(c *gin.Context) {
+		if coreglobal.DB != nil {
+			if !coresecurity.CheckSecurity(c) {
+				c.Abort()
+				return
+			}
+			entrance := coreservice.NewIAuthService().GetSecurityEntrance()
+			if entrance != "" && strings.TrimSuffix(c.Request.URL.Path, "/") == "/"+entrance {
+				// 通过安全入口进入时写入 Cookie，然后用 master 自带的前端资源出页面。
+				coreauth.SetSecurityEntranceCookie(c, entrance)
+				spa(c)
+				c.Abort()
+				return
+			}
+		}
+		spa(c)
+	}
+	r.GET("/", frontendGate)
+	r.HEAD("/", frontendGate)
+
 	// 其余路径交给前端：静态文件直出，未知路径回落到 index.html。
 	// 用 NoRoute 而不是 r.NoRoute(gin.WrapH(...)) 的静态注册，是因为
 	// 前端路由是运行时才知道的，必须由 SPA handler 自己判断。
-	r.NoRoute(gin.WrapH(spaHandler(opts.WebFS)))
+	// 前端深链接（含动态安全入口路径）同样要走安全检查：
+	// 原版 core 的 HandleNotRoute 在 isEntrancePath 时直接出 index.html，
+	// 其余未认证路径显示「未认证设置」页面。
+	frontendNoRoute := func(c *gin.Context) {
+		if coreglobal.DB != nil && c.Request.Method == http.MethodGet {
+			if coresecurity.CanServeFrontendPath(c) {
+				spa(c)
+				return
+			}
+			// 动态安全入口路径：与 core 的 isEntrancePath 一致，直接放行。
+			entrance := coreservice.NewIAuthService().GetSecurityEntrance()
+			if entrance != "" && strings.TrimSuffix(c.Request.URL.Path, "/") == "/"+entrance {
+				coreauth.SetSecurityEntranceCookie(c, entrance)
+				spa(c)
+				return
+			}
+			if coresecurity.IsFrontendPath(c.Request.URL.Path) {
+				coresecurity.HandleNotSecurity(c, "")
+				return
+			}
+		}
+		spa(c)
+	}
+	r.NoRoute(frontendNoRoute)
 
 	return r
 }

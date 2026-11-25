@@ -120,6 +120,8 @@ fi
 [ -n "$ADMIN_USER" ] || ADMIN_USER="admin$(rand_str 4)"
 [ -n "$ADMIN_PASSWORD" ] || ADMIN_PASSWORD="$(rand_str 16)"
 [ -n "$DATA_DIR" ] || DATA_DIR="/opt/mypanel-$(rand_str 6)/data"
+# 随机安全入口：登录后路径为 /<entrance>
+ENTRANCE="$(rand_str 10)"
 
 log "创建目录"
 mkdir -p "$BIN_DIR" "$CONF_DIR" "$DATA_DIR"
@@ -192,6 +194,12 @@ wait_for_port() {
 }
 wait_for_port || warn "服务尚未监听 :$PORT，请用 mypanelctl status 检查"
 
+# 把随机安全入口写入面板数据库（通过 master 的 ctl 操作，会刷新缓存）。
+# 重启一次确保运行中的进程也带上新入口。
+"$BIN_DIR/master" -config "$CONF_DIR/config.yaml" -ctl-action entrance -ctl-value "$ENTRANCE" >/dev/null 2>&1 || \
+    warn "设置安全入口失败，可用 mypanelctl update entrance 重设"
+systemctl restart "$UNIT_NAME"
+
 local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
 [ -n "$local_ip" ] || local_ip="$(ip -4 addr show scope global 2>/dev/null | awk -F'[ /]+' '/inet /{print $3; exit}')"
 [ -n "$local_ip" ] || local_ip="<本机IP>"
@@ -201,9 +209,8 @@ cat > "$INFO_FILE" <<EOF
 address=http://$local_ip:$PORT
 port=$PORT
 user=$ADMIN_USER
-password=$ADMIN_PASSWORD
 data_dir=$DATA_DIR
-entrance=未设置（可在面板「设置 - 安全」中启用）
+entrance=$ENTRANCE
 EOF
 chmod 600 "$INFO_FILE"
 
@@ -211,11 +218,10 @@ echo
 echo "========== 安装完成 =========="
 printf '  %-14s %s\n' '访问地址：' "http://$local_ip:$PORT"
 printf '  %-14s %s\n' '账号：' "$ADMIN_USER"
-printf '  %-14s %s\n' '密码：' "$ADMIN_PASSWORD"
 printf '  %-14s %s\n' '数据目录：' "$DATA_DIR"
-printf '  %-14s %s\n' '安全入口：' "未设置（可在面板「设置 - 安全」中启用）"
+printf '  %-14s %s\n' '安全入口：' "/$ENTRANCE"
 echo "  --------------------------------"
-echo "  再次查看： mypanelctl info"
+echo "  再次查看： mypanelctl info（密码请用 mypanelctl update password 重设）"
 echo "  服务状态： mypanelctl status"
 echo "================================"
 echo

@@ -5,18 +5,22 @@
 #   mypanelctl <命令> [参数]
 #
 # 命令：
-#   info                   查看安装信息（地址 / 账号 / 密码 / 数据目录 / 安全入口）
-#   status                 查看服务运行状态与访问地址
-#   start|stop|restart     启动 / 停止 / 重启服务
-#   enable|disable         开机自启开关
-#   logs [-f]              查看服务日志（-f 实时跟随）
-#   version                查看已安装版本
-#   port [新端口]          查看或设置监听端口（需重启生效）
-#   data-dir               查看数据目录
-#   upgrade-source [URL]   查看或设置升级源地址（写入 config.local.yaml）
-#   help                   显示本帮助
+#   info                         查看安装信息（地址 / 账号 / 数据目录 / 安全入口，不含密码）
+#   status                       查看服务运行状态与访问地址
+#   start|stop|restart           启动 / 停止 / 重启服务
+#   enable|disable               开机自启开关
+#   logs [-f]                    查看服务日志（-f 实时跟随）
+#   version                      查看已安装版本
+#   update password <新密码>     重设管理员密码
+#   update port <新端口>         修改访问端口（同时更新配置、systemd 与面板设置）
+#   update listen-ip <地址>      修改监听地址（同时更新配置与面板设置）
+#   update entrance <入口>       修改安全入口（留空字符串可关闭）
+#   data-dir                     查看数据目录
+#   upgrade-source [URL]         查看或设置升级源地址
+#   help                         显示本帮助
 #
-# 说明：info 读取安装时写入的 install-info 文件；若文件丢失，会尝试从 config.local.yaml 重建。
+# 说明：update 系列通过 master 的 -ctl-action 写入数据库并刷新进程内缓存，
+#       随后自动重启服务使变更对所有组件生效。info 不显示密码，密码只能重设。
 set -euo pipefail
 
 SERVICE="mypanel.service"
@@ -25,8 +29,10 @@ CONF_DIR="$PREFIX/etc/mypanel"
 CONF_LOCAL="$CONF_DIR/config.local.yaml"
 INFO_FILE="$CONF_DIR/install-info"
 UNIT_PATH="/etc/systemd/system/$SERVICE"
+MASTER_BIN="$PREFIX/bin/master"
 
 log() { printf '\033[32m[mypanelctl]\033[0m %s\n' "$*"; }
+warn() { printf '\033[33m[warn]\033[0m %s\n' "$*" >&2; }
 die() { printf '\033[31m[error]\033[0m %s\n' "$*" >&2; exit 1; }
 
 need_root() { [ "$(id -u)" -eq 0 ] || die "此操作需要 root（sudo mypanelctl $*）"; }
@@ -36,39 +42,57 @@ get_conf_value() {
     grep -E "^${key}:" "$CONF_LOCAL" 2>/dev/null | tail -1 | sed -E 's/^[^:]*: *"?([^"]+)"?.*/\1/'
 }
 
+set_conf_value() {
+    local key="$1" value="$2"
+    [ -f "$CONF_LOCAL" ] || die "配置文件不存在：$CONF_LOCAL"
+    if grep -qE "^${key}:" "$CONF_LOCAL"; then
+        sed -i -E "s|^${key}:.*|${key}: \"${value}\"|" "$CONF_LOCAL"
+    else
+        printf '%s: "%s"\n' "$key" "$value" >> "$CONF_LOCAL"
+    fi
+}
+
+# 通过 master 的 ctl-action 更新数据库（会刷新 core 的 settingRepo 缓存）。
+apply_ctl() {
+    local action="$1" value="$2"
+    need_root
+    [ -x "$MASTER_BIN" ] || die "未找到 $MASTER_BIN"
+    "$MASTER_BIN" -config "$CONF_DIR/config.yaml" -ctl-action "$action" -ctl-value "$value" >/dev/null 2>&1 \
+        || die "更新 $action 失败，请检查服务日志：journalctl -u $SERVICE"
+}
+
+restart_service() {
+    need_root
+    systemctl restart "$SERVICE"
+    log "服务已重启，变更已生效"
+}
+
 show_info() {
     if [ ! -f "$INFO_FILE" ]; then
-        # install-info 丢失时从配置重建关键字段。
-        local addr port user password data_dir
-        addr="$(get_conf_value addr)"
-        port="${addr#:}"
-        user="$(get_conf_value admin_user)"
-        password="$(get_conf_value admin_password)"
-        data_dir="$(get_conf_value data_dir)"
-        local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
-        [ -n "$local_ip" ] || local_ip="<本机IP>"
-        cat > "$INFO_FILE" <<EOF
-address=http://$local_ip:$port
-port=$port
-user=$user
-password=$password
-data_dir=$data_dir
-entrance=未设置（可在面板「设置 - 安全」中启用）
-EOF
-        chmod 600 "$INFO_FILE" 2>/dev/null || true
+        warn "安装信息文件不存在：$INFO_FILE，仅显示配置中的可用项"
     fi
+    local addr port user data_dir entrance
+    addr="$(get_conf_value addr)"
+    port="${addr#:}"
+    user="$(get_conf_value admin_user)"
+    data_dir="$(get_conf_value data_dir)"
+    if [ -f "$INFO_FILE" ]; then
+        entrance="$(grep -E '^entrance=' "$INFO_FILE" | tail -1 | cut -d= -f2-)"
+    fi
+    [ -n "$entrance" ] || entrance="未设置"
+    local local_ip
+    local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
+    [ -n "$local_ip" ] || local_ip="<本机IP>"
+
     echo
     echo "========== mypanel 安装信息 =========="
-    while IFS='=' read -r key value; do
-        case "$key" in
-            address) printf '  %-14s %s\n' '访问地址：' "$value" ;;
-            port) printf '  %-14s %s\n' '端口：' "$value" ;;
-            user) printf '  %-14s %s\n' '账号：' "$value" ;;
-            password) printf '  %-14s %s\n' '密码：' "$value" ;;
-            data_dir) printf '  %-14s %s\n' '数据目录：' "$value" ;;
-            entrance) printf '  %-14s %s\n' '安全入口：' "$value" ;;
-        esac
-    done < "$INFO_FILE"
+    printf '  %-14s %s\n' '访问地址：' "http://$local_ip:$port"
+    printf '  %-14s %s\n' '端口：' "$port"
+    printf '  %-14s %s\n' '账号：' "$user"
+    printf '  %-14s %s\n' '数据目录：' "$data_dir"
+    printf '  %-14s %s\n' '安全入口：' "/$entrance"
+    echo "  --------------------------------"
+    echo "  密码不会显示；重设： sudo mypanelctl update password <新密码>"
     echo "======================================"
     echo
 }
@@ -95,46 +119,74 @@ cmd_logs() {
 }
 
 cmd_version() {
-    if [ -x "$PREFIX/bin/master" ]; then
+    if [ -x "$MASTER_BIN" ]; then
         local v
-        v="$(strings "$PREFIX/bin/master" | grep -m1 -oE '^v?[0-9]+\.[0-9]+\.[0-9]+$' || true)"
+        v="$(strings "$MASTER_BIN" | grep -m1 -oE '^v?[0-9]+\.[0-9]+\.[0-9]+$' || true)"
         log "版本：${v:-dev（源码构建，版本未注入）}"
     else
-        die "未找到 $PREFIX/bin/master"
+        die "未找到 $MASTER_BIN"
     fi
 }
 
-set_conf_value() {
-    local key="$1" value="$2"
-    need_root
-    [ -f "$CONF_LOCAL" ] || die "配置文件不存在：$CONF_LOCAL"
-    if grep -qE "^${key}:" "$CONF_LOCAL"; then
-        sed -i -E "s|^${key}:.*|${key}: \"${value}\"|" "$CONF_LOCAL"
-    else
-        printf '%s: "%s"\n' "$key" "$value" >> "$CONF_LOCAL"
-    fi
-}
-
-cmd_port() {
-    if [ $# -eq 0 ]; then
-        log "当前端口：$(get_conf_value addr)"
-        return
-    fi
-    local port="$1"
-    case "$port" in ''|*[!0-9]*) die "端口必须是数字" ;; esac
-    set_conf_value addr ":$port"
-    sed -i -E "s|^port=.*|port=$port|" "$INFO_FILE" 2>/dev/null || true
-    log "端口已设为 $port，请运行 mypanelctl restart 生效"
-}
-
-cmd_upgrade_source() {
-    if [ $# -eq 0 ]; then
-        log "升级源：$(get_conf_value upgrade_repo_url)"
-        return
-    fi
-    set_conf_value upgrade_repo_url "$1"
-    set_conf_value upgrade_resource_url "$1"
-    log "升级源已设为 $1，请运行 mypanelctl restart 生效"
+cmd_update() {
+    local action="${1:-}" value="${2:-}"
+    case "$action" in
+        password)
+            [ -n "$value" ] || die "用法：mypanelctl update password <新密码>"
+            case "$value" in *' '*) die "密码不能包含空格" ;; esac
+            apply_ctl password "$value"
+            # 密码变更后清掉 install-info 里可能残留的旧密码字段（历史版本）。
+            if [ -f "$INFO_FILE" ]; then
+                sed -i -E '/^password=/d' "$INFO_FILE" 2>/dev/null || true
+                chmod 600 "$INFO_FILE" 2>/dev/null || true
+            fi
+            restart_service
+            log "管理员密码已重设"
+            ;;
+        port)
+            [ -n "$value" ] || die "用法：mypanelctl update port <新端口>"
+            case "$value" in ''|*[!0-9]*) die "端口必须是数字" ;; esac
+            apply_ctl port "$value"
+            set_conf_value addr ":$value"
+            sed -i -E "s|^Environment=MYPANEL_ADDR=.*|Environment=MYPANEL_ADDR=:$value|" "$UNIT_PATH" 2>/dev/null || true
+            if [ -f "$INFO_FILE" ]; then
+                local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
+                [ -n "$local_ip" ] || local_ip="<本机IP>"
+                sed -i -E "s|^address=.*|address=http://$local_ip:$value|" "$INFO_FILE" 2>/dev/null || true
+                sed -i -E "s|^port=.*|port=$value|" "$INFO_FILE" 2>/dev/null || true
+            fi
+            systemctl daemon-reload 2>/dev/null || true
+            restart_service
+            log "端口已设为 $value"
+            ;;
+        listen-ip)
+            [ -n "$value" ] || die "用法：mypanelctl update listen-ip <地址>"
+            apply_ctl listen-ip "$value"
+            # 同时更新 core 的 app.yaml（如存在），保证下次启动一致。
+            local appyaml="$PREFIX/etc/mypanel/app.yaml"
+            if [ -f "$appyaml" ]; then
+                sed -i -E "s|^( *bindAddress:).*|\1 \"$value\"|" "$appyaml" 2>/dev/null || true
+            fi
+            restart_service
+            log "监听地址已设为 $value"
+            ;;
+        entrance)
+            [ -n "$value" ] || die "用法：mypanelctl update entrance <入口>（传空字符串关闭）"
+            apply_ctl entrance "$value"
+            if [ -f "$INFO_FILE" ]; then
+                if [ -n "$value" ]; then
+                    sed -i -E "s|^entrance=.*|entrance=$value|" "$INFO_FILE" 2>/dev/null || true
+                else
+                    sed -i -E 's|^entrance=.*|entrance=未设置|' "$INFO_FILE" 2>/dev/null || true
+                fi
+            fi
+            restart_service
+            log "安全入口已设为 ${value:-（关闭）}"
+            ;;
+        *)
+            die "用法：mypanelctl update {password|port|listen-ip|entrance} <值>"
+            ;;
+    esac
 }
 
 case "${1:-help}" in
@@ -147,9 +199,20 @@ case "${1:-help}" in
     disable) need_root; systemctl disable "$SERVICE"; log "已取消开机自启" ;;
     logs) shift; cmd_logs "$@" ;;
     version) cmd_version ;;
-    port) shift; cmd_port "$@" ;;
+    update) shift; cmd_update "$@" ;;
     data-dir) log "数据目录：$(get_conf_value data_dir)" ;;
-    upgrade-source) shift; cmd_upgrade_source "$@" ;;
-    help|--help|-h) sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//' ;;
+    upgrade-source)
+        shift
+        if [ $# -eq 0 ]; then
+            log "升级源：$(get_conf_value upgrade_repo_url)"
+        else
+            need_root
+            set_conf_value upgrade_repo_url "$1"
+            set_conf_value upgrade_resource_url "$1"
+            restart_service
+            log "升级源已设为 $1"
+        fi
+        ;;
+    help|--help|-h) sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//' ;;
     *) die "未知命令：$1（mypanelctl help 查看用法）" ;;
 esac
