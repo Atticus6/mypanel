@@ -135,7 +135,11 @@ cmd_update() {
             [ -n "$value" ] || die "用法：mypanelctl update password <新密码>"
             case "$value" in *' '*) die "密码不能包含空格" ;; esac
             apply_ctl password "$value"
-            # 密码变更后清掉 install-info 里可能残留的旧密码字段（历史版本）。
+            # 同步 config.local.yaml：master 首次初始化用这里的 admin_password，
+            # 不同步会让配置文件与真实登录密码不一致。
+            set_conf_value admin_password "$value"
+            chmod 600 "$CONF_LOCAL" 2>/dev/null || true
+            # 清掉 install-info 里可能残留的旧密码字段（历史版本）。
             if [ -f "$INFO_FILE" ]; then
                 sed -i -E '/^password=/d' "$INFO_FILE" 2>/dev/null || true
                 chmod 600 "$INFO_FILE" 2>/dev/null || true
