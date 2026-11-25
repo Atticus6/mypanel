@@ -206,7 +206,7 @@ local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
 
 # 写入安装信息，mypanelctl info 从这里读取。
 cat > "$INFO_FILE" <<EOF
-address=http://$local_ip:$PORT
+address=http://$local_ip:$PORT/$ENTRANCE
 port=$PORT
 user=$ADMIN_USER
 data_dir=$DATA_DIR
@@ -216,7 +216,7 @@ chmod 600 "$INFO_FILE"
 
 echo
 echo "========== 安装完成 =========="
-printf '  %-14s %s\n' '访问地址：' "http://$local_ip:$PORT"
+printf '  %-14s %s\n' '访问地址：' "http://$local_ip:$PORT/$ENTRANCE"
 printf '  %-14s %s\n' '账号：' "$ADMIN_USER"
 printf '  %-14s %s\n' '数据目录：' "$DATA_DIR"
 printf '  %-14s %s\n' '安全入口：' "/$ENTRANCE"

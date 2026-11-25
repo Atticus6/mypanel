@@ -80,13 +80,20 @@ show_info() {
         entrance="$(grep -E '^entrance=' "$INFO_FILE" | tail -1 | cut -d= -f2-)"
     fi
     [ -n "$entrance" ] || entrance="未设置"
-    local local_ip
+    local local_ip address
     local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
     [ -n "$local_ip" ] || local_ip="<本机IP>"
+    if [ -f "$INFO_FILE" ]; then
+        address="$(grep -E '^address=' "$INFO_FILE" | tail -1 | cut -d= -f2-)"
+    fi
+    if [ -z "$address" ]; then
+        address="http://$local_ip:$port"
+        [ "$entrance" != "未设置" ] && address="$address/$entrance"
+    fi
 
     echo
     echo "========== mypanel 安装信息 =========="
-    printf '  %-14s %s\n' '访问地址：' "http://$local_ip:$port"
+    printf '  %-14s %s\n' '访问地址：' "$address"
     printf '  %-14s %s\n' '端口：' "$port"
     printf '  %-14s %s\n' '账号：' "$user"
     printf '  %-14s %s\n' '数据目录：' "$data_dir"
@@ -176,12 +183,20 @@ cmd_update() {
             ;;
         entrance)
             [ -n "$value" ] || die "用法：mypanelctl update entrance <入口>（传空字符串关闭）"
+            local addr port
+            addr="$(get_conf_value addr)"
+            port="${addr#:}"
             apply_ctl entrance "$value"
             if [ -f "$INFO_FILE" ]; then
                 if [ -n "$value" ]; then
                     sed -i -E "s|^entrance=.*|entrance=$value|" "$INFO_FILE" 2>/dev/null || true
+                    local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
+                    [ -n "$local_ip" ] || local_ip="<本机IP>"
+                    sed -i -E "s|^address=.*|address=http://$local_ip:$port/$value|" "$INFO_FILE" 2>/dev/null || true
                 else
                     sed -i -E 's|^entrance=.*|entrance=未设置|' "$INFO_FILE" 2>/dev/null || true
+                    local base="$(grep -E '^address=' "$INFO_FILE" | tail -1 | cut -d= -f2-)"
+                    sed -i -E "s|^address=.*|address=${base%%/*}|" "$INFO_FILE" 2>/dev/null || true
                 fi
             fi
             restart_service

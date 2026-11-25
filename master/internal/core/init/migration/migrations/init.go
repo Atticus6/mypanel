@@ -58,7 +58,7 @@ var InitSetting = &gormigrate.Migration{
 			}
 		}
 		_ = ctl_conf.UpdateInFile("/usr/local/bin/1pctl", "ORIGINAL_PASSWORD", "**********")
-		if err := tx.Create(&model.Setting{Key: "Theme", Value: "light"}).Error; err != nil {
+		if err := tx.Create(&model.Setting{Key: "Theme", Value: "dark"}).Error; err != nil {
 			return err
 		}
 		if err := tx.Create(&model.Setting{Key: "MenuTabs", Value: constant.StatusDisable}).Error; err != nil {
