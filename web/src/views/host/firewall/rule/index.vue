@@ -325,7 +325,7 @@ import { dockerGuardEndpointManagementMessage, dockerGuardManagementTarget } fro
 import { formatHostAddress } from '@/views/host/firewall/utils/validation';
 import RuleImport from '@/views/host/firewall/rule/import/index.vue';
 import RuleOperate from '@/views/host/firewall/rule/operate/index.vue';
-import FireRouter from '@/views/host/firewall/index.vue';
+import FireRouter from '@/views/host/firewall/index';
 import FireStatus from '@/views/host/firewall/status/index.vue';
 import ProcessDetail from '@/views/host/process/process/detail/index.vue';
 import RuleReset from '@/views/host/firewall/components/rule-reset.vue';

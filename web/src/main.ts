@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import { PiniaColada } from '@pinia/colada';
-import App from './App.vue';
+import App from './App';
 
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';

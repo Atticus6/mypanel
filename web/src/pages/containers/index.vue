@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageView from '@/views/container/index.vue';
+import PageView from '@/views/container/index';
 definePage({
     name: 'Container',
     redirect: '/containers/dashboard',

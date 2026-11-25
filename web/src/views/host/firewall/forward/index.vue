@@ -121,7 +121,7 @@
 import { useSearchState } from '@/utils/search-reset';
 import OperateDialog from './operate/index.vue';
 import ImportDialog from './import/index.vue';
-import FireRouter from '@/views/host/firewall/index.vue';
+import FireRouter from '@/views/host/firewall/index';
 import FireStatus from '@/views/host/firewall/status/index.vue';
 import RuleReset from '@/views/host/firewall/components/rule-reset.vue';
 import TaskLog from '@/components/log/task/index.vue';

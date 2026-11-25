@@ -125,7 +125,7 @@
 <script lang="ts" setup>
 import { computed, h, ref } from 'vue';
 import { Firewall } from '@/types/firewall';
-import FireRouter from '@/views/host/firewall/index.vue';
+import FireRouter from '@/views/host/firewall/index';
 import WhiteList from '@/views/host/firewall/setting/white-list/index.vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';

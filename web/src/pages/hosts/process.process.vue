@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageView from '@/views/host/process/process/index.vue';
+import PageView from '@/views/host/process/process/index';
 definePage({
     name: 'Process',
     meta: {

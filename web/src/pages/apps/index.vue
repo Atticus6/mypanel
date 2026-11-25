@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageView from '@/views/app-store/index.vue';
+import PageView from '@/views/app-store/index';
 definePage({
     name: 'App',
     redirect: '/apps/all',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageView from '@/views/host/ssh/ssh/index.vue';
+import PageView from '@/views/host/ssh/ssh/index';
 definePage({
     name: 'SSH',
     meta: {

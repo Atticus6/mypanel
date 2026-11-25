@@ -615,7 +615,7 @@ declare module 'vue-router/auto-routes' {
    * @internal
    */
   export interface _RouteFileInfoMap {
-    'src/pages/home.vue': {
+    'src/pages/home.tsx': {
       routes:
         | 'Home-Menu'
         | 'home'
@@ -640,7 +640,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/apps.vue': {
+    'src/pages/apps.tsx': {
       routes:
         | 'App'
         | 'App-Menu'
@@ -661,7 +661,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/apps/index/all.vue': {
+    'src/pages/apps/index/all.tsx': {
       routes:
         | 'AppAll'
       views:
@@ -778,7 +778,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/cronjobs.vue': {
+    'src/pages/cronjobs.tsx': {
       routes:
         | 'Cronjob'
         | 'Cronjob-Menu'
@@ -827,7 +827,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/hosts.vue': {
+    'src/pages/hosts.tsx': {
       routes:
         | 'Disk'
         | 'File'
@@ -853,7 +853,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/hosts/files.vue': {
+    'src/pages/hosts/files.tsx': {
       routes:
         | 'File'
       views:
@@ -937,7 +937,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/logs.vue': {
+    'src/pages/logs.tsx': {
       routes:
         | 'HostSystemLog'
         | 'Log'
@@ -976,7 +976,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/logs/index/operation.vue': {
+    'src/pages/logs/index/operation.tsx': {
       routes:
         | 'OperationLog'
       views:
@@ -1039,7 +1039,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/settings/index/about.vue': {
+    'src/pages/settings/index/about.tsx': {
       routes:
         | 'About'
       views:

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageView from '@/views/cronjob/cronjob/index.vue';
+import PageView from '@/views/cronjob/cronjob/index';
 definePage({
     name: 'CronjobItem',
     meta: { activeMenu: '/cronjobs', title: 'menu.cronjob', permission: 'cronjob_view', hidden: true },

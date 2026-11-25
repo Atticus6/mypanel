@@ -58,6 +58,9 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
     const viteEnv = wrapperEnv(env);
     const isProduction = mode === 'production';
     const reportPlugin = viteEnv.VITE_REPORT ? (await import('rollup-plugin-visualizer')).visualizer() : false;
+    // 开发期代理目标默认保持 8080；指向已运行的生产实例时可即时截图验收。
+    const proxyTarget = process.env.VITE_PROXY_TARGET || 'http://127.0.0.1:8080';
+    const wsProxyTarget = proxyTarget.replace(/^http/, 'ws');
 
     return {
         resolve: {
@@ -88,20 +91,20 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
             proxy: {
                 // master 同时提供 RPC、旧协议端点与静态资源，开发期统一代理到它。
                 '/rpc': {
-                    target: 'http://127.0.0.1:8080',
+                    target: proxyTarget,
                     changeOrigin: true,
                 },
                 '/files': {
-                    target: 'http://127.0.0.1:8080',
+                    target: proxyTarget,
                     changeOrigin: true,
                 },
                 '/ws': {
-                    target: 'ws://127.0.0.1:8080',
+                    target: wsProxyTarget,
                     changeOrigin: true,
                     ws: true,
                 },
                 '/api/v2': {
-                    target: 'http://127.0.0.1:8080/',
+                    target: `${proxyTarget}/`,
                     changeOrigin: true,
                     ws: true,
                     configure(proxy) {
@@ -116,7 +119,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
         },
         plugins: [
             // 文件路由必须放在 vue() 之前，definePage 宏才能在 SFC 编译前被提取。
-            VueRouter({ dts: 'src/typed-router.d.ts' }),
+            VueRouter({ extensions: ['.tsx', '.vue'], dts: 'src/typed-router.d.ts' }),
             benchmarkReportPlugin(__dirname),
             patchCodeFilterOverflow(),
             vue(),

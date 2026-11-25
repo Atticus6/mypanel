@@ -1,0 +1,27 @@
+.system-link[data-v-0b9b2881] {
+    margin-left: 15px;
+}
+.system-link .svg-icon[data-v-0b9b2881] {
+    font-size: 7px;
+}
+.system-link span[data-v-0b9b2881] {
+    line-height: 20px;
+    font-weight: 400;
+}
+.description[data-v-0b9b2881] {
+    color: var(--el-text-color-regular);
+}
+.logo[data-v-0b9b2881] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+}
+.logo img[data-v-0b9b2881] {
+    object-fit: contain;
+    width: 95%;
+    height: 45px;
+}
+.upgrade[data-v-0b9b2881] {
+    all: initial;
+}

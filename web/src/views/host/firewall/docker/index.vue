@@ -223,7 +223,7 @@
 <script lang="ts" setup>
 import { useSearchState } from '@/utils/search-reset';
 import { computed, reactive, ref, watch, toRef } from 'vue';
-import FireRouter from '@/views/host/firewall/index.vue';
+import FireRouter from '@/views/host/firewall/index';
 import DockerGuardStatus from '@/views/host/firewall/docker/status/index.vue';
 import DockerGuardDetail from '@/views/host/firewall/docker/detail/index.vue';
 import DockerGuardImport from '@/views/host/firewall/docker/import/index.vue';

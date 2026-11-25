@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageView from '@/views/host/disk-management/disk/index.vue';
+import PageView from '@/views/host/disk-management/disk/index';
 definePage({
     name: 'Disk',
     props: true,
