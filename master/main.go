@@ -75,6 +75,7 @@ func main() {
 	setUpgradeEnv("MYPANEL_UPGRADE_REPO_URL", cfg.UpgradeRepoURL)
 	setUpgradeEnv("MYPANEL_UPGRADE_RESOURCE_URL", cfg.UpgradeResourceURL)
 	setUpgradeEnv("MYPANEL_UPGRADE_APP_URL", cfg.UpgradeAppURL)
+	setUpgradeEnv("MYPANEL_RELEASE_API_URL", cfg.ReleaseAPIURL)
 
 	adminPassword := cfg.AdminPassword
 	if adminPassword == "" {

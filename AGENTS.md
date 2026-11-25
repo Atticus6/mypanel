@@ -132,6 +132,7 @@ reflection 的路径同理。
 | `data_dir` | `MYPANEL_DATA_DIR` | `./data` |
 | `admin_user` | `MYPANEL_ADMIN_USER` | `admin` |
 | `admin_password` | `MYPANEL_ADMIN_PASSWORD` | 空（随机生成并打印一次） |
+| `release_api_url` | `MYPANEL_RELEASE_API_URL` | 本项目 GitHub Release 列表接口 |
 
 **YAML 文件**：`config.yaml` 入库作为默认值；个人改动写 `config.local.yaml`
 （已 gitignore，只在同目录存在时自动叠一层）。查找顺序是

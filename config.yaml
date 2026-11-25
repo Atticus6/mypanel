@@ -45,3 +45,6 @@ admin_password: ""
 upgrade_repo_url: "https://github.com/Atticus6/mypanel/releases/download"
 upgrade_resource_url: "https://github.com/Atticus6/mypanel/releases/download"
 upgrade_app_url: "https://apps-assets.fit2cloud.com"
+
+# 版本说明（点击页脚版本号打开的日志）读取本项目的 GitHub Release 列表。
+release_api_url: "https://api.github.com/repos/Atticus6/mypanel/releases"

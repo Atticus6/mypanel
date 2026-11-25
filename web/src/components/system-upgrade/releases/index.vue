@@ -48,7 +48,12 @@
                 <template #description>
                     <span class="input-help">
                         {{ $t('setting.releaseHelper') }}
-                        <el-link class="pageRoute" icon="Position" type="primary">
+                        <el-link
+                            class="pageRoute"
+                            icon="Position"
+                            type="primary"
+                            @click="openReleasesPage"
+                        >
                             {{ $t('firewall.quickJump') }}
                         </el-link>
                     </span>
@@ -121,6 +126,10 @@ const onSave = async (formEl: FormInstance | undefined) => {
 
 const handleClose = () => {
     drawerVisible.value = false;
+};
+
+const openReleasesPage = () => {
+    window.open('https://github.com/Atticus6/mypanel/releases', '_blank', 'noopener,noreferrer');
 };
 
 const search = async () => {

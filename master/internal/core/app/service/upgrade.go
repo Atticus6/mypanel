@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 	"path"
@@ -12,7 +11,6 @@ import (
 	"syscall"
 	"time"
 
-	"golang.org/x/net/html"
 	"mypanel/core/app/dto"
 	"mypanel/core/app/model"
 	"mypanel/core/app/repo"
@@ -288,165 +286,107 @@ func (u *UpgradeService) Rollback(req dto.OperateByID) error {
 	return nil
 }
 
-type noteHelper struct {
-	Docs []noteDetailHelper `json:"docs"`
-}
-type noteDetailHelper struct {
-	Location string `json:"location"`
-	Text     string `json:"text"`
-	Title    string `json:"title"`
+// githubRelease 是本仓库 GitHub Release 的最小结构，只取版本说明需要的字段。
+type githubRelease struct {
+	TagName     string `json:"tag_name"`
+	Body        string `json:"body"`
+	PublishedAt string `json:"published_at"`
+	Draft       bool   `json:"draft"`
 }
 
+// releaseNotesAPI 返回版本说明接口地址；MYPANEL_RELEASE_API_URL 可指向任意兼容 GitHub
+// Release 列表的接口，未配置时读取本项目自己的 Release。
+func releaseNotesAPI() string {
+	if value := strings.TrimSpace(os.Getenv("MYPANEL_RELEASE_API_URL")); value != "" {
+		return strings.TrimRight(value, "/")
+	}
+	return "https://api.github.com/repos/Atticus6/mypanel/releases"
+}
+
+// LoadRelease 读取本项目的版本说明，按发布时间倒序返回。
+//
+// 数据来自 GitHub Release 列表，而不是原版 1Panel 的文档站；草稿版本不展示。
 func (u *UpgradeService) LoadRelease() ([]dto.ReleasesNotes, error) {
-	docSource, _ := settingRepo.GetValueByKey("DocSource")
-	lang, _ := settingRepo.GetValueByKey("Language")
-	var notes []dto.ReleasesNotes
-	url := "https://docs.fit2cloud.com/1panel/changelog/"
-	useIntlDocs := false
-	lang = strings.ToLower(strings.TrimSpace(lang))
-	if docSource == "withByRegion" {
-		useIntlDocs = global.CONF.Base.Edition == "intl"
-	} else {
-		useIntlDocs = lang != "zh"
-	}
-	if useIntlDocs {
-		url = "https://docs.1panel.pro/v2/search/search_index.json"
-	}
-	resp, err := req_helper.HandleGet(url)
-	if err != nil {
-		return notes, err
-	}
-	defer resp.Body.Close()
-	if !useIntlDocs {
-		if resp.StatusCode != http.StatusOK {
-			return notes, fmt.Errorf("load release notes failed: HTTP %d", resp.StatusCode)
-		}
-		return parseReleaseHTML(resp.Body)
-	}
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return notes, err
-	}
-	var nodeItem noteHelper
-	if err := json.Unmarshal(body, &nodeItem); err != nil {
-		return notes, err
-	}
-	for _, item := range nodeItem.Docs {
-		if !strings.HasPrefix(item.Location, "changelog/#v") {
-			continue
-		}
-		itemNote := analyzeDoc(item.Title, item.Text)
-		if len(itemNote.CreatedAt) != 0 {
-			notes = append(notes, analyzeDoc(item.Title, item.Text))
-		}
-	}
-
-	return notes, nil
-}
-
-func parseReleaseHTML(reader io.Reader) ([]dto.ReleasesNotes, error) {
-	doc, err := html.Parse(reader)
+	resp, err := req_helper.HandleGet(releaseNotesAPI())
 	if err != nil {
 		return nil, err
 	}
-	var article *html.Node
-	for node := range doc.Descendants() {
-		if node.Type == html.ElementNode && node.Data == "article" {
-			article = node
-			break
-		}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("load release notes failed: HTTP %d", resp.StatusCode)
 	}
-	if article == nil {
-		return nil, fmt.Errorf("release notes article not found")
+
+	var releases []githubRelease
+	if err := json.NewDecoder(resp.Body).Decode(&releases); err != nil {
+		return nil, err
 	}
-	textContent := func(node *html.Node) string {
-		var text strings.Builder
-		for child := range node.Descendants() {
-			if child.Type == html.TextNode {
-				text.WriteString(child.Data)
-			}
-		}
-		return strings.TrimSpace(strings.ReplaceAll(text.String(), "\u200b", ""))
-	}
-	var notes []dto.ReleasesNotes
-	for heading := range article.Descendants() {
-		if heading.Type != html.ElementNode || heading.Data != "h3" {
+	notes := make([]dto.ReleasesNotes, 0, len(releases))
+	for _, release := range releases {
+		if release.Draft || release.TagName == "" {
 			continue
 		}
-		version := textContent(heading)
-		if !strings.HasPrefix(version, "v") {
-			continue
-		}
-		item := dto.ReleasesNotes{Version: version}
-		var content strings.Builder
-		section := ""
-		for node := heading.NextSibling; node != nil; node = node.NextSibling {
-			if node.Type != html.ElementNode {
-				continue
-			}
-			if node.Data == "h1" || node.Data == "h2" || node.Data == "h3" {
-				break
-			}
-			if item.CreatedAt == "" {
-				date := textContent(node)
-				if _, err := time.Parse("2006年1月2日", date); node.Data != "p" || err != nil {
-					return nil, fmt.Errorf("release date not found for %s", version)
-				}
-				item.CreatedAt = date
-				continue
-			}
-			if node.Data == "p" {
-				section = textContent(node)
-			}
-			for child := range node.Descendants() {
-				if child.Type != html.ElementNode || child.Data != "li" {
-					continue
-				}
-				switch section {
-				case "新增功能":
-					item.NewCount++
-				case "功能优化":
-					item.OptimizationCount++
-				case "问题修复":
-					item.FixCount++
-				}
-			}
-			if err := html.Render(&content, node); err != nil {
-				return nil, err
-			}
-		}
-		if item.CreatedAt == "" || content.Len() == 0 {
-			return nil, fmt.Errorf("release notes content not found for %s", version)
-		}
-		item.Content = content.String()
-		notes = append(notes, item)
-	}
-	if len(notes) == 0 {
-		return nil, fmt.Errorf("release notes versions not found")
+		notes = append(notes, parseGitHubRelease(release))
 	}
 	return notes, nil
 }
 
-func analyzeDoc(version, content string) dto.ReleasesNotes {
-	var item dto.ReleasesNotes
-	parts := strings.Split(content, "<p>")
-	if len(parts) < 3 {
-		return item
+// parseGitHubRelease 把 Release 正文转成面板展示用的说明与三类变更计数。
+// 优先按「新增功能/功能优化/问题修复」小节的条目计数，兼容自动生成日志的
+// feat/fix/refactor 等提交前缀；识别不出时仍展示正文。
+func parseGitHubRelease(release githubRelease) dto.ReleasesNotes {
+	item := dto.ReleasesNotes{
+		Version: release.TagName,
+		Content: strings.TrimSpace(release.Body),
 	}
-	item.CreatedAt = strings.ReplaceAll(strings.TrimSpace(parts[1]), "</p>", "")
-	for i := 1; i < len(parts); i++ {
-		if strings.Contains(parts[i], "问题修复") || strings.Contains(parts[i], "Bug Fixes") {
-			item.FixCount = strings.Count(parts[i], "<li>")
+	if published, err := time.Parse(time.RFC3339, release.PublishedAt); err == nil {
+		item.CreatedAt = published.Format("2006-01-02")
+	}
+
+	section := ""
+	for _, line := range strings.Split(release.Body, "\n") {
+		trimmed := strings.TrimSpace(line)
+		if strings.HasPrefix(trimmed, "#") {
+			heading := strings.ToLower(strings.TrimSpace(strings.TrimLeft(trimmed, "#")))
+			switch {
+			case strings.Contains(heading, "新增"), strings.Contains(heading, "feature"):
+				section = "new"
+			case strings.Contains(heading, "修复"), strings.Contains(heading, "fix"):
+				section = "fix"
+			case strings.Contains(heading, "优化"), strings.Contains(heading, "improvement"),
+				strings.Contains(heading, "refactor"):
+				section = "opt"
+			default:
+				section = ""
+			}
+			continue
 		}
-		if strings.Contains(parts[i], "新增功能") || strings.Contains(parts[i], "New Features") {
-			item.NewCount = strings.Count(parts[i], "<li>")
+		bullet := strings.TrimSpace(strings.TrimPrefix(strings.TrimPrefix(trimmed, "-"), "*"))
+		if bullet == trimmed {
+			continue
 		}
-		if strings.Contains(parts[i], "功能优化") || strings.Contains(parts[i], "Improvements") {
-			item.OptimizationCount = strings.Count(parts[i], "<li>")
+		if section != "" {
+			switch section {
+			case "new":
+				item.NewCount++
+			case "fix":
+				item.FixCount++
+			case "opt":
+				item.OptimizationCount++
+			}
+			continue
+		}
+		// 没有小节标题时按提交前缀兜底（GitHub 自动生成的 Release 常见格式）。
+		switch lower := strings.ToLower(bullet); {
+		case strings.HasPrefix(lower, "feat"), strings.HasPrefix(lower, "feature"):
+			item.NewCount++
+		case strings.HasPrefix(lower, "fix"), strings.HasPrefix(lower, "bug"):
+			item.FixCount++
+		case strings.HasPrefix(lower, "refactor"), strings.HasPrefix(lower, "perf"),
+			strings.HasPrefix(lower, "build"), strings.HasPrefix(lower, "chore"),
+			strings.HasPrefix(lower, "docs"), strings.HasPrefix(lower, "test"):
+			item.OptimizationCount++
 		}
 	}
-	item.Content = strings.Replace(content, fmt.Sprintf("<p>%s</p>", item.CreatedAt), "", 1)
-	item.Version = version
 	return item
 }
 

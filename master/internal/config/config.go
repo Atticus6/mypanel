@@ -73,6 +73,9 @@ type Config struct {
 	// UpgradeAppURL 是应用商店资源根地址；
 	// 对应 upgrade_app_url / MYPANEL_UPGRADE_APP_URL。
 	UpgradeAppURL string
+	// ReleaseAPIURL 是版本说明接口地址，需返回 GitHub Release 列表结构；
+	// 对应 release_api_url / MYPANEL_RELEASE_API_URL。
+	ReleaseAPIURL string
 	// ConfigFile 记录实际加载的配置文件路径，为空表示没加载文件。
 	// 仅用于启动日志，便于排查「配置没生效」这类问题。
 	ConfigFile string
@@ -93,6 +96,7 @@ var defaults = map[string]any{
 	"upgrade_repo_url":     "https://resource.fit2cloud.com/1panel/package/v2",
 	"upgrade_resource_url": "https://resource.fit2cloud.com/1panel/resource/v2",
 	"upgrade_app_url":      "https://apps-assets.fit2cloud.com",
+	"release_api_url":      "https://api.github.com/repos/Atticus6/mypanel/releases",
 }
 
 // Options 控制 Load 的行为。
@@ -138,6 +142,7 @@ func Load(v *viper.Viper, opts Options) (Config, error) {
 	cfg.UpgradeRepoURL = v.GetString("upgrade_repo_url")
 	cfg.UpgradeResourceURL = v.GetString("upgrade_resource_url")
 	cfg.UpgradeAppURL = v.GetString("upgrade_app_url")
+	cfg.ReleaseAPIURL = v.GetString("release_api_url")
 
 	// 时长单独解析：viper 的 GetDuration 对非法值会静默返回 0，
 	// 这里显式报错，避免「配错了却按 0 超时运行」这种隐蔽问题。
