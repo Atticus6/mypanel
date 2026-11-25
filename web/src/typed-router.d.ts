@@ -44,6 +44,13 @@ declare module 'vue-router/auto-routes' {
       { code?: ParamValueZeroOrOne<false> },
       | never
     >,
+    '500': RouteRecordInfo<
+      '500',
+      '/500',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     'App-Menu': RouteRecordInfo<
       'App-Menu',
       '/apps',
@@ -624,6 +631,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/[[code]].vue': {
       routes:
         | 'entrance'
+      views:
+        | never
+    }
+    'src/pages/500.vue': {
+      routes:
+        | '500'
       views:
         | never
     }

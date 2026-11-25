@@ -10,7 +10,7 @@ import { TerminalDockSessionStore, TerminalSessionStore } from '@/store';
 
 const axiosCanceler = new AxiosCanceler();
 
-const noLoginWhiteList = ['entrance', 'login', 'file-share', '404', 'Expired'];
+const noLoginWhiteList = ['entrance', 'login', 'file-share', '404', '500', 'Expired'];
 
 const clearLoginStatus = () => {
     const { globalStore } = useGlobalStore();

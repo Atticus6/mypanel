@@ -2,7 +2,7 @@
 import Layout from '@/layout/index.vue';
 definePage({
     name: 'System-Menu',
-    redirect: '/hosts/security',
+    redirect: '/hosts/files',
     meta: { icon: 'p-host', title: 'menu.system', sort: 7 },
 });
 </script>
