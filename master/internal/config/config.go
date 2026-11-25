@@ -64,6 +64,15 @@ type Config struct {
 	// AdminPassword 是首次启动时创建的管理员密码；为空时随机生成并打印一次，
 	// 对应 admin_password / MYPANEL_ADMIN_PASSWORD。
 	AdminPassword string
+	// UpgradeRepoURL 是面板升级包与版本文件的下载根地址；
+	// 对应 upgrade_repo_url / MYPANEL_UPGRADE_REPO_URL。
+	UpgradeRepoURL string
+	// UpgradeResourceURL 是升级所需资源文件的下载根地址；
+	// 对应 upgrade_resource_url / MYPANEL_UPGRADE_RESOURCE_URL。
+	UpgradeResourceURL string
+	// UpgradeAppURL 是应用商店资源根地址；
+	// 对应 upgrade_app_url / MYPANEL_UPGRADE_APP_URL。
+	UpgradeAppURL string
 	// ConfigFile 记录实际加载的配置文件路径，为空表示没加载文件。
 	// 仅用于启动日志，便于排查「配置没生效」这类问题。
 	ConfigFile string
@@ -74,13 +83,16 @@ type Config struct {
 // 单独列出便于测试与文档同步；新增配置项时三处都要改：
 // 这个 map、Config 结构体、以及 AGENTS.md 的表格。
 var defaults = map[string]any{
-	"addr":             ":8080",
-	"web_dir":          "",
-	"debug":            false,
-	"shutdown_timeout": "5s",
-	"data_dir":         "./data",
-	"admin_user":       "admin",
-	"admin_password":   "",
+	"addr":                 ":8080",
+	"web_dir":              "",
+	"debug":                false,
+	"shutdown_timeout":     "5s",
+	"data_dir":             "./data",
+	"admin_user":           "admin",
+	"admin_password":       "",
+	"upgrade_repo_url":     "https://resource.fit2cloud.com/1panel/package/v2",
+	"upgrade_resource_url": "https://resource.fit2cloud.com/1panel/resource/v2",
+	"upgrade_app_url":      "https://apps-assets.fit2cloud.com",
 }
 
 // Options 控制 Load 的行为。
@@ -123,6 +135,9 @@ func Load(v *viper.Viper, opts Options) (Config, error) {
 	cfg.DataDir = v.GetString("data_dir")
 	cfg.AdminUser = v.GetString("admin_user")
 	cfg.AdminPassword = v.GetString("admin_password")
+	cfg.UpgradeRepoURL = v.GetString("upgrade_repo_url")
+	cfg.UpgradeResourceURL = v.GetString("upgrade_resource_url")
+	cfg.UpgradeAppURL = v.GetString("upgrade_app_url")
 
 	// 时长单独解析：viper 的 GetDuration 对非法值会静默返回 0，
 	// 这里显式报错，避免「配错了却按 0 超时运行」这种隐蔽问题。

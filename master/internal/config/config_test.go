@@ -39,6 +39,37 @@ func TestLoadUsesDefaults(t *testing.T) {
 	if cfg.ConfigFile != "" {
 		t.Errorf("ConfigFile = %q, want empty when skipped", cfg.ConfigFile)
 	}
+	if cfg.UpgradeRepoURL == "" {
+		t.Error("UpgradeRepoURL = empty, want original 1Panel official URL")
+	}
+	if cfg.UpgradeResourceURL == "" {
+		t.Error("UpgradeResourceURL = empty, want original 1Panel official URL")
+	}
+	if cfg.UpgradeAppURL == "" {
+		t.Error("UpgradeAppURL = empty, want original 1Panel official URL")
+	}
+}
+
+// TestLoadUpgradeURLEnvOverride 验证升级源可以完全由环境变量替换为用户自己的发布地址。
+func TestLoadUpgradeURLEnvOverride(t *testing.T) {
+	const custom = "https://example.com/my-release"
+	t.Setenv("MYPANEL_UPGRADE_REPO_URL", custom)
+	t.Setenv("MYPANEL_UPGRADE_RESOURCE_URL", custom)
+	t.Setenv("MYPANEL_UPGRADE_APP_URL", custom)
+
+	cfg, err := Load(nil, Options{SkipFile: true})
+	if err != nil {
+		t.Fatalf("Load() error = %v, want nil", err)
+	}
+	if cfg.UpgradeRepoURL != custom {
+		t.Errorf("UpgradeRepoURL = %q, want %q", cfg.UpgradeRepoURL, custom)
+	}
+	if cfg.UpgradeResourceURL != custom {
+		t.Errorf("UpgradeResourceURL = %q, want %q", cfg.UpgradeResourceURL, custom)
+	}
+	if cfg.UpgradeAppURL != custom {
+		t.Errorf("UpgradeAppURL = %q, want %q", cfg.UpgradeAppURL, custom)
+	}
 }
 
 func TestLoadFromYAML(t *testing.T) {

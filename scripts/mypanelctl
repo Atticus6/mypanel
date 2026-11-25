@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+# mypanelctl —— mypanel 命令行管理工具（单进程 master 版）。
+#
+# 用法：
+#   mypanelctl <命令> [参数]
+#
+# 命令：
+#   status                 查看服务运行状态与访问地址
+#   start|stop|restart     启动 / 停止 / 重启服务
+#   enable|disable         开机自启开关
+#   logs [-f]              查看服务日志（-f 实时跟随）
+#   version                查看已安装版本
+#   port [新端口]          查看或设置监听端口（需重启生效）
+#   data-dir               查看数据目录
+#   upgrade-source [URL]   查看或设置升级源地址（写入 config.local.yaml）
+#   help                   显示本帮助
+#
+# 说明：用户 / 密码 / 安全入口等涉及数据库的运维操作请在面板「面板设置」中完成。
+set -euo pipefail
+
+SERVICE="mypanel.service"
+PREFIX="/usr/local"
+CONF_LOCAL="$PREFIX/etc/mypanel/config.local.yaml"
+UNIT_PATH="/etc/systemd/system/$SERVICE"
+
+log() { printf '\033[32m[mypanelctl]\033[0m %s\n' "$*"; }
+die() { printf '\033[31m[error]\033[0m %s\n' "$*" >&2; exit 1; }
+
+need_root() { [ "$(id -u)" -eq 0 ] || die "此操作需要 root（sudo mypanelctl $*）"; }
+
+cmd_status() {
+    if systemctl is-active --quiet "$SERVICE" 2>/dev/null; then
+        log "服务运行中"
+    else
+        log "服务未运行"
+    fi
+    systemctl status "$SERVICE" --no-pager 2>/dev/null | sed -n '1,8p' || true
+    local addr
+    addr="$(grep -E '^addr:' "$CONF_LOCAL" 2>/dev/null | head -1 | sed -E 's/.*: *"?([^"]+)"?.*/\1/' || true)"
+    [ -n "$addr" ] && log "监听地址：$addr"
+}
+
+cmd_logs() {
+    local follow="${1:-}"
+    if [ "$follow" = "-f" ]; then
+        journalctl -u "$SERVICE" -f
+    else
+        journalctl -u "$SERVICE" -n 200 --no-pager
+    fi
+}
+
+cmd_version() {
+    if [ -x "$PREFIX/bin/master" ]; then
+        local v
+        v="$(strings "$PREFIX/bin/master" | grep -m1 -E '^v?[0-9]+\.[0-9]+\.[0-9]+' || true)"
+        log "版本：${v:-dev（源码构建）}"
+    else
+        die "未找到 $PREFIX/bin/master"
+    fi
+}
+
+get_conf_value() {
+    local key="$1"
+    grep -E "^${key}:" "$CONF_LOCAL" 2>/dev/null | tail -1 | sed -E 's/^[^:]*: *"?([^"]+)"?.*/\1/'
+}
+
+set_conf_value() {
+    local key="$1" value="$2"
+    need_root set-conf
+    [ -f "$CONF_LOCAL" ] || die "配置文件不存在：$CONF_LOCAL"
+    if grep -qE "^${key}:" "$CONF_LOCAL"; then
+        sed -i -E "s|^${key}:.*|${key}: \"${value}\"|" "$CONF_LOCAL"
+    else
+        printf '%s: "%s"\n' "$key" "$value" >> "$CONF_LOCAL"
+    fi
+}
+
+cmd_port() {
+    if [ $# -eq 0 ]; then
+        log "当前端口：$(get_conf_value addr)"
+        return
+    fi
+    local port="$1"
+    case "$port" in ''|*[!0-9]*) die "端口必须是数字" ;; esac
+    set_conf_value addr ":$port"
+    log "端口已设为 $port，请运行 mypanelctl restart 生效"
+}
+
+cmd_upgrade_source() {
+    if [ $# -eq 0 ]; then
+        log "升级源：$(get_conf_value upgrade_repo_url)"
+        return
+    fi
+    set_conf_value upgrade_repo_url "$1"
+    set_conf_value upgrade_resource_url "$1"
+    set_conf_value upgrade_app_url "$1"
+    log "升级源已设为 $1，请运行 mypanelctl restart 生效"
+}
+
+case "${1:-help}" in
+    status) shift; cmd_status "$@" ;;
+    start) need_root start; systemctl start "$SERVICE"; log "已启动" ;;
+    stop) need_root stop; systemctl stop "$SERVICE"; log "已停止" ;;
+    restart) need_root restart; systemctl restart "$SERVICE"; log "已重启" ;;
+    enable) need_root enable; systemctl enable "$SERVICE"; log "已设为开机自启" ;;
+    disable) need_root disable; systemctl disable "$SERVICE"; log "已取消开机自启" ;;
+    logs) shift; cmd_logs "$@" ;;
+    version) cmd_version ;;
+    port) shift; cmd_port "$@" ;;
+    data-dir) log "数据目录：$(get_conf_value data_dir)" ;;
+    upgrade-source) shift; cmd_upgrade_source "$@" ;;
+    help|--help|-h) sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//' ;;
+    *) die "未知命令：$1（mypanelctl help 查看用法）" ;;
+esac

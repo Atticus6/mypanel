@@ -65,6 +65,13 @@ func main() {
 		"shutdown_timeout", cfg.ShutdownTimeout.String(),
 	)
 
+	// core/agent 是独立 module，无法直接读 master 的 Config；把它们需要的发布源
+	// 地址写成环境变量（进程内可见），由各自的 global 函数读取。环境变量优先级
+	// 高于配置文件，因此这里用 os.Setenv 覆盖是安全的。
+	setUpgradeEnv("MYPANEL_UPGRADE_REPO_URL", cfg.UpgradeRepoURL)
+	setUpgradeEnv("MYPANEL_UPGRADE_RESOURCE_URL", cfg.UpgradeResourceURL)
+	setUpgradeEnv("MYPANEL_UPGRADE_APP_URL", cfg.UpgradeAppURL)
+
 	adminPassword := cfg.AdminPassword
 	if adminPassword == "" {
 		// 空密码会让所有请求都能登录，必须显式生成一个并打印一次。
@@ -134,6 +141,17 @@ func randomPassword() string {
 		buf[i] = alphabet[int(buf[i])%len(alphabet)]
 	}
 	return string(buf)
+}
+
+// setUpgradeEnv 把发布源配置写成进程内环境变量。
+//
+// 仅当值非空时设置：配置为空意味着「用回内置默认」，此时应保留调用方
+// 已经通过真实环境变量传入的值（viper 已处理过优先级）。
+func setUpgradeEnv(key, value string) {
+	if value == "" {
+		return
+	}
+	_ = os.Setenv(key, value)
 }
 
 // isFlagSet 判断某个 flag 是否被显式指定。
