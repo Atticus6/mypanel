@@ -134,6 +134,7 @@ const customAppStoreEnabled = ref(false);
 const isActive = ref(false);
 const isExist = ref(false);
 const noApp = ref(false);
+const autoSynced = ref(false);
 
 const refresh = () => {
     search(req);
@@ -159,8 +160,23 @@ const search = async (req: App.AppReq) => {
         const res = await rpc.app.searchApps(customReq);
         apps.value = res.items;
         paginationConfig.total = Number(res.total);
-        if (noApp.value && apps.value.length > 0) {
+        if (apps.value.length === 0) {
+            noApp.value = true;
+            // 首次访问应用商店且本地没有任何应用时，自动拉取一次远程应用列表。
+            // 只自动同步一次，避免空列表页面反复触发同步。
+            if (
+                !autoSynced.value &&
+                !syncing.value &&
+                !isOffline.value &&
+                !req.name &&
+                (req.resource === 'all' || req.resource === 'remote')
+            ) {
+                autoSynced.value = true;
+                sync();
+            }
+        } else {
             noApp.value = false;
+            autoSynced.value = true;
         }
     } finally {
         loading.value = false;

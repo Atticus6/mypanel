@@ -97,10 +97,39 @@ const form = reactive({
     menuAccordion: '',
 });
 
+// 这个构建只包含这些真实存在的菜单；后端下发的 HideMenu 里还有 xpack、
+// 虚拟机、工具箱、AI 等本版本不存在的菜单，显示出来会让用户误以为功能缺失。
+const availableMenuLabels = new Set([
+    'Home-Menu',
+    'App-Menu',
+    'Website-Menu',
+    'Website',
+    'SSL',
+    'WebsiteTemplate',
+    'Container-Menu',
+    'System-Menu',
+    'File',
+    'Monitorx',
+    'FirewallPort',
+    'Process',
+    'SSH',
+    'Disk',
+    'Terminal-Menu',
+    'Cronjob-Menu',
+    'Log-Menu',
+    'Setting-Menu',
+]);
+
+const filterAvailableMenus = (menus: any[]): any[] =>
+    menus
+        .filter((item) => availableMenuLabels.has(item.label))
+        .map((item) => ({ ...item, children: item.children ? filterAvailableMenus(item.children) : [] }));
+
 const acceptParams = (params: DialogProps): void => {
     drawerVisible.value = true;
     form.menuAccordion = params.menuAccordion || 'Disable';
     let hideMenu = JSON.parse(params.hideMenu);
+    hideMenu = filterAvailableMenus(hideMenu);
     sortMenu(hideMenu);
     treeData.hideMenu = hideMenu;
 };

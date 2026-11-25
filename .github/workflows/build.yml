@@ -50,6 +50,8 @@ jobs:
           cp config.yaml "$dir/config.yaml"
           install -m 755 scripts/install.sh "$dir/install.sh"
           install -m 755 scripts/mypanelctl "$dir/mypanelctl"
+          mkdir -p "$dir/lib"
+          install -m 644 scripts/lib/i18n.sh "$dir/lib/i18n.sh"
           cp README.md LICENSE NOTICE "$dir/"
           tar -czf "$pkg.tar.gz" -C dist-pkg "$pkg"
           echo "asset=$pkg.tar.gz" >> "$GITHUB_OUTPUT"

@@ -98,3 +98,23 @@
 .p-mr-5 {
     margin-right: 5px;
 }
+
+/* 侧栏折叠/展开有 0.3s 的宽度过渡；文字必须在过渡结束后才显示，
+   否则展开过程中文字被压缩、出现挤压抖动。收起时则立即隐藏。 */
+.sidebar-container {
+    .custom-menu {
+        :deep(.el-menu-item span),
+        :deep(.el-sub-menu__title > span) {
+            opacity: 1;
+            transition: opacity 0.12s ease 0.3s;
+        }
+    }
+
+    &.is-collapsed .custom-menu {
+        :deep(.el-menu-item span),
+        :deep(.el-sub-menu__title > span) {
+            opacity: 0;
+            transition: opacity 0.05s linear 0s;
+        }
+    }
+}

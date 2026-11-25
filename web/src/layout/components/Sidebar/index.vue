@@ -1,6 +1,7 @@
 <template>
     <div
         class="sidebar-container"
+        :class="{ 'is-collapsed': isCollapse }"
         element-loading-text="Loading..."
         :element-loading-spinner="loadingSvg"
         element-loading-svg-view-box="-10, -10, 50, 50"

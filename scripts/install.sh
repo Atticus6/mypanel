@@ -1,21 +1,8 @@
 #!/usr/bin/env bash
-# 安装 mypanel 到本机：拷贝二进制与配置、注册 systemd 服务。
-#
-# 未显式指定时，端口 / 管理员账号 / 密码 / 数据目录路径都会随机生成，
-# 并写入安装信息文件，之后可用 mypanelctl info 再次查看。
-#
-# 用法：
-#   sudo ./scripts/install.sh                    # 全部随机
-#   sudo ./scripts/install.sh --port 8080        # 指定端口，其余随机
-#   sudo ./scripts/install.sh --user admin --password '...' --data-dir /opt/mypanel/data
-#   sudo ./scripts/install.sh --build            # 先从源码重新构建
-#   sudo ./scripts/install.sh --prefix /usr/local --unit-dir /etc/systemd/system
-#   sudo ./scripts/install.sh --uninstall        # 卸载（保留配置与数据）
-#
-# 所有 npm/go 相关命令用 bun / go，遵循仓库约定。
+# Install mypanel on this host: copy binary/config, register a systemd service.
+# Supports Chinese / English; language is selected at the start and stored for mypanelctl.
 set -euo pipefail
 
-# 既支持在仓库 scripts/ 目录下运行，也支持在打包产物里运行。
 self_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "$self_dir/.." && pwd)"
 
@@ -23,18 +10,27 @@ if [ -x "$self_dir/master" ]; then
     bin_src="$self_dir/master"
     conf_src="$self_dir/config.yaml"
     ctl_src="$self_dir/mypanelctl"
+    i18n_src="$self_dir/lib/i18n.sh"
     build_script=""
 elif [ -x "$repo_root/bin/master" ]; then
     bin_src="$repo_root/bin/master"
     conf_src="$repo_root/config.yaml"
     ctl_src="$repo_root/scripts/mypanelctl"
+    i18n_src="$repo_root/scripts/lib/i18n.sh"
     build_script="$repo_root/scripts/build.sh"
 else
     bin_src=""
     conf_src="$repo_root/config.yaml"
     ctl_src="$repo_root/scripts/mypanelctl"
+    i18n_src="$repo_root/scripts/lib/i18n.sh"
     build_script="$repo_root/scripts/build.sh"
 fi
+
+# shellcheck disable=SC1090
+[ -f "$i18n_src" ] && source "$i18n_src" || {
+    printf 'i18n library not found: %s\n' "$i18n_src" >&2
+    exit 1
+}
 
 PREFIX="/usr/local"
 UNIT_DIR="/etc/systemd/system"
@@ -49,36 +45,73 @@ log() { printf '\033[32m[install]\033[0m %s\n' "$*"; }
 warn() { printf '\033[33m[warn]\033[0m %s\n' "$*" >&2; }
 die() { printf '\033[31m[error]\033[0m %s\n' "$*" >&2; exit 1; }
 
-usage() { sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; }
+usage() {
+    cat <<'EOF'
+Usage:
+  sudo ./install.sh                          # randomize port/user/password/data dir
+  sudo ./install.sh --lang zh                # choose language (zh|en)
+  sudo ./install.sh --port 8080              # specify port; others randomized
+  sudo ./install.sh --user admin --password '...' --data-dir /opt/mypanel/data
+  sudo ./install.sh --build                  # rebuild from source first
+  sudo ./install.sh --prefix /usr/local --unit-dir /etc/systemd/system
+  sudo ./install.sh --uninstall              # uninstall (keep config and data)
+EOF
+}
 
 while [ $# -gt 0 ]; do
     case "$1" in
         --build) DO_BUILD=1; shift ;;
-        --prefix) PREFIX="${2:?--prefix 需要参数}"; shift 2 ;;
-        --data-dir) DATA_DIR="${2:?--data-dir 需要参数}"; shift 2 ;;
-        --unit-dir) UNIT_DIR="${2:?--unit-dir 需要参数}"; shift 2 ;;
-        --port) PORT="${2:?--port 需要参数}"; shift 2 ;;
-        --user) ADMIN_USER="${2:?--user 需要参数}"; shift 2 ;;
-        --password) ADMIN_PASSWORD="${2:?--password 需要参数}"; shift 2 ;;
+        --prefix) PREFIX="${2:?$(t need_arg --prefix)}"; shift 2 ;;
+        --data-dir) DATA_DIR="${2:?$(t need_arg --data-dir)}"; shift 2 ;;
+        --unit-dir) UNIT_DIR="${2:?$(t need_arg --unit-dir)}"; shift 2 ;;
+        --port) PORT="${2:?$(t need_arg --port)}"; shift 2 ;;
+        --user) ADMIN_USER="${2:?$(t need_arg --user)}"; shift 2 ;;
+        --password) ADMIN_PASSWORD="${2:?$(t need_arg --password)}"; shift 2 ;;
+        --lang) set_lang "$2"; shift 2 ;;
         --uninstall) UNINSTALL=1; shift ;;
         -h|--help) usage; exit 0 ;;
-        *) die "未知参数：$1（--help 查看用法）" ;;
+        *) die "$(t unknown_arg "$1")" ;;
     esac
 done
 
-[ "$(id -u)" -eq 0 ] || die "请用 root 运行（sudo $0）"
+# Interactive language selection happens before any work.
+select_lang
 
 BIN_DIR="$PREFIX/bin"
 CONF_DIR="$PREFIX/etc/mypanel"
+MYPANEL_CONF_DIR="$CONF_DIR"
 UNIT_NAME="mypanel.service"
 UNIT_PATH="$UNIT_DIR/$UNIT_NAME"
 CTL_PATH="$BIN_DIR/mypanelctl"
 INFO_FILE="$CONF_DIR/install-info"
 
-# 生成随机字符串：字母数字，避免特殊字符引发配置转义问题。
-rand_str() { openssl rand -base64 18 2>/dev/null | tr -dc 'A-Za-z0-9' | head -c "$1"; }
+do_uninstall() {
+    log "$(t uninstall_stop "$UNIT_NAME")"
+    systemctl stop "$UNIT_NAME" 2>/dev/null || true
+    systemctl disable "$UNIT_NAME" 2>/dev/null || true
+    [ -f "$UNIT_PATH" ] && rm -f "$UNIT_PATH" && log "$(t uninstall_removed "$UNIT_PATH")"
+    [ -f "$CTL_PATH" ] && rm -f "$CTL_PATH" && log "$(t uninstall_removed "$CTL_PATH")"
+    [ -f "$BIN_DIR/master" ] && rm -f "$BIN_DIR/master" && log "$(t uninstall_removed "$BIN_DIR/master")"
+    systemctl daemon-reload 2>/dev/null || true
+    log "$(t uninstall_done)"
+}
 
-# 选一个未被占用的随机端口（20000-60000）。
+[ "$(id -u)" -eq 0 ] || die "$(t root_required "$0")"
+
+if [ "$UNINSTALL" -eq 1 ]; then
+    do_uninstall
+    exit 0
+fi
+
+if [ "$DO_BUILD" -eq 1 ] || [ ! -x "$bin_src" ]; then
+    [ -n "$build_script" ] || die "$(t no_source_build)"
+    log "$(t building)"
+    bash "$build_script"
+fi
+[ -x "$bin_src" ] || die "$(t master_not_found)"
+
+# Randomize unspecified values.
+rand_str() { openssl rand -base64 18 2>/dev/null | tr -dc 'A-Za-z0-9' | head -c "$1"; }
 pick_port() {
     local p i
     for i in $(seq 1 50); do
@@ -89,47 +122,21 @@ pick_port() {
         echo "$p"
         return 0
     done
-    die "无法挑选空闲端口"
+    die "$(t no_port)"
 }
-
-do_uninstall() {
-    log "停止并禁用服务 $UNIT_NAME"
-    systemctl stop "$UNIT_NAME" 2>/dev/null || true
-    systemctl disable "$UNIT_NAME" 2>/dev/null || true
-    [ -f "$UNIT_PATH" ] && rm -f "$UNIT_PATH" && log "已删除 $UNIT_PATH"
-    [ -f "$CTL_PATH" ] && rm -f "$CTL_PATH" && log "已删除 $CTL_PATH"
-    [ -f "$BIN_DIR/master" ] && rm -f "$BIN_DIR/master" && log "已删除 $BIN_DIR/master"
-    systemctl daemon-reload 2>/dev/null || true
-    log "卸载完成（配置 $CONF_DIR 与数据目录已保留）"
-}
-
-if [ "$UNINSTALL" -eq 1 ]; then
-    do_uninstall
-    exit 0
-fi
-
-if [ "$DO_BUILD" -eq 1 ] || [ ! -x "$bin_src" ]; then
-    [ -n "$build_script" ] || die "打包产物里没有源码，不能使用 --build；请直接使用随包提供的 master"
-    log "构建 master（scripts/build.sh）"
-    bash "$build_script"
-fi
-[ -x "$bin_src" ] || die "找不到 master，请先运行 ./scripts/build.sh"
-
-# 未指定的参数全部随机生成。
 [ -n "$PORT" ] || PORT="$(pick_port)"
 [ -n "$ADMIN_USER" ] || ADMIN_USER="admin$(rand_str 4)"
 [ -n "$ADMIN_PASSWORD" ] || ADMIN_PASSWORD="$(rand_str 16)"
 [ -n "$DATA_DIR" ] || DATA_DIR="/opt/mypanel-$(rand_str 6)/data"
-# 随机安全入口：登录后路径为 /<entrance>
 ENTRANCE="$(rand_str 10)"
 
-log "创建目录"
 mkdir -p "$BIN_DIR" "$CONF_DIR" "$DATA_DIR"
+log "$(t creating_dirs)"
 
-log "安装二进制到 $BIN_DIR/master"
+log "$(t installing_bin "$BIN_DIR/master")"
 install -m 755 "$bin_src" "$BIN_DIR/master"
 
-# 主配置只保留原样；本机参数全部写进 local 覆盖，便于用 mypanelctl 查看。
+log "$(t installing_conf "$CONF_DIR/config.yaml")"
 if [ -f "$conf_src" ]; then
     install -m 640 "$conf_src" "$CONF_DIR/config.yaml"
 else
@@ -147,10 +154,13 @@ admin_password: "$ADMIN_PASSWORD"
 EOF
 chmod 600 "$CONF_DIR/config.local.yaml"
 
-log "安装命令行工具到 $CTL_PATH"
+log "$(t installing_ctl "$CTL_PATH")"
 install -m 755 "$ctl_src" "$CTL_PATH"
+# Bundle i18n lib next to config so mypanelctl can use it.
+mkdir -p "$CONF_DIR/lib"
+install -m 644 "$i18n_src" "$CONF_DIR/lib/i18n.sh"
 
-log "安装 systemd 单元 $UNIT_PATH"
+log "$(t installing_unit "$UNIT_PATH")"
 mkdir -p "$UNIT_DIR"
 cat > "$UNIT_PATH" <<EOF
 [Unit]
@@ -175,6 +185,8 @@ WantedBy=multi-user.target
 EOF
 chmod 644 "$UNIT_PATH"
 
+save_lang
+
 systemctl daemon-reload
 systemctl enable "$UNIT_NAME" >/dev/null 2>&1 || true
 systemctl restart "$UNIT_NAME"
@@ -192,19 +204,16 @@ wait_for_port() {
     done
     return 1
 }
-wait_for_port || warn "服务尚未监听 :$PORT，请用 mypanelctl status 检查"
+wait_for_port || warn "$(t service_not_listen "$PORT")"
 
-# 把随机安全入口写入面板数据库（通过 master 的 ctl 操作，会刷新缓存）。
-# 重启一次确保运行中的进程也带上新入口。
 "$BIN_DIR/master" -config "$CONF_DIR/config.yaml" -ctl-action entrance -ctl-value "$ENTRANCE" >/dev/null 2>&1 || \
-    warn "设置安全入口失败，可用 mypanelctl update entrance 重设"
+    warn "$(t set_entrance_fail)"
 systemctl restart "$UNIT_NAME"
 
 local_ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
 [ -n "$local_ip" ] || local_ip="$(ip -4 addr show scope global 2>/dev/null | awk -F'[ /]+' '/inet /{print $3; exit}')"
-[ -n "$local_ip" ] || local_ip="<本机IP>"
+[ -n "$local_ip" ] || local_ip="<IP>"
 
-# 写入安装信息，mypanelctl info 从这里读取。
 cat > "$INFO_FILE" <<EOF
 address=http://$local_ip:$PORT/$ENTRANCE
 port=$PORT
@@ -215,13 +224,13 @@ EOF
 chmod 600 "$INFO_FILE"
 
 echo
-echo "========== 安装完成 =========="
-printf '  %-14s %s\n' '访问地址：' "http://$local_ip:$PORT/$ENTRANCE"
-printf '  %-14s %s\n' '账号：' "$ADMIN_USER"
-printf '  %-14s %s\n' '数据目录：' "$DATA_DIR"
-printf '  %-14s %s\n' '安全入口：' "/$ENTRANCE"
+echo "========== $(t install_done) =========="
+printf '  %-12s %s\n' "$(t visit_addr)" "http://$local_ip:$PORT/$ENTRANCE"
+printf '  %-12s %s\n' "$(t account)" "$ADMIN_USER"
+printf '  %-12s %s\n' "$(t data_dir)" "$DATA_DIR"
+printf '  %-12s %s\n' "$(t entrance)" "/$ENTRANCE"
 echo "  --------------------------------"
-echo "  再次查看： mypanelctl info（密码请用 mypanelctl update password 重设）"
-echo "  服务状态： mypanelctl status"
+echo "  $(t view_again)"
+echo "  $(t service_status)"
 echo "================================"
 echo

@@ -24,15 +24,15 @@ export interface FooterNavigationSettingEditor {
 
 export const createDefaultFooterNavigationLinks = (isIntl: boolean, docsUrl: string): FooterNavigationLinks => ({
     learnMore: {
-        visible: true,
+        visible: false,
         url: isIntl ? 'https://1panel.pro/pricing' : 'https://1panel.cn/versions.html',
     },
     forum: {
-        visible: true,
+        visible: false,
         url: isIntl ? 'https://github.com/1Panel-dev/1Panel/discussions' : 'https://bbs.fit2cloud.com/c/1p/7',
     },
     documentation: {
-        visible: true,
+        visible: false,
         url: docsUrl.endsWith('/') ? docsUrl : `${docsUrl}/`,
     },
     project: {
