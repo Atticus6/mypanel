@@ -13,8 +13,8 @@
         "build:pro": "vite build --mode production",
         "preview": "vite preview",
         "release": "standard-version",
-        "fmt": "bun fmt --no-script src build vite.config.ts",
-        "fmt:check": "bun fmt --no-script --check src build vite.config.ts",
+        "fmt": "bun fmt --no-script src build oxc-plugin-jsx vite.config.ts",
+        "fmt:check": "bun fmt --no-script --check src build oxc-plugin-jsx vite.config.ts",
         "build": "vite build --mode production",
         "test": "bun test"
     },
@@ -68,7 +68,6 @@
         "@tailwindcss/vite": "^4.3.3",
         "@types/node": "^26.6.3",
         "@vitejs/plugin-vue": "^6.0.10",
-        "@vitejs/plugin-vue-jsx": "^5.1.6",
         "rollup-plugin-visualizer": "^7.1.1",
         "sass": "^1.105.0",
         "standard-version": "^9.5.0",

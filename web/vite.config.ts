@@ -1,9 +1,9 @@
 import { resolve } from 'path';
 import { benchmarkReportPlugin } from './build/benchmark-report.ts';
 import { wrapperEnv } from './src/utils/get-env.ts';
+import vueJsxOxc from './oxc-plugin-jsx/index.ts';
 import viteCompression from 'vite-plugin-compression';
 import tailwindcss from '@tailwindcss/vite';
-import vueJsx from '@vitejs/plugin-vue-jsx';
 import { defineConfig, loadEnv, ConfigEnv, UserConfig, Plugin } from 'vite';
 import pkg from './package.json' with { type: 'json' };
 import dayjs from 'dayjs';
@@ -122,7 +122,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
             benchmarkReportPlugin(import.meta.dirname),
             patchCodeFilterOverflow(),
             tailwindcss(),
-            vueJsx(),
+            vueJsxOxc(),
             reportPlugin,
             viteEnv.VITE_BUILD_GZIP &&
                 viteCompression({
