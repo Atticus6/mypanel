@@ -2,13 +2,10 @@ import { panelCacheKey, writePanelCache, prunePanelCache } from '@/utils/panel-c
 import router from '@/routers/router';
 import NProgress from '@/config/nprogress';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { AxiosCanceler } from '@/api/helper/axios-cancel';
 import { hasRouteAccess } from '@/utils/rbac';
 import i18n from '@/lang';
 import { MsgError } from '@/utils/message';
 import { TerminalDockSessionStore, TerminalSessionStore } from '@/store';
-
-const axiosCanceler = new AxiosCanceler();
 
 const noLoginWhiteList = ['entrance', 'login', 'file-share', '404', '500', 'Expired'];
 
@@ -23,7 +20,6 @@ const clearLoginStatus = () => {
 router.beforeEach(async (to) => {
     const { entrance, isLogin, isOnRestart } = useGlobalStore();
     NProgress.start();
-    axiosCanceler.removeAllPending();
 
     if (!isLogin.value) {
         clearLoginStatus();

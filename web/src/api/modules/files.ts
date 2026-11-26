@@ -39,11 +39,10 @@ export interface FileAISearchResult {
     totalTokens: number;
     duration: string;
 }
-import http from '@/api';
-import { AxiosRequestConfig } from 'axios';
+import http, { type RequestConfig } from '@/api';
 import { TimeoutEnum } from '@/enums/http-enum';
 
-export type FileUploadRequestConfig = AxiosRequestConfig & {
+export type FileUploadRequestConfig = RequestConfig & {
     skipErrorMessage?: boolean;
 };
 

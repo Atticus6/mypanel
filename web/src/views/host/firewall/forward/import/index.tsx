@@ -4,7 +4,7 @@ import { genFileId, type UploadFile, type UploadFiles, type UploadProps, type Up
 import { MsgError } from '@/utils/message';
 import i18n from '@/lang';
 import { getErrorMessage } from '@/utils/misc';
-import { isAxiosError } from 'axios';
+import { getHttpResponseMessage } from '@/api/http-core';
 import { Firewall } from '@/types/firewall';
 import { normalizeForwardRuleImport, parseForwardRuleImport } from '../transfer';
 import { FIREWALL_BATCH_LIMIT, FIREWALL_IMPORT_MAX_SIZE } from '@/views/host/firewall/utils/validation';
@@ -179,7 +179,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ctx.emit('created', result.taskId);
             } catch (error) {
                 submitError.value =
-                    (isAxiosError(error) && error.response?.data?.message) ||
+                    getHttpResponseMessage(error) ||
                     (error && getErrorMessage(error)) ||
                     i18n.global.t('commons.res.commonError');
             } finally {

@@ -4,7 +4,7 @@ import { Firewall } from '@/types/firewall';
 import i18n from '@/lang';
 import { MsgError, MsgWarning } from '@/utils/message';
 import { getErrorMessage } from '@/utils/misc';
-import { isAxiosError } from 'axios';
+import { getHttpResponseMessage } from '@/api/http-core';
 import { ElMessageBox, type FormInstance, type FormRules } from 'element-plus';
 import { rpc } from '@/lib/rpc';
 import {
@@ -250,7 +250,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ctx.emit('created', result.taskId);
             } catch (error) {
                 MsgError(
-                    (isAxiosError(error) && error.response?.data?.message) ||
+                    getHttpResponseMessage(error) ||
                         (error && getErrorMessage(error)) ||
                         i18n.global.t('commons.res.commonError'),
                 );
@@ -283,7 +283,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ctx.emit('created', result.taskId);
             } catch (error) {
                 MsgError(
-                    (isAxiosError(error) && error.response?.data?.message) ||
+                    getHttpResponseMessage(error) ||
                         (error && getErrorMessage(error)) ||
                         i18n.global.t('commons.res.commonError'),
                 );

@@ -125,7 +125,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             loadGroups();
             loading.value = true;
             try {
-                // 直接使用生成的 RPC，不再经过 api/modules 的 axios 包装。
+                // 直接使用生成的 RPC，不再经过 api/modules 的旧 REST 包装。
                 const res = await rpc.host.search({
                     page: paginationConfig.currentPage,
                     pageSize: paginationConfig.pageSize,

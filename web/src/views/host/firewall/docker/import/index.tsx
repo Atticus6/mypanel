@@ -4,7 +4,7 @@ import { parseDockerPolicyImport } from '../transfer';
 import i18n from '@/lang';
 import { MsgError } from '@/utils/message';
 import { getErrorMessage } from '@/utils/misc';
-import { isAxiosError } from 'axios';
+import { getHttpResponseMessage } from '@/api/http-core';
 import { genFileId, type UploadFile, type UploadFiles, type UploadProps, type UploadRawFile } from 'element-plus';
 import { ref } from 'vue';
 import { dockerGuardEndpointKey, normalizeDockerGuardPolicy } from '@/views/host/firewall/docker/model';
@@ -132,7 +132,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ctx.emit('created', result.taskId);
             } catch (error) {
                 MsgError(
-                    (isAxiosError(error) && error.response?.data?.message) ||
+                    getHttpResponseMessage(error) ||
                         (error && getErrorMessage(error)) ||
                         i18n.global.t('commons.res.commonError'),
                 );

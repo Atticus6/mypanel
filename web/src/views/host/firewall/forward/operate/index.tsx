@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { getErrorMessage } from '@/utils/misc';
-import { isAxiosError } from 'axios';
+import { getHttpResponseMessage } from '@/api/http-core';
 import { ElForm } from 'element-plus';
 import { MsgError } from '@/utils/message';
 import { Firewall } from '@/types/firewall';
@@ -125,7 +125,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ctx.emit('created', result.taskId);
             } catch (error) {
                 MsgError(
-                    (isAxiosError(error) && error.response?.data?.message) ||
+                    getHttpResponseMessage(error) ||
                         (error && getErrorMessage(error)) ||
                         i18n.global.t('commons.res.commonError'),
                 );

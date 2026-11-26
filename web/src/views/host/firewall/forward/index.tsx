@@ -12,7 +12,7 @@ import { buildForwardRuleExport } from './transfer';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { getErrorMessage } from '@/utils/misc';
-import { isAxiosError } from 'axios';
+import { getHttpResponseMessage } from '@/api/http-core';
 import { downloadWithContent } from '@/utils/file';
 import { getCurrentDateFormatted } from '@/utils/date';
 import { ElMessageBox } from 'element-plus';
@@ -197,7 +197,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 openRuleTask(result.taskId);
             } catch (error) {
                 MsgError(
-                    (isAxiosError(error) && error.response?.data?.message) ||
+                    getHttpResponseMessage(error) ||
                         (error && getErrorMessage(error)) ||
                         i18n.global.t('commons.res.commonError'),
                 );

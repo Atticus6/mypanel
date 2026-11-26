@@ -68,7 +68,7 @@ export interface WebsiteDraft {
     sslID: number;
 }
 export type RuntimeType = 'docker';
-import { isAxiosError } from 'axios';
+import { isHttpError } from '@/api/http-core';
 
 export const DEFAULT_MCP_DOCKER_IMAGE = '1panel/mcp-server:v2.0.0';
 const dockerPathComponent = '[a-z0-9]+(?:(?:[._]|__|-+)[a-z0-9]+)*';
@@ -248,7 +248,7 @@ export const isMCPPolicyChanged = (error: unknown) => {
 
 export const isMCPMutationUncertain = (error: unknown) => {
     const isServerError = (code: unknown) => typeof code === 'number' && code >= 500 && code < 600;
-    if (isAxiosError(error)) return !error.response || isServerError(error.response.status);
+    if (isHttpError(error)) return error.status === 0 || isServerError(error.status);
     return isServerError((error as { code?: unknown })?.code);
 };
 
