@@ -1,4 +1,4 @@
-import PageView from '@/views/login/index';
+import PageView from '@/pages/views/login/index';
 definePage({
     name: 'login',
     props: true,

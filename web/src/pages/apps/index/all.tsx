@@ -1,4 +1,4 @@
-import PageView from '@/views/app-store/apps/index';
+import PageView from '@/pages/views/app-store/apps/index';
 
 definePage({
     name: 'AppAll',

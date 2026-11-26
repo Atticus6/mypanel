@@ -1,4 +1,4 @@
-import PageView from '@/views/container/container/index';
+import PageView from '@/pages/views/container/container/index';
 definePage({
     name: 'ContainerItem',
     props: true,

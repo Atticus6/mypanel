@@ -1,4 +1,4 @@
-import PageView from '@/views/cronjob/library/index';
+import PageView from '@/pages/views/cronjob/library/index';
 definePage({
     name: 'Library',
     meta: { activeMenu: '/cronjobs', title: 'cronjob.library.library', permission: 'cronjob_view', hidden: true },

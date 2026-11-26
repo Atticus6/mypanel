@@ -1,4 +1,4 @@
-import PageView from '@/views/website/ssl/index';
+import PageView from '@/pages/views/website/ssl/index';
 definePage({
     name: 'SSL',
     meta: { icon: 'p-ssl-menu', title: 'menu.ssl', permission: 'website_cert_view' },

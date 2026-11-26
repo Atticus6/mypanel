@@ -1,4 +1,4 @@
-import PageView from '@/views/host/monitor/monitor/index';
+import PageView from '@/pages/views/host/monitor/monitor/index';
 definePage({
     name: 'Monitorx',
     meta: {

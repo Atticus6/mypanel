@@ -1,4 +1,4 @@
-import PageView from '@/views/website/ssl/acme-account/index';
+import PageView from '@/pages/views/website/ssl/acme-account/index';
 definePage({
     name: 'SSL-ACME',
     meta: {

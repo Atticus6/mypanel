@@ -1,4 +1,4 @@
-import PageView from '@/views/share/index';
+import PageView from '@/pages/views/share/index';
 definePage({
     name: 'file-share',
 });

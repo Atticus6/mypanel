@@ -1,4 +1,4 @@
-import PageView from '@/views/setting/safe/index';
+import PageView from '@/pages/views/setting/safe/index';
 definePage({
     name: 'Safe',
     meta: { parent: 'menu.settings', activeMenu: '/settings', title: 'setting.safe', adminOnly: true, hidden: true },

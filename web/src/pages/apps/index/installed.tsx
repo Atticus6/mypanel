@@ -1,4 +1,4 @@
-import PageView from '@/views/app-store/installed/index';
+import PageView from '@/pages/views/app-store/installed/index';
 definePage({
     name: 'AppInstalled',
     props: true,

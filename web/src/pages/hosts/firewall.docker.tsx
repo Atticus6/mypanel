@@ -1,4 +1,4 @@
-import PageView from '@/views/host/firewall/docker/index';
+import PageView from '@/pages/views/host/firewall/docker/index';
 definePage({
     name: 'FirewallDockerGuard',
     meta: {

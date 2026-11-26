@@ -1,4 +1,4 @@
-import PageView from '@/views/website/ssl/ca/index';
+import PageView from '@/pages/views/website/ssl/ca/index';
 definePage({
     name: 'SSL-CA',
     meta: {

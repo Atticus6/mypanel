@@ -1,4 +1,4 @@
-import PageView from '@/views/cronjob/index';
+import PageView from '@/pages/views/cronjob/index';
 definePage({
     name: 'Cronjob',
     redirect: '/cronjobs/cronjob',

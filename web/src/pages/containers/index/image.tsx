@@ -1,4 +1,4 @@
-import PageView from '@/views/container/image/index';
+import PageView from '@/pages/views/container/image/index';
 definePage({
     name: 'Image',
     meta: {

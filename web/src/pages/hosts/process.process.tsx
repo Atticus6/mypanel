@@ -1,4 +1,4 @@
-import PageView from '@/views/host/process/process/index';
+import PageView from '@/pages/views/host/process/process/index';
 definePage({
     name: 'Process',
     meta: {

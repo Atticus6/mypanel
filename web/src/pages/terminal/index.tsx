@@ -1,4 +1,4 @@
-import PageView from '@/views/terminal/index';
+import PageView from '@/pages/views/terminal/index';
 definePage({
     name: 'Terminal',
     props: true,

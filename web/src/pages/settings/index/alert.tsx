@@ -1,4 +1,4 @@
-import PageView from '@/views/setting/alert/index';
+import PageView from '@/pages/views/setting/alert/index';
 definePage({
     name: 'Alert',
     meta: {

@@ -1,4 +1,4 @@
-import PageView from '@/views/container/repo/index';
+import PageView from '@/pages/views/container/repo/index';
 definePage({
     name: 'Repo',
     meta: {

@@ -1,4 +1,4 @@
-import PageView from '@/views/host/ssh/session/index';
+import PageView from '@/pages/views/host/ssh/session/index';
 definePage({
     name: 'SSHSession',
     meta: {

@@ -1,4 +1,4 @@
-import PageView from '@/views/host/firewall/rule/index';
+import PageView from '@/pages/views/host/firewall/rule/index';
 definePage({
     name: 'FirewallPort',
     meta: {

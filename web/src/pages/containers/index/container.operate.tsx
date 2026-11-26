@@ -1,4 +1,4 @@
-import PageView from '@/views/container/container/operate/index';
+import PageView from '@/pages/views/container/container/operate/index';
 definePage({
     name: 'ContainerCreate',
     props: true,

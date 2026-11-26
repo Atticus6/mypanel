@@ -1,4 +1,4 @@
-import PageView from '@/views/container/volume/index';
+import PageView from '@/pages/views/container/volume/index';
 definePage({
     name: 'Volume',
     meta: {

@@ -1,4 +1,4 @@
-import PageView from '@/views/container/network/index';
+import PageView from '@/pages/views/container/network/index';
 definePage({
     name: 'Network',
     meta: {

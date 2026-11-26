@@ -1,4 +1,4 @@
-import PageView from '@/views/container/index';
+import PageView from '@/pages/views/container/index';
 definePage({
     name: 'Container',
     redirect: '/containers/dashboard',

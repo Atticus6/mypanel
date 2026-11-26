@@ -1,4 +1,4 @@
-import PageView from '@/views/website/ssl/dns-account/index';
+import PageView from '@/pages/views/website/ssl/dns-account/index';
 definePage({
     name: 'SSL-DNS',
     meta: {

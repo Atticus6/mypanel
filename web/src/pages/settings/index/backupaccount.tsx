@@ -1,4 +1,4 @@
-import PageView from '@/views/setting/backup-account/index';
+import PageView from '@/pages/views/setting/backup-account/index';
 definePage({
     name: 'BackupAccount',
     meta: {

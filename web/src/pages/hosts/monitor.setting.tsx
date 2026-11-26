@@ -1,4 +1,4 @@
-import PageView from '@/views/host/monitor/setting/index';
+import PageView from '@/pages/views/host/monitor/setting/index';
 definePage({
     name: 'HostMonitorSetting',
     meta: {

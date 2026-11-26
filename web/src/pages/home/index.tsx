@@ -1,4 +1,4 @@
-import PageView from '@/views/home/index';
+import PageView from '@/pages/views/home/index';
 definePage({
     name: 'home',
 });

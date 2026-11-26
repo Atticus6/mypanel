@@ -1,4 +1,4 @@
-import PageView from '@/views/host/file-management/index';
+import PageView from '@/pages/views/host/file-management/index';
 
 definePage({
     name: 'File',

@@ -1,4 +1,4 @@
-import PageView from '@/views/host/ssh/log/index';
+import PageView from '@/pages/views/host/ssh/log/index';
 definePage({
     name: 'SSHLog',
     meta: {

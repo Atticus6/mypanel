@@ -1,4 +1,4 @@
-import PageView from '@/views/website/website/config/index';
+import PageView from '@/pages/views/website/website/config/index';
 definePage({
     name: 'WebsiteConfig',
     props: true,

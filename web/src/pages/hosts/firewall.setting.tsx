@@ -1,4 +1,4 @@
-import PageView from '@/views/host/firewall/setting/index';
+import PageView from '@/pages/views/host/firewall/setting/index';
 definePage({
     name: 'FirewallSetting',
     meta: {

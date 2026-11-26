@@ -1,4 +1,4 @@
-import PageView from '@/views/cronjob/cronjob/operate/index';
+import PageView from '@/pages/views/cronjob/cronjob/operate/index';
 definePage({
     name: 'CronjobOperate',
     meta: { activeMenu: '/cronjobs', ignoreTab: true, permission: 'cronjob_view', hidden: true },

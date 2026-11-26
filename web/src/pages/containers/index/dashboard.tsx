@@ -1,4 +1,4 @@
-import PageView from '@/views/container/dashboard/index';
+import PageView from '@/pages/views/container/dashboard/index';
 definePage({
     name: 'ContainerDashboard',
     props: true,

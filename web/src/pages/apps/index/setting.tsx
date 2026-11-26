@@ -1,4 +1,4 @@
-import PageView from '@/views/app-store/setting/index';
+import PageView from '@/pages/views/app-store/setting/index';
 definePage({
     name: 'AppStoreSetting',
     props: true,

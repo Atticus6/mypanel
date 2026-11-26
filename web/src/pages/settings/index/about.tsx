@@ -1,4 +1,4 @@
-import PageView from '@/views/setting/about/index';
+import PageView from '@/pages/views/setting/about/index';
 
 definePage({
     name: 'About',

@@ -1,4 +1,4 @@
-import PageView from '@/views/container/template/index';
+import PageView from '@/pages/views/container/template/index';
 definePage({
     name: 'ComposeTemplate',
     meta: {

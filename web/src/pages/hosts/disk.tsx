@@ -1,4 +1,4 @@
-import PageView from '@/views/host/disk-management/disk/index';
+import PageView from '@/pages/views/host/disk-management/disk/index';
 definePage({
     name: 'Disk',
     props: true,

@@ -1,4 +1,4 @@
-import PageView from '@/views/setting/expired';
+import PageView from '@/pages/views/setting/expired';
 definePage({
     name: 'Expired',
     meta: { parent: 'menu.settings', activeMenu: '/settings', ignoreTab: true, hidden: true },

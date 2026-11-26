@@ -1,4 +1,4 @@
-import PageView from '@/views/website/website/index';
+import PageView from '@/pages/views/website/website/index';
 definePage({
     name: 'Website',
     meta: { icon: 'p-website', title: 'menu.website', permission: 'website_view' },

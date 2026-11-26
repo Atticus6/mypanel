@@ -1,4 +1,4 @@
-import PageView from '@/views/setting/snapshot/index';
+import PageView from '@/pages/views/setting/snapshot/index';
 definePage({
     name: 'Snapshot',
     meta: {

@@ -1,4 +1,4 @@
-import PageView from '@/views/container/setting/index';
+import PageView from '@/pages/views/container/setting/index';
 definePage({
     name: 'ContainerSetting',
     meta: {
