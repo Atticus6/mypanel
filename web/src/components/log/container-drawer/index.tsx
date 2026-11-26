@@ -1,6 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import i18n from '@/lang';
-import screenfull from 'screenfull';
+import { fullscreen } from '@/utils/fullscreen';
 import ContainerLog from '@/components/log/container/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 interface DialogProps {
@@ -32,6 +32,7 @@ const options = {
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
     (__panelSetupProps, ctx) => {
         const { isMobile, isFullScreen } = useGlobalStore();
+        let stopFullscreenWatch: (() => void) | undefined;
         const logVisible = ref(false);
         const logSearch = reactive({
             isWatch: true,
@@ -51,7 +52,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             isFullScreen.value = false;
         };
         watch(logVisible, (val) => {
-            if (screenfull.isEnabled && !val && !isMobile.value) screenfull.exit();
+            if (fullscreen.isEnabled && !val && !isMobile.value) fullscreen.exit();
         });
         const config = ref<DialogProps>({
             container: '',
@@ -64,12 +65,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             logVisible.value = true;
 
             if (!isMobile.value) {
-                screenfull.on('change', () => {
-                    isFullScreen.value = screenfull.isFullscreen;
+                stopFullscreenWatch?.();
+                stopFullscreenWatch = fullscreen.onChange(() => {
+                    isFullScreen.value = fullscreen.isFullscreen;
                 });
             }
         };
         onBeforeUnmount(() => {
+            stopFullscreenWatch?.();
             handleClose();
         });
         ctx.expose({

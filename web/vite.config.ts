@@ -13,7 +13,7 @@ import { VueRouterAutoImports } from 'vue-router/unplugin';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import svgLoader from 'vite-svg-loader';
+import { svgComponentPlugin } from './build/svg-component.ts';
 
 function patchCodeFilterOverflow(): Plugin {
     return {
@@ -113,12 +113,10 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
                 '@pinia/colada',
                 'pinia-plugin-persistedstate',
                 'punycode',
-                'screenfull',
                 'sortablejs',
                 'tailwind-merge',
                 'uuid',
                 'vue',
-                'vue-clipboard3',
                 'vue-i18n',
                 'vue-router',
                 '@vue-office/docx',
@@ -276,9 +274,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
                     }),
                 ],
             }),
-            svgLoader({
-                defaultImport: 'url',
-            }),
+            svgComponentPlugin(),
         ],
         build: {
             sourcemap: false,

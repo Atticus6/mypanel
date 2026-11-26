@@ -1,7 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 import LogFile from '@/components/log/file/index';
 import i18n from '@/lang';
-import screenfull from 'screenfull';
+import { fullscreen } from '@/utils/fullscreen';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 interface LogProps {
     id: number;
@@ -55,7 +55,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             return i18n.global.t('commons.button.' + (isFullScreen.value ? 'quitFullscreen' : 'fullscreen'));
         };
         watch(open, (val) => {
-            if (screenfull.isEnabled && !val && !isMobile.value) screenfull.exit();
+            if (fullscreen.isEnabled && !val && !isMobile.value) fullscreen.exit();
         });
         const acceptParams = (logProps: LogProps) => {
             config.value = logProps;

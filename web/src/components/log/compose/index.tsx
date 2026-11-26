@@ -1,5 +1,5 @@
 import i18n from '@/lang';
-import screenfull from 'screenfull';
+import { fullscreen } from '@/utils/fullscreen';
 import ContainerLog from '@/components/log/container/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 interface DialogProps {
@@ -51,7 +51,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             return i18n.global.t('commons.button.' + (isFullScreen.value ? 'quitFullscreen' : 'fullscreen'));
         };
         watch(logVisible, (val) => {
-            if (screenfull.isEnabled && !val && !isMobile.value) screenfull.exit();
+            if (fullscreen.isEnabled && !val && !isMobile.value) fullscreen.exit();
         });
         const acceptParams = (props: DialogProps): void => {
             highlightDiff.value = __panelSetupProps.highlightDiff;

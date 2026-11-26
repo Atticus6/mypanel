@@ -40,5 +40,5 @@
         "build/**/*.d.ts",
         "vite.config.ts"
     ],
-    "exclude": ["node_modules", "dist", "**/*.js", "*.json", "*.md", "src/**/*.test.ts"]
+    "exclude": ["node_modules", "dist", "**/*.js", "*.json", "*.md", "src/**/*.test.ts", "build/**/*.test.ts"]
 }

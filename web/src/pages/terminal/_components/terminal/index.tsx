@@ -1,5 +1,5 @@
 import { $t } from '@/utils/i18n-t';
-import screenfull from 'screenfull';
+import { fullscreen } from '@/utils/fullscreen';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import router from '@/routers';
@@ -30,8 +30,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const store = TerminalSessionStore();
         const connectionMenuRef = ref<InstanceType<typeof ConnectionMenu>>();
         const toggleFullscreen = () => {
-            if (screenfull.isEnabled) {
-                screenfull.toggle();
+            if (fullscreen.isEnabled) {
+                fullscreen.toggle();
             }
         };
         const loadTooltip = () => {
@@ -180,7 +180,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             store.sync();
         };
         const changeFullScreen = () => {
-            isFullScreen.value = screenfull.isFullscreen;
+            isFullScreen.value = fullscreen.isFullscreen;
         };
         onBeforeUnmount(() => {
             document.removeEventListener('fullscreenchange', changeFullScreen);
