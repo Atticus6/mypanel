@@ -2,6 +2,7 @@ import { getFuLocaleMessage } from '@/lang/fu';
 
 const message = {
     apiKeyManagement: {
+        notAvailable: 'API Key management is not available in this edition',
         reveal: 'Show secret',
         hideSecret: 'Hide secret',
         revealHelp: 'Keep this secret secure. Disabled or expired keys remain unusable even when displayed.',

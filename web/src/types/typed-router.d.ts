@@ -473,6 +473,7 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | 'About'
       | 'Alert'
+      | 'ApiKeys'
       | 'BackupAccount'
       | 'Expired'
       | 'Panel'
@@ -487,6 +488,7 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | 'About'
       | 'Alert'
+      | 'ApiKeys'
       | 'BackupAccount'
       | 'Expired'
       | 'Panel'
@@ -503,6 +505,13 @@ declare module 'vue-router/auto-routes' {
     'Alert': RouteRecordInfo<
       'Alert',
       '/settings/alert',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'ApiKeys': RouteRecordInfo<
+      'ApiKeys',
+      '/settings/apikeys',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -1134,6 +1143,7 @@ declare module 'vue-router/auto-routes' {
       routes:
         | 'About'
         | 'Alert'
+        | 'ApiKeys'
         | 'BackupAccount'
         | 'Expired'
         | 'Panel'
@@ -1150,6 +1160,7 @@ declare module 'vue-router/auto-routes' {
       routes:
         | 'About'
         | 'Alert'
+        | 'ApiKeys'
         | 'BackupAccount'
         | 'Expired'
         | 'Panel'
@@ -1172,6 +1183,14 @@ declare module 'vue-router/auto-routes' {
     'src/pages/settings/index/alert.tsx': {
       routes:
         | 'Alert'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/settings/index/apikeys.tsx': {
+      routes:
+        | 'ApiKeys'
       views:
         | never
       pathParamNames:

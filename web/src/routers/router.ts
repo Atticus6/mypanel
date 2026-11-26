@@ -16,7 +16,7 @@ const redirectToAvailableSetting = () => {
     if (globalStore.hasPermission('backup_view')) {
         return '/settings/backupaccount';
     }
-    return '/settings/apikeys';
+    return '/';
 };
 
 // definePage 只接受静态字面量，设置模块的动态重定向在运行时补回。

@@ -2,6 +2,7 @@ import { getFuLocaleMessage } from '@/lang/fu';
 
 const message = {
     apiKeyManagement: {
+        notAvailable: '目前版本不支援 API Key 管理',
         reveal: '檢視密鑰',
         hideSecret: '隱藏密鑰',
         revealHelp: '請妥善保管密鑰。檢視不會恢復已停用或已過期密鑰的使用權限。',
