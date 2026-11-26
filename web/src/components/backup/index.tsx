@@ -294,10 +294,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(backupVisible)}
-                    onUpdate:modelValue={($v) => {
-                        backupVisible.value = $v as any;
-                    }}
+                    v-model={backupVisible.value}
                     header={$t('commons.button.backup')}
                     resource={unref(detailName) ? unref(name) + ' [' + unref(detailName) + ']' : unref(name)}
                     onClose={($event?: any) => {
@@ -325,7 +322,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </div>
                                     </ElAlert>
                                 ) : null}
-                                {withDirectives(
+                                {
                                     <ComplexTable
                                         pagination-config={paginationConfig}
                                         selects={unref(selects)}
@@ -371,6 +368,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 </>
                                             ),
                                         }}
+                                        v-loading={unref(loading)}
                                     >
                                         <ElTableColumn type="selection" selectable={selectable} fix />
                                         <ElTableColumn
@@ -458,10 +456,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 default: ({ row }) => (
                                                     <>
                                                         <FuInputRwSwitch
-                                                            modelValue={row.description}
-                                                            onUpdate:modelValue={($v) => {
-                                                                row.description = $v as any;
-                                                            }}
+                                                            v-model={row.description}
                                                             onEnter={($event?: any) => {
                                                                 onChange(row);
                                                             }}
@@ -486,18 +481,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             label={$t('commons.table.operate')}
                                             fix
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </>
                         ),
                     }}
                 />
                 <DialogPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     title={
                         unref(isBackup)
                             ? $t('commons.button.backup')
@@ -537,7 +528,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             unref(name) + '( ' + unref(detailName) + ' )',
                         ])}
                     </ElAlert>
-                    {withDirectives(
+                    {
                         <ElForm
                             ref="backupForm"
                             onSubmit={($event?: any) => {
@@ -545,15 +536,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             }}
                             label-position="top"
                             class={'mt-5'}
+                            v-loading={unref(loading)}
                         >
                             {unref(isBackup) && (unref(type) === 'container' || unref(type) === 'compose') ? (
                                 <ElFormItem>
-                                    <ElCheckbox
-                                        modelValue={unref(stopBefore)}
-                                        onUpdate:modelValue={($v) => {
-                                            stopBefore.value = $v as any;
-                                        }}
-                                    >
+                                    <ElCheckbox v-model={stopBefore.value}>
                                         {unref(type) === 'container'
                                             ? $t('container.stopContainerBeforeBackup')
                                             : $t('container.stopComposeBeforeBackup')}
@@ -562,22 +549,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElFormItem>
                             ) : null}
                             <ElFormItem label={$t('setting.compressPassword')}>
-                                <ElInput
-                                    modelValue={unref(secret)}
-                                    onUpdate:modelValue={($v) => {
-                                        secret.value = $v as any;
-                                    }}
-                                    placeholder={$t('setting.backupRecoverMessage')}
-                                />
+                                <ElInput v-model={secret.value} placeholder={$t('setting.backupRecoverMessage')} />
                             </ElFormItem>
                             {!unref(isBackup) && unref(type) === 'mongodb' ? (
                                 <ElFormItem>
-                                    <ElCheckbox
-                                        modelValue={unref(dropAllCollections)}
-                                        onUpdate:modelValue={($v) => {
-                                            dropAllCollections.value = $v as any;
-                                        }}
-                                    >
+                                    <ElCheckbox v-model={dropAllCollections.value}>
                                         {$t('database.mongodbRecoverDropAllCollections')}
                                     </ElCheckbox>
                                     <span class={'input-help'}>
@@ -587,15 +563,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {unref(isBackup) && supportMysqlBackupArgs() ? (
                                 <ElFormItem label={$t('cronjob.backupArgs')}>
-                                    <ElSelect
-                                        modelValue={unref(args)}
-                                        onUpdate:modelValue={($v) => {
-                                            args.value = $v as any;
-                                        }}
-                                        filterable
-                                        allow-create
-                                        multiple
-                                    >
+                                    <ElSelect v-model={args.value} filterable allow-create multiple>
                                         {(loadMysqlArgs(unref(type)) || []).map((item) => (
                                             <ElOption value={item.arg} label={item.arg} key={item.arg}>
                                                 {item.arg}
@@ -618,13 +586,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         v-slots={{
                                             append: () => (
                                                 <>
-                                                    <ElSelect
-                                                        modelValue={unref(timeoutUnit)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            timeoutUnit.value = $v as any;
-                                                        }}
-                                                        style={'width: 80px'}
-                                                    >
+                                                    <ElSelect v-model={timeoutUnit.value} style={'width: 80px'}>
                                                         <ElOption label={$t('commons.units.second')} value="s" />
                                                         <ElOption label={$t('commons.units.minute')} value="m" />
                                                         <ElOption label={$t('commons.units.hour')} value="h" />
@@ -641,16 +603,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElInput
                                         type="textarea"
                                         autosize={{ minRows: 2, maxRows: 5 }}
-                                        modelValue={unref(description)}
-                                        onUpdate:modelValue={($v) => {
-                                            description.value = $v as any;
-                                        }}
+                                        v-model={description.value}
                                     />
                                 </ElFormItem>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DialogPro>
                 <OpDialog
                     ref={opRef}

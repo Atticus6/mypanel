@@ -5,7 +5,6 @@ import { toASCII } from 'punycode';
 import { useI18n } from 'vue-i18n';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import { Plus } from '@element-plus/icons-vue';
 import { Delete } from '@element-plus/icons-vue';
 import DialogPro from '@/components/dialog-pro/index';
@@ -314,10 +313,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 <ElInput
                                     type="string"
-                                    modelValue={unref(create).domains[index].domain}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(create).domains[index].domain = $v as any;
-                                    }}
+                                    v-model={unref(create).domains[index].domain}
                                     placeholder={index > 0 ? $t('website.domain') : ''}
                                     onBlur={($event?: any) => {
                                         handleDomainBlur(index);
@@ -356,10 +352,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElCol span={2} xs={6} class={'domain-create-field domain-create-ssl'}>
                             <ElFormItem label={index == 0 ? 'SSL' : ''} prop={`domains.${index}.ssl`}>
                                 <ElCheckbox
-                                    modelValue={unref(create).domains[index].ssl}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(create).domains[index].ssl = $v as any;
-                                    }}
+                                    v-model={unref(create).domains[index].ssl}
                                     disabled={unref(create).domains[index].port == 80}
                                     class={'domain-create-ssl-control'}
                                 />
@@ -368,59 +361,56 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {index == 0 ? (
                             <ElCol span={4} xs={6} class={'domain-create-field domain-create-operation'}>
                                 <ElFormItem label={$t('commons.table.operate')}>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             aria-label={$t('commons.button.add')}
                                             onClick={($event?: any) => {
                                                 (addDomain as any)($event);
                                             }}
+                                            v-permission={true}
                                         >
                                             <ElIcon>
                                                 <Plus />
                                             </ElIcon>
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </ElFormItem>
                             </ElCol>
                         ) : (
                             <ElCol span={4} xs={6} class={'domain-create-field domain-create-operation'}>
                                 <ElFormItem>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             aria-label={$t('commons.button.delete')}
                                             onClick={($event?: any) => {
                                                 removeDomain(index);
                                             }}
+                                            v-permission={true}
                                         >
                                             <ElIcon>
                                                 <Delete />
                                             </ElIcon>
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </ElFormItem>
                             </ElCol>
                         )}
                     </ElRow>
                 ))}
-                {withDirectives(
+                {
                     <ElButton
                         onClick={($event?: any) => {
                             (openBatchDialog as any)($event);
                         }}
                         type="primary"
                         plain
+                        v-permission={true}
                     >
                         {$t('website.batchInput')}
-                    </ElButton>,
-                    [[permissionDirective, true]],
-                )}
+                    </ElButton>
+                }
                 <DialogPro
-                    modelValue={unref(batchDialogVisible)}
-                    onUpdate:modelValue={($v) => {
-                        batchDialogVisible.value = $v as any;
-                    }}
+                    v-model={batchDialogVisible.value}
                     title={$t('website.batchAdd')}
                     size="large"
                     v-slots={{
@@ -433,18 +423,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             (saveBatchInput as any)($event);
                                         }}
                                         disabled={unref(create).domainStr == ''}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                     }}
@@ -452,10 +442,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <ElInput
                         type="textarea"
                         rows={8}
-                        modelValue={unref(create).domainStr}
-                        onUpdate:modelValue={($v) => {
-                            unref(create).domainStr = $v as any;
-                        }}
+                        v-model={unref(create).domainStr}
                         placeholder={$t('website.domainBatchHelper')}
                     />
                 </DialogPro>

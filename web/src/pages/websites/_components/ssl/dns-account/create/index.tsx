@@ -8,7 +8,6 @@ interface AccountProps {
     mode: string;
     form: any;
 }
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -103,10 +102,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.' + unref(accountData).mode)}
                 size="large"
                 onClose={($event?: any) => {
@@ -124,25 +120,31 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit(unref(accountForm));
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={accountForm} label-position="top" model={unref(account)} rules={unref(rules)}>
+                {
+                    <ElForm
+                        ref={accountForm}
+                        label-position="top"
+                        model={unref(account)}
+                        rules={unref(rules)}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('commons.table.name')} prop="name">
                             <ElInput
                                 modelValue={unref(account).name}
@@ -152,13 +154,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.type')} prop="type">
-                            <ElSelect
-                                modelValue={unref(account).type}
-                                onUpdate:modelValue={($v) => {
-                                    unref(account).type = $v as any;
-                                }}
-                                disabled={unref(accountData).mode === 'edit'}
-                            >
+                            <ElSelect v-model={unref(account).type} disabled={unref(accountData).mode === 'edit'}>
                                 {(DNSTypes || []).map((type, index) => (
                                     <ElOption
                                         label={
@@ -623,9 +619,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElFormItem>
                             </div>
                         ) : null}
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

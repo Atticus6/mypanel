@@ -129,10 +129,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ) : null}
                 {unref(isAdmin) ? (
                     <DialogPro
-                        modelValue={unref(open)}
-                        onUpdate:modelValue={($v) => {
-                            open.value = $v as any;
-                        }}
+                        v-model={open.value}
                         title={$t('menu.terminal')}
                         size="w-70"
                         show-close={false}
@@ -197,10 +194,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <>
                                     <div class={'terminal-dock-toolbar'}>
                                         <ElTabs
-                                            modelValue={unref(active)}
-                                            onUpdate:modelValue={($v) => {
-                                                active.value = $v as any;
-                                            }}
+                                            v-model={active.value}
                                             type="card"
                                             addable
                                             onTabAdd={($event?: any) => {
@@ -214,10 +208,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 'add-icon': () => (
                                                     <>
                                                         <ConnectionMenu
-                                                            modelValue={unref(showConnections)}
-                                                            onUpdate:modelValue={($v) => {
-                                                                showConnections.value = $v as any;
-                                                            }}
+                                                            v-model={showConnections.value}
                                                             open-session={openConnection}
                                                         />
                                                     </>

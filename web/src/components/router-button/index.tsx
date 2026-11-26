@@ -185,10 +185,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                         }
                     >
                         <ElRadioGroup
-                            modelValue={unref(activeName)}
-                            onUpdate:modelValue={($v) => {
-                                activeName.value = $v as any;
-                            }}
+                            v-model={activeName.value}
                             onChange={($event?: any) => {
                                 (handleChange as any)($event);
                             }}

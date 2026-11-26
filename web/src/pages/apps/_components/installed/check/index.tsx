@@ -104,10 +104,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('app.checkTitle')}
                 size="large"
                 v-slots={{
@@ -173,13 +170,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElDescriptions>
                             {unref(installData).key === 'openresty' ? (
                                 <div class={'mt-5'}>
-                                    <ElCheckbox
-                                        modelValue={unref(forceDelete)}
-                                        onUpdate:modelValue={($v) => {
-                                            forceDelete.value = $v as any;
-                                        }}
-                                        label="true"
-                                    >
+                                    <ElCheckbox v-model={forceDelete.value} label="true">
                                         {$t('app.forceDelete')}
                                     </ElCheckbox>
                                     <ErrPrompt title={$t('app.openrestyDeleteHelper')} />

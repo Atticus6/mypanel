@@ -97,10 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('file.shareList')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);

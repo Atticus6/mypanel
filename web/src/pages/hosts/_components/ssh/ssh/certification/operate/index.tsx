@@ -215,10 +215,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={unref(title)}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -251,27 +248,25 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={formRef} label-position="top" rules={rules} model={unref(dialogData).rowData}>
+                {
+                    <ElForm
+                        ref={formRef}
+                        label-position="top"
+                        rules={rules}
+                        model={unref(dialogData).rowData}
+                        v-loading={unref(loading)}
+                    >
                         <ElRow gutter={20}>
                             <ElCol span={12}>
                                 <ElFormItem label={$t('commons.table.name')} prop="name">
-                                    <ElInput
-                                        modelValue={unref(dialogData).rowData.name}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData.name = $v as any;
-                                        }}
-                                    />
+                                    <ElInput v-model={unref(dialogData).rowData.name} />
                                 </ElFormItem>
                             </ElCol>
                         </ElRow>
                         {unref(dialogData).title === 'create' ? (
                             <ElFormItem label={$t('ssh.createMode')} prop="mode">
                                 <ElRadioGroup
-                                    modelValue={unref(dialogData).rowData.mode}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData.mode = $v as any;
-                                    }}
+                                    v-model={unref(dialogData).rowData.mode}
                                     onChange={($event?: any) => {
                                         (onModeChange as any)($event);
                                     }}
@@ -286,12 +281,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(isGenerate) ? (
                                 <ElCol span={12}>
                                     <ElFormItem label={$t('ssh.encryptionMode')} prop="encryptionMode">
-                                        <ElSelect
-                                            modelValue={unref(dialogData).rowData.encryptionMode}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(dialogData).rowData.encryptionMode = $v as any;
-                                            }}
-                                        >
+                                        <ElSelect v-model={unref(dialogData).rowData.encryptionMode}>
                                             <ElOption label="ED25519" value="ed25519" />
                                             <ElOption label="ECDSA" value="ecdsa" />
                                             <ElOption label="RSA" value="rsa" />
@@ -306,10 +296,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     prop="passPhrase"
                                 >
                                     <ElInput
-                                        modelValue={unref(dialogData).rowData.passPhrase}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData.passPhrase = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData.passPhrase}
                                         type="password"
                                         show-password
                                         v-slots={{
@@ -341,10 +328,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <ElInput
                                                     type="textarea"
                                                     rows={4}
-                                                    modelValue={unref(dialogData).rowData.privateKey}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(dialogData).rowData.privateKey = $v as any;
-                                                    }}
+                                                    v-model={unref(dialogData).rowData.privateKey}
                                                 />
                                             ) : (
                                                 <ElUpload
@@ -370,10 +354,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <ElInput
                                                     type="textarea"
                                                     rows={4}
-                                                    modelValue={unref(dialogData).rowData.publicKey}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(dialogData).rowData.publicKey = $v as any;
-                                                    }}
+                                                    v-model={unref(dialogData).rowData.publicKey}
                                                 />
                                             ) : (
                                                 <ElUpload
@@ -397,16 +378,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         ) : null}
                         <ElFormItem label={$t('commons.table.description')} prop="description">
-                            <ElInput
-                                modelValue={unref(dialogData).rowData.description}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData.description = $v as any;
-                                }}
-                            />
+                            <ElInput v-model={unref(dialogData).rowData.description} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DialogPro>
         );
     },

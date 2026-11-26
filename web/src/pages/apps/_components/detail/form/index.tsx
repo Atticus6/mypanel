@@ -368,7 +368,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                         class={'common-prompt'}
                     />
                 ) : null}
-                {withDirectives(
+                {
                     <ElForm
                         onValidate={($event?: any) => {
                             (prop, valid) => expandInvalidFormSection(unref(formRef), prop, valid);
@@ -383,6 +383,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                         label-width="150px"
                         rules={unref(formRules)}
                         validate-on-rule-change={false}
+                        v-loading={__panelSetupProps.loading}
                     >
                         {h(
                             __panelSetupProps.sectioned ? 'details' : 'section',
@@ -407,10 +408,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                             </ElFormItem>
                                             <ElFormItem label={$t('app.version')} prop="version">
                                                 <ElSelect
-                                                    modelValue={unref(formData).version}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(formData).version = $v as any;
-                                                    }}
+                                                    v-model={unref(formData).version}
                                                     onChange={($event?: any) => {
                                                         (handleVersionChange as any)($event);
                                                     }}
@@ -459,10 +457,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                         {!__panelSetupProps.sectioned ? (
                                             <ElFormItem prop="advanced">
                                                 <ElCheckbox
-                                                    modelValue={unref(formData).advanced}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(formData).advanced = $v as any;
-                                                    }}
+                                                    v-model={unref(formData).advanced}
                                                     label={$t('app.advanced')}
                                                     size="large"
                                                 />
@@ -483,10 +478,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 {!unref(isHostMode) ? (
                                                     <ElFormItem prop="allowPort">
                                                         <ElCheckbox
-                                                            modelValue={unref(formData).allowPort}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(formData).allowPort = $v as any;
-                                                            }}
+                                                            v-model={unref(formData).allowPort}
                                                             label={$t('app.allowPort')}
                                                             size="large"
                                                         />
@@ -495,23 +487,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 ) : null}
                                                 {unref(formData).allowPort ? (
                                                     <ElFormItem label={$t('app.specifyIP')} prop="specifyIP">
-                                                        <ElInput
-                                                            modelValue={unref(formData).specifyIP}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(formData).specifyIP = $v as any;
-                                                            }}
-                                                        />
+                                                        <ElInput v-model={unref(formData).specifyIP} />
                                                         <span class={'input-help'}>{$t('app.specifyIPHelper')}</span>
                                                     </ElFormItem>
                                                 ) : null}
                                                 <ElFormItem label={$t('container.restartPolicy')} prop="restartPolicy">
-                                                    <ElSelect
-                                                        modelValue={unref(formData).restartPolicy}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(formData).restartPolicy = $v as any;
-                                                        }}
-                                                        class={'p-w-300'}
-                                                    >
+                                                    <ElSelect v-model={unref(formData).restartPolicy} class={'p-w-300'}>
                                                         <ElOption label={$t('container.no')} value="no" />
                                                         <ElOption label={$t('container.always')} value="always" />
                                                         <ElOption
@@ -560,10 +541,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                             append: () => (
                                                                 <>
                                                                     <ElSelect
-                                                                        modelValue={unref(formData).memoryUnit}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            unref(formData).memoryUnit = $v as any;
-                                                                        }}
+                                                                        v-model={unref(formData).memoryUnit}
                                                                         placeholder="Select"
                                                                         onChange={($event?: any) => {
                                                                             (changeUnit as any)($event);
@@ -586,10 +564,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 {unref(gpuSupport) && !__panelSetupProps.hideGpuConfig ? (
                                                     <ElFormItem pro="gpuConfig">
                                                         <ElCheckbox
-                                                            modelValue={unref(formData).gpuConfig}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(formData).gpuConfig = $v as any;
-                                                            }}
+                                                            v-model={unref(formData).gpuConfig}
                                                             label={$t('app.gpuConfig')}
                                                             size="large"
                                                         />
@@ -598,10 +573,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 ) : null}
                                                 <ElFormItem pro="pullImage">
                                                     <ElCheckbox
-                                                        modelValue={unref(formData).pullImage}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(formData).pullImage = $v as any;
-                                                        }}
+                                                        v-model={unref(formData).pullImage}
                                                         label={$t('app.pullImage')}
                                                         size="large"
                                                     />
@@ -624,10 +596,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 ) : null}
                                                 <ElFormItem prop="editCompose">
                                                     <ElCheckbox
-                                                        modelValue={unref(formData).editCompose}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(formData).editCompose = $v as any;
-                                                        }}
+                                                        v-model={unref(formData).editCompose}
                                                         label={$t('app.editCompose')}
                                                         size="large"
                                                     />
@@ -636,10 +605,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 {unref(formData).editCompose ? (
                                                     <div>
                                                         <CodemirrorPro
-                                                            modelValue={unref(formData).dockerCompose}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(formData).dockerCompose = $v as any;
-                                                            }}
+                                                            v-model={unref(formData).dockerCompose}
                                                             mode="yaml"
                                                         />
                                                     </div>
@@ -650,9 +616,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                 ),
                             },
                         )}
-                    </ElForm>,
-                    [[vLoading, __panelSetupProps.loading]],
-                )}
+                    </ElForm>
+                }
             </div>
         );
     },

@@ -92,10 +92,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         return () => (
             <ElDialog
                 title={__panelSetupProps.title}
-                modelValue={unref(dialogVisible)}
-                onUpdate:modelValue={($v) => {
-                    dialogVisible.value = $v as any;
-                }}
+                v-model={dialogVisible.value}
                 destroy-on-close={true}
                 close-on-click-modal={__panelSetupProps.closeOnClickModal}
                 show-close={__panelSetupProps.showClose}

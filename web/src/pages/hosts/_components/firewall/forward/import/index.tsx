@@ -178,10 +178,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 title={$t('commons.button.import')}
                 size="w-70"
                 v-slots={{
@@ -259,7 +256,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             class={'mt-3'}
                         />
                     ) : null}
-                    {withDirectives(
+                    {
                         <ElCard
                             shadow="never"
                             class={'mt-3 w-full'}
@@ -277,6 +274,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </>
                                 ),
                             }}
+                            v-loading={unref(loading)}
                         >
                             <ComplexTable
                                 selects={unref(selects)}
@@ -316,9 +314,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     />
                                 ) : null}
                             </ComplexTable>
-                        </ElCard>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElCard>
+                    }
                 </div>
             </DialogPro>
         );

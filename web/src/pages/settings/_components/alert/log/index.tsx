@@ -39,7 +39,6 @@ import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { getAlertConfigDisplayName } from '@/pages/settings/_components/alert/setting/drawer/secret-field';
 import { cronjobAlertTypes, getCronjobAlertResult } from '@/utils/cronjob-alert';
-import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
@@ -334,7 +333,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('xpack.alert.logs')}
                         v-slots={{
@@ -342,31 +341,29 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <>
                                     <div class={'flex flex-wrap justify-between gap-2 sm:flex-row'}>
                                         <div class={'flex flex-wrap gap-3'}>
-                                            {unref(isProductPro) && !unref(isIntl)
-                                                ? withDirectives(
-                                                      <ElButton
-                                                          type="primary"
-                                                          onClick={($event?: any) => {
-                                                              (syncAll as any)($event);
-                                                          }}
-                                                      >
-                                                          {$t('commons.button.sync')}
-                                                      </ElButton>,
-                                                      [[permissionDirective, true]],
-                                                  )
-                                                : null}
-                                            {withDirectives(
+                                            {unref(isProductPro) && !unref(isIntl) ? (
+                                                <ElButton
+                                                    type="primary"
+                                                    onClick={($event?: any) => {
+                                                        (syncAll as any)($event);
+                                                    }}
+                                                    v-permission={true}
+                                                >
+                                                    {$t('commons.button.sync')}
+                                                </ElButton>
+                                            ) : null}
+                                            {
                                                 <ElButton
                                                     type="primary"
                                                     plain
                                                     onClick={($event?: any) => {
                                                         (onClean as any)($event);
                                                     }}
+                                                    v-permission={true}
                                                 >
                                                     {$t('xpack.alert.cleanLog')}
-                                                </ElButton>,
-                                                [[permissionDirective, true]],
-                                            )}
+                                                </ElButton>
+                                            }
                                         </div>
                                     </div>
                                 </>
@@ -451,9 +448,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
             </div>
         );
     },

@@ -26,15 +26,15 @@ describe('transformVueJSX', () => {
 
     test('v-model 展开为绑定值与更新回调', () => {
         const result = run('<Comp v-model={form.name} />');
-        expect(result).toContain('"modelValue"={form.name}');
-        expect(result).toContain('"onUpdate:modelValue"={$event => { form.name = $event }}');
+        expect(result).toContain('modelValue={form.name}');
+        expect(result).toContain('onUpdate:modelValue={$event => { form.name = $event }}');
     });
 
     test('v-model 支持参数与修饰符', () => {
         const result = run('<Comp v-model:title_trim={title} />');
-        expect(result).toContain('"title"={title}');
-        expect(result).toContain('"onUpdate:title"={$event => { title = $event }}');
-        expect(result).toContain('"titleModifiers"={{"trim": true}}');
+        expect(result).toContain('title={title}');
+        expect(result).toContain('onUpdate:title={$event => { title = $event }}');
+        expect(result).toContain('titleModifiers={{"trim": true}}');
     });
 
     test('v-models 展开所有绑定', () => {

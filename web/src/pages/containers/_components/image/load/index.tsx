@@ -197,10 +197,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(loadVisible)}
-                    onUpdate:modelValue={($v) => {
-                        loadVisible.value = $v as any;
-                    }}
+                    v-model={loadVisible.value}
                     header={$t('container.importImage')}
                     auto-close={!unref(busy)}
                     confirm-before-close={true}
@@ -262,10 +259,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {unref(source) === 'server' ? (
                             <ElFormItem label={$t('container.path')}>
                                 <ElInput
-                                    modelValue={form.path}
-                                    onUpdate:modelValue={($v) => {
-                                        form.path = $v as any;
-                                    }}
+                                    v-model={form.path}
                                     disabled={unref(busy)}
                                     onInput={($event?: any) => {
                                         (handlePathChange as any)($event);

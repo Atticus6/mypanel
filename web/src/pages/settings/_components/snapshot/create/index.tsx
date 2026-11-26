@@ -428,10 +428,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('setting.snapshot')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -500,10 +497,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onChange={($event?: any) => {
                                             changeAccount(false);
                                         }}
-                                        modelValue={form.fromAccounts}
-                                        onUpdate:modelValue={($v) => {
-                                            form.fromAccounts = $v as any;
-                                        }}
+                                        v-model={form.fromAccounts}
                                         clearable
                                     >
                                         {(unref(backupOptions) || []).map((item) => (
@@ -523,13 +517,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElSelect>
                                 </ElFormItem>
                                 <ElFormItem label={$t('cronjob.default_download_path')} prop="downloadAccountID">
-                                    <ElSelect
-                                        modelValue={form.downloadAccountID}
-                                        onUpdate:modelValue={($v) => {
-                                            form.downloadAccountID = $v as any;
-                                        }}
-                                        clearable
-                                    >
+                                    <ElSelect v-model={form.downloadAccountID} clearable>
                                         {(unref(accountOptions) || []).map((item) => (
                                             <div key={item.id}>
                                                 {item.type !== $t('setting.LOCAL') ? (
@@ -547,15 +535,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElSelect>
                                 </ElFormItem>
                                 <ElFormItem label={$t('setting.compressPassword')} prop="secret">
-                                    <ElInput
-                                        type="password"
-                                        show-password
-                                        clearable
-                                        modelValue={form.secret}
-                                        onUpdate:modelValue={($v) => {
-                                            form.secret = $v as any;
-                                        }}
-                                    />
+                                    <ElInput type="password" show-password clearable v-model={form.secret} />
                                 </ElFormItem>
                                 <ElFormItem label={$t('cronjob.timeout')} prop="timeoutItem">
                                     <ElInput
@@ -568,13 +548,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         v-slots={{
                                             append: () => (
                                                 <>
-                                                    <ElSelect
-                                                        modelValue={form.timeoutUnit}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.timeoutUnit = $v as any;
-                                                        }}
-                                                        style={'width: 80px'}
-                                                    >
+                                                    <ElSelect v-model={form.timeoutUnit} style={'width: 80px'}>
                                                         <ElOption label={$t('commons.units.second')} value="s" />
                                                         <ElOption label={$t('commons.units.minute')} value="m" />
                                                         <ElOption label={$t('commons.units.hour')} value="h" />
@@ -585,14 +559,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     />
                                 </ElFormItem>
                                 <ElFormItem label={$t('commons.table.description')} prop="description">
-                                    <ElInput
-                                        type="textarea"
-                                        clearable
-                                        modelValue={form.description}
-                                        onUpdate:modelValue={($v) => {
-                                            form.description = $v as any;
-                                        }}
-                                    />
+                                    <ElInput type="textarea" clearable v-model={form.description} />
                                 </ElFormItem>
                             </ElForm>
                         </FuStep>
@@ -604,10 +571,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : (
                                 <div>
                                     <ElCheckbox
-                                        modelValue={form.backupAllImage}
-                                        onUpdate:modelValue={($v) => {
-                                            form.backupAllImage = $v as any;
-                                        }}
+                                        v-model={form.backupAllImage}
                                         onChange={($event?: any) => {
                                             (selectAllImage as any)($event);
                                         }}
@@ -699,60 +663,26 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <FuStep id="otherData" title={$t('setting.stepOtherData')}>
                             <div class={'ml-5'}>
                                 <ElCheckbox
-                                    modelValue={form.withDockerConf}
-                                    onUpdate:modelValue={($v) => {
-                                        form.withDockerConf = $v as any;
-                                    }}
+                                    v-model={form.withDockerConf}
                                     label={$t('setting.dockerConf')}
                                     size="large"
                                 />
                             </div>
                             <div class={'ml-5'}>
-                                <ElCheckbox
-                                    modelValue={form.withOperationLog}
-                                    onUpdate:modelValue={($v) => {
-                                        form.withOperationLog = $v as any;
-                                    }}
-                                    label={$t('logs.operation')}
-                                    size="large"
-                                />
+                                <ElCheckbox v-model={form.withOperationLog} label={$t('logs.operation')} size="large" />
+                            </div>
+                            <div class={'ml-5'}>
+                                <ElCheckbox v-model={form.withLoginLog} label={$t('logs.login')} size="large" />
+                            </div>
+                            <div class={'ml-5'}>
+                                <ElCheckbox v-model={form.withSystemLog} label={$t('logs.system')} size="large" />
+                            </div>
+                            <div class={'ml-5'}>
+                                <ElCheckbox v-model={form.withTaskLog} label={$t('logs.task')} size="large" />
                             </div>
                             <div class={'ml-5'}>
                                 <ElCheckbox
-                                    modelValue={form.withLoginLog}
-                                    onUpdate:modelValue={($v) => {
-                                        form.withLoginLog = $v as any;
-                                    }}
-                                    label={$t('logs.login')}
-                                    size="large"
-                                />
-                            </div>
-                            <div class={'ml-5'}>
-                                <ElCheckbox
-                                    modelValue={form.withSystemLog}
-                                    onUpdate:modelValue={($v) => {
-                                        form.withSystemLog = $v as any;
-                                    }}
-                                    label={$t('logs.system')}
-                                    size="large"
-                                />
-                            </div>
-                            <div class={'ml-5'}>
-                                <ElCheckbox
-                                    modelValue={form.withTaskLog}
-                                    onUpdate:modelValue={($v) => {
-                                        form.withTaskLog = $v as any;
-                                    }}
-                                    label={$t('logs.task')}
-                                    size="large"
-                                />
-                            </div>
-                            <div class={'ml-5'}>
-                                <ElCheckbox
-                                    modelValue={form.withMonitorData}
-                                    onUpdate:modelValue={($v) => {
-                                        form.withMonitorData = $v as any;
-                                    }}
+                                    v-model={form.withMonitorData}
                                     label={$t('setting.monitorData')}
                                     size="large"
                                 />

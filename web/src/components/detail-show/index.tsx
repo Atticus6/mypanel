@@ -30,10 +30,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 title={$t('app.detail')}
                 v-slots={{
                     footer: () => (

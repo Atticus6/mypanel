@@ -7,8 +7,6 @@ import i18n from '@/lang';
 import Delete from './delete/index';
 import Reduce from './reduce/index';
 import { MsgSuccess } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import SvgIcon from '@/components/svg-icon/svg-icon';
@@ -144,10 +142,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('file.recycleBin')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -157,67 +152,56 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     content: () => (
                         <>
                             <div class={'flex space-x-4'}>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         onClick={($event?: any) => {
                                             (clear as any)($event);
                                         }}
                                         type="primary"
                                         disabled={unref(data) == null || unref(data).length == 0}
+                                        v-permission={true}
+                                        v-node-admin={true}
                                     >
                                         {$t('file.clearRecycleBin')}
-                                    </ElButton>,
-                                    [
-                                        [permissionDirective, true],
-                                        [nodeAdminDirective, true],
-                                    ],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         onClick={($event?: any) => {
                                             (patchDelete as any)($event);
                                         }}
                                         disabled={unref(data) == null || unref(selects).length == 0}
+                                        v-permission={true}
+                                        v-node-admin={true}
                                     >
                                         {$t('commons.button.delete')}
-                                    </ElButton>,
-                                    [
-                                        [permissionDirective, true],
-                                        [nodeAdminDirective, true],
-                                    ],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         onClick={($event?: any) => {
                                             (patchReduce as any)($event);
                                         }}
                                         disabled={unref(data) == null || unref(selects).length == 0}
+                                        v-permission={true}
+                                        v-node-admin={true}
                                     >
                                         {$t('file.reduce')}
-                                    </ElButton>,
-                                    [
-                                        [permissionDirective, true],
-                                        [nodeAdminDirective, true],
-                                    ],
-                                )}
+                                    </ElButton>
+                                }
                                 <ElFormItem label={$t('file.fileRecycleBin')}>
-                                    {withDirectives(
+                                    {
                                         <ElSwitch
-                                            modelValue={unref(status)}
-                                            onUpdate:modelValue={($v) => {
-                                                status.value = $v as any;
-                                            }}
+                                            v-model={status.value}
                                             active-value="Enable"
                                             inactive-value="Disable"
                                             onChange={($event?: any) => {
                                                 (changeStatus as any)($event);
                                             }}
-                                        />,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        />
+                                    }
                                 </ElFormItem>
                             </div>
                             <ComplexTable

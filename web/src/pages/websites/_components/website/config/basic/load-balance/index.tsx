@@ -5,7 +5,6 @@ import i18n from '@/lang';
 import { Website } from '@/types/website';
 import { getAlgorithms } from '@/global/mimetype';
 import File from './file/index';
-import permissionDirective from '@/directives/modules/permission';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
 import OpDialog from '@/components/del-dialog/index';
@@ -118,7 +117,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <div>
-                    {withDirectives(
+                    {
                         <ComplexTable
                             data={unref(data)}
                             onSearch={($event?: any) => {
@@ -128,18 +127,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 toolbar: () => (
                                     <>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 type="primary"
                                                 plain
                                                 onClick={($event?: any) => {
                                                     create();
                                                 }}
+                                                v-permission={true}
                                             >
                                                 {$t('commons.button.create')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
+                                            </ElButton>
+                                        }
                                         <ElAlert
                                             closable={false}
                                             class={'!mt-2'}
@@ -156,6 +155,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </>
                                 ),
                             }}
+                            v-loading={unref(loading)}
                         >
                             <ElTableColumn label={$t('commons.table.name')} prop="name" />
                             <ElTableColumn
@@ -241,9 +241,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 label={$t('commons.table.operate')}
                                 fix
                             />
-                        </ComplexTable>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ComplexTable>
+                    }
                 </div>
                 <Operate
                     ref={operateRef}

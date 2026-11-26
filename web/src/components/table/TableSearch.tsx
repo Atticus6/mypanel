@@ -62,10 +62,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 <div class={'search-button'}>
                     <ElInput
                         clearable
-                        modelValue={unref(searchInfo)}
-                        onUpdate:modelValue={($v) => {
-                            searchInfo.value = $v as any;
-                        }}
+                        v-model={searchInfo.value}
                         onClear={($event?: any) => {
                             search();
                         }}

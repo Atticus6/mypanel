@@ -64,10 +64,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(newNameVisible)}
-                onUpdate:modelValue={($v) => {
-                    newNameVisible.value = $v as any;
-                }}
+                v-model={newNameVisible.value}
                 header={$t('container.rename')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -100,7 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
@@ -108,22 +105,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ref={newNameRef}
                         model={renameForm}
                         label-position="top"
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem
                             label={$t('container.newName')}
                             rules={[Rules.containerName, Rules.requiredInput]}
                             prop="newName"
                         >
-                            <ElInput
-                                modelValue={renameForm.newName}
-                                onUpdate:modelValue={($v) => {
-                                    renameForm.newName = $v as any;
-                                }}
-                            />
+                            <ElInput v-model={renameForm.newName} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

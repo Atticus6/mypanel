@@ -190,10 +190,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('firewall.portWhiteList')}
                     size="large"
                     v-slots={{
@@ -211,8 +208,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         {$t('commons.button.create')}
                                     </ElButton>
                                 </div>
-                                {withDirectives(
-                                    <ComplexTable data={unref(data)}>
+                                {
+                                    <ComplexTable data={unref(data)} v-loading={unref(busy)}>
                                         <ElTableColumn
                                             label={$t('commons.table.protocol')}
                                             width="100"
@@ -290,18 +287,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 ),
                                             }}
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(busy)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </>
                         ),
                     }}
                 />
                 <DialogPro
-                    modelValue={unref(dialogVisible)}
-                    onUpdate:modelValue={($v) => {
-                        dialogVisible.value = $v as any;
-                    }}
+                    v-model={dialogVisible.value}
                     title={$t(unref(editingRule) ? 'commons.button.edit' : 'commons.button.create')}
                     show-close={!unref(saving)}
                     v-slots={{
@@ -342,10 +335,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     >
                         <ElFormItem label={$t('commons.table.type')}>
                             <ElSelect
-                                modelValue={unref(form).type}
-                                onUpdate:modelValue={($v) => {
-                                    unref(form).type = $v as any;
-                                }}
+                                v-model={unref(form).type}
                                 disabled={!!unref(editingRule)}
                                 onChange={($event?: any) => {
                                     (changeType as any)($event);
@@ -362,12 +352,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElSelect>
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.protocol')} required>
-                            <ElSelect
-                                modelValue={unref(form).protocol}
-                                onUpdate:modelValue={($v) => {
-                                    unref(form).protocol = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(form).protocol}>
                                 <ElOption value="tcp" label="TCP" />
                                 <ElOption value="udp" label="UDP" />
                             </ElSelect>

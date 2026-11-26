@@ -89,18 +89,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('setting.recoverDetail')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
                     }}
                     size="small"
                 >
-                    {withDirectives(
-                        <ElForm label-position="top">
+                    {
+                        <ElForm label-position="top" v-loading={unref(loading)}>
                             <span class={'card-title'}>{$t('commons.button.recover')}</span>
                             <ElDivider class={'divider'} />
                             {!unref(snapInfo).recoverStatus && !unref(snapInfo).lastRecoveredAt ? (
@@ -285,9 +282,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     )}
                                 </div>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <SnapRecover ref={recoverRef} />
             </>

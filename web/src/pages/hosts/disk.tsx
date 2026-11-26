@@ -38,8 +38,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DiskRouter />
-                {withDirectives(
-                    <MainDiv height-diff={140} class={'mt-2'}>
+                {
+                    <MainDiv height-diff={140} class={'mt-2'} v-loading={unref(loading)}>
                         {unref(diskInfo)?.systemDisks ? (
                             <div>
                                 {unref(diskInfo).systemDisks.map((disk, index) => (
@@ -84,9 +84,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ))}
                             </div>
                         ) : null}
-                    </MainDiv>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </MainDiv>
+                }
                 <Partition
                     ref={partitionRef}
                     onSearch={($event?: any) => {

@@ -161,7 +161,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('terminal.quickCommand')}
                         v-slots={{
@@ -220,10 +220,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             rightToolBar: () => (
                                 <>
                                     <ElSelect
-                                        modelValue={unref(group)}
-                                        onUpdate:modelValue={($v) => {
-                                            group.value = $v as any;
-                                        }}
+                                        v-model={group.value}
                                         onChange={($event?: any) => {
                                             search();
                                         }}
@@ -295,10 +292,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 default: ({ row }) => (
                                                     <>
                                                         <FuSelectRwSwitch
-                                                            modelValue={row.groupID}
-                                                            onUpdate:modelValue={($v) => {
-                                                                row.groupID = $v as any;
-                                                            }}
+                                                            v-model={row.groupID}
                                                             onChange={($event?: any) => {
                                                                 updateGroup(row);
                                                             }}
@@ -326,9 +320,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <OpDialog
                     ref={opRef}
                     onSearch={($event?: any) => {

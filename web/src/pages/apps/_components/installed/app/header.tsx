@@ -7,7 +7,6 @@ interface Props {
     sortMode?: boolean;
 }
 import './header.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import Status from '@/components/status/index';
 import { Warning } from '@element-plus/icons-vue';
 import { Tickets } from '@element-plus/icons-vue';
@@ -101,7 +100,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </span>
                         <span class={'ml-1'}>
                             <ElTooltip effect="dark" content={$t('app.toFolder')} placement="top">
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         link
@@ -109,9 +108,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             ctx.emit('toFolder');
                                         }}
                                         icon="FolderOpened"
-                                    />,
-                                    [[permissionDirective, 'host_file_view']],
-                                )}
+                                        v-permission={'host_file_view'}
+                                    />
+                                }
                             </ElTooltip>
                         </span>
                         <span class={'ml-1'}>
@@ -181,7 +180,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }
                                     placement="top-start"
                                 >
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             link
                                             size="large"
@@ -190,88 +189,80 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onClick={($event?: any) => {
                                                 ctx.emit('favoriteInstall');
                                             }}
+                                            v-permission={true}
                                         >
                                             <ElIcon>
                                                 <SvgIcon iconName="p-pushpin" />
                                             </ElIcon>
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </ElTooltip>
                             </span>
                         ) : null}
                     </div>
                     <div class={'operate-actions flex flex-wrap items-center justify-end gap-1'}>
-                        {__panelSetupProps.mode === 'installed'
-                            ? withDirectives(
-                                  <ElButton
-                                      plain
-                                      round
-                                      size="small"
-                                      onClick={($event?: any) => {
-                                          ctx.emit('openUploads');
-                                      }}
-                                      class={'h-button'}
-                                  >
-                                      {$t('database.loadBackup')}
-                                  </ElButton>,
-                                  [[permissionDirective, true]],
-                              )
-                            : null}
-                        {__panelSetupProps.mode === 'installed'
-                            ? withDirectives(
-                                  <ElButton
-                                      plain
-                                      round
-                                      size="small"
-                                      onClick={($event?: any) => {
-                                          ctx.emit('openBackups');
-                                      }}
-                                      class={'h-button'}
-                                  >
-                                      {$t('commons.button.backup')}
-                                  </ElButton>,
-                                  [[permissionDirective, true]],
-                              )
-                            : null}
-                        {__panelSetupProps.mode === 'upgrade'
-                            ? withDirectives(
-                                  <ElButton
-                                      plain
-                                      round
-                                      size="small"
-                                      disabled={__panelSetupProps.installed.status === 'Upgrading'}
-                                      onClick={($event?: any) => {
-                                          ctx.emit('ignoreApp');
-                                      }}
-                                      class={'h-button'}
-                                  >
-                                      {$t('commons.button.ignore')}
-                                  </ElButton>,
-                                  [[permissionDirective, true]],
-                              )
-                            : null}
-                        {__panelSetupProps.mode === 'upgrade'
-                            ? withDirectives(
-                                  <ElButton
-                                      plain
-                                      round
-                                      size="small"
-                                      disabled={
-                                          (__panelSetupProps.installed.status !== 'Running' &&
-                                              __panelSetupProps.installed.status !== 'UpgradeErr') ||
-                                          __panelSetupProps.installed.appStatus === 'TakeDown'
-                                      }
-                                      onClick={($event?: any) => {
-                                          ctx.emit('openOperate');
-                                      }}
-                                      class={'h-button'}
-                                  >
-                                      {$t('commons.button.upgrade')}
-                                  </ElButton>,
-                                  [[permissionDirective, true]],
-                              )
-                            : null}
+                        {__panelSetupProps.mode === 'installed' ? (
+                            <ElButton
+                                plain
+                                round
+                                size="small"
+                                onClick={($event?: any) => {
+                                    ctx.emit('openUploads');
+                                }}
+                                class={'h-button'}
+                                v-permission={true}
+                            >
+                                {$t('database.loadBackup')}
+                            </ElButton>
+                        ) : null}
+                        {__panelSetupProps.mode === 'installed' ? (
+                            <ElButton
+                                plain
+                                round
+                                size="small"
+                                onClick={($event?: any) => {
+                                    ctx.emit('openBackups');
+                                }}
+                                class={'h-button'}
+                                v-permission={true}
+                            >
+                                {$t('commons.button.backup')}
+                            </ElButton>
+                        ) : null}
+                        {__panelSetupProps.mode === 'upgrade' ? (
+                            <ElButton
+                                plain
+                                round
+                                size="small"
+                                disabled={__panelSetupProps.installed.status === 'Upgrading'}
+                                onClick={($event?: any) => {
+                                    ctx.emit('ignoreApp');
+                                }}
+                                class={'h-button'}
+                                v-permission={true}
+                            >
+                                {$t('commons.button.ignore')}
+                            </ElButton>
+                        ) : null}
+                        {__panelSetupProps.mode === 'upgrade' ? (
+                            <ElButton
+                                plain
+                                round
+                                size="small"
+                                disabled={
+                                    (__panelSetupProps.installed.status !== 'Running' &&
+                                        __panelSetupProps.installed.status !== 'UpgradeErr') ||
+                                    __panelSetupProps.installed.appStatus === 'TakeDown'
+                                }
+                                onClick={($event?: any) => {
+                                    ctx.emit('openOperate');
+                                }}
+                                class={'h-button'}
+                                v-permission={true}
+                            >
+                                {$t('commons.button.upgrade')}
+                            </ElButton>
+                        ) : null}
                     </div>
                 </div>
             </div>

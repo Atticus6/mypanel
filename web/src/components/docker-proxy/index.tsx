@@ -62,10 +62,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             unref(showOption) ? (
                 <div class={'w-full'}>
                     <ElRadioGroup
-                        modelValue={unref(restart)}
-                        onUpdate:modelValue={($v) => {
-                            restart.value = $v as any;
-                        }}
+                        v-model={restart.value}
                         onChange={($event?: any) => {
                             (changeRestart as any)($event);
                         }}

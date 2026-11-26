@@ -76,8 +76,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import MonitorRouter from '@/pages/hosts/_components/monitor/index';
 import i18n from '@/lang';
 import { MsgWarning } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {
@@ -422,7 +420,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <MonitorRouter />
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('commons.button.export')}
                         divider={true}
@@ -443,10 +441,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <ElCol xs={24} sm={20} md={16} lg={12} xl={10}>
                                                 <ElFormItem label={$t('monitor.exportRange')}>
                                                     <ElDatePicker
-                                                        modelValue={unref(timeRange)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            timeRange.value = $v as any;
-                                                        }}
+                                                        v-model={timeRange.value}
                                                         type="datetimerange"
                                                         range-separator="-"
                                                         start-placeholder={$t('commons.search.timeStart')}
@@ -458,12 +453,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 </ElFormItem>
                                                 <ElFormItem label={$t('monitor.exportMetrics')}>
                                                     <div>
-                                                        <ElCheckboxGroup
-                                                            modelValue={form.params}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.params = $v as any;
-                                                            }}
-                                                        >
+                                                        <ElCheckboxGroup v-model={form.params}>
                                                             <ElCheckbox label="CPU" value="cpu" />
                                                             <ElCheckbox label={$t('monitor.memory')} value="memory" />
                                                             <ElCheckbox label={$t('monitor.avgLoad')} value="load" />
@@ -483,13 +473,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 </ElFormItem>
                                                 {form.params.includes('io') ? (
                                                     <ElFormItem label={$t('monitor.disk')}>
-                                                        <ElSelect
-                                                            modelValue={form.io}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.io = $v as any;
-                                                            }}
-                                                            class={'w-full'}
-                                                        >
+                                                        <ElSelect v-model={form.io} class={'w-full'}>
                                                             <ElOption
                                                                 label={$t('monitor.exportAllDevices')}
                                                                 value="*"
@@ -510,13 +494,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 ) : null}
                                                 {form.params.includes('network') ? (
                                                     <ElFormItem label={$t('monitor.networkCard')}>
-                                                        <ElSelect
-                                                            modelValue={form.network}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.network = $v as any;
-                                                            }}
-                                                            class={'w-full'}
-                                                        >
+                                                        <ElSelect v-model={form.network} class={'w-full'}>
                                                             <ElOption
                                                                 label={$t('monitor.exportAllInterfaces')}
                                                                 value="*"
@@ -537,13 +515,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 ) : null}
                                                 {form.params.includes('gpu') ? (
                                                     <ElFormItem label="GPU">
-                                                        <ElSelect
-                                                            modelValue={form.gpuDevice}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.gpuDevice = $v as any;
-                                                            }}
-                                                            class={'w-full'}
-                                                        >
+                                                        <ElSelect v-model={form.gpuDevice} class={'w-full'}>
                                                             <ElOption
                                                                 label={$t('monitor.exportAllDevices')}
                                                                 value="*"
@@ -560,12 +532,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 ) : null}
                                                 <ElFormItem label={$t('monitor.exportFormat')}>
                                                     <div>
-                                                        <ElRadioGroup
-                                                            modelValue={form.format}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.format = $v as any;
-                                                            }}
-                                                        >
+                                                        <ElRadioGroup v-model={form.format}>
                                                             <ElRadio value="csv">{'CSV'}</ElRadio>
                                                             <ElRadio value="json">{'JSON'}</ElRadio>
                                                             <ElRadio value="xlsx">{'Excel (xlsx)'}</ElRadio>
@@ -574,21 +541,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     </div>
                                                 </ElFormItem>
                                                 <ElFormItem>
-                                                    {withDirectives(
+                                                    {
                                                         <ElButton
                                                             type="primary"
                                                             onClick={($event?: any) => {
                                                                 (onExport as any)($event);
                                                             }}
                                                             disabled={unref(loading)}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('commons.button.export')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                        </ElButton>
+                                                    }
                                                 </ElFormItem>
                                             </ElCol>
                                         </ElRow>
@@ -596,9 +561,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
             </div>
         );
     },

@@ -78,10 +78,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('menu.home')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -122,12 +119,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        <ElSwitch
-                                            modelValue={row.isShow}
-                                            onUpdate:modelValue={($v) => {
-                                                row.isShow = $v as any;
-                                            }}
-                                        />
+                                        <ElSwitch v-model={row.isShow} />
                                     </>
                                 ),
                             }}

@@ -3,7 +3,6 @@ import i18n from '@/lang';
 import LogFile from '@/components/log/file/index';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {
@@ -94,22 +93,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <>
-                {withDirectives(
-                    <div>
+                {
+                    <div v-loading={unref(loading)}>
                         <div>
                             <ElFormItem label={$t('website.enable')}>
-                                {withDirectives(
+                                {
                                     <ElSwitch
-                                        modelValue={unref(data).enable}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(data).enable = $v as any;
-                                        }}
+                                        v-model={unref(data).enable}
                                         onChange={($event?: any) => {
                                             (updateEnable as any)($event);
                                         }}
-                                    />,
-                                    [[permissionDirective, true]],
-                                )}
+                                        v-permission={true}
+                                    />
+                                }
                             </ElFormItem>
                         </div>
                         <LogFile
@@ -118,24 +114,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 button: () => (
                                     <>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 onClick={($event?: any) => {
                                                     (cleanLog as any)($event);
                                                 }}
                                                 icon="Delete"
+                                                v-permission={true}
                                             >
                                                 {$t('commons.button.clean')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </>
                                 ),
                             }}
                         />
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
                 <OpDialog
                     ref={opRef}
                     onSearch={($event?: any) => {

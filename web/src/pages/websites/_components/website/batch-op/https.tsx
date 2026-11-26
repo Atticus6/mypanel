@@ -3,7 +3,6 @@ import HttpsConfig from '@/pages/websites/_components/website/components/https/i
 import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -109,10 +108,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.set') + $t('website.ssl')}
                 size="50%"
                 onClose={($event?: any) => {
@@ -129,37 +125,39 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 {$t('commons.button.cancel')}
                             </ElButton>
-                            {withDirectives(
+                            {
                                 <ElButton
                                     type="primary"
                                     onClick={($event?: any) => {
                                         submit();
                                     }}
                                     disabled={unref(loading)}
+                                    v-permission={true}
                                 >
                                     {$t('commons.button.confirm')}
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </>
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={websiteForm} label-position="top" model={unref(form)} rules={unref(rules)}>
+                {
+                    <ElForm
+                        ref={websiteForm}
+                        label-position="top"
+                        model={unref(form)}
+                        rules={unref(rules)}
+                        v-loading={unref(loading)}
+                    >
                         <HttpsConfig
-                            modelValue={unref(form)}
-                            onUpdate:modelValue={($v) => {
-                                form.value = $v as any;
-                            }}
+                            v-model={form.value}
                             website-ssl={unref(websiteSSL)}
                             onSslChange={($event?: any) => {
                                 (handleSSLChange as any)($event);
                             }}
                         />
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

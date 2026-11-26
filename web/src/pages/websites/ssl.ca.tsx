@@ -10,7 +10,6 @@ import Detail from '@/pages/websites/_components/ssl/ca/detail/index';
 import { getKeyName } from '@/utils/ssl';
 import { dateFormat } from '@/utils/date';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import RouterButton from '@/components/router-button/index';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
@@ -127,34 +126,34 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     v-slots={{
                         leftToolBar: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             (openCreate as any)($event);
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.create')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         type="primary"
                                         plain
                                         onClick={($event?: any) => {
                                             unref(uploadRef)?.acceptParams();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.upload')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                         main: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ComplexTable
                                         data={unref(data)}
                                         cache-pagination={false}
@@ -162,6 +161,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onSearch={($event?: any) => {
                                             search();
                                         }}
+                                        v-loading={unref(loading)}
                                     >
                                         <ElTableColumn
                                             label={$t('commons.table.name')}
@@ -187,9 +187,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             fix
                                             width="250px"
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </>
                         ),
                     }}

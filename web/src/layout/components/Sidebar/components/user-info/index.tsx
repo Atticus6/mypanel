@@ -465,10 +465,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('xpack.user.userInfo')}
                     v-slots={{
                         footer: () => (
@@ -494,8 +491,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <div>
+                    {
+                        <div v-loading={unref(loading)}>
                             {unref(isLDAPUser) ? (
                                 <ElAlert
                                     title={$t('xpack.ldap.localCredentialsManaged')}
@@ -523,10 +520,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <ElFormItem label={$t('commons.login.username')} prop="name">
                                     <ElInput
                                         type="text"
-                                        modelValue={form.name}
-                                        onUpdate:modelValue={($v) => {
-                                            form.name = $v as any;
-                                        }}
+                                        v-model={form.name}
                                         name="profile-name"
                                         autocomplete="off"
                                         disabled={unref(isLDAPUser)}
@@ -605,10 +599,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onChange={($event?: any) => {
                                             (handleMFA as any)($event);
                                         }}
-                                        modelValue={form.mfaStatus}
-                                        onUpdate:modelValue={($v) => {
-                                            form.mfaStatus = $v as any;
-                                        }}
+                                        v-model={form.mfaStatus}
                                         active-value="Enable"
                                         inactive-value="Disable"
                                     />
@@ -708,15 +699,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <span class={'input-help'}>{$t('apiKeyManagement.personalEntry')}</span>
                                 </ElFormItem>
                             </ElForm>
-                        </div>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </div>
+                    }
                 </DrawerPro>
                 <DialogPro
-                    modelValue={unref(mfaDialogOpen)}
-                    onUpdate:modelValue={($v) => {
-                        mfaDialogOpen.value = $v as any;
-                    }}
+                    v-model={mfaDialogOpen.value}
                     title={$t('setting.mfa')}
                     size="large"
                     onClose={($event?: any) => {
@@ -746,7 +733,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={mfaFormRef}
                             model={mfaForm}
@@ -755,6 +742,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             }}
                             label-position="top"
                             rules={mfaRules}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('setting.mfaHelper2')}>
                                 <ElImage src={unref(qrImage)} class={'h-32 w-32'} />
@@ -769,10 +757,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                             <ElFormItem label={$t('commons.table.title')} prop="title">
                                 <ElInput
-                                    modelValue={mfaForm.title}
-                                    onUpdate:modelValue={($v) => {
-                                        mfaForm.title = $v as any;
-                                    }}
+                                    v-model={mfaForm.title}
                                     v-slots={{
                                         append: () => (
                                             <>
@@ -812,22 +797,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <span class={'input-help'}>{$t('setting.mfaIntervalHelper')}</span>
                             </ElFormItem>
                             <ElFormItem label={$t('setting.mfaCode')} prop="code">
-                                <ElInput
-                                    modelValue={mfaForm.code}
-                                    onUpdate:modelValue={($v) => {
-                                        mfaForm.code = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={mfaForm.code} />
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DialogPro>
                 <DialogPro
-                    modelValue={unref(passkeyPrereqDialogOpen)}
-                    onUpdate:modelValue={($v) => {
-                        passkeyPrereqDialogOpen.value = $v as any;
-                    }}
+                    v-model={passkeyPrereqDialogOpen.value}
                     title={$t('setting.passkey')}
                     size="small"
                     onClose={($event?: any) => {
@@ -903,10 +879,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </div>
                 </DialogPro>
                 <DialogPro
-                    modelValue={unref(passkeyDialogOpen)}
-                    onUpdate:modelValue={($v) => {
-                        passkeyDialogOpen.value = $v as any;
-                    }}
+                    v-model={passkeyDialogOpen.value}
                     title={$t('setting.passkey')}
                     size="large"
                     onClose={($event?: any) => {
@@ -926,12 +899,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    <ElTabs
-                        modelValue={unref(passkeyActiveTab)}
-                        onUpdate:modelValue={($v) => {
-                            passkeyActiveTab.value = $v as any;
-                        }}
-                    >
+                    <ElTabs v-model={passkeyActiveTab.value}>
                         <ElTabPane label={$t('setting.passkeyKeyManagement')} name="keys">
                             <ElForm label-position="top">
                                 <ElFormItem label={$t('setting.passkeyName')}>
@@ -955,8 +923,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElButton>
                                 <span class={'ml-3 text-xs text-gray-500'}>{unref(passkeyCountText)}</span>
                             </ElForm>
-                            {withDirectives(
-                                <ElTable data={unref(passkeyList)} class={'mt-4'}>
+                            {
+                                <ElTable data={unref(passkeyList)} class={'mt-4'} v-loading={unref(passkeyLoading)}>
                                     <ElTableColumn prop="name" label={$t('setting.passkeyName')} min-width="120" />
                                     <ElTableColumn
                                         prop="createdAt"
@@ -994,22 +962,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             ),
                                         }}
                                     />
-                                </ElTable>,
-                                [[vLoading, unref(passkeyLoading)]],
-                            )}
+                                </ElTable>
+                            }
                         </ElTabPane>
                         <ElTabPane label={$t('app.advanced')} name="advanced">
                             <ElForm label-position="top">
                                 <ElFormItem label={$t('setting.passkeyTrustedProxies')}>
                                     <div class={'flex w-full items-start gap-2'}>
-                                        <ElInput
-                                            modelValue={unref(passkeyTrustedProxies)}
-                                            onUpdate:modelValue={($v) => {
-                                                passkeyTrustedProxies.value = $v as any;
-                                            }}
-                                            type="textarea"
-                                            rows={3}
-                                        />
+                                        <ElInput v-model={passkeyTrustedProxies.value} type="textarea" rows={3} />
                                         <ElButton
                                             loading={unref(savePasskeyProxyLoading)}
                                             onClick={($event?: any) => {

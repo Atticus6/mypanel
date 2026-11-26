@@ -39,10 +39,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(codeVisible)}
-                onUpdate:modelValue={($v) => {
-                    codeVisible.value = $v as any;
-                }}
+                v-model={codeVisible.value}
                 header={unref(header)}
                 size="large"
                 onClose={($event?: any) => {
@@ -64,15 +61,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                <CodemirrorPro
-                    modelValue={unref(detailInfo)}
-                    onUpdate:modelValue={($v) => {
-                        detailInfo.value = $v as any;
-                    }}
-                    height-diff={160}
-                    readonly={true}
-                    mode={unref(mode)}
-                />
+                <CodemirrorPro v-model={detailInfo.value} height-diff={160} readonly={true} mode={unref(mode)} />
             </DrawerPro>
         );
     },

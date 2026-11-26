@@ -89,10 +89,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(deleteVisible)}
-                    onUpdate:modelValue={($v) => {
-                        deleteVisible.value = $v as any;
-                    }}
+                    v-model={deleteVisible.value}
                     header={$t('container.imageDelete')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -131,10 +128,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElFormItem label={$t('container.tag')} prop="tagName">
                             <div style={'width: 100%'}>
                                 <ElCheckbox
-                                    modelValue={unref(deleteAll)}
-                                    onUpdate:modelValue={($v) => {
-                                        deleteAll.value = $v as any;
-                                    }}
+                                    v-model={deleteAll.value}
                                     indeterminate={unref(isIndeterminate)}
                                     onChange={($event?: any) => {
                                         (handleCheckAllChange as any)($event);
@@ -144,10 +138,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElCheckbox>
                             </div>
                             <ElCheckboxGroup
-                                modelValue={form.deleteTags}
-                                onUpdate:modelValue={($v) => {
-                                    form.deleteTags = $v as any;
-                                }}
+                                v-model={form.deleteTags}
                                 onChange={($event?: any) => {
                                     (handleCheckedChange as any)($event);
                                 }}

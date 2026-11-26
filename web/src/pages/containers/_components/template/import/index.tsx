@@ -156,10 +156,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DialogPro
-                    modelValue={unref(visible)}
-                    onUpdate:modelValue={($v) => {
-                        visible.value = $v as any;
-                    }}
+                    v-model={visible.value}
                     title={$t('commons.button.import')}
                     size="large"
                     v-slots={{
@@ -219,8 +216,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {$t('commons.button.upload')}
                             </ElButton>
                         </ElUpload>
-                        {withDirectives(
-                            <ElCard class={'mt-2 w-full'}>
+                        {
+                            <ElCard class={'mt-2 w-full'} v-loading={unref(loading)}>
                                 <ComplexTable
                                     pagination-config={paginationConfig}
                                     onSearch={($event?: any) => {
@@ -278,9 +275,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         }}
                                     />
                                 </ComplexTable>
-                            </ElCard>,
-                            [[vLoading, unref(loading)]],
-                        )}
+                            </ElCard>
+                        }
                     </div>
                 </DialogPro>
                 <DetailDialog ref={detailRef} />

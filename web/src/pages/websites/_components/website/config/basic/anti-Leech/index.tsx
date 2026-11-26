@@ -5,7 +5,6 @@ import { Units } from '@/global/mimetype';
 import { MsgSuccess, MsgError } from '@/utils/message';
 import i18n from '@/lang';
 import { Plus, Delete } from '@element-plus/icons-vue';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -188,207 +187,149 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             search();
         });
-        return () =>
-            withDirectives(
-                <ElRow gutter={20}>
-                    <ElCol xs={24} sm={18} md={18} lg={14} xl={14}>
-                        <ElForm
-                            model={form}
-                            rules={unref(rules)}
-                            ref={leechRef}
-                            label-position="right"
-                            label-width="150px"
-                            class={'moblie-form'}
-                        >
-                            <ElFormItem label={$t('website.extends')} prop="extends" class={'mt-2'}>
-                                <ElInput
-                                    modelValue={form.extends}
-                                    onUpdate:modelValue={($v) => {
-                                        form.extends = $v as any;
-                                    }}
-                                    class={'p-w-600'}
-                                />
-                            </ElFormItem>
-                            <ElDivider content-position="left">{$t('website.antiLeech')}</ElDivider>
-                            <ElFormItem label={$t('website.enableOrNot')} prop="enable">
-                                {withDirectives(
-                                    <ElSwitch
-                                        modelValue={form.enable}
-                                        onUpdate:modelValue={($v) => {
-                                            form.enable = $v as any;
-                                        }}
-                                        onChange={($event?: any) => {
-                                            (changeEnable as any)($event);
-                                        }}
-                                    />,
-                                    [[permissionDirective, true]],
-                                )}
-                            </ElFormItem>
-                            {form.enable ? (
-                                <>
-                                    <ElFormItem label={$t('website.accessDomain')} prop="domains">
-                                        <div class={'domain-list-container'}>
-                                            {(unref(domainList) || []).map((_, index) => (
-                                                <div class={'mb-2 flex items-center'} key={index}>
-                                                    <ElInput
-                                                        modelValue={unref(domainList)[index]}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(domainList)[index] = $v as any;
-                                                        }}
-                                                        onInput={($event?: any) => {
-                                                            (updateDomainsString as any)($event);
-                                                        }}
-                                                        class={'mr-2 flex-1'}
-                                                    />
-                                                    {unref(domainList).length > 1
-                                                        ? withDirectives(
-                                                              <ElButton
-                                                                  type="danger"
-                                                                  size="small"
-                                                                  icon={Delete}
-                                                                  onClick={($event?: any) => {
-                                                                      removeDomain(index);
-                                                                  }}
-                                                              />,
-                                                              [[permissionDirective, true]],
-                                                          )
-                                                        : null}
-                                                </div>
-                                            ))}
-                                            {withDirectives(
-                                                <ElButton
-                                                    type="primary"
-                                                    size="small"
-                                                    icon={Plus}
-                                                    onClick={($event?: any) => {
-                                                        (addDomain as any)($event);
-                                                    }}
-                                                    plain
-                                                >
-                                                    {$t('commons.button.add')}
-                                                </ElButton>,
-                                                [[permissionDirective, true]],
-                                            )}
-                                        </div>
-                                    </ElFormItem>
-                                    <ElRow gutter={15}>
-                                        <ElCol>
-                                            <ElFormItem label={$t('website.noneRef')} prop="noneRef">
-                                                <ElSwitch
-                                                    modelValue={form.noneRef}
-                                                    onUpdate:modelValue={($v) => {
-                                                        form.noneRef = $v as any;
-                                                    }}
-                                                />
-                                            </ElFormItem>
-                                        </ElCol>
-                                        <ElCol>
-                                            <ElFormItem label={$t('website.blockedRef')} prop="blocked">
-                                                <ElSwitch
-                                                    modelValue={form.blocked}
-                                                    onUpdate:modelValue={($v) => {
-                                                        form.blocked = $v as any;
-                                                    }}
-                                                />
-                                                <span class={'input-help'}>
-                                                    {$t('website.leechSpecialValidHelper')}
-                                                </span>
-                                            </ElFormItem>
-                                        </ElCol>
-                                    </ElRow>
-                                    <ElFormItem label={$t('website.leechReturn')} prop="return">
-                                        <ElSelect
-                                            modelValue={form.return}
-                                            onUpdate:modelValue={($v) => {
-                                                form.return = $v as any;
-                                            }}
-                                            class={'p-w-200'}
-                                        >
-                                            {(returnOptions || []).map((option) => (
-                                                <ElOption
-                                                    label={option.label}
-                                                    value={option.value}
-                                                    key={option.value}
-                                                />
-                                            ))}
-                                        </ElSelect>
-                                        <span class={'input-help'}>{$t('website.leechInvalidReturnHelper')}</span>
-                                    </ElFormItem>
-                                </>
-                            ) : null}
-                            <ElDivider content-position="left">{$t('website.leechcacheControl')}</ElDivider>
-                            <ElFormItem label={$t('website.browserCache')} prop="cache">
+        return () => (
+            <ElRow gutter={20} v-loading={unref(loading)}>
+                <ElCol xs={24} sm={18} md={18} lg={14} xl={14}>
+                    <ElForm
+                        model={form}
+                        rules={unref(rules)}
+                        ref={leechRef}
+                        label-position="right"
+                        label-width="150px"
+                        class={'moblie-form'}
+                    >
+                        <ElFormItem label={$t('website.extends')} prop="extends" class={'mt-2'}>
+                            <ElInput v-model={form.extends} class={'p-w-600'} />
+                        </ElFormItem>
+                        <ElDivider content-position="left">{$t('website.antiLeech')}</ElDivider>
+                        <ElFormItem label={$t('website.enableOrNot')} prop="enable">
+                            {
                                 <ElSwitch
-                                    modelValue={form.cache}
+                                    v-model={form.enable}
+                                    onChange={($event?: any) => {
+                                        (changeEnable as any)($event);
+                                    }}
+                                    v-permission={true}
+                                />
+                            }
+                        </ElFormItem>
+                        {form.enable ? (
+                            <>
+                                <ElFormItem label={$t('website.accessDomain')} prop="domains">
+                                    <div class={'domain-list-container'}>
+                                        {(unref(domainList) || []).map((_, index) => (
+                                            <div class={'mb-2 flex items-center'} key={index}>
+                                                <ElInput
+                                                    v-model={unref(domainList)[index]}
+                                                    onInput={($event?: any) => {
+                                                        (updateDomainsString as any)($event);
+                                                    }}
+                                                    class={'mr-2 flex-1'}
+                                                />
+                                                {unref(domainList).length > 1 ? (
+                                                    <ElButton
+                                                        type="danger"
+                                                        size="small"
+                                                        icon={Delete}
+                                                        onClick={($event?: any) => {
+                                                            removeDomain(index);
+                                                        }}
+                                                        v-permission={true}
+                                                    />
+                                                ) : null}
+                                            </div>
+                                        ))}
+                                        {
+                                            <ElButton
+                                                type="primary"
+                                                size="small"
+                                                icon={Plus}
+                                                onClick={($event?: any) => {
+                                                    (addDomain as any)($event);
+                                                }}
+                                                plain
+                                                v-permission={true}
+                                            >
+                                                {$t('commons.button.add')}
+                                            </ElButton>
+                                        }
+                                    </div>
+                                </ElFormItem>
+                                <ElRow gutter={15}>
+                                    <ElCol>
+                                        <ElFormItem label={$t('website.noneRef')} prop="noneRef">
+                                            <ElSwitch v-model={form.noneRef} />
+                                        </ElFormItem>
+                                    </ElCol>
+                                    <ElCol>
+                                        <ElFormItem label={$t('website.blockedRef')} prop="blocked">
+                                            <ElSwitch v-model={form.blocked} />
+                                            <span class={'input-help'}>{$t('website.leechSpecialValidHelper')}</span>
+                                        </ElFormItem>
+                                    </ElCol>
+                                </ElRow>
+                                <ElFormItem label={$t('website.leechReturn')} prop="return">
+                                    <ElSelect v-model={form.return} class={'p-w-200'}>
+                                        {(returnOptions || []).map((option) => (
+                                            <ElOption label={option.label} value={option.value} key={option.value} />
+                                        ))}
+                                    </ElSelect>
+                                    <span class={'input-help'}>{$t('website.leechInvalidReturnHelper')}</span>
+                                </ElFormItem>
+                            </>
+                        ) : null}
+                        <ElDivider content-position="left">{$t('website.leechcacheControl')}</ElDivider>
+                        <ElFormItem label={$t('website.browserCache')} prop="cache">
+                            <ElSwitch v-model={form.cache} />
+                        </ElFormItem>
+                        {form.cache ? (
+                            <ElFormItem label={$t('website.cacheTime')} prop="cacheTime">
+                                <ElInput
+                                    modelValue={form.cacheTime}
                                     onUpdate:modelValue={($v) => {
-                                        form.cache = $v as any;
+                                        form.cacheTime = $v === '' ? $v : Number($v);
+                                    }}
+                                    maxlength="15"
+                                    class={'p-w-300'}
+                                    v-slots={{
+                                        append: () => (
+                                            <>
+                                                <ElSelect v-model={form.cacheUint} class={'w-s-button p-w-100'}>
+                                                    {(Units || []).map((unit, index) => (
+                                                        <ElOption label={unit.label} value={unit.value} key={index} />
+                                                    ))}
+                                                </ElSelect>
+                                            </>
+                                        ),
                                     }}
                                 />
+                                <span class={'input-help'}>{$t('website.browserCacheTimeHelper')}</span>
                             </ElFormItem>
-                            {form.cache ? (
-                                <ElFormItem label={$t('website.cacheTime')} prop="cacheTime">
-                                    <ElInput
-                                        modelValue={form.cacheTime}
-                                        onUpdate:modelValue={($v) => {
-                                            form.cacheTime = $v === '' ? $v : Number($v);
-                                        }}
-                                        maxlength="15"
-                                        class={'p-w-300'}
-                                        v-slots={{
-                                            append: () => (
-                                                <>
-                                                    <ElSelect
-                                                        modelValue={form.cacheUint}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.cacheUint = $v as any;
-                                                        }}
-                                                        class={'w-s-button p-w-100'}
-                                                    >
-                                                        {(Units || []).map((unit, index) => (
-                                                            <ElOption
-                                                                label={unit.label}
-                                                                value={unit.value}
-                                                                key={index}
-                                                            />
-                                                        ))}
-                                                    </ElSelect>
-                                                </>
-                                            ),
-                                        }}
-                                    />
-                                    <span class={'input-help'}>{$t('website.browserCacheTimeHelper')}</span>
-                                </ElFormItem>
-                            ) : null}
-                            {form.cache || form.enable ? (
-                                <ElFormItem label={$t('website.logEnableControl')} prop="logEnable">
-                                    <ElSwitch
-                                        modelValue={form.logEnable}
-                                        onUpdate:modelValue={($v) => {
-                                            form.logEnable = $v as any;
-                                        }}
-                                    />
-                                    <span class={'input-help'}>{$t('website.leechlogControlHelper')}</span>
-                                </ElFormItem>
-                            ) : null}
-                            <div class={'mt-2 flex items-center gap-4'}>
-                                {withDirectives(
-                                    <ElButton
-                                        type="primary"
-                                        onClick={($event?: any) => {
-                                            submit(unref(leechRef), form.enable);
-                                        }}
-                                        disabled={unref(loading)}
-                                    >
-                                        {$t('commons.button.save')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                            </div>
-                        </ElForm>
-                    </ElCol>
-                </ElRow>,
-                [[vLoading, unref(loading)]],
-            );
+                        ) : null}
+                        {form.cache || form.enable ? (
+                            <ElFormItem label={$t('website.logEnableControl')} prop="logEnable">
+                                <ElSwitch v-model={form.logEnable} />
+                                <span class={'input-help'}>{$t('website.leechlogControlHelper')}</span>
+                            </ElFormItem>
+                        ) : null}
+                        <div class={'mt-2 flex items-center gap-4'}>
+                            {
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        submit(unref(leechRef), form.enable);
+                                    }}
+                                    disabled={unref(loading)}
+                                    v-permission={true}
+                                >
+                                    {$t('commons.button.save')}
+                                </ElButton>
+                            }
+                        </div>
+                    </ElForm>
+                </ElCol>
+            </ElRow>
+        );
     },
     options,
 );

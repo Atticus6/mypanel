@@ -9,7 +9,6 @@ import { getDNSName, getAccountName } from '@/utils/ssl';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -365,10 +364,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('ssl.' + unref(operate))}
                     size="large"
                     onClose={($event?: any) => {
@@ -386,24 +382,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         {$t('commons.button.cancel')}
                                     </ElButton>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 submit(unref(sslForm));
                                             }}
                                             disabled={unref(loading)}
+                                            v-permission={'website_cert_manage'}
                                         >
                                             {$t('commons.button.confirm')}
-                                        </ElButton>,
-                                        [[permissionDirective, 'website_cert_manage']],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </span>
                             </>
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={sslForm}
                             label-position="top"
@@ -411,14 +407,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             label-width="100px"
                             rules={unref(rules)}
                             disabled={unref(loading)}
+                            v-loading={unref(loading)}
                         >
                             {unref(operate) === 'create' ? (
                                 <ElFormItem label={$t('commons.table.type')}>
                                     <ElRadioGroup
-                                        modelValue={unref(certificateType)}
-                                        onUpdate:modelValue={($v) => {
-                                            certificateType.value = $v as any;
-                                        }}
+                                        v-model={certificateType.value}
                                         onChange={($event?: any) => {
                                             (changeCertificateType as any)($event);
                                         }}
@@ -430,14 +424,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {unref(ssl).provider === 'selfSigned' && unref(operate) === 'create' ? (
                                 <ElFormItem label={$t('ssl.ca')} prop="caId">
-                                    <ElSelect
-                                        modelValue={unref(ssl).caId}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).caId = $v as any;
-                                        }}
-                                        filterable
-                                        loading={unref(caLoading)}
-                                    >
+                                    <ElSelect v-model={unref(ssl).caId} filterable loading={unref(caLoading)}>
                                         {(unref(cas) || []).map((ca) => (
                                             <ElOption label={ca.name} value={ca.id} key={ca.id} />
                                         ))}
@@ -447,10 +434,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(ssl).provider === 'selfSigned' ? (
                                 <ElFormItem label={$t('website.domain')} prop="domains">
                                     <ElInput
-                                        modelValue={unref(ssl).domains}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).domains = $v as any;
-                                        }}
+                                        v-model={unref(ssl).domains}
                                         type="textarea"
                                         rows={4}
                                         placeholder={$t('ssl.domainHelper')}
@@ -471,10 +455,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElCol span={12}>
                                         <ElFormItem label={$t('ssl.fromWebsite')}>
                                             <ElSelect
-                                                modelValue={unref(websiteID)}
-                                                onUpdate:modelValue={($v) => {
-                                                    websiteID.value = $v as any;
-                                                }}
+                                                v-model={websiteID.value}
                                                 onChange={($event?: any) => {
                                                     (changeWebsite as any)($event);
                                                 }}
@@ -490,10 +471,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(ssl).provider !== 'selfSigned' ? (
                                 <ElFormItem label={''} prop="isIP">
                                     <ElCheckbox
-                                        modelValue={unref(ssl).isIP}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).isIP = $v as any;
-                                        }}
+                                        v-model={unref(ssl).isIP}
                                         label={$t('ssl.isIP')}
                                         onChange={($event?: any) => {
                                             (changeIP as any)($event);
@@ -503,32 +481,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {unref(ssl).provider !== 'selfSigned' && !unref(ssl).isIP ? (
                                 <ElFormItem label={$t('website.otherDomains')} prop="otherDomains">
-                                    <ElInput
-                                        type="textarea"
-                                        rows={3}
-                                        modelValue={unref(ssl).otherDomains}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).otherDomains = $v as any;
-                                        }}
-                                    />
+                                    <ElInput type="textarea" rows={3} v-model={unref(ssl).otherDomains} />
                                 </ElFormItem>
                             ) : null}
                             <ElFormItem label={$t('website.remark')} prop="description">
-                                <ElInput
-                                    modelValue={unref(ssl).description}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(ssl).description = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={unref(ssl).description} />
                             </ElFormItem>
                             {unref(ssl).provider != 'selfSigned' ? (
                                 <ElFormItem label={$t('website.acmeAccount')} prop="acmeAccountId">
-                                    <ElSelect
-                                        modelValue={unref(ssl).acmeAccountId}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).acmeAccountId = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect v-model={unref(ssl).acmeAccountId}>
                                         {(unref(acmeAccounts) || []).map((acme, index) => (
                                             <ElOption
                                                 label={acme.email + ' [' + getAccountName(acme.type) + '] '}
@@ -552,13 +513,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElFormItem>
                             ) : null}
                             <ElFormItem label={$t('website.keyType')} prop="keyType">
-                                <ElSelect
-                                    modelValue={unref(ssl).keyType}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(ssl).keyType = $v as any;
-                                    }}
-                                    disabled={unref(operate) == 'edit'}
-                                >
+                                <ElSelect v-model={unref(ssl).keyType} disabled={unref(operate) == 'edit'}>
                                     {(KeyTypes || []).map((keyType, index) => (
                                         <ElOption label={keyType.label} value={keyType.value} key={index} />
                                     ))}
@@ -575,13 +530,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         v-slots={{
                                             append: () => (
                                                 <>
-                                                    <ElSelect
-                                                        modelValue={unref(ssl).unit}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(ssl).unit = $v as any;
-                                                        }}
-                                                        style={'width: 100px'}
-                                                    >
+                                                    <ElSelect v-model={unref(ssl).unit} style={'width: 100px'}>
                                                         <ElOption label={$t('commons.units.day')} value="day" />
                                                         <ElOption label={$t('commons.units.year')} value="year" />
                                                     </ElSelect>
@@ -594,10 +543,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(ssl).provider != 'selfSigned' ? (
                                 <ElFormItem label={$t('website.provider')} prop="provider">
                                     <ElRadioGroup
-                                        modelValue={unref(ssl).provider}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).provider = $v as any;
-                                        }}
+                                        v-model={unref(ssl).provider}
                                         onChange={($event?: any) => {
                                             changeProvider();
                                         }}
@@ -620,12 +566,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {unref(ssl).provider === 'dnsAccount' ? (
                                 <ElFormItem label={$t('website.dnsAccount')} prop="dnsAccountId">
-                                    <ElSelect
-                                        modelValue={unref(ssl).dnsAccountId}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).dnsAccountId = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect v-model={unref(ssl).dnsAccountId}>
                                         {(unref(dnsAccounts) || []).map((dns, index) => (
                                             <ElOption
                                                 label={dns.name + ' [' + getDNSName(dns.type) + '] '}
@@ -649,35 +590,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {unref(ssl).provider !== 'dnsManual' ? (
                                 <ElFormItem label={''} prop="autoRenew">
-                                    <ElCheckbox
-                                        modelValue={unref(ssl).autoRenew}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(ssl).autoRenew = $v as any;
-                                        }}
-                                        label={$t('ssl.autoRenew')}
-                                    />
+                                    <ElCheckbox v-model={unref(ssl).autoRenew} label={$t('ssl.autoRenew')} />
                                 </ElFormItem>
                             ) : null}
                             {unref(ssl).provider != 'selfSigned' ? (
                                 <div>
                                     <ElFormItem label={''} prop="disableCNAME">
-                                        <ElCheckbox
-                                            modelValue={unref(ssl).disableCNAME}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).disableCNAME = $v as any;
-                                            }}
-                                            label={$t('ssl.disableCNAME')}
-                                        />
+                                        <ElCheckbox v-model={unref(ssl).disableCNAME} label={$t('ssl.disableCNAME')} />
                                         <span class={'input-help'}>{$t('ssl.disableCNAMEHelper')}</span>
                                     </ElFormItem>
                                     <ElFormItem label={''} prop="skipDNS">
-                                        <ElCheckbox
-                                            modelValue={unref(ssl).skipDNS}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).skipDNS = $v as any;
-                                            }}
-                                            label={$t('ssl.skipDNSCheck')}
-                                        />
+                                        <ElCheckbox v-model={unref(ssl).skipDNS} label={$t('ssl.skipDNSCheck')} />
                                         <span class={'input-help'}>{$t('ssl.skipDNSCheckHelper')}</span>
                                     </ElFormItem>
                                     <ElFormItem label={$t('ssl.nameserver') + '1'} prop="nameserver1">
@@ -703,13 +626,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(ssl).provider !== 'selfSigned' || unref(operate) === 'create' ? (
                                 <div>
                                     <ElFormItem label={''} prop="pushDir">
-                                        <ElCheckbox
-                                            modelValue={unref(ssl).pushDir}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).pushDir = $v as any;
-                                            }}
-                                            label={$t('ssl.pushDir')}
-                                        />
+                                        <ElCheckbox v-model={unref(ssl).pushDir} label={$t('ssl.pushDir')} />
                                     </ElFormItem>
                                     {unref(ssl).pushDir ? (
                                         <ElFormItem label={$t('ssl.dir')} prop="dir">
@@ -739,24 +656,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </ElFormItem>
                                     ) : null}
                                     <ElFormItem label={''} prop="execShell">
-                                        <ElCheckbox
-                                            modelValue={unref(ssl).execShell}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).execShell = $v as any;
-                                            }}
-                                            label={$t('ssl.execShell')}
-                                        />
+                                        <ElCheckbox v-model={unref(ssl).execShell} label={$t('ssl.execShell')} />
                                     </ElFormItem>
                                     {unref(ssl).execShell ? (
                                         <ElFormItem label={$t('ssl.shell')} prop="shell">
-                                            <ElInput
-                                                type="textarea"
-                                                rows={4}
-                                                modelValue={unref(ssl).shell}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(ssl).shell = $v as any;
-                                                }}
-                                            />
+                                            <ElInput type="textarea" rows={4} v-model={unref(ssl).shell} />
                                             <span class={'input-help'}>{$t('ssl.shellHelper')}</span>
                                         </ElFormItem>
                                     ) : null}
@@ -775,9 +679,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     ) : null}
                                 </div>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <FileList
                     ref={fileRef}

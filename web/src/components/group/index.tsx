@@ -121,10 +121,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.table.manageGroup')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -187,12 +184,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {row.edit ? (
                                                             <ElFormItem prop="name" rules={Rules.name}>
                                                                 <div style={'margin-top: 20px; width: 100%'}>
-                                                                    <ElInput
-                                                                        modelValue={row.name}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            row.name = $v as any;
-                                                                        }}
-                                                                    />
+                                                                    <ElInput v-model={row.name} />
                                                                 </div>
                                                             </ElFormItem>
                                                         ) : null}

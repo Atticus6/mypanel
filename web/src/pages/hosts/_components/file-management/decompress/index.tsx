@@ -293,10 +293,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={unref(title)}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -402,61 +399,45 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </div>
                         ) : null}
-                        {!unref(currentTaskID)
-                            ? withDirectives(
-                                  <ElForm
-                                      ref={fileForm}
-                                      label-position="top"
-                                      model={unref(form)}
-                                      label-width="100px"
-                                      rules={rules}
-                                  >
-                                      <ElFormItem label={$t('commons.table.name')}>
-                                          <ElInput
-                                              modelValue={unref(name)}
-                                              onUpdate:modelValue={($v) => {
-                                                  name.value = $v as any;
-                                              }}
-                                              disabled
-                                          />
-                                      </ElFormItem>
-                                      <ElFormItem label={$t('file.deCompressDst')} prop="dst">
-                                          <ElInput
-                                              modelValue={unref(form).dst}
-                                              onUpdate:modelValue={($v) => {
-                                                  unref(form).dst = $v as any;
-                                              }}
-                                              v-slots={{
-                                                  prepend: () => (
-                                                      <>
-                                                          <ElButton
-                                                              icon="Folder"
-                                                              onClick={($event?: any) => {
-                                                                  unref(fileRef).acceptParams({
-                                                                      path: unref(form).dst,
-                                                                      dir: true,
-                                                                  });
-                                                              }}
-                                                          />
-                                                      </>
-                                                  ),
-                                              }}
-                                          />
-                                      </ElFormItem>
-                                      {unref(name).includes('tar.gz') ? (
-                                          <ElFormItem label={$t('setting.compressPassword')} prop="secret">
-                                              <ElInput
-                                                  modelValue={unref(form).secret}
-                                                  onUpdate:modelValue={($v) => {
-                                                      unref(form).secret = $v as any;
-                                                  }}
-                                              />
-                                          </ElFormItem>
-                                      ) : null}
-                                  </ElForm>,
-                                  [[vLoading, unref(loading)]],
-                              )
-                            : null}
+                        {!unref(currentTaskID) ? (
+                            <ElForm
+                                ref={fileForm}
+                                label-position="top"
+                                model={unref(form)}
+                                label-width="100px"
+                                rules={rules}
+                                v-loading={unref(loading)}
+                            >
+                                <ElFormItem label={$t('commons.table.name')}>
+                                    <ElInput v-model={name.value} disabled />
+                                </ElFormItem>
+                                <ElFormItem label={$t('file.deCompressDst')} prop="dst">
+                                    <ElInput
+                                        v-model={unref(form).dst}
+                                        v-slots={{
+                                            prepend: () => (
+                                                <>
+                                                    <ElButton
+                                                        icon="Folder"
+                                                        onClick={($event?: any) => {
+                                                            unref(fileRef).acceptParams({
+                                                                path: unref(form).dst,
+                                                                dir: true,
+                                                            });
+                                                        }}
+                                                    />
+                                                </>
+                                            ),
+                                        }}
+                                    />
+                                </ElFormItem>
+                                {unref(name).includes('tar.gz') ? (
+                                    <ElFormItem label={$t('setting.compressPassword')} prop="secret">
+                                        <ElInput v-model={unref(form).secret} />
+                                    </ElFormItem>
+                                ) : null}
+                            </ElForm>
+                        ) : null}
                     </div>
                 </DrawerPro>
                 <FileList

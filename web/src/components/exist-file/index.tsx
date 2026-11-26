@@ -53,10 +53,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DialogPro
-                    modelValue={unref(dialogVisible)}
-                    onUpdate:modelValue={($v) => {
-                        dialogVisible.value = $v as any;
-                    }}
+                    v-model={dialogVisible.value}
                     title={$t('file.existFileTitle')}
                     size="normal"
                     v-slots={{

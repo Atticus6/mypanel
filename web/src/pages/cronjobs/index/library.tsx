@@ -32,8 +32,6 @@ import CodemirrorDrawer from '@/components/codemirror-pro/drawer';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 import '@/pages/cronjobs/_components/library/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import { ArrowDown } from '@element-plus/icons-vue';
 import FuDropdownItem from '@/components/fu/FuDropdownItem';
@@ -299,26 +297,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('logs.login')}
                         v-slots={{
                             leftToolBar: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 onOpenDialog('create');
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.button.create')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                     <ElDropdown
                                         onCommand={($event?: any) => {
                                             (handleSyncOp as any)($event);
@@ -327,37 +323,33 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             dropdown: () => (
                                                 <>
                                                     <ElDropdownMenu>
-                                                        {withDirectives(
-                                                            <FuDropdownItem command="sync">
+                                                        {
+                                                            <FuDropdownItem
+                                                                command="sync"
+                                                                v-permission={true}
+                                                                v-node-admin={true}
+                                                            >
                                                                 {$t('cronjob.library.syncNow')}
-                                                            </FuDropdownItem>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                        {unref(scriptSync) === 'Disable'
-                                                            ? withDirectives(
-                                                                  <FuDropdownItem command="turnOnSync">
-                                                                      {$t('cronjob.library.turnOnSync')}
-                                                                  </FuDropdownItem>,
-                                                                  [
-                                                                      [permissionDirective, true],
-                                                                      [nodeAdminDirective, true],
-                                                                  ],
-                                                              )
-                                                            : null}
-                                                        {unref(scriptSync) === 'Enable'
-                                                            ? withDirectives(
-                                                                  <FuDropdownItem command="turnOffSync">
-                                                                      {$t('cronjob.library.turnOffSync')}
-                                                                  </FuDropdownItem>,
-                                                                  [
-                                                                      [permissionDirective, true],
-                                                                      [nodeAdminDirective, true],
-                                                                  ],
-                                                              )
-                                                            : null}
+                                                            </FuDropdownItem>
+                                                        }
+                                                        {unref(scriptSync) === 'Disable' ? (
+                                                            <FuDropdownItem
+                                                                command="turnOnSync"
+                                                                v-permission={true}
+                                                                v-node-admin={true}
+                                                            >
+                                                                {$t('cronjob.library.turnOnSync')}
+                                                            </FuDropdownItem>
+                                                        ) : null}
+                                                        {unref(scriptSync) === 'Enable' ? (
+                                                            <FuDropdownItem
+                                                                command="turnOffSync"
+                                                                v-permission={true}
+                                                                v-node-admin={true}
+                                                            >
+                                                                {$t('cronjob.library.turnOffSync')}
+                                                            </FuDropdownItem>
+                                                        ) : null}
                                                     </ElDropdownMenu>
                                                 </>
                                             ),
@@ -384,45 +376,38 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </ElTooltip>
                                         </span>
                                     ) : null}
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             plain
                                             onClick={($event?: any) => {
                                                 onOpenGroupDialog();
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.table.group')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                    {withDirectives(
+                                        </ElButton>
+                                    }
+                                    {
                                         <ElButton
                                             plain
                                             disabled={unref(selects).length === 0}
                                             onClick={($event?: any) => {
                                                 onDelete(null);
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.button.delete')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </>
                             ),
                             rightToolBar: () => (
                                 <>
                                     <ElSelect
-                                        modelValue={unref(group)}
-                                        onUpdate:modelValue={($v) => {
-                                            group.value = $v as any;
-                                        }}
+                                        v-model={group.value}
                                         onChange={($event?: any) => {
                                             search();
                                         }}
@@ -555,9 +540,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <OpDialog
                     ref={opRef}
                     onSearch={($event?: any) => {

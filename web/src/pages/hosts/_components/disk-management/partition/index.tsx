@@ -4,8 +4,6 @@ import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 import FileList from '@/components/file-list/index';
 
@@ -99,142 +97,106 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({
             acceptParams,
         });
-        return () =>
-            withDirectives(
-                <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
-                    header={$t('disk.' + unref(operate))}
-                    resource={form.device.split('/').pop()}
-                    onClose={($event?: any) => {
-                        (handleClose as any)($event);
-                    }}
-                    v-slots={{
-                        footer: () => (
-                            <>
+        return () => (
+            <DrawerPro
+                v-model={open.value}
+                header={$t('disk.' + unref(operate))}
+                resource={form.device.split('/').pop()}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                v-slots={{
+                    footer: () => (
+                        <>
+                            <ElButton
+                                onClick={($event?: any) => {
+                                    (handleClose as any)($event);
+                                }}
+                                disabled={unref(loading)}
+                            >
+                                {$t('commons.button.cancel')}
+                            </ElButton>
+                            {
                                 <ElButton
+                                    type="primary"
                                     onClick={($event?: any) => {
-                                        (handleClose as any)($event);
+                                        (submit as any)($event);
                                     }}
                                     disabled={unref(loading)}
+                                    v-permission={true}
+                                    v-node-admin={true}
                                 >
-                                    {$t('commons.button.cancel')}
+                                    {$t('commons.button.confirm')}
                                 </ElButton>
-                                {withDirectives(
-                                    <ElButton
-                                        type="primary"
-                                        onClick={($event?: any) => {
-                                            (submit as any)($event);
-                                        }}
-                                        disabled={unref(loading)}
-                                    >
-                                        {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [
-                                        [permissionDirective, true],
-                                        [nodeAdminDirective, true],
-                                    ],
-                                )}
-                            </>
-                        ),
-                    }}
-                >
-                    {unref(operate) == 'partition' || (unref(operate) == 'mount' && unref(filesystem) == '') ? (
-                        <ElAlert title={$t('disk.partitionAlert')} type="warning" closable={false} />
-                    ) : null}
-                    {withDirectives(
-                        <ElForm
-                            onSubmit={($event?: any) => {
-                                $event.preventDefault();
-                            }}
-                            ref={formRef}
-                            rules={unref(rules)}
-                            label-position="top"
-                            model={form}
-                            class={'mt-2'}
-                        >
-                            <ElFormItem label={$t('disk.filesystem')} prop="filesystem">
-                                <ElRadioGroup
-                                    modelValue={form.filesystem}
-                                    onUpdate:modelValue={($v) => {
-                                        form.filesystem = $v as any;
-                                    }}
-                                    disabled={unref(operate) == 'mount' && unref(filesystem) != ''}
-                                >
-                                    <ElRadioButton label="ext4" value="ext4" />
-                                    <ElRadioButton label="xfs" value="xfs" />
-                                </ElRadioGroup>
-                            </ElFormItem>
-                            <ElFormItem label={$t('disk.mountPoint')} prop="mountPoint">
-                                <ElInput
-                                    modelValue={form.mountPoint}
-                                    onUpdate:modelValue={($v) => {
-                                        form.mountPoint = $v as any;
-                                    }}
-                                    v-slots={{
-                                        prepend: () => (
-                                            <>
-                                                {withDirectives(
-                                                    <ElButton
-                                                        icon="Folder"
-                                                        onClick={($event?: any) => {
-                                                            unref(fileRef).acceptParams({ dir: true });
-                                                        }}
-                                                    />,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )}
-                                            </>
-                                        ),
-                                    }}
-                                />
-                            </ElFormItem>
-                            <ElFormItem label={$t('disk.autoMount')} prop="autoMount">
-                                {withDirectives(
-                                    <ElSwitch
-                                        modelValue={form.autoMount}
-                                        onUpdate:modelValue={($v) => {
-                                            form.autoMount = $v as any;
-                                        }}
-                                    />,
-                                    [
-                                        [permissionDirective, true],
-                                        [nodeAdminDirective, true],
-                                    ],
-                                )}
-                            </ElFormItem>
-                            {form.autoMount ? (
-                                <ElFormItem label={$t('disk.noFail')} prop="noFail">
-                                    {withDirectives(
-                                        <ElSwitch
-                                            modelValue={form.noFail}
-                                            onUpdate:modelValue={($v) => {
-                                                form.noFail = $v as any;
-                                            }}
-                                        />,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                </ElFormItem>
-                            ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
-                    <FileList
-                        ref={fileRef}
-                        onChoose={($event?: any) => {
-                            (loadBuildDir as any)($event);
+                            }
+                        </>
+                    ),
+                }}
+                v-loading={unref(loading)}
+            >
+                {unref(operate) == 'partition' || (unref(operate) == 'mount' && unref(filesystem) == '') ? (
+                    <ElAlert title={$t('disk.partitionAlert')} type="warning" closable={false} />
+                ) : null}
+                {
+                    <ElForm
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
                         }}
-                    />
-                </DrawerPro>,
-                [[vLoading, unref(loading)]],
-            );
+                        ref={formRef}
+                        rules={unref(rules)}
+                        label-position="top"
+                        model={form}
+                        class={'mt-2'}
+                        v-loading={unref(loading)}
+                    >
+                        <ElFormItem label={$t('disk.filesystem')} prop="filesystem">
+                            <ElRadioGroup
+                                v-model={form.filesystem}
+                                disabled={unref(operate) == 'mount' && unref(filesystem) != ''}
+                            >
+                                <ElRadioButton label="ext4" value="ext4" />
+                                <ElRadioButton label="xfs" value="xfs" />
+                            </ElRadioGroup>
+                        </ElFormItem>
+                        <ElFormItem label={$t('disk.mountPoint')} prop="mountPoint">
+                            <ElInput
+                                v-model={form.mountPoint}
+                                v-slots={{
+                                    prepend: () => (
+                                        <>
+                                            {
+                                                <ElButton
+                                                    icon="Folder"
+                                                    onClick={($event?: any) => {
+                                                        unref(fileRef).acceptParams({ dir: true });
+                                                    }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
+                                                />
+                                            }
+                                        </>
+                                    ),
+                                }}
+                            />
+                        </ElFormItem>
+                        <ElFormItem label={$t('disk.autoMount')} prop="autoMount">
+                            {<ElSwitch v-model={form.autoMount} v-permission={true} v-node-admin={true} />}
+                        </ElFormItem>
+                        {form.autoMount ? (
+                            <ElFormItem label={$t('disk.noFail')} prop="noFail">
+                                {<ElSwitch v-model={form.noFail} v-permission={true} v-node-admin={true} />}
+                            </ElFormItem>
+                        ) : null}
+                    </ElForm>
+                }
+                <FileList
+                    ref={fileRef}
+                    onChoose={($event?: any) => {
+                        (loadBuildDir as any)($event);
+                    }}
+                />
+            </DrawerPro>
+        );
     },
     options,
 );

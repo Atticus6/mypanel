@@ -40,8 +40,6 @@ interface EditorConfig {
 }
 type WordWrapOptions = 'off' | 'on' | 'wordWrapColumn' | 'bounded';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import DialogPro from '@/components/dialog-pro/index';
 import CopyButton from '@/components/copy-button/index';
@@ -1446,10 +1444,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DialogPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     size={unref(isMobile) ? 'full' : 'w-70'}
                     onOpened={($event?: any) => {
                         (onOpen as any)($event);
@@ -1530,7 +1525,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     class={'mobile-action-button'}
                                                 />
                                                 <ElDivider direction="vertical" class={'!mx-0'} />
-                                                {withDirectives(
+                                                {
                                                     <ElButton
                                                         link
                                                         icon="Check"
@@ -1540,12 +1535,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             saveContent();
                                                         }}
                                                         class={'mobile-action-button'}
-                                                    />,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )}
+                                                        v-permission={true}
+                                                        v-node-admin={true}
+                                                    />
+                                                }
                                             </>
                                         ) : (
                                             <>
@@ -1558,20 +1551,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     {$t('commons.button.reset')}
                                                 </ElText>
                                                 <ElDivider direction="vertical" class={'!mx-0'} />
-                                                {withDirectives(
+                                                {
                                                     <ElText
                                                         onClick={($event?: any) => {
                                                             saveContent();
                                                         }}
                                                         class={'ml-0 cursor-pointer'}
+                                                        v-permission={true}
+                                                        v-node-admin={true}
                                                     >
                                                         {$t('commons.button.save')}
-                                                    </ElText>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )}
+                                                    </ElText>
+                                                }
                                             </>
                                         )}
                                         <ElDivider direction="vertical" class={'!mx-0'} />
@@ -1752,8 +1743,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ) : null}
                                     </div>
                                 </div>
-                                {withDirectives(
-                                    <div>
+                                {
+                                    <div v-loading={unref(loading)}>
                                         <ElSplitter
                                             layout={unref(isMobile) ? 'vertical' : 'horizontal'}
                                             lazy
@@ -1827,38 +1818,34 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 dropdown: () => (
                                                                     <>
                                                                         <ElDropdownMenu>
-                                                                            {withDirectives(
+                                                                            {
                                                                                 <FuDropdownItem
                                                                                     command="dir"
                                                                                     class={'!px-2'}
+                                                                                    v-permission={true}
+                                                                                    v-node-admin={true}
                                                                                 >
                                                                                     <SvgIcon
                                                                                         iconName="p-file-folder"
                                                                                         class={'!h-5 !w-5'}
                                                                                     />
                                                                                     {$t('file.dir')}
-                                                                                </FuDropdownItem>,
-                                                                                [
-                                                                                    [permissionDirective, true],
-                                                                                    [nodeAdminDirective, true],
-                                                                                ],
-                                                                            )}
-                                                                            {withDirectives(
+                                                                                </FuDropdownItem>
+                                                                            }
+                                                                            {
                                                                                 <FuDropdownItem
                                                                                     command="file"
                                                                                     class={'!px-2'}
+                                                                                    v-permission={true}
+                                                                                    v-node-admin={true}
                                                                                 >
                                                                                     <SvgIcon
                                                                                         iconName="p-file-normal"
                                                                                         class={'!h-5 !w-5'}
                                                                                     />
                                                                                     {$t('menu.files')}
-                                                                                </FuDropdownItem>,
-                                                                                [
-                                                                                    [permissionDirective, true],
-                                                                                    [nodeAdminDirective, true],
-                                                                                ],
-                                                                            )}
+                                                                                </FuDropdownItem>
+                                                                            }
                                                                         </ElDropdownMenu>
                                                                     </>
                                                                 ),
@@ -1911,15 +1898,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                         <ElInput
                                                                                             size="small"
                                                                                             ref={rowRefs}
-                                                                                            modelValue={unref(
-                                                                                                newFolder,
-                                                                                            )}
-                                                                                            onUpdate:modelValue={(
-                                                                                                $v,
-                                                                                            ) => {
-                                                                                                newFolder.value =
-                                                                                                    $v as any;
-                                                                                            }}
+                                                                                            v-model={newFolder.value}
                                                                                             class={'!min-w-0 !flex-1'}
                                                                                         />
                                                                                         <ElIcon
@@ -1981,15 +1960,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                         <ElInput
                                                                                             size="small"
                                                                                             ref={rowRefs}
-                                                                                            modelValue={unref(
-                                                                                                newFolder,
-                                                                                            )}
-                                                                                            onUpdate:modelValue={(
-                                                                                                $v,
-                                                                                            ) => {
-                                                                                                newFolder.value =
-                                                                                                    $v as any;
-                                                                                            }}
+                                                                                            v-model={newFolder.value}
                                                                                             class={'!min-w-0 !flex-1'}
                                                                                         />
                                                                                         <ElIcon
@@ -2057,86 +2028,80 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                     dropdown: () => (
                                                                                         <>
                                                                                             <ElDropdownMenu>
-                                                                                                {data.isDir
-                                                                                                    ? withDirectives(
-                                                                                                          <FuDropdownItem command="dir">
-                                                                                                              <SvgIcon
-                                                                                                                  iconName="p-file-folder"
-                                                                                                                  class={
-                                                                                                                      'tree-context-menu__icon'
-                                                                                                                  }
-                                                                                                              />
-                                                                                                              {$t(
-                                                                                                                  'file.dir',
-                                                                                                              )}
-                                                                                                          </FuDropdownItem>,
-                                                                                                          [
-                                                                                                              [
-                                                                                                                  permissionDirective,
-                                                                                                                  true,
-                                                                                                              ],
-                                                                                                              [
-                                                                                                                  nodeAdminDirective,
-                                                                                                                  true,
-                                                                                                              ],
-                                                                                                          ],
-                                                                                                      )
-                                                                                                    : null}
-                                                                                                {data.isDir
-                                                                                                    ? withDirectives(
-                                                                                                          <FuDropdownItem command="file">
-                                                                                                              <SvgIcon
-                                                                                                                  iconName="p-file-normal"
-                                                                                                                  class={
-                                                                                                                      'tree-context-menu__icon'
-                                                                                                                  }
-                                                                                                              />
-                                                                                                              {$t(
-                                                                                                                  'menu.files',
-                                                                                                              )}
-                                                                                                          </FuDropdownItem>,
-                                                                                                          [
-                                                                                                              [
-                                                                                                                  permissionDirective,
-                                                                                                                  true,
-                                                                                                              ],
-                                                                                                              [
-                                                                                                                  nodeAdminDirective,
-                                                                                                                  true,
-                                                                                                              ],
-                                                                                                          ],
-                                                                                                      )
-                                                                                                    : null}
+                                                                                                {data.isDir ? (
+                                                                                                    <FuDropdownItem
+                                                                                                        command="dir"
+                                                                                                        v-permission={
+                                                                                                            true
+                                                                                                        }
+                                                                                                        v-node-admin={
+                                                                                                            true
+                                                                                                        }
+                                                                                                    >
+                                                                                                        <SvgIcon
+                                                                                                            iconName="p-file-folder"
+                                                                                                            class={
+                                                                                                                'tree-context-menu__icon'
+                                                                                                            }
+                                                                                                        />
+                                                                                                        {$t('file.dir')}
+                                                                                                    </FuDropdownItem>
+                                                                                                ) : null}
+                                                                                                {data.isDir ? (
+                                                                                                    <FuDropdownItem
+                                                                                                        command="file"
+                                                                                                        v-permission={
+                                                                                                            true
+                                                                                                        }
+                                                                                                        v-node-admin={
+                                                                                                            true
+                                                                                                        }
+                                                                                                    >
+                                                                                                        <SvgIcon
+                                                                                                            iconName="p-file-normal"
+                                                                                                            class={
+                                                                                                                'tree-context-menu__icon'
+                                                                                                            }
+                                                                                                        />
+                                                                                                        {$t(
+                                                                                                            'menu.files',
+                                                                                                        )}
+                                                                                                    </FuDropdownItem>
+                                                                                                ) : null}
                                                                                                 <ElDropdownItem command="copy">
                                                                                                     <ElIcon>
                                                                                                         <CopyDocument />
                                                                                                     </ElIcon>
                                                                                                     {$t('file.copyDir')}
                                                                                                 </ElDropdownItem>
-                                                                                                {withDirectives(
-                                                                                                    <FuDropdownItem command="rename">
+                                                                                                {
+                                                                                                    <FuDropdownItem
+                                                                                                        command="rename"
+                                                                                                        v-permission={
+                                                                                                            true
+                                                                                                        }
+                                                                                                        v-node-admin={
+                                                                                                            true
+                                                                                                        }
+                                                                                                    >
                                                                                                         <ElIcon>
                                                                                                             <Edit />
                                                                                                         </ElIcon>
                                                                                                         {$t(
                                                                                                             'file.rename',
                                                                                                         )}
-                                                                                                    </FuDropdownItem>,
-                                                                                                    [
-                                                                                                        [
-                                                                                                            permissionDirective,
-                                                                                                            true,
-                                                                                                        ],
-                                                                                                        [
-                                                                                                            nodeAdminDirective,
-                                                                                                            true,
-                                                                                                        ],
-                                                                                                    ],
-                                                                                                )}
-                                                                                                {withDirectives(
+                                                                                                    </FuDropdownItem>
+                                                                                                }
+                                                                                                {
                                                                                                     <FuDropdownItem
                                                                                                         command="delete"
                                                                                                         divided
+                                                                                                        v-permission={
+                                                                                                            true
+                                                                                                        }
+                                                                                                        v-node-admin={
+                                                                                                            true
+                                                                                                        }
                                                                                                     >
                                                                                                         <ElIcon>
                                                                                                             <Delete />
@@ -2144,18 +2109,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                         {$t(
                                                                                                             'commons.button.delete',
                                                                                                         )}
-                                                                                                    </FuDropdownItem>,
-                                                                                                    [
-                                                                                                        [
-                                                                                                            permissionDirective,
-                                                                                                            true,
-                                                                                                        ],
-                                                                                                        [
-                                                                                                            nodeAdminDirective,
-                                                                                                            true,
-                                                                                                        ],
-                                                                                                    ],
-                                                                                                )}
+                                                                                                    </FuDropdownItem>
+                                                                                                }
                                                                                             </ElDropdownMenu>
                                                                                         </>
                                                                                     ),
@@ -2191,46 +2146,38 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 top: `${treeContextMenu.y}px`,
                                                             }}
                                                         >
-                                                            {treeContextMenu.data?.isDir
-                                                                ? withDirectives(
-                                                                      <div
-                                                                          onClick={($event?: any) => {
-                                                                              createFromContextMenu('dir');
-                                                                          }}
-                                                                          class={'tree-context-menu__item'}
-                                                                      >
-                                                                          <SvgIcon
-                                                                              iconName="p-file-folder"
-                                                                              class={'tree-context-menu__icon'}
-                                                                          />
-                                                                          <span>{$t('file.dir')}</span>
-                                                                      </div>,
-                                                                      [
-                                                                          [permissionDirective, true],
-                                                                          [nodeAdminDirective, true],
-                                                                      ],
-                                                                  )
-                                                                : null}
-                                                            {treeContextMenu.data?.isDir
-                                                                ? withDirectives(
-                                                                      <div
-                                                                          onClick={($event?: any) => {
-                                                                              createFromContextMenu('file');
-                                                                          }}
-                                                                          class={'tree-context-menu__item'}
-                                                                      >
-                                                                          <SvgIcon
-                                                                              iconName="p-file-normal"
-                                                                              class={'tree-context-menu__icon'}
-                                                                          />
-                                                                          <span>{$t('menu.files')}</span>
-                                                                      </div>,
-                                                                      [
-                                                                          [permissionDirective, true],
-                                                                          [nodeAdminDirective, true],
-                                                                      ],
-                                                                  )
-                                                                : null}
+                                                            {treeContextMenu.data?.isDir ? (
+                                                                <div
+                                                                    onClick={($event?: any) => {
+                                                                        createFromContextMenu('dir');
+                                                                    }}
+                                                                    class={'tree-context-menu__item'}
+                                                                    v-permission={true}
+                                                                    v-node-admin={true}
+                                                                >
+                                                                    <SvgIcon
+                                                                        iconName="p-file-folder"
+                                                                        class={'tree-context-menu__icon'}
+                                                                    />
+                                                                    <span>{$t('file.dir')}</span>
+                                                                </div>
+                                                            ) : null}
+                                                            {treeContextMenu.data?.isDir ? (
+                                                                <div
+                                                                    onClick={($event?: any) => {
+                                                                        createFromContextMenu('file');
+                                                                    }}
+                                                                    class={'tree-context-menu__item'}
+                                                                    v-permission={true}
+                                                                    v-node-admin={true}
+                                                                >
+                                                                    <SvgIcon
+                                                                        iconName="p-file-normal"
+                                                                        class={'tree-context-menu__icon'}
+                                                                    />
+                                                                    <span>{$t('menu.files')}</span>
+                                                                </div>
+                                                            ) : null}
                                                             <div
                                                                 onClick={($event?: any) => {
                                                                     (copyPathFromContextMenu as any)($event);
@@ -2242,40 +2189,36 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 </ElIcon>
                                                                 <span>{$t('file.copyDir')}</span>
                                                             </div>
-                                                            {withDirectives(
+                                                            {
                                                                 <div
                                                                     onClick={($event?: any) => {
                                                                         (renameFromContextMenu as any)($event);
                                                                     }}
                                                                     class={'tree-context-menu__item'}
+                                                                    v-permission={true}
+                                                                    v-node-admin={true}
                                                                 >
                                                                     <ElIcon class={'tree-context-menu__icon'}>
                                                                         <Edit />
                                                                     </ElIcon>
                                                                     <span>{$t('file.rename')}</span>
-                                                                </div>,
-                                                                [
-                                                                    [permissionDirective, true],
-                                                                    [nodeAdminDirective, true],
-                                                                ],
-                                                            )}
-                                                            {withDirectives(
+                                                                </div>
+                                                            }
+                                                            {
                                                                 <div
                                                                     onClick={($event?: any) => {
                                                                         (deleteFromContextMenu as any)($event);
                                                                     }}
                                                                     class={'tree-context-menu__item is-danger'}
+                                                                    v-permission={true}
+                                                                    v-node-admin={true}
                                                                 >
                                                                     <ElIcon class={'tree-context-menu__icon'}>
                                                                         <Delete />
                                                                     </ElIcon>
                                                                     <span>{$t('commons.button.delete')}</span>
-                                                                </div>,
-                                                                [
-                                                                    [permissionDirective, true],
-                                                                    [nodeAdminDirective, true],
-                                                                ],
-                                                            )}
+                                                                </div>
+                                                            }
                                                         </div>
                                                     ) : null}
                                                 </div>
@@ -2573,9 +2516,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </ElDropdown>
                                             <ElDivider direction="vertical" class={'!mr-3.5 !h-6'} />
                                         </div>
-                                    </div>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </div>
+                                }
                             </>
                         ),
                     }}

@@ -975,12 +975,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 'header-r': () => (
                                     <>
                                         {unref(hasGPU) ? (
-                                            <ElRadioGroup
-                                                modelValue={unref(statusView)}
-                                                onUpdate:modelValue={($v) => {
-                                                    statusView.value = $v as any;
-                                                }}
-                                            >
+                                            <ElRadioGroup v-model={statusView.value}>
                                                 <ElRadioButton value="system">{$t('menu.system')}</ElRadioButton>
                                                 <ElRadioButton value="gpu">{'GPU'}</ElRadioButton>
                                             </ElRadioGroup>
@@ -1008,10 +1003,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 'header-r': () => (
                                     <>
                                         <ElRadioGroup
-                                            modelValue={unref(chartOption)}
-                                            onUpdate:modelValue={($v) => {
-                                                chartOption.value = $v as any;
-                                            }}
+                                            v-model={chartOption.value}
                                             onChange={($event?: any) => {
                                                 (changeOption as any)($event);
                                             }}
@@ -1030,10 +1022,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     onLoadBaseInfo(false, 'network');
                                                 }}
-                                                modelValue={searchInfo.netOption}
-                                                onUpdate:modelValue={($v) => {
-                                                    searchInfo.netOption = $v as any;
-                                                }}
+                                                v-model={searchInfo.netOption}
                                                 class={'p-w-200 float-right'}
                                                 v-slots={{ prefix: () => <>{$t('home.networkCard')}</> }}
                                             >
@@ -1048,10 +1037,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ) : null}
                                         {unref(chartOption) === 'io' ? (
                                             <ElSelect
-                                                modelValue={searchInfo.ioOption}
-                                                onUpdate:modelValue={($v) => {
-                                                    searchInfo.ioOption = $v as any;
-                                                }}
+                                                v-model={searchInfo.ioOption}
                                                 onChange={($event?: any) => {
                                                     onLoadBaseInfo(false, 'io');
                                                 }}
@@ -1069,10 +1055,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ) : null}
                                         {unref(chartOption) === 'vllm' ? (
                                             <ElSelect
-                                                modelValue={unref(vllmID)}
-                                                onUpdate:modelValue={($v) => {
-                                                    vllmID.value = $v as any;
-                                                }}
+                                                v-model={vllmID.value}
                                                 placeholder={$t('aiTools.model.deployments')}
                                                 onVisibleChange={($event?: any) => {
                                                     (visible) => visible && loadVllmOptions();
@@ -1284,10 +1267,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         <div class={'setting-item mt-2'}>
                                                             <span>{$t('home.memo')}</span>
                                                             <ElSwitch
-                                                                modelValue={unref(memoCarouselSetting)}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    memoCarouselSetting.value = $v as any;
-                                                                }}
+                                                                v-model={memoCarouselSetting.value}
                                                                 active-value="Enable"
                                                                 inactive-value="Disable"
                                                                 onChange={($event?: any) => {
@@ -1302,10 +1282,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         <div class={'setting-item'}>
                                                             <span>{$t('setting.panel')}</span>
                                                             <ElSwitch
-                                                                modelValue={unref(simpleNodeCarouselSetting)}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    simpleNodeCarouselSetting.value = $v as any;
-                                                                }}
+                                                                v-model={simpleNodeCarouselSetting.value}
                                                                 active-value="Enable"
                                                                 inactive-value="Disable"
                                                                 onChange={($event?: any) => {
@@ -1551,10 +1528,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         <div class={'memo-container mr-5 ml-5'}>
                                                             {unref(memoEditing) ? (
                                                                 <ElInput
-                                                                    modelValue={unref(memoEditContent)}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        memoEditContent.value = $v as any;
-                                                                    }}
+                                                                    v-model={memoEditContent.value}
                                                                     type="textarea"
                                                                     rows={10}
                                                                     maxlength={500}

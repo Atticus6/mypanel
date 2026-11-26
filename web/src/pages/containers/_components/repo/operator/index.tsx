@@ -137,10 +137,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={unref(title)}
                     resource={unref(dialogData).rowData?.name}
                     onClose={($event?: any) => {
@@ -173,13 +170,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={formRef}
                             label-position="top"
                             model={unref(dialogData).rowData}
                             rules={rules}
                             label-width="120px"
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('commons.table.name')} prop="name">
                                 <ElInput
@@ -192,12 +190,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </ElFormItem>
                             <ElFormItem label={$t('container.auth')} prop="auth">
-                                <ElRadioGroup
-                                    modelValue={unref(dialogData).rowData!.auth}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.auth = $v as any;
-                                    }}
-                                >
+                                <ElRadioGroup v-model={unref(dialogData).rowData!.auth}>
                                     <ElRadio value={true}>{$t('commons.true')}</ElRadio>
                                     <ElRadio value={false}>{$t('commons.false')}</ElRadio>
                                 </ElRadioGroup>
@@ -247,12 +240,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ) : null}
                             </ElFormItem>
                             <ElFormItem label={$t('commons.table.protocol')} prop="protocol">
-                                <ElRadioGroup
-                                    modelValue={unref(dialogData).rowData!.protocol}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.protocol = $v as any;
-                                    }}
-                                >
+                                <ElRadioGroup v-model={unref(dialogData).rowData!.protocol}>
                                     <ElRadio label="http">{'http'}</ElRadio>
                                     <ElRadio label="https">{'https'}</ElRadio>
                                 </ElRadioGroup>
@@ -260,9 +248,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <span class={'input-help'}>{$t('container.httpRepo')}</span>
                                 ) : null}
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <ConfirmDialog
                     ref={confirmDialog}

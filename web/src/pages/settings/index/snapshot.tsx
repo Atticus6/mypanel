@@ -267,382 +267,374 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {!unref(isRecordShow)
-                    ? withDirectives(
-                          <LayoutContent
-                              title={$t('setting.snapshot', 2)}
-                              v-slots={{
-                                  leftToolBar: () => (
-                                      <>
-                                          <ElButton
-                                              type="primary"
-                                              onClick={($event?: any) => {
-                                                  onCreate();
-                                              }}
-                                          >
-                                              {$t('commons.button.create')}
-                                          </ElButton>
-                                          <ElButton
-                                              type="primary"
-                                              plain
-                                              onClick={($event?: any) => {
-                                                  onImport();
-                                              }}
-                                          >
-                                              {$t('commons.button.sync')}
-                                          </ElButton>
-                                          <ElButton
-                                              type="primary"
-                                              plain
-                                              disabled={unref(selects).length === 0}
-                                              onClick={($event?: any) => {
-                                                  batchDelete(null);
-                                              }}
-                                          >
-                                              {$t('commons.button.delete')}
-                                          </ElButton>
-                                      </>
-                                  ),
-                                  rightToolBar: () => (
-                                      <>
-                                          <TableSearch
-                                              onSearch={($event?: any) => {
-                                                  search();
-                                              }}
-                                              searchName={unref(searchName)}
-                                              onUpdate:searchName={($v) => {
-                                                  searchName.value = $v as any;
-                                              }}
-                                          />
-                                          <TableRefresh
-                                              onSearch={($event?: any) => {
-                                                  search();
-                                              }}
-                                          />
-                                          <TableSetting
-                                              title="snapshot-refresh"
-                                              ref="timerRef"
-                                              onSearch={($event?: any) => {
-                                                  search();
-                                              }}
-                                          />
-                                      </>
-                                  ),
-                                  main: () => (
-                                      <>
-                                          <ComplexTable
-                                              selection-context={() => [unref(searchName)]}
-                                              row-key="id"
-                                              cache-pagination={false}
-                                              pagination-config={paginationConfig}
-                                              selects={unref(selects)}
-                                              onUpdate:selects={($v) => {
-                                                  selects.value = $v as any;
-                                              }}
-                                              data={unref(data)}
-                                              onSortChange={($event?: any) => {
-                                                  (search as any)($event);
-                                              }}
-                                              onSearch={($event?: any) => {
-                                                  (search as any)($event);
-                                              }}
-                                              class={'mt-5'}
-                                          >
-                                              <ElTableColumn type="selection" fix />
-                                              <ElTableColumn
-                                                  show-overflow-tooltip
-                                                  label={$t('commons.table.name')}
-                                                  min-width="100"
-                                                  prop="name"
-                                                  sortable
-                                                  fix
-                                              />
-                                              <ElTableColumn prop="version" label={$t('app.version')} />
-                                              <ElTableColumn
-                                                  label={$t('setting.backupAccount')}
-                                                  min-width={120}
-                                                  prop="from"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {(row.sourceAccounts || []).map((item, index) => (
-                                                                  <div key={index}>
-                                                                      {row.expand ||
-                                                                      (!row.expand && Number(index) < 3) ? (
-                                                                          <div>
-                                                                              <span type="info">
-                                                                                  <span>
-                                                                                      {item === 'localhost'
-                                                                                          ? $t('setting.LOCAL')
-                                                                                          : item}
-                                                                                  </span>
-                                                                                  {item === row.downloadAccount ? (
-                                                                                      <ElIcon
-                                                                                          size="12"
-                                                                                          class={
-                                                                                              'relative top-px left-1'
-                                                                                          }
-                                                                                      >
-                                                                                          <Star />
-                                                                                      </ElIcon>
-                                                                                  ) : null}
-                                                                              </span>
-                                                                          </div>
-                                                                      ) : null}
-                                                                  </div>
-                                                              ))}
-                                                              {!row.expand && row.sourceAccounts?.length > 3 ? (
-                                                                  <div>
-                                                                      <ElButton
-                                                                          type="primary"
-                                                                          link
-                                                                          onClick={($event?: any) => {
-                                                                              row.expand = true;
-                                                                          }}
-                                                                      >
-                                                                          {$t('commons.button.expand')}
-                                                                          {'... '}
-                                                                      </ElButton>
-                                                                  </div>
-                                                              ) : null}
-                                                              {row.expand && row.sourceAccounts?.length > 3 ? (
-                                                                  <div>
-                                                                      <ElButton
-                                                                          type="primary"
-                                                                          link
-                                                                          onClick={($event?: any) => {
-                                                                              row.expand = false;
-                                                                          }}
-                                                                      >
-                                                                          {$t('commons.button.collapse')}
-                                                                      </ElButton>
-                                                                  </div>
-                                                              ) : null}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('file.size')}
-                                                  prop="size"
-                                                  min-width="60"
-                                                  show-overflow-tooltip
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {row.hasLoad ? (
-                                                                  <div>
-                                                                      {row.size ? (
-                                                                          <span>{computeSize(row.size)}</span>
-                                                                      ) : (
-                                                                          <span>{'-'}</span>
-                                                                      )}
-                                                                  </div>
-                                                              ) : null}
-                                                              {!row.hasLoad ? (
-                                                                  <div>
-                                                                      <ElButton link loading />
-                                                                  </div>
-                                                              ) : null}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('commons.table.status')}
-                                                  min-width="80"
-                                                  prop="status"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              <div>
-                                                                  {row.status === 'Waiting' ? (
-                                                                      <ElButton
-                                                                          onClick={($event?: any) => {
-                                                                              openTaskLog(row.taskID);
-                                                                          }}
-                                                                          link
-                                                                          type="primary"
-                                                                      >
-                                                                          {$t('setting.snapshot')}
-                                                                          {$t('commons.status.waiting')}
-                                                                      </ElButton>
-                                                                  ) : null}
-                                                                  {row.status === 'Failed' ? (
-                                                                      <ElButton
-                                                                          onClick={($event?: any) => {
-                                                                              openTaskLog(row.taskID);
-                                                                          }}
-                                                                          link
-                                                                          type="danger"
-                                                                      >
-                                                                          {$t('setting.snapshot')}
-                                                                          {$t('commons.status.error')}
-                                                                      </ElButton>
-                                                                  ) : null}
-                                                                  {row.status === 'Failed' ? (
-                                                                      <ElButton
-                                                                          type="danger"
-                                                                          icon="Warning"
-                                                                          link
-                                                                          onClick={($event?: any) => {
-                                                                              reCreate(row);
-                                                                          }}
-                                                                          class={'retry'}
-                                                                      />
-                                                                  ) : null}
-                                                                  {row.status === 'Success' ? (
-                                                                      <ElButton
-                                                                          onClick={($event?: any) => {
-                                                                              openTaskLog(row.taskID);
-                                                                          }}
-                                                                          link
-                                                                          type="success"
-                                                                      >
-                                                                          {$t('setting.snapshot')}
-                                                                          {$t('commons.status.success')}
-                                                                      </ElButton>
-                                                                  ) : null}
-                                                              </div>
-                                                              {row.recoverStatus ? (
-                                                                  <div>
-                                                                      {row.recoverStatus === 'Waiting' ? (
-                                                                          <ElButton
-                                                                              onClick={($event?: any) => {
-                                                                                  openWithResource(row, 'recover');
-                                                                              }}
-                                                                              link
-                                                                              type="primary"
-                                                                          >
-                                                                              {$t('commons.button.recover')}
-                                                                              {$t('commons.status.waiting')}
-                                                                          </ElButton>
-                                                                      ) : null}
-                                                                      {row.recoverStatus === 'Failed' ? (
-                                                                          <ElButton
-                                                                              onClick={($event?: any) => {
-                                                                                  openWithResource(row, 'recover');
-                                                                              }}
-                                                                              type="danger"
-                                                                              link
-                                                                          >
-                                                                              {$t('commons.button.recover')}
-                                                                              {$t('commons.status.error')}
-                                                                          </ElButton>
-                                                                      ) : null}
-                                                                      {row.recoverStatus === 'Failed' ? (
-                                                                          <ElButton
-                                                                              type="danger"
-                                                                              icon="Warning"
-                                                                              link
-                                                                              onClick={($event?: any) => {
-                                                                                  onRecover(row);
-                                                                              }}
-                                                                              class={'retry'}
-                                                                          />
-                                                                      ) : null}
-                                                                      {row.recoverStatus === 'Success' ? (
-                                                                          <ElButton
-                                                                              onClick={($event?: any) => {
-                                                                                  openWithResource(row, 'recover');
-                                                                              }}
-                                                                              link
-                                                                              type="success"
-                                                                          >
-                                                                              {$t('commons.button.recover')}
-                                                                              {$t('commons.status.success')}
-                                                                          </ElButton>
-                                                                      ) : null}
-                                                                  </div>
-                                                              ) : null}
-                                                              {row.rollbackStatus ? (
-                                                                  <div>
-                                                                      {row.rollbackStatus === 'Waiting' ? (
-                                                                          <ElButton link type="primary">
-                                                                              {$t('setting.rollback')}
-                                                                              {$t('commons.status.waiting')}
-                                                                          </ElButton>
-                                                                      ) : null}
-                                                                      {row.rollbackStatus === 'Failed' ? (
-                                                                          <ElButton
-                                                                              link
-                                                                              onClick={($event?: any) => {
-                                                                                  reRollback(row);
-                                                                              }}
-                                                                              type="danger"
-                                                                          >
-                                                                              {$t('setting.rollback')}
-                                                                              {$t('commons.status.error')}
-                                                                          </ElButton>
-                                                                      ) : null}
-                                                                      {row.rollbackStatus === 'Failed' ? (
-                                                                          <ElButton
-                                                                              icon="Warning"
-                                                                              type="danger"
-                                                                              link
-                                                                              onClick={($event?: any) => {
-                                                                                  reRollback(row);
-                                                                              }}
-                                                                              class={'retry'}
-                                                                          />
-                                                                      ) : null}
-                                                                      {row.recoverStatus === 'Success' ? (
-                                                                          <ElButton link type="success">
-                                                                              {$t('setting.rollback')}
-                                                                              {$t('commons.status.success')}
-                                                                          </ElButton>
-                                                                      ) : null}
-                                                                  </div>
-                                                              ) : null}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('commons.table.description')}
-                                                  prop="description"
-                                                  show-overflow-tooltip
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              <FuInputRwSwitch
-                                                                  modelValue={row.description}
-                                                                  onUpdate:modelValue={($v) => {
-                                                                      row.description = $v as any;
-                                                                  }}
-                                                                  onEnter={($event?: any) => {
-                                                                      onChange(row);
-                                                                  }}
-                                                                  onBlur={($event?: any) => {
-                                                                      onChange(row);
-                                                                  }}
-                                                              />
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  prop="createdAt"
-                                                  sortable
-                                                  label={$t('commons.table.date')}
-                                                  formatter={dateFormat}
-                                                  show-overflow-tooltip
-                                              />
-                                              <FuTableOperations
-                                                  width="240px"
-                                                  ellipsis={10}
-                                                  buttons={buttons}
-                                                  label={$t('commons.table.operate')}
-                                                  fix
-                                              />
-                                          </ComplexTable>
-                                      </>
-                                  ),
-                              }}
-                          />,
-                          [[vLoading, unref(loading)]],
-                      )
-                    : null}
+                {!unref(isRecordShow) ? (
+                    <LayoutContent
+                        title={$t('setting.snapshot', 2)}
+                        v-slots={{
+                            leftToolBar: () => (
+                                <>
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onCreate();
+                                        }}
+                                    >
+                                        {$t('commons.button.create')}
+                                    </ElButton>
+                                    <ElButton
+                                        type="primary"
+                                        plain
+                                        onClick={($event?: any) => {
+                                            onImport();
+                                        }}
+                                    >
+                                        {$t('commons.button.sync')}
+                                    </ElButton>
+                                    <ElButton
+                                        type="primary"
+                                        plain
+                                        disabled={unref(selects).length === 0}
+                                        onClick={($event?: any) => {
+                                            batchDelete(null);
+                                        }}
+                                    >
+                                        {$t('commons.button.delete')}
+                                    </ElButton>
+                                </>
+                            ),
+                            rightToolBar: () => (
+                                <>
+                                    <TableSearch
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                        searchName={unref(searchName)}
+                                        onUpdate:searchName={($v) => {
+                                            searchName.value = $v as any;
+                                        }}
+                                    />
+                                    <TableRefresh
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                    />
+                                    <TableSetting
+                                        title="snapshot-refresh"
+                                        ref="timerRef"
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                    />
+                                </>
+                            ),
+                            main: () => (
+                                <>
+                                    <ComplexTable
+                                        selection-context={() => [unref(searchName)]}
+                                        row-key="id"
+                                        cache-pagination={false}
+                                        pagination-config={paginationConfig}
+                                        selects={unref(selects)}
+                                        onUpdate:selects={($v) => {
+                                            selects.value = $v as any;
+                                        }}
+                                        data={unref(data)}
+                                        onSortChange={($event?: any) => {
+                                            (search as any)($event);
+                                        }}
+                                        onSearch={($event?: any) => {
+                                            (search as any)($event);
+                                        }}
+                                        class={'mt-5'}
+                                    >
+                                        <ElTableColumn type="selection" fix />
+                                        <ElTableColumn
+                                            show-overflow-tooltip
+                                            label={$t('commons.table.name')}
+                                            min-width="100"
+                                            prop="name"
+                                            sortable
+                                            fix
+                                        />
+                                        <ElTableColumn prop="version" label={$t('app.version')} />
+                                        <ElTableColumn
+                                            label={$t('setting.backupAccount')}
+                                            min-width={120}
+                                            prop="from"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {(row.sourceAccounts || []).map((item, index) => (
+                                                            <div key={index}>
+                                                                {row.expand || (!row.expand && Number(index) < 3) ? (
+                                                                    <div>
+                                                                        <span type="info">
+                                                                            <span>
+                                                                                {item === 'localhost'
+                                                                                    ? $t('setting.LOCAL')
+                                                                                    : item}
+                                                                            </span>
+                                                                            {item === row.downloadAccount ? (
+                                                                                <ElIcon
+                                                                                    size="12"
+                                                                                    class={'relative top-px left-1'}
+                                                                                >
+                                                                                    <Star />
+                                                                                </ElIcon>
+                                                                            ) : null}
+                                                                        </span>
+                                                                    </div>
+                                                                ) : null}
+                                                            </div>
+                                                        ))}
+                                                        {!row.expand && row.sourceAccounts?.length > 3 ? (
+                                                            <div>
+                                                                <ElButton
+                                                                    type="primary"
+                                                                    link
+                                                                    onClick={($event?: any) => {
+                                                                        row.expand = true;
+                                                                    }}
+                                                                >
+                                                                    {$t('commons.button.expand')}
+                                                                    {'... '}
+                                                                </ElButton>
+                                                            </div>
+                                                        ) : null}
+                                                        {row.expand && row.sourceAccounts?.length > 3 ? (
+                                                            <div>
+                                                                <ElButton
+                                                                    type="primary"
+                                                                    link
+                                                                    onClick={($event?: any) => {
+                                                                        row.expand = false;
+                                                                    }}
+                                                                >
+                                                                    {$t('commons.button.collapse')}
+                                                                </ElButton>
+                                                            </div>
+                                                        ) : null}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('file.size')}
+                                            prop="size"
+                                            min-width="60"
+                                            show-overflow-tooltip
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {row.hasLoad ? (
+                                                            <div>
+                                                                {row.size ? (
+                                                                    <span>{computeSize(row.size)}</span>
+                                                                ) : (
+                                                                    <span>{'-'}</span>
+                                                                )}
+                                                            </div>
+                                                        ) : null}
+                                                        {!row.hasLoad ? (
+                                                            <div>
+                                                                <ElButton link loading />
+                                                            </div>
+                                                        ) : null}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.status')}
+                                            min-width="80"
+                                            prop="status"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <div>
+                                                            {row.status === 'Waiting' ? (
+                                                                <ElButton
+                                                                    onClick={($event?: any) => {
+                                                                        openTaskLog(row.taskID);
+                                                                    }}
+                                                                    link
+                                                                    type="primary"
+                                                                >
+                                                                    {$t('setting.snapshot')}
+                                                                    {$t('commons.status.waiting')}
+                                                                </ElButton>
+                                                            ) : null}
+                                                            {row.status === 'Failed' ? (
+                                                                <ElButton
+                                                                    onClick={($event?: any) => {
+                                                                        openTaskLog(row.taskID);
+                                                                    }}
+                                                                    link
+                                                                    type="danger"
+                                                                >
+                                                                    {$t('setting.snapshot')}
+                                                                    {$t('commons.status.error')}
+                                                                </ElButton>
+                                                            ) : null}
+                                                            {row.status === 'Failed' ? (
+                                                                <ElButton
+                                                                    type="danger"
+                                                                    icon="Warning"
+                                                                    link
+                                                                    onClick={($event?: any) => {
+                                                                        reCreate(row);
+                                                                    }}
+                                                                    class={'retry'}
+                                                                />
+                                                            ) : null}
+                                                            {row.status === 'Success' ? (
+                                                                <ElButton
+                                                                    onClick={($event?: any) => {
+                                                                        openTaskLog(row.taskID);
+                                                                    }}
+                                                                    link
+                                                                    type="success"
+                                                                >
+                                                                    {$t('setting.snapshot')}
+                                                                    {$t('commons.status.success')}
+                                                                </ElButton>
+                                                            ) : null}
+                                                        </div>
+                                                        {row.recoverStatus ? (
+                                                            <div>
+                                                                {row.recoverStatus === 'Waiting' ? (
+                                                                    <ElButton
+                                                                        onClick={($event?: any) => {
+                                                                            openWithResource(row, 'recover');
+                                                                        }}
+                                                                        link
+                                                                        type="primary"
+                                                                    >
+                                                                        {$t('commons.button.recover')}
+                                                                        {$t('commons.status.waiting')}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                                {row.recoverStatus === 'Failed' ? (
+                                                                    <ElButton
+                                                                        onClick={($event?: any) => {
+                                                                            openWithResource(row, 'recover');
+                                                                        }}
+                                                                        type="danger"
+                                                                        link
+                                                                    >
+                                                                        {$t('commons.button.recover')}
+                                                                        {$t('commons.status.error')}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                                {row.recoverStatus === 'Failed' ? (
+                                                                    <ElButton
+                                                                        type="danger"
+                                                                        icon="Warning"
+                                                                        link
+                                                                        onClick={($event?: any) => {
+                                                                            onRecover(row);
+                                                                        }}
+                                                                        class={'retry'}
+                                                                    />
+                                                                ) : null}
+                                                                {row.recoverStatus === 'Success' ? (
+                                                                    <ElButton
+                                                                        onClick={($event?: any) => {
+                                                                            openWithResource(row, 'recover');
+                                                                        }}
+                                                                        link
+                                                                        type="success"
+                                                                    >
+                                                                        {$t('commons.button.recover')}
+                                                                        {$t('commons.status.success')}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                            </div>
+                                                        ) : null}
+                                                        {row.rollbackStatus ? (
+                                                            <div>
+                                                                {row.rollbackStatus === 'Waiting' ? (
+                                                                    <ElButton link type="primary">
+                                                                        {$t('setting.rollback')}
+                                                                        {$t('commons.status.waiting')}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                                {row.rollbackStatus === 'Failed' ? (
+                                                                    <ElButton
+                                                                        link
+                                                                        onClick={($event?: any) => {
+                                                                            reRollback(row);
+                                                                        }}
+                                                                        type="danger"
+                                                                    >
+                                                                        {$t('setting.rollback')}
+                                                                        {$t('commons.status.error')}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                                {row.rollbackStatus === 'Failed' ? (
+                                                                    <ElButton
+                                                                        icon="Warning"
+                                                                        type="danger"
+                                                                        link
+                                                                        onClick={($event?: any) => {
+                                                                            reRollback(row);
+                                                                        }}
+                                                                        class={'retry'}
+                                                                    />
+                                                                ) : null}
+                                                                {row.recoverStatus === 'Success' ? (
+                                                                    <ElButton link type="success">
+                                                                        {$t('setting.rollback')}
+                                                                        {$t('commons.status.success')}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                            </div>
+                                                        ) : null}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.description')}
+                                            prop="description"
+                                            show-overflow-tooltip
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <FuInputRwSwitch
+                                                            v-model={row.description}
+                                                            onEnter={($event?: any) => {
+                                                                onChange(row);
+                                                            }}
+                                                            onBlur={($event?: any) => {
+                                                                onChange(row);
+                                                            }}
+                                                        />
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            prop="createdAt"
+                                            sortable
+                                            label={$t('commons.table.date')}
+                                            formatter={dateFormat}
+                                            show-overflow-tooltip
+                                        />
+                                        <FuTableOperations
+                                            width="240px"
+                                            ellipsis={10}
+                                            buttons={buttons}
+                                            label={$t('commons.table.operate')}
+                                            fix
+                                        />
+                                    </ComplexTable>
+                                </>
+                            ),
+                        }}
+                        v-loading={unref(loading)}
+                    />
+                ) : null}
                 <RecoverStatus
                     ref={recoverStatusRef}
                     onSearch={($event?: any) => {
@@ -674,13 +666,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <>
                                 <ElForm ref="deleteForm" label-position="left" class={'mt-4 mb-1'}>
                                     <ElFormItem>
-                                        <ElCheckbox
-                                            modelValue={unref(cleanData)}
-                                            onUpdate:modelValue={($v) => {
-                                                cleanData.value = $v as any;
-                                            }}
-                                            label={$t('cronjob.cleanData')}
-                                        />
+                                        <ElCheckbox v-model={cleanData.value} label={$t('cronjob.cleanData')} />
                                         <span class={'input-help'}>{$t('setting.deleteHelper')}</span>
                                     </ElFormItem>
                                 </ElForm>

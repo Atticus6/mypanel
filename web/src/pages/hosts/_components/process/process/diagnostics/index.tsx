@@ -158,10 +158,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={`${$t('monitor.runtimeDiagnostics')} - 1panel-${target}`}
                     size="large"
                     confirm-before-close={unref(captureLoading)}
@@ -169,11 +166,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         (handleBeforeClose as any)($event);
                     }}
                 >
-                    {withDirectives(
+                    {
                         <div
                             element-loading-lock
                             element-loading-text={$t('monitor.capturing')}
                             class={'diagnostics-content'}
+                            v-loading={unref(captureLoading)}
                         >
                             <section>
                                 <ElRow gutter={12}>
@@ -203,10 +201,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <div class={'section-title'}>{$t('monitor.manualCapture')}</div>
                                 <div class={'profile-toolbar'}>
                                     <ElSelect
-                                        modelValue={captureForm.type}
-                                        onUpdate:modelValue={($v) => {
-                                            captureForm.type = $v as any;
-                                        }}
+                                        v-model={captureForm.type}
                                         popper-class="runtime-profile-select-popper"
                                         class={'profile-type'}
                                     >
@@ -223,10 +218,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElSelect>
                                     {unref(showDuration) ? (
                                         <ElInputNumber
-                                            modelValue={captureForm.duration}
-                                            onUpdate:modelValue={($v) => {
-                                                captureForm.duration = $v as any;
-                                            }}
+                                            v-model={captureForm.duration}
                                             min={5}
                                             max={30}
                                             controls-position="right"
@@ -279,8 +271,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'snapshot-warning'}
                                     />
                                 ) : null}
-                                {withDirectives(
-                                    <ComplexTable data={goroutineSnapshot.goroutines} max-height="420">
+                                {
+                                    <ComplexTable
+                                        data={goroutineSnapshot.goroutines}
+                                        max-height="420"
+                                        v-loading={unref(goroutineLoading)}
+                                    >
                                         <ElTableColumn prop="count" label={$t('monitor.count')} width="90" sortable />
                                         <ElTableColumn prop="state" label={$t('commons.table.status')} width="180" />
                                         <ElTableColumn
@@ -309,19 +305,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 ),
                                             }}
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(goroutineLoading)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </section>
-                        </div>,
-                        [[vLoading, unref(captureLoading)]],
-                    )}
+                        </div>
+                    }
                 </DrawerPro>
                 <ElDialog
-                    modelValue={unref(stackDialogVisible)}
-                    onUpdate:modelValue={($v) => {
-                        stackDialogVisible.value = $v as any;
-                    }}
+                    v-model={stackDialogVisible.value}
                     title={$t('monitor.goroutineSnapshot')}
                     width="70%"
                     append-to-body

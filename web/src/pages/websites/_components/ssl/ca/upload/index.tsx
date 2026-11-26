@@ -5,7 +5,6 @@ import { uploadCA } from '@/api/modules/website';
 import { rpc } from '@/lib/rpc';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -116,10 +115,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     size="large"
                     header={$t('commons.button.upload')}
                     onClose={($event?: any) => {
@@ -136,18 +132,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         loading={unref(loading)}
                                         onClick={($event?: any) => {
                                             (submit as any)($event);
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                     }}
@@ -164,10 +160,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     >
                         <ElFormItem label={$t('website.importType')} prop="type">
                             <ElSelect
-                                modelValue={form.type}
-                                onUpdate:modelValue={($v) => {
-                                    form.type = $v as any;
-                                }}
+                                v-model={form.type}
                                 disabled={unref(loading)}
                                 onChange={($event?: any) => {
                                     (changeType as any)($event);
@@ -192,24 +185,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {form.type === 'paste' ? (
                             <div>
                                 <ElFormItem label={$t('website.certificate')} prop="certificate">
-                                    <ElInput
-                                        modelValue={form.certificate}
-                                        onUpdate:modelValue={($v) => {
-                                            form.certificate = $v as any;
-                                        }}
-                                        rows={6}
-                                        type="textarea"
-                                    />
+                                    <ElInput v-model={form.certificate} rows={6} type="textarea" />
                                 </ElFormItem>
                                 <ElFormItem label={$t('website.privateKey')} prop="privateKey">
-                                    <ElInput
-                                        modelValue={form.privateKey}
-                                        onUpdate:modelValue={($v) => {
-                                            form.privateKey = $v as any;
-                                        }}
-                                        rows={6}
-                                        type="textarea"
-                                    />
+                                    <ElInput v-model={form.privateKey} rows={6} type="textarea" />
                                 </ElFormItem>
                             </div>
                         ) : null}
@@ -217,10 +196,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <div>
                                 <ElFormItem label={$t('website.certificatePath')} prop="certificatePath">
                                     <ElInput
-                                        modelValue={form.certificatePath}
-                                        onUpdate:modelValue={($v) => {
-                                            form.certificatePath = $v as any;
-                                        }}
+                                        v-model={form.certificatePath}
                                         v-slots={{
                                             prepend: () => (
                                                 <>
@@ -237,10 +213,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElFormItem>
                                 <ElFormItem label={$t('website.privateKeyPath')} prop="privateKeyPath">
                                     <ElInput
-                                        modelValue={form.privateKeyPath}
-                                        onUpdate:modelValue={($v) => {
-                                            form.privateKeyPath = $v as any;
-                                        }}
+                                        v-model={form.privateKeyPath}
                                         v-slots={{
                                             prepend: () => (
                                                 <>

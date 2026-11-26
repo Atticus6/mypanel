@@ -197,7 +197,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <FireRouter />
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('menu.network', 2)}
                         v-slots={{
@@ -205,10 +205,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <>
                                     <div class={'network-toolbar flex w-full items-center justify-end gap-5'}>
                                         <ElSelect
-                                            modelValue={unref(filters)}
-                                            onUpdate:modelValue={($v) => {
-                                                filters.value = $v as any;
-                                            }}
+                                            v-model={filters.value}
                                             placeholder={$t('commons.table.status')}
                                             clearable
                                             multiple
@@ -287,9 +284,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, processStore.netLoading]],
-                )}
+                        v-loading={processStore.netLoading}
+                    />
+                }
             </div>
         );
     },

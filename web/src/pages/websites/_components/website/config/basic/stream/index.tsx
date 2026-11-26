@@ -4,7 +4,6 @@ import { Rules } from '@/global/form-rules';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -80,53 +79,33 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <ElForm ref={streamFormRef} model={unref(form)} label-width="120px" label-position="top">
-                    {withDirectives(
-                        <ElRow>
+                    {
+                        <ElRow v-loading={unref(loading)}>
                             <ElCol span={12} offset={1}>
                                 <ElFormItem label={$t('website.streamPorts')} rules={Rules.requiredInput}>
-                                    <ElInput
-                                        modelValue={unref(form).streamPorts}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(form).streamPorts = $v as any;
-                                        }}
-                                    />
+                                    <ElInput v-model={unref(form).streamPorts} />
                                 </ElFormItem>
                                 <ElFormItem prop="udp">
-                                    <ElCheckbox
-                                        modelValue={unref(form).udp}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(form).udp = $v as any;
-                                        }}
-                                        label={$t('website.udp')}
-                                        size="large"
-                                    />
+                                    <ElCheckbox v-model={unref(form).udp} label={$t('website.udp')} size="large" />
                                 </ElFormItem>
-                                <LoadBalanceForm
-                                    ref={lbFormRef}
-                                    modelValue={unref(form)}
-                                    onUpdate:modelValue={($v) => {
-                                        form.value = $v as any;
-                                    }}
-                                    disabled={true}
-                                />
+                                <LoadBalanceForm ref={lbFormRef} v-model={form.value} disabled={true} />
                                 <ElFormItem>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 submit();
                                             }}
                                             class={'mt-2'}
+                                            v-permission={true}
                                         >
                                             {$t('commons.button.save')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </ElFormItem>
                             </ElCol>
-                        </ElRow>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElRow>
+                    }
                 </ElForm>
             </div>
         );

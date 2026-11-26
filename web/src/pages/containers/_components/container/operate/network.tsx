@@ -99,10 +99,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 default: ({ row }) => (
                                     <>
                                         <ElSelect
-                                            modelValue={row.network}
-                                            onUpdate:modelValue={($v) => {
-                                                row.network = $v as any;
-                                            }}
+                                            v-model={row.network}
                                             onChange={($event?: any) => {
                                                 changeNetwork(row);
                                             }}
@@ -121,12 +118,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        <ElInput
-                                            modelValue={row.macAddr}
-                                            onUpdate:modelValue={($v) => {
-                                                row.macAddr = $v as any;
-                                            }}
-                                        />
+                                        <ElInput v-model={row.macAddr} />
                                     </>
                                 ),
                             }}
@@ -138,10 +130,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 default: ({ row }) => (
                                     <>
                                         <ElInput
-                                            modelValue={row.ipv4}
-                                            onUpdate:modelValue={($v) => {
-                                                row.ipv4 = $v as any;
-                                            }}
+                                            v-model={row.ipv4}
                                             disabled={isIpDisabled(row)}
                                             placeholder={$t('container.inputIpv4')}
                                         />
@@ -156,10 +145,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 default: ({ row }) => (
                                     <>
                                         <ElInput
-                                            modelValue={row.ipv6}
-                                            onUpdate:modelValue={($v) => {
-                                                row.ipv6 = $v as any;
-                                            }}
+                                            v-model={row.ipv6}
                                             disabled={isIpDisabled(row)}
                                             placeholder={$t('container.inputIpv6')}
                                         />

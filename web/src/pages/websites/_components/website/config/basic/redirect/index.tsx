@@ -6,7 +6,6 @@ import File from './file/index';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import permissionDirective from '@/directives/modules/permission';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import Status from '@/components/status/index';
 import FuTableOperations from '@/components/table/TableOperations';
@@ -169,7 +168,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <>
-                {withDirectives(
+                {
                     <ComplexTable
                         data={unref(data)}
                         onSearch={($event?: any) => {
@@ -178,21 +177,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         v-slots={{
                             toolbar: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             plain
                                             onClick={($event?: any) => {
                                                 (openCreate as any)($event);
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('commons.button.create')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </>
                             ),
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElTableColumn
                             label={$t('commons.table.name')}
@@ -264,15 +264,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        {withDirectives(
+                                        {
                                             <Status
                                                 status={row.enable ? 'enable' : 'disable'}
                                                 onClick={($event?: any) => {
                                                     opProxy(row);
                                                 }}
-                                            />,
-                                            [[permissionDirective, true]],
-                                        )}
+                                                v-permission={true}
+                                            />
+                                        }
                                     </>
                                 ),
                             }}
@@ -285,9 +285,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             fixed={unref(isMobile) ? false : 'right'}
                             fix
                         />
-                    </ComplexTable>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ComplexTable>
+                }
                 <Create
                     ref={createRef}
                     onClose={($event?: any) => {

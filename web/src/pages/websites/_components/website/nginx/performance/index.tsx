@@ -9,7 +9,6 @@ import { rpc } from '@/lib/rpc';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -285,8 +284,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
-                    <ElForm model={unref(form)} rules={variablesRules} ref={nginxFormRef} label-position="top">
+                {
+                    <ElForm
+                        model={unref(form)}
+                        rules={variablesRules}
+                        ref={nginxFormRef}
+                        label-position="top"
+                        v-loading={unref(loading)}
+                    >
                         <ElRow gutter={20}>
                             <ElCol xs={24} sm={24} md={9} lg={9} xl={9}>
                                 <ElFormItem label="server_names_hash_bucket_size" prop="server_names_hash_bucket_size">
@@ -353,13 +358,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElCol>
                             <ElCol xs={24} sm={24} md={9} lg={9} xl={9}>
                                 <ElFormItem label="gzip" prop="gzip">
-                                    <ElSelect
-                                        modelValue={unref(form).gzip}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(form).gzip = $v as any;
-                                        }}
-                                        disabled={!!unref(sources).gzip}
-                                    >
+                                    <ElSelect v-model={unref(form).gzip} disabled={!!unref(sources).gzip}>
                                         <ElOption label={'on'} value={'on'} />
                                         <ElOption label={'off'} value={'off'} />
                                     </ElSelect>
@@ -472,12 +471,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ) : null}
                                 <ElCol xs={24} sm={24} md={9} lg={9} xl={9}>
                                     <ElFormItem label="brotli" prop="brotli">
-                                        <ElSelect
-                                            modelValue={unref(form).brotli}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(form).brotli = $v as any;
-                                            }}
-                                        >
+                                        <ElSelect v-model={unref(form).brotli}>
                                             <ElOption label={'on'} value={'on'} />
                                             <ElOption label={'off'} value={'off'} />
                                         </ElSelect>
@@ -510,22 +504,21 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElRow>
                         ) : null}
                         <ElFormItem>
-                            {withDirectives(
+                            {
                                 <ElButton
                                     type="primary"
                                     disabled={!unref(loaded)}
                                     onClick={($event?: any) => {
                                         submit(unref(nginxFormRef));
                                     }}
+                                    v-permission={true}
                                 >
                                     {$t('commons.button.save')}
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </div>
         );
     },

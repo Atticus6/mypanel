@@ -52,8 +52,6 @@ interface DisplayNotice {
 }
 type RuleFilter = 'family:ipv4' | 'family:ipv6' | 'action:accept' | 'action:deny';
 import '@/pages/hosts/_components/firewall/rule/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
@@ -851,25 +849,21 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             actions: () => (
                                 <>
                                     {unref(canReset) ? <ElDivider direction="vertical" /> : null}
-                                    {unref(canReset)
-                                        ? withDirectives(
-                                              <ElButton
-                                                  type="primary"
-                                                  link
-                                                  disabled={unref(loading)}
-                                                  loading={unref(resetting)}
-                                                  onClick={($event?: any) => {
-                                                      (resetRules as any)($event);
-                                                  }}
-                                              >
-                                                  {$t('commons.button.reset')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )
-                                        : null}
+                                    {unref(canReset) ? (
+                                        <ElButton
+                                            type="primary"
+                                            link
+                                            disabled={unref(loading)}
+                                            loading={unref(resetting)}
+                                            onClick={($event?: any) => {
+                                                (resetRules as any)($event);
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.reset')}
+                                        </ElButton>
+                                    ) : null}
                                 </>
                             ),
                         }}
@@ -908,61 +902,55 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     ),
                                     leftToolBar: () => (
                                         <>
-                                            {withDirectives(
+                                            {
                                                 <ElButton
                                                     type="primary"
                                                     disabled={unref(loading)}
                                                     onClick={($event?: any) => {
                                                         (openCreate as any)($event);
                                                     }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
                                                 >
                                                     {$t('commons.button.create')}
-                                                </ElButton>,
-                                                [
-                                                    [permissionDirective, true],
-                                                    [nodeAdminDirective, true],
-                                                ],
-                                            )}
-                                            {withDirectives(
+                                                </ElButton>
+                                            }
+                                            {
                                                 <ElButton
                                                     disabled={unref(loading) || !unref(selects).some(isDeletableRule)}
                                                     onClick={($event?: any) => {
                                                         (removeSelectedRules as any)($event);
                                                     }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
                                                 >
                                                     {$t('commons.button.delete')}
-                                                </ElButton>,
-                                                [
-                                                    [permissionDirective, true],
-                                                    [nodeAdminDirective, true],
-                                                ],
-                                            )}
+                                                </ElButton>
+                                            }
                                             <ElButtonGroup>
-                                                {withDirectives(
+                                                {
                                                     <ElButton
                                                         disabled={unref(loading)}
                                                         onClick={($event?: any) => {
                                                             (openImport as any)($event);
                                                         }}
+                                                        v-permission={true}
+                                                        v-node-admin={true}
                                                     >
                                                         {$t('commons.button.import')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )}
-                                                {withDirectives(
+                                                    </ElButton>
+                                                }
+                                                {
                                                     <ElButton
                                                         disabled={unref(loading) || unref(inventoryTotal) === 0}
                                                         onClick={($event?: any) => {
                                                             (exportRulesBySelection as any)($event);
                                                         }}
+                                                        v-permission={true}
                                                     >
                                                         {$t('commons.button.export')}
-                                                    </ElButton>,
-                                                    [[permissionDirective, true]],
-                                                )}
+                                                    </ElButton>
+                                                }
                                             </ElButtonGroup>
                                         </>
                                     ),
@@ -970,10 +958,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <>
                                             <div class={'firewall-filter-bar'}>
                                                 <ElSelect
-                                                    modelValue={unref(selectedRuleFilters)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        selectedRuleFilters.value = $v as any;
-                                                    }}
+                                                    v-model={selectedRuleFilters.value}
                                                     placeholder={$t('menu.filter')}
                                                     multiple
                                                     clearable
@@ -1020,8 +1005,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     ),
                                     main: () => (
                                         <>
-                                            {withDirectives(
-                                                <div>
+                                            {
+                                                <div v-loading={unref(loading)}>
                                                     <ComplexTable
                                                         selection-context={() => [
                                                             unref(searchName),
@@ -1340,9 +1325,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             fix
                                                         />
                                                     </ComplexTable>
-                                                </div>,
-                                                [[vLoading, unref(loading)]],
-                                            )}
+                                                </div>
+                                            }
                                         </>
                                     ),
                                 }}

@@ -15,7 +15,6 @@ import {
     getCronjobAlertTitle,
 } from '@/utils/cronjob-alert';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
@@ -246,271 +245,258 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             search();
         });
-        return () =>
-            withDirectives(
-                <div>
-                    {withDirectives(
-                        <LayoutContent
-                            title={$t('xpack.alert.list')}
-                            v-slots={{
-                                prompt: () => (
-                                    <>
-                                        <ElAlert
-                                            type="info"
-                                            closable={false}
-                                            class={'!mt-2'}
-                                            v-slots={{ title: () => <>{$t('xpack.alert.agentOfflineAlertHelper')}</> }}
-                                        />
-                                    </>
-                                ),
-                                leftToolBar: () => (
-                                    <>
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                onClick={($event?: any) => {
-                                                    openView('create');
-                                                }}
-                                            >
-                                                {$t('xpack.alert.addTask')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                    </>
-                                ),
-                                rightToolBar: () => (
-                                    <>
-                                        <div class={'dropdowns'}>
-                                            <ElSelect
-                                                filterable
-                                                clearable
-                                                modelValue={req.type}
-                                                onUpdate:modelValue={($v) => {
-                                                    req.type = $v as any;
-                                                }}
-                                                onChange={($event?: any) => {
-                                                    search();
-                                                }}
-                                                class={'dropdown !w-52'}
-                                                v-slots={{ prefix: () => <>{$t('commons.table.type')}</> }}
-                                            >
-                                                {unref(isMaster) ? (
-                                                    <>
-                                                        {!unref(isEE) ? (
-                                                            <ElOption
-                                                                value="panelPwdEndTime"
-                                                                label={$t('xpack.alert.panelPwdEndTime')}
-                                                            />
-                                                        ) : null}
-                                                        <ElOption
-                                                            value="panelLogin"
-                                                            label={$t('xpack.alert.panelLogin')}
-                                                        />
-                                                        {unref(isProductPro) && !unref(isEE) ? (
-                                                            <ElOption
-                                                                value="licenseException"
-                                                                label={$t('xpack.alert.licenseException')}
-                                                            />
-                                                        ) : null}
-                                                        {unref(isProductPro) ? (
-                                                            <ElOption
-                                                                value="nodeException"
-                                                                label={$t('xpack.alert.nodeException')}
-                                                            />
-                                                        ) : null}
-                                                        {!unref(isEE) ? (
-                                                            <ElOption
-                                                                value="panelUpdate"
-                                                                label={$t('xpack.alert.panelUpdate')}
-                                                            />
-                                                        ) : null}
-                                                    </>
-                                                ) : null}
-                                                <ElOption value="sshLogin" label={$t('xpack.alert.sshLogin')} />
-                                                <ElOption value="ssl" label={$t('xpack.alert.ssl')} />
-                                                <ElOption value="siteEndTime" label={$t('xpack.alert.siteEndTime')} />
-                                                <ElOption value="cpu" label={$t('xpack.alert.cpu')} />
-                                                <ElOption value="memory" label={$t('xpack.alert.memory')} />
-                                                <ElOption value="disk" label={$t('xpack.alert.disk')} />
-                                                <ElOption value="load" label={$t('xpack.alert.load')} />
-                                                <ElOption value="clams" label={$t('xpack.alert.clams')} />
-                                                <ElOption
-                                                    value="shell"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.shell')])}
-                                                />
-                                                <ElOption
-                                                    value="app"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.app')])}
-                                                />
-                                                <ElOption
-                                                    value="website"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.website')])}
-                                                />
-                                                <ElOption
-                                                    value="database"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.database')])}
-                                                />
-                                                <ElOption
-                                                    value="directory"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.directory')])}
-                                                />
-                                                <ElOption
-                                                    value="log"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.log')])}
-                                                />
-                                                <ElOption
-                                                    value="snapshot"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.snapshot')])}
-                                                />
-                                                <ElOption
-                                                    value="curl"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.curl')])}
-                                                />
-                                                <ElOption
-                                                    value="cutWebsiteLog"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.cutWebsiteLog')])}
-                                                />
-                                                <ElOption
-                                                    value="clean"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.clean')])}
-                                                />
-                                                <ElOption
-                                                    value="ntp"
-                                                    label={$t('xpack.alert.cronjob', [$t('cronjob.ntp')])}
-                                                />
-                                            </ElSelect>
-                                            <ElSelect
-                                                clearable
-                                                filterable
-                                                modelValue={req.status}
-                                                onUpdate:modelValue={($v) => {
-                                                    req.status = $v as any;
-                                                }}
-                                                onChange={($event?: any) => {
-                                                    search();
-                                                }}
-                                                onClear={($event?: any) => {
-                                                    (search as any)($event);
-                                                }}
-                                                class={'dropdown !w-52'}
-                                                v-slots={{ prefix: () => <>{$t('commons.table.status')}</> }}
-                                            >
-                                                <ElOption label={$t('commons.button.enable')} value="Enable" />
-                                                <ElOption label={$t('commons.button.disable')} value="Disable" />
-                                            </ElSelect>
-                                        </div>
-                                    </>
-                                ),
-                                main: () => (
-                                    <>
-                                        <ComplexTable
-                                            cache-pagination={false}
-                                            pagination-config={paginationConfig}
-                                            data={unref(data)}
-                                            height-diff={380}
-                                            onSortChange={($event?: any) => {
-                                                (changeSort as any)($event);
+        return () => (
+            <div v-loading={unref(loading)}>
+                {
+                    <LayoutContent
+                        title={$t('xpack.alert.list')}
+                        v-slots={{
+                            prompt: () => (
+                                <>
+                                    <ElAlert
+                                        type="info"
+                                        closable={false}
+                                        class={'!mt-2'}
+                                        v-slots={{ title: () => <>{$t('xpack.alert.agentOfflineAlertHelper')}</> }}
+                                    />
+                                </>
+                            ),
+                            leftToolBar: () => (
+                                <>
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                openView('create');
                                             }}
-                                            onSearch={($event?: any) => {
+                                            v-permission={true}
+                                        >
+                                            {$t('xpack.alert.addTask')}
+                                        </ElButton>
+                                    }
+                                </>
+                            ),
+                            rightToolBar: () => (
+                                <>
+                                    <div class={'dropdowns'}>
+                                        <ElSelect
+                                            filterable
+                                            clearable
+                                            v-model={req.type}
+                                            onChange={($event?: any) => {
                                                 search();
                                             }}
+                                            class={'dropdown !w-52'}
+                                            v-slots={{ prefix: () => <>{$t('commons.table.type')}</> }}
                                         >
-                                            <ElTableColumn
-                                                label={$t('commons.table.title')}
-                                                prop="title"
-                                                formatter={formatTitle}
-                                                min-width="300px"
-                                                show-overflow-tooltip
-                                            />
-                                            <ElTableColumn
-                                                label={$t('commons.table.status')}
-                                                prop="status"
-                                                width="110px"
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            {row.status === 'Enable'
-                                                                ? withDirectives(
-                                                                      <ElButton
-                                                                          onClick={($event?: any) => {
-                                                                              updateAlertStatus('disable', row.id);
-                                                                          }}
-                                                                          link
-                                                                          icon="VideoPlay"
-                                                                          type="success"
-                                                                      >
-                                                                          {$t('commons.status.enabled')}
-                                                                      </ElButton>,
-                                                                      [[permissionDirective, true]],
-                                                                  )
-                                                                : withDirectives(
-                                                                      <ElButton
-                                                                          icon="VideoPause"
-                                                                          link
-                                                                          type="danger"
-                                                                          onClick={($event?: any) => {
-                                                                              updateAlertStatus('enable', row.id);
-                                                                          }}
-                                                                      >
-                                                                          {$t('commons.status.disabled')}
-                                                                      </ElButton>,
-                                                                      [[permissionDirective, true]],
-                                                                  )}
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                label={$t('xpack.alert.alertMethod')}
-                                                prop="method"
-                                                width="200px"
-                                                show-overflow-tooltip
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>{row.method ? <span>{formatMethod(row)}</span> : null}</>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                label={$t('xpack.alert.alertRule')}
-                                                prop="rule"
-                                                min-width="300px"
-                                                show-overflow-tooltip
-                                                v-slots={{ default: ({ row }) => <>{formatRule(row)}</> }}
-                                            />
-                                            {unref(isEE) ? (
-                                                <ElTableColumn
-                                                    label={$t('commons.table.creator')}
-                                                    prop="createUser"
-                                                    width="100px"
-                                                    show-overflow-tooltip
-                                                    v-slots={{ default: ({ row }) => <>{row.createUser || '-'}</> }}
-                                                />
+                                            {unref(isMaster) ? (
+                                                <>
+                                                    {!unref(isEE) ? (
+                                                        <ElOption
+                                                            value="panelPwdEndTime"
+                                                            label={$t('xpack.alert.panelPwdEndTime')}
+                                                        />
+                                                    ) : null}
+                                                    <ElOption value="panelLogin" label={$t('xpack.alert.panelLogin')} />
+                                                    {unref(isProductPro) && !unref(isEE) ? (
+                                                        <ElOption
+                                                            value="licenseException"
+                                                            label={$t('xpack.alert.licenseException')}
+                                                        />
+                                                    ) : null}
+                                                    {unref(isProductPro) ? (
+                                                        <ElOption
+                                                            value="nodeException"
+                                                            label={$t('xpack.alert.nodeException')}
+                                                        />
+                                                    ) : null}
+                                                    {!unref(isEE) ? (
+                                                        <ElOption
+                                                            value="panelUpdate"
+                                                            label={$t('xpack.alert.panelUpdate')}
+                                                        />
+                                                    ) : null}
+                                                </>
                                             ) : null}
-                                            <FuTableOperations
-                                                ellipsis={2}
-                                                width="130px"
-                                                buttons={buttons}
-                                                label={$t('commons.table.operate')}
-                                                fixed={unref(isMobile) ? false : 'right'}
-                                                fix
+                                            <ElOption value="sshLogin" label={$t('xpack.alert.sshLogin')} />
+                                            <ElOption value="ssl" label={$t('xpack.alert.ssl')} />
+                                            <ElOption value="siteEndTime" label={$t('xpack.alert.siteEndTime')} />
+                                            <ElOption value="cpu" label={$t('xpack.alert.cpu')} />
+                                            <ElOption value="memory" label={$t('xpack.alert.memory')} />
+                                            <ElOption value="disk" label={$t('xpack.alert.disk')} />
+                                            <ElOption value="load" label={$t('xpack.alert.load')} />
+                                            <ElOption value="clams" label={$t('xpack.alert.clams')} />
+                                            <ElOption
+                                                value="shell"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.shell')])}
                                             />
-                                        </ComplexTable>
-                                    </>
-                                ),
-                            }}
-                        />,
-                        [[vLoading, unref(loading)]],
-                    )}
-                    <AddTask
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
+                                            <ElOption
+                                                value="app"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.app')])}
+                                            />
+                                            <ElOption
+                                                value="website"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.website')])}
+                                            />
+                                            <ElOption
+                                                value="database"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.database')])}
+                                            />
+                                            <ElOption
+                                                value="directory"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.directory')])}
+                                            />
+                                            <ElOption
+                                                value="log"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.log')])}
+                                            />
+                                            <ElOption
+                                                value="snapshot"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.snapshot')])}
+                                            />
+                                            <ElOption
+                                                value="curl"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.curl')])}
+                                            />
+                                            <ElOption
+                                                value="cutWebsiteLog"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.cutWebsiteLog')])}
+                                            />
+                                            <ElOption
+                                                value="clean"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.clean')])}
+                                            />
+                                            <ElOption
+                                                value="ntp"
+                                                label={$t('xpack.alert.cronjob', [$t('cronjob.ntp')])}
+                                            />
+                                        </ElSelect>
+                                        <ElSelect
+                                            clearable
+                                            filterable
+                                            v-model={req.status}
+                                            onChange={($event?: any) => {
+                                                search();
+                                            }}
+                                            onClear={($event?: any) => {
+                                                (search as any)($event);
+                                            }}
+                                            class={'dropdown !w-52'}
+                                            v-slots={{ prefix: () => <>{$t('commons.table.status')}</> }}
+                                        >
+                                            <ElOption label={$t('commons.button.enable')} value="Enable" />
+                                            <ElOption label={$t('commons.button.disable')} value="Disable" />
+                                        </ElSelect>
+                                    </div>
+                                </>
+                            ),
+                            main: () => (
+                                <>
+                                    <ComplexTable
+                                        cache-pagination={false}
+                                        pagination-config={paginationConfig}
+                                        data={unref(data)}
+                                        height-diff={380}
+                                        onSortChange={($event?: any) => {
+                                            (changeSort as any)($event);
+                                        }}
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                    >
+                                        <ElTableColumn
+                                            label={$t('commons.table.title')}
+                                            prop="title"
+                                            formatter={formatTitle}
+                                            min-width="300px"
+                                            show-overflow-tooltip
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.status')}
+                                            prop="status"
+                                            width="110px"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {row.status === 'Enable' ? (
+                                                            <ElButton
+                                                                onClick={($event?: any) => {
+                                                                    updateAlertStatus('disable', row.id);
+                                                                }}
+                                                                link
+                                                                icon="VideoPlay"
+                                                                type="success"
+                                                                v-permission={true}
+                                                            >
+                                                                {$t('commons.status.enabled')}
+                                                            </ElButton>
+                                                        ) : (
+                                                            <ElButton
+                                                                icon="VideoPause"
+                                                                link
+                                                                type="danger"
+                                                                onClick={($event?: any) => {
+                                                                    updateAlertStatus('enable', row.id);
+                                                                }}
+                                                                v-permission={true}
+                                                            >
+                                                                {$t('commons.status.disabled')}
+                                                            </ElButton>
+                                                        )}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('xpack.alert.alertMethod')}
+                                            prop="method"
+                                            width="200px"
+                                            show-overflow-tooltip
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>{row.method ? <span>{formatMethod(row)}</span> : null}</>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('xpack.alert.alertRule')}
+                                            prop="rule"
+                                            min-width="300px"
+                                            show-overflow-tooltip
+                                            v-slots={{ default: ({ row }) => <>{formatRule(row)}</> }}
+                                        />
+                                        {unref(isEE) ? (
+                                            <ElTableColumn
+                                                label={$t('commons.table.creator')}
+                                                prop="createUser"
+                                                width="100px"
+                                                show-overflow-tooltip
+                                                v-slots={{ default: ({ row }) => <>{row.createUser || '-'}</> }}
+                                            />
+                                        ) : null}
+                                        <FuTableOperations
+                                            ellipsis={2}
+                                            width="130px"
+                                            buttons={buttons}
+                                            label={$t('commons.table.operate')}
+                                            fixed={unref(isMobile) ? false : 'right'}
+                                            fix
+                                        />
+                                    </ComplexTable>
+                                </>
+                            ),
                         }}
-                        ref={addTaskRef}
+                        v-loading={unref(loading)}
                     />
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                }
+                <AddTask
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                    ref={addTaskRef}
+                />
+            </div>
+        );
     },
     options,
 );

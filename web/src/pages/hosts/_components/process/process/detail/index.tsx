@@ -69,10 +69,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('app.detail')}
                 resource={unref(resourceName)}
                 onClose={($event?: any) => {
@@ -82,14 +79,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 v-slots={{
                     content: () => (
                         <>
-                            {withDirectives(
-                                <ElTabs
-                                    modelValue={unref(activeName)}
-                                    onUpdate:modelValue={($v) => {
-                                        activeName.value = $v as any;
-                                    }}
-                                    type="card"
-                                >
+                            {
+                                <ElTabs v-model={activeName.value} type="card" v-loading={unref(loading)}>
                                     <ElTabPane label={$t('process.basic')} name="basic">
                                         <ElDescriptions column={2} border>
                                             <ElDescriptionsItem label={$t('commons.table.name')} min-width="100px">
@@ -169,10 +160,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElTabPane label={$t('process.env')} name="env">
                                         <CodemirrorPro
                                             placeholder={$t('commons.msg.noneData')}
-                                            modelValue={unref(envStr)}
-                                            onUpdate:modelValue={($v) => {
-                                                envStr.value = $v as any;
-                                            }}
+                                            v-model={envStr.value}
                                             heightDiff={300}
                                             disabled={true}
                                         />
@@ -216,9 +204,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <ElTableColumn prop="status" label={$t('commons.table.status')} />
                                         </ElTable>
                                     </ElTabPane>
-                                </ElTabs>,
-                                [[vLoading, unref(loading)]],
-                            )}
+                                </ElTabs>
+                            }
                         </>
                     ),
                 }}

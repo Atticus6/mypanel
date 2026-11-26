@@ -72,7 +72,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('logs.task')}
                         v-slots={{
@@ -84,10 +84,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             rightToolBar: () => (
                                 <>
                                     <ElSelect
-                                        modelValue={req.status}
-                                        onUpdate:modelValue={($v) => {
-                                            req.status = $v as any;
-                                        }}
+                                        v-model={req.status}
                                         onChange={($event?: any) => {
                                             search();
                                         }}
@@ -172,9 +169,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <TaskLog ref={taskLogRef} width="70%" />
             </div>
         );

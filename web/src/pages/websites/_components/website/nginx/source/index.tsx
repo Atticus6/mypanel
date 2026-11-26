@@ -3,7 +3,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -56,57 +55,48 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             getNginxConfig();
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <CodemirrorPro
-                        modelValue={unref(content)}
-                        onUpdate:modelValue={($v) => {
-                            content.value = $v as any;
-                        }}
-                        mode="nginx"
-                        heightDiff={350}
-                    />
-                    <div class={'mt-2.5'}>
-                        {withDirectives(
-                            <ElButton
-                                onClick={($event?: any) => {
-                                    getDefaultConfig();
-                                }}
-                                disabled={unref(loading)}
-                            >
-                                {$t('app.defaultConfig')}
-                            </ElButton>,
-                            [[permissionDirective, true]],
-                        )}
-                        {withDirectives(
-                            <ElButton
-                                type="primary"
-                                onClick={($event?: any) => {
-                                    submit();
-                                }}
-                                disabled={unref(loading)}
-                            >
-                                {$t('commons.button.save')}
-                            </ElButton>,
-                            [[permissionDirective, true]],
-                        )}
-                    </div>
-                    <ElRow>
-                        <ElCol span={4}>
-                            {unref(useOld) ? (
-                                <ElAlert
-                                    title={$t('app.defaultConfigHelper')}
-                                    type="info"
-                                    closable={false}
-                                    class={'mt-2.5'}
-                                />
-                            ) : null}
-                        </ElCol>
-                    </ElRow>
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+        return () => (
+            <div v-loading={unref(loading)}>
+                <CodemirrorPro v-model={content.value} mode="nginx" heightDiff={350} />
+                <div class={'mt-2.5'}>
+                    {
+                        <ElButton
+                            onClick={($event?: any) => {
+                                getDefaultConfig();
+                            }}
+                            disabled={unref(loading)}
+                            v-permission={true}
+                        >
+                            {$t('app.defaultConfig')}
+                        </ElButton>
+                    }
+                    {
+                        <ElButton
+                            type="primary"
+                            onClick={($event?: any) => {
+                                submit();
+                            }}
+                            disabled={unref(loading)}
+                            v-permission={true}
+                        >
+                            {$t('commons.button.save')}
+                        </ElButton>
+                    }
+                </div>
+                <ElRow>
+                    <ElCol span={4}>
+                        {unref(useOld) ? (
+                            <ElAlert
+                                title={$t('app.defaultConfigHelper')}
+                                type="info"
+                                closable={false}
+                                class={'mt-2.5'}
+                            />
+                        ) : null}
+                    </ElCol>
+                </ElRow>
+            </div>
+        );
     },
     options,
 );

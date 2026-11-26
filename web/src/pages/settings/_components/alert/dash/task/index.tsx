@@ -16,7 +16,6 @@ interface DialogProps {
 }
 type FormInstance = InstanceType<typeof ElForm>;
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -559,10 +558,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 header={unref(dialogData).title === 'create' ? $t('xpack.alert.addTask') : $t('xpack.alert.editTask')}
                 resource={unref(dialogData).title === 'create' ? unref(dialogData).rowData?.title : ''}
                 onClose={($event?: any) => {
@@ -581,7 +577,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
@@ -590,11 +586,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         disabled={
                                             unref(dialogData).rowData?.type === 'panelPwdEndTime' && unref(loading)
                                         }
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
@@ -608,10 +604,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     onChange={($event?: any) => {
                                         (changeType as any)($event);
                                     }}
-                                    modelValue={unref(dialogData).rowData!.type}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.type = $v as any;
-                                    }}
+                                    v-model={unref(dialogData).rowData!.type}
                                     disabled={unref(dialogData).title === 'edit'}
                                     class={'selectClass'}
                                 >
@@ -645,10 +638,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onChange={($event?: any) => {
                                             (changeType as any)($event);
                                         }}
-                                        modelValue={unref(dialogData).rowData!.subType}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.subType = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.subType}
                                         disabled={unref(dialogData).title === 'edit'}
                                         class={'selectClass'}
                                     >
@@ -670,13 +660,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {unref(dialogData).rowData!.type === 'ssl' ? (
                                 <ElFormItem label={$t('xpack.alert.certificate')} prop="project">
-                                    <ElSelect
-                                        modelValue={unref(dialogData).rowData!.project}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.project = $v as any;
-                                        }}
-                                        class={'selectClass'}
-                                    >
+                                    <ElSelect v-model={unref(dialogData).rowData!.project} class={'selectClass'}>
                                         <ElOption
                                             disabled={unref(sslOptions).length === 0}
                                             label={$t('commons.table.all')}
@@ -696,13 +680,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {unref(dialogData).rowData!.type === 'siteEndTime' ? (
                                 <ElFormItem label={$t('menu.website')} prop="project">
-                                    <ElSelect
-                                        modelValue={unref(dialogData).rowData!.project}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.project = $v as any;
-                                        }}
-                                        class={'selectClass'}
-                                    >
+                                    <ElSelect v-model={unref(dialogData).rowData!.project} class={'selectClass'}>
                                         <ElOption
                                             disabled={unref(websiteOptions) && unref(websiteOptions).length === 0}
                                             label={$t('commons.table.all')}
@@ -728,13 +706,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {diskTypes.includes(unref(dialogData).rowData!.type) ? (
                                 <ElFormItem label={$t('xpack.alert.diskInfo')} prop="project">
-                                    <ElSelect
-                                        modelValue={unref(dialogData).rowData!.project}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.project = $v as any;
-                                        }}
-                                        class={'selectClass'}
-                                    >
+                                    <ElSelect v-model={unref(dialogData).rowData!.project} class={'selectClass'}>
                                         <ElOption
                                             disabled={unref(diskOptions).length === 0}
                                             label={$t('commons.table.all')}
@@ -752,10 +724,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <ElFormItem label={$t('xpack.alert.taskName')} prop="project">
                                     <ElSelect
                                         default-first-option
-                                        modelValue={unref(dialogData).rowData!.project}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.project = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.project}
                                         class={'selectClass'}
                                     >
                                         {(unref(clamsOptions) || []).map((item, index) => (
@@ -772,10 +741,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <ElFormItem label={$t('xpack.alert.taskName')} prop="project">
                                     <ElSelect
                                         default-first-option
-                                        modelValue={unref(dialogData).rowData!.project}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.project = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.project}
                                         class={'selectClass'}
                                     >
                                         {(unref(cronJobOptions) || []).map((item, index) => (
@@ -833,10 +799,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onChange={($event?: any) => {
                                             (changeCycle as any)($event);
                                         }}
-                                        modelValue={unref(dialogData).rowData!.cycle}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.cycle = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.cycle}
                                     >
                                         <ElRadioButton label={$t('xpack.alert.useDisk')} value={1} />
                                         <ElRadioButton label={$t('xpack.alert.usePercentage')} value={2} />
@@ -928,10 +891,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         type="textarea"
                                         placeholder={$t('setting.ipWhiteListEgs')}
                                         rows={4}
-                                        modelValue={unref(dialogData).rowData!.advancedParams}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.advancedParams = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.advancedParams}
                                     />
                                     <span class={'input-help'}>{$t('xpack.alert.ipWhiteListHelper')}</span>
                                 </ElFormItem>
@@ -939,10 +899,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(dialogData).rowData!.type === 'cronJob' ? (
                                 <ElFormItem label={$t('xpack.alert.alertTriggerMode')} prop="alertTriggerMode">
                                     <ElSelect
-                                        modelValue={unref(dialogData).rowData!.alertTriggerMode}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.alertTriggerMode = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.alertTriggerMode}
                                         class={'selectClass'}
                                     >
                                         {(cronjobAlertModes || []).map((item) => (
@@ -970,10 +927,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElFormItem label={$t('xpack.alert.alertMethod')} prop="sendMethod">
                                 <ElSelect
                                     popper-class="alert-config-method-dropdown"
-                                    modelValue={unref(dialogData).rowData!.sendMethod}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.sendMethod = $v as any;
-                                    }}
+                                    v-model={unref(dialogData).rowData!.sendMethod}
                                     multiple
                                     cleanable
                                     collapse-tags

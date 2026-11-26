@@ -118,10 +118,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 title={$t('commons.button.import')}
                 size="large"
                 v-slots={{
@@ -172,10 +169,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <ElSelect
                         filterable
                         placeholder={$t('terminal.groupChange')}
-                        modelValue={unref(currentGroup)}
-                        onUpdate:modelValue={($v) => {
-                            currentGroup.value = $v as any;
-                        }}
+                        v-model={currentGroup.value}
                         onChange={($event?: any) => {
                             (changeGroup as any)($event);
                         }}
@@ -185,8 +179,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElOption label={item.name} value={item.id} key={item.id} />
                         ))}
                     </ElSelect>
-                    {withDirectives(
-                        <ElCard class={'mt-2 w-full'}>
+                    {
+                        <ElCard class={'mt-2 w-full'} v-loading={unref(loading)}>
                             <ComplexTable
                                 pagination-config={paginationConfig}
                                 onSearch={($event?: any) => {
@@ -220,9 +214,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     show-overflow-tooltip
                                 />
                             </ComplexTable>
-                        </ElCard>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElCard>
+                    }
                 </div>
             </DialogPro>
         );

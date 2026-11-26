@@ -574,13 +574,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         />
                     )}
                 </ElFormItem>
-                <ElCollapse
-                    modelValue={unref(activeSections)}
-                    onUpdate:modelValue={($v) => {
-                        activeSections.value = $v as any;
-                    }}
-                    class={'advanced-collapse'}
-                >
+                <ElCollapse v-model={activeSections.value} class={'advanced-collapse'}>
                     <ElCollapseItem
                         name="advanced"
                         v-slots={{

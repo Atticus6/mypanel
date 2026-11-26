@@ -245,17 +245,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {unref(connectionTree).length > 0 || !unref(isNodeAdmin) || unref(loadingConnections) ? (
                             <>
                                 <ElInput
-                                    modelValue={unref(connectionFilter)}
-                                    onUpdate:modelValue={($v) => {
-                                        connectionFilter.value = $v as any;
-                                    }}
+                                    v-model={connectionFilter.value}
                                     size="small"
                                     clearable
                                     prefix-icon="Search"
                                     placeholder={$t('commons.button.search')}
                                     aria-label={$t('terminal.createConn')}
                                 />
-                                {withDirectives(
+                                {
                                     <ElTree
                                         ref={treeRef}
                                         node-key="id"
@@ -298,9 +295,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 </>
                                             ),
                                         }}
-                                    />,
-                                    [[vLoading, unref(loadingConnections)]],
-                                )}
+                                        v-loading={unref(loadingConnections)}
+                                    />
+                                }
                             </>
                         ) : null}
                     </div>

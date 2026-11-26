@@ -5,7 +5,6 @@ import { newUUID } from '@/utils/id';
 import TaskLog from '@/components/log/task/index';
 import { Rules } from '@/global/form-rules';
 import type { OpenrestyModule } from '@/gen/panel/agent/v1/openresty_pb';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -87,10 +86,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('nginx.build')}
                     size="normal"
                     onClose={($event?: any) => {
@@ -107,18 +103,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit(unref(buildForm));
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                     }}
@@ -128,12 +124,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElText type="info">{$t('nginx.buildPurposeHint')}</ElText>
                         </ElFormItem>
                         <ElFormItem label={$t('nginx.mirrorUrl')} prop="mirror">
-                            <ElSelect
-                                modelValue={unref(build).mirror}
-                                onUpdate:modelValue={($v) => {
-                                    unref(build).mirror = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(build).mirror}>
                                 <ElOption
                                     value="http://archive.ubuntu.com/ubuntu/"
                                     label="http://archive.ubuntu.com/ubuntu/"
@@ -154,12 +145,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         {unref(moduleOptions).length > 0 ? (
                             <ElFormItem label={$t('nginx.modulesToBuild')} prop="modules">
-                                <ElCheckboxGroup
-                                    modelValue={unref(build).modules}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(build).modules = $v as any;
-                                    }}
-                                >
+                                <ElCheckboxGroup v-model={unref(build).modules}>
                                     {(unref(moduleOptions) || []).map((item) => (
                                         <ElCheckbox value={item.name} key={item.name}>
                                             {item.name}
@@ -188,12 +174,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                         ) : null}
                         <ElFormItem label={$t('nginx.forceBuild')}>
-                            <ElSwitch
-                                modelValue={unref(build).force}
-                                onUpdate:modelValue={($v) => {
-                                    unref(build).force = $v as any;
-                                }}
-                            />
+                            <ElSwitch v-model={unref(build).force} />
                         </ElFormItem>
                     </ElForm>
                 </DrawerPro>

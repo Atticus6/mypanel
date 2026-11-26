@@ -173,14 +173,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <div class={'quick-directories'}>
+                    {
+                        <div class={'quick-directories'} v-loading={unref(loading)}>
                             <div class={'directory-search'}>
                                 <ElInput
-                                    modelValue={unref(searchInput)}
-                                    onUpdate:modelValue={($v) => {
-                                        searchInput.value = $v as any;
-                                    }}
+                                    v-model={searchInput.value}
                                     clearable
                                     prefix-icon="Search"
                                     placeholder={`${$t('file.path')} / ${$t('home.alias')}`}
@@ -214,10 +211,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {(unref(filteredRows) || []).map((row) => (
                                     <div class={'directory-row'} key={row.key}>
                                         <ElInput
-                                            modelValue={row.path}
-                                            onUpdate:modelValue={($v) => {
-                                                row.path = $v as any;
-                                            }}
+                                            v-model={row.path}
                                             readonly={!row.editing}
                                             disabled={row.busy}
                                             aria-label={$t('file.path')}
@@ -237,10 +231,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             }}
                                         />
                                         <ElInput
-                                            modelValue={row.alias}
-                                            onUpdate:modelValue={($v) => {
-                                                row.alias = $v as any;
-                                            }}
+                                            v-model={row.alias}
                                             readonly={!row.editing}
                                             disabled={row.busy}
                                             aria-label={$t('home.alias')}
@@ -301,9 +292,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 {$t('commons.button.add')}
                             </ElButton>
-                        </div>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </div>
+                    }
                     <div class={'directory-footer'}>
                         <ElButton
                             onClick={($event?: any) => {

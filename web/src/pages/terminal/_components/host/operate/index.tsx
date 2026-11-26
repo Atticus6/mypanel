@@ -134,10 +134,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('terminal.host')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -175,8 +172,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={hostInfoRef} label-position="top" model={unref(dialogData).rowData} rules={rules}>
+                {
+                    <ElForm
+                        ref={hostInfoRef}
+                        label-position="top"
+                        model={unref(dialogData).rowData}
+                        rules={rules}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('terminal.ip')} prop="addr">
                             <ElInput
                                 onChange={($event?: any) => {
@@ -195,10 +198,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     isOK.value = false;
                                 }}
                                 clearable
-                                modelValue={unref(dialogData).rowData!.user}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.user = $v as any;
-                                }}
+                                v-model={unref(dialogData).rowData!.user}
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('terminal.authMode')} prop="authMode">
@@ -206,10 +206,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onChange={($event?: any) => {
                                     isOK.value = false;
                                 }}
-                                modelValue={unref(dialogData).rowData!.authMode}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.authMode = $v as any;
-                                }}
+                                v-model={unref(dialogData).rowData!.authMode}
                             >
                                 <ElRadio value="password">{$t('terminal.passwordMode')}</ElRadio>
                                 <ElRadio value="key">{$t('terminal.keyMode')}</ElRadio>
@@ -224,10 +221,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     clearable
                                     show-password
                                     type="password"
-                                    modelValue={unref(dialogData).rowData!.password}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.password = $v as any;
-                                    }}
+                                    v-model={unref(dialogData).rowData!.password}
                                 />
                             </ElFormItem>
                         ) : null}
@@ -239,10 +233,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }}
                                     clearable
                                     type="textarea"
-                                    modelValue={unref(dialogData).rowData!.privateKey}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.privateKey = $v as any;
-                                    }}
+                                    v-model={unref(dialogData).rowData!.privateKey}
                                 />
                             </ElFormItem>
                         ) : null}
@@ -255,10 +246,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     type="password"
                                     show-password
                                     clearable
-                                    modelValue={unref(dialogData).rowData!.passPhrase}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.passPhrase = $v as any;
-                                    }}
+                                    v-model={unref(dialogData).rowData!.passPhrase}
                                 />
                             </ElFormItem>
                         ) : null}
@@ -286,10 +274,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElFormItem label={$t('commons.table.group')} prop="groupID">
                             <ElSelect
                                 filterable
-                                modelValue={unref(dialogData).rowData!.groupID}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.groupID = $v as any;
-                                }}
+                                v-model={unref(dialogData).rowData!.groupID}
                                 clearable
                                 style={'width: 100%'}
                             >
@@ -299,27 +284,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElSelect>
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.title')} prop="name">
-                            <ElInput
-                                clearable
-                                modelValue={unref(dialogData).rowData!.name}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.name = $v as any;
-                                }}
-                            />
+                            <ElInput clearable v-model={unref(dialogData).rowData!.name} />
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.description')} prop="description">
-                            <ElInput
-                                clearable
-                                type="textarea"
-                                modelValue={unref(dialogData).rowData!.description}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.description = $v as any;
-                                }}
-                            />
+                            <ElInput clearable type="textarea" v-model={unref(dialogData).rowData!.description} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

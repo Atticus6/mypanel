@@ -321,10 +321,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('file.downloadProcess')}
                 size="small"
                 onClose={($event?: any) => {
@@ -333,8 +330,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 v-slots={{
                     content: () => (
                         <>
-                            {withDirectives(
-                                <div class={'min-h-[160px] space-y-4 p-4'}>
+                            {
+                                <div class={'min-h-[160px] space-y-4 p-4'} v-loading={unref(loading)}>
                                     {(unref(res) || []).map((value) => (
                                         <div
                                             class={cn(
@@ -403,9 +400,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </div>
                                         </div>
                                     ))}
-                                </div>,
-                                [[vLoading, unref(loading)]],
-                            )}
+                                </div>
+                            }
                         </>
                     ),
                 }}

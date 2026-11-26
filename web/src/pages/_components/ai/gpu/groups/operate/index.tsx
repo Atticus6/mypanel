@@ -169,10 +169,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 header={$t(unref(form).id ? 'commons.button.edit' : 'commons.button.create')}
                 resource={$t('aiTools.gpuGroup.groups')}
                 size="large"
@@ -206,7 +203,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         model={unref(form)}
@@ -216,6 +213,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(initializing) || unref(saving)}
                     >
                         <h3 class={'group-form-heading'}>{$t('home.baseInfo')}</h3>
                         <ElFormItem label={$t('commons.table.name')} prop="name">
@@ -230,10 +228,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         <ElFormItem label={$t('aiTools.gpuGroup.vendor')} prop="imageType">
                             <ElSelect
-                                modelValue={unref(form).imageType}
-                                onUpdate:modelValue={($v) => {
-                                    unref(form).imageType = $v as any;
-                                }}
+                                v-model={unref(form).imageType}
                                 disabled={!!__panelSetupProps.imageType}
                                 onChange={($event?: any) => {
                                     (changeVendor as any)($event);
@@ -251,10 +246,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         <GPUConfig
                             ref={gpuRef}
-                            modelValue={unref(form).gpu}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).gpu = $v as any;
-                            }}
+                            v-model={unref(form).gpu}
                             image-type={unref(form).imageType}
                             group-editor
                             v-slots={{
@@ -285,19 +277,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {unref(form).id ? <div class={'input-help'}>{$t('aiTools.gpuGroup.snapshotHelp')}</div> : null}
                         <ElFormItem label={$t('commons.table.description')} prop="description">
                             <ElInput
-                                modelValue={unref(form).description}
-                                onUpdate:modelValue={($v) => {
-                                    unref(form).description = $v as any;
-                                }}
+                                v-model={unref(form).description}
                                 type="textarea"
                                 rows={2}
                                 maxlength="500"
                                 show-word-limit
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(initializing) || unref(saving)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

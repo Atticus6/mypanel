@@ -31,7 +31,6 @@ interface Filters {
     filters?: string;
 }
 import '@/pages/containers/_components/container/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import LayoutContent from '@/components/layout-content/index';
 import TableViewSwitch from '@/components/table/TableViewSwitch';
@@ -586,839 +585,799 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 },
             },
         ];
-        return () =>
-            withDirectives(
-                <div>
-                    <DockerStatus
-                        isActive={unref(isActive)}
-                        onUpdate:isActive={($v) => {
-                            isActive.value = $v as any;
-                        }}
-                        isExist={unref(isExist)}
-                        onUpdate:isExist={($v) => {
-                            isExist.value = $v as any;
-                        }}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                    {unref(isExist) ? (
-                        <LayoutContent
-                            title={$t('menu.container', 2)}
-                            class={{ mask: !unref(isActive) }}
-                            v-slots={{
-                                search: () => (
-                                    <>
-                                        {unref(isExist) && unref(isActive) ? (
-                                            <div class={'card-interval'}>
-                                                {(unref(tags) || []).map((item) => (
-                                                    <div class={'inline'} key={item.key}>
-                                                        {item.count ? (
-                                                            <ElButton
-                                                                onClick={($event?: any) => {
-                                                                    searchWithStatus(item.key);
-                                                                }}
-                                                                type={unref(activeTag) === item.key ? 'primary' : ''}
-                                                                plain={unref(activeTag) !== item.key}
-                                                                class={cn(
-                                                                    'tag-button',
-                                                                    unref(activeTag) === item.key ? '' : 'no-active',
-                                                                )}
-                                                            >
-                                                                {item.key === 'all'
-                                                                    ? $t('commons.table.all')
-                                                                    : $t('commons.status.' + item.key)}
-                                                                {' * '}
-                                                                {item.count}
-                                                            </ElButton>
-                                                        ) : null}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        ) : null}
-                                    </>
-                                ),
-                                leftToolBar: () => (
-                                    <>
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                onClick={($event?: any) => {
-                                                    onContainerOperate('');
-                                                }}
-                                            >
-                                                {$t('commons.button.create')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                plain
-                                                onClick={($event?: any) => {
-                                                    onImportCreate();
-                                                }}
-                                            >
-                                                {$t('commons.button.import')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                plain
-                                                onClick={($event?: any) => {
-                                                    onClean();
-                                                }}
-                                            >
-                                                {$t('container.containerPrune')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                    </>
-                                ),
-                                rightToolBar: () => (
-                                    <>
-                                        <TableViewSwitch
-                                            modelValue={unref(viewMode)}
-                                            onUpdate:modelValue={($v) => {
-                                                viewMode.value = $v as any;
+        return () => (
+            <div v-loading={unref(loading)}>
+                <DockerStatus
+                    isActive={unref(isActive)}
+                    onUpdate:isActive={($v) => {
+                        isActive.value = $v as any;
+                    }}
+                    isExist={unref(isExist)}
+                    onUpdate:isExist={($v) => {
+                        isExist.value = $v as any;
+                    }}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+                {unref(isExist) ? (
+                    <LayoutContent
+                        title={$t('menu.container', 2)}
+                        class={{ mask: !unref(isActive) }}
+                        v-slots={{
+                            search: () => (
+                                <>
+                                    {unref(isExist) && unref(isActive) ? (
+                                        <div class={'card-interval'}>
+                                            {(unref(tags) || []).map((item) => (
+                                                <div class={'inline'} key={item.key}>
+                                                    {item.count ? (
+                                                        <ElButton
+                                                            onClick={($event?: any) => {
+                                                                searchWithStatus(item.key);
+                                                            }}
+                                                            type={unref(activeTag) === item.key ? 'primary' : ''}
+                                                            plain={unref(activeTag) !== item.key}
+                                                            class={cn(
+                                                                'tag-button',
+                                                                unref(activeTag) === item.key ? '' : 'no-active',
+                                                            )}
+                                                        >
+                                                            {item.key === 'all'
+                                                                ? $t('commons.table.all')
+                                                                : $t('commons.status.' + item.key)}
+                                                            {' * '}
+                                                            {item.count}
+                                                        </ElButton>
+                                                    ) : null}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : null}
+                                </>
+                            ),
+                            leftToolBar: () => (
+                                <>
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                onContainerOperate('');
                                             }}
-                                            storage-key="container"
-                                        />
-                                        <TableSearch
-                                            onSearch={($event?: any) => {
-                                                search();
-                                            }}
-                                            searchName={unref(searchName)}
-                                            onUpdate:searchName={($v) => {
-                                                searchName.value = $v as any;
-                                            }}
-                                        />
-                                        <ElTooltip
-                                            content={
-                                                unref(includeAppStore)
-                                                    ? $t('container.includeAppstore')
-                                                    : $t('container.excludeAppstore')
-                                            }
+                                            v-permission={true}
                                         >
-                                            <ElButton
-                                                type={unref(includeAppStore) ? '' : 'primary'}
-                                                onClick={($event?: any) => {
-                                                    searchWithAppShow(!unref(includeAppStore));
-                                                }}
-                                                icon={unref(includeAppStore) ? 'View' : 'Hide'}
-                                            />
-                                        </ElTooltip>
-                                        <TableRefresh
-                                            onSearch={($event?: any) => {
-                                                search();
+                                            {$t('commons.button.create')}
+                                        </ElButton>
+                                    }
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            plain
+                                            onClick={($event?: any) => {
+                                                onImportCreate();
                                             }}
+                                            v-permission={true}
+                                        >
+                                            {$t('commons.button.import')}
+                                        </ElButton>
+                                    }
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            plain
+                                            onClick={($event?: any) => {
+                                                onClean();
+                                            }}
+                                            v-permission={true}
+                                        >
+                                            {$t('container.containerPrune')}
+                                        </ElButton>
+                                    }
+                                </>
+                            ),
+                            rightToolBar: () => (
+                                <>
+                                    <TableViewSwitch v-model={viewMode.value} storage-key="container" />
+                                    <TableSearch
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                        searchName={unref(searchName)}
+                                        onUpdate:searchName={($v) => {
+                                            searchName.value = $v as any;
+                                        }}
+                                    />
+                                    <ElTooltip
+                                        content={
+                                            unref(includeAppStore)
+                                                ? $t('container.includeAppstore')
+                                                : $t('container.excludeAppstore')
+                                        }
+                                    >
+                                        <ElButton
+                                            type={unref(includeAppStore) ? '' : 'primary'}
+                                            onClick={($event?: any) => {
+                                                searchWithAppShow(!unref(includeAppStore));
+                                            }}
+                                            icon={unref(includeAppStore) ? 'View' : 'Hide'}
                                         />
-                                        <TableSetting
-                                            title="container-refresh"
-                                            onSearch={($event?: any) => {
-                                                refresh();
-                                            }}
-                                        />
-                                        <FuTableColumnSelect
-                                            columns={unref(columns)}
-                                            trigger="hover"
-                                            title={$t('commons.table.selectColumn')}
-                                            popper-class="popper-class"
-                                            only-icon={true}
-                                        />
-                                    </>
-                                ),
-                                main: () => (
-                                    <>
-                                        <ComplexTable
-                                            selection-context={() => [
-                                                unref(searchName),
-                                                unref(activeTag),
-                                                unref(includeAppStore),
-                                                __panelSetupProps.filters,
-                                            ]}
-                                            cache-pagination={false}
-                                            pagination-config={paginationConfig}
-                                            view-mode={unref(viewMode)}
-                                            onUpdate:view-mode={($v) => {
-                                                viewMode.value = $v as any;
-                                            }}
-                                            selects={unref(selects)}
-                                            onUpdate:selects={($v) => {
-                                                selects.value = $v as any;
-                                            }}
-                                            data={unref(data)}
-                                            row-key="containerID"
-                                            onSortChange={($event?: any) => {
-                                                (search as any)($event);
-                                            }}
-                                            onSearch={($event?: any) => {
-                                                (search as any)($event);
-                                            }}
-                                            row-style={{ height: '65px' }}
-                                            columns={unref(columns)}
-                                            localKey="containerColumn"
-                                            heightDiff={300}
-                                            style={'width: 100%'}
+                                    </ElTooltip>
+                                    <TableRefresh
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                    />
+                                    <TableSetting
+                                        title="container-refresh"
+                                        onSearch={($event?: any) => {
+                                            refresh();
+                                        }}
+                                    />
+                                    <FuTableColumnSelect
+                                        columns={unref(columns)}
+                                        trigger="hover"
+                                        title={$t('commons.table.selectColumn')}
+                                        popper-class="popper-class"
+                                        only-icon={true}
+                                    />
+                                </>
+                            ),
+                            main: () => (
+                                <>
+                                    <ComplexTable
+                                        selection-context={() => [
+                                            unref(searchName),
+                                            unref(activeTag),
+                                            unref(includeAppStore),
+                                            __panelSetupProps.filters,
+                                        ]}
+                                        cache-pagination={false}
+                                        pagination-config={paginationConfig}
+                                        view-mode={unref(viewMode)}
+                                        onUpdate:view-mode={($v) => {
+                                            viewMode.value = $v as any;
+                                        }}
+                                        selects={unref(selects)}
+                                        onUpdate:selects={($v) => {
+                                            selects.value = $v as any;
+                                        }}
+                                        data={unref(data)}
+                                        row-key="containerID"
+                                        onSortChange={($event?: any) => {
+                                            (search as any)($event);
+                                        }}
+                                        onSearch={($event?: any) => {
+                                            (search as any)($event);
+                                        }}
+                                        row-style={{ height: '65px' }}
+                                        columns={unref(columns)}
+                                        localKey="containerColumn"
+                                        heightDiff={300}
+                                        style={'width: 100%'}
+                                        v-slots={{
+                                            footerLeft: ({ selected, toggleSelection }) => (
+                                                <>
+                                                    {
+                                                        <div class={'footer-left-button'} v-permission={true}>
+                                                            <ElSelect
+                                                                v-model={batchOperation.value}
+                                                                class={'p-w-200'}
+                                                                v-slots={{
+                                                                    prefix: () => (
+                                                                        <>
+                                                                            <ElCheckbox
+                                                                                model-value={selected}
+                                                                                onClick={($event?: any) => {
+                                                                                    $event.stopPropagation();
+                                                                                }}
+                                                                                onChange={($event?: any) => {
+                                                                                    (toggleSelection as any)($event);
+                                                                                }}
+                                                                            />
+                                                                        </>
+                                                                    ),
+                                                                }}
+                                                            >
+                                                                <ElOption
+                                                                    label={$t('commons.button.upgrade')}
+                                                                    value="upgrade"
+                                                                />
+                                                                <ElOption
+                                                                    label={$t('container.start')}
+                                                                    value="start"
+                                                                    disabled={checkStatus('start', null)}
+                                                                />
+                                                                <ElOption
+                                                                    label={$t('container.stop')}
+                                                                    value="stop"
+                                                                    disabled={checkStatus('stop', null)}
+                                                                />
+                                                                <ElOption
+                                                                    label={$t('container.restart')}
+                                                                    value="restart"
+                                                                    disabled={checkStatus('restart', null)}
+                                                                />
+                                                                <ElOption
+                                                                    label={$t('container.kill')}
+                                                                    value="kill"
+                                                                    disabled={checkStatus('kill', null)}
+                                                                />
+                                                                <ElOption
+                                                                    label={$t('container.pause')}
+                                                                    value="pause"
+                                                                    disabled={checkStatus('pause', null)}
+                                                                />
+                                                                <ElOption
+                                                                    label={$t('container.unpause')}
+                                                                    value="unpause"
+                                                                    disabled={checkStatus('unpause', null)}
+                                                                />
+                                                                <ElOption
+                                                                    label={$t('container.remove')}
+                                                                    value="remove"
+                                                                    disabled={checkStatus('remove', null)}
+                                                                />
+                                                            </ElSelect>
+                                                            <ElButton
+                                                                type="primary"
+                                                                disabled={
+                                                                    unref(selects).length === 0 ||
+                                                                    unref(batchOperation) === '' ||
+                                                                    checkStatus(unref(batchOperation), null)
+                                                                }
+                                                                onClick={($event?: any) => {
+                                                                    onOperate(unref(batchOperation), null);
+                                                                }}
+                                                            >
+                                                                {$t('website.batchOperate')}
+                                                                {unref(selects).length > 0 ? (
+                                                                    <span class={'ml-1'}>
+                                                                        {'('}
+                                                                        {unref(selects).length}
+                                                                        {')'}
+                                                                    </span>
+                                                                ) : null}
+                                                            </ElButton>
+                                                        </div>
+                                                    }
+                                                </>
+                                            ),
+                                        }}
+                                    >
+                                        <ElTableColumn type="selection" width="32" />
+                                        <ElTableColumn
+                                            label={$t('commons.table.name')}
+                                            min-width="250"
+                                            prop="name"
+                                            sortable="custom"
+                                            card-type="name"
+                                            fix
+                                            fixed={unref(isMobile) ? false : 'left'}
+                                            show-overflow-tooltip
                                             v-slots={{
-                                                footerLeft: ({ selected, toggleSelection }) => (
+                                                default: ({ row }) => (
                                                     <>
-                                                        {withDirectives(
-                                                            <div class={'footer-left-button'}>
-                                                                <ElSelect
-                                                                    modelValue={unref(batchOperation)}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        batchOperation.value = $v as any;
-                                                                    }}
-                                                                    class={'p-w-200'}
-                                                                    v-slots={{
-                                                                        prefix: () => (
-                                                                            <>
-                                                                                <ElCheckbox
-                                                                                    model-value={selected}
-                                                                                    onClick={($event?: any) => {
-                                                                                        $event.stopPropagation();
-                                                                                    }}
-                                                                                    onChange={($event?: any) => {
-                                                                                        (toggleSelection as any)(
-                                                                                            $event,
-                                                                                        );
-                                                                                    }}
-                                                                                />
-                                                                            </>
-                                                                        ),
-                                                                    }}
-                                                                >
-                                                                    <ElOption
-                                                                        label={$t('commons.button.upgrade')}
-                                                                        value="upgrade"
-                                                                    />
-                                                                    <ElOption
-                                                                        label={$t('container.start')}
-                                                                        value="start"
-                                                                        disabled={checkStatus('start', null)}
-                                                                    />
-                                                                    <ElOption
-                                                                        label={$t('container.stop')}
-                                                                        value="stop"
-                                                                        disabled={checkStatus('stop', null)}
-                                                                    />
-                                                                    <ElOption
-                                                                        label={$t('container.restart')}
-                                                                        value="restart"
-                                                                        disabled={checkStatus('restart', null)}
-                                                                    />
-                                                                    <ElOption
-                                                                        label={$t('container.kill')}
-                                                                        value="kill"
-                                                                        disabled={checkStatus('kill', null)}
-                                                                    />
-                                                                    <ElOption
-                                                                        label={$t('container.pause')}
-                                                                        value="pause"
-                                                                        disabled={checkStatus('pause', null)}
-                                                                    />
-                                                                    <ElOption
-                                                                        label={$t('container.unpause')}
-                                                                        value="unpause"
-                                                                        disabled={checkStatus('unpause', null)}
-                                                                    />
-                                                                    <ElOption
-                                                                        label={$t('container.remove')}
-                                                                        value="remove"
-                                                                        disabled={checkStatus('remove', null)}
-                                                                    />
-                                                                </ElSelect>
-                                                                <ElButton
-                                                                    type="primary"
-                                                                    disabled={
-                                                                        unref(selects).length === 0 ||
-                                                                        unref(batchOperation) === '' ||
-                                                                        checkStatus(unref(batchOperation), null)
-                                                                    }
-                                                                    onClick={($event?: any) => {
-                                                                        onOperate(unref(batchOperation), null);
-                                                                    }}
-                                                                >
-                                                                    {$t('website.batchOperate')}
-                                                                    {unref(selects).length > 0 ? (
-                                                                        <span class={'ml-1'}>
-                                                                            {'('}
-                                                                            {unref(selects).length}
-                                                                            {')'}
-                                                                        </span>
-                                                                    ) : null}
-                                                                </ElButton>
-                                                            </div>,
-                                                            [[permissionDirective, true]],
-                                                        )}
+                                                        <ElText
+                                                            type="primary"
+                                                            onClick={($event?: any) => {
+                                                                onInspect(row);
+                                                            }}
+                                                            class={'cursor-pointer'}
+                                                        >
+                                                            {row.name}
+                                                        </ElText>
+                                                        <div class={'float-right'}>
+                                                            <ElTooltip
+                                                                content={
+                                                                    row.isPinned
+                                                                        ? $t('commons.table.unpin')
+                                                                        : $t('commons.table.pin')
+                                                                }
+                                                            >
+                                                                {
+                                                                    <ElButton
+                                                                        link
+                                                                        size="large"
+                                                                        type={row.isPinned ? 'warning' : 'info'}
+                                                                        onClick={($event?: any) => {
+                                                                            changePinned(row, true);
+                                                                        }}
+                                                                        class={cn('container-pin-button', {
+                                                                            'is-pinned': row.isPinned,
+                                                                        })}
+                                                                        v-permission={true}
+                                                                    >
+                                                                        <SvgIcon
+                                                                            iconName="p-pushpin"
+                                                                            className="container-pin-icon"
+                                                                        />
+                                                                    </ElButton>
+                                                                }
+                                                            </ElTooltip>
+                                                        </div>
                                                     </>
                                                 ),
                                             }}
-                                        >
-                                            <ElTableColumn type="selection" width="32" />
-                                            <ElTableColumn
-                                                label={$t('commons.table.name')}
-                                                min-width="250"
-                                                prop="name"
-                                                sortable="custom"
-                                                card-type="name"
-                                                fix
-                                                fixed={unref(isMobile) ? false : 'left'}
-                                                show-overflow-tooltip
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            <ElText
-                                                                type="primary"
-                                                                onClick={($event?: any) => {
-                                                                    onInspect(row);
-                                                                }}
-                                                                class={'cursor-pointer'}
-                                                            >
-                                                                {row.name}
-                                                            </ElText>
-                                                            <div class={'float-right'}>
-                                                                <ElTooltip
-                                                                    content={
-                                                                        row.isPinned
-                                                                            ? $t('commons.table.unpin')
-                                                                            : $t('commons.table.pin')
-                                                                    }
-                                                                >
-                                                                    {withDirectives(
-                                                                        <ElButton
-                                                                            link
-                                                                            size="large"
-                                                                            type={row.isPinned ? 'warning' : 'info'}
-                                                                            onClick={($event?: any) => {
-                                                                                changePinned(row, true);
-                                                                            }}
-                                                                            class={cn('container-pin-button', {
-                                                                                'is-pinned': row.isPinned,
-                                                                            })}
-                                                                        >
-                                                                            <SvgIcon
-                                                                                iconName="p-pushpin"
-                                                                                className="container-pin-icon"
-                                                                            />
-                                                                        </ElButton>,
-                                                                        [[permissionDirective, true]],
-                                                                    )}
-                                                                </ElTooltip>
-                                                            </div>
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                label={$t('container.image')}
-                                                card-type="description"
-                                                show-overflow-tooltip
-                                                min-width="180"
-                                                prop="imageName"
-                                            />
-                                            <ElTableColumn
-                                                card-type="status"
-                                                label={$t('commons.table.status')}
-                                                min-width="150"
-                                                prop="state"
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            <ElDropdown
-                                                                placement="bottom"
-                                                                onVisibleChange={($event?: any) => {
-                                                                    (visible) =>
-                                                                        handleStatusDropdownVisibleChange(
-                                                                            row.containerID,
-                                                                            visible,
-                                                                        );
-                                                                }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('container.image')}
+                                            card-type="description"
+                                            show-overflow-tooltip
+                                            min-width="180"
+                                            prop="imageName"
+                                        />
+                                        <ElTableColumn
+                                            card-type="status"
+                                            label={$t('commons.table.status')}
+                                            min-width="150"
+                                            prop="state"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <ElDropdown
+                                                            placement="bottom"
+                                                            onVisibleChange={($event?: any) => {
+                                                                (visible) =>
+                                                                    handleStatusDropdownVisibleChange(
+                                                                        row.containerID,
+                                                                        visible,
+                                                                    );
+                                                            }}
+                                                            v-slots={{
+                                                                dropdown: () => (
+                                                                    <>
+                                                                        {unref(activeDropdownContainerId) ===
+                                                                        row.containerID ? (
+                                                                            <ElDropdownMenu>
+                                                                                <ElDropdownItem
+                                                                                    disabled={checkStatus('start', row)}
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOperate('start', row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('commons.operate.start')}
+                                                                                </ElDropdownItem>
+                                                                                <ElDropdownItem
+                                                                                    disabled={checkStatus('stop', row)}
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOperate('stop', row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('commons.operate.stop')}
+                                                                                </ElDropdownItem>
+                                                                                <ElDropdownItem
+                                                                                    disabled={checkStatus(
+                                                                                        'restart',
+                                                                                        row,
+                                                                                    )}
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOperate('restart', row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('commons.button.restart')}
+                                                                                </ElDropdownItem>
+                                                                                <ElDropdownItem
+                                                                                    disabled={checkStatus('kill', row)}
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOperate('kill', row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('container.kill')}
+                                                                                </ElDropdownItem>
+                                                                                <ElDropdownItem
+                                                                                    disabled={checkStatus('pause', row)}
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOperate('pause', row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('container.pause')}
+                                                                                </ElDropdownItem>
+                                                                                <ElDropdownItem
+                                                                                    disabled={checkStatus(
+                                                                                        'unpause',
+                                                                                        row,
+                                                                                    )}
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOperate('unpause', row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('container.unpause')}
+                                                                                </ElDropdownItem>
+                                                                            </ElDropdownMenu>
+                                                                        ) : null}
+                                                                    </>
+                                                                ),
+                                                            }}
+                                                        >
+                                                            {
+                                                                <Status
+                                                                    status={row.state}
+                                                                    operate={true}
+                                                                    v-permission={true}
+                                                                />
+                                                            }
+                                                        </ElDropdown>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('container.source')}
+                                            card-type="content"
+                                            show-overflow-tooltip
+                                            prop="resource"
+                                            min-width="120"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {row.state !== 'running' ? (
+                                                            <span>{'—'}</span>
+                                                        ) : row.hasLoad ? (
+                                                            <ContainerResource
+                                                                stats={row}
                                                                 v-slots={{
-                                                                    dropdown: () => (
+                                                                    footer: () => (
                                                                         <>
-                                                                            {unref(activeDropdownContainerId) ===
-                                                                            row.containerID ? (
-                                                                                <ElDropdownMenu>
-                                                                                    <ElDropdownItem
-                                                                                        disabled={checkStatus(
-                                                                                            'start',
-                                                                                            row,
-                                                                                        )}
-                                                                                        onClick={($event?: any) => {
-                                                                                            onOperate('start', row);
-                                                                                        }}
-                                                                                    >
-                                                                                        {$t('commons.operate.start')}
-                                                                                    </ElDropdownItem>
-                                                                                    <ElDropdownItem
-                                                                                        disabled={checkStatus(
-                                                                                            'stop',
-                                                                                            row,
-                                                                                        )}
-                                                                                        onClick={($event?: any) => {
-                                                                                            onOperate('stop', row);
-                                                                                        }}
-                                                                                    >
-                                                                                        {$t('commons.operate.stop')}
-                                                                                    </ElDropdownItem>
-                                                                                    <ElDropdownItem
-                                                                                        disabled={checkStatus(
-                                                                                            'restart',
-                                                                                            row,
-                                                                                        )}
-                                                                                        onClick={($event?: any) => {
-                                                                                            onOperate('restart', row);
-                                                                                        }}
-                                                                                    >
-                                                                                        {$t('commons.button.restart')}
-                                                                                    </ElDropdownItem>
-                                                                                    <ElDropdownItem
-                                                                                        disabled={checkStatus(
-                                                                                            'kill',
-                                                                                            row,
-                                                                                        )}
-                                                                                        onClick={($event?: any) => {
-                                                                                            onOperate('kill', row);
-                                                                                        }}
-                                                                                    >
-                                                                                        {$t('container.kill')}
-                                                                                    </ElDropdownItem>
-                                                                                    <ElDropdownItem
-                                                                                        disabled={checkStatus(
-                                                                                            'pause',
-                                                                                            row,
-                                                                                        )}
-                                                                                        onClick={($event?: any) => {
-                                                                                            onOperate('pause', row);
-                                                                                        }}
-                                                                                    >
-                                                                                        {$t('container.pause')}
-                                                                                    </ElDropdownItem>
-                                                                                    <ElDropdownItem
-                                                                                        disabled={checkStatus(
-                                                                                            'unpause',
-                                                                                            row,
-                                                                                        )}
-                                                                                        onClick={($event?: any) => {
-                                                                                            onOperate('unpause', row);
-                                                                                        }}
-                                                                                    >
-                                                                                        {$t('container.unpause')}
-                                                                                    </ElDropdownItem>
-                                                                                </ElDropdownMenu>
+                                                                            {!row.hasLoadSize ? (
+                                                                                <ElButton
+                                                                                    size="small"
+                                                                                    link
+                                                                                    type="primary"
+                                                                                    onClick={($event?: any) => {
+                                                                                        loadSize(row);
+                                                                                    }}
+                                                                                    class={'mt-2'}
+                                                                                >
+                                                                                    {$t('container.loadSize')}
+                                                                                </ElButton>
                                                                             ) : null}
                                                                         </>
                                                                     ),
                                                                 }}
                                                             >
-                                                                {withDirectives(
-                                                                    <Status status={row.state} operate={true} />,
-                                                                    [[permissionDirective, true]],
-                                                                )}
-                                                            </ElDropdown>
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                label={$t('container.source')}
-                                                card-type="content"
-                                                show-overflow-tooltip
-                                                prop="resource"
-                                                min-width="120"
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            {row.state !== 'running' ? (
-                                                                <span>{'—'}</span>
-                                                            ) : row.hasLoad ? (
-                                                                <ContainerResource
-                                                                    stats={row}
-                                                                    v-slots={{
-                                                                        footer: () => (
-                                                                            <>
-                                                                                {!row.hasLoadSize ? (
-                                                                                    <ElButton
-                                                                                        size="small"
-                                                                                        link
-                                                                                        type="primary"
-                                                                                        onClick={($event?: any) => {
-                                                                                            loadSize(row);
-                                                                                        }}
-                                                                                        class={'mt-2'}
+                                                                {row.hasLoadSize ? (
+                                                                    <ElDescriptionsItem
+                                                                        v-slots={{
+                                                                            label: () => (
+                                                                                <>
+                                                                                    {$t('container.sizeRw')}
+                                                                                    <ElTooltip
+                                                                                        content={$t(
+                                                                                            'container.sizeRwHelper',
+                                                                                        )}
                                                                                     >
-                                                                                        {$t('container.loadSize')}
-                                                                                    </ElButton>
-                                                                                ) : null}
-                                                                            </>
-                                                                        ),
-                                                                    }}
-                                                                >
-                                                                    {row.hasLoadSize ? (
-                                                                        <ElDescriptionsItem
-                                                                            v-slots={{
-                                                                                label: () => (
-                                                                                    <>
-                                                                                        {$t('container.sizeRw')}
-                                                                                        <ElTooltip
-                                                                                            content={$t(
-                                                                                                'container.sizeRwHelper',
-                                                                                            )}
-                                                                                        >
-                                                                                            <ElIcon class={'icon-item'}>
-                                                                                                <InfoFilled />
-                                                                                            </ElIcon>
-                                                                                        </ElTooltip>
-                                                                                    </>
-                                                                                ),
-                                                                            }}
-                                                                        >
-                                                                            {computeSize2(row.sizeRw)}
-                                                                        </ElDescriptionsItem>
-                                                                    ) : null}
-                                                                    {row.hasLoadSize ? (
-                                                                        <ElDescriptionsItem
-                                                                            label={$t('container.sizeRootFs')}
-                                                                            v-slots={{
-                                                                                label: () => (
-                                                                                    <>
-                                                                                        {$t('container.sizeRootFs')}
-                                                                                        <ElTooltip
-                                                                                            content={$t(
-                                                                                                'container.sizeRootFsHelper',
-                                                                                            )}
-                                                                                        >
-                                                                                            <ElIcon class={'icon-item'}>
-                                                                                                <InfoFilled />
-                                                                                            </ElIcon>
-                                                                                        </ElTooltip>
-                                                                                    </>
-                                                                                ),
-                                                                            }}
-                                                                        >
-                                                                            {computeSize2(row.sizeRootFs)}
-                                                                        </ElDescriptionsItem>
-                                                                    ) : null}
-                                                                </ContainerResource>
-                                                            ) : (
-                                                                <div>
-                                                                    <ElButton link loading />
-                                                                </div>
-                                                            )}
-                                                        </>
-                                                    ),
-                                                }}
+                                                                                        <ElIcon class={'icon-item'}>
+                                                                                            <InfoFilled />
+                                                                                        </ElIcon>
+                                                                                    </ElTooltip>
+                                                                                </>
+                                                                            ),
+                                                                        }}
+                                                                    >
+                                                                        {computeSize2(row.sizeRw)}
+                                                                    </ElDescriptionsItem>
+                                                                ) : null}
+                                                                {row.hasLoadSize ? (
+                                                                    <ElDescriptionsItem
+                                                                        label={$t('container.sizeRootFs')}
+                                                                        v-slots={{
+                                                                            label: () => (
+                                                                                <>
+                                                                                    {$t('container.sizeRootFs')}
+                                                                                    <ElTooltip
+                                                                                        content={$t(
+                                                                                            'container.sizeRootFsHelper',
+                                                                                        )}
+                                                                                    >
+                                                                                        <ElIcon class={'icon-item'}>
+                                                                                            <InfoFilled />
+                                                                                        </ElIcon>
+                                                                                    </ElTooltip>
+                                                                                </>
+                                                                            ),
+                                                                        }}
+                                                                    >
+                                                                        {computeSize2(row.sizeRootFs)}
+                                                                    </ElDescriptionsItem>
+                                                                ) : null}
+                                                            </ContainerResource>
+                                                        ) : (
+                                                            <div>
+                                                                <ElButton link loading />
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('container.ip')}
+                                            width={unref(isMobile) ? 120 : 'auto'}
+                                            card-type="content"
+                                            min-width="120"
+                                            prop="network"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {getNetworkItems(row).length ? (
+                                                            <div>
+                                                                {(getNetworkItems(row) || []).map((item, index) => (
+                                                                    <div key={index}>{item}</div>
+                                                                ))}
+                                                            </div>
+                                                        ) : (
+                                                            <span>{'-'}</span>
+                                                        )}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('container.related')}
+                                            card-type="description"
+                                            show-overflow-tooltip
+                                            min-width="210"
+                                            prop="appName"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {row.appName || row.websites?.length ? (
+                                                            <ElButton link icon="Position" />
+                                                        ) : null}
+                                                        {row.appName ? (
+                                                            <ElText
+                                                                link
+                                                                size="small"
+                                                                onClick={($event?: any) => {
+                                                                    routerToName('AppInstalled');
+                                                                }}
+                                                                class={'cursor-pointer'}
+                                                            >
+                                                                {$t('app.app')}
+                                                                {': '}
+                                                                {row.appName}
+                                                                {' ['}
+                                                                {row.appInstallName}
+                                                                {'] '}
+                                                            </ElText>
+                                                        ) : null}
+                                                        {row.websites?.length ? (
+                                                            <ElText
+                                                                link
+                                                                size="small"
+                                                                onClick={($event?: any) => {
+                                                                    routerToName('Website');
+                                                                }}
+                                                                class={'cursor-pointer'}
+                                                            >
+                                                                {$t('menu.website')}
+                                                                {': '}
+                                                                {row.websites.join(',')}
+                                                            </ElText>
+                                                        ) : null}
+                                                        {!row.appName && !row.websites?.length ? (
+                                                            <span>{'-'}</span>
+                                                        ) : null}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.port')}
+                                            width={unref(isMobile) ? 260 : 'auto'}
+                                            align="left"
+                                            card-type="content-full"
+                                            min-width="200"
+                                            prop="ports"
+                                            v-slots={{
+                                                default: ({ row, viewMode: columnViewMode }) => (
+                                                    <>
+                                                        {row.ports ? (
+                                                            <div
+                                                                class={cn('container-port-list', {
+                                                                    'is-card': columnViewMode === 'card',
+                                                                })}
+                                                            >
+                                                                {(row.ports.slice(0, 2) || []).map((item) => (
+                                                                    <ElTooltip
+                                                                        hide-after={20}
+                                                                        content={item}
+                                                                        {...TABLE_TOOLTIP_OPTIONS}
+                                                                        key={item}
+                                                                    >
+                                                                        {item.indexOf('->') !== -1 ? (
+                                                                            <ElButton
+                                                                                onClick={($event?: any) => {
+                                                                                    goDashboard(item);
+                                                                                }}
+                                                                                icon="Position"
+                                                                                plain
+                                                                                size="small"
+                                                                            >
+                                                                                {item}
+                                                                            </ElButton>
+                                                                        ) : (
+                                                                            <ElButton plain size="small">
+                                                                                {item}
+                                                                            </ElButton>
+                                                                        )}
+                                                                    </ElTooltip>
+                                                                ))}
+                                                                {row.ports.length > 2 ? (
+                                                                    <ElButton
+                                                                        plain
+                                                                        size="small"
+                                                                        onClick={($event?: any) => {
+                                                                            openPorts(row);
+                                                                        }}
+                                                                    >
+                                                                        {' +'}
+                                                                        {row.ports.length - 2}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                            </div>
+                                                        ) : (
+                                                            <div class={'container-port-empty'} />
+                                                        )}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            min-width="200"
+                                            label={$t('commons.table.description')}
+                                            card-type="description"
+                                            prop="description"
+                                            show-overflow-tooltip
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {
+                                                            <FuInputRwSwitch
+                                                                v-model={row.description}
+                                                                onEnter={($event?: any) => {
+                                                                    changePinned(row, false);
+                                                                }}
+                                                                onBlur={($event?: any) => {
+                                                                    changePinned(row, false);
+                                                                }}
+                                                                v-permission={true}
+                                                            />
+                                                        }
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('container.upTime')}
+                                            card-type="description"
+                                            min-width="200"
+                                            show-overflow-tooltip
+                                            prop="runTime"
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.createdAt')}
+                                            card-type="description"
+                                            min-width="180"
+                                            show-overflow-tooltip
+                                            prop="createdAt"
+                                            sortable="custom"
+                                            sort-orders={['descending', 'ascending', null]}
+                                            v-slots={{ default: ({ row }) => <>{row.createTime}</> }}
+                                        />
+                                        <FuTableOperations
+                                            card-type="button"
+                                            fix
+                                            width="220px"
+                                            ellipsis={2}
+                                            buttons={buttons}
+                                            label={$t('commons.table.operate')}
+                                            fixed={unref(isMobile) ? false : 'right'}
+                                            prop="operate"
+                                        />
+                                    </ComplexTable>
+                                </>
+                            ),
+                        }}
+                    >
+                        <DialogPro
+                            v-model={portsDialogVisible.value}
+                            title={`${$t('commons.table.port')} - ${portsDialogContainer}`}
+                            size="small"
+                            v-slots={{
+                                content: () => (
+                                    <>
+                                        <div class={'container-port-dialog-filters'}>
+                                            <ElInput
+                                                v-model={portFilter.value}
+                                                clearable
+                                                placeholder={$t('commons.button.search')}
                                             />
-                                            <ElTableColumn
-                                                label={$t('container.ip')}
-                                                width={unref(isMobile) ? 120 : 'auto'}
-                                                card-type="content"
-                                                min-width="120"
-                                                prop="network"
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            {getNetworkItems(row).length ? (
-                                                                <div>
-                                                                    {(getNetworkItems(row) || []).map((item, index) => (
-                                                                        <div key={index}>{item}</div>
-                                                                    ))}
-                                                                </div>
-                                                            ) : (
-                                                                <span>{'-'}</span>
-                                                            )}
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                label={$t('container.related')}
-                                                card-type="description"
-                                                show-overflow-tooltip
-                                                min-width="210"
-                                                prop="appName"
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            {row.appName || row.websites?.length ? (
-                                                                <ElButton link icon="Position" />
-                                                            ) : null}
-                                                            {row.appName ? (
-                                                                <ElText
-                                                                    link
-                                                                    size="small"
-                                                                    onClick={($event?: any) => {
-                                                                        routerToName('AppInstalled');
-                                                                    }}
-                                                                    class={'cursor-pointer'}
-                                                                >
-                                                                    {$t('app.app')}
-                                                                    {': '}
-                                                                    {row.appName}
-                                                                    {' ['}
-                                                                    {row.appInstallName}
-                                                                    {'] '}
-                                                                </ElText>
-                                                            ) : null}
-                                                            {row.websites?.length ? (
-                                                                <ElText
-                                                                    link
-                                                                    size="small"
-                                                                    onClick={($event?: any) => {
-                                                                        routerToName('Website');
-                                                                    }}
-                                                                    class={'cursor-pointer'}
-                                                                >
-                                                                    {$t('menu.website')}
-                                                                    {': '}
-                                                                    {row.websites.join(',')}
-                                                                </ElText>
-                                                            ) : null}
-                                                            {!row.appName && !row.websites?.length ? (
-                                                                <span>{'-'}</span>
-                                                            ) : null}
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                label={$t('commons.table.port')}
-                                                width={unref(isMobile) ? 260 : 'auto'}
-                                                align="left"
-                                                card-type="content-full"
-                                                min-width="200"
-                                                prop="ports"
-                                                v-slots={{
-                                                    default: ({ row, viewMode: columnViewMode }) => (
-                                                        <>
-                                                            {row.ports ? (
-                                                                <div
-                                                                    class={cn('container-port-list', {
-                                                                        'is-card': columnViewMode === 'card',
-                                                                    })}
-                                                                >
-                                                                    {(row.ports.slice(0, 2) || []).map((item) => (
-                                                                        <ElTooltip
-                                                                            hide-after={20}
-                                                                            content={item}
-                                                                            {...TABLE_TOOLTIP_OPTIONS}
-                                                                            key={item}
-                                                                        >
-                                                                            {item.indexOf('->') !== -1 ? (
-                                                                                <ElButton
-                                                                                    onClick={($event?: any) => {
-                                                                                        goDashboard(item);
-                                                                                    }}
-                                                                                    icon="Position"
-                                                                                    plain
-                                                                                    size="small"
-                                                                                >
-                                                                                    {item}
-                                                                                </ElButton>
-                                                                            ) : (
-                                                                                <ElButton plain size="small">
-                                                                                    {item}
-                                                                                </ElButton>
-                                                                            )}
-                                                                        </ElTooltip>
-                                                                    ))}
-                                                                    {row.ports.length > 2 ? (
-                                                                        <ElButton
-                                                                            plain
-                                                                            size="small"
-                                                                            onClick={($event?: any) => {
-                                                                                openPorts(row);
-                                                                            }}
-                                                                        >
-                                                                            {' +'}
-                                                                            {row.ports.length - 2}
-                                                                        </ElButton>
-                                                                    ) : null}
-                                                                </div>
-                                                            ) : (
-                                                                <div class={'container-port-empty'} />
-                                                            )}
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                min-width="200"
-                                                label={$t('commons.table.description')}
-                                                card-type="description"
-                                                prop="description"
-                                                show-overflow-tooltip
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            {withDirectives(
-                                                                <FuInputRwSwitch
-                                                                    modelValue={row.description}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        row.description = $v as any;
-                                                                    }}
-                                                                    onEnter={($event?: any) => {
-                                                                        changePinned(row, false);
-                                                                    }}
-                                                                    onBlur={($event?: any) => {
-                                                                        changePinned(row, false);
-                                                                    }}
-                                                                />,
-                                                                [[permissionDirective, true]],
-                                                            )}
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                            <ElTableColumn
-                                                label={$t('container.upTime')}
-                                                card-type="description"
-                                                min-width="200"
-                                                show-overflow-tooltip
-                                                prop="runTime"
-                                            />
-                                            <ElTableColumn
-                                                label={$t('commons.table.createdAt')}
-                                                card-type="description"
-                                                min-width="180"
-                                                show-overflow-tooltip
-                                                prop="createdAt"
-                                                sortable="custom"
-                                                sort-orders={['descending', 'ascending', null]}
-                                                v-slots={{ default: ({ row }) => <>{row.createTime}</> }}
-                                            />
-                                            <FuTableOperations
-                                                card-type="button"
-                                                fix
-                                                width="220px"
-                                                ellipsis={2}
-                                                buttons={buttons}
-                                                label={$t('commons.table.operate')}
-                                                fixed={unref(isMobile) ? false : 'right'}
-                                                prop="operate"
-                                            />
-                                        </ComplexTable>
+                                            <ElCheckbox border v-model={showIPv6Ports.value}>
+                                                {'IPv6'}
+                                            </ElCheckbox>
+                                        </div>
+                                        {unref(filteredPorts).length ? (
+                                            <div class={'container-port-dialog'}>
+                                                {(unref(filteredPorts) || []).map((item) => (
+                                                    <ElTooltip content={item} {...TABLE_TOOLTIP_OPTIONS} key={item}>
+                                                        <ElButton
+                                                            icon={item.indexOf('->') !== -1 ? 'Position' : undefined}
+                                                            plain
+                                                            size="small"
+                                                            onClick={($event?: any) => {
+                                                                item.indexOf('->') !== -1 && goDashboard(item);
+                                                            }}
+                                                        >
+                                                            {item}
+                                                        </ElButton>
+                                                    </ElTooltip>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <ElEmpty image-size={80} />
+                                        )}
                                     </>
                                 ),
                             }}
-                        >
-                            <DialogPro
-                                modelValue={unref(portsDialogVisible)}
-                                onUpdate:modelValue={($v) => {
-                                    portsDialogVisible.value = $v as any;
-                                }}
-                                title={`${$t('commons.table.port')} - ${portsDialogContainer}`}
-                                size="small"
-                                v-slots={{
-                                    content: () => (
-                                        <>
-                                            <div class={'container-port-dialog-filters'}>
-                                                <ElInput
-                                                    modelValue={unref(portFilter)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        portFilter.value = $v as any;
-                                                    }}
-                                                    clearable
-                                                    placeholder={$t('commons.button.search')}
-                                                />
-                                                <ElCheckbox
-                                                    border
-                                                    modelValue={unref(showIPv6Ports)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        showIPv6Ports.value = $v as any;
-                                                    }}
-                                                >
-                                                    {'IPv6'}
-                                                </ElCheckbox>
-                                            </div>
-                                            {unref(filteredPorts).length ? (
-                                                <div class={'container-port-dialog'}>
-                                                    {(unref(filteredPorts) || []).map((item) => (
-                                                        <ElTooltip content={item} {...TABLE_TOOLTIP_OPTIONS} key={item}>
-                                                            <ElButton
-                                                                icon={
-                                                                    item.indexOf('->') !== -1 ? 'Position' : undefined
-                                                                }
-                                                                plain
-                                                                size="small"
-                                                                onClick={($event?: any) => {
-                                                                    item.indexOf('->') !== -1 && goDashboard(item);
-                                                                }}
-                                                            >
-                                                                {item}
-                                                            </ElButton>
-                                                        </ElTooltip>
-                                                    ))}
-                                                </div>
-                                            ) : (
-                                                <ElEmpty image-size={80} />
-                                            )}
-                                        </>
-                                    ),
-                                }}
-                            />
-                        </LayoutContent>
-                    ) : null}
-                    <OpDialog
-                        ref={opRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                        onSubmit={($event?: any) => {
-                            (onSubmitOperate as any)($event);
-                        }}
-                    />
-                    <ContainerInspectDialog ref={containerInspectRef} />
-                    <PruneDialog
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                        ref={dialogPruneRef}
-                    />
-                    <RenameDialog
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                        ref={dialogRenameRef}
-                    />
-                    <ContainerLogDialog ref={dialogContainerLogRef} highlightDiff={210} />
-                    <UpgradeDialog
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                        ref={dialogUpgradeRef}
-                    />
-                    <CommitDialog
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                        ref={dialogCommitRef}
-                    />
-                    <MonitorDialog ref={dialogMonitorRef} />
-                    <TerminalDialog ref={dialogTerminalRef} />
-                    <ContainerFileDrawer ref={dialogFileBrowserRef} />
-                    <PortJumpDialog ref={dialogPortJumpRef} />
-                    <Backups ref={dialogBackupRef} />
-                    <Uploads
-                        ref={uploadRef}
-                        onClose={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                    <TaskLog
-                        ref={taskLogRef}
-                        width="70%"
-                        onClose={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                        />
+                    </LayoutContent>
+                ) : null}
+                <OpDialog
+                    ref={opRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                    onSubmit={($event?: any) => {
+                        (onSubmitOperate as any)($event);
+                    }}
+                />
+                <ContainerInspectDialog ref={containerInspectRef} />
+                <PruneDialog
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                    ref={dialogPruneRef}
+                />
+                <RenameDialog
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                    ref={dialogRenameRef}
+                />
+                <ContainerLogDialog ref={dialogContainerLogRef} highlightDiff={210} />
+                <UpgradeDialog
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                    ref={dialogUpgradeRef}
+                />
+                <CommitDialog
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                    ref={dialogCommitRef}
+                />
+                <MonitorDialog ref={dialogMonitorRef} />
+                <TerminalDialog ref={dialogTerminalRef} />
+                <ContainerFileDrawer ref={dialogFileBrowserRef} />
+                <PortJumpDialog ref={dialogPortJumpRef} />
+                <Backups ref={dialogBackupRef} />
+                <Uploads
+                    ref={uploadRef}
+                    onClose={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+                <TaskLog
+                    ref={taskLogRef}
+                    width="70%"
+                    onClose={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+            </div>
+        );
     },
     options,
 );

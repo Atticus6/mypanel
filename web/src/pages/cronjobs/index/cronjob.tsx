@@ -15,8 +15,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 import { useOperateNodeContext } from '@/composables/useOperateNodeContext';
 import { usePageState } from '@/composables/usePageState';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableViewSwitch from '@/components/table/TableViewSwitch';
 import TableSearch from '@/components/table/TableSearch';
@@ -349,470 +347,427 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {!unref(isRecordShow)
-                    ? withDirectives(
-                          <LayoutContent
-                              title={$t('menu.cronjob')}
-                              v-slots={{
-                                  leftToolBar: () => (
-                                      <>
-                                          {withDirectives(
-                                              <ElButton
-                                                  type="primary"
-                                                  onClick={($event?: any) => {
-                                                      onOpenDialog('');
-                                                  }}
-                                              >
-                                                  {$t('commons.button.create')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )}
-                                          {withDirectives(
-                                              <ElButton
-                                                  onClick={($event?: any) => {
-                                                      onOpenGroupDialog();
-                                                  }}
-                                              >
-                                                  {$t('commons.table.group')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )}
-                                          <ElButtonGroup>
-                                              {withDirectives(
-                                                  <ElButton
-                                                      plain
-                                                      disabled={unref(selects).length === 0}
-                                                      onClick={($event?: any) => {
-                                                          onBatchChangeStatus('enable');
-                                                      }}
-                                                  >
-                                                      {$t('commons.button.enable')}
-                                                  </ElButton>,
-                                                  [
-                                                      [permissionDirective, true],
-                                                      [nodeAdminDirective, true],
-                                                  ],
-                                              )}
-                                              {withDirectives(
-                                                  <ElButton
-                                                      plain
-                                                      disabled={unref(selects).length === 0}
-                                                      onClick={($event?: any) => {
-                                                          onBatchChangeStatus('disable');
-                                                      }}
-                                                  >
-                                                      {$t('commons.button.disable')}
-                                                  </ElButton>,
-                                                  [
-                                                      [permissionDirective, true],
-                                                      [nodeAdminDirective, true],
-                                                  ],
-                                              )}
-                                              {withDirectives(
-                                                  <ElButton
-                                                      plain
-                                                      disabled={unref(selects).length === 0}
-                                                      onClick={($event?: any) => {
-                                                          onDelete(null);
-                                                      }}
-                                                  >
-                                                      {$t('commons.button.delete')}
-                                                  </ElButton>,
-                                                  [
-                                                      [permissionDirective, true],
-                                                      [nodeAdminDirective, true],
-                                                  ],
-                                              )}
-                                          </ElButtonGroup>
-                                          <ElButtonGroup>
-                                              {withDirectives(
-                                                  <ElButton
-                                                      onClick={($event?: any) => {
-                                                          (onImport as any)($event);
-                                                      }}
-                                                  >
-                                                      {$t('commons.button.import')}
-                                                  </ElButton>,
-                                                  [
-                                                      [permissionDirective, true],
-                                                      [nodeAdminDirective, true],
-                                                  ],
-                                              )}
-                                              {withDirectives(
-                                                  <ElButton
-                                                      disabled={unref(selects).length === 0}
-                                                      onClick={($event?: any) => {
-                                                          (onExport as any)($event);
-                                                      }}
-                                                  >
-                                                      {$t('commons.button.export')}
-                                                  </ElButton>,
-                                                  [
-                                                      [permissionDirective, true],
-                                                      [nodeAdminDirective, true],
-                                                  ],
-                                              )}
-                                          </ElButtonGroup>
-                                      </>
-                                  ),
-                                  rightToolBar: () => (
-                                      <>
-                                          <TableViewSwitch
-                                              modelValue={unref(viewMode)}
-                                              onUpdate:modelValue={($v) => {
-                                                  viewMode.value = $v as any;
-                                              }}
-                                              storage-key="cronjob"
-                                          />
-                                          <ElSelect
-                                              modelValue={unref(searchGroupID)}
-                                              onUpdate:modelValue={($v) => {
-                                                  searchGroupID.value = $v as any;
-                                              }}
-                                              onChange={($event?: any) => {
-                                                  search();
-                                              }}
-                                              clearable
-                                              class={'p-w-200'}
-                                              v-slots={{ prefix: () => <>{$t('commons.table.group')}</> }}
-                                          >
-                                              {(unref(groupOptions) || []).map((item) => (
-                                                  <ElOption label={item.name} value={item.id} key={item.id} />
-                                              ))}
-                                          </ElSelect>
-                                          <TableSearch
-                                              onSearch={($event?: any) => {
-                                                  search();
-                                              }}
-                                              searchName={unref(searchName)}
-                                              onUpdate:searchName={($v) => {
-                                                  searchName.value = $v as any;
-                                              }}
-                                          />
-                                          <TableRefresh
-                                              onSearch={($event?: any) => {
-                                                  search();
-                                              }}
-                                          />
-                                          <TableSetting
-                                              title="cronjob-refresh"
-                                              onSearch={($event?: any) => {
-                                                  search();
-                                              }}
-                                          />
-                                      </>
-                                  ),
-                                  main: () => (
-                                      <>
-                                          <ComplexTable
-                                              selection-context={() => [unref(searchName), unref(searchGroupID)]}
-                                              row-key="id"
-                                              cache-pagination={false}
-                                              pagination-config={paginationConfig}
-                                              default-sort={
-                                                  paginationConfig.order !== 'null'
-                                                      ? {
-                                                            prop: paginationConfig.orderBy,
-                                                            order: paginationConfig.order,
+                {!unref(isRecordShow) ? (
+                    <LayoutContent
+                        title={$t('menu.cronjob')}
+                        v-slots={{
+                            leftToolBar: () => (
+                                <>
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                onOpenDialog('');
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.create')}
+                                        </ElButton>
+                                    }
+                                    {
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                onOpenGroupDialog();
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.table.group')}
+                                        </ElButton>
+                                    }
+                                    <ElButtonGroup>
+                                        {
+                                            <ElButton
+                                                plain
+                                                disabled={unref(selects).length === 0}
+                                                onClick={($event?: any) => {
+                                                    onBatchChangeStatus('enable');
+                                                }}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.enable')}
+                                            </ElButton>
+                                        }
+                                        {
+                                            <ElButton
+                                                plain
+                                                disabled={unref(selects).length === 0}
+                                                onClick={($event?: any) => {
+                                                    onBatchChangeStatus('disable');
+                                                }}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.disable')}
+                                            </ElButton>
+                                        }
+                                        {
+                                            <ElButton
+                                                plain
+                                                disabled={unref(selects).length === 0}
+                                                onClick={($event?: any) => {
+                                                    onDelete(null);
+                                                }}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.delete')}
+                                            </ElButton>
+                                        }
+                                    </ElButtonGroup>
+                                    <ElButtonGroup>
+                                        {
+                                            <ElButton
+                                                onClick={($event?: any) => {
+                                                    (onImport as any)($event);
+                                                }}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.import')}
+                                            </ElButton>
+                                        }
+                                        {
+                                            <ElButton
+                                                disabled={unref(selects).length === 0}
+                                                onClick={($event?: any) => {
+                                                    (onExport as any)($event);
+                                                }}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.export')}
+                                            </ElButton>
+                                        }
+                                    </ElButtonGroup>
+                                </>
+                            ),
+                            rightToolBar: () => (
+                                <>
+                                    <TableViewSwitch v-model={viewMode.value} storage-key="cronjob" />
+                                    <ElSelect
+                                        v-model={searchGroupID.value}
+                                        onChange={($event?: any) => {
+                                            search();
+                                        }}
+                                        clearable
+                                        class={'p-w-200'}
+                                        v-slots={{ prefix: () => <>{$t('commons.table.group')}</> }}
+                                    >
+                                        {(unref(groupOptions) || []).map((item) => (
+                                            <ElOption label={item.name} value={item.id} key={item.id} />
+                                        ))}
+                                    </ElSelect>
+                                    <TableSearch
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                        searchName={unref(searchName)}
+                                        onUpdate:searchName={($v) => {
+                                            searchName.value = $v as any;
+                                        }}
+                                    />
+                                    <TableRefresh
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                    />
+                                    <TableSetting
+                                        title="cronjob-refresh"
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                    />
+                                </>
+                            ),
+                            main: () => (
+                                <>
+                                    <ComplexTable
+                                        selection-context={() => [unref(searchName), unref(searchGroupID)]}
+                                        row-key="id"
+                                        cache-pagination={false}
+                                        pagination-config={paginationConfig}
+                                        default-sort={
+                                            paginationConfig.order !== 'null'
+                                                ? {
+                                                      prop: paginationConfig.orderBy,
+                                                      order: paginationConfig.order,
+                                                  }
+                                                : undefined
+                                        }
+                                        view-mode={unref(viewMode)}
+                                        onUpdate:view-mode={($v) => {
+                                            viewMode.value = $v as any;
+                                        }}
+                                        selects={unref(selects)}
+                                        onUpdate:selects={($v) => {
+                                            selects.value = $v as any;
+                                        }}
+                                        onSortChange={($event?: any) => {
+                                            (search as any)($event);
+                                        }}
+                                        onSearch={($event?: any) => {
+                                            (search as any)($event);
+                                        }}
+                                        data={unref(data)}
+                                        heightDiff={300}
+                                    >
+                                        <ElTableColumn type="selection" selectable={selectable} fix />
+                                        <ElTableColumn
+                                            label={$t('cronjob.taskName')}
+                                            min-width={120}
+                                            prop="name"
+                                            sortable
+                                            card-type="name"
+                                            show-overflow-tooltip
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <ElText
+                                                            type="primary"
+                                                            onClick={($event?: any) => {
+                                                                loadDetail(row);
+                                                            }}
+                                                            class={'cursor-pointer'}
+                                                        >
+                                                            {row.name}
+                                                        </ElText>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.group')}
+                                            min-width="120"
+                                            prop="group"
+                                            card-type="content"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {
+                                                            <FuSelectRwSwitch
+                                                                v-model={row.groupId}
+                                                                onChange={($event?: any) => {
+                                                                    updateGroup(row);
+                                                                }}
+                                                                v-slots={{ read: () => <>{row.groupBelong}</> }}
+                                                                v-permission={true}
+                                                                v-node-admin={true}
+                                                            >
+                                                                {(unref(groupOptions) || []).map((item) => (
+                                                                    <ElOption
+                                                                        label={item.name}
+                                                                        value={item.id}
+                                                                        key={item.id}
+                                                                    />
+                                                                ))}
+                                                            </FuSelectRwSwitch>
                                                         }
-                                                      : undefined
-                                              }
-                                              view-mode={unref(viewMode)}
-                                              onUpdate:view-mode={($v) => {
-                                                  viewMode.value = $v as any;
-                                              }}
-                                              selects={unref(selects)}
-                                              onUpdate:selects={($v) => {
-                                                  selects.value = $v as any;
-                                              }}
-                                              onSortChange={($event?: any) => {
-                                                  (search as any)($event);
-                                              }}
-                                              onSearch={($event?: any) => {
-                                                  (search as any)($event);
-                                              }}
-                                              data={unref(data)}
-                                              heightDiff={300}
-                                          >
-                                              <ElTableColumn type="selection" selectable={selectable} fix />
-                                              <ElTableColumn
-                                                  label={$t('cronjob.taskName')}
-                                                  min-width={120}
-                                                  prop="name"
-                                                  sortable
-                                                  card-type="name"
-                                                  show-overflow-tooltip
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              <ElText
-                                                                  type="primary"
-                                                                  onClick={($event?: any) => {
-                                                                      loadDetail(row);
-                                                                  }}
-                                                                  class={'cursor-pointer'}
-                                                              >
-                                                                  {row.name}
-                                                              </ElText>
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('commons.table.group')}
-                                                  min-width="120"
-                                                  prop="group"
-                                                  card-type="content"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {withDirectives(
-                                                                  <FuSelectRwSwitch
-                                                                      modelValue={row.groupId}
-                                                                      onUpdate:modelValue={($v) => {
-                                                                          row.groupId = $v as any;
-                                                                      }}
-                                                                      onChange={($event?: any) => {
-                                                                          updateGroup(row);
-                                                                      }}
-                                                                      v-slots={{ read: () => <>{row.groupBelong}</> }}
-                                                                  >
-                                                                      {(unref(groupOptions) || []).map((item) => (
-                                                                          <ElOption
-                                                                              label={item.name}
-                                                                              value={item.id}
-                                                                              key={item.id}
-                                                                          />
-                                                                      ))}
-                                                                  </FuSelectRwSwitch>,
-                                                                  [
-                                                                      [permissionDirective, true],
-                                                                      [nodeAdminDirective, true],
-                                                                  ],
-                                                              )}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('commons.table.status')}
-                                                  min-width={90}
-                                                  prop="status"
-                                                  sortable
-                                                  card-type="status"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {row.status === 'Enable'
-                                                                  ? withDirectives(
-                                                                        <Status
-                                                                            onClick={($event?: any) => {
-                                                                                onChangeStatus(row.id, 'disable');
-                                                                            }}
-                                                                            status={row.status}
-                                                                            operate={true}
-                                                                        />,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )
-                                                                  : null}
-                                                              {row.status === 'Disable'
-                                                                  ? withDirectives(
-                                                                        <Status
-                                                                            onClick={($event?: any) => {
-                                                                                onChangeStatus(row.id, 'enable');
-                                                                            }}
-                                                                            status={row.status}
-                                                                            operate={true}
-                                                                        />,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )
-                                                                  : null}
-                                                              {row.status === 'Pending' ? (
-                                                                  <Status status={row.status} />
-                                                              ) : null}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('cronjob.cronSpec')}
-                                                  show-overflow-tooltip
-                                                  min-width={120}
-                                                  card-type="description"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {(row.spec.split('&&') || []).map((item, index) => (
-                                                                  <div key={index}>
-                                                                      {row.expand ||
-                                                                      (!row.expand && Number(index) < 3) ? (
-                                                                          <div>
-                                                                              <span>
-                                                                                  {row.specCustom
-                                                                                      ? item
-                                                                                      : transSpecToStr(item)}
-                                                                              </span>
-                                                                          </div>
-                                                                      ) : null}
-                                                                  </div>
-                                                              ))}
-                                                              {!row.expand && row.spec.split('&&').length > 3 ? (
-                                                                  <div>
-                                                                      <ElButton
-                                                                          type="primary"
-                                                                          link
-                                                                          onClick={($event?: any) => {
-                                                                              row.expand = true;
-                                                                          }}
-                                                                      >
-                                                                          {$t('commons.button.expand')}
-                                                                          {'... '}
-                                                                      </ElButton>
-                                                                  </div>
-                                                              ) : null}
-                                                              {row.expand && row.spec.split('&&').length > 3 ? (
-                                                                  <div>
-                                                                      <ElButton
-                                                                          type="primary"
-                                                                          link
-                                                                          onClick={($event?: any) => {
-                                                                              row.expand = false;
-                                                                          }}
-                                                                      >
-                                                                          {$t('commons.button.collapse')}
-                                                                      </ElButton>
-                                                                  </div>
-                                                              ) : null}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('cronjob.retainCopies')}
-                                                  min-width={120}
-                                                  prop="retainCopies"
-                                                  card-type="content"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {hasBackup(row.type) ? (
-                                                                  withDirectives(
-                                                                      <ElButton
-                                                                          onClick={($event?: any) => {
-                                                                              loadBackups(row);
-                                                                          }}
-                                                                          plain
-                                                                          size="small"
-                                                                      >
-                                                                          {row.retainCopies}
-                                                                          {$t('cronjob.retainCopiesUnit')}
-                                                                      </ElButton>,
-                                                                      [
-                                                                          [permissionDirective, true],
-                                                                          [nodeAdminDirective, true],
-                                                                      ],
-                                                                  )
-                                                              ) : (
-                                                                  <span>{row.retainCopies}</span>
-                                                              )}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('cronjob.lastRecordTime')}
-                                                  min-width={120}
-                                                  show-overflow-tooltip
-                                                  prop="lastRecordTime"
-                                                  card-type="description"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {row.lastRecordStatus === 'Success' ? (
-                                                                  <ElButton icon="Select" link type="success" />
-                                                              ) : null}
-                                                              {row.lastRecordStatus === 'Failed' ? (
-                                                                  <ElButton icon="CloseBold" link type="danger" />
-                                                              ) : null}
-                                                              {row.lastRecordStatus === 'Waiting' ? (
-                                                                  <ElButton loading={true} link type="info" />
-                                                              ) : null}
-                                                              {row.lastRecordStatus === 'Unexecuted' ? (
-                                                                  <ElButton icon="Minus" link type="info" />
-                                                              ) : null}
-                                                              {row.lastRecordTime}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  min-width={120}
-                                                  label={$t('setting.backupAccount')}
-                                                  card-type="content-full"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              {!hasBackup(row.type) ? (
-                                                                  <span>{'-'}</span>
-                                                              ) : (
-                                                                  <div>
-                                                                      {row.downloadAccount ? (
-                                                                          <ElButton plain size="small">
-                                                                              {row.downloadAccount === 'localhost'
-                                                                                  ? $t('setting.LOCAL')
-                                                                                  : row.downloadAccount}
-                                                                          </ElButton>
-                                                                      ) : (
-                                                                          <span>{'-'}</span>
-                                                                      )}
-                                                                      {row.sourceAccounts?.length > 1 ? (
-                                                                          <ElButton
-                                                                              plain
-                                                                              size="small"
-                                                                              onClick={($event?: any) => {
-                                                                                  openBackupAccounts(row);
-                                                                              }}
-                                                                          >
-                                                                              {' +'}
-                                                                              {row.sourceAccounts.length - 1}
-                                                                          </ElButton>
-                                                                      ) : null}
-                                                                  </div>
-                                                              )}
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <FuTableOperations
-                                                  width="200px"
-                                                  buttons={buttons}
-                                                  ellipsis={2}
-                                                  label={$t('commons.table.operate')}
-                                                  min-width={unref(isMobile) ? 'auto' : 200}
-                                                  fixed={unref(isMobile) ? false : 'right'}
-                                                  fix
-                                                  card-type="button"
-                                              />
-                                          </ComplexTable>
-                                      </>
-                                  ),
-                              }}
-                          />,
-                          [[vLoading, unref(loading)]],
-                      )
-                    : null}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.status')}
+                                            min-width={90}
+                                            prop="status"
+                                            sortable
+                                            card-type="status"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {row.status === 'Enable' ? (
+                                                            <Status
+                                                                onClick={($event?: any) => {
+                                                                    onChangeStatus(row.id, 'disable');
+                                                                }}
+                                                                status={row.status}
+                                                                operate={true}
+                                                                v-permission={true}
+                                                                v-node-admin={true}
+                                                            />
+                                                        ) : null}
+                                                        {row.status === 'Disable' ? (
+                                                            <Status
+                                                                onClick={($event?: any) => {
+                                                                    onChangeStatus(row.id, 'enable');
+                                                                }}
+                                                                status={row.status}
+                                                                operate={true}
+                                                                v-permission={true}
+                                                                v-node-admin={true}
+                                                            />
+                                                        ) : null}
+                                                        {row.status === 'Pending' ? (
+                                                            <Status status={row.status} />
+                                                        ) : null}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('cronjob.cronSpec')}
+                                            show-overflow-tooltip
+                                            min-width={120}
+                                            card-type="description"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {(row.spec.split('&&') || []).map((item, index) => (
+                                                            <div key={index}>
+                                                                {row.expand || (!row.expand && Number(index) < 3) ? (
+                                                                    <div>
+                                                                        <span>
+                                                                            {row.specCustom
+                                                                                ? item
+                                                                                : transSpecToStr(item)}
+                                                                        </span>
+                                                                    </div>
+                                                                ) : null}
+                                                            </div>
+                                                        ))}
+                                                        {!row.expand && row.spec.split('&&').length > 3 ? (
+                                                            <div>
+                                                                <ElButton
+                                                                    type="primary"
+                                                                    link
+                                                                    onClick={($event?: any) => {
+                                                                        row.expand = true;
+                                                                    }}
+                                                                >
+                                                                    {$t('commons.button.expand')}
+                                                                    {'... '}
+                                                                </ElButton>
+                                                            </div>
+                                                        ) : null}
+                                                        {row.expand && row.spec.split('&&').length > 3 ? (
+                                                            <div>
+                                                                <ElButton
+                                                                    type="primary"
+                                                                    link
+                                                                    onClick={($event?: any) => {
+                                                                        row.expand = false;
+                                                                    }}
+                                                                >
+                                                                    {$t('commons.button.collapse')}
+                                                                </ElButton>
+                                                            </div>
+                                                        ) : null}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('cronjob.retainCopies')}
+                                            min-width={120}
+                                            prop="retainCopies"
+                                            card-type="content"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {hasBackup(row.type) ? (
+                                                            <ElButton
+                                                                onClick={($event?: any) => {
+                                                                    loadBackups(row);
+                                                                }}
+                                                                plain
+                                                                size="small"
+                                                                v-permission={true}
+                                                                v-node-admin={true}
+                                                            >
+                                                                {row.retainCopies}
+                                                                {$t('cronjob.retainCopiesUnit')}
+                                                            </ElButton>
+                                                        ) : (
+                                                            <span>{row.retainCopies}</span>
+                                                        )}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('cronjob.lastRecordTime')}
+                                            min-width={120}
+                                            show-overflow-tooltip
+                                            prop="lastRecordTime"
+                                            card-type="description"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {row.lastRecordStatus === 'Success' ? (
+                                                            <ElButton icon="Select" link type="success" />
+                                                        ) : null}
+                                                        {row.lastRecordStatus === 'Failed' ? (
+                                                            <ElButton icon="CloseBold" link type="danger" />
+                                                        ) : null}
+                                                        {row.lastRecordStatus === 'Waiting' ? (
+                                                            <ElButton loading={true} link type="info" />
+                                                        ) : null}
+                                                        {row.lastRecordStatus === 'Unexecuted' ? (
+                                                            <ElButton icon="Minus" link type="info" />
+                                                        ) : null}
+                                                        {row.lastRecordTime}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            min-width={120}
+                                            label={$t('setting.backupAccount')}
+                                            card-type="content-full"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {!hasBackup(row.type) ? (
+                                                            <span>{'-'}</span>
+                                                        ) : (
+                                                            <div>
+                                                                {row.downloadAccount ? (
+                                                                    <ElButton plain size="small">
+                                                                        {row.downloadAccount === 'localhost'
+                                                                            ? $t('setting.LOCAL')
+                                                                            : row.downloadAccount}
+                                                                    </ElButton>
+                                                                ) : (
+                                                                    <span>{'-'}</span>
+                                                                )}
+                                                                {row.sourceAccounts?.length > 1 ? (
+                                                                    <ElButton
+                                                                        plain
+                                                                        size="small"
+                                                                        onClick={($event?: any) => {
+                                                                            openBackupAccounts(row);
+                                                                        }}
+                                                                    >
+                                                                        {' +'}
+                                                                        {row.sourceAccounts.length - 1}
+                                                                    </ElButton>
+                                                                ) : null}
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <FuTableOperations
+                                            width="200px"
+                                            buttons={buttons}
+                                            ellipsis={2}
+                                            label={$t('commons.table.operate')}
+                                            min-width={unref(isMobile) ? 'auto' : 200}
+                                            fixed={unref(isMobile) ? false : 'right'}
+                                            fix
+                                            card-type="button"
+                                        />
+                                    </ComplexTable>
+                                </>
+                            ),
+                        }}
+                        v-loading={unref(loading)}
+                    />
+                ) : null}
                 <OpDialog
                     ref={opRef}
                     onSearch={($event?: any) => {
@@ -827,19 +782,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {unref(showClean) ? (
                                     <ElForm ref="deleteForm" label-position="left" class={'mt-4 mb-1'}>
                                         <ElFormItem>
-                                            <ElCheckbox
-                                                modelValue={unref(cleanData)}
-                                                onUpdate:modelValue={($v) => {
-                                                    cleanData.value = $v as any;
-                                                }}
-                                                label={$t('cronjob.cleanData')}
-                                            />
+                                            <ElCheckbox v-model={cleanData.value} label={$t('cronjob.cleanData')} />
                                             {unref(cleanData) ? (
                                                 <ElCheckbox
-                                                    modelValue={unref(cleanRemoteData)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        cleanRemoteData.value = $v as any;
-                                                    }}
+                                                    v-model={cleanRemoteData.value}
                                                     label={$t('cronjob.cleanRemoteData')}
                                                 />
                                             ) : null}
@@ -884,14 +830,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     }}
                     ref={dialogBackupRef}
                 />
-                <ElDialog
-                    modelValue={unref(backupAccountsVisible)}
-                    onUpdate:modelValue={($v) => {
-                        backupAccountsVisible.value = $v as any;
-                    }}
-                    title={$t('setting.backupAccount')}
-                    width="400px"
-                >
+                <ElDialog v-model={backupAccountsVisible.value} title={$t('setting.backupAccount')} width="400px">
                     {(unref(backupAccounts) || []).map((account) => (
                         <div class={'mb-2'} key={account}>
                             {account === 'localhost' ? $t('setting.LOCAL') : account}

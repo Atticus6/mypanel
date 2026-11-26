@@ -147,10 +147,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('commons.button.download')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -182,14 +179,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <ElForm ref={fileForm} label-position="top" model={addForm} label-width="100px" rules={rules}>
+                    {
+                        <ElForm
+                            ref={fileForm}
+                            label-position="top"
+                            model={addForm}
+                            label-width="100px"
+                            rules={rules}
+                            v-loading={unref(loading)}
+                        >
                             <ElFormItem label={$t('file.downloadUrl')} prop="url">
                                 <ElInput
-                                    modelValue={addForm.url}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.url = $v as any;
-                                    }}
+                                    v-model={addForm.url}
                                     onInput={($event?: any) => {
                                         (getFileName as any)($event);
                                     }}
@@ -197,10 +198,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                             <ElFormItem label={$t('file.path')} prop="path">
                                 <ElInput
-                                    modelValue={addForm.path}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.path = $v as any;
-                                    }}
+                                    v-model={addForm.path}
                                     v-slots={{
                                         prepend: () => (
                                             <>
@@ -216,19 +214,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </ElFormItem>
                             <ElFormItem label={$t('commons.table.name')} prop="name">
-                                <ElInput
-                                    modelValue={addForm.name}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.name = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={addForm.name} />
                             </ElFormItem>
                             <ElFormItem>
                                 <ElCheckbox
-                                    modelValue={addForm.useServerFilename}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.useServerFilename = $v as any;
-                                    }}
+                                    v-model={addForm.useServerFilename}
                                     disabled={
                                         !unref(preferenceReady) ||
                                         unref(preferenceLoading) ||
@@ -244,30 +234,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElCheckbox>
                             </ElFormItem>
                             <ElFormItem>
-                                <ElCheckbox
-                                    modelValue={addForm.useProxy}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.useProxy = $v as any;
-                                    }}
-                                >
-                                    {$t('file.useProxy')}
-                                </ElCheckbox>
+                                <ElCheckbox v-model={addForm.useProxy}>{$t('file.useProxy')}</ElCheckbox>
                                 <span class={'input-help'}>{$t('file.useProxyHelper')}</span>
                             </ElFormItem>
                             <ElFormItem>
-                                <ElCheckbox
-                                    modelValue={addForm.ignoreCertificate}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.ignoreCertificate = $v as any;
-                                    }}
-                                >
+                                <ElCheckbox v-model={addForm.ignoreCertificate}>
                                     {$t('file.ignoreCertificate')}
                                 </ElCheckbox>
                                 <span class={'input-help'}>{$t('file.ignoreCertificateHelper')}</span>
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                     {unref(isAppendOnly) ? (
                         <ElAlert
                             type="warning"

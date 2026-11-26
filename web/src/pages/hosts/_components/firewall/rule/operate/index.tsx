@@ -491,10 +491,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t(unref(mode) === 'edit' ? 'firewall.edit' : 'firewall.create')}
                 size="large"
                 auto-close={!unref(loading)}
@@ -534,26 +531,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         class={'!mb-4'}
                     />
                 ) : null}
-                {withDirectives(
-                    <ElForm ref={formRef} label-position="top" model={form} rules={rules}>
+                {
+                    <ElForm ref={formRef} label-position="top" model={form} rules={rules} v-loading={unref(loading)}>
                         <ElFormItem label={$t('firewall.action')} prop="action">
-                            <ElRadioGroup
-                                modelValue={form.action}
-                                onUpdate:modelValue={($v) => {
-                                    form.action = $v as any;
-                                }}
-                                disabled={unref(contentReadonly)}
-                            >
+                            <ElRadioGroup v-model={form.action} disabled={unref(contentReadonly)}>
                                 <ElRadioButton value="accept">{$t('firewall.accept')}</ElRadioButton>
                                 <ElRadioButton value="drop">{$t('firewall.drop')}</ElRadioButton>
                             </ElRadioGroup>
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.protocol')} prop="protocol">
                             <ElSelect
-                                modelValue={form.protocol}
-                                onUpdate:modelValue={($v) => {
-                                    form.protocol = $v as any;
-                                }}
+                                v-model={form.protocol}
                                 disabled={unref(contentReadonly)}
                                 onChange={($event?: any) => {
                                     (changeProtocol as any)($event);
@@ -672,10 +660,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {unref(showPriorityField) ? (
                             <ElFormItem label={unref(priorityFieldLabel)}>
                                 <ElInputNumber
-                                    modelValue={form.priority}
-                                    onUpdate:modelValue={($v) => {
-                                        form.priority = $v as any;
-                                    }}
+                                    v-model={form.priority}
                                     disabled={unref(descriptionOnly)}
                                     min={unref(priorityMin)}
                                     max={unref(priorityMax)}
@@ -699,9 +684,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 clearable
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

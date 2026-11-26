@@ -89,10 +89,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.download')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -122,15 +119,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={fileForm} label-position="top" model={unref(addForm)} rules={rules}>
+                {
+                    <ElForm
+                        ref={fileForm}
+                        label-position="top"
+                        model={unref(addForm)}
+                        rules={rules}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('file.compressType')} prop="type">
-                            <ElSelect
-                                modelValue={unref(addForm).type}
-                                onUpdate:modelValue={($v) => {
-                                    unref(addForm).type = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(addForm).type}>
                                 {(unref(options) || []).map((item) => (
                                     <ElOption label={item} value={item} key={item} />
                                 ))}
@@ -138,16 +136,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.name')} prop="name">
                             <ElInput
-                                modelValue={unref(addForm).name}
-                                onUpdate:modelValue={($v) => {
-                                    unref(addForm).name = $v as any;
-                                }}
+                                v-model={unref(addForm).name}
                                 v-slots={{ append: () => <>{unref(extension)}</> }}
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

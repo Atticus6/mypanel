@@ -160,8 +160,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                         main: () => (
                             <>
-                                {withDirectives(
-                                    <ComplexTable data={unref(data)} ref={tableRef} heightDiff={260}>
+                                {
+                                    <ComplexTable
+                                        data={unref(data)}
+                                        ref={tableRef}
+                                        heightDiff={260}
+                                        v-loading={unref(loading)}
+                                    >
                                         <ElTableColumn label={$t('commons.table.user')} fix prop="username" />
                                         <ElTableColumn label={'TTY'} fix prop="terminal" />
                                         <ElTableColumn label={$t('ssh.loginIP')} fix prop="host" />
@@ -177,9 +182,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             label={$t('commons.table.operate')}
                                             fix
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </>
                         ),
                     }}

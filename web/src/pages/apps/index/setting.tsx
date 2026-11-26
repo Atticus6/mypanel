@@ -6,7 +6,6 @@ import i18n from '@/lang';
 import { loadOptionalComponent } from '@/extensions/optional';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import '@/pages/apps/_components/setting/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {
@@ -99,7 +98,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     v-slots={{
                         main: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ElForm
                                         model={unref(config)}
                                         label-position="left"
@@ -107,6 +106,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         rules={unref(rules)}
                                         ref={configForm}
                                         class={'app-setting-form ml-2.5'}
+                                        v-loading={unref(loading)}
                                     >
                                         <ElRow>
                                             <ElCol xs={24} sm={20} md={15} lg={12} xl={12}>
@@ -114,12 +114,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     label={$t('app.uninstallDeleteBackup')}
                                                     prop="uninstallDeleteBackup"
                                                 >
-                                                    {withDirectives(
+                                                    {
                                                         <ElSwitch
-                                                            modelValue={unref(config).uninstallDeleteBackup}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(config).uninstallDeleteBackup = $v as any;
-                                                            }}
+                                                            v-model={unref(config).uninstallDeleteBackup}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                             loading={unref(loading)}
@@ -129,20 +126,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     unref(config).uninstallDeleteBackup,
                                                                 );
                                                             }}
-                                                        />,
-                                                        [[permissionDirective, true]],
-                                                    )}
+                                                            v-permission={true}
+                                                        />
+                                                    }
                                                 </ElFormItem>
                                                 <ElFormItem
                                                     label={$t('app.uninstallDeleteImage')}
                                                     prop="uninstallDeleteImage"
                                                 >
-                                                    {withDirectives(
+                                                    {
                                                         <ElSwitch
-                                                            modelValue={unref(config).uninstallDeleteImage}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(config).uninstallDeleteImage = $v as any;
-                                                            }}
+                                                            v-model={unref(config).uninstallDeleteImage}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                             loading={unref(loading)}
@@ -152,17 +146,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     unref(config).uninstallDeleteImage,
                                                                 );
                                                             }}
-                                                        />,
-                                                        [[permissionDirective, true]],
-                                                    )}
+                                                            v-permission={true}
+                                                        />
+                                                    }
                                                 </ElFormItem>
                                                 <ElFormItem label={$t('app.upgradeBackup')} prop="upgradeBackup">
-                                                    {withDirectives(
+                                                    {
                                                         <ElSwitch
-                                                            modelValue={unref(config).upgradeBackup}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(config).upgradeBackup = $v as any;
-                                                            }}
+                                                            v-model={unref(config).upgradeBackup}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                             loading={unref(loading)}
@@ -172,20 +163,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     unref(config).upgradeBackup,
                                                                 );
                                                             }}
-                                                        />,
-                                                        [[permissionDirective, true]],
-                                                    )}
+                                                            v-permission={true}
+                                                        />
+                                                    }
                                                 </ElFormItem>
                                                 <ElFormItem
                                                     label={$t('app.upgradeDeleteImage')}
                                                     prop="upgradeDeleteImage"
                                                 >
-                                                    {withDirectives(
+                                                    {
                                                         <ElSwitch
-                                                            modelValue={unref(config).upgradeDeleteImage}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(config).upgradeDeleteImage = $v as any;
-                                                            }}
+                                                            v-model={unref(config).upgradeDeleteImage}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                             loading={unref(loading)}
@@ -195,17 +183,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     unref(config).upgradeDeleteImage,
                                                                 );
                                                             }}
-                                                        />,
-                                                        [[permissionDirective, true]],
-                                                    )}
+                                                            v-permission={true}
+                                                        />
+                                                    }
                                                 </ElFormItem>
                                                 <ElFormItem label={$t('app.installAllowPort')} prop="installAllowPort">
-                                                    {withDirectives(
+                                                    {
                                                         <ElSwitch
-                                                            modelValue={unref(config).installAllowPort}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(config).installAllowPort = $v as any;
-                                                            }}
+                                                            v-model={unref(config).installAllowPort}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                             loading={unref(loading)}
@@ -215,9 +200,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     unref(config).installAllowPort,
                                                                 );
                                                             }}
-                                                        />,
-                                                        [[permissionDirective, true]],
-                                                    )}
+                                                            v-permission={true}
+                                                        />
+                                                    }
                                                 </ElFormItem>
                                                 {unref(isXpackOrEE) ? (
                                                     h(CustomSetting, {})
@@ -237,9 +222,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 )}
                                             </ElCol>
                                         </ElRow>
-                                    </ElForm>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ElForm>
+                                }
                             </>
                         ),
                     }}

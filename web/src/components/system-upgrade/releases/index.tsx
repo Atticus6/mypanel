@@ -88,10 +88,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.release')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -113,8 +110,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <div class={'note'}>
+                {
+                    <div class={'note'} v-loading={unref(loading)}>
                         <ElForm ref={formRef} model={form} rules={rules}>
                             <div class={'release-settings'}>
                                 <ElFormItem
@@ -123,13 +120,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     class={'compact-form-item'}
                                 >
                                     <div class={'setting-control'}>
-                                        <ElInput
-                                            disabled
-                                            modelValue={form.version}
-                                            onUpdate:modelValue={($v) => {
-                                                form.version = $v as any;
-                                            }}
-                                        />
+                                        <ElInput disabled v-model={form.version} />
                                         <CopyButton
                                             isIcon={false}
                                             content={form.version}
@@ -144,14 +135,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     class={'compact-form-item'}
                                 >
                                     <div class={'setting-control'}>
-                                        <ElInputNumber
-                                            modelValue={form.backupCopies}
-                                            onUpdate:modelValue={($v) => {
-                                                form.backupCopies = $v as any;
-                                            }}
-                                            min={0}
-                                            controls-position="right"
-                                        />
+                                        <ElInputNumber v-model={form.backupCopies} min={0} controls-position="right" />
                                         <ElButton
                                             onClick={($event?: any) => {
                                                 onSave(unref(formRef));
@@ -167,13 +151,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         </ElForm>
                         {unref(notes) && unref(notes).length !== 0 ? (
-                            <ElCollapse
-                                modelValue={unref(currentVersion)}
-                                onUpdate:modelValue={($v) => {
-                                    currentVersion.value = $v as any;
-                                }}
-                                accordion={true}
-                            >
+                            <ElCollapse v-model={currentVersion.value} accordion={true}>
                                 {(unref(notes) || []).map((item, index) => (
                                     <div key={index}>
                                         <ElCollapseItem
@@ -225,9 +203,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                             />
                         )}
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DrawerPro>
         );
     },

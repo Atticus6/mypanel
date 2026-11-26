@@ -8,7 +8,6 @@ import { isDomain } from '@/utils/validate';
 import { Delete, Plus } from '@element-plus/icons-vue';
 import CorsSetting from '@/pages/websites/_components/website/cors/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -218,10 +217,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.' + unref(proxy).operate)}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -238,31 +234,31 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 {$t('commons.button.cancel')}
                             </ElButton>
-                            {withDirectives(
+                            {
                                 <ElButton
                                     type="primary"
                                     onClick={($event?: any) => {
                                         submit(unref(proxyForm));
                                     }}
                                     disabled={unref(loading)}
+                                    v-permission={true}
                                 >
                                     {$t('commons.button.confirm')}
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </>
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={proxyForm} label-position="top" model={unref(proxy)} rules={unref(rules)}>
-                        <ElTabs
-                            modelValue={unref(activeTab)}
-                            onUpdate:modelValue={($v) => {
-                                activeTab.value = $v as any;
-                            }}
-                            type="border-card"
-                        >
+                {
+                    <ElForm
+                        ref={proxyForm}
+                        label-position="top"
+                        model={unref(proxy)}
+                        rules={unref(rules)}
+                        v-loading={unref(loading)}
+                    >
+                        <ElTabs v-model={activeTab.value} type="border-card">
                             <ElTabPane label={$t('website.proxySettings')} name="basic">
                                 <ElDivider content-position="left">{$t('website.proxy')}</ElDivider>
                                 <ElFormItem label={$t('commons.table.name')} prop="name">
@@ -313,10 +309,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     prepend: () => (
                                                         <>
                                                             <ElSelect
-                                                                modelValue={unref(proxy).proxyProtocol}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    unref(proxy).proxyProtocol = $v as any;
-                                                                }}
+                                                                v-model={unref(proxy).proxyProtocol}
                                                                 class={'!w-24'}
                                                             >
                                                                 <ElOption label="http" value="http://" />
@@ -350,10 +343,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <span class={'input-help'}>{$t('website.sniHelper')}</span>
                                             </div>
                                             <ElSwitch
-                                                modelValue={unref(proxy).sni}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(proxy).sni = $v as any;
-                                                }}
+                                                v-model={unref(proxy).sni}
                                                 size="large"
                                                 onChange={($event?: any) => {
                                                     (handleSNIChange as any)($event);
@@ -380,13 +370,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <span class={'font-medium'}>{$t('website.proxySslVerify')}</span>
                                                 <span class={'input-help'}>{$t('website.proxySslVerifyHelper')}</span>
                                             </div>
-                                            <ElSwitch
-                                                modelValue={unref(proxy).sslVerify}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(proxy).sslVerify = $v as any;
-                                                }}
-                                                size="large"
-                                            />
+                                            <ElSwitch v-model={unref(proxy).sslVerify} size="large" />
                                         </div>
                                     </>
                                 ) : null}
@@ -433,10 +417,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         append: () => (
                                                             <>
                                                                 <ElSelect
-                                                                    modelValue={unref(proxy).serverCacheUnit}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        unref(proxy).serverCacheUnit = $v as any;
-                                                                    }}
+                                                                    v-model={unref(proxy).serverCacheUnit}
                                                                     class={'!w-24'}
                                                                 >
                                                                     {(Units || []).map((unit, index) => (
@@ -505,10 +486,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         append: () => (
                                                             <>
                                                                 <ElSelect
-                                                                    modelValue={unref(proxy).cacheUnit}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        unref(proxy).cacheUnit = $v as any;
-                                                                    }}
+                                                                    v-model={unref(proxy).cacheUnit}
                                                                     class={'!w-24'}
                                                                 >
                                                                     {(Units || []).map((unit, index) => (
@@ -530,10 +508,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElCollapseTransition>
                                 <ElDivider content-position="left">{$t('website.cors')}</ElDivider>
                                 <CorsSetting
-                                    modelValue={unref(proxy).cors}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(proxy).cors = $v as any;
-                                    }}
+                                    v-model={unref(proxy).cors}
                                     config={{
                                         allowOrigins: unref(proxy).allowOrigins,
                                         allowMethods: unref(proxy).allowMethods,
@@ -591,26 +566,25 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </div>
                                     ))}
                                     <div class={'mt-4'}>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 type="primary"
                                                 onClick={($event?: any) => {
                                                     (addReplaces as any)($event);
                                                 }}
                                                 icon={Plus}
+                                                v-permission={true}
                                             >
                                                 {$t('website.addReplace')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
+                                            </ElButton>
+                                        }
                                         <span class={'input-help mt-4'}>{$t('website.replaceHelper')}</span>
                                     </div>
                                 </div>
                             </ElTabPane>
                         </ElTabs>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

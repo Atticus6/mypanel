@@ -3,7 +3,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -58,10 +57,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('website.sourceFile')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -79,30 +75,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit();
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
                 }}
             >
-                <CodemirrorPro
-                    modelValue={req.content}
-                    onUpdate:modelValue={($v) => {
-                        req.content = $v as any;
-                    }}
-                    mode="nginx"
-                />
+                <CodemirrorPro v-model={req.content} mode="nginx" />
             </DrawerPro>
         );
     },

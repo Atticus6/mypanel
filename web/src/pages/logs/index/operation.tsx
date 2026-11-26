@@ -10,7 +10,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import { listNodes } from '@/utils/node';
 import { rpc } from '@/lib/rpc';
 import '@/pages/logs/_components/operation/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import TableRefresh from '@/components/table/TableRefresh';
@@ -238,7 +237,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('logs.operation')}
                         v-slots={{
@@ -249,27 +248,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ),
                             leftToolBar: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             plain
                                             onClick={($event?: any) => {
                                                 onClean();
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('logs.deleteLogs')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </>
                             ),
                             rightToolBar: () => (
                                 <>
                                     <ElSelect
-                                        modelValue={unref(searchGroup)}
-                                        onUpdate:modelValue={($v) => {
-                                            searchGroup.value = $v as any;
-                                        }}
+                                        v-model={searchGroup.value}
                                         onChange={($event?: any) => {
                                             search();
                                         }}
@@ -324,10 +320,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <ElOption label={$t('logs.detail.commands')} value="commands" />
                                     </ElSelect>
                                     <ElSelect
-                                        modelValue={unref(searchStatus)}
-                                        onUpdate:modelValue={($v) => {
-                                            searchStatus.value = $v as any;
-                                        }}
+                                        v-model={searchStatus.value}
                                         onChange={($event?: any) => {
                                             search();
                                         }}
@@ -342,10 +335,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElSelect>
                                     {unref(isAdmin) ? (
                                         <ElSelect
-                                            modelValue={unref(searchNode)}
-                                            onUpdate:modelValue={($v) => {
-                                                searchNode.value = $v as any;
-                                            }}
+                                            v-model={searchNode.value}
                                             onChange={($event?: any) => {
                                                 search();
                                             }}
@@ -488,9 +478,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <ConfirmDialog
                     ref={confirmDialogRef}
                     onConfirm={($event?: any) => {

@@ -10,7 +10,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { Base64 } from 'js-base64';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import TableRefresh from '@/components/table/TableRefresh';
@@ -236,241 +235,239 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             search();
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <LayoutContent
-                        title={$t('setting.backupAccount')}
-                        v-slots={{
-                            leftToolBar: () => (
-                                <>
-                                    {withDirectives(
-                                        <ElButton
-                                            type="primary"
-                                            onClick={($event?: any) => {
-                                                onOpenDialog('create');
-                                            }}
-                                        >
-                                            {$t('commons.button.add')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
-                                </>
-                            ),
-                            rightToolBar: () => (
-                                <>
-                                    <TableSearch
-                                        onSearch={($event?: any) => {
-                                            search();
+        return () => (
+            <div v-loading={unref(loading)}>
+                <LayoutContent
+                    title={$t('setting.backupAccount')}
+                    v-slots={{
+                        leftToolBar: () => (
+                            <>
+                                {
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onOpenDialog('create');
                                         }}
-                                        searchName={paginationConfig.name}
-                                        onUpdate:searchName={($v) => {
-                                            paginationConfig.name = $v as any;
-                                        }}
-                                    />
-                                    <TableRefresh
-                                        onSearch={($event?: any) => {
-                                            search();
-                                        }}
-                                    />
-                                    <TableSetting
-                                        title="backup-account-refresh"
-                                        onSearch={($event?: any) => {
-                                            search();
-                                        }}
-                                    />
-                                </>
-                            ),
-                            main: () => (
-                                <>
-                                    <ElAlert
-                                        type="info"
-                                        closable={false}
-                                        class={'common-div'}
+                                        v-permission={true}
+                                    >
+                                        {$t('commons.button.add')}
+                                    </ElButton>
+                                }
+                            </>
+                        ),
+                        rightToolBar: () => (
+                            <>
+                                <TableSearch
+                                    onSearch={($event?: any) => {
+                                        search();
+                                    }}
+                                    searchName={paginationConfig.name}
+                                    onUpdate:searchName={($v) => {
+                                        paginationConfig.name = $v as any;
+                                    }}
+                                />
+                                <TableRefresh
+                                    onSearch={($event?: any) => {
+                                        search();
+                                    }}
+                                />
+                                <TableSetting
+                                    title="backup-account-refresh"
+                                    onSearch={($event?: any) => {
+                                        search();
+                                    }}
+                                />
+                            </>
+                        ),
+                        main: () => (
+                            <>
+                                <ElAlert
+                                    type="info"
+                                    closable={false}
+                                    class={'common-div'}
+                                    v-slots={{
+                                        title: () => (
+                                            <>
+                                                <span>
+                                                    {$t('setting.backupAlert')}
+                                                    <ElLink
+                                                        type="primary"
+                                                        target="_blank"
+                                                        href={unref(docsUrl) + '/user_manual/settings/#4'}
+                                                        class={'ml-1 text-xs'}
+                                                    >
+                                                        {$t('commons.button.helpDoc')}
+                                                    </ElLink>
+                                                </span>
+                                            </>
+                                        ),
+                                    }}
+                                />
+                                <ComplexTable
+                                    cache-pagination={false}
+                                    pagination-config={paginationConfig}
+                                    onSortChange={($event?: any) => {
+                                        (search as any)($event);
+                                    }}
+                                    onSearch={($event?: any) => {
+                                        (search as any)($event);
+                                    }}
+                                    data={unref(data)}
+                                    scrollbar-always-on={unref(isMobile)}
+                                >
+                                    <ElTableColumn
+                                        label={$t('commons.table.name')}
+                                        min-width={unref(isMobile) ? 140 : 80}
+                                        prop="name"
+                                        show-overflow-tooltip
                                         v-slots={{
-                                            title: () => (
+                                            default: ({ row }) => (
                                                 <>
-                                                    <span>
-                                                        {$t('setting.backupAlert')}
-                                                        <ElLink
-                                                            type="primary"
-                                                            target="_blank"
-                                                            href={unref(docsUrl) + '/user_manual/settings/#4'}
-                                                            class={'ml-1 text-xs'}
-                                                        >
-                                                            {$t('commons.button.helpDoc')}
-                                                        </ElLink>
-                                                    </span>
+                                                    <ElText
+                                                        type="primary"
+                                                        onClick={($event?: any) => {
+                                                            onInspect(row);
+                                                        }}
+                                                        class={'cursor-pointer'}
+                                                    >
+                                                        {row.name === 'localhost' ? $t('terminal.local') : row.name}
+                                                    </ElText>
                                                 </>
                                             ),
                                         }}
                                     />
-                                    <ComplexTable
-                                        cache-pagination={false}
-                                        pagination-config={paginationConfig}
-                                        onSortChange={($event?: any) => {
-                                            (search as any)($event);
-                                        }}
-                                        onSearch={($event?: any) => {
-                                            (search as any)($event);
-                                        }}
-                                        data={unref(data)}
-                                        scrollbar-always-on={unref(isMobile)}
-                                    >
+                                    {unref(isProductPro) ? (
                                         <ElTableColumn
-                                            label={$t('commons.table.name')}
-                                            min-width={unref(isMobile) ? 140 : 80}
-                                            prop="name"
-                                            show-overflow-tooltip
+                                            label={$t('setting.scope')}
+                                            min-width={80}
+                                            prop="isPublic"
                                             v-slots={{
                                                 default: ({ row }) => (
                                                     <>
-                                                        <ElText
-                                                            type="primary"
-                                                            onClick={($event?: any) => {
-                                                                onInspect(row);
-                                                            }}
-                                                            class={'cursor-pointer'}
-                                                        >
-                                                            {row.name === 'localhost' ? $t('terminal.local') : row.name}
-                                                        </ElText>
+                                                        <ElButton plain size="small">
+                                                            {row.isPublic
+                                                                ? $t('setting.public')
+                                                                : $t('setting.private')}
+                                                        </ElButton>
                                                     </>
                                                 ),
                                             }}
                                         />
-                                        {unref(isProductPro) ? (
-                                            <ElTableColumn
-                                                label={$t('setting.scope')}
-                                                min-width={80}
-                                                prop="isPublic"
-                                                v-slots={{
-                                                    default: ({ row }) => (
-                                                        <>
-                                                            <ElButton plain size="small">
-                                                                {row.isPublic
-                                                                    ? $t('setting.public')
-                                                                    : $t('setting.private')}
-                                                            </ElButton>
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                        ) : null}
-                                        <ElTableColumn
-                                            label={$t('commons.table.type')}
-                                            min-width={100}
-                                            prop="type"
-                                            v-slots={{
-                                                default: ({ row }) => (
-                                                    <>
-                                                        <ElTag>{$t('setting.' + row.type)}</ElTag>
-                                                        {hasTokenRefresh(row) ? (
-                                                            <ElTooltip
-                                                                {...TABLE_TOOLTIP_OPTIONS}
-                                                                v-slots={{
-                                                                    content: () => (
-                                                                        <>
-                                                                            {$t('setting.clickToRefresh')}
-                                                                            <br />
-                                                                            {row.varsJson['refresh_status'] ===
-                                                                            'Success' ? (
+                                    ) : null}
+                                    <ElTableColumn
+                                        label={$t('commons.table.type')}
+                                        min-width={100}
+                                        prop="type"
+                                        v-slots={{
+                                            default: ({ row }) => (
+                                                <>
+                                                    <ElTag>{$t('setting.' + row.type)}</ElTag>
+                                                    {hasTokenRefresh(row) ? (
+                                                        <ElTooltip
+                                                            {...TABLE_TOOLTIP_OPTIONS}
+                                                            v-slots={{
+                                                                content: () => (
+                                                                    <>
+                                                                        {$t('setting.clickToRefresh')}
+                                                                        <br />
+                                                                        {row.varsJson['refresh_status'] ===
+                                                                        'Success' ? (
+                                                                            <span>
+                                                                                {$t('setting.refreshStatus') +
+                                                                                    ':' +
+                                                                                    $t('commons.status.success')}
+                                                                            </span>
+                                                                        ) : (
+                                                                            <div>
                                                                                 <span>
                                                                                     {$t('setting.refreshStatus') +
                                                                                         ':' +
-                                                                                        $t('commons.status.success')}
+                                                                                        $t('commons.status.failed')}
                                                                                 </span>
-                                                                            ) : (
-                                                                                <div>
-                                                                                    <span>
-                                                                                        {$t('setting.refreshStatus') +
-                                                                                            ':' +
-                                                                                            $t('commons.status.failed')}
-                                                                                    </span>
-                                                                                    <br />
-                                                                                    <span>
-                                                                                        {$t('commons.table.message') +
-                                                                                            ':' +
-                                                                                            row.varsJson['refresh_msg']}
-                                                                                    </span>
-                                                                                </div>
-                                                                            )}
-                                                                            <br />
-                                                                            {$t('setting.refreshTime') +
-                                                                                ':' +
-                                                                                row.varsJson['refresh_time']}
-                                                                        </>
-                                                                    ),
-                                                                }}
-                                                            >
-                                                                {withDirectives(
-                                                                    <ElButton
-                                                                        type="primary"
-                                                                        link
-                                                                        icon="Refresh"
-                                                                        onClick={($event?: any) => {
-                                                                            refreshItemToken(row);
-                                                                        }}
-                                                                        class={'ml-1'}
-                                                                    />,
-                                                                    [[permissionDirective, true]],
-                                                                )}
-                                                            </ElTooltip>
-                                                        ) : null}
-                                                    </>
-                                                ),
-                                            }}
-                                        />
-                                        <ElTableColumn
-                                            prop="bucket"
-                                            label="Bucket"
-                                            show-overflow-tooltip
-                                            v-slots={{ default: ({ row }) => <>{row.bucket || '-'}</> }}
-                                        />
-                                        <ElTableColumn
-                                            prop="endpoint"
-                                            label="Endpoint"
-                                            show-overflow-tooltip
-                                            v-slots={{ default: ({ row }) => <>{loadEndpoint(row)}</> }}
-                                        />
-                                        <ElTableColumn
-                                            prop="backupPath"
-                                            label={$t('setting.backupDir')}
-                                            show-overflow-tooltip
-                                        />
-                                        <ElTableColumn
-                                            prop="createdAt"
-                                            label={$t('commons.table.date')}
-                                            formatter={dateFormat}
-                                            show-overflow-tooltip
-                                        />
-                                        <FuTableOperations
-                                            width={unref(isMobile) ? 100 : 300}
-                                            buttons={buttons}
-                                            ellipsis={unref(isMobile) ? 0 : 10}
-                                            label={$t('commons.table.operate')}
-                                            fix
-                                        />
-                                    </ComplexTable>
-                                </>
-                            ),
-                        }}
-                    />
-                    <Operate
-                        ref={dialogRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                    <DetailShow ref={detailRef} />
-                    <OpDialog
-                        ref={opRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                                                                                <br />
+                                                                                <span>
+                                                                                    {$t('commons.table.message') +
+                                                                                        ':' +
+                                                                                        row.varsJson['refresh_msg']}
+                                                                                </span>
+                                                                            </div>
+                                                                        )}
+                                                                        <br />
+                                                                        {$t('setting.refreshTime') +
+                                                                            ':' +
+                                                                            row.varsJson['refresh_time']}
+                                                                    </>
+                                                                ),
+                                                            }}
+                                                        >
+                                                            {
+                                                                <ElButton
+                                                                    type="primary"
+                                                                    link
+                                                                    icon="Refresh"
+                                                                    onClick={($event?: any) => {
+                                                                        refreshItemToken(row);
+                                                                    }}
+                                                                    class={'ml-1'}
+                                                                    v-permission={true}
+                                                                />
+                                                            }
+                                                        </ElTooltip>
+                                                    ) : null}
+                                                </>
+                                            ),
+                                        }}
+                                    />
+                                    <ElTableColumn
+                                        prop="bucket"
+                                        label="Bucket"
+                                        show-overflow-tooltip
+                                        v-slots={{ default: ({ row }) => <>{row.bucket || '-'}</> }}
+                                    />
+                                    <ElTableColumn
+                                        prop="endpoint"
+                                        label="Endpoint"
+                                        show-overflow-tooltip
+                                        v-slots={{ default: ({ row }) => <>{loadEndpoint(row)}</> }}
+                                    />
+                                    <ElTableColumn
+                                        prop="backupPath"
+                                        label={$t('setting.backupDir')}
+                                        show-overflow-tooltip
+                                    />
+                                    <ElTableColumn
+                                        prop="createdAt"
+                                        label={$t('commons.table.date')}
+                                        formatter={dateFormat}
+                                        show-overflow-tooltip
+                                    />
+                                    <FuTableOperations
+                                        width={unref(isMobile) ? 100 : 300}
+                                        buttons={buttons}
+                                        ellipsis={unref(isMobile) ? 0 : 10}
+                                        label={$t('commons.table.operate')}
+                                        fix
+                                    />
+                                </ComplexTable>
+                            </>
+                        ),
+                    }}
+                />
+                <Operate
+                    ref={dialogRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+                <DetailShow ref={detailRef} />
+                <OpDialog
+                    ref={opRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+            </div>
+        );
     },
     options,
 );

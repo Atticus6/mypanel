@@ -71,10 +71,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.systemIP')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -103,7 +100,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -112,20 +109,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('setting.systemIP')} prop="systemIP">
-                            <ElInput
-                                clearable
-                                modelValue={form.systemIP}
-                                onUpdate:modelValue={($v) => {
-                                    form.systemIP = $v as any;
-                                }}
-                            />
+                            <ElInput clearable v-model={form.systemIP} />
                             <span class={'input-help'}>{$t('commons.rule.hostHelper')}</span>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

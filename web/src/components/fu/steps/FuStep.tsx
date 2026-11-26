@@ -49,10 +49,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         const loading = computed(() => {
             return stepper?.isLoading || false;
         });
-        return () =>
-            withDirectives(<div class={'fu-step'}>{ctx.slots['default']?.(undefined)}</div>, [
-                [vLoading, unref(loading)],
-            ]);
+        return () => (
+            <div class={'fu-step'} v-loading={unref(loading)}>
+                {ctx.slots['default']?.(undefined)}
+            </div>
+        );
     },
     options,
 );

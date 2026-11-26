@@ -147,71 +147,66 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 initializing.value = false;
             }
         });
-        return () =>
-            withDirectives(
-                <div class={'share-page'}>
-                    <div class={'share-card'}>
-                        <h1>{$t('file.shareLinkLabel')}</h1>
-                        {unref(shareInfo) ? (
-                            <div class={'share-meta'}>
-                                <div class={'meta-item'}>
-                                    <span class={'meta-label'}>{$t('file.fileName')}</span>
-                                    <span class={'meta-value'}>{unref(shareInfo).fileName}</span>
-                                </div>
-                                <div class={'meta-item'}>
-                                    <span class={'meta-label'}>{$t('file.shareExpiresAt')}</span>
-                                    <span class={'meta-value'}>{unref(expiresAtText)}</span>
-                                </div>
+        return () => (
+            <div class={'share-page'} v-loading={unref(initializing)}>
+                <div class={'share-card'}>
+                    <h1>{$t('file.shareLinkLabel')}</h1>
+                    {unref(shareInfo) ? (
+                        <div class={'share-meta'}>
+                            <div class={'meta-item'}>
+                                <span class={'meta-label'}>{$t('file.fileName')}</span>
+                                <span class={'meta-value'}>{unref(shareInfo).fileName}</span>
                             </div>
-                        ) : null}
-                        {unref(shareInfo)?.hasPassword ? (
-                            <p class={'share-description'}>{$t('file.shareDownloadPasswordTip')}</p>
-                        ) : unref(shareInfo) && !unref(errorMessage) ? (
-                            <p class={'share-description'}>{$t('file.shareDownloadingHint')}</p>
-                        ) : null}
-                        {unref(shareInfo) ? (
-                            <ElForm
-                                onSubmit={($event?: any) => {
-                                    $event.preventDefault();
+                            <div class={'meta-item'}>
+                                <span class={'meta-label'}>{$t('file.shareExpiresAt')}</span>
+                                <span class={'meta-value'}>{unref(expiresAtText)}</span>
+                            </div>
+                        </div>
+                    ) : null}
+                    {unref(shareInfo)?.hasPassword ? (
+                        <p class={'share-description'}>{$t('file.shareDownloadPasswordTip')}</p>
+                    ) : unref(shareInfo) && !unref(errorMessage) ? (
+                        <p class={'share-description'}>{$t('file.shareDownloadingHint')}</p>
+                    ) : null}
+                    {unref(shareInfo) ? (
+                        <ElForm
+                            onSubmit={($event?: any) => {
+                                $event.preventDefault();
+                            }}
+                        >
+                            {unref(shareInfo).hasPassword ? (
+                                <ElFormItem label={$t('file.sharePasswordRequired')}>
+                                    <ElInput
+                                        v-model={password.value}
+                                        type="password"
+                                        show-password
+                                        clearable
+                                        maxlength="256"
+                                        placeholder={$t('file.sharePasswordPlaceholder')}
+                                        autocomplete="current-password"
+                                        onKeyup={($event?: any) => {
+                                            if (!($event.key === 'Enter')) return;
+                                            (downloadWithPassword as any)($event);
+                                        }}
+                                    />
+                                </ElFormItem>
+                            ) : null}
+                            {unref(errorMessage) ? <div class={'share-error'}>{unref(errorMessage)}</div> : null}
+                            <ElButton
+                                type="primary"
+                                loading={unref(downloading)}
+                                onClick={($event?: any) => {
+                                    (downloadWithPassword as any)($event);
                                 }}
+                                class={'share-button'}
                             >
-                                {unref(shareInfo).hasPassword ? (
-                                    <ElFormItem label={$t('file.sharePasswordRequired')}>
-                                        <ElInput
-                                            modelValue={unref(password)}
-                                            onUpdate:modelValue={($v) => {
-                                                password.value = $v as any;
-                                            }}
-                                            type="password"
-                                            show-password
-                                            clearable
-                                            maxlength="256"
-                                            placeholder={$t('file.sharePasswordPlaceholder')}
-                                            autocomplete="current-password"
-                                            onKeyup={($event?: any) => {
-                                                if (!($event.key === 'Enter')) return;
-                                                (downloadWithPassword as any)($event);
-                                            }}
-                                        />
-                                    </ElFormItem>
-                                ) : null}
-                                {unref(errorMessage) ? <div class={'share-error'}>{unref(errorMessage)}</div> : null}
-                                <ElButton
-                                    type="primary"
-                                    loading={unref(downloading)}
-                                    onClick={($event?: any) => {
-                                        (downloadWithPassword as any)($event);
-                                    }}
-                                    class={'share-button'}
-                                >
-                                    {$t('file.shareExtractFile')}
-                                </ElButton>
-                            </ElForm>
-                        ) : null}
-                    </div>
-                </div>,
-                [[vLoading, unref(initializing)]],
-            );
+                                {$t('file.shareExtractFile')}
+                            </ElButton>
+                        </ElForm>
+                    ) : null}
+                </div>
+            </div>
+        );
     },
     options,
 );

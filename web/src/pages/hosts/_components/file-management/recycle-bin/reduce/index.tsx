@@ -58,10 +58,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('file.reduce')}
                 size="w-60"
                 class={'recycle-file-dialog'}
@@ -77,17 +74,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             (onConfirm as any)($event);
                                         }}
+                                        v-loading={unref(loading)}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),

@@ -2,7 +2,6 @@ import { $t } from '@/utils/i18n-t';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -105,10 +104,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <ElForm ref="changeForm" model={req} label-position="left" label-width="90px" class={'mt-5'}>
                         <ElFormItem label={$t('website.changeDatabase')} prop="db">
                             <ElSelect
-                                modelValue={req.db}
-                                onUpdate:modelValue={($v) => {
-                                    req.db = $v as any;
-                                }}
+                                v-model={req.db}
                                 onChange={($event?: any) => {
                                     (changeDB as any)($event);
                                 }}
@@ -135,17 +131,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElText type="warning">{$t('website.changeDatabaseHelper2')}</ElText>
                         </ElFormItem>
                         <ElFormItem>
-                            {withDirectives(
+                            {
                                 <ElButton
                                     type="primary"
                                     onClick={($event?: any) => {
                                         submit();
                                     }}
+                                    v-permission={true}
                                 >
                                     {$t('commons.button.save')}
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </ElFormItem>
                     </ElForm>
                 ) : null}

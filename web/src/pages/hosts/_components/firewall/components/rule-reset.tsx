@@ -38,10 +38,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DialogPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 title={$t('commons.button.reset')}
                 class={'firewall-rule-dialog'}
                 v-slots={{
@@ -49,13 +46,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <>
                             <div class={'firewall-rule-dialog__content'}>
                                 <ElAlert title={unref(message)} type="warning" closable={false} show-icon />
-                                <ElRadioGroup
-                                    modelValue={unref(backup)}
-                                    onUpdate:modelValue={($v) => {
-                                        backup.value = $v as any;
-                                    }}
-                                    class={'firewall-rule-dialog__choices'}
-                                >
+                                <ElRadioGroup v-model={backup.value} class={'firewall-rule-dialog__choices'}>
                                     <ElRadio value={true} border>
                                         <span class={'firewall-rule-dialog__choice-title'}>
                                             {$t('firewall.resetWithBackup')}
@@ -80,10 +71,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </label>
                                     <ElInput
                                         id="firewall-reset-confirmation"
-                                        modelValue={unref(confirmation)}
-                                        onUpdate:modelValue={($v) => {
-                                            confirmation.value = $v as any;
-                                        }}
+                                        v-model={confirmation.value}
                                         placeholder={unref(provider)}
                                         autocomplete="off"
                                         onKeyup={($event?: any) => {

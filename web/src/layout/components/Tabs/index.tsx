@@ -64,10 +64,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <ElTabs
                 {...ctx.attrs}
-                modelValue={tabsStore.activeTabPath}
-                onUpdate:modelValue={($v) => {
-                    tabsStore.activeTabPath = $v as any;
-                }}
+                v-model={tabsStore.activeTabPath}
                 type="card"
                 closable={tabsStore.openedTabs.length > 1}
                 onTabChange={($event?: any) => {

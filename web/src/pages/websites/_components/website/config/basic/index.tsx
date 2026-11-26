@@ -96,15 +96,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div style={{ '--main-height': unref(mainHeight) + 'px' }}>
                 {unref(id) > 0 && __panelSetupProps.website.type != 'stream' ? (
-                    <ElTabs
-                        tab-position="left"
-                        modelValue={unref(tabIndex)}
-                        onUpdate:modelValue={($v) => {
-                            tabIndex.value = $v as any;
-                        }}
-                        ref={tabsRef}
-                        class={'custom-tabs'}
-                    >
+                    <ElTabs tab-position="left" v-model={tabIndex.value} ref={tabsRef} class={'custom-tabs'}>
                         <ElTabPane label={$t('website.domainConfig')} name="0">
                             {unref(tabIndex) == '0' ? <Domain id={unref(id)} key={unref(id)} /> : null}
                         </ElTabPane>
@@ -162,15 +154,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </ElTabs>
                 ) : null}
                 {unref(id) > 0 && __panelSetupProps.website.type == 'stream' ? (
-                    <ElTabs
-                        tab-position="left"
-                        modelValue={unref(tabIndex)}
-                        onUpdate:modelValue={($v) => {
-                            tabIndex.value = $v as any;
-                        }}
-                        ref={tabsRef}
-                        class={'custom-tabs'}
-                    >
+                    <ElTabs tab-position="left" v-model={tabIndex.value} ref={tabsRef} class={'custom-tabs'}>
                         <ElTabPane label={$t('website.other')} name="12">
                             {unref(tabIndex) == '12' ? <Other id={unref(id)} /> : null}
                         </ElTabPane>

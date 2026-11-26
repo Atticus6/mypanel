@@ -167,10 +167,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(proxyVisible)}
-                    onUpdate:modelValue={($v) => {
-                        proxyVisible.value = $v as any;
-                    }}
+                    v-model={proxyVisible.value}
                     header={$t('setting.proxy')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -200,8 +197,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <ElForm ref={formRef} label-position="top" model={form} rules={rules}>
+                    {
+                        <ElForm
+                            ref={formRef}
+                            label-position="top"
+                            model={form}
+                            rules={rules}
+                            v-loading={unref(loading)}
+                        >
                             <ElAlert
                                 closable={false}
                                 type="warning"
@@ -223,13 +226,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                             />
                             <ElFormItem label={$t('setting.proxyType')} prop="proxyType">
-                                <ElSelect
-                                    modelValue={form.proxyType}
-                                    onUpdate:modelValue={($v) => {
-                                        form.proxyType = $v as any;
-                                    }}
-                                    clearable
-                                >
+                                <ElSelect v-model={form.proxyType} clearable>
                                     <ElOption value="close" label={$t('commons.button.close')} />
                                     <ElOption value="socks5" label="SOCKS5" />
                                     <ElOption value="http" label="HTTP" />
@@ -296,30 +293,20 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElFormItem>
                                     <ElFormItem>
                                         <ElCheckbox
-                                            modelValue={form.proxyPasswdKeepItem}
-                                            onUpdate:modelValue={($v) => {
-                                                form.proxyPasswdKeepItem = $v as any;
-                                            }}
+                                            v-model={form.proxyPasswdKeepItem}
                                             label={$t('setting.proxyPasswdKeep')}
                                         />
                                     </ElFormItem>
                                     {unref(isXpackOrEE) ? (
                                         <ElFormItem label={$t('setting.proxyDocker')} prop="proxyDocker">
-                                            <ElCheckbox
-                                                modelValue={form.proxyDocker}
-                                                onUpdate:modelValue={($v) => {
-                                                    form.proxyDocker = $v as any;
-                                                }}
-                                                label={$t('setting.proxyDocker')}
-                                            />
+                                            <ElCheckbox v-model={form.proxyDocker} label={$t('setting.proxyDocker')} />
                                             <span class={'input-help'}>{$t('setting.proxyDockerHelper')}</span>
                                         </ElFormItem>
                                     ) : null}
                                 </div>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <ConfirmDialog
                     ref={confirmDialogRef}

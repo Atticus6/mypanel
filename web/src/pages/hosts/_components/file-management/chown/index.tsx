@@ -79,10 +79,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('file.setRole')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -114,8 +111,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 }}
             >
                 <ElAlert title={$t('file.ownerHelper')} type="info" closable={false} class={'common-prompt'} />
-                {withDirectives(
-                    <ElForm ref={fileForm} label-position="top" model={addForm} label-width="100px" rules={rules}>
+                {
+                    <ElForm
+                        ref={fileForm}
+                        label-position="top"
+                        model={addForm}
+                        label-width="100px"
+                        rules={rules}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('commons.table.user')} prop="user">
                             <ElInput
                                 modelValue={addForm.user}
@@ -134,19 +138,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         {unref(isDir) ? (
                             <ElFormItem>
-                                <ElCheckbox
-                                    modelValue={addForm.sub}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.sub = $v as any;
-                                    }}
-                                >
-                                    {$t('file.containSub')}
-                                </ElCheckbox>
+                                <ElCheckbox v-model={addForm.sub}>{$t('file.containSub')}</ElCheckbox>
                             </ElFormItem>
                         ) : null}
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

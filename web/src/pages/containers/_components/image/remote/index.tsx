@@ -4,7 +4,6 @@ import { type RemoteImage } from '@/api/modules/container';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { showImageProxyRequired, isRuntimeProxyRequired } from '@/utils/image-remote';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -108,10 +107,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ open });
         return () => (
             <DrawerPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 header={$t('container.imageRemoteSearch')}
                 size="large"
                 onClose={($event?: any) => {
@@ -126,10 +122,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 >
                     <ElFormItem>
                         <ElInput
-                            modelValue={unref(query)}
-                            onUpdate:modelValue={($v) => {
-                                query.value = $v as any;
-                            }}
+                            v-model={query.value}
                             maxlength={256}
                             clearable
                             placeholder={$t('commons.button.search')}
@@ -152,8 +145,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <span class={'input-help'}>{$t('container.imageRemoteSearchHelper')}</span>
                     </ElFormItem>
                 </ElForm>
-                {withDirectives(
-                    <ElTable tooltip-options={TABLE_OVERFLOW_TOOLTIP_OPTIONS} data={unref(items)}>
+                {
+                    <ElTable
+                        tooltip-options={TABLE_OVERFLOW_TOOLTIP_OPTIONS}
+                        data={unref(items)}
+                        v-loading={unref(loading)}
+                    >
                         <ElTableColumn prop="name" label={$t('container.imageName')} min-width="180" />
                         <ElTableColumn
                             prop="description"
@@ -167,25 +164,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 link
                                                 type="primary"
                                                 onClick={($event?: any) => {
                                                     ctx.emit('pull', row.name);
                                                 }}
+                                                v-permission={true}
                                             >
                                                 {$t('container.pull')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </>
                                 ),
                             }}
                         />
-                    </ElTable>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElTable>
+                }
                 {unref(total) > 0 ? (
                     <ElPagination
                         current-page={unref(page)}

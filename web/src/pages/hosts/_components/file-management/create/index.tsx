@@ -119,10 +119,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('commons.button.create')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -155,7 +152,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     {addForm.isAppendOnly ? (
                         <ElAlert type="warning" title={$t('xpack.tamper.tamperCreateHint')} closable={false} />
                     ) : null}
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={fileForm}
                             label-position="top"
@@ -167,34 +164,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 if (!($event.key === 'Enter')) return;
                             }}
                             class={'mt-2'}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('commons.table.name')} prop="name">
-                                <ElInput
-                                    modelValue={addForm.name}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.name = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={addForm.name} />
                             </ElFormItem>
                             {!addForm.isDir ? (
                                 <ElFormItem>
-                                    <ElCheckbox
-                                        modelValue={addForm.isLink}
-                                        onUpdate:modelValue={($v) => {
-                                            addForm.isLink = $v as any;
-                                        }}
-                                        label={$t('file.link')}
-                                    />
+                                    <ElCheckbox v-model={addForm.isLink} label={$t('file.link')} />
                                 </ElFormItem>
                             ) : null}
                             {addForm.isLink ? (
                                 <ElFormItem label={$t('file.linkType')} prop="linkType">
-                                    <ElRadioGroup
-                                        modelValue={addForm.isSymlink}
-                                        onUpdate:modelValue={($v) => {
-                                            addForm.isSymlink = $v as any;
-                                        }}
-                                    >
+                                    <ElRadioGroup v-model={addForm.isSymlink}>
                                         <ElRadio value={true}>{$t('file.softLink')}</ElRadio>
                                         <ElRadio value={false}>{$t('file.hardLink')}</ElRadio>
                                     </ElRadioGroup>
@@ -203,10 +185,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {addForm.isLink ? (
                                 <ElFormItem label={$t('file.linkPath')} prop="linkPath">
                                     <ElInput
-                                        modelValue={addForm.linkPath}
-                                        onUpdate:modelValue={($v) => {
-                                            addForm.linkPath = $v as any;
-                                        }}
+                                        v-model={addForm.linkPath}
                                         v-slots={{
                                             prepend: () => (
                                                 <>
@@ -224,18 +203,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             <ElFormItem>
                                 {addForm.isDir ? (
-                                    <ElCheckbox
-                                        modelValue={unref(setRole)}
-                                        onUpdate:modelValue={($v) => {
-                                            setRole.value = $v as any;
-                                        }}
-                                        label={$t('file.editPermissions')}
-                                    />
+                                    <ElCheckbox v-model={setRole.value} label={$t('file.editPermissions')} />
                                 ) : null}
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                     {unref(setRole) ? (
                         <FileRole
                             mode={'0755'}

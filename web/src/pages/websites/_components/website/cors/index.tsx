@@ -11,7 +11,6 @@ interface Props {
     config: CorsConfig;
     enableSize: string;
 }
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -84,36 +83,30 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <div class={'flex flex-col gap-1'}>
                             <span class={'font-medium'}>{$t('website.enableCors')}</span>
                         </div>
-                        {withDirectives(
+                        {
                             <ElSwitch
-                                modelValue={unref(corsEnabled)}
-                                onUpdate:modelValue={($v) => {
-                                    corsEnabled.value = $v as any;
-                                }}
+                                v-model={corsEnabled.value}
                                 size="large"
                                 onChange={($event?: any) => {
                                     (handleCorsChange as any)($event);
                                 }}
-                            />,
-                            [[permissionDirective, true]],
-                        )}
+                                v-permission={true}
+                            />
+                        }
                     </div>
                 ) : null}
                 {__panelSetupProps.enableSize == 'small' ? (
                     <ElFormItem label={$t('website.enableCors')}>
-                        {withDirectives(
+                        {
                             <ElSwitch
-                                modelValue={unref(corsEnabled)}
-                                onUpdate:modelValue={($v) => {
-                                    corsEnabled.value = $v as any;
-                                }}
+                                v-model={corsEnabled.value}
                                 size="large"
                                 onChange={($event?: any) => {
                                     (handleCorsChange as any)($event);
                                 }}
-                            />,
-                            [[permissionDirective, true]],
-                        )}
+                                v-permission={true}
+                            />
+                        }
                     </ElFormItem>
                 ) : null}
                 <ElCollapseTransition>
@@ -121,10 +114,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <div class={'mt-4'}>
                             <ElFormItem label={$t('website.allowOrigins')} prop="allowOrigins">
                                 <ElInput
-                                    modelValue={unref(corsConfig).allowOrigins}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(corsConfig).allowOrigins = $v as any;
-                                    }}
+                                    v-model={unref(corsConfig).allowOrigins}
                                     type="textarea"
                                     placeholder="*"
                                     onInput={($event?: any) => {
@@ -134,10 +124,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                             <ElFormItem label={$t('website.allowMethods')} prop="allowMethods">
                                 <ElInput
-                                    modelValue={unref(corsConfig).allowMethods}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(corsConfig).allowMethods = $v as any;
-                                    }}
+                                    v-model={unref(corsConfig).allowMethods}
                                     type="textarea"
                                     placeholder="GET,POST,OPTIONS,PUT,DELETE"
                                     onInput={($event?: any) => {
@@ -147,10 +134,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                             <ElFormItem label={$t('website.allowHeaders')} prop="allowHeaders">
                                 <ElInput
-                                    modelValue={unref(corsConfig).allowHeaders}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(corsConfig).allowHeaders = $v as any;
-                                    }}
+                                    v-model={unref(corsConfig).allowHeaders}
                                     type="textarea"
                                     onInput={($event?: any) => {
                                         (emitUpdate as any)($event);
@@ -158,32 +142,26 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </ElFormItem>
                             <ElFormItem label={$t('website.allowCredentials')} prop="allowCredentials">
-                                {withDirectives(
+                                {
                                     <ElSwitch
-                                        modelValue={unref(corsConfig).allowCredentials}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(corsConfig).allowCredentials = $v as any;
-                                        }}
+                                        v-model={unref(corsConfig).allowCredentials}
                                         onChange={($event?: any) => {
                                             (emitUpdate as any)($event);
                                         }}
-                                    />,
-                                    [[permissionDirective, true]],
-                                )}
+                                        v-permission={true}
+                                    />
+                                }
                             </ElFormItem>
                             <ElFormItem label={$t('website.preflight')} prop="preflight">
-                                {withDirectives(
+                                {
                                     <ElSwitch
-                                        modelValue={unref(corsConfig).preflight}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(corsConfig).preflight = $v as any;
-                                        }}
+                                        v-model={unref(corsConfig).preflight}
                                         onChange={($event?: any) => {
                                             (emitUpdate as any)($event);
                                         }}
-                                    />,
-                                    [[permissionDirective, true]],
-                                )}
+                                        v-permission={true}
+                                    />
+                                }
                                 <span class={'input-help'}>{$t('website.preflightHleper')}</span>
                             </ElFormItem>
                         </div>

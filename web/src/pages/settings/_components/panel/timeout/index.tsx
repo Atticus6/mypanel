@@ -64,10 +64,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.sessionTimeout')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -96,7 +93,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -105,6 +102,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('setting.sessionTimeout')} prop="sessionTimeout">
                             <ElInput
@@ -115,9 +113,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

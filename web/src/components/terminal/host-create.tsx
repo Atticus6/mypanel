@@ -218,10 +218,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(dialogVisible)}
-                onUpdate:modelValue={($v) => {
-                    dialogVisible.value = $v as any;
-                }}
+                v-model={dialogVisible.value}
                 header={$t('terminal.addHost')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -287,10 +284,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 isOK.value = false;
                             }}
                             clearable
-                            modelValue={form.user}
-                            onUpdate:modelValue={($v) => {
-                                form.user = $v as any;
-                            }}
+                            v-model={form.user}
                         />
                     </ElFormItem>
                     <ElFormItem label={$t('terminal.authMode')} prop="authMode">
@@ -298,10 +292,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             onChange={($event?: any) => {
                                 isOK.value = false;
                             }}
-                            modelValue={form.authMode}
-                            onUpdate:modelValue={($v) => {
-                                form.authMode = $v as any;
-                            }}
+                            v-model={form.authMode}
                         >
                             <ElRadio value="password">{$t('terminal.passwordMode')}</ElRadio>
                             <ElRadio value="key">{$t('terminal.keyMode')}</ElRadio>
@@ -316,10 +307,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 clearable
                                 show-password
                                 type="password"
-                                modelValue={form.password}
-                                onUpdate:modelValue={($v) => {
-                                    form.password = $v as any;
-                                }}
+                                v-model={form.password}
                             />
                         </ElFormItem>
                     ) : null}
@@ -331,10 +319,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                                 clearable
                                 type="textarea"
-                                modelValue={form.privateKey}
-                                onUpdate:modelValue={($v) => {
-                                    form.privateKey = $v as any;
-                                }}
+                                v-model={form.privateKey}
                             />
                         </ElFormItem>
                     ) : null}
@@ -347,10 +332,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 type="password"
                                 show-password
                                 clearable
-                                modelValue={form.passPhrase}
-                                onUpdate:modelValue={($v) => {
-                                    form.passPhrase = $v as any;
-                                }}
+                                v-model={form.passPhrase}
                             />
                         </ElFormItem>
                     ) : null}
@@ -377,15 +359,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </ElFormItem>
                     {!form.isLocal ? (
                         <ElFormItem label={$t('commons.table.group')} prop="groupID">
-                            <ElSelect
-                                filterable
-                                modelValue={form.groupID}
-                                onUpdate:modelValue={($v) => {
-                                    form.groupID = $v as any;
-                                }}
-                                clearable
-                                style={'width: 100%'}
-                            >
+                            <ElSelect filterable v-model={form.groupID} clearable style={'width: 100%'}>
                                 {(unref(groupList) || []).map((item) => (
                                     <ElOption label={item.name} value={item.id} key={item.id} />
                                 ))}
@@ -394,24 +368,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ) : null}
                     {!form.isLocal ? (
                         <ElFormItem label={$t('commons.table.title')} prop="name">
-                            <ElInput
-                                clearable
-                                modelValue={form.name}
-                                onUpdate:modelValue={($v) => {
-                                    form.name = $v as any;
-                                }}
-                            />
+                            <ElInput clearable v-model={form.name} />
                         </ElFormItem>
                     ) : null}
                     {!form.isLocal ? (
                         <ElFormItem label={$t('commons.table.description')} prop="description">
-                            <ElInput
-                                clearable
-                                modelValue={form.description}
-                                onUpdate:modelValue={($v) => {
-                                    form.description = $v as any;
-                                }}
-                            />
+                            <ElInput clearable v-model={form.description} />
                         </ElFormItem>
                     ) : null}
                 </ElForm>

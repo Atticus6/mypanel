@@ -93,10 +93,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.runtimeEnv')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -125,7 +122,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -133,14 +130,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('setting.region')} prop="edition">
-                            <ElRadioGroup
-                                modelValue={form.edition}
-                                onUpdate:modelValue={($v) => {
-                                    form.edition = $v as any;
-                                }}
-                            >
+                            <ElRadioGroup v-model={form.edition}>
                                 <ElRadio value="cn">
                                     <span>{$t('setting.cn')}</span>
                                 </ElRadio>
@@ -151,12 +144,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <span class={'input-help'}>{$t('setting.regionTip')}</span>
                         </ElFormItem>
                         <ElFormItem label={$t('setting.docSource')} prop="docSource">
-                            <ElRadioGroup
-                                modelValue={form.docSource}
-                                onUpdate:modelValue={($v) => {
-                                    form.docSource = $v as any;
-                                }}
-                            >
+                            <ElRadioGroup v-model={form.docSource}>
                                 <ElRadio value="withByRegion">
                                     <span>{$t('setting.withByRegion')}</span>
                                 </ElRadio>
@@ -166,9 +154,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElRadioGroup>
                             <span class={'input-help'}>{$t('setting.docSourceTip')}</span>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

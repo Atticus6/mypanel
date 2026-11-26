@@ -359,10 +359,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             <DialogPro
                 title={$t('file.list')}
                 size="w-60"
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
                 }}
@@ -436,10 +433,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </div>
                     <ElInput
                         ref={searchableInputRef}
-                        modelValue={unref(searchablePath)}
-                        onUpdate:modelValue={($v) => {
-                            searchablePath.value = $v as any;
-                        }}
+                        v-model={searchablePath.value}
                         onBlur={($event?: any) => {
                             unref(searchableInputBlur);
                         }}
@@ -526,8 +520,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {$t('commons.button.createNewFile')}
                     </ElButton>
                 </div>
-                {withDirectives(
-                    <div>
+                {
+                    <div v-loading={unref(loading)}>
                         <ElTable
                             data={unref(data)}
                             highlight-current-row
@@ -576,10 +570,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <>
                                                     <ElInput
                                                         ref={rowRefs}
-                                                        modelValue={unref(newFolder)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            newFolder.value = $v as any;
-                                                        }}
+                                                        v-model={newFolder.value}
                                                         placeholder="new folder"
                                                         onInput={($event?: any) => {
                                                             handleChange(unref(newFolder), row);
@@ -649,9 +640,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                             />
                         </ElTable>
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
                 <div class={'file-list-bottom'}>
                     {unref(isMultiple) && form.dir ? (
                         <ElCheckbox

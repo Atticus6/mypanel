@@ -5,7 +5,6 @@ import { MsgSuccess } from '@/utils/message';
 import { AcmeAccountTypes, KeyTypes } from '@/global/mimetype';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -76,10 +75,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.create')}
                 size="large"
                 onClose={($event?: any) => {
@@ -97,24 +93,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit(unref(accountForm));
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
@@ -123,6 +119,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         label-position="top"
                         model={unref(account)}
                         rules={unref(rules)}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('website.email')} prop="email">
                             <ElInput
@@ -134,22 +131,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         {unref(isProductPro) ? (
                             <ElFormItem label={$t('website.useProxy')} prop="useProxy">
-                                <ElSwitch
-                                    modelValue={unref(account).useProxy}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(account).useProxy = $v as any;
-                                    }}
-                                />
+                                <ElSwitch v-model={unref(account).useProxy} />
                                 <span class={'input-help'}>{$t('website.useProxyHelper')}</span>
                             </ElFormItem>
                         ) : null}
                         <ElFormItem label={$t('website.acmeAccountType')} prop="type">
-                            <ElSelect
-                                modelValue={unref(account).type}
-                                onUpdate:modelValue={($v) => {
-                                    unref(account).type = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(account).type}>
                                 {(AcmeAccountTypes || []).map((acme, index) => (
                                     <ElOption label={acme.label} value={acme.value} key={index} />
                                 ))}
@@ -162,12 +149,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                         </ElFormItem>
                         <ElFormItem label={$t('website.keyType')} prop="keyType">
-                            <ElSelect
-                                modelValue={unref(account).keyType}
-                                onUpdate:modelValue={($v) => {
-                                    unref(account).keyType = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(account).keyType}>
                                 {(KeyTypes || []).map((keyType, index) => (
                                     <ElOption label={keyType.label} value={keyType.value} key={index} />
                                 ))}
@@ -184,12 +166,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     />
                                 </ElFormItem>
                                 <ElFormItem label={$t('ssl.useEAB')} prop="useEAB">
-                                    <ElSwitch
-                                        modelValue={unref(account).useEAB}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(account).useEAB = $v as any;
-                                        }}
-                                    />
+                                    <ElSwitch v-model={unref(account).useEAB} />
                                 </ElFormItem>
                             </div>
                         ) : null}
@@ -227,9 +204,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ) : null}
                             </div>
                         ) : null}
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

@@ -68,10 +68,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('commons.button.delete') + ' - ' + unref(composeName)}
                 size="small"
                 v-slots={{
@@ -100,28 +97,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={deleteForm}>
+                {
+                    <ElForm ref={deleteForm} v-loading={unref(loading)}>
                         <ElFormItem>
-                            <ElCheckbox
-                                modelValue={unref(deleteFile)}
-                                onUpdate:modelValue={($v) => {
-                                    deleteFile.value = $v as any;
-                                }}
-                                label={$t('container.deleteFile')}
-                            />
+                            <ElCheckbox v-model={deleteFile.value} label={$t('container.deleteFile')} />
                             <span class={'input-help whitespace-break-spaces'}>
                                 {$t('container.deleteComposeHelper')}
                             </span>
                         </ElFormItem>
                         <ElFormItem>
-                            <ElCheckbox
-                                modelValue={unref(force)}
-                                onUpdate:modelValue={($v) => {
-                                    force.value = $v as any;
-                                }}
-                                label={$t('website.forceDelete')}
-                            />
+                            <ElCheckbox v-model={force.value} label={$t('website.forceDelete')} />
                             <span class={'input-help'}>{$t('website.forceDeleteHelper')}</span>
                         </ElFormItem>
                         <ElFormItem>
@@ -130,17 +115,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <span class={'warning'}>{unref(composeName)}</span>
                                 <span>{$t('container.deleteCompose')}</span>
                             </div>
-                            <ElInput
-                                modelValue={unref(deleteInfo)}
-                                onUpdate:modelValue={($v) => {
-                                    deleteInfo.value = $v as any;
-                                }}
-                                placeholder={unref(composeName)}
-                            />
+                            <ElInput v-model={deleteInfo.value} placeholder={unref(composeName)} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DialogPro>
         );
     },

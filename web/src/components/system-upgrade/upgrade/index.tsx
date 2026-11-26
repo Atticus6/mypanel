@@ -72,10 +72,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('commons.button.upgrade')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -110,10 +107,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <h2 class={'inline-block'}>{$t('app.version')}</h2>
                     </div>
                     <ElRadioGroup
-                        modelValue={unref(upgradeVersion)}
-                        onUpdate:modelValue={($v) => {
-                            upgradeVersion.value = $v as any;
-                        }}
+                        v-model={upgradeVersion.value}
                         onChange={($event?: any) => {
                             (changeOption as any)($event);
                         }}
@@ -131,12 +125,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElRadio value={unref(upgradeInfo).testVersion}>{unref(upgradeInfo).testVersion}</ElRadio>
                         ) : null}
                     </ElRadioGroup>
-                    {withDirectives(
-                        <div>
+                    {
+                        <div v-loading={unref(loading)}>
                             <MarkDownEditor content={unref(upgradeInfo).releaseNote} />
-                        </div>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </div>
+                    }
                 </div>
             </DrawerPro>
         );

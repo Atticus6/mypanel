@@ -31,7 +31,6 @@ interface ConfigInfo {
     isOffline: string;
 }
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -200,10 +199,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('xpack.alert.sendTimeRange')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -220,38 +216,36 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         disabled={unref(loading)}
                                         type="primary"
                                         onClick={($event?: any) => {
                                             onSave();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('xpack.alert.sendTimeRange')} prop="sendTimeRange">
                             <div class={'text-center'}>
                                 <ElTransfer
-                                    modelValue={unref(resourceValue)}
-                                    onUpdate:modelValue={($v) => {
-                                        resourceValue.value = $v as any;
-                                    }}
+                                    v-model={resourceValue.value}
                                     titles={[$t('xpack.alert.noticeAlert'), $t('xpack.alert.resourceAlert')]}
                                     format={{
                                         noChecked: '${total}',
@@ -264,10 +258,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <>
                                                 <ElFormItem prop="noticeTimeRange">
                                                     <ElTimePicker
-                                                        modelValue={unref(noticeTimeRange)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            noticeTimeRange.value = $v as any;
-                                                        }}
+                                                        v-model={noticeTimeRange.value}
                                                         is-range
                                                         start-placeholder={$t('commons.search.timeStart')}
                                                         end-placeholder={$t('commons.search.timeEnd')}
@@ -285,10 +276,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <>
                                                 <ElFormItem prop="resourceTimeRange">
                                                     <ElTimePicker
-                                                        modelValue={unref(resourceTimeRange)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            resourceTimeRange.value = $v as any;
-                                                        }}
+                                                        v-model={resourceTimeRange.value}
                                                         is-range
                                                         start-placeholder={$t('commons.search.timeStart')}
                                                         end-placeholder={$t('commons.search.timeEnd')}
@@ -306,9 +294,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </div>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

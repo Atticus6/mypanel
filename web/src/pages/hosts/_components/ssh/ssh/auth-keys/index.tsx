@@ -55,10 +55,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('ssh.authKeys')}
                     size="large"
                     v-slots={{
@@ -79,20 +76,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <div>
+                    {
+                        <div v-loading={unref(loading)}>
                             <CodemirrorPro
                                 heightDiff={160}
-                                modelValue={unref(conf)}
-                                onUpdate:modelValue={($v) => {
-                                    conf.value = $v as any;
-                                }}
+                                v-model={conf.value}
                                 lineWrapping={true}
                                 placeholder="# The authorized_keys file does not exist or is empty (~/ssh/authorized_keys)"
                             />
-                        </div>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </div>
+                    }
                 </DrawerPro>
             </div>
         );

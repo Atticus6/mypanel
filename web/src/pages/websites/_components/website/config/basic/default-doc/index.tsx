@@ -9,7 +9,6 @@ import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -93,46 +92,37 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             search(req.value);
         });
-        return () =>
-            withDirectives(
-                <ElRow gutter={20}>
-                    <ElCol xs={24} sm={18} md={8} lg={8} xl={8}>
-                        <ElForm
-                            onSubmit={($event?: any) => {
-                                $event.preventDefault();
+        return () => (
+            <ElRow gutter={20} v-loading={unref(loading)}>
+                <ElCol xs={24} sm={18} md={8} lg={8} xl={8}>
+                    <ElForm
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                        ref={defaultForm}
+                        label-position="top"
+                        model={unref(defaultModel)}
+                        rules={unref(rules)}
+                    >
+                        <ElFormItem label={$t('website.defaultDoc')} prop="index">
+                            <ElInput v-model={unref(defaultModel).index} type="textarea" rows={8} />
+                        </ElFormItem>
+                    </ElForm>
+                    {
+                        <ElButton
+                            type="primary"
+                            onClick={($event?: any) => {
+                                submit(unref(defaultForm));
                             }}
-                            ref={defaultForm}
-                            label-position="top"
-                            model={unref(defaultModel)}
-                            rules={unref(rules)}
+                            disabled={unref(loading)}
+                            v-permission={true}
                         >
-                            <ElFormItem label={$t('website.defaultDoc')} prop="index">
-                                <ElInput
-                                    modelValue={unref(defaultModel).index}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(defaultModel).index = $v as any;
-                                    }}
-                                    type="textarea"
-                                    rows={8}
-                                />
-                            </ElFormItem>
-                        </ElForm>
-                        {withDirectives(
-                            <ElButton
-                                type="primary"
-                                onClick={($event?: any) => {
-                                    submit(unref(defaultForm));
-                                }}
-                                disabled={unref(loading)}
-                            >
-                                {$t('commons.button.save')}
-                            </ElButton>,
-                            [[permissionDirective, true]],
-                        )}
-                    </ElCol>
-                </ElRow>,
-                [[vLoading, unref(loading)]],
-            );
+                            {$t('commons.button.save')}
+                        </ElButton>
+                    }
+                </ElCol>
+            </ElRow>
+        );
     },
     options,
 );

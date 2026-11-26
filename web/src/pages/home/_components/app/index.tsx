@@ -9,7 +9,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import { isRemoteAppIcon } from '@/utils/app-icon';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import CardWithHeader from '@/components/card-with-header/index';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 import { ArrowDown } from '@element-plus/icons-vue';
@@ -122,7 +121,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div class={'app-launcher'}>
-                {withDirectives(
+                {
                     <CardWithHeader
                         header={$t('app.app')}
                         fill
@@ -149,10 +148,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         <ElInput
                                             size="small"
-                                            modelValue={unref(filter)}
-                                            onUpdate:modelValue={($v) => {
-                                                filter.value = $v as any;
-                                            }}
+                                            v-model={filter.value}
                                             clearable
                                             onInput={($event?: any) => {
                                                 loadOption();
@@ -175,10 +171,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     onChangeStatus(row);
                                                                 }}
                                                                 size="small"
-                                                                modelValue={row.isShow}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    row.isShow = $v as any;
-                                                                }}
+                                                                v-model={row.isShow}
                                                                 class={'float-right'}
                                                             />
                                                         </>
@@ -271,42 +264,37 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     </ElButton>
                                                                 </div>
                                                                 <div class={'h-app-actions'}>
-                                                                    {app.currentRow.status !== 'Running'
-                                                                        ? withDirectives(
-                                                                              <ElButton
-                                                                                  size="small"
-                                                                                  type="primary"
-                                                                                  link
-                                                                                  onClick={($event?: any) => {
-                                                                                      onOperate(
-                                                                                          'start',
-                                                                                          app.currentRow,
-                                                                                      );
-                                                                                  }}
-                                                                              >
-                                                                                  {$t('commons.button.start')}
-                                                                              </ElButton>,
-                                                                              [[permissionDirective, 'app_manage']],
-                                                                          )
-                                                                        : withDirectives(
-                                                                              <ElButton
-                                                                                  size="small"
-                                                                                  type="primary"
-                                                                                  link
-                                                                                  onClick={($event?: any) => {
-                                                                                      onOperate('stop', app.currentRow);
-                                                                                  }}
-                                                                                  style={
-                                                                                      unref(isMobile)
-                                                                                          ? 'margin-left: -1px'
-                                                                                          : ''
-                                                                                  }
-                                                                              >
-                                                                                  {$t('commons.button.stop')}
-                                                                              </ElButton>,
-                                                                              [[permissionDirective, 'app_manage']],
-                                                                          )}
-                                                                    {withDirectives(
+                                                                    {app.currentRow.status !== 'Running' ? (
+                                                                        <ElButton
+                                                                            size="small"
+                                                                            type="primary"
+                                                                            link
+                                                                            onClick={($event?: any) => {
+                                                                                onOperate('start', app.currentRow);
+                                                                            }}
+                                                                            v-permission={'app_manage'}
+                                                                        >
+                                                                            {$t('commons.button.start')}
+                                                                        </ElButton>
+                                                                    ) : (
+                                                                        <ElButton
+                                                                            size="small"
+                                                                            type="primary"
+                                                                            link
+                                                                            onClick={($event?: any) => {
+                                                                                onOperate('stop', app.currentRow);
+                                                                            }}
+                                                                            style={
+                                                                                unref(isMobile)
+                                                                                    ? 'margin-left: -1px'
+                                                                                    : ''
+                                                                            }
+                                                                            v-permission={'app_manage'}
+                                                                        >
+                                                                            {$t('commons.button.stop')}
+                                                                        </ElButton>
+                                                                    )}
+                                                                    {
                                                                         <ElButton
                                                                             size="small"
                                                                             type="primary"
@@ -319,12 +307,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                     ? 'margin-left: -1px'
                                                                                     : ''
                                                                             }
+                                                                            v-permission={'app_manage'}
                                                                         >
                                                                             {$t('commons.button.restart')}
-                                                                        </ElButton>,
-                                                                        [[permissionDirective, 'app_manage']],
-                                                                    )}
-                                                                    {withDirectives(
+                                                                        </ElButton>
+                                                                    }
+                                                                    {
                                                                         <ElButton
                                                                             size="small"
                                                                             type="primary"
@@ -337,17 +325,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                     ? 'margin-left: -1px'
                                                                                     : ''
                                                                             }
+                                                                            v-permission={'app_manage'}
                                                                         >
                                                                             {$t('tabs.more')}
-                                                                        </ElButton>,
-                                                                        [[permissionDirective, 'app_manage']],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         )}
                                                     </ElCol>
                                                     <ElCol span={3} class={'h-app-side-col'}>
-                                                        {withDirectives(
+                                                        {
                                                             <ElButton
                                                                 type="primary"
                                                                 plain
@@ -362,11 +350,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     goInstall(app.key, app.type);
                                                                 }}
                                                                 class={'h-app-button'}
+                                                                v-permission={'app_manage'}
                                                             >
                                                                 {$t('commons.button.install')}
-                                                            </ElButton>,
-                                                            [[permissionDirective, 'app_manage']],
-                                                        )}
+                                                            </ElButton>
+                                                        }
                                                     </ElCol>
                                                 </ElRow>
                                             </div>
@@ -375,9 +363,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
             </div>
         );
     },

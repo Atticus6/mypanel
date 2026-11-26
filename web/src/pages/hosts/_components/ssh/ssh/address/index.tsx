@@ -126,10 +126,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('ssh.listenAddress')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -160,7 +157,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -169,6 +166,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElAlert
                             closable={false}
@@ -184,49 +182,28 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         />
                         <ElFormItem label="IPv4" prop="listenAddressV4">
                             <ElCheckbox
-                                modelValue={form.ipv4All}
-                                onUpdate:modelValue={($v) => {
-                                    form.ipv4All = $v as any;
-                                }}
+                                v-model={form.ipv4All}
                                 onChange={($event?: any) => {
                                     form.listenAddressV4 = form.ipv4All ? '0.0.0.0' : form.listenAddressV4;
                                 }}
                             >
                                 {$t('setting.bindAll')}
                             </ElCheckbox>
-                            <ElInput
-                                disabled={form.ipv4All}
-                                clearable
-                                modelValue={form.listenAddressV4}
-                                onUpdate:modelValue={($v) => {
-                                    form.listenAddressV4 = $v as any;
-                                }}
-                            />
+                            <ElInput disabled={form.ipv4All} clearable v-model={form.listenAddressV4} />
                         </ElFormItem>
                         <ElFormItem label="IPv6" prop="listenAddressV6">
                             <ElCheckbox
-                                modelValue={form.ipv6All}
-                                onUpdate:modelValue={($v) => {
-                                    form.ipv6All = $v as any;
-                                }}
+                                v-model={form.ipv6All}
                                 onChange={($event?: any) => {
                                     form.listenAddressV6 = form.ipv6All ? '::' : form.listenAddressV6;
                                 }}
                             >
                                 {$t('setting.bindAll')}
                             </ElCheckbox>
-                            <ElInput
-                                disabled={form.ipv6All}
-                                clearable
-                                modelValue={form.listenAddressV6}
-                                onUpdate:modelValue={($v) => {
-                                    form.listenAddressV6 = $v as any;
-                                }}
-                            />
+                            <ElInput disabled={form.ipv6All} clearable v-model={form.listenAddressV6} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

@@ -71,10 +71,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('file.editPermissions')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -105,26 +102,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <FileRole
                         mode={unref(mode)}
                         onGetMode={($event?: any) => {
                             (getMode as any)($event);
                         }}
                         key={unref(open).toString()}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 {unref(form).isDir ? (
                     <ElFormItem>
-                        <ElCheckbox
-                            modelValue={unref(form).sub}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).sub = $v as any;
-                            }}
-                        >
-                            {$t('file.containSub')}
-                        </ElCheckbox>
+                        <ElCheckbox v-model={unref(form).sub}>{$t('file.containSub')}</ElCheckbox>
                     </ElFormItem>
                 ) : null}
             </DrawerPro>

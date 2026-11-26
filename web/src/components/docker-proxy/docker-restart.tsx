@@ -43,10 +43,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 size="small"
                 v-slots={{
                     footer: () => (
@@ -80,12 +77,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                     }}
                 >
                     <ElFormItem label={unref(title)}>
-                        <ElRadioGroup
-                            modelValue={unref(restart)}
-                            onUpdate:modelValue={($v) => {
-                                restart.value = $v as any;
-                            }}
-                        >
+                        <ElRadioGroup v-model={restart.value}>
                             <ElRadio value={true}>{$t('setting.restartNow')}</ElRadio>
                             <ElRadio value={false}>{$t('setting.restartLater')}</ElRadio>
                         </ElRadioGroup>

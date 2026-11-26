@@ -12,7 +12,6 @@ interface Props {
     showFavorite?: boolean;
 }
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import CopyButton from '@/components/copy-button/index';
 import SvgIcon from '@/components/svg-icon/svg-icon';
@@ -166,10 +165,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         >
                             <ElFormItem prop="domainName" class={'inline-form-item'}>
                                 <ElInput
-                                    modelValue={formData.domainName}
-                                    onUpdate:modelValue={($v) => {
-                                        formData.domainName = $v as any;
-                                    }}
+                                    v-model={formData.domainName}
                                     onKeyup={($event?: any) => {
                                         $event.preventDefault();
                                         if (!($event.key === 'Enter')) return;
@@ -260,19 +256,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </table>
                         </ElPopover>
                     ) : null}
-                    {!unref(isEditing)
-                        ? withDirectives(
-                              <ElButton
-                                  link
-                                  icon="edit"
-                                  onClick={($event?: any) => {
-                                      (startEdit as any)($event);
-                                  }}
-                                  class={'ml-2.5'}
-                              />,
-                              [[permissionDirective, true]],
-                          )
-                        : null}
+                    {!unref(isEditing) ? (
+                        <ElButton
+                            link
+                            icon="edit"
+                            onClick={($event?: any) => {
+                                (startEdit as any)($event);
+                            }}
+                            class={'ml-2.5'}
+                            v-permission={true}
+                        />
+                    ) : null}
                 </div>
                 {__panelSetupProps.showFavorite ? (
                     <div>
@@ -283,7 +277,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             }
                             placement="top-start"
                         >
-                            {withDirectives(
+                            {
                                 <ElButton
                                     link
                                     size={__panelSetupProps.hideName ? 'default' : 'large'}
@@ -292,11 +286,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         favoriteWebsite(__panelSetupProps.row);
                                     }}
                                     class={cn('website-pin-button', { 'is-pinned': __panelSetupProps.row.favorite })}
+                                    v-permission={true}
                                 >
                                     <SvgIcon iconName="p-pushpin" className="website-pin-icon" />
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </ElTooltip>
                     </div>
                 ) : null}

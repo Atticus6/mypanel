@@ -182,10 +182,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('commons.button.create')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -217,8 +214,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={formRef} label-position="top" model={form} rules={rules} label-width="80px">
+                {
+                    <ElForm
+                        ref={formRef}
+                        label-position="top"
+                        model={form}
+                        rules={rules}
+                        label-width="80px"
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('container.networkName')} prop="name">
                             <ElInput
                                 clearable
@@ -229,12 +233,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('container.driver')} prop="driver">
-                            <ElSelect
-                                modelValue={form.driver}
-                                onUpdate:modelValue={($v) => {
-                                    form.driver = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={form.driver}>
                                 <ElOption label="bridge" value="bridge" />
                                 <ElOption label="ipvlan" value="ipvlan" />
                                 <ElOption label="macvlan" value="macvlan" />
@@ -243,12 +242,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         {form.driver === 'macvlan' ? (
                             <ElFormItem label={$t('container.parentNetworkCard')} prop="parentNetworkCard">
-                                <ElSelect
-                                    modelValue={form.parentNetworkCard}
-                                    onUpdate:modelValue={($v) => {
-                                        form.parentNetworkCard = $v as any;
-                                    }}
-                                >
+                                <ElSelect v-model={form.parentNetworkCard}>
                                     {(unref(netOptions) || []).map((item) => (
                                         <span key={item}>
                                             {item !== 'all' ? <ElOption label={item} value={item} /> : null}
@@ -257,14 +251,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElSelect>
                             </ElFormItem>
                         ) : null}
-                        <ElCheckbox
-                            modelValue={form.ipv4}
-                            onUpdate:modelValue={($v) => {
-                                form.ipv4 = $v as any;
-                            }}
-                        >
-                            {'IPv4'}
-                        </ElCheckbox>
+                        <ElCheckbox v-model={form.ipv4}>{'IPv4'}</ElCheckbox>
                         {form.ipv4 ? (
                             <div>
                                 <ElRow type="flex" justify="center" gutter={20}>
@@ -315,13 +302,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 v-slots={{
                                                     default: ({ row }) => (
                                                         <>
-                                                            <ElInput
-                                                                placeholder="my-router"
-                                                                modelValue={row.key}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    row.key = $v as any;
-                                                                }}
-                                                            />
+                                                            <ElInput placeholder="my-router" v-model={row.key} />
                                                         </>
                                                     ),
                                                 }}
@@ -332,13 +313,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 v-slots={{
                                                     default: ({ row }) => (
                                                         <>
-                                                            <ElInput
-                                                                placeholder="172.13.1.13"
-                                                                modelValue={row.value}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    row.value = $v as any;
-                                                                }}
-                                                            />
+                                                            <ElInput placeholder="172.13.1.13" v-model={row.value} />
                                                         </>
                                                     ),
                                                 }}
@@ -374,13 +349,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElFormItem>
                             </div>
                         ) : null}
-                        <ElCheckbox
-                            modelValue={form.ipv6}
-                            onUpdate:modelValue={($v) => {
-                                form.ipv6 = $v as any;
-                            }}
-                            class={'mb-4'}
-                        >
+                        <ElCheckbox v-model={form.ipv6} class={'mb-4'}>
                             {'IPv6'}
                         </ElCheckbox>
                         {form.ipv6 ? (
@@ -433,13 +402,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 v-slots={{
                                                     default: ({ row }) => (
                                                         <>
-                                                            <ElInput
-                                                                placeholder="my-router"
-                                                                modelValue={row.key}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    row.key = $v as any;
-                                                                }}
-                                                            />
+                                                            <ElInput placeholder="my-router" v-model={row.key} />
                                                         </>
                                                     ),
                                                 }}
@@ -450,13 +413,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 v-slots={{
                                                     default: ({ row }) => (
                                                         <>
-                                                            <ElInput
-                                                                placeholder="2408:400e::3"
-                                                                modelValue={row.value}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    row.value = $v as any;
-                                                                }}
-                                                            />
+                                                            <ElInput placeholder="2408:400e::3" v-model={row.value} />
                                                         </>
                                                     ),
                                                 }}
@@ -497,10 +454,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 type="textarea"
                                 placeholder={$t('container.tagHelper')}
                                 rows={3}
-                                modelValue={form.optionStr}
-                                onUpdate:modelValue={($v) => {
-                                    form.optionStr = $v as any;
-                                }}
+                                v-model={form.optionStr}
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('container.tag')} prop="labelStr">
@@ -508,15 +462,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 type="textarea"
                                 placeholder={$t('container.tagHelper')}
                                 rows={3}
-                                modelValue={form.labelStr}
-                                onUpdate:modelValue={($v) => {
-                                    form.labelStr = $v as any;
-                                }}
+                                v-model={form.labelStr}
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

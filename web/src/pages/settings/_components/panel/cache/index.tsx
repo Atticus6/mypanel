@@ -45,10 +45,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 header={$t('setting.panelCache.title')}
                 size="normal"
                 v-slots={{
@@ -87,13 +84,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     {(categories || []).map((key) => (
                         <div class={'flex items-center justify-between py-3'} key={key}>
                             <span>{$t(`setting.panelCache.${key}`)}</span>
-                            <ElSwitch
-                                modelValue={form[key]}
-                                onUpdate:modelValue={($v) => {
-                                    form[key] = $v as any;
-                                }}
-                                aria-label={$t(`setting.panelCache.${key}`)}
-                            />
+                            <ElSwitch v-model={form[key]} aria-label={$t(`setting.panelCache.${key}`)} />
                         </div>
                     ))}
                     <div class={'mt-4 flex items-center justify-between gap-4'}>
@@ -118,10 +109,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElTooltip>
                         </div>
                         <ElSelect
-                            modelValue={form.duration}
-                            onUpdate:modelValue={($v) => {
-                                form.duration = $v as any;
-                            }}
+                            v-model={form.duration}
                             aria-label={$t('setting.panelCache.duration')}
                             class={'!w-40 min-w-0'}
                         >

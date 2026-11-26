@@ -4,7 +4,6 @@ import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -153,94 +152,86 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             search(scopeReq);
         });
-        return () =>
-            withDirectives(
-                <ElRow gutter={20}>
-                    <ElCol xs={24} sm={18} md={8} lg={8} xl={8}>
-                        <ElForm ref={limitForm} label-position="right" model={form} rules={rules} label-width="100px">
-                            <ElFormItem prop="enable" label={$t('website.enableOrNot')}>
-                                {withDirectives(
-                                    <ElSwitch
-                                        modelValue={unref(enable)}
-                                        onUpdate:modelValue={($v) => {
-                                            enable.value = $v as any;
-                                        }}
-                                        onChange={($event?: any) => {
-                                            (changeEnable as any)($event);
-                                        }}
-                                    />,
-                                    [[permissionDirective, true]],
-                                )}
-                            </ElFormItem>
-                            <ElFormItem label={$t('website.limit')}>
-                                <ElSelect
-                                    modelValue={unref(ruleKey)}
-                                    onUpdate:modelValue={($v) => {
-                                        ruleKey.value = $v as any;
-                                    }}
+        return () => (
+            <ElRow gutter={20} v-loading={unref(loading)}>
+                <ElCol xs={24} sm={18} md={8} lg={8} xl={8}>
+                    <ElForm ref={limitForm} label-position="right" model={form} rules={rules} label-width="100px">
+                        <ElFormItem prop="enable" label={$t('website.enableOrNot')}>
+                            {
+                                <ElSwitch
+                                    v-model={enable.value}
                                     onChange={($event?: any) => {
-                                        changeRule(unref(ruleKey));
+                                        (changeEnable as any)($event);
                                     }}
+                                    v-permission={true}
+                                />
+                            }
+                        </ElFormItem>
+                        <ElFormItem label={$t('website.limit')}>
+                            <ElSelect
+                                v-model={ruleKey.value}
+                                onChange={($event?: any) => {
+                                    changeRule(unref(ruleKey));
+                                }}
+                            >
+                                <ElOption label={$t('website.current')} value={'current'} />
+                                {(limitRules || []).map((limit, index) => (
+                                    <ElOption label={limit.key} value={limit.key} key={index} />
+                                ))}
+                            </ElSelect>
+                        </ElFormItem>
+                        <ElFormItem label={$t('website.perserver')} prop="perserver">
+                            <ElInput
+                                modelValue={form.perserver}
+                                onUpdate:modelValue={($v) => {
+                                    form.perserver = $v === '' ? $v : Number($v);
+                                }}
+                                maxlength="15"
+                            />
+                            <span class={'input-help'}>{$t('website.perserverHelper')}</span>
+                        </ElFormItem>
+                        <ElFormItem label={$t('website.perip')} prop="perip">
+                            <ElInput
+                                modelValue={form.perip}
+                                onUpdate:modelValue={($v) => {
+                                    form.perip = $v === '' ? $v : Number($v);
+                                }}
+                                maxlength="15"
+                            />
+                            <span class={'input-help'}>{$t('website.peripHelper')}</span>
+                        </ElFormItem>
+                        <ElFormItem label={$t('website.rateLimit')} prop="rate">
+                            <ElInput
+                                modelValue={form.rate}
+                                onUpdate:modelValue={($v) => {
+                                    form.rate = $v === '' ? $v : Number($v);
+                                }}
+                                maxlength="15"
+                            />
+                            <span class={'input-help'}>{$t('website.rateLimitHelper')}</span>
+                        </ElFormItem>
+                        <ElFormItem>
+                            {
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        submit(unref(limitForm));
+                                    }}
+                                    disabled={unref(loading)}
+                                    v-permission={true}
                                 >
-                                    <ElOption label={$t('website.current')} value={'current'} />
-                                    {(limitRules || []).map((limit, index) => (
-                                        <ElOption label={limit.key} value={limit.key} key={index} />
-                                    ))}
-                                </ElSelect>
-                            </ElFormItem>
-                            <ElFormItem label={$t('website.perserver')} prop="perserver">
-                                <ElInput
-                                    modelValue={form.perserver}
-                                    onUpdate:modelValue={($v) => {
-                                        form.perserver = $v === '' ? $v : Number($v);
-                                    }}
-                                    maxlength="15"
-                                />
-                                <span class={'input-help'}>{$t('website.perserverHelper')}</span>
-                            </ElFormItem>
-                            <ElFormItem label={$t('website.perip')} prop="perip">
-                                <ElInput
-                                    modelValue={form.perip}
-                                    onUpdate:modelValue={($v) => {
-                                        form.perip = $v === '' ? $v : Number($v);
-                                    }}
-                                    maxlength="15"
-                                />
-                                <span class={'input-help'}>{$t('website.peripHelper')}</span>
-                            </ElFormItem>
-                            <ElFormItem label={$t('website.rateLimit')} prop="rate">
-                                <ElInput
-                                    modelValue={form.rate}
-                                    onUpdate:modelValue={($v) => {
-                                        form.rate = $v === '' ? $v : Number($v);
-                                    }}
-                                    maxlength="15"
-                                />
-                                <span class={'input-help'}>{$t('website.rateLimitHelper')}</span>
-                            </ElFormItem>
-                            <ElFormItem>
-                                {withDirectives(
-                                    <ElButton
-                                        type="primary"
-                                        onClick={($event?: any) => {
-                                            submit(unref(limitForm));
-                                        }}
-                                        disabled={unref(loading)}
-                                    >
-                                        {unref(enable) ? (
-                                            <span>{$t('commons.button.save')}</span>
-                                        ) : (
-                                            <span>{$t('commons.button.saveAndEnable')}</span>
-                                        )}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                            </ElFormItem>
-                        </ElForm>
-                    </ElCol>
-                </ElRow>,
-                [[vLoading, unref(loading)]],
-            );
+                                    {unref(enable) ? (
+                                        <span>{$t('commons.button.save')}</span>
+                                    ) : (
+                                        <span>{$t('commons.button.saveAndEnable')}</span>
+                                    )}
+                                </ElButton>
+                            }
+                        </ElFormItem>
+                    </ElForm>
+                </ElCol>
+            </ElRow>
+        );
     },
     options,
 );

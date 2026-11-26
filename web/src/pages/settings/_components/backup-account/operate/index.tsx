@@ -18,7 +18,6 @@ interface DialogProps {
     rowData?: Backup.BackupInfo;
 }
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -415,10 +414,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={unref(title) + $t('setting.backupAccount')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -435,34 +431,34 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         disabled={unref(loading)}
                                         onClick={($event?: any) => {
                                             onCheck(unref(formRef));
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('terminal.testConn')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         type="primary"
                                         disabled={!unref(isOK) || unref(loading)}
                                         onClick={($event?: any) => {
                                             onSubmit();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             onSubmit={($event?: any) => {
                                 $event.preventDefault();
@@ -470,6 +466,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ref={formRef}
                             label-position="top"
                             model={unref(dialogData).rowData}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('commons.table.name')} prop="name" rules={Rules.requiredInput}>
                                 {unref(dialogData).title === 'edit' ? (
@@ -479,12 +476,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             : unref(dialogData).rowData!.name}
                                     </ElTag>
                                 ) : (
-                                    <ElInput
-                                        modelValue={unref(dialogData).rowData!.name}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.name = $v as any;
-                                        }}
-                                    />
+                                    <ElInput v-model={unref(dialogData).rowData!.name} />
                                 )}
                             </ElFormItem>
                             {unref(isProductPro) ? (
@@ -496,12 +488,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 : $t('setting.private')}
                                         </ElTag>
                                     ) : (
-                                        <ElRadioGroup
-                                            modelValue={unref(dialogData).rowData!.isPublic}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(dialogData).rowData!.isPublic = $v as any;
-                                            }}
-                                        >
+                                        <ElRadioGroup v-model={unref(dialogData).rowData!.isPublic}>
                                             <ElRadio value={true} size="large">
                                                 {$t('setting.public')}
                                             </ElRadio>
@@ -522,10 +509,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElTag>{$t('setting.' + unref(dialogData).rowData!.type)}</ElTag>
                                 ) : (
                                     <ElSelect
-                                        modelValue={unref(dialogData).rowData!.type}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.type = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.type}
                                         onChange={($event?: any) => {
                                             (changeType as any)($event);
                                         }}
@@ -566,12 +550,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     prop="varsJson.mode"
                                     rules={Rules.requiredSelect}
                                 >
-                                    <ElRadioGroup
-                                        modelValue={unref(dialogData).rowData!.varsJson['mode']}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.varsJson['mode'] = $v as any;
-                                        }}
-                                    >
+                                    <ElRadioGroup v-model={unref(dialogData).rowData!.varsJson['mode']}>
                                         <ElRadio value="virtual hosted">{'Virtual Hosted'}</ElRadio>
                                         <ElRadio value="path">{'Path'}</ElRadio>
                                     </ElRadioGroup>
@@ -641,12 +620,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     prop="varsJson.address"
                                     rules={Rules.requiredInput}
                                 >
-                                    <ElInput
-                                        modelValue={unref(dialogData).rowData!.varsJson['address']}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.varsJson['address'] = $v as any;
-                                        }}
-                                    />
+                                    <ElInput v-model={unref(dialogData).rowData!.varsJson['address']} />
                                     <span class={'input-help'}>
                                         {$t('setting.WebDAVAlist')}
                                         <ElLink
@@ -713,12 +687,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     {unref(dialogData).rowData!.type === 'SFTP' ? (
                                         <div>
                                             <ElFormItem label={$t('terminal.authMode')} prop="varsJson.authMode">
-                                                <ElRadioGroup
-                                                    modelValue={unref(dialogData).rowData!.varsJson['authMode']}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(dialogData).rowData!.varsJson['authMode'] = $v as any;
-                                                    }}
-                                                >
+                                                <ElRadioGroup v-model={unref(dialogData).rowData!.varsJson['authMode']}>
                                                     <ElRadio value="password">{$t('terminal.passwordMode')}</ElRadio>
                                                     <ElRadio value="key">{$t('terminal.keyMode')}</ElRadio>
                                                 </ElRadioGroup>
@@ -735,10 +704,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             >
                                                 <ElInput
                                                     type="textarea"
-                                                    modelValue={unref(dialogData).rowData!.credential}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(dialogData).rowData!.credential = $v as any;
-                                                    }}
+                                                    v-model={unref(dialogData).rowData!.credential}
                                                 />
                                             </ElFormItem>
                                             <ElFormItem label={$t('terminal.keyPassword')} prop="varsJson.passPhrase">
@@ -746,10 +712,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     type="password"
                                                     show-password
                                                     clearable
-                                                    modelValue={unref(dialogData).rowData!.varsJson['passPhrase']}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(dialogData).rowData!.varsJson['passPhrase'] = $v as any;
-                                                    }}
+                                                    v-model={unref(dialogData).rowData!.varsJson['passPhrase']}
                                                 />
                                             </ElFormItem>
                                         </div>
@@ -775,31 +738,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {hasRemember() ? (
                                 <ElFormItem prop="rememberAuth">
-                                    <ElCheckbox
-                                        modelValue={unref(dialogData).rowData!.rememberAuth}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.rememberAuth = $v as any;
-                                        }}
-                                    >
+                                    <ElCheckbox v-model={unref(dialogData).rowData!.rememberAuth}>
                                         {$t('terminal.rememberPassword')}
                                     </ElCheckbox>
                                 </ElFormItem>
                             ) : null}
                             {unref(dialogData).rowData!.type === 'COS' ? (
                                 <ElFormItem label="Region" prop="varsJson.region" rules={Rules.requiredInput}>
-                                    <ElCheckbox
-                                        modelValue={unref(regionInput)}
-                                        onUpdate:modelValue={($v) => {
-                                            regionInput.value = $v as any;
-                                        }}
-                                        label={$t('container.input')}
-                                    />
+                                    <ElCheckbox v-model={regionInput.value} label={$t('container.input')} />
                                     {!unref(regionInput) ? (
                                         <ElSelect
-                                            modelValue={unref(dialogData).rowData!.varsJson['region']}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(dialogData).rowData!.varsJson['region'] = $v as any;
-                                            }}
+                                            v-model={unref(dialogData).rowData!.varsJson['region']}
                                             filterable
                                             clearable
                                         >
@@ -868,10 +817,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(supportsCustomCA) ? (
                                 <ElFormItem label={$t('setting.backupCACert')} prop="varsJson.caCertPEM">
                                     <ElInput
-                                        modelValue={unref(dialogData).rowData!.varsJson['caCertPEM']}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.varsJson['caCertPEM'] = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.varsJson['caCertPEM']}
                                         type="textarea"
                                         rows={5}
                                         spellcheck={false}
@@ -882,29 +828,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {hasAccessKey() ? (
                                 <ElFormItem label="Bucket" prop="bucket" rules={Rules.requiredInput}>
                                     <ElCheckbox
-                                        modelValue={unref(dialogData).rowData!.bucketInput}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.bucketInput = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.bucketInput}
                                         label={$t('container.input')}
                                     />
                                     {unref(dialogData).rowData!.bucketInput ? (
-                                        <ElInput
-                                            clearable
-                                            modelValue={unref(dialogData).rowData!.bucket}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(dialogData).rowData!.bucket = $v as any;
-                                            }}
-                                        />
+                                        <ElInput clearable v-model={unref(dialogData).rowData!.bucket} />
                                     ) : (
                                         <div class={'w-full'}>
-                                            <ElSelect
-                                                modelValue={unref(dialogData).rowData!.bucket}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(dialogData).rowData!.bucket = $v as any;
-                                                }}
-                                                class={'!w-4/5'}
-                                            >
+                                            <ElSelect v-model={unref(dialogData).rowData!.bucket} class={'!w-4/5'}>
                                                 {(unref(buckets) || []).map((item) => (
                                                     <ElOption value={item} key={item} />
                                                 ))}
@@ -924,12 +855,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {isUPYUN() ? (
                                 <ElFormItem label={$t('setting.serviceName')} prop="bucket" rules={Rules.requiredInput}>
-                                    <ElInput
-                                        modelValue={unref(dialogData).rowData!.bucket}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.bucket = $v as any;
-                                        }}
-                                    />
+                                    <ElInput v-model={unref(dialogData).rowData!.bucket} />
                                 </ElFormItem>
                             ) : null}
                             {unref(dialogData).rowData!.type === 'COS' ? (
@@ -938,12 +864,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     prop="varsJson.scType"
                                     rules={[Rules.requiredSelect]}
                                 >
-                                    <ElSelect
-                                        modelValue={unref(dialogData).rowData!.varsJson['scType']}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.varsJson['scType'] = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect v-model={unref(dialogData).rowData!.varsJson['scType']}>
                                         <ElOption value="DEFAULT" label={$t('setting.scLighthouse')} />
                                         <ElOption value="Standard" label={$t('setting.scStandard')} />
                                         <ElOption value="Standard_IA" label={$t('setting.scStandard_IA')} />
@@ -967,12 +888,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     prop="varsJson.scType"
                                     rules={[Rules.requiredSelect]}
                                 >
-                                    <ElSelect
-                                        modelValue={unref(dialogData).rowData!.varsJson['scType']}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.varsJson['scType'] = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect v-model={unref(dialogData).rowData!.varsJson['scType']}>
                                         <ElOption value="Standard" label={$t('setting.scStandard')} />
                                         <ElOption value="IA" label={$t('setting.scStandard_IA')} />
                                         <ElOption value="Archive" label={$t('setting.scArchive')} />
@@ -995,12 +911,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     prop="varsJson.scType"
                                     rules={[Rules.requiredSelect]}
                                 >
-                                    <ElSelect
-                                        modelValue={unref(dialogData).rowData!.varsJson['scType']}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.varsJson['scType'] = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect v-model={unref(dialogData).rowData!.varsJson['scType']}>
                                         <ElOption value="STANDARD" label={$t('setting.scStandard')} />
                                         <ElOption value="STANDARD_IA" label={$t('setting.scStandard_IA')} />
                                         <ElOption value="GLACIER" label={$t('setting.scArchive')} />
@@ -1099,10 +1010,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     {isOneDrive() ? (
                                         <ElFormItem>
                                             <ElRadioGroup
-                                                modelValue={unref(dialogData).rowData!.varsJson['isCN']}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(dialogData).rowData!.varsJson['isCN'] = $v as any;
-                                                }}
+                                                v-model={unref(dialogData).rowData!.varsJson['isCN']}
                                                 onChange={($event?: any) => {
                                                     (changeClientFrom as any)($event);
                                                 }}
@@ -1224,10 +1132,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     rules={Rules.requiredInput}
                                 >
                                     <ElInput
-                                        modelValue={unref(dialogData).rowData!.backupPath}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(dialogData).rowData!.backupPath = $v as any;
-                                        }}
+                                        v-model={unref(dialogData).rowData!.backupPath}
                                         v-slots={{
                                             prepend: () => (
                                                 <>
@@ -1243,9 +1148,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     />
                                 </ElFormItem>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <FileList
                     ref={fileRef}

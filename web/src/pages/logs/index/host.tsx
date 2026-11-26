@@ -210,7 +210,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElCard>
                     </div>
                 ) : null}
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('logs.hostSystem')}
                         v-slots={{
@@ -224,10 +224,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             rightToolBar: () => (
                                 <>
                                     <ElInput
-                                        modelValue={unref(keyword)}
-                                        onUpdate:modelValue={($v) => {
-                                            keyword.value = $v as any;
-                                        }}
+                                        v-model={keyword.value}
                                         clearable
                                         disabled={
                                             unref(systemLogStatusLoading) ||
@@ -237,10 +234,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'p-w-200'}
                                     />
                                     <ElDatePicker
-                                        modelValue={unref(timeRange)}
-                                        onUpdate:modelValue={($v) => {
-                                            timeRange.value = $v as any;
-                                        }}
+                                        v-model={timeRange.value}
                                         type="datetimerange"
                                         range-separator="-"
                                         start-placeholder={$t('commons.search.timeStart')}
@@ -252,10 +246,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'host-log-time-range'}
                                     />
                                     <ElSelect
-                                        modelValue={unref(priority)}
-                                        onUpdate:modelValue={($v) => {
-                                            priority.value = $v as any;
-                                        }}
+                                        v-model={priority.value}
                                         clearable
                                         class={'p-w-200'}
                                         v-slots={{ prefix: () => <>{$t('logs.priority')}</> }}
@@ -269,10 +260,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ))}
                                     </ElSelect>
                                     <ElSelect
-                                        modelValue={unref(service)}
-                                        onUpdate:modelValue={($v) => {
-                                            service.value = $v as any;
-                                        }}
+                                        v-model={service.value}
                                         clearable
                                         filterable
                                         allow-create
@@ -285,10 +273,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElSelect>
                                     <ElCheckbox
                                         border
-                                        modelValue={unref(watching)}
-                                        onUpdate:modelValue={($v) => {
-                                            watching.value = $v as any;
-                                        }}
+                                        v-model={watching.value}
                                         onChange={($event?: any) => {
                                             (changeWatch as any)($event);
                                         }}
@@ -317,10 +302,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <>
                                                     <div class={'flex items-center gap-2'}>
                                                         <ElSelect
-                                                            modelValue={paginationConfig.pageSize}
-                                                            onUpdate:modelValue={($v) => {
-                                                                paginationConfig.pageSize = $v as any;
-                                                            }}
+                                                            v-model={paginationConfig.pageSize}
                                                             onChange={($event?: any) => {
                                                                 (changePageSize as any)($event);
                                                             }}
@@ -391,17 +373,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
-                <ElDrawer
-                    modelValue={unref(detailOpen)}
-                    onUpdate:modelValue={($v) => {
-                        detailOpen.value = $v as any;
-                    }}
-                    title={$t('logs.hostSystem')}
-                    size="50%"
-                >
+                        v-loading={unref(loading)}
+                    />
+                }
+                <ElDrawer v-model={detailOpen.value} title={$t('logs.hostSystem')} size="50%">
                     {unref(selectedLog) ? (
                         <ElDescriptions column={1} border>
                             <ElDescriptionsItem label={$t('commons.table.date')}>

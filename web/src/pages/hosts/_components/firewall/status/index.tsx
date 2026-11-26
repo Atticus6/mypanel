@@ -16,8 +16,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 interface FamilyIssue extends Firewall.BackendFamilyStatus {
     family: 'IPv4' | 'IPv6';
 }
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import { I18nT } from 'vue-i18n';
 import Status from '@/components/status/index';
 
@@ -423,27 +421,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                 <div class={'mt-0.5'}>
                                     {unref(isServiceBackend) ? (
                                         <>
-                                            {unref(baseInfo).isActive
-                                                ? withDirectives(
-                                                      <ElButton
-                                                          type="primary"
-                                                          disabled={unref(lifecycleBusy)}
-                                                          onClick={($event?: any) => {
-                                                              onOperate('stop');
-                                                          }}
-                                                          link
-                                                      >
-                                                          {$t('commons.button.stop')}
-                                                      </ElButton>,
-                                                      [
-                                                          [permissionDirective, true],
-                                                          [nodeAdminDirective, true],
-                                                      ],
-                                                  )
-                                                : null}
+                                            {unref(baseInfo).isActive ? (
+                                                <ElButton
+                                                    type="primary"
+                                                    disabled={unref(lifecycleBusy)}
+                                                    onClick={($event?: any) => {
+                                                        onOperate('stop');
+                                                    }}
+                                                    link
+                                                    v-permission={true}
+                                                    v-node-admin={true}
+                                                >
+                                                    {$t('commons.button.stop')}
+                                                </ElButton>
+                                            ) : null}
                                             {!unref(baseInfo).isActive ? (
                                                 <ElTooltip content={$t('firewall.firewallNotStart')} placement="bottom">
-                                                    {withDirectives(
+                                                    {
                                                         <ElButton
                                                             type="primary"
                                                             disabled={unref(lifecycleBusy)}
@@ -451,18 +445,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                                 (onInit as any)($event);
                                                             }}
                                                             link
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('commons.button.start')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                        </ElButton>
+                                                    }
                                                 </ElTooltip>
                                             ) : null}
                                             <ElDivider direction="vertical" />
-                                            {withDirectives(
+                                            {
                                                 <ElButton
                                                     type="primary"
                                                     disabled={unref(lifecycleBusy)}
@@ -470,14 +462,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                         onOperate('restart');
                                                     }}
                                                     link
+                                                    v-permission={true}
+                                                    v-node-admin={true}
                                                 >
                                                     {$t('commons.button.restart')}
-                                                </ElButton>,
-                                                [
-                                                    [permissionDirective, true],
-                                                    [nodeAdminDirective, true],
-                                                ],
-                                            )}
+                                                </ElButton>
+                                            }
                                             {unref(baseInfo).lifecycleTaskID ? (
                                                 <>
                                                     <ElDivider direction="vertical" />
@@ -511,74 +501,62 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                             {unref(isDirectBase) ? (
                                                 <>
                                                     {unref(anyFamilyBound) ? (
-                                                        withDirectives(
-                                                            <ElButton
-                                                                type="primary"
-                                                                link
-                                                                onClick={($event?: any) => {
-                                                                    (onUnBind as any)($event);
-                                                                }}
-                                                            >
-                                                                {$t('commons.button.unbind')}
-                                                            </ElButton>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )
+                                                        <ElButton
+                                                            type="primary"
+                                                            link
+                                                            onClick={($event?: any) => {
+                                                                (onUnBind as any)($event);
+                                                            }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {$t('commons.button.unbind')}
+                                                        </ElButton>
                                                     ) : unref(allAvailableFamiliesInitialized) ? (
-                                                        withDirectives(
-                                                            <ElButton
-                                                                type="primary"
-                                                                link
-                                                                onClick={($event?: any) => {
-                                                                    (onBind as any)($event);
-                                                                }}
-                                                            >
-                                                                {$t('commons.button.bind')}
-                                                            </ElButton>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )
+                                                        <ElButton
+                                                            type="primary"
+                                                            link
+                                                            onClick={($event?: any) => {
+                                                                (onBind as any)($event);
+                                                            }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {$t('commons.button.bind')}
+                                                        </ElButton>
                                                     ) : !unref(anyFamilyInitialized) ? (
                                                         <ElTooltip content={unref(initActionHelper)} placement="bottom">
-                                                            {withDirectives(
+                                                            {
                                                                 <ElButton
                                                                     type="primary"
                                                                     link
                                                                     onClick={($event?: any) => {
                                                                         (onInit as any)($event);
                                                                     }}
+                                                                    v-permission={true}
+                                                                    v-node-admin={true}
                                                                 >
                                                                     {$t('commons.button.init')}
-                                                                </ElButton>,
-                                                                [
-                                                                    [permissionDirective, true],
-                                                                    [nodeAdminDirective, true],
-                                                                ],
-                                                            )}
+                                                                </ElButton>
+                                                            }
                                                         </ElTooltip>
                                                     ) : null}
                                                 </>
                                             ) : unref(isDirectForward) && !unref(anyFamilyBound) ? (
                                                 <ElTooltip content={unref(initActionHelper)} placement="bottom">
-                                                    {withDirectives(
+                                                    {
                                                         <ElButton
                                                             type="primary"
                                                             link
                                                             onClick={($event?: any) => {
                                                                 (onInit as any)($event);
                                                             }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('commons.button.init')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                        </ElButton>
+                                                    }
                                                 </ElTooltip>
                                             ) : null}
                                         </>
@@ -602,10 +580,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                     </div>
                 ) : null}
                 <DialogPro
-                    modelValue={unref(operationVisible)}
-                    onUpdate:modelValue={($v) => {
-                        operationVisible.value = $v as any;
-                    }}
+                    v-model={operationVisible.value}
                     title={$t('firewall.firewallHelper', [$t('commons.button.' + unref(operation))])}
                     class={'firewall-rule-dialog firewall-lifecycle-dialog'}
                     v-slots={{
@@ -619,12 +594,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                     class={'firewall-rule-dialog__docker'}
                                 >
                                     <ElFormItem label={$t('firewall.dockerRestart')}>
-                                        <ElRadioGroup
-                                            modelValue={unref(withDockerRestart)}
-                                            onUpdate:modelValue={($v) => {
-                                                withDockerRestart.value = $v as any;
-                                            }}
-                                        >
+                                        <ElRadioGroup v-model={withDockerRestart.value}>
                                             <ElRadio value={true}>{$t('setting.restartNow')}</ElRadio>
                                             <ElRadio value={false}>{$t('setting.restartLater')}</ElRadio>
                                         </ElRadioGroup>
@@ -691,12 +661,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                     class={'firewall-rule-dialog__docker'}
                                 >
                                     <ElFormItem label={$t('firewall.dockerRestart')}>
-                                        <ElRadioGroup
-                                            modelValue={unref(withDockerRestart)}
-                                            onUpdate:modelValue={($v) => {
-                                                withDockerRestart.value = $v as any;
-                                            }}
-                                        >
+                                        <ElRadioGroup v-model={withDockerRestart.value}>
                                             <ElRadio value={true}>{$t('setting.restartNow')}</ElRadio>
                                             <ElRadio value={false}>{$t('setting.restartLater')}</ElRadio>
                                         </ElRadioGroup>

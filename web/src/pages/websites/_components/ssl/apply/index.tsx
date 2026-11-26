@@ -6,7 +6,6 @@ import { rpc } from '@/lib/rpc';
 interface RenewProps {
     ssl: Website.SSL;
 }
-import permissionDirective from '@/directives/modules/permission';
 import DialogPro from '@/components/dialog-pro/index';
 import CopyButton from '@/components/copy-button/index';
 
@@ -65,10 +64,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('ssl.apply')}
                 size="large"
                 onClose={($event?: any) => {
@@ -86,18 +82,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit();
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={'website_cert_manage'}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, 'website_cert_manage']],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),

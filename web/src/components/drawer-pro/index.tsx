@@ -134,10 +134,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         };
         return () => (
             <ElDrawer
-                modelValue={unref(localOpenPage)}
-                onUpdate:modelValue={($v) => {
-                    localOpenPage.value = $v as any;
-                }}
+                v-model={localOpenPage.value}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
                 }}

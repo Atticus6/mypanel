@@ -2,7 +2,6 @@ import { $t } from '@/utils/i18n-t';
 import { getAppIconUrl } from '@/api/modules/app';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 
 interface CodemodProps {
@@ -85,7 +84,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </ElTag>
                                     ) : null}
                                 </div>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         size="small"
@@ -99,11 +98,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             $event.stopPropagation();
                                             openInstall(__panelSetupProps.app);
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.install')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </div>
                         </div>
                     </div>

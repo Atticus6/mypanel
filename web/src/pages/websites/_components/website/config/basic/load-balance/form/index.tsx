@@ -22,7 +22,6 @@ interface Props {
     type?: string;
 }
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -128,10 +127,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 </ElFormItem>
                 <ElFormItem label={$t('website.algorithm')} prop="algorithm">
                     <ElSelect
-                        modelValue={unref(formData).algorithm}
-                        onUpdate:modelValue={($v) => {
-                            unref(formData).algorithm = $v as any;
-                        }}
+                        v-model={unref(formData).algorithm}
                         onChange={($event?: any) => {
                             (handleAlgorithmChange as any)($event);
                         }}
@@ -187,10 +183,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             rules={unref(rules).server}
                                         >
                                             <ElInput
-                                                modelValue={unref(formData).servers[index].server}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(formData).servers[index].server = $v as any;
-                                                }}
+                                                v-model={unref(formData).servers[index].server}
                                                 placeholder={
                                                     __panelSetupProps.type === 'stream'
                                                         ? '127.0.0.1:3306'
@@ -229,10 +222,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             rules={unref(rules).flag}
                                         >
                                             <ElSelect
-                                                modelValue={unref(formData).servers[index].flag}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(formData).servers[index].flag = $v as any;
-                                                }}
+                                                v-model={unref(formData).servers[index].flag}
                                                 clearable
                                                 onChange={($event?: any) => {
                                                     (handleChange as any)($event);
@@ -353,7 +343,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         </ElCard>
                     ))}
-                    {withDirectives(
+                    {
                         <ElButton
                             type="primary"
                             plain
@@ -362,11 +352,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             }}
                             icon="Plus"
                             class={'add-server-btn'}
+                            v-permission={true}
                         >
                             {$t('commons.button.add')}
-                        </ElButton>,
-                        [[permissionDirective, true]],
-                    )}
+                        </ElButton>
+                    }
                 </div>
             </ElForm>
         );

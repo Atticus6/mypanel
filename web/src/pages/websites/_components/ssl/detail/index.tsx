@@ -43,10 +43,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('ssl.detail')}
                 size="large"
                 onClose={($event?: any) => {
@@ -55,14 +52,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 v-slots={{
                     content: () => (
                         <>
-                            {withDirectives(
-                                <div>
-                                    <ElRadioGroup
-                                        modelValue={unref(curr)}
-                                        onUpdate:modelValue={($v) => {
-                                            curr.value = $v as any;
-                                        }}
-                                    >
+                            {
+                                <div v-loading={unref(loading)}>
+                                    <ElRadioGroup v-model={curr.value}>
                                         <ElRadioButton value="detail">{$t('ssl.msg')}</ElRadioButton>
                                         <ElRadioButton value="ssl">{$t('ssl.ssl')}</ElRadioButton>
                                         <ElRadioButton value="key">{$t('ssl.key')}</ElRadioButton>
@@ -115,15 +107,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </div>
                                     ) : unref(curr) === 'ssl' ? (
                                         <div class={'mt-5'}>
-                                            <ElInput
-                                                modelValue={unref(ssl).pem}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(ssl).pem = $v as any;
-                                                }}
-                                                rows={15}
-                                                type="textarea"
-                                                id="textArea"
-                                            />
+                                            <ElInput v-model={unref(ssl).pem} rows={15} type="textarea" id="textArea" />
                                             <div>
                                                 <br />
                                                 <CopyButton content={unref(ssl).pem} isIcon={false} />
@@ -132,10 +116,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     ) : (
                                         <div class={'mt-5'}>
                                             <ElInput
-                                                modelValue={unref(ssl).privateKey}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(ssl).privateKey = $v as any;
-                                                }}
+                                                v-model={unref(ssl).privateKey}
                                                 rows={15}
                                                 type="textarea"
                                                 id="textArea"
@@ -146,9 +127,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </div>
                                         </div>
                                     )}
-                                </div>,
-                                [[vLoading, unref(loading)]],
-                            )}
+                                </div>
+                            }
                         </>
                     ),
                 }}

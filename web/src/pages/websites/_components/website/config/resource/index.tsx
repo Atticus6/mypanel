@@ -39,13 +39,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             getWebsiteDetail();
         });
         return () => (
-            <ElTabs
-                tab-position="left"
-                modelValue={unref(index)}
-                onUpdate:modelValue={($v) => {
-                    index.value = $v as any;
-                }}
-            >
+            <ElTabs tab-position="left" v-model={index.value}>
                 <ElTabPane label={'OpenResty'} name="0">
                     {unref(index) == '0' ? <Nginx id={unref(id)} /> : null}
                 </ElTabPane>

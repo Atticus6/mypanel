@@ -485,77 +485,72 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
             resizeObserver?.disconnect();
         });
         ctx.expose({ changeTail, onDownload, clearLog });
-        return () =>
-            withDirectives(
-                <div>
-                    {__panelSetupProps.defaultButton ? (
-                        <div>
-                            {!unref(showTail) ? (
-                                <ElButton
-                                    icon="Refresh"
-                                    onClick={($event?: any) => {
-                                        getContent(false);
-                                    }}
-                                >
-                                    {$t('commons.button.refresh')}
-                                </ElButton>
-                            ) : null}
-                            {unref(showTail) ? (
-                                <ElCheckbox
-                                    border
-                                    disabled={unref(isTailDisabled)}
-                                    modelValue={unref(tailLog)}
-                                    onUpdate:modelValue={($v) => {
-                                        tailLog.value = $v as any;
-                                    }}
-                                    onChange={($event?: any) => {
-                                        changeTail(false);
-                                    }}
-                                    class={'float-left'}
-                                >
-                                    {$t('commons.button.watch')}
-                                </ElCheckbox>
-                            ) : null}
-                            {__panelSetupProps.showDownload ? (
-                                <ElButton
-                                    onClick={($event?: any) => {
-                                        (onDownload as any)($event);
-                                    }}
-                                    icon="Download"
-                                    disabled={unref(logs).length === 0}
-                                    class={'ml-2.5'}
-                                >
-                                    {$t('commons.button.download')}
-                                </ElButton>
-                            ) : null}
-                            {ctx.slots.button ? <span class={'ml-2.5'}>{ctx.slots['button']?.(undefined)}</span> : null}
-                        </div>
-                    ) : null}
-                    <div
-                        ref={logContainer}
-                        onScroll={($event?: any) => {
-                            (onScroll as any)($event);
-                        }}
-                        class={['log-container', { 'task-mode': unref(isTaskMode) }]}
-                        style={unref(containerStyle)}
-                    >
-                        <div class={'log-spacer'} style={{ height: `${totalHeight}px` }} />
-                        <div class={'log-viewport'} style={{ transform: `translateY(${offsetY}px)` }}>
-                            {(unref(visibleLogs) || []).map((log, index) => (
-                                <div
-                                    class={['log-item', { 'task-mode': unref(isTaskMode) }]}
-                                    style={{ height: `${logHeight}px` }}
-                                    key={`${unref(startIndex) + index}-${log}`}
-                                >
-                                    <Highlight log={log} type={__panelSetupProps.config.colorMode ?? 'nginx'} />
-                                </div>
-                            ))}
-                        </div>
-                        {unref(logs).length === 0 ? <Highlight log={$t('commons.log.noLog')} type="system" /> : null}
+        return () => (
+            <div v-loading={unref(firstLoading)}>
+                {__panelSetupProps.defaultButton ? (
+                    <div>
+                        {!unref(showTail) ? (
+                            <ElButton
+                                icon="Refresh"
+                                onClick={($event?: any) => {
+                                    getContent(false);
+                                }}
+                            >
+                                {$t('commons.button.refresh')}
+                            </ElButton>
+                        ) : null}
+                        {unref(showTail) ? (
+                            <ElCheckbox
+                                border
+                                disabled={unref(isTailDisabled)}
+                                v-model={tailLog.value}
+                                onChange={($event?: any) => {
+                                    changeTail(false);
+                                }}
+                                class={'float-left'}
+                            >
+                                {$t('commons.button.watch')}
+                            </ElCheckbox>
+                        ) : null}
+                        {__panelSetupProps.showDownload ? (
+                            <ElButton
+                                onClick={($event?: any) => {
+                                    (onDownload as any)($event);
+                                }}
+                                icon="Download"
+                                disabled={unref(logs).length === 0}
+                                class={'ml-2.5'}
+                            >
+                                {$t('commons.button.download')}
+                            </ElButton>
+                        ) : null}
+                        {ctx.slots.button ? <span class={'ml-2.5'}>{ctx.slots['button']?.(undefined)}</span> : null}
                     </div>
-                </div>,
-                [[vLoading, unref(firstLoading)]],
-            );
+                ) : null}
+                <div
+                    ref={logContainer}
+                    onScroll={($event?: any) => {
+                        (onScroll as any)($event);
+                    }}
+                    class={['log-container', { 'task-mode': unref(isTaskMode) }]}
+                    style={unref(containerStyle)}
+                >
+                    <div class={'log-spacer'} style={{ height: `${totalHeight}px` }} />
+                    <div class={'log-viewport'} style={{ transform: `translateY(${offsetY}px)` }}>
+                        {(unref(visibleLogs) || []).map((log, index) => (
+                            <div
+                                class={['log-item', { 'task-mode': unref(isTaskMode) }]}
+                                style={{ height: `${logHeight}px` }}
+                                key={`${unref(startIndex) + index}-${log}`}
+                            >
+                                <Highlight log={log} type={__panelSetupProps.config.colorMode ?? 'nginx'} />
+                            </div>
+                        ))}
+                    </div>
+                    {unref(logs).length === 0 ? <Highlight log={$t('commons.log.noLog')} type="system" /> : null}
+                </div>
+            </div>
+        );
     },
     options,
 );

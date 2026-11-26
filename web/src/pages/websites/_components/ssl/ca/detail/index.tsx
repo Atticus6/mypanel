@@ -40,24 +40,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('ssl.organizationDetail')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
                 }}
                 size="normal"
             >
-                {withDirectives(
-                    <div>
-                        <ElRadioGroup
-                            modelValue={unref(curr)}
-                            onUpdate:modelValue={($v) => {
-                                curr.value = $v as any;
-                            }}
-                        >
+                {
+                    <div v-loading={unref(loading)}>
+                        <ElRadioGroup v-model={curr.value}>
                             <ElRadioButton value="detail">{$t('ssl.organizationDetail')}</ElRadioButton>
                             <ElRadioButton value="ssl">{$t('ssl.ssl')}</ElRadioButton>
                             <ElRadioButton value="key">{$t('ssl.key')}</ElRadioButton>
@@ -88,15 +80,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         ) : unref(curr) === 'ssl' ? (
                             <div class={'mt-5'}>
-                                <ElInput
-                                    modelValue={unref(ca).csr}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(ca).csr = $v as any;
-                                    }}
-                                    rows={15}
-                                    type="textarea"
-                                    id="textArea"
-                                />
+                                <ElInput v-model={unref(ca).csr} rows={15} type="textarea" id="textArea" />
                                 <div>
                                     <br />
                                     <CopyButton content={unref(ca).csr} isIcon={false} />
@@ -104,24 +88,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         ) : (
                             <div class={'mt-5'}>
-                                <ElInput
-                                    modelValue={unref(ca).privateKey}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(ca).privateKey = $v as any;
-                                    }}
-                                    rows={15}
-                                    type="textarea"
-                                    id="textArea"
-                                />
+                                <ElInput v-model={unref(ca).privateKey} rows={15} type="textarea" id="textArea" />
                                 <div>
                                     <br />
                                     <CopyButton content={unref(ca).privateKey} isIcon={false} />
                                 </div>
                             </div>
                         )}
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DrawerPro>
         );
     },

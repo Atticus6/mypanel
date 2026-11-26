@@ -134,8 +134,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                     {
                         default: () => (
                             <>
-                                {withDirectives(
-                                    <div class={'del-dialog-body'}>
+                                {
+                                    <div class={'del-dialog-body'} v-loading={unref(loading)}>
                                         <ElRow type="flex" justify="center">
                                             <ElCol span={22}>
                                                 <ElAlert
@@ -165,9 +165,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 ))}
                                             </ElCol>
                                         </ElRow>
-                                    </div>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </div>
+                                }
                             </>
                         ),
                     },

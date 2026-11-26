@@ -94,10 +94,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         ctx.expose({ openWithResourceID, openWithTaskID, handleClose });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 show-close={__panelSetupProps.showClose}
                 close-on-click-modal={true}
                 onClosed={($event?: any) => {

@@ -441,10 +441,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={unref(title)}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -546,121 +543,103 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </div>
                         ) : null}
-                        {!unref(currentTaskID)
-                            ? withDirectives(
-                                  <ElForm
-                                      onSubmit={($event?: any) => {
-                                          $event.preventDefault();
-                                      }}
-                                      ref={fileForm}
-                                      label-position="top"
-                                      model={addForm}
-                                      rules={rules}
-                                  >
-                                      {unref(type) == 'cut' &&
-                                      unref(existFiles)?.length == 0 &&
-                                      addForm.cover &&
-                                      unref(changeName) ? (
-                                          <ElAlert
-                                              show-icon
-                                              type="warning"
-                                              closable={false}
-                                              v-slots={{
-                                                  title: () => (
-                                                      <>
-                                                          <span class={'whitespace-break-spaces'}>
-                                                              {$t('file.coverDirHelper')}
-                                                          </span>
-                                                      </>
-                                                  ),
-                                              }}
-                                          />
-                                      ) : null}
-                                      <ElFormItem label={$t('file.path')} prop="newPath">
-                                          <ElInput
-                                              modelValue={addForm.newPath}
-                                              onUpdate:modelValue={($v) => {
-                                                  addForm.newPath = $v as any;
-                                              }}
-                                              v-slots={{
-                                                  prepend: () => (
-                                                      <>
-                                                          <ElButton
-                                                              icon="Folder"
-                                                              onClick={($event?: any) => {
-                                                                  unref(fileRef).acceptParams({ dir: true });
-                                                              }}
-                                                          />
-                                                      </>
-                                                  ),
-                                              }}
-                                          />
-                                      </ElFormItem>
-                                      {unref(changeName) ? (
-                                          <div>
-                                              <ElFormItem label={$t('commons.table.name')} prop="name">
-                                                  <ElInput
-                                                      modelValue={addForm.name}
-                                                      onUpdate:modelValue={($v) => {
-                                                          addForm.name = $v as any;
-                                                      }}
-                                                      disabled={addForm.cover}
-                                                  />
-                                              </ElFormItem>
-                                              <ElRadioGroup
-                                                  modelValue={addForm.cover}
-                                                  onUpdate:modelValue={($v) => {
-                                                      addForm.cover = $v as any;
-                                                  }}
-                                                  onChange={($event?: any) => {
-                                                      (changeType as any)($event);
-                                                  }}
-                                              >
-                                                  <ElRadio value={true} size="large">
-                                                      {$t('file.replace')}
-                                                  </ElRadio>
-                                                  <ElRadio value={false} size="large">
-                                                      {$t('file.rename')}
-                                                  </ElRadio>
-                                              </ElRadioGroup>
-                                          </div>
-                                      ) : null}
-                                      {unref(existFiles).length > 0 && !unref(changeName) ? (
-                                          <div class={'text-center'}>
-                                              <ElAlert
-                                                  show-icon
-                                                  type="warning"
-                                                  closable={false}
-                                                  v-slots={{
-                                                      title: () => (
-                                                          <>
-                                                              <span class={'whitespace-break-spaces'}>
-                                                                  {$t('file.existFileDirHelper') +
-                                                                      $t('file.coverDirHelper')}
-                                                              </span>
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTransfer
-                                                  modelValue={unref(skipFiles)}
-                                                  onUpdate:modelValue={($v) => {
-                                                      skipFiles.value = $v as any;
-                                                  }}
-                                                  titles={[$t('commons.button.cover'), $t('commons.button.skip')]}
-                                                  format={{
-                                                      noChecked: '${total}',
-                                                      hasChecked: '${checked}/${total}',
-                                                  }}
-                                                  data={unref(transferData)}
-                                                  class={'mt-4 inline-block text-left'}
-                                              />
-                                          </div>
-                                      ) : null}
-                                  </ElForm>,
-                                  [[vLoading, unref(loading)]],
-                              )
-                            : null}
+                        {!unref(currentTaskID) ? (
+                            <ElForm
+                                onSubmit={($event?: any) => {
+                                    $event.preventDefault();
+                                }}
+                                ref={fileForm}
+                                label-position="top"
+                                model={addForm}
+                                rules={rules}
+                                v-loading={unref(loading)}
+                            >
+                                {unref(type) == 'cut' &&
+                                unref(existFiles)?.length == 0 &&
+                                addForm.cover &&
+                                unref(changeName) ? (
+                                    <ElAlert
+                                        show-icon
+                                        type="warning"
+                                        closable={false}
+                                        v-slots={{
+                                            title: () => (
+                                                <>
+                                                    <span class={'whitespace-break-spaces'}>
+                                                        {$t('file.coverDirHelper')}
+                                                    </span>
+                                                </>
+                                            ),
+                                        }}
+                                    />
+                                ) : null}
+                                <ElFormItem label={$t('file.path')} prop="newPath">
+                                    <ElInput
+                                        v-model={addForm.newPath}
+                                        v-slots={{
+                                            prepend: () => (
+                                                <>
+                                                    <ElButton
+                                                        icon="Folder"
+                                                        onClick={($event?: any) => {
+                                                            unref(fileRef).acceptParams({ dir: true });
+                                                        }}
+                                                    />
+                                                </>
+                                            ),
+                                        }}
+                                    />
+                                </ElFormItem>
+                                {unref(changeName) ? (
+                                    <div>
+                                        <ElFormItem label={$t('commons.table.name')} prop="name">
+                                            <ElInput v-model={addForm.name} disabled={addForm.cover} />
+                                        </ElFormItem>
+                                        <ElRadioGroup
+                                            v-model={addForm.cover}
+                                            onChange={($event?: any) => {
+                                                (changeType as any)($event);
+                                            }}
+                                        >
+                                            <ElRadio value={true} size="large">
+                                                {$t('file.replace')}
+                                            </ElRadio>
+                                            <ElRadio value={false} size="large">
+                                                {$t('file.rename')}
+                                            </ElRadio>
+                                        </ElRadioGroup>
+                                    </div>
+                                ) : null}
+                                {unref(existFiles).length > 0 && !unref(changeName) ? (
+                                    <div class={'text-center'}>
+                                        <ElAlert
+                                            show-icon
+                                            type="warning"
+                                            closable={false}
+                                            v-slots={{
+                                                title: () => (
+                                                    <>
+                                                        <span class={'whitespace-break-spaces'}>
+                                                            {$t('file.existFileDirHelper') + $t('file.coverDirHelper')}
+                                                        </span>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTransfer
+                                            v-model={skipFiles.value}
+                                            titles={[$t('commons.button.cover'), $t('commons.button.skip')]}
+                                            format={{
+                                                noChecked: '${total}',
+                                                hasChecked: '${checked}/${total}',
+                                            }}
+                                            data={unref(transferData)}
+                                            class={'mt-4 inline-block text-left'}
+                                        />
+                                    </div>
+                                ) : null}
+                            </ElForm>
+                        ) : null}
                     </div>
                 </DrawerPro>
                 <FileList

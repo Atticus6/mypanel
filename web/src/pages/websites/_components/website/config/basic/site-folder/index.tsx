@@ -5,7 +5,6 @@ import { MsgSuccess } from '@/utils/message';
 import { routerToFileWithPath } from '@/utils/router';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import { FolderOpened } from '@element-plus/icons-vue';
 
 interface CodemodProps {
@@ -135,106 +134,91 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             initData();
             search();
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <div class={'site-form-wrapper'}>
-                        <ElForm ref={siteForm} model={update} label-width="100px" class={'site-form moblie-form'}>
-                            <ElFormItem label={$t('website.siteAlias')}>{unref(website).alias}</ElFormItem>
-                            <ElFormItem label={$t('website.primaryPath')}>
+        return () => (
+            <div v-loading={unref(loading)}>
+                <div class={'site-form-wrapper'}>
+                    <ElForm ref={siteForm} model={update} label-width="100px" class={'site-form moblie-form'}>
+                        <ElFormItem label={$t('website.siteAlias')}>{unref(website).alias}</ElFormItem>
+                        <ElFormItem label={$t('website.primaryPath')}>
+                            <ElSpace wrap>
+                                {unref(website).sitePath + '/index'}
+                                <ElButton
+                                    type="primary"
+                                    link
+                                    onClick={($event?: any) => {
+                                        routerToFileWithPath(unref(website).sitePath + '/index');
+                                    }}
+                                >
+                                    <ElIcon>
+                                        <FolderOpened />
+                                    </ElIcon>
+                                </ElButton>
+                            </ElSpace>
+                            {unref(configDir) ? <span class={'input-help'}>{$t('php.indexHelper')}</span> : null}
+                        </ElFormItem>
+                        {unref(configDir) ? (
+                            <ElFormItem label={$t('website.runDir')}>
                                 <ElSpace wrap>
-                                    {unref(website).sitePath + '/index'}
-                                    <ElButton
-                                        type="primary"
-                                        link
-                                        onClick={($event?: any) => {
-                                            routerToFileWithPath(unref(website).sitePath + '/index');
-                                        }}
-                                    >
-                                        <ElIcon>
-                                            <FolderOpened />
-                                        </ElIcon>
-                                    </ElButton>
-                                </ElSpace>
-                                {unref(configDir) ? <span class={'input-help'}>{$t('php.indexHelper')}</span> : null}
-                            </ElFormItem>
-                            {unref(configDir) ? (
-                                <ElFormItem label={$t('website.runDir')}>
-                                    <ElSpace wrap>
-                                        <ElSelect
-                                            modelValue={update.siteDir}
-                                            onUpdate:modelValue={($v) => {
-                                                update.siteDir = $v as any;
+                                    <ElSelect v-model={update.siteDir} filterable class={'p-w-200'}>
+                                        {(unref(dirs) || []).map((item, index) => (
+                                            <ElOption label={item} value={item} key={index} />
+                                        ))}
+                                    </ElSelect>
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                submit(unref(siteForm));
                                             }}
-                                            filterable
-                                            class={'p-w-200'}
+                                            v-permission={true}
                                         >
-                                            {(unref(dirs) || []).map((item, index) => (
-                                                <ElOption label={item} value={item} key={index} />
-                                            ))}
-                                        </ElSelect>
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                onClick={($event?: any) => {
-                                                    submit(unref(siteForm));
-                                                }}
-                                            >
-                                                {$t('nginx.saveAndReload')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                    </ElSpace>
-                                    <span class={'input-help'}>{$t('website.runDirHelper2')}</span>
-                                </ElFormItem>
-                            ) : null}
-                            {unref(configDir) ? (
-                                <ElFormItem label={$t('website.userGroup')}>
-                                    <ElSpace wrap>
-                                        <ElInput
-                                            modelValue={updatePermission.user}
-                                            onUpdate:modelValue={($v) => {
-                                                updatePermission.user = $v as any;
+                                            {$t('nginx.saveAndReload')}
+                                        </ElButton>
+                                    }
+                                </ElSpace>
+                                <span class={'input-help'}>{$t('website.runDirHelper2')}</span>
+                            </ElFormItem>
+                        ) : null}
+                        {unref(configDir) ? (
+                            <ElFormItem label={$t('website.userGroup')}>
+                                <ElSpace wrap>
+                                    <ElInput
+                                        v-model={updatePermission.user}
+                                        class={'user-num-input'}
+                                        v-slots={{ prepend: () => <>{$t('commons.table.user')}</> }}
+                                    />
+                                    <ElInput
+                                        v-model={updatePermission.group}
+                                        class={'user-num-input'}
+                                        v-slots={{ prepend: () => <>{$t('website.uGroup')}</> }}
+                                    />
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                submitPermission();
                                             }}
-                                            class={'user-num-input'}
-                                            v-slots={{ prepend: () => <>{$t('commons.table.user')}</> }}
-                                        />
-                                        <ElInput
-                                            modelValue={updatePermission.group}
-                                            onUpdate:modelValue={($v) => {
-                                                updatePermission.group = $v as any;
-                                            }}
-                                            class={'user-num-input'}
-                                            v-slots={{ prepend: () => <>{$t('website.uGroup')}</> }}
-                                        />
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                onClick={($event?: any) => {
-                                                    submitPermission();
-                                                }}
-                                            >
-                                                {$t('commons.button.save')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                    </ElSpace>
-                                </ElFormItem>
-                            ) : null}
-                        </ElForm>
-                        {unref(configDir) ? <ElText type="warning">{$t('website.runUserHelper')}</ElText> : null}
-                        <br />
-                        {unref(dirConfig).msg != '' ? <ElText type="danger">{unref(dirConfig).msg}</ElText> : null}
-                        <br />
-                        <ElDescriptions title={$t('website.folderTitle')} column={1} border>
-                            <ElDescriptionsItem label="ssl">{$t('website.sslFolder')}</ElDescriptionsItem>
-                            <ElDescriptionsItem label="log">{$t('logs.websiteLog')}</ElDescriptionsItem>
-                            <ElDescriptionsItem label="index">{$t('website.indexFolder')}</ElDescriptionsItem>
-                        </ElDescriptions>
-                    </div>
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                                            v-permission={true}
+                                        >
+                                            {$t('commons.button.save')}
+                                        </ElButton>
+                                    }
+                                </ElSpace>
+                            </ElFormItem>
+                        ) : null}
+                    </ElForm>
+                    {unref(configDir) ? <ElText type="warning">{$t('website.runUserHelper')}</ElText> : null}
+                    <br />
+                    {unref(dirConfig).msg != '' ? <ElText type="danger">{unref(dirConfig).msg}</ElText> : null}
+                    <br />
+                    <ElDescriptions title={$t('website.folderTitle')} column={1} border>
+                        <ElDescriptionsItem label="ssl">{$t('website.sslFolder')}</ElDescriptionsItem>
+                        <ElDescriptionsItem label="log">{$t('logs.websiteLog')}</ElDescriptionsItem>
+                        <ElDescriptionsItem label="index">{$t('website.indexFolder')}</ElDescriptionsItem>
+                    </ElDescriptions>
+                </div>
+            </div>
+        );
     },
     options,
 );

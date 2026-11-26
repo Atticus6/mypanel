@@ -5,8 +5,6 @@ import { MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 import './disk-card.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -132,21 +130,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 __panelSetupProps.diskInfo.partitions == undefined &&
                                 __panelSetupProps.diskInfo.mountPoint == '' ? (
                                     <div>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 type="primary"
                                                 size="small"
                                                 onClick={($event?: any) => {
                                                     handlePartition(__panelSetupProps.diskInfo);
                                                 }}
+                                                v-permission={true}
+                                                v-node-admin={true}
                                             >
                                                 {$t('disk.handlePartition')}
-                                            </ElButton>,
-                                            [
-                                                [permissionDirective, true],
-                                                [nodeAdminDirective, true],
-                                            ],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </div>
                                 ) : null}
                             </div>
@@ -243,37 +239,29 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {__panelSetupProps.scope === 'system' ? (
                                                 <ElText type="info">{$t('disk.cannotOperate')}</ElText>
                                             ) : row.mountPoint != '' ? (
-                                                withDirectives(
-                                                    <ElButton
-                                                        type="primary"
-                                                        link
-                                                        onClick={($event?: any) => {
-                                                            unmount(row);
-                                                        }}
-                                                    >
-                                                        {$t('disk.unmount')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )
+                                                <ElButton
+                                                    type="primary"
+                                                    link
+                                                    onClick={($event?: any) => {
+                                                        unmount(row);
+                                                    }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
+                                                >
+                                                    {$t('disk.unmount')}
+                                                </ElButton>
                                             ) : (
-                                                withDirectives(
-                                                    <ElButton
-                                                        type="primary"
-                                                        link
-                                                        onClick={($event?: any) => {
-                                                            mount(row);
-                                                        }}
-                                                    >
-                                                        {$t('disk.mount')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )
+                                                <ElButton
+                                                    type="primary"
+                                                    link
+                                                    onClick={($event?: any) => {
+                                                        mount(row);
+                                                    }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
+                                                >
+                                                    {$t('disk.mount')}
+                                                </ElButton>
                                             )}
                                         </>
                                     ),
@@ -373,37 +361,29 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {__panelSetupProps.scope === 'system' ? (
                                                 <ElText type="info">{$t('disk.cannotOperate')}</ElText>
                                             ) : row.mountPoint != '' ? (
-                                                withDirectives(
-                                                    <ElButton
-                                                        type="primary"
-                                                        link
-                                                        onClick={($event?: any) => {
-                                                            unmount(row);
-                                                        }}
-                                                    >
-                                                        {$t('disk.unmount')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )
+                                                <ElButton
+                                                    type="primary"
+                                                    link
+                                                    onClick={($event?: any) => {
+                                                        unmount(row);
+                                                    }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
+                                                >
+                                                    {$t('disk.unmount')}
+                                                </ElButton>
                                             ) : (
-                                                withDirectives(
-                                                    <ElButton
-                                                        type="primary"
-                                                        link
-                                                        onClick={($event?: any) => {
-                                                            mount(row);
-                                                        }}
-                                                    >
-                                                        {$t('disk.mount')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )
+                                                <ElButton
+                                                    type="primary"
+                                                    link
+                                                    onClick={($event?: any) => {
+                                                        mount(row);
+                                                    }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
+                                                >
+                                                    {$t('disk.mount')}
+                                                </ElButton>
                                             )}
                                         </>
                                     ),

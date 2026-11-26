@@ -71,7 +71,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         },
                     ]}
                 />
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('website.websiteConfig')}
                         back-name={'Website'}
@@ -130,9 +130,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
             </div>
         );
     },

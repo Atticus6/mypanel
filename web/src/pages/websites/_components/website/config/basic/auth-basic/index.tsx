@@ -5,7 +5,6 @@ import Create from './create/index';
 import { MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
 import OpDialog from '@/components/del-dialog/index';
@@ -179,7 +178,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     }}
                 >
                     <ElTabPane label={$t('website.global')}>
-                        {withDirectives(
+                        {
                             <ComplexTable
                                 data={unref(data)}
                                 onSearch={($event?: any) => {
@@ -189,35 +188,33 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 v-slots={{
                                     toolbar: () => (
                                         <>
-                                            {withDirectives(
+                                            {
                                                 <ElButton
                                                     type="primary"
                                                     plain
                                                     onClick={($event?: any) => {
                                                         openCreate('root');
                                                     }}
+                                                    v-permission={true}
                                                 >
                                                     {$t('commons.button.create')}
-                                                </ElButton>,
-                                                [[permissionDirective, true]],
-                                            )}
-                                            {withDirectives(
+                                                </ElButton>
+                                            }
+                                            {
                                                 <ElSwitch
-                                                    modelValue={unref(enable)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        enable.value = $v as any;
-                                                    }}
+                                                    v-model={enable.value}
                                                     onChange={($event?: any) => {
                                                         (changeEnable as any)($event);
                                                     }}
                                                     disabled={unref(data).length === 0}
                                                     class={'ml-5'}
-                                                />,
-                                                [[permissionDirective, true]],
-                                            )}
+                                                    v-permission={true}
+                                                />
+                                            }
                                         </>
                                     ),
                                 }}
+                                v-loading={unref(loading)}
                             >
                                 <ElTableColumn label={$t('commons.login.username')} prop="username" />
                                 <ElTableColumn label={$t('website.remark')} prop="remark" />
@@ -229,13 +226,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     fixed={unref(isMobile) ? false : 'right'}
                                     fix
                                 />
-                            </ComplexTable>,
-                            [[vLoading, unref(loading)]],
-                        )}
+                            </ComplexTable>
+                        }
                     </ElTabPane>
                     {unref(showPath) ? (
                         <ElTabPane label={$t('website.path')}>
-                            {withDirectives(
+                            {
                                 <ComplexTable
                                     data={unref(pathData)}
                                     onSearch={($event?: any) => {
@@ -245,21 +241,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     v-slots={{
                                         toolbar: () => (
                                             <>
-                                                {withDirectives(
+                                                {
                                                     <ElButton
                                                         type="primary"
                                                         plain
                                                         onClick={($event?: any) => {
                                                             openCreate('path');
                                                         }}
+                                                        v-permission={true}
                                                     >
                                                         {$t('commons.button.create')}
-                                                    </ElButton>,
-                                                    [[permissionDirective, true]],
-                                                )}
+                                                    </ElButton>
+                                                }
                                             </>
                                         ),
                                     }}
+                                    v-loading={unref(loading)}
                                 >
                                     <ElTableColumn label={$t('commons.table.name')} prop="name" />
                                     <ElTableColumn label={$t('website.path')} prop="path" />
@@ -273,9 +270,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         fixed={unref(isMobile) ? false : 'right'}
                                         fix
                                     />
-                                </ComplexTable>,
-                                [[vLoading, unref(loading)]],
-                            )}
+                                </ComplexTable>
+                            }
                         </ElTabPane>
                     ) : null}
                 </ElTabs>

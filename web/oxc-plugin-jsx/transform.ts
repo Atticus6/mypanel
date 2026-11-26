@@ -146,14 +146,9 @@ function rewriteModel(attr: AttributeInfo, code: string): string {
         const name = arg.slice(1, -1);
         return `{...{ [${name}]: ${expression}, ['onUpdate:' + ${name}]: $event => { ${expression} = $event } }}`;
     }
-    const parts = [
-        `${JSON.stringify(arg)}={${expression}}`,
-        `${JSON.stringify(`onUpdate:${arg}`)}={$event => { ${expression} = $event }}`,
-    ];
+    const parts = [`${arg}={${expression}}`, `onUpdate:${arg}={$event => { ${expression} = $event }}`];
     if (modifiers.length) {
-        parts.push(
-            `${JSON.stringify(`${arg}Modifiers`)}={{${modifiers.map((m) => `${JSON.stringify(m)}: true`).join(', ')}}}`,
-        );
+        parts.push(`${arg}Modifiers={{${modifiers.map((m) => `${JSON.stringify(m)}: true`).join(', ')}}}`);
     }
     return parts.join(' ');
 }

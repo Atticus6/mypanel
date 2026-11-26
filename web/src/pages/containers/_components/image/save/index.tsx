@@ -88,10 +88,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.exportImage')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -121,16 +118,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <ElForm label-position="top" ref={formRef} model={form} label-width="80px">
+                    {
+                        <ElForm
+                            label-position="top"
+                            ref={formRef}
+                            model={form}
+                            label-width="80px"
+                            v-loading={unref(loading)}
+                        >
                             <ElFormItem label={$t('container.tag')} rules={Rules.requiredSelect} prop="tagName">
-                                <ElSelect
-                                    filterable
-                                    modelValue={form.tagName}
-                                    onUpdate:modelValue={($v) => {
-                                        form.tagName = $v as any;
-                                    }}
-                                >
+                                <ElSelect filterable v-model={form.tagName}>
                                     {(form.tags || []).map((item) => (
                                         <ElOption
                                             disabled={item.indexOf(':<none>') !== -1}
@@ -143,10 +140,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                             <ElFormItem label={$t('container.path')} rules={Rules.requiredInput} prop="path">
                                 <ElInput
-                                    modelValue={form.path}
-                                    onUpdate:modelValue={($v) => {
-                                        form.path = $v as any;
-                                    }}
+                                    v-model={form.path}
                                     v-slots={{
                                         prepend: () => (
                                             <>
@@ -162,17 +156,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </ElFormItem>
                             <ElFormItem label={$t('container.fileName')} rules={Rules.requiredInput} prop="name">
-                                <ElInput
-                                    modelValue={form.name}
-                                    onUpdate:modelValue={($v) => {
-                                        form.name = $v as any;
-                                    }}
-                                    v-slots={{ append: () => <>{'.tar'}</> }}
-                                />
+                                <ElInput v-model={form.name} v-slots={{ append: () => <>{'.tar'}</> }} />
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <FileList
                     ref={fileRef}

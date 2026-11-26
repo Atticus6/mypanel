@@ -4,7 +4,6 @@ import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { Website } from '@/types/website';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -146,10 +145,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.' + unref(redirect).operate)}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -165,24 +161,30 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 {$t('commons.button.cancel')}
                             </ElButton>
-                            {withDirectives(
+                            {
                                 <ElButton
                                     type="primary"
                                     onClick={($event?: any) => {
                                         submit(unref(redirectForm));
                                     }}
                                     disabled={unref(loading)}
+                                    v-permission={true}
                                 >
                                     {$t('commons.button.confirm')}
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </>
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={redirectForm} label-position="top" model={unref(redirect)} rules={unref(rules)}>
+                {
+                    <ElForm
+                        ref={redirectForm}
+                        label-position="top"
+                        model={unref(redirect)}
+                        rules={unref(rules)}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('commons.table.name')} prop="name">
                             <ElInput
                                 modelValue={unref(redirect).name}
@@ -194,10 +196,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.type')} prop="type">
                             <ElSelect
-                                modelValue={unref(redirect).type}
-                                onUpdate:modelValue={($v) => {
-                                    unref(redirect).type = $v as any;
-                                }}
+                                v-model={unref(redirect).type}
                                 onChange={($event?: any) => {
                                     changeType(unref(redirect).type);
                                 }}
@@ -209,12 +208,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElSelect>
                         </ElFormItem>
                         <ElFormItem label={$t('website.redirectWay')} prop="redirect">
-                            <ElSelect
-                                modelValue={unref(redirect).redirect}
-                                onUpdate:modelValue={($v) => {
-                                    unref(redirect).redirect = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(redirect).redirect}>
                                 <ElOption label={'301'} value={'301'} />
                                 <ElOption label={'302'} value={'302'} />
                             </ElSelect>
@@ -232,13 +226,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ) : null}
                         {unref(redirect).type == 'domain' ? (
                             <ElFormItem label={$t('website.domain')} prop="domains">
-                                <ElSelect
-                                    modelValue={unref(redirect).domains}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(redirect).domains = $v as any;
-                                    }}
-                                    multiple
-                                >
+                                <ElSelect v-model={unref(redirect).domains} multiple>
                                     {(unref(domains) || []).map((item, index) => (
                                         <ElOption value={item.domain} label={item.domain} key={index} />
                                     ))}
@@ -247,12 +235,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ) : null}
                         {unref(redirect).type == '404' ? (
                             <ElFormItem label={$t('website.redirectRoot')} prop="redirectRoot">
-                                <ElSwitch
-                                    modelValue={unref(redirect).redirectRoot}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(redirect).redirectRoot = $v as any;
-                                    }}
-                                />
+                                <ElSwitch v-model={unref(redirect).redirectRoot} />
                             </ElFormItem>
                         ) : null}
                         {!unref(redirect).redirectRoot ? (
@@ -267,17 +250,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ) : null}
                         {unref(redirect).type !== '404' ? (
                             <ElFormItem label={$t('website.keepPath')} prop="keepPath">
-                                <ElSwitch
-                                    modelValue={unref(redirect).keepPath}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(redirect).keepPath = $v as any;
-                                    }}
-                                />
+                                <ElSwitch v-model={unref(redirect).keepPath} />
                             </ElFormItem>
                         ) : null}
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

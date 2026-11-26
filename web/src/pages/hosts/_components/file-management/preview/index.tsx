@@ -95,10 +95,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 show-close={false}
                 append-to-body
                 onOpened={($event?: any) => {
@@ -144,10 +141,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <div
                         class={unref(fileType) === 'image' ? 'overflow-y-auto' : 'flex items-center justify-center'}
                         style={unref(isFullscreen) ? 'height: 90vh' : 'height: 80vh'}
+                        v-loading={unref(loading)}
                     >
                         {unref(fileType) === 'image' ? (
                             <>
@@ -219,9 +217,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 style: unref(isFullscreen) ? 'height: 90vh;' : 'height: 80vh',
                             })
                         ) : null}
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DialogPro>
         );
     },

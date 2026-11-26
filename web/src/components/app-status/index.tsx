@@ -4,7 +4,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -138,37 +137,33 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElTag>
                             </div>
                             <div class={'mt-0.5'}>
-                                {unref(data).status != 'Running'
-                                    ? withDirectives(
-                                          <ElButton
-                                              type="primary"
-                                              link
-                                              onClick={($event?: any) => {
-                                                  onOperate('start');
-                                              }}
-                                              disabled={unref(data).status === 'Installing'}
-                                          >
-                                              {$t('commons.operate.start')}
-                                          </ElButton>,
-                                          [[permissionDirective, 'app_manage']],
-                                      )
-                                    : null}
-                                {unref(data).status === 'Running'
-                                    ? withDirectives(
-                                          <ElButton
-                                              type="primary"
-                                              link
-                                              onClick={($event?: any) => {
-                                                  onOperate('stop');
-                                              }}
-                                          >
-                                              {$t('commons.operate.stop')}
-                                          </ElButton>,
-                                          [[permissionDirective, 'app_manage']],
-                                      )
-                                    : null}
+                                {unref(data).status != 'Running' ? (
+                                    <ElButton
+                                        type="primary"
+                                        link
+                                        onClick={($event?: any) => {
+                                            onOperate('start');
+                                        }}
+                                        disabled={unref(data).status === 'Installing'}
+                                        v-permission={'app_manage'}
+                                    >
+                                        {$t('commons.operate.start')}
+                                    </ElButton>
+                                ) : null}
+                                {unref(data).status === 'Running' ? (
+                                    <ElButton
+                                        type="primary"
+                                        link
+                                        onClick={($event?: any) => {
+                                            onOperate('stop');
+                                        }}
+                                        v-permission={'app_manage'}
+                                    >
+                                        {$t('commons.operate.stop')}
+                                    </ElButton>
+                                ) : null}
                                 <ElDivider direction="vertical" />
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         link
@@ -176,27 +171,25 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onClick={($event?: any) => {
                                             onOperate('restart');
                                         }}
+                                        v-permission={'app_manage'}
                                     >
                                         {$t('commons.operate.restart')}
-                                    </ElButton>,
-                                    [[permissionDirective, 'app_manage']],
-                                )}
+                                    </ElButton>
+                                }
                                 {!__panelSetupProps.hideSetting ? <ElDivider direction="vertical" /> : null}
-                                {unref(data).app === 'OpenResty'
-                                    ? withDirectives(
-                                          <ElButton
-                                              type="primary"
-                                              link
-                                              onClick={($event?: any) => {
-                                                  onOperate('reload');
-                                              }}
-                                              disabled={unref(data).status !== 'Running'}
-                                          >
-                                              {$t('commons.operate.reload')}
-                                          </ElButton>,
-                                          [[permissionDirective, 'website_manage']],
-                                      )
-                                    : null}
+                                {unref(data).app === 'OpenResty' ? (
+                                    <ElButton
+                                        type="primary"
+                                        link
+                                        onClick={($event?: any) => {
+                                            onOperate('reload');
+                                        }}
+                                        disabled={unref(data).status !== 'Running'}
+                                        v-permission={'website_manage'}
+                                    >
+                                        {$t('commons.operate.reload')}
+                                    </ElButton>
+                                ) : null}
                                 {unref(data).app === 'OpenResty' ? <ElDivider direction="vertical" /> : null}
                                 {!__panelSetupProps.hideSetting ? (
                                     <ElButton

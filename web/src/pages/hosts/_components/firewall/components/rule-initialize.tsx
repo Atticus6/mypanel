@@ -8,7 +8,6 @@ import { GlobalStore } from '@/store';
 import { downloadFile } from '@/utils/file';
 import { rpc } from '@/lib/rpc';
 import './rule-initialize.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -125,10 +124,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         return () => (
             <>
                 <DialogPro
-                    modelValue={unref(visible)}
-                    onUpdate:modelValue={($v) => {
-                        visible.value = $v as any;
-                    }}
+                    v-model={visible.value}
                     title={
                         unref(starting)
                             ? $t('firewall.firewallHelper', [$t('commons.button.start')])
@@ -142,8 +138,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                     v-slots={{
                         content: () => (
                             <>
-                                {withDirectives(
-                                    <div class={'firewall-rule-dialog__content'}>
+                                {
+                                    <div class={'firewall-rule-dialog__content'} v-loading={unref(loading)}>
                                         {ctx.slots['before-options']?.(undefined)}
                                         {unref(message) && unref(starting) ? (
                                             <p class={'firewall-initialize-dialog__description'}>{unref(message)}</p>
@@ -171,10 +167,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                         ) : null}
                                         {unref(initialize) ? (
                                             <ElRadioGroup
-                                                modelValue={unref(mode)}
-                                                onUpdate:modelValue={($v) => {
-                                                    mode.value = $v as any;
-                                                }}
+                                                v-model={mode.value}
                                                 disabled={unref(loading)}
                                                 class={'firewall-rule-dialog__modes'}
                                             >
@@ -204,10 +197,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                             <div class={'firewall-initialize-dialog__backups'}>
                                                 {unref(backups).files.length ? (
                                                     <ElRadioGroup
-                                                        modelValue={unref(selected)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            selected.value = $v as any;
-                                                        }}
+                                                        v-model={selected.value}
                                                         disabled={unref(loading)}
                                                         aria-label={$t('firewall.importRuleBackup')}
                                                         class={'firewall-rule-dialog__files'}
@@ -219,7 +209,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                                         <Document />
                                                                     </ElIcon>
                                                                     <span class={'min-w-0'}>{file.name}</span>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElButton
                                                                             type="primary"
                                                                             link
@@ -235,11 +225,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                                                 );
                                                                             }}
                                                                             class={'shrink-0'}
+                                                                            v-permission={true}
                                                                         >
                                                                             {$t('commons.button.download')}
-                                                                        </ElButton>,
-                                                                        [[permissionDirective, true]],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </span>
                                                                 <span class={'firewall-rule-dialog__file-meta'}>
                                                                     <ElTag size="small" type="info" effect="plain">
@@ -267,9 +257,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 ) : null}
                                             </div>
                                         ) : null}
-                                    </div>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </div>
+                                }
                             </>
                         ),
                         footer: () => (

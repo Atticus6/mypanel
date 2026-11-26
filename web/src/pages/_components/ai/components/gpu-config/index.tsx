@@ -38,7 +38,6 @@ import { loadModelGPUDevices, listGPUGroups } from '@/api/modules/ai';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 
 interface CodemodProps {
@@ -424,10 +423,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                             onKeydown={($event?: any) => {
                                                 $event.stopPropagation();
                                             }}
-                                            modelValue={unref(model).enabled}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(model).enabled = $v as any;
-                                            }}
+                                            v-model={unref(model).enabled}
                                             disabled={unref(loading)}
                                             aria-label={$t('aiTools.model.gpuAcceleration')}
                                             onChange={($event?: any) => {
@@ -540,16 +536,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                                     />
                                                                 ) : null}
                                                             </ElSelect>
-                                                            {withDirectives(
+                                                            {
                                                                 <ElButton
                                                                     onClick={($event?: any) => {
                                                                         groupEditorVisible.value = true;
                                                                     }}
+                                                                    v-permission={'ai_gpu_manage'}
                                                                 >
                                                                     {$t('commons.button.add')}
-                                                                </ElButton>,
-                                                                [[permissionDirective, 'ai_gpu_manage']],
-                                                            )}
+                                                                </ElButton>
+                                                            }
                                                         </div>
                                                         <span class={'input-help'}>
                                                             {$t('aiTools.gpuGroup.snapshotHelp')}
@@ -608,10 +604,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                             rules={gpuCountRules}
                                                         >
                                                             <ElInputNumber
-                                                                modelValue={unref(model).count}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    unref(model).count = $v as any;
-                                                                }}
+                                                                v-model={unref(model).count}
                                                                 min={1}
                                                                 precision={0}
                                                                 step={1}
@@ -644,10 +637,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                             }}
                                                         >
                                                             <GPUTopology
-                                                                modelValue={unref(model).deviceIDs}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    unref(model).deviceIDs = $v as any;
-                                                                }}
+                                                                v-model={unref(model).deviceIDs}
                                                                 devices={(unref(gpuDevices) || []).filter(
                                                                     (device) =>
                                                                         device.type === __panelSetupProps.imageType,
@@ -732,10 +722,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                         }}
                                                     >
                                                         <ElRadioGroup
-                                                            modelValue={unref(model).numa.mode}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(model).numa.mode = $v as any;
-                                                            }}
+                                                            v-model={unref(model).numa.mode}
                                                             onChange={($event?: any) => {
                                                                 selectionMode.value = 'custom';
                                                                 unref(unref(model)).group = undefined;
@@ -793,10 +780,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                             rules={numaRules}
                                                         >
                                                             <ElSelect
-                                                                modelValue={unref(model).numa.nodes}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    unref(model).numa.nodes = $v as any;
-                                                                }}
+                                                                v-model={unref(model).numa.nodes}
                                                                 multiple
                                                                 disabled={unref(numaNodes).length <= 1}
                                                                 onChange={($event?: any) => {
@@ -872,12 +856,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                     ),
                                                 }}
                                             >
-                                                <ElCheckboxGroup
-                                                    modelValue={unref(model).capabilities}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(model).capabilities = $v as any;
-                                                    }}
-                                                >
+                                                <ElCheckboxGroup v-model={unref(model).capabilities}>
                                                     <ElCheckbox value="gpu" disabled>
                                                         {'gpu'}
                                                     </ElCheckbox>

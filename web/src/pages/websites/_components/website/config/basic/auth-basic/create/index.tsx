@@ -5,7 +5,6 @@ import { MsgSuccess } from '@/utils/message';
 import { Website } from '@/types/website';
 import { getRandomStr } from '@/utils/id';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -94,10 +93,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.' + unref(authBasic).operate)}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -113,18 +109,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 {$t('commons.button.cancel')}
                             </ElButton>
-                            {withDirectives(
+                            {
                                 <ElButton
                                     type="primary"
                                     onClick={($event?: any) => {
                                         submit(unref(proxyForm));
                                     }}
                                     disabled={unref(loading)}
+                                    v-permission={true}
                                 >
                                     {$t('commons.button.confirm')}
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </>
                     ),
                 }}

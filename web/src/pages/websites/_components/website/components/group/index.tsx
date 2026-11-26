@@ -48,12 +48,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <ElFormItem label={$t('commons.table.group')} prop={__panelSetupProps.prop}>
-                <ElSelect
-                    modelValue={unref(selectedValue)}
-                    onUpdate:modelValue={($v) => {
-                        selectedValue.value = $v as any;
-                    }}
-                >
+                <ElSelect v-model={selectedValue.value}>
                     {(unref(groups) || []).map((group, index) => (
                         <ElOption label={group.name} value={group.id} key={index} />
                     ))}

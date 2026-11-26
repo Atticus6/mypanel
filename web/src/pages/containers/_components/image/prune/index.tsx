@@ -142,10 +142,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(dialogVisible)}
-                    onUpdate:modelValue={($v) => {
-                        dialogVisible.value = $v as any;
-                    }}
+                    v-model={dialogVisible.value}
                     header={$t('container.imagePrune')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -176,14 +173,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <ElForm ref="deleteForm">
+                    {
+                        <ElForm ref="deleteForm" v-loading={unref(loading)}>
                             <ElFormItem>
                                 <ElRadioGroup
-                                    modelValue={unref(scope)}
-                                    onUpdate:modelValue={($v) => {
-                                        scope.value = $v as any;
-                                    }}
+                                    v-model={scope.value}
                                     onChange={($event?: any) => {
                                         (changeScope as any)($event);
                                     }}
@@ -195,10 +189,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <span class={'input-help'}>{unref(showMsg)}</span>
                                 {unref(data).length !== 0 ? (
                                     <ElCheckbox
-                                        modelValue={unref(checkAll)}
-                                        onUpdate:modelValue={($v) => {
-                                            checkAll.value = $v as any;
-                                        }}
+                                        v-model={checkAll.value}
                                         indeterminate={unref(isIndeterminate)}
                                         onChange={($event?: any) => {
                                             (handleCheckAllChange as any)($event);
@@ -209,10 +200,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElCheckbox>
                                 ) : null}
                                 <ElCheckboxGroup
-                                    modelValue={unref(checkedLists)}
-                                    onUpdate:modelValue={($v) => {
-                                        checkedLists.value = $v as any;
-                                    }}
+                                    v-model={checkedLists.value}
                                     onChange={($event?: any) => {
                                         (handleCheckedChange as any)($event);
                                     }}
@@ -226,9 +214,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     ))}
                                 </ElCheckboxGroup>
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <TaskLog
                     ref={taskLogRef}

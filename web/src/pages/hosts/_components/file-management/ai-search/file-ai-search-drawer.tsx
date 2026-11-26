@@ -410,10 +410,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ applyPathFromPicker });
         return () => (
             <ElDrawer
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 title={$t('file.aiSearchTitle')}
                 size={unref(aiSearchDrawerSize)}
                 destroy-on-close
@@ -422,8 +419,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 show-close={!unref(aiSearchLoading)}
                 before-close={handleAiSearchDrawerBeforeClose}
             >
-                {withDirectives(
-                    <div element-loading-lock class={'ai-search-drawer-inner flex min-h-[50vh] flex-col gap-3'}>
+                {
+                    <div
+                        element-loading-lock
+                        class={'ai-search-drawer-inner flex min-h-[50vh] flex-col gap-3'}
+                        v-loading={unref(drawerContentBusy)}
+                    >
                         <ElAlert type="info" closable={false} show-icon class={'shrink-0'}>
                             {unref(fileAiStatus) === 'Disable'
                                 ? $t('file.aiSearchGrepOnlyHint')
@@ -443,25 +444,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElForm label-position="top" class={'ai-search-account-form'}>
                                 <ElFormItem label={$t('file.aiSearchAccountEnable')}>
                                     <ElSwitch
-                                        modelValue={unref(fileAiStatus)}
-                                        onUpdate:modelValue={($v) => {
-                                            fileAiStatus.value = $v as any;
-                                        }}
+                                        v-model={fileAiStatus.value}
                                         active-value="Enable"
                                         inactive-value="Disable"
                                     />
                                 </ElFormItem>
                                 {unref(fileAiStatus) === 'Enable' ? (
                                     <ElFormItem label={$t('aiTools.agents.account')}>
-                                        <ElSelect
-                                            modelValue={unref(fileAiAccountId)}
-                                            onUpdate:modelValue={($v) => {
-                                                fileAiAccountId.value = $v as any;
-                                            }}
-                                            clearable
-                                            filterable
-                                            class={'w-full'}
-                                        >
+                                        <ElSelect v-model={fileAiAccountId.value} clearable filterable class={'w-full'}>
                                             {(unref(fileAiAgentAccountOptions) || []).map((item) => (
                                                 <ElOption label={item.name} value={String(item.id)} key={item.id}>
                                                     <div class={'flex items-center justify-between gap-3'}>
@@ -519,10 +509,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {$t('file.aiSearchContentLabel')}
                                         </span>
                                         <ElInput
-                                            modelValue={unref(aiSearchQuery)}
-                                            onUpdate:modelValue={($v) => {
-                                                aiSearchQuery.value = $v as any;
-                                            }}
+                                            v-model={aiSearchQuery.value}
                                             clearable
                                             placeholder={$t('file.aiSearchPlaceholder')}
                                             onKeyup={($event?: any) => {
@@ -616,19 +603,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {$t('file.aiSearchDirLabel')}
                                         </span>
                                         <ElInput
-                                            modelValue={unref(aiSearchPath)}
-                                            onUpdate:modelValue={($v) => {
-                                                aiSearchPath.value = $v as any;
-                                            }}
+                                            v-model={aiSearchPath.value}
                                             class={'ai-search-field-input !w-48 min-w-0 flex-1'}
                                             v-slots={{
                                                 prepend: () => (
                                                     <>
                                                         <ElCheckbox
-                                                            modelValue={unref(aiSearchContainSub)}
-                                                            onUpdate:modelValue={($v) => {
-                                                                aiSearchContainSub.value = $v as any;
-                                                            }}
+                                                            v-model={aiSearchContainSub.value}
                                                             class={'!mr-0 shrink-0'}
                                                         >
                                                             {$t('file.sub')}
@@ -663,10 +644,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {$t('file.aiSearchExtLabel')}
                                         </span>
                                         <ElInput
-                                            modelValue={unref(aiSearchExtensionsInput)}
-                                            onUpdate:modelValue={($v) => {
-                                                aiSearchExtensionsInput.value = $v as any;
-                                            }}
+                                            v-model={aiSearchExtensionsInput.value}
                                             clearable
                                             placeholder={$t('file.aiSearchExtensions')}
                                             class={'ai-search-field-input min-w-0 flex-1'}
@@ -678,10 +656,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 {$t('file.aiSearchModifiedPreset')}
                                             </span>
                                             <ElSelect
-                                                modelValue={unref(aiSearchTimePreset)}
-                                                onUpdate:modelValue={($v) => {
-                                                    aiSearchTimePreset.value = $v as any;
-                                                }}
+                                                v-model={aiSearchTimePreset.value}
                                                 class={'!w-44 max-w-full shrink-0'}
                                             >
                                                 <ElOption label={$t('file.aiSearchTimeAny')} value="any" />
@@ -694,10 +669,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </div>
                                         {unref(aiSearchTimePreset) === 'custom' ? (
                                             <ElDatePicker
-                                                modelValue={unref(aiSearchModifiedRange)}
-                                                onUpdate:modelValue={($v) => {
-                                                    aiSearchModifiedRange.value = $v as any;
-                                                }}
+                                                v-model={aiSearchModifiedRange.value}
                                                 type="datetimerange"
                                                 class={'w-full min-w-0 sm:min-w-[16rem] sm:flex-1'}
                                             />
@@ -713,10 +685,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 {$t('file.aiSearchSizePresetLabel')}
                                             </span>
                                             <ElSelect
-                                                modelValue={unref(aiSearchSizePreset)}
-                                                onUpdate:modelValue={($v) => {
-                                                    aiSearchSizePreset.value = $v as any;
-                                                }}
+                                                v-model={aiSearchSizePreset.value}
                                                 class={'!w-48 max-w-full shrink-0'}
                                             >
                                                 <ElOption label={$t('file.aiSearchSizeAny')} value="any" />
@@ -730,10 +699,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         {unref(aiSearchSizePreset) === 'custom' ? (
                                             <div class={'flex flex-nowrap items-center gap-2 overflow-x-auto'}>
                                                 <ElInputNumber
-                                                    modelValue={unref(aiSearchMinSize)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        aiSearchMinSize.value = $v as any;
-                                                    }}
+                                                    v-model={aiSearchMinSize.value}
                                                     min={0}
                                                     controls={true}
                                                     placeholder={$t('file.aiSearchMinSize')}
@@ -743,10 +709,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     {'—'}
                                                 </span>
                                                 <ElInputNumber
-                                                    modelValue={unref(aiSearchMaxSize)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        aiSearchMaxSize.value = $v as any;
-                                                    }}
+                                                    v-model={aiSearchMaxSize.value}
                                                     min={0}
                                                     controls={true}
                                                     placeholder={$t('file.aiSearchMaxSize')}
@@ -756,12 +719,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ) : null}
                                     </div>
                                 </div>
-                                <ElCollapse
-                                    modelValue={unref(aiSearchAdvancedActiveNames)}
-                                    onUpdate:modelValue={($v) => {
-                                        aiSearchAdvancedActiveNames.value = $v as any;
-                                    }}
-                                >
+                                <ElCollapse v-model={aiSearchAdvancedActiveNames.value}>
                                     <ElCollapseItem
                                         name="limits"
                                         v-slots={{
@@ -800,10 +758,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {$t('file.aiSearchLimitMaxItems')}
                                                     </span>
                                                     <ElInputNumber
-                                                        modelValue={unref(aiSearchMaxItems)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            aiSearchMaxItems.value = $v as any;
-                                                        }}
+                                                        v-model={aiSearchMaxItems.value}
                                                         min={1}
                                                         max={2000}
                                                         controls={true}
@@ -832,10 +787,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {$t('file.aiSearchLimitMaxScan')}
                                                     </span>
                                                     <ElInputNumber
-                                                        modelValue={unref(aiSearchMaxScanFiles)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            aiSearchMaxScanFiles.value = $v as any;
-                                                        }}
+                                                        v-model={aiSearchMaxScanFiles.value}
                                                         min={1}
                                                         max={500}
                                                         controls={true}
@@ -864,10 +816,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {$t('file.aiSearchLimitMaxBytes')}
                                                     </span>
                                                     <ElInputNumber
-                                                        modelValue={unref(aiSearchMaxFileBytes)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            aiSearchMaxFileBytes.value = $v as any;
-                                                        }}
+                                                        v-model={aiSearchMaxFileBytes.value}
                                                         min={1024}
                                                         max={4194304}
                                                         step={1024}
@@ -897,10 +846,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {$t('file.aiSearchLimitHitsPerFile')}
                                                     </span>
                                                     <ElInputNumber
-                                                        modelValue={unref(aiSearchMaxHitsPerFile)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            aiSearchMaxHitsPerFile.value = $v as any;
-                                                        }}
+                                                        v-model={aiSearchMaxHitsPerFile.value}
                                                         min={1}
                                                         max={200}
                                                         controls={true}
@@ -929,10 +875,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {$t('file.aiSearchLimitTotalHits')}
                                                     </span>
                                                     <ElInputNumber
-                                                        modelValue={unref(aiSearchMaxTotalHits)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            aiSearchMaxTotalHits.value = $v as any;
-                                                        }}
+                                                        v-model={aiSearchMaxTotalHits.value}
                                                         min={1}
                                                         max={2000}
                                                         controls={true}
@@ -1142,9 +1085,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </div>
                             </ElCard>
                         ) : null}
-                    </div>,
-                    [[vLoading, unref(drawerContentBusy)]],
-                )}
+                    </div>
+                }
             </ElDrawer>
         );
     },

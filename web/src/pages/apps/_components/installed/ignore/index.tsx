@@ -4,7 +4,6 @@ import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import bus from '@/global/bus';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -65,10 +64,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('app.ignoreList')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -100,18 +96,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     v-slots={{
                                         default: ({ row }) => (
                                             <>
-                                                {withDirectives(
+                                                {
                                                     <ElButton
                                                         type="primary"
                                                         link
                                                         onClick={($event?: any) => {
                                                             cancelIgnore(row.id);
                                                         }}
+                                                        v-permission={true}
                                                     >
                                                         {$t('app.cancelIgnore')}
-                                                    </ElButton>,
-                                                    [[permissionDirective, true]],
-                                                )}
+                                                    </ElButton>
+                                                }
                                             </>
                                         ),
                                     }}

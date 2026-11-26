@@ -74,12 +74,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        <ElRadioGroup
-                                            modelValue={row.type}
-                                            onUpdate:modelValue={($v) => {
-                                                row.type = $v as any;
-                                            }}
-                                        >
+                                        <ElRadioGroup v-model={row.type}>
                                             <ElRadioButton value="volume">{$t('container.volumeOption')}</ElRadioButton>
                                             <ElRadioButton value="bind">{$t('container.hostOption')}</ElRadioButton>
                                         </ElRadioGroup>
@@ -94,13 +89,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 default: ({ row }) => (
                                     <>
                                         {row.type === 'volume' ? (
-                                            <ElSelect
-                                                filterable
-                                                modelValue={row.sourceDir}
-                                                onUpdate:modelValue={($v) => {
-                                                    row.sourceDir = $v as any;
-                                                }}
-                                            >
+                                            <ElSelect filterable v-model={row.sourceDir}>
                                                 {(unref(volumeOptions) || []).map((item, indexV) => (
                                                     <div key={indexV}>
                                                         <ElTooltip
@@ -117,22 +106,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 ))}
                                             </ElSelect>
                                         ) : (
-                                            <ElInput
-                                                modelValue={row.sourceDir}
-                                                onUpdate:modelValue={($v) => {
-                                                    row.sourceDir = $v as any;
-                                                }}
-                                            />
+                                            <ElInput v-model={row.sourceDir} />
                                         )}
                                         <ElIcon>
                                             <Bottom />
                                         </ElIcon>
-                                        <ElInput
-                                            modelValue={row.containerDir}
-                                            onUpdate:modelValue={($v) => {
-                                                row.containerDir = $v as any;
-                                            }}
-                                        />
+                                        <ElInput v-model={row.containerDir} />
                                     </>
                                 ),
                             }}
@@ -143,12 +122,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        <ElRadioGroup
-                                            modelValue={row.mode}
-                                            onUpdate:modelValue={($v) => {
-                                                row.mode = $v as any;
-                                            }}
-                                        >
+                                        <ElRadioGroup v-model={row.mode}>
                                             <ElRadio value="rw">{$t('container.modeRW')}</ElRadio>
                                             <ElRadio value="ro">{$t('container.modeR')}</ElRadio>
                                         </ElRadioGroup>
@@ -163,13 +137,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 default: ({ row }) => (
                                     <>
                                         {row.type !== 'volume' ? (
-                                            <ElSelect
-                                                popper-class="tall-options"
-                                                modelValue={row.shared}
-                                                onUpdate:modelValue={($v) => {
-                                                    row.shared = $v as any;
-                                                }}
-                                            >
+                                            <ElSelect popper-class="tall-options" v-model={row.shared}>
                                                 <ElOption value="private" label={$t('container.private')}>
                                                     <div class={'title'}>{$t('container.private')}</div>
                                                     <div class={'description'}>{$t('container.privateHelper')}</div>

@@ -141,10 +141,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         );
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.selectNode')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -154,10 +151,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <>
                             <div class={'node-drawer'}>
                                 <ElInput
-                                    modelValue={unref(keyword)}
-                                    onUpdate:modelValue={($v) => {
-                                        keyword.value = $v as any;
-                                    }}
+                                    v-model={keyword.value}
                                     placeholder={$t('xpack.node.searchNodePlaceholder')}
                                     clearable
                                     class={'node-search-input'}

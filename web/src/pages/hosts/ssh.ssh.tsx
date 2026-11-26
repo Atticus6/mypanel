@@ -9,8 +9,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import Status from '@/components/status/index';
 import LayoutContent from '@/components/layout-content/index';
 
@@ -252,409 +250,343 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             search();
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <FireRouter />
-                    <div class={'app-status card-interval'}>
-                        <ElCard>
-                            <div class={'flex w-full flex-col gap-4 md:flex-row'}>
-                                <div class={'ml-3 flex flex-wrap gap-4'}>
-                                    <ElTag effect="dark" type="success" class={'float-left'}>
-                                        {'SSH'}
-                                    </ElTag>
-                                    <Status
-                                        status={form.isActive ? 'enable' : 'disable'}
-                                        msg={form.message}
-                                        class={'mt-0.5'}
-                                    />
-                                </div>
-                                <div class={'mt-0.5'}>
-                                    {form.isActive
-                                        ? withDirectives(
-                                              <ElButton
-                                                  type="primary"
-                                                  onClick={($event?: any) => {
-                                                      onOperate('stop');
-                                                  }}
-                                                  link
-                                              >
-                                                  {$t('commons.button.stop')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )
-                                        : null}
-                                    {!form.isActive
-                                        ? withDirectives(
-                                              <ElButton
-                                                  type="primary"
-                                                  onClick={($event?: any) => {
-                                                      onOperate('start');
-                                                  }}
-                                                  link
-                                              >
-                                                  {$t('commons.button.start')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )
-                                        : null}
-                                    <ElDivider direction="vertical" />
-                                    {withDirectives(
-                                        <ElButton
-                                            type="primary"
-                                            onClick={($event?: any) => {
-                                                onOperate('restart');
-                                            }}
-                                            link
-                                        >
-                                            {$t('commons.button.restart')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                    <ElDivider direction="vertical" />
-                                    <ElButton type="primary" link>
-                                        {$t('ssh.autoStart')}
-                                    </ElButton>
-                                    {withDirectives(
-                                        <ElSwitch
-                                            size="small"
-                                            inactive-value="disable"
-                                            active-value="enable"
-                                            onChange={($event?: any) => {
-                                                onOperate(unref(autoStart));
-                                            }}
-                                            modelValue={unref(autoStart)}
-                                            onUpdate:modelValue={($v) => {
-                                                autoStart.value = $v as any;
-                                            }}
-                                            class={'ml-2'}
-                                        />,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                </div>
+        return () => (
+            <div v-loading={unref(loading)}>
+                <FireRouter />
+                <div class={'app-status card-interval'}>
+                    <ElCard>
+                        <div class={'flex w-full flex-col gap-4 md:flex-row'}>
+                            <div class={'ml-3 flex flex-wrap gap-4'}>
+                                <ElTag effect="dark" type="success" class={'float-left'}>
+                                    {'SSH'}
+                                </ElTag>
+                                <Status
+                                    status={form.isActive ? 'enable' : 'disable'}
+                                    msg={form.message}
+                                    class={'mt-0.5'}
+                                />
                             </div>
-                        </ElCard>
-                    </div>
-                    <LayoutContent
-                        v-slots={{
-                            leftToolBar: () => (
-                                <>
-                                    <ElRadioGroup
-                                        modelValue={unref(confShowType)}
-                                        onUpdate:modelValue={($v) => {
-                                            confShowType.value = $v as any;
+                            <div class={'mt-0.5'}>
+                                {form.isActive ? (
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onOperate('stop');
                                         }}
-                                        onChange={($event?: any) => {
-                                            (changeMode as any)($event);
-                                        }}
+                                        link
+                                        v-permission={true}
+                                        v-node-admin={true}
                                     >
-                                        <ElRadioButton value="base">{$t('database.baseConf')}</ElRadioButton>
-                                        <ElRadioButton value="all">{$t('database.allConf')}</ElRadioButton>
-                                    </ElRadioGroup>
-                                    {withDirectives(
-                                        <ElButton
-                                            onClick={($event?: any) => {
-                                                (onOpenDrawer as any)($event);
-                                            }}
-                                        >
-                                            {$t('ssh.pubkey')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                    {withDirectives(
-                                        <ElButton
-                                            onClick={($event?: any) => {
-                                                (onOpenAuthKeys as any)($event);
-                                            }}
-                                        >
-                                            {$t('ssh.authKeys')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                </>
-                            ),
-                            main: () => (
-                                <>
-                                    {unref(confShowType) === 'base' ? (
-                                        <ElRow class={'mt-10'}>
-                                            <ElCol xs={24} sm={20} md={20} lg={10} xl={10}>
-                                                <ElForm
-                                                    model={form}
-                                                    label-position="right"
-                                                    ref={formRef}
-                                                    label-width="120px"
-                                                >
-                                                    <ElFormItem label={$t('ssh.port')} prop="port">
-                                                        <ElInput
-                                                            disabled
-                                                            modelValue={form.port}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.port = $v as any;
-                                                            }}
-                                                            v-slots={{
-                                                                append: () => (
-                                                                    <>
-                                                                        {withDirectives(
-                                                                            <ElButton
-                                                                                onClick={($event?: any) => {
-                                                                                    (onChangePort as any)($event);
-                                                                                }}
-                                                                                icon="Setting"
-                                                                            >
-                                                                                {$t('commons.button.set')}
-                                                                            </ElButton>,
-                                                                            [
-                                                                                [permissionDirective, true],
-                                                                                [nodeAdminDirective, true],
-                                                                            ],
-                                                                        )}
-                                                                    </>
-                                                                ),
-                                                            }}
-                                                        />
-                                                        <span class={'input-help'}>{$t('ssh.portHelper')}</span>
-                                                    </ElFormItem>
-                                                    <ElFormItem label={$t('ssh.listenAddress')} prop="listenAddress">
-                                                        <ElInput
-                                                            disabled
-                                                            modelValue={form.listenAddressItem}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.listenAddressItem = $v as any;
-                                                            }}
-                                                            v-slots={{
-                                                                append: () => (
-                                                                    <>
-                                                                        {withDirectives(
-                                                                            <ElButton
-                                                                                onClick={($event?: any) => {
-                                                                                    (onChangeAddress as any)($event);
-                                                                                }}
-                                                                                icon="Setting"
-                                                                            >
-                                                                                {$t('commons.button.set')}
-                                                                            </ElButton>,
-                                                                            [
-                                                                                [permissionDirective, true],
-                                                                                [nodeAdminDirective, true],
-                                                                            ],
-                                                                        )}
-                                                                    </>
-                                                                ),
-                                                            }}
-                                                        />
-                                                        <span class={'input-help'}>{$t('ssh.addressHelper')}</span>
-                                                    </ElFormItem>
-                                                    <ElFormItem
-                                                        label={$t('ssh.permitRootLogin')}
-                                                        prop="permitRootLoginItem"
-                                                    >
-                                                        <ElInput
-                                                            disabled
-                                                            modelValue={form.permitRootLoginItem}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.permitRootLoginItem = $v as any;
-                                                            }}
-                                                            v-slots={{
-                                                                append: () => (
-                                                                    <>
-                                                                        {withDirectives(
-                                                                            <ElButton
-                                                                                onClick={($event?: any) => {
-                                                                                    (onChangeRoot as any)($event);
-                                                                                }}
-                                                                                icon="Setting"
-                                                                            >
-                                                                                {$t('commons.button.set')}
-                                                                            </ElButton>,
-                                                                            [
-                                                                                [permissionDirective, true],
-                                                                                [nodeAdminDirective, true],
-                                                                            ],
-                                                                        )}
-                                                                    </>
-                                                                ),
-                                                            }}
-                                                        />
-                                                        <span class={'input-help'}>{$t('ssh.rootSettingHelper')}</span>
-                                                    </ElFormItem>
-                                                    <ElFormItem
-                                                        label={$t('ssh.passwordAuthentication')}
-                                                        prop="passwordAuthentication"
-                                                    >
-                                                        {withDirectives(
-                                                            <ElSwitch
-                                                                active-value="yes"
-                                                                inactive-value="no"
-                                                                onChange={($event?: any) => {
-                                                                    onSave(
-                                                                        unref(formRef),
-                                                                        'PasswordAuthentication',
-                                                                        form.passwordAuthentication,
-                                                                    );
-                                                                }}
-                                                                modelValue={form.passwordAuthentication}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    form.passwordAuthentication = $v as any;
-                                                                }}
-                                                            />,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                        <span class={'input-help'}>{$t('ssh.pwdAuthHelper')}</span>
-                                                    </ElFormItem>
-                                                    <ElFormItem
-                                                        label={$t('ssh.pubkeyAuthentication')}
-                                                        prop="pubkeyAuthentication"
-                                                    >
-                                                        {withDirectives(
-                                                            <ElSwitch
-                                                                active-value="yes"
-                                                                inactive-value="no"
-                                                                onChange={($event?: any) => {
-                                                                    onSave(
-                                                                        unref(formRef),
-                                                                        'PubkeyAuthentication',
-                                                                        form.pubkeyAuthentication,
-                                                                    );
-                                                                }}
-                                                                modelValue={form.pubkeyAuthentication}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    form.pubkeyAuthentication = $v as any;
-                                                                }}
-                                                            />,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                        <span class={'input-help'}>{$t('ssh.keyAuthHelper')}</span>
-                                                    </ElFormItem>
-                                                    <ElFormItem label={$t('ssh.useDNS')} prop="useDNS">
-                                                        {withDirectives(
-                                                            <ElSwitch
-                                                                active-value="yes"
-                                                                inactive-value="no"
-                                                                onChange={($event?: any) => {
-                                                                    onSave(unref(formRef), 'UseDNS', form.useDNS);
-                                                                }}
-                                                                modelValue={form.useDNS}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    form.useDNS = $v as any;
-                                                                }}
-                                                            />,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                        <span class={'input-help'}>{$t('ssh.dnsHelper')}</span>
-                                                    </ElFormItem>
-                                                </ElForm>
-                                            </ElCol>
-                                        </ElRow>
-                                    ) : null}
-                                    {unref(confShowType) === 'all' ? (
-                                        <div>
-                                            <ElAlert
-                                                type="info"
-                                                closable={false}
-                                                title={$t('ssh.confFileOrderHelper')}
-                                            />
-                                            <ElSelect
-                                                modelValue={unref(allConfMode)}
-                                                onUpdate:modelValue={($v) => {
-                                                    allConfMode.value = $v as any;
-                                                }}
-                                                onChange={($event?: any) => {
-                                                    (changeAllConfMode as any)($event);
-                                                }}
-                                                class={'mini-form-item mt-2'}
+                                        {$t('commons.button.stop')}
+                                    </ElButton>
+                                ) : null}
+                                {!form.isActive ? (
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onOperate('start');
+                                        }}
+                                        link
+                                        v-permission={true}
+                                        v-node-admin={true}
+                                    >
+                                        {$t('commons.button.start')}
+                                    </ElButton>
+                                ) : null}
+                                <ElDivider direction="vertical" />
+                                {
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onOperate('restart');
+                                        }}
+                                        link
+                                        v-permission={true}
+                                        v-node-admin={true}
+                                    >
+                                        {$t('commons.button.restart')}
+                                    </ElButton>
+                                }
+                                <ElDivider direction="vertical" />
+                                <ElButton type="primary" link>
+                                    {$t('ssh.autoStart')}
+                                </ElButton>
+                                {
+                                    <ElSwitch
+                                        size="small"
+                                        inactive-value="disable"
+                                        active-value="enable"
+                                        onChange={($event?: any) => {
+                                            onOperate(unref(autoStart));
+                                        }}
+                                        v-model={autoStart.value}
+                                        class={'ml-2'}
+                                        v-permission={true}
+                                        v-node-admin={true}
+                                    />
+                                }
+                            </div>
+                        </div>
+                    </ElCard>
+                </div>
+                <LayoutContent
+                    v-slots={{
+                        leftToolBar: () => (
+                            <>
+                                <ElRadioGroup
+                                    v-model={confShowType.value}
+                                    onChange={($event?: any) => {
+                                        (changeMode as any)($event);
+                                    }}
+                                >
+                                    <ElRadioButton value="base">{$t('database.baseConf')}</ElRadioButton>
+                                    <ElRadioButton value="all">{$t('database.allConf')}</ElRadioButton>
+                                </ElRadioGroup>
+                                {
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            (onOpenDrawer as any)($event);
+                                        }}
+                                        v-permission={true}
+                                        v-node-admin={true}
+                                    >
+                                        {$t('ssh.pubkey')}
+                                    </ElButton>
+                                }
+                                {
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            (onOpenAuthKeys as any)($event);
+                                        }}
+                                        v-permission={true}
+                                        v-node-admin={true}
+                                    >
+                                        {$t('ssh.authKeys')}
+                                    </ElButton>
+                                }
+                            </>
+                        ),
+                        main: () => (
+                            <>
+                                {unref(confShowType) === 'base' ? (
+                                    <ElRow class={'mt-10'}>
+                                        <ElCol xs={24} sm={20} md={20} lg={10} xl={10}>
+                                            <ElForm
+                                                model={form}
+                                                label-position="right"
+                                                ref={formRef}
+                                                label-width="120px"
                                             >
-                                                {(unref(sshConfOptions) || []).map((item) => (
-                                                    <ElOption value={item.value} label={item.label} key={item.value} />
-                                                ))}
-                                            </ElSelect>
-                                            <CodemirrorPro
-                                                heightDiff={459}
-                                                minHeight={350}
-                                                modelValue={unref(allConfContent)}
-                                                onUpdate:modelValue={($v) => {
-                                                    allConfContent.value = $v as any;
-                                                }}
-                                                mode="nginx"
-                                                placeholder="# The SSH configuration file does not exist or is empty (/etc/ssh/sshd_config)"
-                                                class={'mt-5'}
-                                            />
-                                            {withDirectives(
-                                                <ElButton
-                                                    disabled={unref(loading)}
-                                                    type="primary"
-                                                    onClick={($event?: any) => {
-                                                        (onSaveFile as any)($event);
-                                                    }}
-                                                    class={'mt-2.5'}
+                                                <ElFormItem label={$t('ssh.port')} prop="port">
+                                                    <ElInput
+                                                        disabled
+                                                        v-model={form.port}
+                                                        v-slots={{
+                                                            append: () => (
+                                                                <>
+                                                                    {
+                                                                        <ElButton
+                                                                            onClick={($event?: any) => {
+                                                                                (onChangePort as any)($event);
+                                                                            }}
+                                                                            icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
+                                                                        >
+                                                                            {$t('commons.button.set')}
+                                                                        </ElButton>
+                                                                    }
+                                                                </>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <span class={'input-help'}>{$t('ssh.portHelper')}</span>
+                                                </ElFormItem>
+                                                <ElFormItem label={$t('ssh.listenAddress')} prop="listenAddress">
+                                                    <ElInput
+                                                        disabled
+                                                        v-model={form.listenAddressItem}
+                                                        v-slots={{
+                                                            append: () => (
+                                                                <>
+                                                                    {
+                                                                        <ElButton
+                                                                            onClick={($event?: any) => {
+                                                                                (onChangeAddress as any)($event);
+                                                                            }}
+                                                                            icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
+                                                                        >
+                                                                            {$t('commons.button.set')}
+                                                                        </ElButton>
+                                                                    }
+                                                                </>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <span class={'input-help'}>{$t('ssh.addressHelper')}</span>
+                                                </ElFormItem>
+                                                <ElFormItem
+                                                    label={$t('ssh.permitRootLogin')}
+                                                    prop="permitRootLoginItem"
                                                 >
-                                                    {$t('commons.button.save')}
-                                                </ElButton>,
-                                                [
-                                                    [permissionDirective, true],
-                                                    [nodeAdminDirective, true],
-                                                ],
-                                            )}
-                                        </div>
-                                    ) : null}
-                                </>
-                            ),
-                        }}
-                    />
-                    <AuthKeys ref={authKeyRef} />
-                    <Cert
-                        ref={pubKeyRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                    <Port
-                        ref={portRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                    <Address
-                        ref={addressRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                    <Root
-                        ref={rootsRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                    />
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                                                    <ElInput
+                                                        disabled
+                                                        v-model={form.permitRootLoginItem}
+                                                        v-slots={{
+                                                            append: () => (
+                                                                <>
+                                                                    {
+                                                                        <ElButton
+                                                                            onClick={($event?: any) => {
+                                                                                (onChangeRoot as any)($event);
+                                                                            }}
+                                                                            icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
+                                                                        >
+                                                                            {$t('commons.button.set')}
+                                                                        </ElButton>
+                                                                    }
+                                                                </>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <span class={'input-help'}>{$t('ssh.rootSettingHelper')}</span>
+                                                </ElFormItem>
+                                                <ElFormItem
+                                                    label={$t('ssh.passwordAuthentication')}
+                                                    prop="passwordAuthentication"
+                                                >
+                                                    {
+                                                        <ElSwitch
+                                                            active-value="yes"
+                                                            inactive-value="no"
+                                                            onChange={($event?: any) => {
+                                                                onSave(
+                                                                    unref(formRef),
+                                                                    'PasswordAuthentication',
+                                                                    form.passwordAuthentication,
+                                                                );
+                                                            }}
+                                                            v-model={form.passwordAuthentication}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        />
+                                                    }
+                                                    <span class={'input-help'}>{$t('ssh.pwdAuthHelper')}</span>
+                                                </ElFormItem>
+                                                <ElFormItem
+                                                    label={$t('ssh.pubkeyAuthentication')}
+                                                    prop="pubkeyAuthentication"
+                                                >
+                                                    {
+                                                        <ElSwitch
+                                                            active-value="yes"
+                                                            inactive-value="no"
+                                                            onChange={($event?: any) => {
+                                                                onSave(
+                                                                    unref(formRef),
+                                                                    'PubkeyAuthentication',
+                                                                    form.pubkeyAuthentication,
+                                                                );
+                                                            }}
+                                                            v-model={form.pubkeyAuthentication}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        />
+                                                    }
+                                                    <span class={'input-help'}>{$t('ssh.keyAuthHelper')}</span>
+                                                </ElFormItem>
+                                                <ElFormItem label={$t('ssh.useDNS')} prop="useDNS">
+                                                    {
+                                                        <ElSwitch
+                                                            active-value="yes"
+                                                            inactive-value="no"
+                                                            onChange={($event?: any) => {
+                                                                onSave(unref(formRef), 'UseDNS', form.useDNS);
+                                                            }}
+                                                            v-model={form.useDNS}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        />
+                                                    }
+                                                    <span class={'input-help'}>{$t('ssh.dnsHelper')}</span>
+                                                </ElFormItem>
+                                            </ElForm>
+                                        </ElCol>
+                                    </ElRow>
+                                ) : null}
+                                {unref(confShowType) === 'all' ? (
+                                    <div>
+                                        <ElAlert type="info" closable={false} title={$t('ssh.confFileOrderHelper')} />
+                                        <ElSelect
+                                            v-model={allConfMode.value}
+                                            onChange={($event?: any) => {
+                                                (changeAllConfMode as any)($event);
+                                            }}
+                                            class={'mini-form-item mt-2'}
+                                        >
+                                            {(unref(sshConfOptions) || []).map((item) => (
+                                                <ElOption value={item.value} label={item.label} key={item.value} />
+                                            ))}
+                                        </ElSelect>
+                                        <CodemirrorPro
+                                            heightDiff={459}
+                                            minHeight={350}
+                                            v-model={allConfContent.value}
+                                            mode="nginx"
+                                            placeholder="# The SSH configuration file does not exist or is empty (/etc/ssh/sshd_config)"
+                                            class={'mt-5'}
+                                        />
+                                        {
+                                            <ElButton
+                                                disabled={unref(loading)}
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    (onSaveFile as any)($event);
+                                                }}
+                                                class={'mt-2.5'}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.save')}
+                                            </ElButton>
+                                        }
+                                    </div>
+                                ) : null}
+                            </>
+                        ),
+                    }}
+                />
+                <AuthKeys ref={authKeyRef} />
+                <Cert
+                    ref={pubKeyRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+                <Port
+                    ref={portRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+                <Address
+                    ref={addressRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+                <Root
+                    ref={rootsRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                />
+            </div>
+        );
     },
     options,
 );

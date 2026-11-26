@@ -132,10 +132,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={unref(title)}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -165,28 +162,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={formRef} label-position="top" model={unref(dialogData).rowData} rules={rules}>
+                {
+                    <ElForm
+                        ref={formRef}
+                        label-position="top"
+                        model={unref(dialogData).rowData}
+                        rules={rules}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label="IP" prop="family">
-                            <ElSelect
-                                modelValue={unref(dialogData).rowData!.family}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.family = $v as any;
-                                }}
-                                class={'w-full'}
-                            >
+                            <ElSelect v-model={unref(dialogData).rowData!.family} class={'w-full'}>
                                 <ElOption value="ipv4" label="IPv4" />
                                 <ElOption value="ipv6" label="IPv6" />
                             </ElSelect>
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.protocol')} prop="protocol">
-                            <ElSelect
-                                modelValue={unref(dialogData).rowData!.protocol}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.protocol = $v as any;
-                                }}
-                                class={'w-full'}
-                            >
+                            <ElSelect v-model={unref(dialogData).rowData!.protocol} class={'w-full'}>
                                 <ElOption value="tcp" label="tcp" />
                                 <ElOption value="udp" label="udp" />
                                 <ElOption value="tcp/udp" label="tcp/udp" />
@@ -223,13 +214,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <span class={'input-help'}>{$t('firewall.forwardPortHelper')}</span>
                         </ElFormItem>
                         <ElFormItem label={$t('firewall.forwardInboundInterface')} prop="interface">
-                            <ElSelect
-                                modelValue={unref(dialogData).rowData!.interface}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.interface = $v as any;
-                                }}
-                                class={'w-full'}
-                            >
+                            <ElSelect v-model={unref(dialogData).rowData!.interface} class={'w-full'}>
                                 {(unref(interfaceOptions) || []).map((item) => (
                                     <ElOption
                                         label={item.label === 'all' ? $t('commons.table.all') : item.label}
@@ -239,9 +224,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ))}
                             </ElSelect>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

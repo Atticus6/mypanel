@@ -54,10 +54,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(terminalVisible)}
-                onUpdate:modelValue={($v) => {
-                    terminalVisible.value = $v as any;
-                }}
+                v-model={terminalVisible.value}
                 header={$t('menu.terminal')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);

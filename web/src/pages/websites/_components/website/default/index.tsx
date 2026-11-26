@@ -9,7 +9,6 @@ import { html } from '@codemirror/lang-html';
 import { php } from '@codemirror/lang-php';
 import { oneDark } from '@codemirror/theme-one-dark';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -136,10 +135,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('website.advancedSettings')}
                 size="normal"
                 onClose={($event?: any) => {
@@ -149,30 +145,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     content: () => (
                         <>
                             <ElTabs
-                                modelValue={unref(activeTab)}
-                                onUpdate:modelValue={($v) => {
-                                    activeTab.value = $v as any;
-                                }}
+                                v-model={activeTab.value}
                                 tab-position="left"
                                 onTabChange={($event?: any) => {
                                     (changeTab as any)($event);
                                 }}
                             >
                                 <ElTabPane label={$t('website.defaultServer')} name="site">
-                                    {withDirectives(
+                                    {
                                         <ElForm
                                             onSubmit={($event?: any) => {
                                                 $event.preventDefault();
                                             }}
                                             label-position="top"
+                                            v-loading={unref(loading)}
                                         >
                                             <ElFormItem label={$t('website.defaultServer')}>
-                                                <ElSelect
-                                                    modelValue={unref(defaultId)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        defaultId.value = $v as any;
-                                                    }}
-                                                >
+                                                <ElSelect v-model={defaultId.value}>
                                                     <ElOption
                                                         value={0}
                                                         label={$t('website.noDefaultServer')}
@@ -187,9 +176,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     ))}
                                                 </ElSelect>
                                             </ElFormItem>
-                                        </ElForm>,
-                                        [[vLoading, unref(loading)]],
-                                    )}
+                                        </ElForm>
+                                    }
                                     <ElAlert
                                         closable={false}
                                         v-slots={{
@@ -204,39 +192,29 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     />
                                 </ElTabPane>
                                 <ElTabPane label={$t('website.defaultHtml')} name="html">
-                                    {withDirectives(
+                                    {
                                         <ElSelect
-                                            modelValue={req.type}
-                                            onUpdate:modelValue={($v) => {
-                                                req.type = $v as any;
-                                            }}
+                                            v-model={req.type}
                                             onChange={($event?: any) => {
                                                 getHtml();
                                             }}
                                             class={'w-full'}
+                                            v-loading={unref(loading)}
                                         >
                                             <ElOption value={'404'} label={$t('website.website404')} />
                                             <ElOption value={'domain404'} label={$t('website.domain404')} />
                                             <ElOption value={'index'} label={$t('website.indexHtml')} />
                                             <ElOption value={'php'} label={$t('website.indexPHP')} />
                                             <ElOption value={'stop'} label={$t('website.stopHtml')} />
-                                        </ElSelect>,
-                                        [[vLoading, unref(loading)]],
-                                    )}
+                                        </ElSelect>
+                                    }
                                     <div class={'mt-1.5'}>
                                         {req.type == '404' ? (
                                             <ElText type="info">{$t('website.website404Helper')}</ElText>
                                         ) : null}
                                     </div>
                                     <div class={'mt-1.5'}>
-                                        <ElCheckbox
-                                            modelValue={req.sync}
-                                            onUpdate:modelValue={($v) => {
-                                                req.sync = $v as any;
-                                            }}
-                                        >
-                                            {$t('website.syncHtmlHelper')}
-                                        </ElCheckbox>
+                                        <ElCheckbox v-model={req.sync}>{$t('website.syncHtmlHelper')}</ElCheckbox>
                                     </div>
                                     <div ref={htmlRef} class={'default-html'} />
                                 </ElTabPane>
@@ -254,22 +232,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit();
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={true}
                                     >
                                         {$t(
                                             unref(activeTab) === 'site'
                                                 ? 'commons.button.confirm'
                                                 : 'commons.button.save',
                                         )}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),

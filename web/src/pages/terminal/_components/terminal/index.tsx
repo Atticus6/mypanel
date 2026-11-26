@@ -203,10 +203,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             <div class={cn('terminal-page', { 'is-mobile': unref(isMobile) })}>
                 <ElTabs
                     type="card"
-                    modelValue={unref(terminalValue)}
-                    onUpdate:modelValue={($v) => {
-                        terminalValue.value = $v as any;
-                    }}
+                    v-model={terminalValue.value}
                     addable
                     onTabAdd={($event?: any) => {
                         showConnections.value = !unref(showConnections);
@@ -224,10 +221,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <>
                                 <ConnectionMenu
                                     ref={connectionMenuRef}
-                                    modelValue={unref(showConnections)}
-                                    onUpdate:modelValue={($v) => {
-                                        showConnections.value = $v as any;
-                                    }}
+                                    v-model={showConnections.value}
                                     open-session={openConnection}
                                 />
                             </>
@@ -293,10 +287,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <div class={'flex w-full flex-wrap items-center gap-2 py-2'}>
                                 {!unref(isMobile) ? <AiSetting class={'shrink-0'} /> : null}
                                 <ElCascader
-                                    modelValue={unref(quickCmd)}
-                                    onUpdate:modelValue={($v) => {
-                                        quickCmd.value = $v as any;
-                                    }}
+                                    v-model={quickCmd.value}
                                     options={unref(commandTree)}
                                     props={quickCommandProps}
                                     show-all-levels={false}
@@ -338,10 +329,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }}
                                 />
                                 <ElInput
-                                    modelValue={unref(batchVal)}
-                                    onUpdate:modelValue={($v) => {
-                                        batchVal.value = $v as any;
-                                    }}
+                                    v-model={batchVal.value}
                                     onKeydown={($event?: any) => {
                                         $event.preventDefault();
                                         if (!($event.key === 'Enter')) return;
@@ -354,10 +342,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                                 <ElCheckbox
                                     label={$t('terminal.batchInput')}
-                                    modelValue={unref(isBatch)}
-                                    onUpdate:modelValue={($v) => {
-                                        isBatch.value = $v as any;
-                                    }}
+                                    v-model={isBatch.value}
                                     class={'shrink-0 whitespace-nowrap'}
                                 />
                             </div>

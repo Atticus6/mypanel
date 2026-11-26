@@ -21,8 +21,6 @@ type PolicyMode = Extract<Firewall.DockerGuardPolicy['mode'], 'deny_sources' | '
 type PolicyForm = Pick<Firewall.DockerGuardPolicy, 'sources'> & { mode: PolicyMode | '' };
 type ValidationCallback = (error?: Error) => void;
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import DrawerPro from '@/components/drawer-pro/index';
 import DialogPro from '@/components/dialog-pro/index';
@@ -303,10 +301,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('firewall.portDetails')}
                     resource={unref(activeContainer)?.name || ''}
                     size="large"
@@ -324,40 +319,33 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         {$t('commons.button.selectAll')}
                                     </ElCheckbox>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             disabled={unref(selectedEndpoints).length === 0}
                                             onClick={($event?: any) => {
                                                 openPolicy(unref(selectedEndpoints));
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.button.set')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                    {withDirectives(
+                                        </ElButton>
+                                    }
+                                    {
                                         <ElButton
                                             disabled={unref(selectedPolicyUUIDs).length === 0}
                                             onClick={($event?: any) => {
                                                 remove(unref(selectedEndpoints), true);
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.button.delete')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                     <ElSelect
-                                        modelValue={unref(familyFilter)}
-                                        onUpdate:modelValue={($v) => {
-                                            familyFilter.value = $v as any;
-                                        }}
+                                        v-model={familyFilter.value}
                                         placeholder={$t('firewall.addressFamily')}
                                         onChange={($event?: any) => {
                                             (changeFamilyFilter as any)($event);
@@ -401,7 +389,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     </ElTooltip>
                                                 </div>
                                                 <div class={'port-card-actions'}>
-                                                    {withDirectives(
+                                                    {
                                                         <ElButton
                                                             type="primary"
                                                             link
@@ -410,33 +398,27 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 $event.stopPropagation();
                                                                 openPolicy(group.endpoints);
                                                             }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('commons.button.set')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
-                                                    {group.endpoint.policyUUID
-                                                        ? withDirectives(
-                                                              <ElButton
-                                                                  type="primary"
-                                                                  link
-                                                                  size="small"
-                                                                  onClick={($event?: any) => {
-                                                                      $event.stopPropagation();
-                                                                      remove(group.endpoints, false);
-                                                                  }}
-                                                              >
-                                                                  {$t('commons.button.delete')}
-                                                              </ElButton>,
-                                                              [
-                                                                  [permissionDirective, true],
-                                                                  [nodeAdminDirective, true],
-                                                              ],
-                                                          )
-                                                        : null}
+                                                        </ElButton>
+                                                    }
+                                                    {group.endpoint.policyUUID ? (
+                                                        <ElButton
+                                                            type="primary"
+                                                            link
+                                                            size="small"
+                                                            onClick={($event?: any) => {
+                                                                $event.stopPropagation();
+                                                                remove(group.endpoints, false);
+                                                            }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {$t('commons.button.delete')}
+                                                        </ElButton>
+                                                    ) : null}
                                                 </div>
                                             </div>
                                             <div class={'port-card-field'}>
@@ -477,10 +459,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     }}
                 />
                 <DialogPro
-                    modelValue={unref(policyVisible)}
-                    onUpdate:modelValue={($v) => {
-                        policyVisible.value = $v as any;
-                    }}
+                    v-model={policyVisible.value}
                     title={$t('firewall.dockerGuardPolicy')}
                     size="large"
                     v-slots={{
@@ -526,12 +505,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                         ) : null}
                         <ElFormItem label={$t('firewall.protectionMode')} prop="mode">
-                            <ElRadioGroup
-                                modelValue={form.mode}
-                                onUpdate:modelValue={($v) => {
-                                    form.mode = $v as any;
-                                }}
-                            >
+                            <ElRadioGroup v-model={form.mode}>
                                 <ElRadio value="deny_sources" disabled={unref(hasMixedFamilies)}>
                                     {$t('firewall.denySources')}
                                 </ElRadio>

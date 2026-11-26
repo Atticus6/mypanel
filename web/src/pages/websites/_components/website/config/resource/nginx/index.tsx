@@ -4,7 +4,6 @@ import { File } from '@/types/file';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -61,32 +60,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             get();
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <CodemirrorPro
-                        modelValue={unref(content)}
-                        onUpdate:modelValue={($v) => {
-                            content.value = $v as any;
+        return () => (
+            <div v-loading={unref(loading)}>
+                <CodemirrorPro v-model={content.value} mode="nginx" heightDiff={400} />
+                {
+                    <ElButton
+                        type="primary"
+                        onClick={($event?: any) => {
+                            submit();
                         }}
-                        mode="nginx"
-                        heightDiff={400}
-                    />
-                    {withDirectives(
-                        <ElButton
-                            type="primary"
-                            onClick={($event?: any) => {
-                                submit();
-                            }}
-                            class={'mt-2.5'}
-                        >
-                            {$t('nginx.saveAndReload')}
-                        </ElButton>,
-                        [[permissionDirective, true]],
-                    )}
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                        class={'mt-2.5'}
+                        v-permission={true}
+                    >
+                        {$t('nginx.saveAndReload')}
+                    </ElButton>
+                }
+            </div>
+        );
     },
     options,
 );

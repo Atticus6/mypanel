@@ -15,8 +15,6 @@ interface DialogProps {
     rowData: Cronjob.CronjobInfo;
 }
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import Status from '@/components/status/index';
 import LayoutContent from '@/components/layout-content/index';
 import TableRefresh from '@/components/table/TableRefresh';
@@ -229,433 +227,380 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             acceptParams,
         });
         return () =>
-            unref(recordShow)
-                ? withDirectives(
-                      <div>
-                          <div class={'app-status card-interval'}>
-                              <ElCard>
-                                  <div class={'flex w-full flex-col gap-4 md:flex-row'}>
-                                      <div class={'ml-3 flex flex-wrap gap-4'}>
-                                          {unref(dialogData).rowData.name.length >= 15 ? (
-                                              <ElPopover
-                                                  placement="top-start"
-                                                  trigger={unref(hasFinePointer) ? 'hover' : 'click'}
-                                                  width="250"
-                                                  content={
-                                                      $t('cronjob.' + unref(dialogData).rowData.type) +
-                                                      ' - ' +
-                                                      unref(dialogData).rowData.name
-                                                  }
-                                                  v-slots={{
-                                                      reference: () => (
-                                                          <>
-                                                              <ElTag effect="dark" type="success" style={'float: left'}>
-                                                                  {$t('cronjob.' + unref(dialogData).rowData.type)}
-                                                                  {' - '}
-                                                                  {unref(dialogData).rowData.name.substring(0, 12)}
-                                                                  {'... '}
-                                                              </ElTag>
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                          ) : null}
-                                          {unref(dialogData).rowData.name.length < 15 ? (
-                                              <ElTag effect="dark" type="success" class={'float-left'}>
-                                                  {$t('cronjob.' + unref(dialogData).rowData.type)}
-                                                  {' - '}
-                                                  {unref(dialogData).rowData.name}
-                                              </ElTag>
-                                          ) : null}
-                                          <Status status={unref(dialogData).rowData.status} class={'mt-0.5'} />
-                                      </div>
-                                      <div class={'mt-0.5'}>
-                                          {withDirectives(
-                                              <ElButton
-                                                  type="primary"
-                                                  disabled={unref(dialogData).rowData.status === 'Pending'}
-                                                  onClick={($event?: any) => {
-                                                      onHandle(unref(dialogData).rowData);
-                                                  }}
-                                                  link
-                                              >
-                                                  {$t('commons.button.handle')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )}
-                                          {unref(dialogData).rowData.status !== 'Pending' ? (
-                                              <ElDivider direction="vertical" />
-                                          ) : null}
-                                          {unref(dialogData).rowData.status === 'Enable'
-                                              ? withDirectives(
-                                                    <ElButton
-                                                        type="primary"
-                                                        onClick={($event?: any) => {
-                                                            onChangeStatus(unref(dialogData).rowData.id, 'disable');
-                                                        }}
-                                                        link
-                                                    >
-                                                        {$t('commons.button.disable')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )
-                                              : null}
-                                          {unref(dialogData).rowData.status === 'Disable'
-                                              ? withDirectives(
-                                                    <ElButton
-                                                        type="primary"
-                                                        onClick={($event?: any) => {
-                                                            onChangeStatus(unref(dialogData).rowData.id, 'enable');
-                                                        }}
-                                                        link
-                                                    >
-                                                        {$t('commons.button.enable')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )
-                                              : null}
-                                          <ElDivider direction="vertical" />
-                                          {withDirectives(
-                                              <ElButton
-                                                  disabled={!unref(hasRecords)}
-                                                  type="primary"
-                                                  onClick={($event?: any) => {
-                                                      (onClean as any)($event);
-                                                  }}
-                                                  link
-                                              >
-                                                  {$t('commons.button.clean')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )}
-                                      </div>
-                                  </div>
-                              </ElCard>
-                          </div>
-                          <LayoutContent
-                              title={$t('cronjob.record')}
-                              reload={true}
-                              v-slots={{
-                                  rightToolBar: () => (
-                                      <>
-                                          <ElDatePicker
-                                              onChange={($event?: any) => {
-                                                  search(true);
-                                              }}
-                                              modelValue={unref(timeRangeLoad)}
-                                              onUpdate:modelValue={($v) => {
-                                                  timeRangeLoad.value = $v as any;
-                                              }}
-                                              type="datetimerange"
-                                              range-separator="-"
-                                              start-placeholder={$t('commons.search.timeStart')}
-                                              end-placeholder={$t('commons.search.timeEnd')}
-                                              shortcuts={shortcuts}
-                                              class={'record-time-range mr-2.5'}
-                                          />
-                                          <ElSelect
-                                              onChange={($event?: any) => {
-                                                  search(true);
-                                              }}
-                                              modelValue={searchInfo.status}
-                                              onUpdate:modelValue={($v) => {
-                                                  searchInfo.status = $v as any;
-                                              }}
-                                              class={'p-w-200'}
-                                              v-slots={{ prefix: () => <>{$t('commons.table.status')}</> }}
-                                          >
-                                              <ElOption label={$t('commons.table.all')} value />
-                                              <ElOption label={$t('commons.status.success')} value="Success" />
-                                              <ElOption label={$t('commons.status.waiting')} value="Waiting" />
-                                              <ElOption label={$t('commons.status.unexecuted')} value="Unexecuted" />
-                                              <ElOption label={$t('commons.status.failed')} value="Failed" />
-                                          </ElSelect>
-                                          <TableRefresh
-                                              onSearch={($event?: any) => {
-                                                  search(false);
-                                              }}
-                                          />
-                                      </>
-                                  ),
-                                  main: () => (
-                                      <>
-                                          <div class={'mainClass'}>
-                                              <ElRow
-                                                  gutter={20}
-                                                  class={'mainRowClass row-box'}
-                                                  style={[{}, { display: unref(hasRecords) ? '' : 'none' }]}
-                                              >
-                                                  <ElCol span={7}>
-                                                      <ElCard class={'el-card'}>
-                                                          <div class={'infinite-list'} style={'overflow: auto'}>
-                                                              <ComplexTable
-                                                                  data={unref(records)}
-                                                                  show-header={false}
-                                                                  onRowClick={($event?: any) => {
-                                                                      (forDetail as any)($event);
-                                                                  }}
-                                                                  style={'cursor: pointer'}
-                                                              >
-                                                                  <ElTableColumn
-                                                                      min-width="230px"
-                                                                      v-slots={{
-                                                                          default: ({ row }) => (
-                                                                              <>
-                                                                                  {row.id ===
-                                                                                  unref(currentRecord).id ? (
-                                                                                      <span class={'select-sign'} />
-                                                                                  ) : null}
-                                                                                  <Status
-                                                                                      status={row.status}
-                                                                                      class={
-                                                                                          'float-left mt-1 mr-2 ml-1 w-20'
-                                                                                      }
-                                                                                  />
-                                                                                  <div class={'mt-0.5'}>
-                                                                                      <span>{row.startTime}</span>
-                                                                                  </div>
-                                                                              </>
-                                                                          ),
-                                                                      }}
-                                                                  />
-                                                                  <ElTableColumn
-                                                                      min-width="30px"
-                                                                      v-slots={{
-                                                                          default: ({ row }) => (
-                                                                              <>
-                                                                                  <ElTooltip
-                                                                                      content={$t('cronjob.stop')}
-                                                                                  >
-                                                                                      {unref(dialogData).rowData
-                                                                                          .type === 'shell' &&
-                                                                                      row.status === 'Waiting' ? (
-                                                                                          <ElButton
-                                                                                              link
-                                                                                              type="primary"
-                                                                                              onClick={(
-                                                                                                  $event?: any,
-                                                                                              ) => {
-                                                                                                  onStop(row.id);
-                                                                                              }}
-                                                                                              icon="SwitchButton"
-                                                                                              class={'float-right'}
-                                                                                          />
-                                                                                      ) : null}
-                                                                                  </ElTooltip>
-                                                                              </>
-                                                                          ),
-                                                                      }}
-                                                                  />
-                                                              </ComplexTable>
-                                                          </div>
-                                                          <div class={'page-item'}>
-                                                              <ElPagination
-                                                                  page-size={searchInfo.pageSize}
-                                                                  current-page={searchInfo.page}
-                                                                  onCurrentChange={($event?: any) => {
-                                                                      (handleCurrentChange as any)($event);
-                                                                  }}
-                                                                  onSizeChange={($event?: any) => {
-                                                                      (handleSizeChange as any)($event);
-                                                                  }}
-                                                                  pager-count={5}
-                                                                  page-sizes={[5, 10, 20, 50, 100, 200, 500, 1000]}
-                                                                  small
-                                                                  layout="total, sizes, prev, pager, next"
-                                                                  total={searchInfo.recordTotal}
-                                                              />
-                                                          </div>
-                                                      </ElCard>
-                                                  </ElCol>
-                                                  <ElCol span={17}>
-                                                      <ElCard class={'el-card'}>
-                                                          <ElForm label-position="top">
-                                                              <ElRow type="flex" justify="center">
-                                                                  <ElFormItem
-                                                                      class={'descriptionWide'}
-                                                                      v-slots={{
-                                                                          label: () => (
-                                                                              <>
-                                                                                  <span class={'status-label'}>
-                                                                                      {$t('commons.search.timeStart')}
-                                                                                  </span>
-                                                                              </>
-                                                                          ),
-                                                                      }}
-                                                                  >
-                                                                      <span class={'status-count'}>
-                                                                          {dateFormat(
-                                                                              0,
-                                                                              0,
-                                                                              unref(currentRecord)?.startTime,
-                                                                          )}
-                                                                      </span>
-                                                                  </ElFormItem>
-                                                                  <ElFormItem
-                                                                      class={'description'}
-                                                                      v-slots={{
-                                                                          label: () => (
-                                                                              <>
-                                                                                  <span class={'status-label'}>
-                                                                                      {$t('commons.table.interval')}
-                                                                                  </span>
-                                                                              </>
-                                                                          ),
-                                                                      }}
-                                                                  >
-                                                                      {unref(currentRecord)?.status === 'Waiting' &&
-                                                                      !unref(currentRecord)?.interval ? (
-                                                                          <ElButton link loading={true} />
-                                                                      ) : (
-                                                                          <span class={'status-count'}>
-                                                                              {formatInterval(
-                                                                                  unref(currentRecord)?.interval,
-                                                                              )}
-                                                                          </span>
-                                                                      )}
-                                                                  </ElFormItem>
-                                                                  <ElFormItem
-                                                                      class={'description'}
-                                                                      v-slots={{
-                                                                          label: () => (
-                                                                              <>
-                                                                                  <span class={'status-label'}>
-                                                                                      {$t('commons.table.status')}
-                                                                                  </span>
-                                                                              </>
-                                                                          ),
-                                                                      }}
-                                                                  >
-                                                                      <Status status={unref(currentRecord)?.status} />
-                                                                      <ElTooltip
-                                                                          content={unref(currentRecord)?.message}
-                                                                      >
-                                                                          {unref(currentRecord)?.status === 'Failed' ||
-                                                                          unref(currentRecord)?.status ===
-                                                                              'Unexecuted' ? (
-                                                                              <ElButton
-                                                                                  type="danger"
-                                                                                  icon="Warning"
-                                                                                  link
-                                                                                  class={'mt-0.5'}
-                                                                              />
-                                                                          ) : null}
-                                                                      </ElTooltip>
-                                                                  </ElFormItem>
-                                                              </ElRow>
-                                                              {unref(currentRecord)?.taskId &&
-                                                              unref(currentRecord)?.taskId != '' ? (
-                                                                  <ElRow>
-                                                                      <LogFile
-                                                                          defaultButton={true}
-                                                                          onStopReading={($event?: any) => {
-                                                                              search(false);
-                                                                          }}
-                                                                          heightDiff={420}
-                                                                          config={{
-                                                                              type: 'task',
-                                                                              colorMode: 'task',
-                                                                              taskID: unref(currentRecord)?.taskId,
-                                                                              tail: true,
-                                                                          }}
-                                                                          class={'w-full'}
-                                                                          key={unref(currentRecord)?.taskId}
-                                                                      />
-                                                                  </ElRow>
-                                                              ) : null}
-                                                          </ElForm>
-                                                      </ElCard>
-                                                  </ElCol>
-                                              </ElRow>
-                                          </div>
-                                          <div
-                                              class={'app-warn'}
-                                              style={[{}, { display: !unref(hasRecords) ? '' : 'none' }]}
-                                          >
-                                              <div>
-                                                  <span>{$t('cronjob.noRecord')}</span>
-                                                  <div>
-                                                      <img src={asset_no_app} />
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </>
-                                  ),
-                              }}
-                          />
-                          <DialogPro
-                              modelValue={unref(open)}
-                              onUpdate:modelValue={($v) => {
-                                  open.value = $v as any;
-                              }}
-                              title={$t('commons.button.clean')}
-                              size="small"
-                              v-slots={{
-                                  footer: () => (
-                                      <>
-                                          <span class={'dialog-footer'}>
-                                              <ElButton
-                                                  onClick={($event?: any) => {
-                                                      open.value = false;
-                                                  }}
-                                                  disabled={unref(delLoading)}
-                                              >
-                                                  {$t('commons.button.cancel')}
-                                              </ElButton>
-                                              <ElButton
-                                                  type="primary"
-                                                  onClick={($event?: any) => {
-                                                      (cleanRecord as any)($event);
-                                                  }}
-                                              >
-                                                  {$t('commons.button.confirm')}
-                                              </ElButton>
-                                          </span>
-                                      </>
-                                  ),
-                              }}
-                          >
-                              {withDirectives(
-                                  <ElForm ref="deleteForm" label-position="left">
-                                      <ElFormItem>
-                                          <ElCheckbox
-                                              modelValue={unref(cleanData)}
-                                              onUpdate:modelValue={($v) => {
-                                                  cleanData.value = $v as any;
-                                              }}
-                                              label={$t('cronjob.cleanData')}
-                                          />
-                                          {unref(cleanData) ? (
-                                              <ElCheckbox
-                                                  modelValue={unref(cleanRemoteData)}
-                                                  onUpdate:modelValue={($v) => {
-                                                      cleanRemoteData.value = $v as any;
-                                                  }}
-                                                  label={$t('cronjob.cleanRemoteData')}
-                                              />
-                                          ) : null}
-                                          <span class={'input-help'}>{$t('cronjob.cleanDataHelper')}</span>
-                                      </ElFormItem>
-                                  </ElForm>,
-                                  [[vLoading, unref(delLoading)]],
-                              )}
-                          </DialogPro>
-                      </div>,
-                      [[vLoading, unref(loading)]],
-                  )
-                : null;
+            unref(recordShow) ? (
+                <div v-loading={unref(loading)}>
+                    <div class={'app-status card-interval'}>
+                        <ElCard>
+                            <div class={'flex w-full flex-col gap-4 md:flex-row'}>
+                                <div class={'ml-3 flex flex-wrap gap-4'}>
+                                    {unref(dialogData).rowData.name.length >= 15 ? (
+                                        <ElPopover
+                                            placement="top-start"
+                                            trigger={unref(hasFinePointer) ? 'hover' : 'click'}
+                                            width="250"
+                                            content={
+                                                $t('cronjob.' + unref(dialogData).rowData.type) +
+                                                ' - ' +
+                                                unref(dialogData).rowData.name
+                                            }
+                                            v-slots={{
+                                                reference: () => (
+                                                    <>
+                                                        <ElTag effect="dark" type="success" style={'float: left'}>
+                                                            {$t('cronjob.' + unref(dialogData).rowData.type)}
+                                                            {' - '}
+                                                            {unref(dialogData).rowData.name.substring(0, 12)}
+                                                            {'... '}
+                                                        </ElTag>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                    ) : null}
+                                    {unref(dialogData).rowData.name.length < 15 ? (
+                                        <ElTag effect="dark" type="success" class={'float-left'}>
+                                            {$t('cronjob.' + unref(dialogData).rowData.type)}
+                                            {' - '}
+                                            {unref(dialogData).rowData.name}
+                                        </ElTag>
+                                    ) : null}
+                                    <Status status={unref(dialogData).rowData.status} class={'mt-0.5'} />
+                                </div>
+                                <div class={'mt-0.5'}>
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            disabled={unref(dialogData).rowData.status === 'Pending'}
+                                            onClick={($event?: any) => {
+                                                onHandle(unref(dialogData).rowData);
+                                            }}
+                                            link
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.handle')}
+                                        </ElButton>
+                                    }
+                                    {unref(dialogData).rowData.status !== 'Pending' ? (
+                                        <ElDivider direction="vertical" />
+                                    ) : null}
+                                    {unref(dialogData).rowData.status === 'Enable' ? (
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                onChangeStatus(unref(dialogData).rowData.id, 'disable');
+                                            }}
+                                            link
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.disable')}
+                                        </ElButton>
+                                    ) : null}
+                                    {unref(dialogData).rowData.status === 'Disable' ? (
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                onChangeStatus(unref(dialogData).rowData.id, 'enable');
+                                            }}
+                                            link
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.enable')}
+                                        </ElButton>
+                                    ) : null}
+                                    <ElDivider direction="vertical" />
+                                    {
+                                        <ElButton
+                                            disabled={!unref(hasRecords)}
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                (onClean as any)($event);
+                                            }}
+                                            link
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.clean')}
+                                        </ElButton>
+                                    }
+                                </div>
+                            </div>
+                        </ElCard>
+                    </div>
+                    <LayoutContent
+                        title={$t('cronjob.record')}
+                        reload={true}
+                        v-slots={{
+                            rightToolBar: () => (
+                                <>
+                                    <ElDatePicker
+                                        onChange={($event?: any) => {
+                                            search(true);
+                                        }}
+                                        v-model={timeRangeLoad.value}
+                                        type="datetimerange"
+                                        range-separator="-"
+                                        start-placeholder={$t('commons.search.timeStart')}
+                                        end-placeholder={$t('commons.search.timeEnd')}
+                                        shortcuts={shortcuts}
+                                        class={'record-time-range mr-2.5'}
+                                    />
+                                    <ElSelect
+                                        onChange={($event?: any) => {
+                                            search(true);
+                                        }}
+                                        v-model={searchInfo.status}
+                                        class={'p-w-200'}
+                                        v-slots={{ prefix: () => <>{$t('commons.table.status')}</> }}
+                                    >
+                                        <ElOption label={$t('commons.table.all')} value />
+                                        <ElOption label={$t('commons.status.success')} value="Success" />
+                                        <ElOption label={$t('commons.status.waiting')} value="Waiting" />
+                                        <ElOption label={$t('commons.status.unexecuted')} value="Unexecuted" />
+                                        <ElOption label={$t('commons.status.failed')} value="Failed" />
+                                    </ElSelect>
+                                    <TableRefresh
+                                        onSearch={($event?: any) => {
+                                            search(false);
+                                        }}
+                                    />
+                                </>
+                            ),
+                            main: () => (
+                                <>
+                                    <div class={'mainClass'}>
+                                        <ElRow
+                                            gutter={20}
+                                            class={'mainRowClass row-box'}
+                                            style={[{}, { display: unref(hasRecords) ? '' : 'none' }]}
+                                        >
+                                            <ElCol span={7}>
+                                                <ElCard class={'el-card'}>
+                                                    <div class={'infinite-list'} style={'overflow: auto'}>
+                                                        <ComplexTable
+                                                            data={unref(records)}
+                                                            show-header={false}
+                                                            onRowClick={($event?: any) => {
+                                                                (forDetail as any)($event);
+                                                            }}
+                                                            style={'cursor: pointer'}
+                                                        >
+                                                            <ElTableColumn
+                                                                min-width="230px"
+                                                                v-slots={{
+                                                                    default: ({ row }) => (
+                                                                        <>
+                                                                            {row.id === unref(currentRecord).id ? (
+                                                                                <span class={'select-sign'} />
+                                                                            ) : null}
+                                                                            <Status
+                                                                                status={row.status}
+                                                                                class={'float-left mt-1 mr-2 ml-1 w-20'}
+                                                                            />
+                                                                            <div class={'mt-0.5'}>
+                                                                                <span>{row.startTime}</span>
+                                                                            </div>
+                                                                        </>
+                                                                    ),
+                                                                }}
+                                                            />
+                                                            <ElTableColumn
+                                                                min-width="30px"
+                                                                v-slots={{
+                                                                    default: ({ row }) => (
+                                                                        <>
+                                                                            <ElTooltip content={$t('cronjob.stop')}>
+                                                                                {unref(dialogData).rowData.type ===
+                                                                                    'shell' &&
+                                                                                row.status === 'Waiting' ? (
+                                                                                    <ElButton
+                                                                                        link
+                                                                                        type="primary"
+                                                                                        onClick={($event?: any) => {
+                                                                                            onStop(row.id);
+                                                                                        }}
+                                                                                        icon="SwitchButton"
+                                                                                        class={'float-right'}
+                                                                                    />
+                                                                                ) : null}
+                                                                            </ElTooltip>
+                                                                        </>
+                                                                    ),
+                                                                }}
+                                                            />
+                                                        </ComplexTable>
+                                                    </div>
+                                                    <div class={'page-item'}>
+                                                        <ElPagination
+                                                            page-size={searchInfo.pageSize}
+                                                            current-page={searchInfo.page}
+                                                            onCurrentChange={($event?: any) => {
+                                                                (handleCurrentChange as any)($event);
+                                                            }}
+                                                            onSizeChange={($event?: any) => {
+                                                                (handleSizeChange as any)($event);
+                                                            }}
+                                                            pager-count={5}
+                                                            page-sizes={[5, 10, 20, 50, 100, 200, 500, 1000]}
+                                                            small
+                                                            layout="total, sizes, prev, pager, next"
+                                                            total={searchInfo.recordTotal}
+                                                        />
+                                                    </div>
+                                                </ElCard>
+                                            </ElCol>
+                                            <ElCol span={17}>
+                                                <ElCard class={'el-card'}>
+                                                    <ElForm label-position="top">
+                                                        <ElRow type="flex" justify="center">
+                                                            <ElFormItem
+                                                                class={'descriptionWide'}
+                                                                v-slots={{
+                                                                    label: () => (
+                                                                        <>
+                                                                            <span class={'status-label'}>
+                                                                                {$t('commons.search.timeStart')}
+                                                                            </span>
+                                                                        </>
+                                                                    ),
+                                                                }}
+                                                            >
+                                                                <span class={'status-count'}>
+                                                                    {dateFormat(0, 0, unref(currentRecord)?.startTime)}
+                                                                </span>
+                                                            </ElFormItem>
+                                                            <ElFormItem
+                                                                class={'description'}
+                                                                v-slots={{
+                                                                    label: () => (
+                                                                        <>
+                                                                            <span class={'status-label'}>
+                                                                                {$t('commons.table.interval')}
+                                                                            </span>
+                                                                        </>
+                                                                    ),
+                                                                }}
+                                                            >
+                                                                {unref(currentRecord)?.status === 'Waiting' &&
+                                                                !unref(currentRecord)?.interval ? (
+                                                                    <ElButton link loading={true} />
+                                                                ) : (
+                                                                    <span class={'status-count'}>
+                                                                        {formatInterval(unref(currentRecord)?.interval)}
+                                                                    </span>
+                                                                )}
+                                                            </ElFormItem>
+                                                            <ElFormItem
+                                                                class={'description'}
+                                                                v-slots={{
+                                                                    label: () => (
+                                                                        <>
+                                                                            <span class={'status-label'}>
+                                                                                {$t('commons.table.status')}
+                                                                            </span>
+                                                                        </>
+                                                                    ),
+                                                                }}
+                                                            >
+                                                                <Status status={unref(currentRecord)?.status} />
+                                                                <ElTooltip content={unref(currentRecord)?.message}>
+                                                                    {unref(currentRecord)?.status === 'Failed' ||
+                                                                    unref(currentRecord)?.status === 'Unexecuted' ? (
+                                                                        <ElButton
+                                                                            type="danger"
+                                                                            icon="Warning"
+                                                                            link
+                                                                            class={'mt-0.5'}
+                                                                        />
+                                                                    ) : null}
+                                                                </ElTooltip>
+                                                            </ElFormItem>
+                                                        </ElRow>
+                                                        {unref(currentRecord)?.taskId &&
+                                                        unref(currentRecord)?.taskId != '' ? (
+                                                            <ElRow>
+                                                                <LogFile
+                                                                    defaultButton={true}
+                                                                    onStopReading={($event?: any) => {
+                                                                        search(false);
+                                                                    }}
+                                                                    heightDiff={420}
+                                                                    config={{
+                                                                        type: 'task',
+                                                                        colorMode: 'task',
+                                                                        taskID: unref(currentRecord)?.taskId,
+                                                                        tail: true,
+                                                                    }}
+                                                                    class={'w-full'}
+                                                                    key={unref(currentRecord)?.taskId}
+                                                                />
+                                                            </ElRow>
+                                                        ) : null}
+                                                    </ElForm>
+                                                </ElCard>
+                                            </ElCol>
+                                        </ElRow>
+                                    </div>
+                                    <div class={'app-warn'} style={[{}, { display: !unref(hasRecords) ? '' : 'none' }]}>
+                                        <div>
+                                            <span>{$t('cronjob.noRecord')}</span>
+                                            <div>
+                                                <img src={asset_no_app} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            ),
+                        }}
+                    />
+                    <DialogPro
+                        v-model={open.value}
+                        title={$t('commons.button.clean')}
+                        size="small"
+                        v-slots={{
+                            footer: () => (
+                                <>
+                                    <span class={'dialog-footer'}>
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                open.value = false;
+                                            }}
+                                            disabled={unref(delLoading)}
+                                        >
+                                            {$t('commons.button.cancel')}
+                                        </ElButton>
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                (cleanRecord as any)($event);
+                                            }}
+                                        >
+                                            {$t('commons.button.confirm')}
+                                        </ElButton>
+                                    </span>
+                                </>
+                            ),
+                        }}
+                    >
+                        {
+                            <ElForm ref="deleteForm" label-position="left" v-loading={unref(delLoading)}>
+                                <ElFormItem>
+                                    <ElCheckbox v-model={cleanData.value} label={$t('cronjob.cleanData')} />
+                                    {unref(cleanData) ? (
+                                        <ElCheckbox
+                                            v-model={cleanRemoteData.value}
+                                            label={$t('cronjob.cleanRemoteData')}
+                                        />
+                                    ) : null}
+                                    <span class={'input-help'}>{$t('cronjob.cleanDataHelper')}</span>
+                                </ElFormItem>
+                            </ElForm>
+                        }
+                    </DialogPro>
+                </div>
+            ) : null;
     },
     options,
 );

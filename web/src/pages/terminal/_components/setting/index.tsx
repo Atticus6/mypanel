@@ -313,304 +313,257 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({
             acceptParams,
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <LayoutContent
-                        title={$t('container.setting')}
-                        divider={true}
-                        v-slots={{
-                            main: () => (
-                                <>
-                                    <ElForm model={form} label-position="left" label-width="150px">
-                                        <ElRow>
-                                            <ElCol span={1}>
-                                                <br />
-                                            </ElCol>
-                                            <ElCol xs={24} sm={20} md={15} lg={12} xl={12}>
-                                                <ElFormItem label={$t('terminal.lineHeight')}>
-                                                    <ElInputNumber
-                                                        min={1}
-                                                        max={2.0}
-                                                        precision={1}
-                                                        step={0.1}
-                                                        modelValue={form.lineHeight}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.lineHeight = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                        class={'formInput'}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.letterSpacing')}>
-                                                    <ElInputNumber
-                                                        min={0}
-                                                        max={3.5}
-                                                        precision={1}
-                                                        step={0.5}
-                                                        modelValue={form.letterSpacing}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.letterSpacing = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                        class={'formInput'}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.fontSize')}>
-                                                    <ElInputNumber
-                                                        step={1}
-                                                        min={12}
-                                                        max={20}
-                                                        modelValue={form.fontSize}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.fontSize = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                        class={'formInput'}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.fontFamily')}>
-                                                    <ElSelect
-                                                        clearable
-                                                        modelValue={unref(selectedFontFamilies)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            selectedFontFamilies.value = $v as any;
-                                                        }}
-                                                        multiple
-                                                        filterable
-                                                        allow-create
-                                                        default-first-option
-                                                        reserve-keyword={false}
-                                                        class={'formInput'}
-                                                    >
-                                                        {(fontFamilyOptions || []).map((item) => (
-                                                            <ElOption
-                                                                label={item.label}
-                                                                value={item.value}
-                                                                key={item.value}
-                                                            />
-                                                        ))}
-                                                    </ElSelect>
-                                                    <span class={'input-help'}>
-                                                        {$t('terminal.fontFamilySupportHelper')}
-                                                    </span>
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.backgroundColor')}>
-                                                    <ElColorPicker
-                                                        modelValue={form.backgroundColor}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.backgroundColor = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.foregroundColor')}>
-                                                    <ElColorPicker
-                                                        modelValue={form.foregroundColor}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.foregroundColor = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem>
-                                                    <div ref={terminalElement} class={'terminal'} />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.cursorBlink')}>
-                                                    <ElSwitch
-                                                        modelValue={form.cursorBlink}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.cursorBlink = $v as any;
-                                                        }}
-                                                        active-value="Enable"
-                                                        inactive-value="Disable"
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.cursorStyle')}>
-                                                    <ElSelect
-                                                        modelValue={form.cursorStyle}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.cursorStyle = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                        class={'formInput'}
-                                                    >
-                                                        <ElOption value="block" label={$t('terminal.cursorBlock')} />
-                                                        <ElOption
-                                                            value="underline"
-                                                            label={$t('terminal.cursorUnderline')}
-                                                        />
-                                                        <ElOption value="bar" label={$t('terminal.cursorBar')} />
-                                                    </ElSelect>
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.scrollback')}>
-                                                    <ElInputNumber
-                                                        step={50}
-                                                        min={0}
-                                                        max={10000}
-                                                        modelValue={form.scrollback}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.scrollback = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                        class={'formInput'}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('terminal.scrollSensitivity')}>
-                                                    <ElInputNumber
-                                                        step={1}
-                                                        min={0}
-                                                        max={16}
-                                                        modelValue={form.scrollSensitivity}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.scrollSensitivity = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            changeItem();
-                                                        }}
-                                                        class={'formInput'}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem>
-                                                    <ElButton
-                                                        onClick={($event?: any) => {
-                                                            onSetDefault();
-                                                        }}
-                                                        plain
-                                                    >
-                                                        {$t('commons.button.setDefault')}
-                                                    </ElButton>
-                                                    <ElButton
-                                                        onClick={($event?: any) => {
-                                                            search(true);
-                                                        }}
-                                                        plain
-                                                    >
-                                                        {$t('commons.button.reset')}
-                                                    </ElButton>
-                                                    <ElButton
-                                                        onClick={($event?: any) => {
-                                                            (onSave as any)($event);
-                                                        }}
-                                                        type="primary"
-                                                    >
-                                                        {$t('commons.button.save')}
-                                                    </ElButton>
-                                                </ElFormItem>
-                                                <ElDivider border-style="dashed" />
-                                                <ElFormItem label={$t('terminal.defaultConn')}>
-                                                    <ElSwitch
-                                                        modelValue={form.showDefaultConn}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.showDefaultConn = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            (changeShow as any)($event);
-                                                        }}
-                                                    />
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('xpack.node.connInfo')}>
-                                                    <ElInput
-                                                        disabled
-                                                        modelValue={form.defaultConn}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.defaultConn = $v as any;
-                                                        }}
-                                                        v-slots={{
-                                                            append: () => (
-                                                                <>
-                                                                    <ElButton
-                                                                        onClick={($event?: any) => {
-                                                                            unref(dialogRef).acceptParams(false);
-                                                                        }}
-                                                                        icon="Setting"
-                                                                    >
-                                                                        {$t('commons.button.set')}
-                                                                    </ElButton>
-                                                                </>
-                                                            ),
-                                                        }}
-                                                    />
-                                                </ElFormItem>
-                                                <ElDivider border-style="dashed" />
-                                                <ElFormItem label={$t('terminal.showTerminalButton')}>
-                                                    <ElSwitch
-                                                        modelValue={form.showTerminalButton}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.showTerminalButton = $v as any;
-                                                        }}
-                                                        onChange={($event?: any) => {
-                                                            (changeTerminalButton as any)($event);
-                                                        }}
-                                                    />
-                                                    <span class={'input-help'}>
-                                                        {$t('terminal.showTerminalButtonHelper')}
-                                                    </span>
-                                                </ElFormItem>
-                                            </ElCol>
-                                        </ElRow>
-                                    </ElForm>
-                                </>
-                            ),
-                        }}
-                    />
-                    <OperateDialog
-                        onSearch={($event?: any) => {
-                            (loadConnShow as any)($event);
-                        }}
-                        ref={dialogRef}
-                    />
-                    <OpDialog
-                        ref={opRef}
-                        onSearch={($event?: any) => {
-                            (search as any)($event);
-                        }}
-                        onCancel={($event?: any) => {
-                            (loadConnShow as any)($event);
-                        }}
-                        onSubmit={($event?: any) => {
-                            (submitChangeShow as any)($event);
-                        }}
-                        v-slots={{
-                            content: () => (
-                                <>
-                                    {!form.showDefaultConn ? (
-                                        <ElForm ref="deleteForm" label-position="left" class={'mt-4 mb-1'}>
-                                            <ElFormItem>
-                                                <ElCheckbox
-                                                    modelValue={unref(resetConn)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        resetConn.value = $v as any;
+        return () => (
+            <div v-loading={unref(loading)}>
+                <LayoutContent
+                    title={$t('container.setting')}
+                    divider={true}
+                    v-slots={{
+                        main: () => (
+                            <>
+                                <ElForm model={form} label-position="left" label-width="150px">
+                                    <ElRow>
+                                        <ElCol span={1}>
+                                            <br />
+                                        </ElCol>
+                                        <ElCol xs={24} sm={20} md={15} lg={12} xl={12}>
+                                            <ElFormItem label={$t('terminal.lineHeight')}>
+                                                <ElInputNumber
+                                                    min={1}
+                                                    max={2.0}
+                                                    precision={1}
+                                                    step={0.1}
+                                                    v-model={form.lineHeight}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
                                                     }}
-                                                    label={$t('terminal.withReset')}
+                                                    class={'formInput'}
                                                 />
                                             </ElFormItem>
-                                        </ElForm>
-                                    ) : null}
-                                </>
-                            ),
-                        }}
-                    />
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                                            <ElFormItem label={$t('terminal.letterSpacing')}>
+                                                <ElInputNumber
+                                                    min={0}
+                                                    max={3.5}
+                                                    precision={1}
+                                                    step={0.5}
+                                                    v-model={form.letterSpacing}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                    class={'formInput'}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.fontSize')}>
+                                                <ElInputNumber
+                                                    step={1}
+                                                    min={12}
+                                                    max={20}
+                                                    v-model={form.fontSize}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                    class={'formInput'}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.fontFamily')}>
+                                                <ElSelect
+                                                    clearable
+                                                    v-model={selectedFontFamilies.value}
+                                                    multiple
+                                                    filterable
+                                                    allow-create
+                                                    default-first-option
+                                                    reserve-keyword={false}
+                                                    class={'formInput'}
+                                                >
+                                                    {(fontFamilyOptions || []).map((item) => (
+                                                        <ElOption
+                                                            label={item.label}
+                                                            value={item.value}
+                                                            key={item.value}
+                                                        />
+                                                    ))}
+                                                </ElSelect>
+                                                <span class={'input-help'}>
+                                                    {$t('terminal.fontFamilySupportHelper')}
+                                                </span>
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.backgroundColor')}>
+                                                <ElColorPicker
+                                                    v-model={form.backgroundColor}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.foregroundColor')}>
+                                                <ElColorPicker
+                                                    v-model={form.foregroundColor}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem>
+                                                <div ref={terminalElement} class={'terminal'} />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.cursorBlink')}>
+                                                <ElSwitch
+                                                    v-model={form.cursorBlink}
+                                                    active-value="Enable"
+                                                    inactive-value="Disable"
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.cursorStyle')}>
+                                                <ElSelect
+                                                    v-model={form.cursorStyle}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                    class={'formInput'}
+                                                >
+                                                    <ElOption value="block" label={$t('terminal.cursorBlock')} />
+                                                    <ElOption
+                                                        value="underline"
+                                                        label={$t('terminal.cursorUnderline')}
+                                                    />
+                                                    <ElOption value="bar" label={$t('terminal.cursorBar')} />
+                                                </ElSelect>
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.scrollback')}>
+                                                <ElInputNumber
+                                                    step={50}
+                                                    min={0}
+                                                    max={10000}
+                                                    v-model={form.scrollback}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                    class={'formInput'}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('terminal.scrollSensitivity')}>
+                                                <ElInputNumber
+                                                    step={1}
+                                                    min={0}
+                                                    max={16}
+                                                    v-model={form.scrollSensitivity}
+                                                    onChange={($event?: any) => {
+                                                        changeItem();
+                                                    }}
+                                                    class={'formInput'}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem>
+                                                <ElButton
+                                                    onClick={($event?: any) => {
+                                                        onSetDefault();
+                                                    }}
+                                                    plain
+                                                >
+                                                    {$t('commons.button.setDefault')}
+                                                </ElButton>
+                                                <ElButton
+                                                    onClick={($event?: any) => {
+                                                        search(true);
+                                                    }}
+                                                    plain
+                                                >
+                                                    {$t('commons.button.reset')}
+                                                </ElButton>
+                                                <ElButton
+                                                    onClick={($event?: any) => {
+                                                        (onSave as any)($event);
+                                                    }}
+                                                    type="primary"
+                                                >
+                                                    {$t('commons.button.save')}
+                                                </ElButton>
+                                            </ElFormItem>
+                                            <ElDivider border-style="dashed" />
+                                            <ElFormItem label={$t('terminal.defaultConn')}>
+                                                <ElSwitch
+                                                    v-model={form.showDefaultConn}
+                                                    onChange={($event?: any) => {
+                                                        (changeShow as any)($event);
+                                                    }}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('xpack.node.connInfo')}>
+                                                <ElInput
+                                                    disabled
+                                                    v-model={form.defaultConn}
+                                                    v-slots={{
+                                                        append: () => (
+                                                            <>
+                                                                <ElButton
+                                                                    onClick={($event?: any) => {
+                                                                        unref(dialogRef).acceptParams(false);
+                                                                    }}
+                                                                    icon="Setting"
+                                                                >
+                                                                    {$t('commons.button.set')}
+                                                                </ElButton>
+                                                            </>
+                                                        ),
+                                                    }}
+                                                />
+                                            </ElFormItem>
+                                            <ElDivider border-style="dashed" />
+                                            <ElFormItem label={$t('terminal.showTerminalButton')}>
+                                                <ElSwitch
+                                                    v-model={form.showTerminalButton}
+                                                    onChange={($event?: any) => {
+                                                        (changeTerminalButton as any)($event);
+                                                    }}
+                                                />
+                                                <span class={'input-help'}>
+                                                    {$t('terminal.showTerminalButtonHelper')}
+                                                </span>
+                                            </ElFormItem>
+                                        </ElCol>
+                                    </ElRow>
+                                </ElForm>
+                            </>
+                        ),
+                    }}
+                />
+                <OperateDialog
+                    onSearch={($event?: any) => {
+                        (loadConnShow as any)($event);
+                    }}
+                    ref={dialogRef}
+                />
+                <OpDialog
+                    ref={opRef}
+                    onSearch={($event?: any) => {
+                        (search as any)($event);
+                    }}
+                    onCancel={($event?: any) => {
+                        (loadConnShow as any)($event);
+                    }}
+                    onSubmit={($event?: any) => {
+                        (submitChangeShow as any)($event);
+                    }}
+                    v-slots={{
+                        content: () => (
+                            <>
+                                {!form.showDefaultConn ? (
+                                    <ElForm ref="deleteForm" label-position="left" class={'mt-4 mb-1'}>
+                                        <ElFormItem>
+                                            <ElCheckbox v-model={resetConn.value} label={$t('terminal.withReset')} />
+                                        </ElFormItem>
+                                    </ElForm>
+                                ) : null}
+                            </>
+                        ),
+                    }}
+                />
+            </div>
+        );
     },
     options,
 );

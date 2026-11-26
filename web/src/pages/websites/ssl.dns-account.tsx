@@ -7,7 +7,6 @@ import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { useSearchState } from '@/utils/search-reset';
 import { getDNSName } from '@/utils/ssl';
-import permissionDirective from '@/directives/modules/permission';
 import RouterButton from '@/components/router-button/index';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
@@ -102,17 +101,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     v-slots={{
                         leftToolBar: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             (openCreate as any)($event);
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.create')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                         main: () => (

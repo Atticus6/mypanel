@@ -333,10 +333,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('file.openWithVscode')}
                 size="large"
                 onClose={($event?: any) => {
@@ -388,8 +385,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <div class={'vscode-open space-y-4'}>
+                {
+                    <div class={'vscode-open space-y-4'} v-loading={unref(loading)}>
                         {addForm.authMode === 'key' ? (
                             <ElAlert
                                 closable={false}
@@ -404,10 +401,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <ElForm ref={vscodeConnectInfoForm} model={addForm} rules={rules} label-position="top">
                                     <ElFormItem label={$t('terminal.authMode')} prop="authMode" class={'mb-5'}>
                                         <ElRadioGroup
-                                            modelValue={addForm.authMode}
-                                            onUpdate:modelValue={($v) => {
-                                                addForm.authMode = $v as any;
-                                            }}
+                                            v-model={addForm.authMode}
                                             onChange={($event?: any) => {
                                                 (handleAuthModeChange as any)($event);
                                             }}
@@ -451,10 +445,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <>
                                             <ElFormItem label={$t('file.vscodeSelectKey')} prop="certID">
                                                 <ElSelect
-                                                    modelValue={addForm.certID}
-                                                    onUpdate:modelValue={($v) => {
-                                                        addForm.certID = $v as any;
-                                                    }}
+                                                    v-model={addForm.certID}
                                                     clearable
                                                     filterable
                                                     loading={unref(loading)}
@@ -552,9 +543,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 )}
                             </section>
                         </div>
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DialogPro>
         );
     },

@@ -99,10 +99,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.noAuthSetting')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -131,7 +128,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -139,27 +136,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem
                             label={$t('setting.responseSetting')}
                             prop="noAuthSetting"
                             rules={Rules.requiredSelect}
                         >
-                            <ElSelect
-                                modelValue={form.noAuthSetting}
-                                onUpdate:modelValue={($v) => {
-                                    form.noAuthSetting = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={form.noAuthSetting}>
                                 {(options || []).map((item) => (
                                     <ElOption label={item.label} value={item.value} key={item.value} />
                                 ))}
                             </ElSelect>
                             <span class={'input-help'}>{$t('setting.noAuthSettingHelper')}</span>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

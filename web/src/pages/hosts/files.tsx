@@ -58,8 +58,6 @@ interface FilePaths {
     name: string;
 }
 import '@/pages/hosts/_components/file-management/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import { HomeFilled } from '@element-plus/icons-vue';
 import LayoutContent from '@/components/layout-content/index';
@@ -1748,10 +1746,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             >
                 <ElTabs
                     type="card"
-                    modelValue={unref(editableTabsKey)}
-                    onUpdate:modelValue={($v) => {
-                        editableTabsKey.value = $v as any;
-                    }}
+                    v-model={editableTabsKey.value}
                     onTabChange={($event?: any) => {
                         (changeTab as any)($event);
                     }}
@@ -1933,10 +1928,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </div>
                                     <ElInput
                                         ref={(el) => unref(setSearchableInputRef)(item.id, el)}
-                                        modelValue={unref(searchablePath)}
-                                        onUpdate:modelValue={($v) => {
-                                            searchablePath.value = $v as any;
-                                        }}
+                                        v-model={searchablePath.value}
                                         onBlur={($event?: any) => {
                                             unref(searchableInputBlur);
                                         }}
@@ -2045,10 +2037,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     <div class={'file-search-input-shell w-full min-w-0'}>
                                         <ElInput
-                                            modelValue={req.search}
-                                            onUpdate:modelValue={($v) => {
-                                                req.search = $v as any;
-                                            }}
+                                            v-model={req.search}
                                             onClear={($event?: any) => {
                                                 search();
                                             }}
@@ -2060,12 +2049,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             v-slots={{
                                                 prepend: () => (
                                                     <>
-                                                        <ElCheckbox
-                                                            modelValue={req.containSub}
-                                                            onUpdate:modelValue={($v) => {
-                                                                req.containSub = $v as any;
-                                                            }}
-                                                        >
+                                                        <ElCheckbox v-model={req.containSub}>
                                                             {$t('file.sub')}
                                                         </ElCheckbox>
                                                     </>
@@ -2084,7 +2068,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             }}
                                         />
                                     </div>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             plain
                                             type="primary"
@@ -2092,17 +2076,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 (openAiSearchDrawer as any)($event);
                                             }}
                                             class={'max-w-20'}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('file.aiSearch')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </div>
                             </div>
-                            {withDirectives(
+                            {
                                 <LayoutContent
                                     title={$t('menu.files')}
                                     class={'file-layout'}
@@ -2134,26 +2116,26 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         v-slots={{
                                                             dropdown: () => (
                                                                 <ElDropdownMenu>
-                                                                    {withDirectives(
-                                                                        <FuDropdownItem command="dir">
+                                                                    {
+                                                                        <FuDropdownItem
+                                                                            command="dir"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
+                                                                        >
                                                                             <SvgIcon iconName="p-file-folder" />
                                                                             {$t('file.dir')}
-                                                                        </FuDropdownItem>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
-                                                                    {withDirectives(
-                                                                        <FuDropdownItem command="file">
+                                                                        </FuDropdownItem>
+                                                                    }
+                                                                    {
+                                                                        <FuDropdownItem
+                                                                            command="file"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
+                                                                        >
                                                                             <SvgIcon iconName="p-file-normal" />
                                                                             {$t('menu.files')}
-                                                                        </FuDropdownItem>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </FuDropdownItem>
+                                                                    }
                                                                 </ElDropdownMenu>
                                                             ),
                                                         }}
@@ -2169,38 +2151,34 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         v-slots={{
                                                             dropdown: () => (
                                                                 <ElDropdownMenu>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <FuDropdownItem
                                                                             onClick={($event?: any) => {
                                                                                 (openUpload as any)($event);
                                                                             }}
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             <ElIcon>
                                                                                 <ElUpload />
                                                                             </ElIcon>
                                                                             {$t('commons.button.upload')}
-                                                                        </FuDropdownItem>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
-                                                                    {withDirectives(
+                                                                        </FuDropdownItem>
+                                                                    }
+                                                                    {
                                                                         <FuDropdownItem
                                                                             onClick={($event?: any) => {
                                                                                 (openWget as any)($event);
                                                                             }}
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             <ElIcon>
                                                                                 <ElDownload />
                                                                             </ElIcon>
                                                                             {$t('file.remoteFile')}
-                                                                        </FuDropdownItem>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </FuDropdownItem>
+                                                                    }
                                                                 </ElDropdownMenu>
                                                             ),
                                                         }}
@@ -2520,36 +2498,26 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             dropdown: () => (
                                                                                 <ElDropdownMenu>
                                                                                     {(unref(moreButtons) || []).map(
-                                                                                        (btn) =>
-                                                                                            withDirectives(
-                                                                                                <FuDropdownItem
-                                                                                                    onClick={(
-                                                                                                        $event?: any,
-                                                                                                    ) => {
-                                                                                                        (
-                                                                                                            btn.action as any
-                                                                                                        )($event);
-                                                                                                    }}
-                                                                                                    disabled={
-                                                                                                        unref(selects)
-                                                                                                            .length ===
-                                                                                                        0
-                                                                                                    }
-                                                                                                    key={btn.label}
-                                                                                                >
-                                                                                                    {$t(btn.label)}
-                                                                                                </FuDropdownItem>,
-                                                                                                [
-                                                                                                    [
-                                                                                                        permissionDirective,
-                                                                                                        true,
-                                                                                                    ],
-                                                                                                    [
-                                                                                                        nodeAdminDirective,
-                                                                                                        true,
-                                                                                                    ],
-                                                                                                ],
-                                                                                            ),
+                                                                                        (btn) => (
+                                                                                            <FuDropdownItem
+                                                                                                onClick={(
+                                                                                                    $event?: any,
+                                                                                                ) => {
+                                                                                                    (btn.action as any)(
+                                                                                                        $event,
+                                                                                                    );
+                                                                                                }}
+                                                                                                disabled={
+                                                                                                    unref(selects)
+                                                                                                        .length === 0
+                                                                                                }
+                                                                                                key={btn.label}
+                                                                                                v-permission={true}
+                                                                                                v-node-admin={true}
+                                                                                            >
+                                                                                                {$t(btn.label)}
+                                                                                            </FuDropdownItem>
+                                                                                        ),
                                                                                     )}
                                                                                 </ElDropdownMenu>
                                                                             ),
@@ -2572,7 +2540,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     {(unref(visibleButtons) || []).map((btn) => (
                                                                         <>
-                                                                            {withDirectives(
+                                                                            {
                                                                                 <ElButton
                                                                                     plain
                                                                                     onClick={($event?: any) => {
@@ -2581,14 +2549,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                     disabled={
                                                                                         unref(selects).length === 0
                                                                                     }
+                                                                                    v-permission={true}
+                                                                                    v-node-admin={true}
                                                                                 >
                                                                                     {$t(btn.label)}
-                                                                                </ElButton>,
-                                                                                [
-                                                                                    [permissionDirective, true],
-                                                                                    [nodeAdminDirective, true],
-                                                                                ],
-                                                                            )}
+                                                                                </ElButton>
+                                                                            }
                                                                         </>
                                                                     ))}
                                                                     {unref(moreButtons).length ? (
@@ -2597,37 +2563,27 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 dropdown: () => (
                                                                                     <ElDropdownMenu>
                                                                                         {(unref(moreButtons) || []).map(
-                                                                                            (btn) =>
-                                                                                                withDirectives(
-                                                                                                    <FuDropdownItem
-                                                                                                        onClick={(
-                                                                                                            $event?: any,
-                                                                                                        ) => {
-                                                                                                            (
-                                                                                                                btn.action as any
-                                                                                                            )($event);
-                                                                                                        }}
-                                                                                                        disabled={
-                                                                                                            unref(
-                                                                                                                selects,
-                                                                                                            ).length ===
-                                                                                                            0
-                                                                                                        }
-                                                                                                        key={btn.label}
-                                                                                                    >
-                                                                                                        {$t(btn.label)}
-                                                                                                    </FuDropdownItem>,
-                                                                                                    [
-                                                                                                        [
-                                                                                                            permissionDirective,
-                                                                                                            true,
-                                                                                                        ],
-                                                                                                        [
-                                                                                                            nodeAdminDirective,
-                                                                                                            true,
-                                                                                                        ],
-                                                                                                    ],
-                                                                                                ),
+                                                                                            (btn) => (
+                                                                                                <FuDropdownItem
+                                                                                                    onClick={(
+                                                                                                        $event?: any,
+                                                                                                    ) => {
+                                                                                                        (
+                                                                                                            btn.action as any
+                                                                                                        )($event);
+                                                                                                    }}
+                                                                                                    disabled={
+                                                                                                        unref(selects)
+                                                                                                            .length ===
+                                                                                                        0
+                                                                                                    }
+                                                                                                    key={btn.label}
+                                                                                                    v-permission={true}
+                                                                                                    v-node-admin={true}
+                                                                                                >
+                                                                                                    {$t(btn.label)}
+                                                                                                </FuDropdownItem>
+                                                                                            ),
                                                                                         )}
                                                                                     </ElDropdownMenu>
                                                                                 ),
@@ -2755,87 +2711,64 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             {unref(isEdit) &&
                                                                             fileRename.oldPath === row.path &&
                                                                             fileRename.tabId === item.id ? (
-                                                                                withDirectives(
-                                                                                    <div
-                                                                                        onClick={($event?: any) => {
-                                                                                            $event.stopPropagation();
+                                                                                <div
+                                                                                    onClick={($event?: any) => {
+                                                                                        $event.stopPropagation();
+                                                                                    }}
+                                                                                    onKeydown={($event?: any) => {
+                                                                                        if (!($event.key === 'Escape'))
+                                                                                            return;
+                                                                                        onRenameEscape($event, row);
+                                                                                    }}
+                                                                                    class={'min-w-0'}
+                                                                                    v-click-outside={() =>
+                                                                                        onRenameLeave(row)
+                                                                                    }
+                                                                                >
+                                                                                    <ElInput
+                                                                                        modelValue={fileRename.newName}
+                                                                                        onUpdate:modelValue={($v) => {
+                                                                                            fileRename.newName =
+                                                                                                typeof $v === 'string'
+                                                                                                    ? $v.trim()
+                                                                                                    : $v;
+                                                                                        }}
+                                                                                        ref={(el) =>
+                                                                                            setRenameRef(item.id, el)
+                                                                                        }
+                                                                                        autofocus={unref(isEdit)}
+                                                                                        readonly={unref(
+                                                                                            renameSubmitting,
+                                                                                        )}
+                                                                                        aria-label={$t(
+                                                                                            'commons.table.name',
+                                                                                        )}
+                                                                                        onCompositionstart={(
+                                                                                            $event?: any,
+                                                                                        ) => {
+                                                                                            renameComposing.value = true;
+                                                                                        }}
+                                                                                        onCompositionend={(
+                                                                                            $event?: any,
+                                                                                        ) => {
+                                                                                            onRenameCompositionEnd(
+                                                                                                $event,
+                                                                                                row,
+                                                                                            );
                                                                                         }}
                                                                                         onKeydown={($event?: any) => {
                                                                                             if (
                                                                                                 !(
                                                                                                     $event.key ===
-                                                                                                    'Escape'
+                                                                                                    'Enter'
                                                                                                 )
                                                                                             )
                                                                                                 return;
-                                                                                            onRenameEscape($event, row);
+                                                                                            onRenameEnter($event, row);
                                                                                         }}
-                                                                                        class={'min-w-0'}
-                                                                                    >
-                                                                                        <ElInput
-                                                                                            modelValue={
-                                                                                                fileRename.newName
-                                                                                            }
-                                                                                            onUpdate:modelValue={(
-                                                                                                $v,
-                                                                                            ) => {
-                                                                                                fileRename.newName =
-                                                                                                    typeof $v ===
-                                                                                                    'string'
-                                                                                                        ? $v.trim()
-                                                                                                        : $v;
-                                                                                            }}
-                                                                                            ref={(el) =>
-                                                                                                setRenameRef(
-                                                                                                    item.id,
-                                                                                                    el,
-                                                                                                )
-                                                                                            }
-                                                                                            autofocus={unref(isEdit)}
-                                                                                            readonly={unref(
-                                                                                                renameSubmitting,
-                                                                                            )}
-                                                                                            aria-label={$t(
-                                                                                                'commons.table.name',
-                                                                                            )}
-                                                                                            onCompositionstart={(
-                                                                                                $event?: any,
-                                                                                            ) => {
-                                                                                                renameComposing.value = true;
-                                                                                            }}
-                                                                                            onCompositionend={(
-                                                                                                $event?: any,
-                                                                                            ) => {
-                                                                                                onRenameCompositionEnd(
-                                                                                                    $event,
-                                                                                                    row,
-                                                                                                );
-                                                                                            }}
-                                                                                            onKeydown={(
-                                                                                                $event?: any,
-                                                                                            ) => {
-                                                                                                if (
-                                                                                                    !(
-                                                                                                        $event.key ===
-                                                                                                        'Enter'
-                                                                                                    )
-                                                                                                )
-                                                                                                    return;
-                                                                                                onRenameEnter(
-                                                                                                    $event,
-                                                                                                    row,
-                                                                                                );
-                                                                                            }}
-                                                                                            class={'table-input'}
-                                                                                        />
-                                                                                    </div>,
-                                                                                    [
-                                                                                        [
-                                                                                            ClickOutside,
-                                                                                            () => onRenameLeave(row),
-                                                                                        ],
-                                                                                    ],
-                                                                                )
+                                                                                        class={'table-input'}
+                                                                                    />
+                                                                                </div>
                                                                             ) : (
                                                                                 <span
                                                                                     onClick={($event?: any) => {
@@ -2855,70 +2788,48 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             ) : null}
                                                                         </div>
                                                                         <div class={'file-row__actions'}>
-                                                                            {row.shareCode
-                                                                                ? withDirectives(
-                                                                                      <ElButton
-                                                                                          link
-                                                                                          type="primary"
-                                                                                          size="large"
-                                                                                          icon="Share"
-                                                                                          onClick={($event?: any) => {
-                                                                                              openShareFile(row);
-                                                                                          }}
-                                                                                      />,
-                                                                                      [
-                                                                                          [permissionDirective, true],
-                                                                                          [nodeAdminDirective, true],
-                                                                                      ],
-                                                                                  )
-                                                                                : null}
+                                                                            {row.shareCode ? (
+                                                                                <ElButton
+                                                                                    link
+                                                                                    type="primary"
+                                                                                    size="large"
+                                                                                    icon="Share"
+                                                                                    onClick={($event?: any) => {
+                                                                                        openShareFile(row);
+                                                                                    }}
+                                                                                    v-permission={true}
+                                                                                    v-node-admin={true}
+                                                                                />
+                                                                            ) : null}
                                                                         </div>
                                                                         <div class={'file-row__actions'}>
                                                                             {row.favoriteId > 0 ? (
-                                                                                withDirectives(
-                                                                                    <ElButton
-                                                                                        link
-                                                                                        type="warning"
-                                                                                        size="large"
-                                                                                        icon="StarFilled"
-                                                                                        onClick={($event?: any) => {
-                                                                                            remove(row.favoriteId);
-                                                                                        }}
-                                                                                    />,
-                                                                                    [
-                                                                                        [permissionDirective, true],
-                                                                                        [nodeAdminDirective, true],
-                                                                                    ],
-                                                                                )
+                                                                                <ElButton
+                                                                                    link
+                                                                                    type="warning"
+                                                                                    size="large"
+                                                                                    icon="StarFilled"
+                                                                                    onClick={($event?: any) => {
+                                                                                        remove(row.favoriteId);
+                                                                                    }}
+                                                                                    v-permission={true}
+                                                                                    v-node-admin={true}
+                                                                                />
                                                                             ) : (
                                                                                 <div>
                                                                                     {unref(hoveredRowPath) ===
                                                                                         row.path &&
-                                                                                    !isCurrentRename(row)
-                                                                                        ? withDirectives(
-                                                                                              <ElButton
-                                                                                                  link
-                                                                                                  icon="Star"
-                                                                                                  onClick={(
-                                                                                                      $event?: any,
-                                                                                                  ) => {
-                                                                                                      addToFavorite(
-                                                                                                          row,
-                                                                                                      );
-                                                                                                  }}
-                                                                                              />,
-                                                                                              [
-                                                                                                  [
-                                                                                                      permissionDirective,
-                                                                                                      true,
-                                                                                                  ],
-                                                                                                  [
-                                                                                                      nodeAdminDirective,
-                                                                                                      true,
-                                                                                                  ],
-                                                                                              ],
-                                                                                          )
-                                                                                        : null}
+                                                                                    !isCurrentRename(row) ? (
+                                                                                        <ElButton
+                                                                                            link
+                                                                                            icon="Star"
+                                                                                            onClick={($event?: any) => {
+                                                                                                addToFavorite(row);
+                                                                                            }}
+                                                                                            v-permission={true}
+                                                                                            v-node-admin={true}
+                                                                                        />
+                                                                                    ) : null}
                                                                                 </div>
                                                                             )}
                                                                         </div>
@@ -2934,20 +2845,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         v-slots={{
                                                             default: ({ row }) => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElLink
                                                                             underline="never"
                                                                             onClick={($event?: any) => {
                                                                                 openMode(row);
                                                                             }}
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {row.mode}
-                                                                        </ElLink>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElLink>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
@@ -2960,12 +2869,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         v-slots={{
                                                             default: ({ row }) => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElLink
                                                                             underline="never"
                                                                             onClick={($event?: any) => {
                                                                                 openChown(row);
                                                                             }}
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {row.user ? row.user : '-'}
                                                                             {' ('}
@@ -2975,12 +2886,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             {' ('}
                                                                             {row.gid}
                                                                             {') '}
-                                                                        </ElLink>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElLink>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
@@ -3065,9 +2972,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </>
                                         ),
                                     }}
-                                />,
-                                [[vLoading, unref(loading)]],
-                            )}
+                                    v-loading={unref(loading)}
+                                />
+                            }
                         </ElTabPane>
                     ))}
                     <ElTabPane
@@ -3228,10 +3135,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 />
                 <FileAiSearchDrawer
                     ref={aiSearchDrawerRef}
-                    modelValue={unref(aiSearchDrawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        aiSearchDrawerVisible.value = $v as any;
-                    }}
+                    v-model={aiSearchDrawerVisible.value}
                     list-path={req.path}
                     onPickDirectory={($event?: any) => {
                         (openAiSearchPathPicker as any)($event);

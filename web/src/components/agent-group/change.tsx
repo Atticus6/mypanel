@@ -67,70 +67,57 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({
             acceptParams,
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <DrawerPro
-                        modelValue={unref(drawerVisible)}
-                        onUpdate:modelValue={($v) => {
-                            drawerVisible.value = $v as any;
-                        }}
-                        header={$t('terminal.groupChange')}
-                        back={handleClose}
-                        size="small"
-                        v-slots={{
-                            footer: () => (
-                                <>
-                                    <ElButton
-                                        onClick={($event?: any) => {
-                                            drawerVisible.value = false;
-                                        }}
-                                    >
-                                        {$t('commons.button.cancel')}
-                                    </ElButton>
-                                    <ElButton
-                                        type="primary"
-                                        onClick={($event?: any) => {
-                                            onSubmit(unref(hostInfoRef));
-                                        }}
-                                    >
-                                        {$t('commons.button.confirm')}
-                                    </ElButton>
-                                </>
-                            ),
-                        }}
-                    >
-                        <ElForm
-                            onSubmit={($event?: any) => {
-                                $event.preventDefault();
-                            }}
-                            ref={hostInfoRef}
-                            label-position="top"
-                            model={unref(dialogData)}
-                            rules={rules}
-                        >
-                            <ElFormItem label={$t('commons.table.group')} prop="group">
-                                <ElSelect
-                                    filterable
-                                    modelValue={unref(dialogData).groupID}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).groupID = $v as any;
+        return () => (
+            <div v-loading={unref(loading)}>
+                <DrawerPro
+                    v-model={drawerVisible.value}
+                    header={$t('terminal.groupChange')}
+                    back={handleClose}
+                    size="small"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        drawerVisible.value = false;
                                     }}
-                                    clearable
-                                    style={'width: 100%'}
                                 >
-                                    {(unref(groupList) || []).map((item) => (
-                                        <div key={item.id}>
-                                            <ElOption label={item.name} value={item.id} />
-                                        </div>
-                                    ))}
-                                </ElSelect>
-                            </ElFormItem>
-                        </ElForm>
-                    </DrawerPro>
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        onSubmit(unref(hostInfoRef));
+                                    }}
+                                >
+                                    {$t('commons.button.confirm')}
+                                </ElButton>
+                            </>
+                        ),
+                    }}
+                >
+                    <ElForm
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                        ref={hostInfoRef}
+                        label-position="top"
+                        model={unref(dialogData)}
+                        rules={rules}
+                    >
+                        <ElFormItem label={$t('commons.table.group')} prop="group">
+                            <ElSelect filterable v-model={unref(dialogData).groupID} clearable style={'width: 100%'}>
+                                {(unref(groupList) || []).map((item) => (
+                                    <div key={item.id}>
+                                        <ElOption label={item.name} value={item.id} />
+                                    </div>
+                                ))}
+                            </ElSelect>
+                        </ElFormItem>
+                    </ElForm>
+                </DrawerPro>
+            </div>
+        );
     },
     options,
 );

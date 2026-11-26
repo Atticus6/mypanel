@@ -7,7 +7,6 @@ import { computeSizeFromMB } from '@/utils/size';
 import { jumpToInstall } from '@/utils/app';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 import { Promotion } from '@element-plus/icons-vue';
@@ -88,10 +87,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('app.detail')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -100,8 +96,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     v-slots={{
                         content: () => (
                             <>
-                                {withDirectives(
-                                    <div class={'brief'}>
+                                {
+                                    <div class={'brief'} v-loading={unref(loadingApp)}>
                                         <div class={'detail flex'}>
                                             <div class={'icon h-12 w-12 rounded p-1 shadow-md'}>
                                                 <ElAvatar
@@ -138,21 +134,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         ) : null}
                                                     </div>
                                                 ) : null}
-                                                {unref(appDetail).enable && unref(operate) === 'install'
-                                                    ? withDirectives(
-                                                          <ElButton
-                                                              round
-                                                              onClick={($event?: any) => {
-                                                                  (openInstall as any)($event);
-                                                              }}
-                                                              type="primary"
-                                                              class={'brief-button'}
-                                                          >
-                                                              {$t('commons.button.install')}
-                                                          </ElButton>,
-                                                          [[permissionDirective, true]],
-                                                      )
-                                                    : null}
+                                                {unref(appDetail).enable && unref(operate) === 'install' ? (
+                                                    <ElButton
+                                                        round
+                                                        onClick={($event?: any) => {
+                                                            (openInstall as any)($event);
+                                                        }}
+                                                        type="primary"
+                                                        class={'brief-button'}
+                                                        v-permission={true}
+                                                    >
+                                                        {$t('commons.button.install')}
+                                                    </ElButton>
+                                                ) : null}
                                             </div>
                                         </div>
                                         <div class={'descriptions'}>
@@ -199,9 +193,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 ) : null}
                                             </ElDescriptions>
                                         </div>
-                                    </div>,
-                                    [[vLoading, unref(loadingApp)]],
-                                )}
+                                    </div>
+                                }
                                 <MarkDownEditor content={unref(app).readMe} />
                             </>
                         ),

@@ -27,8 +27,6 @@ import { formatHostAddressList } from '@/pages/hosts/_components/firewall/utils/
 import { newUUID } from '@/utils/id';
 import { rpc } from '@/lib/rpc';
 import '@/pages/hosts/_components/firewall/docker/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import TableRefresh from '@/components/table/TableRefresh';
@@ -426,280 +424,253 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <span>{$t('firewall.initHelper', [data.base.name])}</span>
                     </ElCard>
                 ) : null}
-                {data.base.isExist
-                    ? withDirectives(
-                          <LayoutContent
-                              title={$t('firewall.dockerGuard')}
-                              class={{ mask: !data.base.message && !data.base.initialized }}
-                              v-slots={{
-                                  prompt: () => (
-                                      <>
-                                          <ElAlert
-                                              type="info"
-                                              closable={false}
-                                              title={$t('firewall.dockerGuardHelper')}
-                                          />
-                                      </>
-                                  ),
-                                  leftToolBar: () => (
-                                      <>
-                                          <ElButton
-                                              plain
-                                              onClick={($event?: any) => {
-                                                  orphanDrawerVisible.value = true;
-                                              }}
-                                          >
-                                              {$t('firewall.orphanPolicies')}
-                                              {' ('}
-                                              {unref(allOrphanPolicies).length}
-                                              {') '}
-                                          </ElButton>
-                                          {withDirectives(
-                                              <ElButton
-                                                  disabled={unref(selectedPolicyUUIDs).length === 0}
-                                                  onClick={($event?: any) => {
-                                                      (removeSelectedPolicies as any)($event);
-                                                  }}
-                                              >
-                                                  {$t('commons.button.delete')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )}
-                                          <ElButtonGroup>
-                                              {withDirectives(
-                                                  <ElButton
-                                                      onClick={($event?: any) => {
-                                                          (openImport as any)($event);
-                                                      }}
-                                                  >
-                                                      {$t('commons.button.import')}
-                                                  </ElButton>,
-                                                  [
-                                                      [permissionDirective, true],
-                                                      [nodeAdminDirective, true],
-                                                  ],
-                                              )}
-                                              {withDirectives(
-                                                  <ElButton
-                                                      disabled={unref(policies).length === 0}
-                                                      onClick={($event?: any) => {
-                                                          (exportPoliciesBySelection as any)($event);
-                                                      }}
-                                                  >
-                                                      {$t('commons.button.export')}
-                                                  </ElButton>,
-                                                  [
-                                                      [permissionDirective, true],
-                                                      [nodeAdminDirective, true],
-                                                  ],
-                                              )}
-                                          </ElButtonGroup>
-                                      </>
-                                  ),
-                                  rightToolBar: () => (
-                                      <>
-                                          <TableSearch
-                                              searchName={unref(searchName)}
-                                              onUpdate:searchName={($v) => {
-                                                  searchName.value = $v as any;
-                                              }}
-                                          />
-                                          <TableRefresh
-                                              onSearch={($event?: any) => {
-                                                  (search as any)($event);
-                                              }}
-                                          />
-                                      </>
-                                  ),
-                                  main: () => (
-                                      <>
-                                          <ComplexTable
-                                              selects={unref(selects)}
-                                              onUpdate:selects={($v) => {
-                                                  selects.value = $v as any;
-                                              }}
-                                              data={unref(containerPageRows)}
-                                              cache-pagination={false}
-                                              pagination-config={paginationConfig}
-                                              heightDiff={320}
-                                              row-key="key"
-                                          >
-                                              <ElTableColumn
-                                                  type="selection"
-                                                  selectable={hasProtectedEndpoint}
-                                                  width="48"
-                                                  fix
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('commons.table.name')}
-                                                  min-width="180"
-                                                  v-slots={{ default: ({ row }) => <>{row.name}</> }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('firewall.composeOrApp')}
-                                                  min-width="160"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>{row.application || row.compose || '-'}</>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('commons.table.port')}
-                                                  min-width="400"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              <div class={'flex flex-wrap items-center gap-2'}>
-                                                                  {(row.portGroups.slice(0, 5) || []).map((group) => (
-                                                                      <ElPopover
-                                                                          placement="top"
-                                                                          trigger="hover"
-                                                                          width={360}
-                                                                          show-after={200}
-                                                                          persistent={false}
-                                                                          key={group.key}
-                                                                          v-slots={{
-                                                                              reference: () => (
-                                                                                  <>
-                                                                                      <ElTag
-                                                                                          type={endpointStatusType(
-                                                                                              group.endpoint,
-                                                                                          )}
-                                                                                          effect="plain"
-                                                                                      >
-                                                                                          {isDockerPolicyEndpoint(
-                                                                                              group.endpoint,
-                                                                                          ) ? (
-                                                                                              <span
-                                                                                                  class={
-                                                                                                      'docker-guard-protected-label'
-                                                                                                  }
-                                                                                              >
-                                                                                                  <ElIcon>
-                                                                                                      <Lock />
-                                                                                                  </ElIcon>
-                                                                                                  <span>
-                                                                                                      {group.label}
-                                                                                                  </span>
-                                                                                              </span>
-                                                                                          ) : (
-                                                                                              <span>{group.label}</span>
-                                                                                          )}
-                                                                                      </ElTag>
-                                                                                  </>
-                                                                              ),
-                                                                          }}
-                                                                      >
-                                                                          {!isDockerPolicyEndpoint(group.endpoint) ? (
-                                                                              <span>
-                                                                                  {endpointPrompt(group.endpoint)}
-                                                                              </span>
-                                                                          ) : (
-                                                                              <ElDescriptions
-                                                                                  column={1}
-                                                                                  border
-                                                                                  size="small"
-                                                                                  class={'docker-guard-descriptions'}
-                                                                              >
-                                                                                  <ElDescriptionsItem
-                                                                                      label={$t(
-                                                                                          'firewall.protectionMode',
-                                                                                      )}
-                                                                                  >
-                                                                                      {protectionModeLabel(
-                                                                                          group.endpoint,
-                                                                                      )}
-                                                                                  </ElDescriptionsItem>
-                                                                                  {group.endpoint.mode !== 'deny_all' &&
-                                                                                  group.endpoint.sources.length ? (
-                                                                                      <ElDescriptionsItem
-                                                                                          label={$t('firewall.sources')}
-                                                                                      >
-                                                                                          {displaySources(
-                                                                                              group.endpoint,
-                                                                                          )}
-                                                                                      </ElDescriptionsItem>
-                                                                                  ) : null}
-                                                                                  <ElDescriptionsItem
-                                                                                      label={$t('commons.table.status')}
-                                                                                  >
-                                                                                      <div>
-                                                                                          {$t(
-                                                                                              group.endpoint.effective
-                                                                                                  ? 'firewall.effective'
-                                                                                                  : 'firewall.notEffective',
-                                                                                          )}
-                                                                                          {!group.endpoint.effective ? (
-                                                                                              <div
-                                                                                                  class={
-                                                                                                      'docker-guard-status-message'
-                                                                                                  }
-                                                                                              >
-                                                                                                  {endpointStatusMessage(
-                                                                                                      group.endpoint,
-                                                                                                  )}
-                                                                                              </div>
-                                                                                          ) : null}
-                                                                                      </div>
-                                                                                  </ElDescriptionsItem>
-                                                                              </ElDescriptions>
-                                                                          )}
-                                                                      </ElPopover>
-                                                                  ))}
-                                                                  {row.portGroups.length > 5 ? (
-                                                                      <ElButton
-                                                                          plain
-                                                                          size="small"
-                                                                          onClick={($event?: any) => {
-                                                                              openPorts(row);
-                                                                          }}
-                                                                      >
-                                                                          {' +'}
-                                                                          {row.portGroups.length - 5}
-                                                                      </ElButton>
-                                                                  ) : null}
-                                                              </div>
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                              <ElTableColumn
-                                                  label={$t('commons.table.operate')}
-                                                  width="100"
-                                                  fixed="right"
-                                                  v-slots={{
-                                                      default: ({ row }) => (
-                                                          <>
-                                                              <ElButton
-                                                                  type="primary"
-                                                                  link
-                                                                  onClick={($event?: any) => {
-                                                                      openPorts(row);
-                                                                  }}
-                                                              >
-                                                                  {$t('commons.button.view')}
-                                                              </ElButton>
-                                                          </>
-                                                      ),
-                                                  }}
-                                              />
-                                          </ComplexTable>
-                                      </>
-                                  ),
-                              }}
-                          />,
-                          [[vLoading, unref(loading)]],
-                      )
-                    : null}
+                {data.base.isExist ? (
+                    <LayoutContent
+                        title={$t('firewall.dockerGuard')}
+                        class={{ mask: !data.base.message && !data.base.initialized }}
+                        v-slots={{
+                            prompt: () => (
+                                <>
+                                    <ElAlert type="info" closable={false} title={$t('firewall.dockerGuardHelper')} />
+                                </>
+                            ),
+                            leftToolBar: () => (
+                                <>
+                                    <ElButton
+                                        plain
+                                        onClick={($event?: any) => {
+                                            orphanDrawerVisible.value = true;
+                                        }}
+                                    >
+                                        {$t('firewall.orphanPolicies')}
+                                        {' ('}
+                                        {unref(allOrphanPolicies).length}
+                                        {') '}
+                                    </ElButton>
+                                    {
+                                        <ElButton
+                                            disabled={unref(selectedPolicyUUIDs).length === 0}
+                                            onClick={($event?: any) => {
+                                                (removeSelectedPolicies as any)($event);
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.delete')}
+                                        </ElButton>
+                                    }
+                                    <ElButtonGroup>
+                                        {
+                                            <ElButton
+                                                onClick={($event?: any) => {
+                                                    (openImport as any)($event);
+                                                }}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.import')}
+                                            </ElButton>
+                                        }
+                                        {
+                                            <ElButton
+                                                disabled={unref(policies).length === 0}
+                                                onClick={($event?: any) => {
+                                                    (exportPoliciesBySelection as any)($event);
+                                                }}
+                                                v-permission={true}
+                                                v-node-admin={true}
+                                            >
+                                                {$t('commons.button.export')}
+                                            </ElButton>
+                                        }
+                                    </ElButtonGroup>
+                                </>
+                            ),
+                            rightToolBar: () => (
+                                <>
+                                    <TableSearch
+                                        searchName={unref(searchName)}
+                                        onUpdate:searchName={($v) => {
+                                            searchName.value = $v as any;
+                                        }}
+                                    />
+                                    <TableRefresh
+                                        onSearch={($event?: any) => {
+                                            (search as any)($event);
+                                        }}
+                                    />
+                                </>
+                            ),
+                            main: () => (
+                                <>
+                                    <ComplexTable
+                                        selects={unref(selects)}
+                                        onUpdate:selects={($v) => {
+                                            selects.value = $v as any;
+                                        }}
+                                        data={unref(containerPageRows)}
+                                        cache-pagination={false}
+                                        pagination-config={paginationConfig}
+                                        heightDiff={320}
+                                        row-key="key"
+                                    >
+                                        <ElTableColumn
+                                            type="selection"
+                                            selectable={hasProtectedEndpoint}
+                                            width="48"
+                                            fix
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.name')}
+                                            min-width="180"
+                                            v-slots={{ default: ({ row }) => <>{row.name}</> }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('firewall.composeOrApp')}
+                                            min-width="160"
+                                            v-slots={{
+                                                default: ({ row }) => <>{row.application || row.compose || '-'}</>,
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.port')}
+                                            min-width="400"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <div class={'flex flex-wrap items-center gap-2'}>
+                                                            {(row.portGroups.slice(0, 5) || []).map((group) => (
+                                                                <ElPopover
+                                                                    placement="top"
+                                                                    trigger="hover"
+                                                                    width={360}
+                                                                    show-after={200}
+                                                                    persistent={false}
+                                                                    key={group.key}
+                                                                    v-slots={{
+                                                                        reference: () => (
+                                                                            <>
+                                                                                <ElTag
+                                                                                    type={endpointStatusType(
+                                                                                        group.endpoint,
+                                                                                    )}
+                                                                                    effect="plain"
+                                                                                >
+                                                                                    {isDockerPolicyEndpoint(
+                                                                                        group.endpoint,
+                                                                                    ) ? (
+                                                                                        <span
+                                                                                            class={
+                                                                                                'docker-guard-protected-label'
+                                                                                            }
+                                                                                        >
+                                                                                            <ElIcon>
+                                                                                                <Lock />
+                                                                                            </ElIcon>
+                                                                                            <span>{group.label}</span>
+                                                                                        </span>
+                                                                                    ) : (
+                                                                                        <span>{group.label}</span>
+                                                                                    )}
+                                                                                </ElTag>
+                                                                            </>
+                                                                        ),
+                                                                    }}
+                                                                >
+                                                                    {!isDockerPolicyEndpoint(group.endpoint) ? (
+                                                                        <span>{endpointPrompt(group.endpoint)}</span>
+                                                                    ) : (
+                                                                        <ElDescriptions
+                                                                            column={1}
+                                                                            border
+                                                                            size="small"
+                                                                            class={'docker-guard-descriptions'}
+                                                                        >
+                                                                            <ElDescriptionsItem
+                                                                                label={$t('firewall.protectionMode')}
+                                                                            >
+                                                                                {protectionModeLabel(group.endpoint)}
+                                                                            </ElDescriptionsItem>
+                                                                            {group.endpoint.mode !== 'deny_all' &&
+                                                                            group.endpoint.sources.length ? (
+                                                                                <ElDescriptionsItem
+                                                                                    label={$t('firewall.sources')}
+                                                                                >
+                                                                                    {displaySources(group.endpoint)}
+                                                                                </ElDescriptionsItem>
+                                                                            ) : null}
+                                                                            <ElDescriptionsItem
+                                                                                label={$t('commons.table.status')}
+                                                                            >
+                                                                                <div>
+                                                                                    {$t(
+                                                                                        group.endpoint.effective
+                                                                                            ? 'firewall.effective'
+                                                                                            : 'firewall.notEffective',
+                                                                                    )}
+                                                                                    {!group.endpoint.effective ? (
+                                                                                        <div
+                                                                                            class={
+                                                                                                'docker-guard-status-message'
+                                                                                            }
+                                                                                        >
+                                                                                            {endpointStatusMessage(
+                                                                                                group.endpoint,
+                                                                                            )}
+                                                                                        </div>
+                                                                                    ) : null}
+                                                                                </div>
+                                                                            </ElDescriptionsItem>
+                                                                        </ElDescriptions>
+                                                                    )}
+                                                                </ElPopover>
+                                                            ))}
+                                                            {row.portGroups.length > 5 ? (
+                                                                <ElButton
+                                                                    plain
+                                                                    size="small"
+                                                                    onClick={($event?: any) => {
+                                                                        openPorts(row);
+                                                                    }}
+                                                                >
+                                                                    {' +'}
+                                                                    {row.portGroups.length - 5}
+                                                                </ElButton>
+                                                            ) : null}
+                                                        </div>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.operate')}
+                                            width="100"
+                                            fixed="right"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <ElButton
+                                                            type="primary"
+                                                            link
+                                                            onClick={($event?: any) => {
+                                                                openPorts(row);
+                                                            }}
+                                                        >
+                                                            {$t('commons.button.view')}
+                                                        </ElButton>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                    </ComplexTable>
+                                </>
+                            ),
+                        }}
+                        v-loading={unref(loading)}
+                    />
+                ) : null}
                 <DrawerPro
-                    modelValue={unref(orphanDrawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        orphanDrawerVisible.value = $v as any;
-                    }}
+                    v-model={orphanDrawerVisible.value}
                     header={$t('firewall.orphanPolicies')}
                     size="large"
                     onClose={($event?: any) => {
@@ -715,20 +686,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     title={$t('firewall.orphanPoliciesHelper', [unref(allOrphanPolicies).length])}
                                 />
                                 <div class={'mt-3 flex flex-wrap items-center justify-between gap-2'}>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             disabled={unref(loading) || unref(orphanSelects).length === 0}
                                             onClick={($event?: any) => {
                                                 removePolicies(unref(orphanSelects), true);
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.button.delete')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                     <div class={'flex items-center gap-2'}>
                                         <TableSearch
                                             searchName={unref(orphanSearchName)}
@@ -743,7 +712,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         />
                                     </div>
                                 </div>
-                                {withDirectives(
+                                {
                                     <ComplexTable
                                         selects={unref(orphanSelects)}
                                         onUpdate:selects={($v) => {
@@ -755,6 +724,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         row-key="policyUUID"
                                         max-height="calc(100vh - 220px)"
                                         class={'mt-3'}
+                                        v-loading={unref(loading)}
                                     >
                                         <ElTableColumn type="selection" width="48" />
                                         <ElTableColumn
@@ -786,7 +756,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             v-slots={{
                                                 default: ({ row }) => (
                                                     <>
-                                                        {withDirectives(
+                                                        {
                                                             <ElButton
                                                                 type="primary"
                                                                 link
@@ -794,21 +764,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 onClick={($event?: any) => {
                                                                     removePolicies([row], false);
                                                                 }}
+                                                                v-permission={true}
+                                                                v-node-admin={true}
                                                             >
                                                                 {$t('commons.button.delete')}
-                                                            </ElButton>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
+                                                            </ElButton>
+                                                        }
                                                     </>
                                                 ),
                                             }}
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </>
                         ),
                     }}

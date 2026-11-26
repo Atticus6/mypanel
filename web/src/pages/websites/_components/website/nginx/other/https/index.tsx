@@ -2,7 +2,6 @@ import { $t } from '@/utils/i18n-t';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -51,48 +50,36 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             getStatus();
         });
-        return () =>
-            withDirectives(
-                <ElRow gutter={20}>
-                    <ElCol xs={24} sm={20} md={16} lg={14} xl={14}>
-                        <ElForm ref="nginxForm" label-position="right" label-width="140px" model={form}>
-                            <ElFormItem label={$t('commons.table.status')} prop="enable">
-                                <ElSwitch
-                                    modelValue={unref(enable)}
-                                    onUpdate:modelValue={($v) => {
-                                        enable.value = $v as any;
+        return () => (
+            <ElRow gutter={20} v-loading={unref(loading)}>
+                <ElCol xs={24} sm={20} md={16} lg={14} xl={14}>
+                    <ElForm ref="nginxForm" label-position="right" label-width="140px" model={form}>
+                        <ElFormItem label={$t('commons.table.status')} prop="enable">
+                            <ElSwitch v-model={enable.value} />
+                            <span class={'input-help'}>{$t('nginx.defaultHttpsHelper1')}</span>
+                        </ElFormItem>
+                        <ElFormItem label={$t('nginx.sslRejectHandshake')} prop="sslRejectHandshake">
+                            <ElSwitch v-model={form.sslRejectHandshake} />
+                            <span class={'input-help'}>{$t('nginx.sslRejectHandshakeHelper')}</span>
+                        </ElFormItem>
+                        <ElFormItem>
+                            {
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        submit();
                                     }}
-                                />
-                                <span class={'input-help'}>{$t('nginx.defaultHttpsHelper1')}</span>
-                            </ElFormItem>
-                            <ElFormItem label={$t('nginx.sslRejectHandshake')} prop="sslRejectHandshake">
-                                <ElSwitch
-                                    modelValue={form.sslRejectHandshake}
-                                    onUpdate:modelValue={($v) => {
-                                        form.sslRejectHandshake = $v as any;
-                                    }}
-                                />
-                                <span class={'input-help'}>{$t('nginx.sslRejectHandshakeHelper')}</span>
-                            </ElFormItem>
-                            <ElFormItem>
-                                {withDirectives(
-                                    <ElButton
-                                        type="primary"
-                                        onClick={($event?: any) => {
-                                            submit();
-                                        }}
-                                        disabled={unref(loading)}
-                                    >
-                                        {$t('commons.button.save')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                            </ElFormItem>
-                        </ElForm>
-                    </ElCol>
-                </ElRow>,
-                [[vLoading, unref(loading)]],
-            );
+                                    disabled={unref(loading)}
+                                    v-permission={true}
+                                >
+                                    {$t('commons.button.save')}
+                                </ElButton>
+                            }
+                        </ElFormItem>
+                    </ElForm>
+                </ElCol>
+            </ElRow>
+        );
     },
     options,
 );

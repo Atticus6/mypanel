@@ -13,8 +13,6 @@ interface BackendInitializationState {
     type: 'success' | 'info';
 }
 import '@/pages/hosts/_components/firewall/setting/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {
@@ -240,216 +238,189 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             }
         };
         load();
-        return () =>
-            withDirectives(
-                <div>
-                    <FireRouter />
-                    <LayoutContent
-                        title={$t('commons.button.set')}
-                        v-slots={{
-                            prompt: () => (
-                                <>
-                                    <ElAlert
-                                        type="info"
-                                        show-icon
-                                        closable={false}
-                                        title={$t('firewall.backendSwitchNotice')}
-                                    />
-                                </>
-                            ),
-                            main: () => (
-                                <>
-                                    <ElForm label-position={unref(isMobile) ? 'top' : 'left'} label-width="150px">
-                                        <ElRow>
-                                            <ElCol span={1}>
-                                                <br />
-                                            </ElCol>
-                                            <ElCol xs={24} sm={20} md={15} lg={12} xl={12}>
-                                                {(unref(groups) || []).map((item) => (
-                                                    <ElFormItem label={item.label} key={item.subsystem}>
-                                                        {withDirectives(
-                                                            <ElSelect
-                                                                modelValue={item.group.selected}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    item.group.selected = $v as any;
-                                                                }}
-                                                                onChange={($event?: any) => {
-                                                                    changeBackend(item.subsystem, item.group);
-                                                                }}
-                                                                class={'!w-full sm:!w-2/3'}
-                                                            >
-                                                                {(sortedOptions(item.group) || []).map((option) => (
-                                                                    <ElOption
-                                                                        label={backendOptionLabel(
-                                                                            item.subsystem,
-                                                                            option,
-                                                                        )}
-                                                                        value={option.name}
-                                                                        disabled={
-                                                                            !option.installed || !option.supported
-                                                                        }
-                                                                        key={option.name}
-                                                                    >
-                                                                        <div class={'option-row'}>
-                                                                            <span class={'option-name'}>
-                                                                                {backendOptionLabel(
-                                                                                    item.subsystem,
-                                                                                    option,
-                                                                                )}
-                                                                                {option.name === item.group.selected ? (
-                                                                                    <ElIcon class={'selected-icon'}>
-                                                                                        <Check />
-                                                                                    </ElIcon>
-                                                                                ) : null}
-                                                                            </span>
-                                                                            <div class={'option-status'}>
-                                                                                {!option.installed ? (
-                                                                                    <ElTag size="small" type="info">
-                                                                                        {$t(
-                                                                                            'firewall.uninstalledStatus',
-                                                                                        )}
-                                                                                    </ElTag>
-                                                                                ) : !option.supported &&
-                                                                                  option.supportReason !==
-                                                                                      'docker_version_unsupported' ? (
-                                                                                    <ElTag size="small" type="warning">
-                                                                                        {' Docker: '}
-                                                                                        {$t(
-                                                                                            'firewall.uninstalledStatus',
-                                                                                        )}
-                                                                                    </ElTag>
-                                                                                ) : option.supported &&
-                                                                                  (option.name !==
-                                                                                      item.group.selected ||
-                                                                                      isServiceBackend(
-                                                                                          option.name as Firewall.Provider,
-                                                                                      )) ? (
-                                                                                    <ElTag size="small" type="success">
-                                                                                        {$t('app.installed')}
-                                                                                    </ElTag>
-                                                                                ) : option.supported ? (
-                                                                                    <ElTag
-                                                                                        size="small"
-                                                                                        type={
-                                                                                            backendInitializationState(
-                                                                                                option,
-                                                                                            ).type
-                                                                                        }
-                                                                                    >
-                                                                                        {$t(
-                                                                                            backendInitializationState(
-                                                                                                option,
-                                                                                            ).label,
-                                                                                        )}
-                                                                                    </ElTag>
-                                                                                ) : null}
-                                                                            </div>
-                                                                        </div>
-                                                                    </ElOption>
-                                                                ))}
-                                                            </ElSelect>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                        <span class={'input-help'}>{item.helper}</span>
-                                                    </ElFormItem>
-                                                ))}
-                                                <ElFormItem label={$t('firewall.ipv6Support')}>
-                                                    {withDirectives(
-                                                        <ElSwitch
-                                                            model-value={unref(settings)?.ipv6Enabled !== false}
-                                                            disabled={!unref(settings)}
+        return () => (
+            <div v-loading={unref(loading) || unref(ipv6Updating)}>
+                <FireRouter />
+                <LayoutContent
+                    title={$t('commons.button.set')}
+                    v-slots={{
+                        prompt: () => (
+                            <>
+                                <ElAlert
+                                    type="info"
+                                    show-icon
+                                    closable={false}
+                                    title={$t('firewall.backendSwitchNotice')}
+                                />
+                            </>
+                        ),
+                        main: () => (
+                            <>
+                                <ElForm label-position={unref(isMobile) ? 'top' : 'left'} label-width="150px">
+                                    <ElRow>
+                                        <ElCol span={1}>
+                                            <br />
+                                        </ElCol>
+                                        <ElCol xs={24} sm={20} md={15} lg={12} xl={12}>
+                                            {(unref(groups) || []).map((item) => (
+                                                <ElFormItem label={item.label} key={item.subsystem}>
+                                                    {
+                                                        <ElSelect
+                                                            v-model={item.group.selected}
                                                             onChange={($event?: any) => {
-                                                                (changeIPv6 as any)($event);
+                                                                changeBackend(item.subsystem, item.group);
                                                             }}
-                                                        />,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
-                                                    <span class={'input-help'}>{$t('firewall.ipv6SupportHelper')}</span>
+                                                            class={'!w-full sm:!w-2/3'}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {(sortedOptions(item.group) || []).map((option) => (
+                                                                <ElOption
+                                                                    label={backendOptionLabel(item.subsystem, option)}
+                                                                    value={option.name}
+                                                                    disabled={!option.installed || !option.supported}
+                                                                    key={option.name}
+                                                                >
+                                                                    <div class={'option-row'}>
+                                                                        <span class={'option-name'}>
+                                                                            {backendOptionLabel(item.subsystem, option)}
+                                                                            {option.name === item.group.selected ? (
+                                                                                <ElIcon class={'selected-icon'}>
+                                                                                    <Check />
+                                                                                </ElIcon>
+                                                                            ) : null}
+                                                                        </span>
+                                                                        <div class={'option-status'}>
+                                                                            {!option.installed ? (
+                                                                                <ElTag size="small" type="info">
+                                                                                    {$t('firewall.uninstalledStatus')}
+                                                                                </ElTag>
+                                                                            ) : !option.supported &&
+                                                                              option.supportReason !==
+                                                                                  'docker_version_unsupported' ? (
+                                                                                <ElTag size="small" type="warning">
+                                                                                    {' Docker: '}
+                                                                                    {$t('firewall.uninstalledStatus')}
+                                                                                </ElTag>
+                                                                            ) : option.supported &&
+                                                                              (option.name !== item.group.selected ||
+                                                                                  isServiceBackend(
+                                                                                      option.name as Firewall.Provider,
+                                                                                  )) ? (
+                                                                                <ElTag size="small" type="success">
+                                                                                    {$t('app.installed')}
+                                                                                </ElTag>
+                                                                            ) : option.supported ? (
+                                                                                <ElTag
+                                                                                    size="small"
+                                                                                    type={
+                                                                                        backendInitializationState(
+                                                                                            option,
+                                                                                        ).type
+                                                                                    }
+                                                                                >
+                                                                                    {$t(
+                                                                                        backendInitializationState(
+                                                                                            option,
+                                                                                        ).label,
+                                                                                    )}
+                                                                                </ElTag>
+                                                                            ) : null}
+                                                                        </div>
+                                                                    </div>
+                                                                </ElOption>
+                                                            ))}
+                                                        </ElSelect>
+                                                    }
+                                                    <span class={'input-help'}>{item.helper}</span>
                                                 </ElFormItem>
-                                                <ElFormItem label={$t('firewall.noPing')}>
-                                                    <ElRadioGroup
-                                                        modelValue={unref(pingStatus)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            pingStatus.value = $v as any;
-                                                        }}
+                                            ))}
+                                            <ElFormItem label={$t('firewall.ipv6Support')}>
+                                                {
+                                                    <ElSwitch
+                                                        model-value={unref(settings)?.ipv6Enabled !== false}
+                                                        disabled={!unref(settings)}
                                                         onChange={($event?: any) => {
-                                                            (changePing as any)($event);
+                                                            (changeIPv6 as any)($event);
                                                         }}
-                                                    >
-                                                        {withDirectives(
-                                                            <ElRadioButton value="Enable">
-                                                                {$t('commons.button.enable')}
-                                                            </ElRadioButton>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                        {withDirectives(
-                                                            <ElRadioButton value="Disable">
-                                                                {$t('commons.button.disable')}
-                                                            </ElRadioButton>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                    </ElRadioGroup>
-                                                </ElFormItem>
-                                                <ElFormItem label={$t('firewall.portWhiteList')}>
-                                                    <div class={'flex items-center gap-3'}>
-                                                        {withDirectives(
-                                                            <ElButton
-                                                                icon="Setting"
-                                                                onClick={($event?: any) => {
-                                                                    (openWhitelist as any)($event);
-                                                                }}
-                                                            >
-                                                                {$t('commons.button.set')}
-                                                            </ElButton>,
-                                                            [
-                                                                [permissionDirective, true],
-                                                                [nodeAdminDirective, true],
-                                                            ],
-                                                        )}
-                                                        <span class={'input-help !mt-0'}>
-                                                            {$t('firewall.configuredRules', [unref(whiteListCount)])}
-                                                        </span>
-                                                    </div>
-                                                </ElFormItem>
-                                            </ElCol>
-                                        </ElRow>
-                                    </ElForm>
-                                </>
-                            ),
-                        }}
-                    />
-                    <WhiteList
-                        ref={whiteListRef}
-                        rules={unref(settings)?.portWhiteList as Firewall.PortWhitelist[] | undefined}
-                        ipv6-enabled={unref(settings)?.ipv6Enabled !== false}
-                        panel-port={unref(settings)?.panelPort}
-                        ssh-port={unref(settings)?.sshPort}
-                        loading={unref(loading)}
-                        onSaved={($event?: any) => {
-                            (load as any)($event);
-                        }}
-                    />
-                    <TaskLog
-                        ref={ipv6TaskRef}
-                        onClose={($event?: any) => {
-                            (finishIPv6Operation as any)($event);
-                        }}
-                    />
-                </div>,
-                [[vLoading, unref(loading) || unref(ipv6Updating)]],
-            );
+                                                        v-permission={true}
+                                                        v-node-admin={true}
+                                                    />
+                                                }
+                                                <span class={'input-help'}>{$t('firewall.ipv6SupportHelper')}</span>
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('firewall.noPing')}>
+                                                <ElRadioGroup
+                                                    v-model={pingStatus.value}
+                                                    onChange={($event?: any) => {
+                                                        (changePing as any)($event);
+                                                    }}
+                                                >
+                                                    {
+                                                        <ElRadioButton
+                                                            value="Enable"
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {$t('commons.button.enable')}
+                                                        </ElRadioButton>
+                                                    }
+                                                    {
+                                                        <ElRadioButton
+                                                            value="Disable"
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {$t('commons.button.disable')}
+                                                        </ElRadioButton>
+                                                    }
+                                                </ElRadioGroup>
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('firewall.portWhiteList')}>
+                                                <div class={'flex items-center gap-3'}>
+                                                    {
+                                                        <ElButton
+                                                            icon="Setting"
+                                                            onClick={($event?: any) => {
+                                                                (openWhitelist as any)($event);
+                                                            }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {$t('commons.button.set')}
+                                                        </ElButton>
+                                                    }
+                                                    <span class={'input-help !mt-0'}>
+                                                        {$t('firewall.configuredRules', [unref(whiteListCount)])}
+                                                    </span>
+                                                </div>
+                                            </ElFormItem>
+                                        </ElCol>
+                                    </ElRow>
+                                </ElForm>
+                            </>
+                        ),
+                    }}
+                />
+                <WhiteList
+                    ref={whiteListRef}
+                    rules={unref(settings)?.portWhiteList as Firewall.PortWhitelist[] | undefined}
+                    ipv6-enabled={unref(settings)?.ipv6Enabled !== false}
+                    panel-port={unref(settings)?.panelPort}
+                    ssh-port={unref(settings)?.sshPort}
+                    loading={unref(loading)}
+                    onSaved={($event?: any) => {
+                        (load as any)($event);
+                    }}
+                />
+                <TaskLog
+                    ref={ipv6TaskRef}
+                    onClose={($event?: any) => {
+                        (finishIPv6Operation as any)($event);
+                    }}
+                />
+            </div>
+        );
     },
     options,
 );

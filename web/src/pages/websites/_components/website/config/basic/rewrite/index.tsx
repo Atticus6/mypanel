@@ -5,7 +5,6 @@ import CodemirrorPro from '@/components/codemirror-pro/index';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
 import CustomRewrite from '@/pages/websites/_components/website/config/basic/rewrite/custom/index';
-import permissionDirective from '@/directives/modules/permission';
 import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {
@@ -138,10 +137,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             <div>
                 <ElFormItem label={$t('website.rewriteMode')}>
                     <ElSelect
-                        modelValue={req.name}
-                        onUpdate:modelValue={($v) => {
-                            req.name = $v as any;
-                        }}
+                        v-model={req.name}
                         filterable
                         onChange={($event?: any) => {
                             getRewrite(req.name);
@@ -152,59 +148,50 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {(unref(rewrites) || []).map((rewrite, index) => (
                             <ElOption label={rewrite.name} value={rewrite.name} key={index}>
                                 <span>{rewrite.name}</span>
-                                {rewrite.resource == 'custom'
-                                    ? withDirectives(
-                                          <ElButton
-                                              link
-                                              icon="Close"
-                                              onClick={($event?: any) => {
-                                                  deleteCustomRewrite(rewrite.name);
-                                              }}
-                                              class={'float-right mt-1.5'}
-                                          />,
-                                          [[permissionDirective, true]],
-                                      )
-                                    : null}
+                                {rewrite.resource == 'custom' ? (
+                                    <ElButton
+                                        link
+                                        icon="Close"
+                                        onClick={($event?: any) => {
+                                            deleteCustomRewrite(rewrite.name);
+                                        }}
+                                        class={'float-right mt-1.5'}
+                                        v-permission={true}
+                                    />
+                                ) : null}
                             </ElOption>
                         ))}
                     </ElSelect>
                 </ElFormItem>
                 <ElText type="warning">{$t('website.rewriteHelper2')}</ElText>
-                <CodemirrorPro
-                    modelValue={unref(content)}
-                    onUpdate:modelValue={($v) => {
-                        content.value = $v as any;
-                    }}
-                    mode="nginx"
-                    heightDiff={500}
-                />
+                <CodemirrorPro v-model={content.value} mode="nginx" heightDiff={500} />
                 <div class={'mt-2'}>
                     <ElFormItem>
                         <ElAlert title={$t('website.rewriteHelper')} type="info" closable={false} />
                     </ElFormItem>
-                    {withDirectives(
+                    {
                         <ElButton
                             type="primary"
                             onClick={($event?: any) => {
                                 submit();
                             }}
+                            v-permission={true}
                         >
                             {$t('nginx.saveAndReload')}
-                        </ElButton>,
-                        [[permissionDirective, true]],
-                    )}
-                    {withDirectives(
+                        </ElButton>
+                    }
+                    {
                         <ElButton
                             type="primary"
                             onClick={($event?: any) => {
                                 opCustomRewrite();
                             }}
                             disabled={unref(content) == ''}
+                            v-permission={true}
                         >
                             {$t('website.saveCustom')}
-                        </ElButton>,
-                        [[permissionDirective, true]],
-                    )}
+                        </ElButton>
+                    }
                 </div>
                 <CustomRewrite
                     ref={customRef}

@@ -86,10 +86,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 header={$t('commons.button.view')}
                 size="large"
                 onClose={($event?: any) => {
@@ -111,13 +108,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                <ElTabs
-                    modelValue={unref(activeTab)}
-                    onUpdate:modelValue={($v) => {
-                        activeTab.value = $v as any;
-                    }}
-                    type="border-card"
-                >
+                <ElTabs v-model={activeTab.value} type="border-card">
                     <ElTabPane label={$t('container.network')} name="overview">
                         <ElDescriptions column={1} border title={$t('home.baseInfo')}>
                             <ElDescriptionsItem label={$t('commons.table.name')}>
@@ -256,15 +247,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {$t('commons.button.copy')}
                             </ElButton>
                         </div>
-                        <CodemirrorPro
-                            modelValue={unref(rawJson)}
-                            onUpdate:modelValue={($v) => {
-                                rawJson.value = $v as any;
-                            }}
-                            height-diff={270}
-                            readonly={true}
-                            mode="json"
-                        />
+                        <CodemirrorPro v-model={rawJson.value} height-diff={270} readonly={true} mode="json" />
                     </ElTabPane>
                 </ElTabs>
             </DrawerPro>

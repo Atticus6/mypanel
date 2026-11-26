@@ -104,10 +104,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.watermark')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -154,7 +151,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     gap={[form.gap, form.gap]}
                     class={'watermark'}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={formRef}
                             label-position="top"
@@ -163,6 +160,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 $event.preventDefault();
                             }}
                             rules={rules}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('setting.watermarkContent')} prop="content">
                                 <ElInput
@@ -177,42 +175,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </span>
                             </ElFormItem>
                             <ElFormItem label={$t('setting.light')} prop="lightColor">
-                                <ElColorPicker
-                                    modelValue={form.lightColor}
-                                    onUpdate:modelValue={($v) => {
-                                        form.lightColor = $v as any;
-                                    }}
-                                    show-alpha
-                                />
+                                <ElColorPicker v-model={form.lightColor} show-alpha />
                             </ElFormItem>
                             <ElFormItem label={$t('setting.dark')} prop="darkColor">
-                                <ElColorPicker
-                                    modelValue={form.darkColor}
-                                    onUpdate:modelValue={($v) => {
-                                        form.darkColor = $v as any;
-                                    }}
-                                    show-alpha
-                                />
+                                <ElColorPicker v-model={form.darkColor} show-alpha />
                             </ElFormItem>
                             <ElFormItem label={$t('setting.watermarkFont')} prop="fontSize">
-                                <ElSlider
-                                    modelValue={form.fontSize}
-                                    onUpdate:modelValue={($v) => {
-                                        form.fontSize = $v as any;
-                                    }}
-                                    min={12}
-                                    max={100}
-                                />
+                                <ElSlider v-model={form.fontSize} min={12} max={100} />
                             </ElFormItem>
                             <ElFormItem label={$t('setting.watermarkRotate')} prop="rotate">
-                                <ElSlider
-                                    modelValue={form.rotate}
-                                    onUpdate:modelValue={($v) => {
-                                        form.rotate = $v as any;
-                                    }}
-                                    min={-180}
-                                    max={180}
-                                />
+                                <ElSlider v-model={form.rotate} min={-180} max={180} />
                             </ElFormItem>
                             <ElFormItem label={$t('setting.watermarkGap')} prop="gap">
                                 <ElInputNumber
@@ -223,9 +195,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     class={'number-input'}
                                 />
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </ElWatermark>
             </DrawerPro>
         );

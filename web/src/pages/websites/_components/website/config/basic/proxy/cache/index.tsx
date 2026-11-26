@@ -4,7 +4,6 @@ import { Rules, checkNumberRange } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -90,10 +89,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('website.proxyCache')}
                 size="normal"
                 onClose={($event?: any) => {
@@ -110,23 +106,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 {$t('commons.button.cancel')}
                             </ElButton>
-                            {withDirectives(
+                            {
                                 <ElButton
                                     type="primary"
                                     onClick={($event?: any) => {
                                         submit(unref(proxyForm));
                                     }}
                                     disabled={unref(loading)}
+                                    v-permission={true}
                                 >
                                     {$t('commons.button.confirm')}
-                                </ElButton>,
-                                [[permissionDirective, true]],
-                            )}
+                                </ElButton>
+                            }
                         </>
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
@@ -136,15 +132,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         model={req}
                         rules={rules}
                         validate-on-rule-change={false}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('commons.button.start')} prop="open">
-                            <ElSwitch
-                                modelValue={req.open}
-                                onUpdate:modelValue={($v) => {
-                                    req.open = $v as any;
-                                }}
-                                disabled={unref(hasCache)}
-                            />
+                            <ElSwitch v-model={req.open} disabled={unref(hasCache)} />
                             {unref(hasCache) ? <span class={'input-help'}>{$t('website.cacheWarn')}</span> : null}
                         </ElFormItem>
                         <ElFormItem label={$t('website.cacheLimit')} prop="cacheLimit">
@@ -157,13 +148,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 v-slots={{
                                     append: () => (
                                         <>
-                                            <ElSelect
-                                                modelValue={req.cacheLimitUnit}
-                                                onUpdate:modelValue={($v) => {
-                                                    req.cacheLimitUnit = $v as any;
-                                                }}
-                                                class={'p-w-100'}
-                                            >
+                                            <ElSelect v-model={req.cacheLimitUnit} class={'p-w-100'}>
                                                 {(sizeUnits || []).map((unit, index) => (
                                                     <ElOption label={unit.label} value={unit.value} key={index} />
                                                 ))}
@@ -184,13 +169,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 v-slots={{
                                     append: () => (
                                         <>
-                                            <ElSelect
-                                                modelValue={req.shareCacheUnit}
-                                                onUpdate:modelValue={($v) => {
-                                                    req.shareCacheUnit = $v as any;
-                                                }}
-                                                class={'p-w-100'}
-                                            >
+                                            <ElSelect v-model={req.shareCacheUnit} class={'p-w-100'}>
                                                 {(sizeUnits || []).map((unit, index) => (
                                                     <ElOption label={unit.label} value={unit.value} key={index} />
                                                 ))}
@@ -211,13 +190,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 v-slots={{
                                     append: () => (
                                         <>
-                                            <ElSelect
-                                                modelValue={req.cacheExpireUnit}
-                                                onUpdate:modelValue={($v) => {
-                                                    req.cacheExpireUnit = $v as any;
-                                                }}
-                                                class={'p-w-100'}
-                                            >
+                                            <ElSelect v-model={req.cacheExpireUnit} class={'p-w-100'}>
                                                 {(Units || []).map((unit, index) => (
                                                     <ElOption label={unit.label} value={unit.value} key={index} />
                                                 ))}
@@ -228,9 +201,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                             <span class={'input-help'}>{$t('website.cacheExpireJHelper')}</span>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

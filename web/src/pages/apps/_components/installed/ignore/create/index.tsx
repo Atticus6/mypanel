@@ -73,10 +73,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.ignore')}
                 resource={unref(resourceName)}
                 onClose={($event?: any) => {
@@ -118,24 +115,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     model={req}
                 >
                     <ElFormItem>
-                        <ElRadioGroup
-                            modelValue={req.scope}
-                            onUpdate:modelValue={($v) => {
-                                req.scope = $v as any;
-                            }}
-                        >
+                        <ElRadioGroup v-model={req.scope}>
                             <ElRadioButton label={$t('app.ignoreAll')} value="all" />
                             <ElRadioButton label={$t('app.ignoreVersion')} value="version" />
                         </ElRadioGroup>
                     </ElFormItem>
                     {req.scope === 'version' ? (
                         <ElFormItem label={$t('app.versionSelect')} prop="appDetailID">
-                            <ElSelect
-                                modelValue={req.appDetailID}
-                                onUpdate:modelValue={($v) => {
-                                    req.appDetailID = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={req.appDetailID}>
                                 {(unref(versions) || []).map((version, index) => (
                                     <ElOption value={version.detailId} label={version.version} key={index} />
                                 ))}

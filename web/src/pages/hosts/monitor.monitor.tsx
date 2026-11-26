@@ -621,10 +621,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onChange={($event?: any) => {
                                     searchGlobal();
                                 }}
-                                modelValue={unref(timeRangeGlobal)}
-                                onUpdate:modelValue={($v) => {
-                                    timeRangeGlobal.value = $v as any;
-                                }}
+                                v-model={timeRangeGlobal.value}
                                 type="datetimerange"
                                 range-separator="-"
                                 start-placeholder={$t('commons.search.timeStart')}
@@ -655,10 +652,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     search('load');
                                                 }}
-                                                modelValue={unref(timeRangeLoad)}
-                                                onUpdate:modelValue={($v) => {
-                                                    timeRangeLoad.value = $v as any;
-                                                }}
+                                                v-model={timeRangeLoad.value}
                                                 type="datetimerange"
                                                 range-separator="-"
                                                 start-placeholder={$t('commons.search.timeStart')}
@@ -672,8 +666,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ),
                             }}
                         >
-                            {withDirectives(
-                                <div class={'chart'}>
+                            {
+                                <div class={'chart'} v-loading={loadingMap.load}>
                                     {unref(chartsOption)['loadLoadChart'] ? (
                                         <VCharts
                                             height="400px"
@@ -683,9 +677,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             dataZoom={true}
                                         />
                                     ) : null}
-                                </div>,
-                                [[vLoading, loadingMap.load]],
-                            )}
+                                </div>
+                            }
                         </ElCard>
                     </ElCol>
                 </ElRow>
@@ -702,10 +695,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     search('cpu');
                                                 }}
-                                                modelValue={unref(timeRangeCpu)}
-                                                onUpdate:modelValue={($v) => {
-                                                    timeRangeCpu.value = $v as any;
-                                                }}
+                                                v-model={timeRangeCpu.value}
                                                 type="datetimerange"
                                                 range-separator="-"
                                                 start-placeholder={$t('commons.search.timeStart')}
@@ -719,8 +709,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ),
                             }}
                         >
-                            {withDirectives(
-                                <div class={'chart'}>
+                            {
+                                <div class={'chart'} v-loading={loadingMap.cpu}>
                                     {unref(chartsOption)['loadCPUChart'] ? (
                                         <VCharts
                                             height="400px"
@@ -730,9 +720,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             dataZoom={true}
                                         />
                                     ) : null}
-                                </div>,
-                                [[vLoading, loadingMap.cpu]],
-                            )}
+                                </div>
+                            }
                         </ElCard>
                     </ElCol>
                     <ElCol xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -747,10 +736,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     search('memory');
                                                 }}
-                                                modelValue={unref(timeRangeMemory)}
-                                                onUpdate:modelValue={($v) => {
-                                                    timeRangeMemory.value = $v as any;
-                                                }}
+                                                v-model={timeRangeMemory.value}
                                                 type="datetimerange"
                                                 range-separator="-"
                                                 start-placeholder={$t('commons.search.timeStart')}
@@ -764,8 +750,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ),
                             }}
                         >
-                            {withDirectives(
-                                <div class={'chart'}>
+                            {
+                                <div class={'chart'} v-loading={loadingMap.memory}>
                                     {unref(chartsOption)['loadMemoryChart'] ? (
                                         <VCharts
                                             height="400px"
@@ -775,9 +761,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             dataZoom={true}
                                         />
                                     ) : null}
-                                </div>,
-                                [[vLoading, loadingMap.memory]],
-                            )}
+                                </div>
+                            }
                         </ElCard>
                     </ElCol>
                 </ElRow>
@@ -838,10 +823,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     search('io');
                                                 }}
-                                                modelValue={unref(timeRangeIO)}
-                                                onUpdate:modelValue={($v) => {
-                                                    timeRangeIO.value = $v as any;
-                                                }}
+                                                v-model={timeRangeIO.value}
                                                 type="datetimerange"
                                                 range-separator="-"
                                                 start-placeholder={$t('commons.search.timeStart')}
@@ -855,8 +837,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ),
                             }}
                         >
-                            {withDirectives(
-                                <div class={'chart'}>
+                            {
+                                <div class={'chart'} v-loading={loadingMap.io}>
                                     {unref(chartsOption)['loadIOChart'] ? (
                                         <VCharts
                                             height="400px"
@@ -866,9 +848,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             dataZoom={true}
                                         />
                                     ) : null}
-                                </div>,
-                                [[vLoading, loadingMap.io]],
-                            )}
+                                </div>
+                            }
                         </ElCard>
                     </ElCol>
                     <ElCol xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -926,10 +907,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     search('network');
                                                 }}
-                                                modelValue={unref(timeRangeNetwork)}
-                                                onUpdate:modelValue={($v) => {
-                                                    timeRangeNetwork.value = $v as any;
-                                                }}
+                                                v-model={timeRangeNetwork.value}
                                                 type="datetimerange"
                                                 range-separator="-"
                                                 start-placeholder={$t('commons.search.timeStart')}
@@ -943,8 +921,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ),
                             }}
                         >
-                            {withDirectives(
-                                <div class={'chart'}>
+                            {
+                                <div class={'chart'} v-loading={loadingMap.network}>
                                     {unref(chartsOption)['loadNetworkChart'] ? (
                                         <VCharts
                                             height="400px"
@@ -954,9 +932,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             dataZoom={true}
                                         />
                                     ) : null}
-                                </div>,
-                                [[vLoading, loadingMap.network]],
-                            )}
+                                </div>
+                            }
                         </ElCard>
                     </ElCol>
                 </ElRow>

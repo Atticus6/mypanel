@@ -6,7 +6,6 @@ import type { OpenrestyModule } from '@/gen/panel/agent/v1/openresty_pb';
 import { MsgSuccess } from '@/utils/message';
 import Operate from './operate/index';
 import Build from './build/index';
-import permissionDirective from '@/directives/modules/permission';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
 import OpDialog from '@/components/del-dialog/index';
@@ -131,7 +130,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <ComplexTable
                         data={unref(data)}
                         onSearch={($event?: any) => {
@@ -141,35 +140,36 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         v-slots={{
                             toolbar: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 (openOperate as any)($event);
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('commons.button.create')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
-                                    {withDirectives(
+                                        </ElButton>
+                                    }
+                                    {
                                         <ElButton
                                             type="primary"
                                             plain
                                             onClick={($event?: any) => {
                                                 (buildNginx as any)($event);
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('nginx.build')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                     <ElText type="warning" class={'!ml-2'}>
                                         {$t('nginx.buildHelper')}
                                     </ElText>
                                 </>
                             ),
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElTableColumn prop="name" label={$t('commons.table.name')} min-width="320" />
                         <ElTableColumn
@@ -216,18 +216,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        {withDirectives(
+                                        {
                                             <ElSwitch
-                                                modelValue={row.enable}
-                                                onUpdate:modelValue={($v) => {
-                                                    row.enable = $v as any;
-                                                }}
+                                                v-model={row.enable}
                                                 onChange={($event?: any) => {
                                                     updateModule(row);
                                                 }}
-                                            />,
-                                            [[permissionDirective, true]],
-                                        )}
+                                                v-permission={true}
+                                            />
+                                        }
                                     </>
                                 ),
                             }}
@@ -241,9 +238,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             fixed="right"
                             fix
                         />
-                    </ComplexTable>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ComplexTable>
+                }
                 <Operate
                     ref={operateRef}
                     onClose={($event?: any) => {

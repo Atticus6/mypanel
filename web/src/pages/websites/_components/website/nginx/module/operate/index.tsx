@@ -16,7 +16,6 @@ type ModuleForm = {
     loadOrder: number;
     lastError: string;
 };
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -112,10 +111,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={unref(mode) === 'view' ? $t('commons.button.view') : $t('nginx.' + unref(mode))}
                 size="large"
                 resource={unref(mode) === 'create' ? '' : unref(module).name}
@@ -133,20 +129,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 {$t(unref(mode) === 'view' ? 'commons.button.close' : 'commons.button.cancel')}
                             </ElButton>
-                            {unref(mode) !== 'view'
-                                ? withDirectives(
-                                      <ElButton
-                                          type="primary"
-                                          onClick={($event?: any) => {
-                                              submit(unref(moduleForm));
-                                          }}
-                                          disabled={unref(loading)}
-                                      >
-                                          {$t('commons.button.confirm')}
-                                      </ElButton>,
-                                      [[permissionDirective, true]],
-                                  )
-                                : null}
+                            {unref(mode) !== 'view' ? (
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        submit(unref(moduleForm));
+                                    }}
+                                    disabled={unref(loading)}
+                                    v-permission={true}
+                                >
+                                    {$t('commons.button.confirm')}
+                                </ElButton>
+                            ) : null}
                         </>
                     ),
                 }}
@@ -168,12 +162,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         />
                     </ElFormItem>
                     <ElFormItem label={$t('nginx.buildMode')} prop="buildMode">
-                        <ElRadioGroup
-                            modelValue={unref(module).buildMode}
-                            onUpdate:modelValue={($v) => {
-                                unref(module).buildMode = $v as any;
-                            }}
-                        >
+                        <ElRadioGroup v-model={unref(module).buildMode}>
                             <ElRadioButton value="dynamic" disabled={!unref(dynamicSupported)}>
                                 {$t('nginx.buildModeDynamic')}
                             </ElRadioButton>
@@ -205,10 +194,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </ElFormItem>
                     <ElFormItem label={$t('nginx.script')} prop="script">
                         <ElInput
-                            modelValue={unref(module).script}
-                            onUpdate:modelValue={($v) => {
-                                unref(module).script = $v as any;
-                            }}
+                            v-model={unref(module).script}
                             type="textarea"
                             rows={10}
                             placeholder={$t('nginx.scriptHelper')}
@@ -216,14 +202,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </ElFormItem>
                     {unref(module).buildMode !== 'static' ? (
                         <ElFormItem label={$t('nginx.loadOrder')} prop="loadOrder">
-                            <ElInputNumber
-                                modelValue={unref(module).loadOrder}
-                                onUpdate:modelValue={($v) => {
-                                    unref(module).loadOrder = $v as any;
-                                }}
-                                min={0}
-                                max={9999}
-                            />
+                            <ElInputNumber v-model={unref(module).loadOrder} min={0} max={9999} />
                         </ElFormItem>
                     ) : null}
                     {unref(module).lastError ? (

@@ -179,59 +179,31 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         return () => (
             <div>
                 <ElFormItem label={$t('website.HTTPConfig')} prop="httpConfig">
-                    <ElSelect
-                        modelValue={unref(formData).httpConfig}
-                        onUpdate:modelValue={($v) => {
-                            unref(formData).httpConfig = $v as any;
-                        }}
-                        class={'p-w-400'}
-                    >
+                    <ElSelect v-model={unref(formData).httpConfig} class={'p-w-400'}>
                         <ElOption label={$t('website.HTTPToHTTPS')} value="HTTPToHTTPS" />
                         <ElOption label={$t('website.HTTPAlso')} value="HTTPAlso" />
                         <ElOption label={$t('website.HTTPSOnly')} value="HTTPSOnly" />
                     </ElSelect>
                 </ElFormItem>
                 <ElFormItem label="HSTS" prop="hsts">
-                    <ElCheckbox
-                        modelValue={unref(formData).hsts}
-                        onUpdate:modelValue={($v) => {
-                            unref(formData).hsts = $v as any;
-                        }}
-                    >
-                        {$t('commons.button.enable')}
-                    </ElCheckbox>
+                    <ElCheckbox v-model={unref(formData).hsts}>{$t('commons.button.enable')}</ElCheckbox>
                     <span class={'input-help'}>{$t('website.hstsHelper')}</span>
                 </ElFormItem>
                 {unref(formData).hsts ? (
                     <ElFormItem label={'HSTS ' + $t('website.includeSubDomains')} prop="hstsIncludeSubDomains">
-                        <ElCheckbox
-                            modelValue={unref(formData).hstsIncludeSubDomains}
-                            onUpdate:modelValue={($v) => {
-                                unref(formData).hstsIncludeSubDomains = $v as any;
-                            }}
-                        >
+                        <ElCheckbox v-model={unref(formData).hstsIncludeSubDomains}>
                             {$t('commons.button.enable')}
                         </ElCheckbox>
                         <span class={'input-help'}>{$t('website.hstsIncludeSubDomainsHelper')}</span>
                     </ElFormItem>
                 ) : null}
                 <ElFormItem label="HTTP3" prop="http3">
-                    <ElCheckbox
-                        modelValue={unref(formData).http3}
-                        onUpdate:modelValue={($v) => {
-                            unref(formData).http3 = $v as any;
-                        }}
-                    >
-                        {$t('commons.button.enable')}
-                    </ElCheckbox>
+                    <ElCheckbox v-model={unref(formData).http3}>{$t('commons.button.enable')}</ElCheckbox>
                     <span class={'input-help'}>{$t('website.http3Helper')}</span>
                 </ElFormItem>
                 <ElFormItem label={$t('website.sslConfig')} prop="type">
                     <ElSelect
-                        modelValue={unref(formData).type}
-                        onUpdate:modelValue={($v) => {
-                            unref(formData).type = $v as any;
-                        }}
+                        v-model={unref(formData).type}
                         onChange={($event?: any) => {
                             (handleTypeChange as any)($event);
                         }}
@@ -245,10 +217,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                     <div>
                         <ElFormItem label={$t('website.acmeAccountManage')} prop="acmeAccountID">
                             <ElSelect
-                                modelValue={unref(formData).acmeAccountID}
-                                onUpdate:modelValue={($v) => {
-                                    unref(formData).acmeAccountID = $v as any;
-                                }}
+                                v-model={unref(formData).acmeAccountID}
                                 placeholder={$t('website.selectAcme')}
                                 onChange={($event?: any) => {
                                     (handleAcmeAccountChange as any)($event);
@@ -268,10 +237,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                         </ElFormItem>
                         <ElFormItem label={$t('website.ssl')} prop="websiteSSLId" hide-required-asterisk={true}>
                             <ElSelect
-                                modelValue={unref(formData).websiteSSLId}
-                                onUpdate:modelValue={($v) => {
-                                    unref(formData).websiteSSLId = $v as any;
-                                }}
+                                v-model={unref(formData).websiteSSLId}
                                 placeholder={$t('website.selectSSL')}
                                 onChange={($event?: any) => {
                                     (handleSSLChange as any)($event);
@@ -299,12 +265,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                 {unref(formData).type === 'manual' ? (
                     <div>
                         <ElFormItem label={$t('website.importType')} prop="importType">
-                            <ElSelect
-                                modelValue={unref(formData).importType}
-                                onUpdate:modelValue={($v) => {
-                                    unref(formData).importType = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(formData).importType}>
                                 <ElOption label={$t('website.pasteSSL')} value="paste" />
                                 <ElOption label={$t('website.localSSL')} value="local" />
                             </ElSelect>
@@ -312,24 +273,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                         {unref(formData).importType === 'paste' ? (
                             <div>
                                 <ElFormItem label={$t('website.privateKey')} prop="privateKey">
-                                    <ElInput
-                                        modelValue={unref(formData).privateKey}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(formData).privateKey = $v as any;
-                                        }}
-                                        rows={6}
-                                        type="textarea"
-                                    />
+                                    <ElInput v-model={unref(formData).privateKey} rows={6} type="textarea" />
                                 </ElFormItem>
                                 <ElFormItem label={$t('website.certificate')} prop="certificate">
-                                    <ElInput
-                                        modelValue={unref(formData).certificate}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(formData).certificate = $v as any;
-                                        }}
-                                        rows={6}
-                                        type="textarea"
-                                    />
+                                    <ElInput v-model={unref(formData).certificate} rows={6} type="textarea" />
                                 </ElFormItem>
                             </div>
                         ) : null}
@@ -337,10 +284,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                             <div>
                                 <ElFormItem label={$t('website.privateKeyPath')} prop="privateKeyPath">
                                     <ElInput
-                                        modelValue={unref(formData).privateKeyPath}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(formData).privateKeyPath = $v as any;
-                                        }}
+                                        v-model={unref(formData).privateKeyPath}
                                         v-slots={{
                                             prepend: () => (
                                                 <>
@@ -357,10 +301,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                 </ElFormItem>
                                 <ElFormItem label={$t('website.certificatePath')} prop="certificatePath">
                                     <ElInput
-                                        modelValue={unref(formData).certificatePath}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(formData).certificatePath = $v as any;
-                                        }}
+                                        v-model={unref(formData).certificatePath}
                                         v-slots={{
                                             prepend: () => (
                                                 <>
@@ -390,12 +331,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                 ) : null}
                 <ElDivider content-position="left">{$t('website.SSLProConfig')}</ElDivider>
                 <ElFormItem label={$t('website.supportProtocol')} prop="SSLProtocol">
-                    <ElCheckboxGroup
-                        modelValue={unref(formData).SSLProtocol}
-                        onUpdate:modelValue={($v) => {
-                            unref(formData).SSLProtocol = $v as any;
-                        }}
-                    >
+                    <ElCheckboxGroup v-model={unref(formData).SSLProtocol}>
                         <ElCheckbox value="TLSv1.3">{'TLS 1.3'}</ElCheckbox>
                         <ElCheckbox value="TLSv1.2">{'TLS 1.2'}</ElCheckbox>
                         <ElCheckbox value="TLSv1.1">{'TLS 1.1' + $t('website.notSecurity')}</ElCheckbox>

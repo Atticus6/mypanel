@@ -7,7 +7,6 @@ import { MsgSuccess } from '@/utils/message';
 import { GetPunyCodeDomain, isPunycoded } from '@/utils/misc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
 import OpDialog from '@/components/del-dialog/index';
@@ -124,7 +123,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <>
-                {withDirectives(
+                {
                     <ComplexTable
                         data={unref(data)}
                         onSearch={($event?: any) => {
@@ -134,21 +133,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         v-slots={{
                             toolbar: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             plain
                                             onClick={($event?: any) => {
                                                 (openCreate as any)($event);
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('website.addDomain')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </>
                             ),
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElTableColumn
                             width="30px"
@@ -191,19 +191,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             v-slots={{
                                 default: ({ row }) => (
                                     <>
-                                        {withDirectives(
+                                        {
                                             <ElSwitch
-                                                modelValue={row.ssl}
-                                                onUpdate:modelValue={($v) => {
-                                                    row.ssl = $v as any;
-                                                }}
+                                                v-model={row.ssl}
                                                 onChange={($event?: any) => {
                                                     update(row);
                                                 }}
                                                 disabled={row.port == 80}
-                                            />,
-                                            [[permissionDirective, true]],
-                                        )}
+                                                v-permission={true}
+                                            />
+                                        }
                                     </>
                                 ),
                             }}
@@ -215,9 +212,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             fixed={unref(isMobile) ? false : 'right'}
                             fix
                         />
-                    </ComplexTable>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ComplexTable>
+                }
                 <Domain
                     ref={domainRef}
                     onClose={($event?: any) => {

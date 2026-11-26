@@ -3,7 +3,6 @@ import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -71,97 +70,82 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             get();
         });
-        return () =>
-            withDirectives(
-                <ElRow gutter={20}>
-                    <ElCol xs={24} sm={14} md={14} lg={10} xl={8}>
-                        <ElAlert closable={false}>
-                            {$t('website.ipFromHelper')}
-                            <div>{$t('website.ipFromExample1')}</div>
-                            <div>{$t('website.ipFromExample2')}</div>
-                            <div>{$t('website.ipFromExample3')}</div>
-                        </ElAlert>
-                        {withDirectives(
-                            <ElForm
-                                onSubmit={($event?: any) => {
-                                    $event.preventDefault();
-                                }}
-                                ref={realIPForm}
-                                label-position="right"
-                                label-width="100px"
-                                model={req}
-                                rules={rules}
-                                validate-on-rule-change={false}
-                            >
-                                <ElFormItem label={$t('commons.button.start')} prop="open">
-                                    <ElSwitch
-                                        modelValue={req.open}
-                                        onUpdate:modelValue={($v) => {
-                                            req.open = $v as any;
-                                        }}
-                                    />
-                                </ElFormItem>
-                                {req.open ? (
-                                    <div>
-                                        <ElFormItem label={$t('website.ipFrom')} prop="ipFrom">
+        return () => (
+            <ElRow gutter={20} v-loading={unref(loading)}>
+                <ElCol xs={24} sm={14} md={14} lg={10} xl={8}>
+                    <ElAlert closable={false}>
+                        {$t('website.ipFromHelper')}
+                        <div>{$t('website.ipFromExample1')}</div>
+                        <div>{$t('website.ipFromExample2')}</div>
+                        <div>{$t('website.ipFromExample3')}</div>
+                    </ElAlert>
+                    {
+                        <ElForm
+                            onSubmit={($event?: any) => {
+                                $event.preventDefault();
+                            }}
+                            ref={realIPForm}
+                            label-position="right"
+                            label-width="100px"
+                            model={req}
+                            rules={rules}
+                            validate-on-rule-change={false}
+                            v-loading={unref(loading)}
+                        >
+                            <ElFormItem label={$t('commons.button.start')} prop="open">
+                                <ElSwitch v-model={req.open} />
+                            </ElFormItem>
+                            {req.open ? (
+                                <div>
+                                    <ElFormItem label={$t('website.ipFrom')} prop="ipFrom">
+                                        <ElInput
+                                            type="textarea"
+                                            rows={10}
+                                            clearable
+                                            v-model={req.ipFrom}
+                                            placeholder={$t('website.wafInputHelper')}
+                                        />
+                                        <span class={'input-help'}>{$t('website.wafInputHelper')}</span>
+                                    </ElFormItem>
+                                    <ElFormItem label="IP Header" prop="ipHeader">
+                                        <ElSelect v-model={req.ipHeader}>
+                                            <ElOption label={$t('website.other')} value="other" />
+                                            {['X-Forwarded-For', 'X-Real-IP', 'CF-Connecting-IP'].map((item) => (
+                                                <ElOption label={item} value={item} key={item} />
+                                            ))}
+                                        </ElSelect>
+                                    </ElFormItem>
+                                    {req.ipHeader === 'other' ? (
+                                        <ElFormItem prop="ipOther">
                                             <ElInput
-                                                type="textarea"
-                                                rows={10}
-                                                clearable
-                                                modelValue={req.ipFrom}
+                                                modelValue={req.ipOther}
                                                 onUpdate:modelValue={($v) => {
-                                                    req.ipFrom = $v as any;
+                                                    req.ipOther = typeof $v === 'string' ? $v.trim() : $v;
                                                 }}
-                                                placeholder={$t('website.wafInputHelper')}
                                             />
-                                            <span class={'input-help'}>{$t('website.wafInputHelper')}</span>
                                         </ElFormItem>
-                                        <ElFormItem label="IP Header" prop="ipHeader">
-                                            <ElSelect
-                                                modelValue={req.ipHeader}
-                                                onUpdate:modelValue={($v) => {
-                                                    req.ipHeader = $v as any;
-                                                }}
-                                            >
-                                                <ElOption label={$t('website.other')} value="other" />
-                                                {['X-Forwarded-For', 'X-Real-IP', 'CF-Connecting-IP'].map((item) => (
-                                                    <ElOption label={item} value={item} key={item} />
-                                                ))}
-                                            </ElSelect>
-                                        </ElFormItem>
-                                        {req.ipHeader === 'other' ? (
-                                            <ElFormItem prop="ipOther">
-                                                <ElInput
-                                                    modelValue={req.ipOther}
-                                                    onUpdate:modelValue={($v) => {
-                                                        req.ipOther = typeof $v === 'string' ? $v.trim() : $v;
-                                                    }}
-                                                />
-                                            </ElFormItem>
-                                        ) : null}
-                                    </div>
-                                ) : null}
-                                <ElFormItem>
-                                    {withDirectives(
-                                        <ElButton
-                                            type="primary"
-                                            onClick={($event?: any) => {
-                                                submit(unref(realIPForm));
-                                            }}
-                                            loading={unref(loading)}
-                                        >
-                                            {$t('commons.button.save')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
-                                </ElFormItem>
-                            </ElForm>,
-                            [[vLoading, unref(loading)]],
-                        )}
-                    </ElCol>
-                </ElRow>,
-                [[vLoading, unref(loading)]],
-            );
+                                    ) : null}
+                                </div>
+                            ) : null}
+                            <ElFormItem>
+                                {
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            submit(unref(realIPForm));
+                                        }}
+                                        loading={unref(loading)}
+                                        v-permission={true}
+                                    >
+                                        {$t('commons.button.save')}
+                                    </ElButton>
+                                }
+                            </ElFormItem>
+                        </ElForm>
+                    }
+                </ElCol>
+            </ElRow>
+        );
     },
     options,
 );

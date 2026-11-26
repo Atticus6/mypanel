@@ -56,7 +56,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('logs.system')}
                         v-slots={{
@@ -68,10 +68,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             leftToolBar: () => (
                                 <>
                                     <ElSelect
-                                        modelValue={unref(itemName)}
-                                        onUpdate:modelValue={($v) => {
-                                            itemName.value = $v as any;
-                                        }}
+                                        v-model={itemName.value}
                                         filterable
                                         onChange={($event?: any) => {
                                             search();
@@ -88,10 +85,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onChange={($event?: any) => {
                                                 (changeTail as any)($event);
                                             }}
-                                            modelValue={unref(isWatch)}
-                                            onUpdate:modelValue={($v) => {
-                                                isWatch.value = $v as any;
-                                            }}
+                                            v-model={isWatch.value}
                                         >
                                             {$t('commons.button.watch')}
                                         </ElCheckbox>
@@ -101,10 +95,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onChange={($event?: any) => {
                                                 search();
                                             }}
-                                            modelValue={unref(itemType)}
-                                            onUpdate:modelValue={($v) => {
-                                                itemType.value = $v as any;
-                                            }}
+                                            v-model={itemType.value}
                                             class={'ml-2'}
                                         >
                                             <ElRadioButton label={$t('logs.agent')} value="Agent" />
@@ -134,9 +125,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
             </div>
         );
     },

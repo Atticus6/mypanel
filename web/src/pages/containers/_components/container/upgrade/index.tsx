@@ -288,10 +288,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(visible)}
-                    onUpdate:modelValue={($v) => {
-                        visible.value = $v as any;
-                    }}
+                    v-model={visible.value}
                     header={$t(unref(isBatch) ? 'container.batchUpgrade' : 'commons.button.upgrade')}
                     size="large"
                     confirm-before-close={true}
@@ -374,10 +371,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </ElCheckbox>
                                         </div>
                                         <ElCheckboxGroup
-                                            modelValue={group.names}
-                                            onUpdate:modelValue={($v) => {
-                                                group.names = $v as any;
-                                            }}
+                                            v-model={group.names}
                                             disabled={unref(loading) || !isGroupEditable(group)}
                                         >
                                             {(group.options || []).map((item) => (
@@ -404,10 +398,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }}
                                 >
                                     <ElInput
-                                        modelValue={group.targetImage}
-                                        onUpdate:modelValue={($v) => {
-                                            group.targetImage = $v as any;
-                                        }}
+                                        v-model={group.targetImage}
                                         disabled={unref(loading) || !group.names.length || !isGroupEditable(group)}
                                     />
                                     <span class={'input-help'}>{$t('container.upgradeHelper')}</span>
@@ -453,13 +444,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </section>
                         ))}
                         <ElFormItem>
-                            <ElCheckbox
-                                modelValue={form.forcePull}
-                                onUpdate:modelValue={($v) => {
-                                    form.forcePull = $v as any;
-                                }}
-                                disabled={unref(started) || unref(loading)}
-                            >
+                            <ElCheckbox v-model={form.forcePull} disabled={unref(started) || unref(loading)}>
                                 {$t('container.forcePull')}
                             </ElCheckbox>
                             <span class={'input-help'}>{$t('container.forcePullHelper')}</span>

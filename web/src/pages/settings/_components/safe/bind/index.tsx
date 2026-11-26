@@ -86,10 +86,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.bindInfo')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -120,7 +117,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -128,13 +125,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('setting.ipv6')} prop="ipv6" rules={Rules.requiredSelect}>
                             <ElRadioGroup
-                                modelValue={form.ipv6}
-                                onUpdate:modelValue={($v) => {
-                                    form.ipv6 = $v as any;
-                                }}
+                                v-model={form.ipv6}
                                 onChange={($event?: any) => {
                                     onChangeMode();
                                 }}
@@ -146,21 +141,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         {form.ipv6 === 'Disable' ? (
                             <ElFormItem label={$t('setting.bindAddress')} prop="bindAddress" rules={Rules.ip}>
-                                <ElCheckbox
-                                    modelValue={form.input}
-                                    onUpdate:modelValue={($v) => {
-                                        form.input = $v as any;
-                                    }}
-                                    label={$t('container.input')}
-                                />
+                                <ElCheckbox v-model={form.input} label={$t('container.input')} />
                                 {!form.input ? (
-                                    <ElSelect
-                                        clearable
-                                        modelValue={form.bindAddress}
-                                        onUpdate:modelValue={($v) => {
-                                            form.bindAddress = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect clearable v-model={form.bindAddress}>
                                         <ElOption value="0.0.0.0" label="0.0.0.0" />
                                         {(unref(interfaceOptions) || []).map((item) => (
                                             <div key={item}>
@@ -171,32 +154,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ))}
                                     </ElSelect>
                                 ) : (
-                                    <ElInput
-                                        clearable
-                                        modelValue={form.bindAddress}
-                                        onUpdate:modelValue={($v) => {
-                                            form.bindAddress = $v as any;
-                                        }}
-                                    />
+                                    <ElInput clearable v-model={form.bindAddress} />
                                 )}
                             </ElFormItem>
                         ) : (
                             <ElFormItem label={$t('setting.bindAddress')} prop="bindAddress" rules={Rules.ipV6}>
-                                <ElCheckbox
-                                    modelValue={form.input}
-                                    onUpdate:modelValue={($v) => {
-                                        form.input = $v as any;
-                                    }}
-                                    label={$t('container.input')}
-                                />
+                                <ElCheckbox v-model={form.input} label={$t('container.input')} />
                                 {!form.input ? (
-                                    <ElSelect
-                                        clearable
-                                        modelValue={form.bindAddress}
-                                        onUpdate:modelValue={($v) => {
-                                            form.bindAddress = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect clearable v-model={form.bindAddress}>
                                         <ElOption value="::" label="::" />
                                         {(unref(interfaceOptions) || []).map((item) => (
                                             <div key={item}>
@@ -207,19 +172,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ))}
                                     </ElSelect>
                                 ) : (
-                                    <ElInput
-                                        clearable
-                                        modelValue={form.bindAddress}
-                                        onUpdate:modelValue={($v) => {
-                                            form.bindAddress = $v as any;
-                                        }}
-                                    />
+                                    <ElInput clearable v-model={form.bindAddress} />
                                 )}
                             </ElFormItem>
                         )}
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

@@ -145,10 +145,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DialogPro
-                modelValue={unref(visible)}
-                onUpdate:modelValue={($v) => {
-                    visible.value = $v as any;
-                }}
+                v-model={visible.value}
                 title={$t('commons.button.import')}
                 size="w-70"
                 v-slots={{
@@ -211,7 +208,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElText type="info">{'.json'}</ElText>
                     )}
                 </div>
-                {withDirectives(
+                {
                     <ElCard
                         shadow="never"
                         class={'mt-3 w-full'}
@@ -229,6 +226,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ComplexTable data={unref(policies)} height={300}>
                             <ElTableColumn
@@ -284,9 +282,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 v-slots={{ default: ({ row }) => <>{displaySources(row) || '-'}</> }}
                             />
                         </ComplexTable>
-                    </ElCard>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElCard>
+                }
             </DialogPro>
         );
     },

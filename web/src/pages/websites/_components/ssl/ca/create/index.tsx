@@ -4,7 +4,6 @@ import { KeyTypes } from '@/global/mimetype';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -80,10 +79,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 size="large"
                 header={$t('commons.button.create')}
                 onClose={($event?: any) => {
@@ -101,24 +97,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit(unref(caForm));
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
@@ -127,6 +123,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         label-position="top"
                         model={unref(ca)}
                         rules={unref(rules)}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('ssl.caName')} prop="name">
                             <ElInput
@@ -185,20 +182,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('website.keyType')} prop="keyType">
-                            <ElSelect
-                                modelValue={unref(ca).keyType}
-                                onUpdate:modelValue={($v) => {
-                                    unref(ca).keyType = $v as any;
-                                }}
-                            >
+                            <ElSelect v-model={unref(ca).keyType}>
                                 {(KeyTypes || []).map((keyType, index) => (
                                     <ElOption label={keyType.label} value={keyType.value} key={index} />
                                 ))}
                             </ElSelect>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

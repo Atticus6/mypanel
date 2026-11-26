@@ -65,10 +65,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(terminalVisible)}
-                onUpdate:modelValue={($v) => {
-                    terminalVisible.value = $v as any;
-                }}
+                v-model={terminalVisible.value}
                 header={$t('menu.terminal')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -84,10 +81,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <Terminal ref={terminalRef} class={'terminal-content'} />
                                 <div class={'quick-command'}>
                                     <ElCascader
-                                        modelValue={unref(quickCmd)}
-                                        onUpdate:modelValue={($v) => {
-                                            quickCmd.value = $v as any;
-                                        }}
+                                        v-model={quickCmd.value}
                                         options={unref(commandTree)}
                                         onChange={($event?: any) => {
                                             (quickInput as any)($event);

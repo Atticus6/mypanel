@@ -82,10 +82,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(terminalVisible)}
-                onUpdate:modelValue={($v) => {
-                    terminalVisible.value = $v as any;
-                }}
+                v-model={terminalVisible.value}
                 header={$t('menu.terminal')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -100,14 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElForm ref={formRef} model={form} label-position="top">
                                 {form.containerIDList.length > 1 ? (
                                     <ElFormItem label={$t('menu.container')} prop="containerID">
-                                        <ElSelect
-                                            placeholder="container"
-                                            clearable
-                                            modelValue={form.containerID}
-                                            onUpdate:modelValue={($v) => {
-                                                form.containerID = $v as any;
-                                            }}
-                                        >
+                                        <ElSelect placeholder="container" clearable v-model={form.containerID}>
                                             {(form.containerIDList || []).map((item) => (
                                                 <ElOption label={item} value={item} key={item} />
                                             ))}
@@ -115,14 +105,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElFormItem>
                                 ) : null}
                                 <ElFormItem label={$t('commons.table.user')} prop="user">
-                                    <ElInput
-                                        placeholder="root"
-                                        clearable
-                                        modelValue={form.user}
-                                        onUpdate:modelValue={($v) => {
-                                            form.user = $v as any;
-                                        }}
-                                    />
+                                    <ElInput placeholder="root" clearable v-model={form.user} />
                                 </ElFormItem>
                                 {form.isCustom ? (
                                     <ElFormItem
@@ -132,10 +115,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         <ElCheckbox
                                             border
-                                            modelValue={form.isCustom}
-                                            onUpdate:modelValue={($v) => {
-                                                form.isCustom = $v as any;
-                                            }}
+                                            v-model={form.isCustom}
                                             onChange={($event?: any) => {
                                                 (onChangeCommand as any)($event);
                                             }}
@@ -143,14 +123,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         >
                                             {$t('container.custom')}
                                         </ElCheckbox>
-                                        <ElInput
-                                            clearable
-                                            modelValue={form.command}
-                                            onUpdate:modelValue={($v) => {
-                                                form.command = $v as any;
-                                            }}
-                                            style={'width: calc(100% - 100px)'}
-                                        />
+                                        <ElInput clearable v-model={form.command} style={'width: calc(100% - 100px)'} />
                                     </ElFormItem>
                                 ) : null}
                                 {!form.isCustom ? (
@@ -161,10 +134,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         <ElCheckbox
                                             border
-                                            modelValue={form.isCustom}
-                                            onUpdate:modelValue={($v) => {
-                                                form.isCustom = $v as any;
-                                            }}
+                                            v-model={form.isCustom}
                                             onChange={($event?: any) => {
                                                 (onChangeCommand as any)($event);
                                             }}
@@ -175,10 +145,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <ElSelect
                                             filterable
                                             clearable
-                                            modelValue={form.command}
-                                            onUpdate:modelValue={($v) => {
-                                                form.command = $v as any;
-                                            }}
+                                            v-model={form.command}
                                             style={'width: calc(100% - 100px)'}
                                         >
                                             <ElOption value="/bin/ash" label="/bin/ash" />

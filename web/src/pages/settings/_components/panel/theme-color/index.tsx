@@ -255,10 +255,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('xpack.theme.customColor')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -296,7 +293,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -304,6 +301,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElRow type="flex" justify="center">
                             <ElCol span={22}>
@@ -328,10 +326,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 </>
                                             ))}
                                             <ElColorPicker
-                                                modelValue={form.light}
-                                                onUpdate:modelValue={($v) => {
-                                                    form.light = $v as any;
-                                                }}
+                                                v-model={form.light}
                                                 predefine={unref(lightPredefineColors)}
                                                 show-alpha
                                                 onChange={($event?: any) => {
@@ -366,10 +361,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     </>
                                                 ))}
                                                 <ElColorPicker
-                                                    modelValue={form.dark}
-                                                    onUpdate:modelValue={($v) => {
-                                                        form.dark = $v as any;
-                                                    }}
+                                                    v-model={form.dark}
                                                     predefine={unref(darkPredefineColors)}
                                                     show-alpha
                                                     onChange={($event?: any) => {
@@ -383,9 +375,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElFormItem>
                             </ElCol>
                         </ElRow>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

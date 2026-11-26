@@ -38,7 +38,7 @@ export default defineComponent(() => {
 
     return () => (
         <div>
-            {withDirectives(
+            {
                 <LayoutContent
                     title={t('setting.about')}
                     divider={true}
@@ -84,9 +84,9 @@ export default defineComponent(() => {
                             </div>
                         ),
                     }}
-                />,
-                [[vLoading, loading.value]],
-            )}
+                    v-loading={loading.value}
+                />
+            }
         </div>
     );
 }, options);

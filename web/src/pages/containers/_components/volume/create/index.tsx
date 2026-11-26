@@ -97,10 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('commons.button.create')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -132,7 +129,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -142,6 +139,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('commons.table.name')} prop="name">
                             <ElInput
@@ -156,14 +154,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElTag type="success">{'local'}</ElTag>
                         </ElFormItem>
                         <ElFormItem label={$t('container.nfsEnable')} prop="nfsStatus">
-                            <ElSwitch
-                                modelValue={form.nfsStatus}
-                                onUpdate:modelValue={($v) => {
-                                    form.nfsStatus = $v as any;
-                                }}
-                                active-value="enable"
-                                inactive-value="disable"
-                            />
+                            <ElSwitch v-model={form.nfsStatus} active-value="enable" inactive-value="disable" />
                         </ElFormItem>
                         {form.nfsStatus === 'enable' ? (
                             <div>
@@ -178,12 +169,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     />
                                 </ElFormItem>
                                 <ElFormItem label={$t('app.version')} prop="nfsVersion">
-                                    <ElRadioGroup
-                                        modelValue={form.nfsVersion}
-                                        onUpdate:modelValue={($v) => {
-                                            form.nfsVersion = $v as any;
-                                        }}
-                                    >
+                                    <ElRadioGroup v-model={form.nfsVersion}>
                                         <ElRadio value="v3">{'NFS'}</ElRadio>
                                         <ElRadio value="v4">{'NFS4'}</ElRadio>
                                     </ElRadioGroup>
@@ -214,10 +200,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 type="textarea"
                                 placeholder={$t('container.tagHelper')}
                                 rows={3}
-                                modelValue={form.optionStr}
-                                onUpdate:modelValue={($v) => {
-                                    form.optionStr = $v as any;
-                                }}
+                                v-model={form.optionStr}
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('container.tag')} prop="labelStr">
@@ -225,15 +208,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 type="textarea"
                                 placeholder={$t('container.tagHelper')}
                                 rows={3}
-                                modelValue={form.labelStr}
-                                onUpdate:modelValue={($v) => {
-                                    form.labelStr = $v as any;
-                                }}
+                                v-model={form.labelStr}
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

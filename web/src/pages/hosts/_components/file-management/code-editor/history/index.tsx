@@ -25,8 +25,6 @@ type HistoryRow = FileHistoryEntry & {
     currentContent?: string;
 };
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -442,10 +440,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('file.history')}
                 size={unref(drawerSize)}
                 onClose={($event?: any) => {
@@ -463,14 +458,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElAlert>
                     ) : null}
                     <ElCard shadow="never" class={'history-setting'}>
-                        <ElCollapse
-                            modelValue={unref(activeCollapse)}
-                            onUpdate:modelValue={($v) => {
-                                activeCollapse.value = $v as any;
-                            }}
-                            accordion={true}
-                            class={'!border-0'}
-                        >
+                        <ElCollapse v-model={activeCollapse.value} accordion={true} class={'!border-0'}>
                             <ElCollapseItem title={$t('file.historySettingTitle')} name="history" class={'!border-0'}>
                                 <ElForm
                                     ref={historySettingFormRef}
@@ -481,20 +469,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     <ElFormItem label={$t('file.historyEnable')} prop="enable">
                                         <ElSwitch
-                                            modelValue={unref(historySetting).enable}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(historySetting).enable = $v as any;
-                                            }}
+                                            v-model={unref(historySetting).enable}
                                             active-value="Enable"
                                             inactive-value="Disable"
                                         />
                                     </ElFormItem>
                                     <ElFormItem label={$t('file.historyMaxPerPath')} prop="maxPerPath">
                                         <ElInputNumber
-                                            modelValue={unref(historySetting).maxPerPath}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(historySetting).maxPerPath = $v as any;
-                                            }}
+                                            v-model={unref(historySetting).maxPerPath}
                                             min={1}
                                             max={1000}
                                             class={'!w-52'}
@@ -502,10 +484,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElFormItem>
                                     <ElFormItem label={$t('file.historyDiskQuota')} prop="diskQuotaMB">
                                         <ElInputNumber
-                                            modelValue={unref(historySetting).diskQuotaMB}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(historySetting).diskQuotaMB = $v as any;
-                                            }}
+                                            v-model={unref(historySetting).diskQuotaMB}
                                             min={1}
                                             max={1048576}
                                             class={'!w-52'}
@@ -537,10 +516,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             class={'flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between'}
                                         >
                                             <ElTabs
-                                                modelValue={unref(scope)}
-                                                onUpdate:modelValue={($v) => {
-                                                    scope.value = $v as any;
-                                                }}
+                                                v-model={scope.value}
                                                 type="card"
                                                 onTabChange={($event?: any) => {
                                                     (handleScopeChange as any)($event);
@@ -556,10 +532,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </ElTabs>
                                             <div class={'flex flex-wrap items-center gap-2'}>
                                                 <ElSelect
-                                                    modelValue={unref(operationFilter)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        operationFilter.value = $v as any;
-                                                    }}
+                                                    v-model={operationFilter.value}
                                                     clearable
                                                     placeholder={$t('commons.table.type')}
                                                     onChange={($event?: any) => {
@@ -584,7 +557,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 >
                                                     {$t('commons.button.refresh')}
                                                 </ElButton>
-                                                {withDirectives(
+                                                {
                                                     <ElButton
                                                         disabled={unref(selected).length === 0}
                                                         loading={unref(deleteLoading)}
@@ -592,14 +565,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             deleteSelected(null);
                                                         }}
                                                         class={'!ml-0 w-full sm:w-auto'}
+                                                        v-permission={true}
+                                                        v-node-admin={true}
                                                     >
                                                         {$t('commons.button.delete')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )}
+                                                    </ElButton>
+                                                }
                                             </div>
                                         </div>
                                     </>
@@ -608,7 +579,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         >
                             <div class={'history-table-box'}>
                                 <div class={'history-table-wrap'}>
-                                    {withDirectives(
+                                    {
                                         <ComplexTable
                                             pagination-config={paginationConfig}
                                             data={unref(historyItems)}
@@ -622,6 +593,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 (handleSelectionChange as any)($event);
                                             }}
                                             class={'history-table'}
+                                            v-loading={unref(historyLoading)}
                                         >
                                             <ElTableColumn type="selection" width="46" />
                                             <ElTableColumn
@@ -684,7 +656,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             >
                                                                 {$t('commons.button.view')}
                                                             </ElButton>
-                                                            {withDirectives(
+                                                            {
                                                                 <ElButton
                                                                     link
                                                                     type="primary"
@@ -692,21 +664,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         $event.stopPropagation();
                                                                         deleteSelected(row);
                                                                     }}
+                                                                    v-permission={true}
+                                                                    v-node-admin={true}
                                                                 >
                                                                     {$t('commons.button.delete')}
-                                                                </ElButton>,
-                                                                [
-                                                                    [permissionDirective, true],
-                                                                    [nodeAdminDirective, true],
-                                                                ],
-                                                            )}
+                                                                </ElButton>
+                                                            }
                                                         </>
                                                     ),
                                                 }}
                                             />
-                                        </ComplexTable>,
-                                        [[vLoading, unref(historyLoading)]],
-                                    )}
+                                        </ComplexTable>
+                                    }
                                 </div>
                             </div>
                         </ElCard>
@@ -756,23 +725,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <ElTag effect="plain">
                                                         {computeSize(Number(unref(selectedHistory).contentSize))}
                                                     </ElTag>
-                                                    {unref(canRestoreSelected)
-                                                        ? withDirectives(
-                                                              <ElButton
-                                                                  type="primary"
-                                                                  loading={unref(restoreLoading)}
-                                                                  onClick={($event?: any) => {
-                                                                      (confirmRestoreSelected as any)($event);
-                                                                  }}
-                                                              >
-                                                                  {$t('file.historyRestore')}
-                                                              </ElButton>,
-                                                              [
-                                                                  [permissionDirective, true],
-                                                                  [nodeAdminDirective, true],
-                                                              ],
-                                                          )
-                                                        : null}
+                                                    {unref(canRestoreSelected) ? (
+                                                        <ElButton
+                                                            type="primary"
+                                                            loading={unref(restoreLoading)}
+                                                            onClick={($event?: any) => {
+                                                                (confirmRestoreSelected as any)($event);
+                                                            }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        >
+                                                            {$t('file.historyRestore')}
+                                                        </ElButton>
+                                                    ) : null}
                                                 </ElSpace>
                                             </div>
                                         </>

@@ -87,10 +87,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.makeImage')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -123,7 +120,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             onSubmit={($event?: any) => {
                                 $event.preventDefault();
@@ -131,48 +128,26 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ref={formRef}
                             model={form}
                             label-position="top"
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem
                                 prop="newImageName"
                                 rules={Rules.imageName}
                                 v-slots={{ label: () => <>{$t('container.newImageName')}</> }}
                             >
-                                <ElInput
-                                    modelValue={form.newImageName}
-                                    onUpdate:modelValue={($v) => {
-                                        form.newImageName = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={form.newImageName} />
                             </ElFormItem>
                             <ElFormItem prop="comment" v-slots={{ label: () => <>{$t('container.commitMessage')}</> }}>
-                                <ElInput
-                                    modelValue={form.comment}
-                                    onUpdate:modelValue={($v) => {
-                                        form.comment = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={form.comment} />
                             </ElFormItem>
                             <ElFormItem prop="author" v-slots={{ label: () => <>{$t('container.author')}</> }}>
-                                <ElInput
-                                    modelValue={form.author}
-                                    onUpdate:modelValue={($v) => {
-                                        form.author = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={form.author} />
                             </ElFormItem>
                             <ElFormItem prop="pause">
-                                <ElCheckbox
-                                    modelValue={form.pause}
-                                    onUpdate:modelValue={($v) => {
-                                        form.pause = $v as any;
-                                    }}
-                                >
-                                    {$t('container.ifPause')}
-                                </ElCheckbox>
+                                <ElCheckbox v-model={form.pause}>{$t('container.ifPause')}</ElCheckbox>
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <TaskLog ref={taskLogRef} width="70%" />
             </>

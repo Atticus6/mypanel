@@ -59,12 +59,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             { immediate: true },
         );
         return () => (
-            <ElRadioGroup
-                modelValue={unref(currentViewMode)}
-                onUpdate:modelValue={($v) => {
-                    currentViewMode.value = $v as any;
-                }}
-            >
+            <ElRadioGroup v-model={currentViewMode.value}>
                 <ElTooltip content={$t('commons.table.card')} placement="top">
                     <ElRadioButton value="card">
                         <ElIcon>

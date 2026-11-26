@@ -69,10 +69,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('monitor.defaultNetwork')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -103,7 +100,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -111,19 +108,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem
                             label={$t('monitor.defaultNetwork')}
                             prop="defaultNetwork"
                             rules={Rules.requiredSelect}
                         >
-                            <ElSelect
-                                modelValue={form.defaultNetwork}
-                                onUpdate:modelValue={($v) => {
-                                    form.defaultNetwork = $v as any;
-                                }}
-                                filterable
-                            >
+                            <ElSelect v-model={form.defaultNetwork} filterable>
                                 {(unref(netOptions) || []).map((item) => (
                                     <ElOption
                                         label={item == 'all' ? $t('commons.table.all') : item}
@@ -133,9 +125,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ))}
                             </ElSelect>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

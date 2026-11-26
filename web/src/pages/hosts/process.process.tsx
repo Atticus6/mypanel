@@ -257,7 +257,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <FireRouter />
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('menu.process', 2)}
                         v-slots={{
@@ -265,10 +265,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <>
                                     <div class={'process-toolbar flex w-full items-center justify-end gap-5'}>
                                         <ElSelect
-                                            modelValue={unref(filters)}
-                                            onUpdate:modelValue={($v) => {
-                                                filters.value = $v as any;
-                                            }}
+                                            v-model={filters.value}
                                             placeholder={$t('commons.table.status')}
                                             clearable
                                             onChange={($event?: any) => {
@@ -347,9 +344,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, processStore.psLoading]],
-                )}
+                        v-loading={processStore.psLoading}
+                    />
+                }
                 <OpDialog
                     ref={opRef}
                     onSearch={($event?: any) => {

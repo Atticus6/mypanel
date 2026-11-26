@@ -12,8 +12,6 @@ interface FamilyIssue {
     action?: 'initialize' | 'repair' | 'bind';
 }
 import './family-issues.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -110,35 +108,31 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ) : null}
                                     </p>
                                 </div>
-                                {issue.action
-                                    ? withDirectives(
-                                          <ElButton
-                                              size="small"
-                                              type="primary"
-                                              plain
-                                              loading={unref(running) === issue.family}
-                                              disabled={
-                                                  __panelSetupProps.disabled ||
-                                                  (!!unref(running) && unref(running) !== issue.family)
-                                              }
-                                              onClick={($event?: any) => {
-                                                  operate(issue);
-                                              }}
-                                          >
-                                              {$t(
-                                                  issue.action === 'bind'
-                                                      ? 'commons.button.bind'
-                                                      : issue.action === 'repair'
-                                                        ? 'firewall.familyRepair'
-                                                        : 'commons.button.init',
-                                              )}
-                                          </ElButton>,
-                                          [
-                                              [permissionDirective, true],
-                                              [nodeAdminDirective, true],
-                                          ],
-                                      )
-                                    : null}
+                                {issue.action ? (
+                                    <ElButton
+                                        size="small"
+                                        type="primary"
+                                        plain
+                                        loading={unref(running) === issue.family}
+                                        disabled={
+                                            __panelSetupProps.disabled ||
+                                            (!!unref(running) && unref(running) !== issue.family)
+                                        }
+                                        onClick={($event?: any) => {
+                                            operate(issue);
+                                        }}
+                                        v-permission={true}
+                                        v-node-admin={true}
+                                    >
+                                        {$t(
+                                            issue.action === 'bind'
+                                                ? 'commons.button.bind'
+                                                : issue.action === 'repair'
+                                                  ? 'firewall.familyRepair'
+                                                  : 'commons.button.init',
+                                        )}
+                                    </ElButton>
+                                ) : null}
                             </div>
                         ))}
                     </ElPopover>

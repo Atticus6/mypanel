@@ -251,8 +251,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <div class={'dropdown-menu'}>
+                    {
+                        <div class={'dropdown-menu'} v-loading={unref(loading) || unref(switchingNode)}>
                             <div
                                 onClick={($event?: any) => {
                                     (openTask as any)($event);
@@ -331,15 +331,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     ) : null}
                                 </div>
                             ) : null}
-                        </div>,
-                        [[vLoading, unref(loading) || unref(switchingNode)]],
-                    )}
+                        </div>
+                    }
                 </ElPopover>
                 <NodeDrawer
-                    modelValue={unref(nodeDrawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        nodeDrawerVisible.value = $v as any;
-                    }}
+                    v-model={nodeDrawerVisible.value}
                     nodes={unref(nodeOptions)}
                     master-alias={unref(globalStore).getMasterAlias()}
                     onChange={($event?: any) => {

@@ -163,10 +163,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('setting.panelSSL')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -195,15 +192,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <ElForm ref={formRef} label-position="top" model={form} rules={rules}>
+                    {
+                        <ElForm
+                            ref={formRef}
+                            label-position="top"
+                            model={form}
+                            rules={rules}
+                            v-loading={unref(loading)}
+                        >
                             <ElFormItem label={$t('setting.mode')} prop="ssl">
-                                <ElRadioGroup
-                                    modelValue={form.ssl}
-                                    onUpdate:modelValue={($v) => {
-                                        form.ssl = $v as any;
-                                    }}
-                                >
+                                <ElRadioGroup v-model={form.ssl}>
                                     <ElRadioButton value="Enable">{'Strict'}</ElRadioButton>
                                     <ElRadioButton value="Mux">{'Mux'}</ElRadioButton>
                                 </ElRadioGroup>
@@ -215,12 +213,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ) : null}
                             </ElFormItem>
                             <ElFormItem label={$t('setting.certType')}>
-                                <ElRadioGroup
-                                    modelValue={form.sslType}
-                                    onUpdate:modelValue={($v) => {
-                                        form.sslType = $v as any;
-                                    }}
-                                >
+                                <ElRadioGroup v-model={form.sslType}>
                                     <ElRadio value="self">{$t('setting.selfSigned')}</ElRadio>
                                     <ElRadio value="select">{$t('setting.select')}</ElRadio>
                                     <ElRadio value="import">{$t('commons.button.import')}</ElRadio>
@@ -231,12 +224,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                             {form.sslType === 'import' ? (
                                 <ElFormItem label={$t('commons.button.import')} prop="type">
-                                    <ElSelect
-                                        modelValue={form.itemSSLType}
-                                        onUpdate:modelValue={($v) => {
-                                            form.itemSSLType = $v as any;
-                                        }}
-                                    >
+                                    <ElSelect v-model={form.itemSSLType}>
                                         <ElOption label={$t('website.pasteSSL')} value="paste" />
                                         <ElOption label={$t('website.localSSL')} value="local" />
                                     </ElSelect>
@@ -270,24 +258,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {form.sslType === 'import' && form.itemSSLType === 'paste' ? (
                                 <div>
                                     <ElFormItem label={$t('website.privateKey')} prop="key">
-                                        <ElInput
-                                            modelValue={form.key}
-                                            onUpdate:modelValue={($v) => {
-                                                form.key = $v as any;
-                                            }}
-                                            rows={5}
-                                            type="textarea"
-                                        />
+                                        <ElInput v-model={form.key} rows={5} type="textarea" />
                                     </ElFormItem>
                                     <ElFormItem label={$t('website.certificate')} prop="cert" class={'marginTop'}>
-                                        <ElInput
-                                            modelValue={form.cert}
-                                            onUpdate:modelValue={($v) => {
-                                                form.cert = $v as any;
-                                            }}
-                                            rows={5}
-                                            type="textarea"
-                                        />
+                                        <ElInput v-model={form.cert} rows={5} type="textarea" />
                                     </ElFormItem>
                                 </div>
                             ) : null}
@@ -295,10 +269,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <div>
                                     <ElFormItem label={$t('website.privateKey')} prop="key">
                                         <ElInput
-                                            modelValue={form.key}
-                                            onUpdate:modelValue={($v) => {
-                                                form.key = $v as any;
-                                            }}
+                                            v-model={form.key}
                                             v-slots={{
                                                 prepend: () => (
                                                     <>
@@ -315,10 +286,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElFormItem>
                                     <ElFormItem label={$t('website.certificate')} prop="cert" class={'marginTop'}>
                                         <ElInput
-                                            modelValue={form.cert}
-                                            onUpdate:modelValue={($v) => {
-                                                form.cert = $v as any;
-                                            }}
+                                            v-model={form.cert}
                                             v-slots={{
                                                 prepend: () => (
                                                     <>
@@ -339,10 +307,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <div>
                                     <ElFormItem label={$t('setting.certificate')} prop="sslID">
                                         <ElSelect
-                                            modelValue={form.sslID}
-                                            onUpdate:modelValue={($v) => {
-                                                form.sslID = $v as any;
-                                            }}
+                                            v-model={form.sslID}
                                             onChange={($event?: any) => {
                                                 changeSSl(form.sslID);
                                             }}
@@ -376,9 +341,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     ) : null}
                                 </div>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <FileList
                     ref={keyFileRef}

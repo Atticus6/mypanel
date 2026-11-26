@@ -502,152 +502,314 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             loginViewActive = false;
             clearLoginKeydownHandler();
         });
-        return () =>
-            withDirectives(
-                <div class={'flex h-full w-full items-center justify-center px-8'}>
-                    <div class={'login-form flex w-full flex-grow flex-col'}>
-                        {unref(mfaShow) ? (
-                            <div>
-                                <ElForm
-                                    onSubmit={($event?: any) => {
-                                        $event.preventDefault();
-                                    }}
-                                >
-                                    <div class={'mb-6 flex flex-col items-center justify-center'}>
-                                        <div class={'text-center text-2xl font-medium text-gray-900'}>
-                                            {$t('commons.login.mfaTitle')}
-                                        </div>
-                                    </div>
-                                    <div class={'flex-grow space-y-6'}>
-                                        <ElFormItem>
-                                            <ElInput
-                                                ref={mfaLoginRef}
-                                                size="large"
-                                                placeholder={$t('commons.login.mfaCode')}
-                                                modelValue={mfaLoginForm.code}
-                                                onUpdate:modelValue={($v) => {
-                                                    mfaLoginForm.code = typeof $v === 'string' ? $v.trim() : $v;
-                                                }}
-                                                autocomplete="one-time-code"
-                                                onInput={($event?: any) => {
-                                                    mfaLogin(true);
-                                                }}
-                                            />
-                                            <div class={'h-1'}>
-                                                {unref(errMfaInfo) ? (
-                                                    <span class={'input-error'}>
-                                                        {$t('commons.login.errorMfaInfo')}
-                                                    </span>
-                                                ) : null}
-                                            </div>
-                                        </ElFormItem>
-                                        <ElFormItem>
-                                            <ElButton
-                                                onFocus={($event?: any) => {
-                                                    mfaButtonFocused.value = true;
-                                                }}
-                                                onBlur={($event?: any) => {
-                                                    mfaButtonFocused.value = false;
-                                                }}
-                                                type="primary"
-                                                onClick={($event?: any) => {
-                                                    mfaLogin(false);
-                                                }}
-                                                class={'login-button w-full'}
-                                            >
-                                                {$t('commons.button.verify')}
-                                            </ElButton>
-                                        </ElFormItem>
-                                    </div>
-                                </ElForm>
-                            </div>
-                        ) : unref(showPasskeyOnly) ? (
-                            <div>
-                                <div class={'mb-6 flex items-center justify-between'}>
-                                    <div class={'text-2xl font-medium text-gray-900'}>{$t('commons.button.login')}</div>
-                                    <div class={'cursor-pointer'}>
-                                        <ElDropdown
-                                            onCommand={($event?: any) => {
-                                                (handleCommand as any)($event);
-                                            }}
-                                            v-slots={{
-                                                dropdown: () => (
-                                                    <>
-                                                        <ElDropdownMenu>
-                                                            {unref(isIntl) ? (
-                                                                <ElDropdownItem command="en">
-                                                                    {'English'}
-                                                                </ElDropdownItem>
-                                                            ) : null}
-                                                            <ElDropdownItem command="zh">{'中文(简体)'}</ElDropdownItem>
-                                                            <ElDropdownItem command="zh-Hant">
-                                                                {'中文(繁體)'}
-                                                            </ElDropdownItem>
-                                                            {!unref(isIntl) ? (
-                                                                <ElDropdownItem command="en">
-                                                                    {'English'}
-                                                                </ElDropdownItem>
-                                                            ) : null}
-                                                            <ElDropdownItem command="ja">{'日本語'}</ElDropdownItem>
-                                                            <ElDropdownItem command="pt-BR">
-                                                                {'Português (Brasil)'}
-                                                            </ElDropdownItem>
-                                                            <ElDropdownItem command="ko">{'한국어'}</ElDropdownItem>
-                                                            <ElDropdownItem command="ru">{'Русский'}</ElDropdownItem>
-                                                            <ElDropdownItem command="ms">
-                                                                {'Bahasa Melayu'}
-                                                            </ElDropdownItem>
-                                                            <ElDropdownItem command="tr">{'Turkish'}</ElDropdownItem>
-                                                            <ElDropdownItem command="fa">{'فارسی'}</ElDropdownItem>
-                                                            <ElDropdownItem command="lo">{'ພາສາລາວ'}</ElDropdownItem>
-                                                        </ElDropdownMenu>
-                                                    </>
-                                                ),
-                                            }}
-                                        >
-                                            <span class={'flex items-center space-x-1'}>
-                                                {unref(dropdownText)}
-                                                <ElIcon>
-                                                    <ArrowDown />
-                                                </ElIcon>
-                                            </span>
-                                        </ElDropdown>
+        return () => (
+            <div class={'flex h-full w-full items-center justify-center px-8'} v-loading={unref(loading)}>
+                <div class={'login-form flex w-full flex-grow flex-col'}>
+                    {unref(mfaShow) ? (
+                        <div>
+                            <ElForm
+                                onSubmit={($event?: any) => {
+                                    $event.preventDefault();
+                                }}
+                            >
+                                <div class={'mb-6 flex flex-col items-center justify-center'}>
+                                    <div class={'text-center text-2xl font-medium text-gray-900'}>
+                                        {$t('commons.login.mfaTitle')}
                                     </div>
                                 </div>
-                                <div class={'space-y-6'}>
+                                <div class={'flex-grow space-y-6'}>
+                                    <ElFormItem>
+                                        <ElInput
+                                            ref={mfaLoginRef}
+                                            size="large"
+                                            placeholder={$t('commons.login.mfaCode')}
+                                            modelValue={mfaLoginForm.code}
+                                            onUpdate:modelValue={($v) => {
+                                                mfaLoginForm.code = typeof $v === 'string' ? $v.trim() : $v;
+                                            }}
+                                            autocomplete="one-time-code"
+                                            onInput={($event?: any) => {
+                                                mfaLogin(true);
+                                            }}
+                                        />
+                                        <div class={'h-1'}>
+                                            {unref(errMfaInfo) ? (
+                                                <span class={'input-error'}>{$t('commons.login.errorMfaInfo')}</span>
+                                            ) : null}
+                                        </div>
+                                    </ElFormItem>
                                     <ElFormItem>
                                         <ElButton
+                                            onFocus={($event?: any) => {
+                                                mfaButtonFocused.value = true;
+                                            }}
+                                            onBlur={($event?: any) => {
+                                                mfaButtonFocused.value = false;
+                                            }}
                                             type="primary"
-                                            size="default"
                                             onClick={($event?: any) => {
-                                                (passkeyLogin as any)($event);
+                                                mfaLogin(false);
                                             }}
                                             class={'login-button w-full'}
                                         >
-                                            <ElIcon class={'mr-2'}>
-                                                <Key />
-                                            </ElIcon>
-                                            {$t('commons.login.passkey')}
+                                            {$t('commons.button.verify')}
                                         </ElButton>
                                     </ElFormItem>
+                                </div>
+                            </ElForm>
+                        </div>
+                    ) : unref(showPasskeyOnly) ? (
+                        <div>
+                            <div class={'mb-6 flex items-center justify-between'}>
+                                <div class={'text-2xl font-medium text-gray-900'}>{$t('commons.button.login')}</div>
+                                <div class={'cursor-pointer'}>
+                                    <ElDropdown
+                                        onCommand={($event?: any) => {
+                                            (handleCommand as any)($event);
+                                        }}
+                                        v-slots={{
+                                            dropdown: () => (
+                                                <>
+                                                    <ElDropdownMenu>
+                                                        {unref(isIntl) ? (
+                                                            <ElDropdownItem command="en">{'English'}</ElDropdownItem>
+                                                        ) : null}
+                                                        <ElDropdownItem command="zh">{'中文(简体)'}</ElDropdownItem>
+                                                        <ElDropdownItem command="zh-Hant">
+                                                            {'中文(繁體)'}
+                                                        </ElDropdownItem>
+                                                        {!unref(isIntl) ? (
+                                                            <ElDropdownItem command="en">{'English'}</ElDropdownItem>
+                                                        ) : null}
+                                                        <ElDropdownItem command="ja">{'日本語'}</ElDropdownItem>
+                                                        <ElDropdownItem command="pt-BR">
+                                                            {'Português (Brasil)'}
+                                                        </ElDropdownItem>
+                                                        <ElDropdownItem command="ko">{'한국어'}</ElDropdownItem>
+                                                        <ElDropdownItem command="ru">{'Русский'}</ElDropdownItem>
+                                                        <ElDropdownItem command="ms">{'Bahasa Melayu'}</ElDropdownItem>
+                                                        <ElDropdownItem command="tr">{'Turkish'}</ElDropdownItem>
+                                                        <ElDropdownItem command="fa">{'فارسی'}</ElDropdownItem>
+                                                        <ElDropdownItem command="lo">{'ພາສາລາວ'}</ElDropdownItem>
+                                                    </ElDropdownMenu>
+                                                </>
+                                            ),
+                                        }}
+                                    >
+                                        <span class={'flex items-center space-x-1'}>
+                                            {unref(dropdownText)}
+                                            <ElIcon>
+                                                <ArrowDown />
+                                            </ElIcon>
+                                        </span>
+                                    </ElDropdown>
+                                </div>
+                            </div>
+                            <div class={'space-y-6'}>
+                                <ElFormItem>
+                                    <ElButton
+                                        type="primary"
+                                        size="default"
+                                        onClick={($event?: any) => {
+                                            (passkeyLogin as any)($event);
+                                        }}
+                                        class={'login-button w-full'}
+                                    >
+                                        <ElIcon class={'mr-2'}>
+                                            <Key />
+                                        </ElIcon>
+                                        {$t('commons.login.passkey')}
+                                    </ElButton>
+                                </ElFormItem>
+                                <ElFormItem>
+                                    <ElLink
+                                        type="primary"
+                                        underline={false}
+                                        onClick={($event?: any) => {
+                                            (switchToPasswordLogin as any)($event);
+                                        }}
+                                    >
+                                        {$t('commons.login.passkeyToPassword')}
+                                    </ElLink>
+                                </ElFormItem>
+                                {!unref(loginSettingsLoading) && unref(requireCommunityLicense) ? (
                                     <ElFormItem>
-                                        <ElLink
-                                            type="primary"
-                                            underline={false}
-                                            onClick={($event?: any) => {
-                                                (switchToPasswordLogin as any)($event);
+                                        <ElCheckbox
+                                            v-model={loginForm.agreeLicense}
+                                            v-slots={{
+                                                default: () => (
+                                                    <>
+                                                        <span class={'agree-title'}>
+                                                            {$t('commons.button.agree')}
+                                                            <a
+                                                                href="https://www.fit2cloud.com/legal/licenses.html"
+                                                                target="_blank"
+                                                                class={'agree'}
+                                                            >
+                                                                {$t('commons.login.licenseHelper')}
+                                                            </a>
+                                                        </span>
+                                                    </>
+                                                ),
                                             }}
-                                        >
-                                            {$t('commons.login.passkeyToPassword')}
-                                        </ElLink>
+                                        />
                                     </ElFormItem>
+                                ) : null}
+                            </div>
+                        </div>
+                    ) : (
+                        <div>
+                            <div class={'mb-6 flex items-center justify-between'}>
+                                <div class={'text-2xl font-medium text-gray-900'}>{$t('commons.button.login')}</div>
+                                <div class={'cursor-pointer'}>
+                                    <ElDropdown
+                                        onCommand={($event?: any) => {
+                                            (handleCommand as any)($event);
+                                        }}
+                                        v-slots={{
+                                            dropdown: () => (
+                                                <>
+                                                    <ElDropdownMenu>
+                                                        {unref(isIntl) ? (
+                                                            <ElDropdownItem command="en">{'English'}</ElDropdownItem>
+                                                        ) : null}
+                                                        <ElDropdownItem command="zh">{'中文(简体)'}</ElDropdownItem>
+                                                        <ElDropdownItem command="zh-Hant">
+                                                            {'中文(繁體)'}
+                                                        </ElDropdownItem>
+                                                        {!unref(isIntl) ? (
+                                                            <ElDropdownItem command="en">{'English'}</ElDropdownItem>
+                                                        ) : null}
+                                                        <ElDropdownItem command="ja">{'日本語'}</ElDropdownItem>
+                                                        <ElDropdownItem command="pt-BR">
+                                                            {'Português (Brasil)'}
+                                                        </ElDropdownItem>
+                                                        <ElDropdownItem command="ko">{'한국어'}</ElDropdownItem>
+                                                        <ElDropdownItem command="ru">{'Русский'}</ElDropdownItem>
+                                                        <ElDropdownItem command="ms">{'Bahasa Melayu'}</ElDropdownItem>
+                                                        <ElDropdownItem command="tr">{'Turkish'}</ElDropdownItem>
+                                                        <ElDropdownItem command="fa">{'فارسی'}</ElDropdownItem>
+                                                        <ElDropdownItem command="lo">{'ພາສາລາວ'}</ElDropdownItem>
+                                                    </ElDropdownMenu>
+                                                </>
+                                            ),
+                                        }}
+                                    >
+                                        <span class={'flex items-center space-x-1'}>
+                                            {unref(dropdownText)}
+                                            <ElIcon>
+                                                <ArrowDown />
+                                            </ElIcon>
+                                        </span>
+                                    </ElDropdown>
+                                </div>
+                            </div>
+                            <ElForm ref={loginFormRef} model={loginForm} size="default" rules={loginRules}>
+                                <div class={'flex-grow space-y-6'}>
+                                    <ElFormItem prop="name" class={'w-full'}>
+                                        <ElInput
+                                            modelValue={loginForm.name}
+                                            onUpdate:modelValue={($v) => {
+                                                loginForm.name = typeof $v === 'string' ? $v.trim() : $v;
+                                            }}
+                                            placeholder={$t('commons.login.username')}
+                                            size="large"
+                                            name="username"
+                                            autocomplete="username"
+                                            ref={userNameRef}
+                                            class={'w-full'}
+                                        />
+                                    </ElFormItem>
+                                    <ElFormItem prop="password" class={'w-full'}>
+                                        <ElInput
+                                            type="password"
+                                            show-password
+                                            modelValue={loginForm.password}
+                                            onUpdate:modelValue={($v) => {
+                                                loginForm.password = typeof $v === 'string' ? $v.trim() : $v;
+                                            }}
+                                            size="large"
+                                            placeholder={$t('commons.login.password')}
+                                            name="password"
+                                            autocomplete="current-password"
+                                            class={'w-full'}
+                                        />
+                                    </ElFormItem>
+                                    <ElRow gutter={10}>
+                                        {!unref(ignoreCaptcha) ? (
+                                            <ElCol span={12}>
+                                                <ElFormItem prop="captcha">
+                                                    <ElInput
+                                                        modelValue={loginForm.captcha}
+                                                        onUpdate:modelValue={($v) => {
+                                                            loginForm.captcha = typeof $v === 'string' ? $v.trim() : $v;
+                                                        }}
+                                                        size="large"
+                                                        placeholder={$t('commons.login.captchaHelper')}
+                                                    />
+                                                </ElFormItem>
+                                            </ElCol>
+                                        ) : null}
+                                        {!unref(ignoreCaptcha) ? (
+                                            <ElCol span={12}>
+                                                {captcha.imagePath ? (
+                                                    <img
+                                                        src={captcha.imagePath}
+                                                        alt={$t('commons.login.captchaHelper')}
+                                                        onClick={($event?: any) => {
+                                                            loginVerify();
+                                                        }}
+                                                        class={'h-10 w-full'}
+                                                    />
+                                                ) : null}
+                                            </ElCol>
+                                        ) : null}
+                                        <ElCol span={24} class={'h-0.5'}>
+                                            <span
+                                                class={'input-error'}
+                                                style={[{}, { display: unref(errCaptcha) ? '' : 'none' }]}
+                                            >
+                                                {$t('commons.login.errorCaptcha')}
+                                            </span>
+                                            <span
+                                                class={'input-error'}
+                                                style={[{}, { display: unref(errAuthInfo) ? '' : 'none' }]}
+                                            >
+                                                {$t('commons.login.errorAuthInfo')}
+                                            </span>
+                                        </ElCol>
+                                    </ElRow>
+                                    <ElFormItem>
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                login(unref(loginFormRef));
+                                            }}
+                                            onFocus={($event?: any) => {
+                                                loginButtonFocused.value = true;
+                                            }}
+                                            onBlur={($event?: any) => {
+                                                loginButtonFocused.value = false;
+                                            }}
+                                            type="primary"
+                                            size="default"
+                                            disabled={unref(loginSettingsLoading)}
+                                            class={'login-button w-full'}
+                                        >
+                                            {$t('commons.button.login')}
+                                        </ElButton>
+                                    </ElFormItem>
+                                    {unref(isDemo) ? (
+                                        <ElText type="danger" class={'demo'}>
+                                            {$t('commons.login.username')}
+                                            {':demo '}
+                                            {$t('commons.login.password')}
+                                            {':1panel '}
+                                        </ElText>
+                                    ) : null}
                                     {!unref(loginSettingsLoading) && unref(requireCommunityLicense) ? (
-                                        <ElFormItem>
+                                        <ElFormItem prop="agreeLicense">
                                             <ElCheckbox
-                                                modelValue={loginForm.agreeLicense}
-                                                onUpdate:modelValue={($v) => {
-                                                    loginForm.agreeLicense = $v as any;
-                                                }}
+                                                v-model={loginForm.agreeLicense}
                                                 v-slots={{
                                                     default: () => (
                                                         <>
@@ -668,235 +830,47 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </ElFormItem>
                                     ) : null}
                                 </div>
-                            </div>
-                        ) : (
-                            <div>
-                                <div class={'mb-6 flex items-center justify-between'}>
-                                    <div class={'text-2xl font-medium text-gray-900'}>{$t('commons.button.login')}</div>
-                                    <div class={'cursor-pointer'}>
-                                        <ElDropdown
-                                            onCommand={($event?: any) => {
-                                                (handleCommand as any)($event);
-                                            }}
-                                            v-slots={{
-                                                dropdown: () => (
-                                                    <>
-                                                        <ElDropdownMenu>
-                                                            {unref(isIntl) ? (
-                                                                <ElDropdownItem command="en">
-                                                                    {'English'}
-                                                                </ElDropdownItem>
-                                                            ) : null}
-                                                            <ElDropdownItem command="zh">{'中文(简体)'}</ElDropdownItem>
-                                                            <ElDropdownItem command="zh-Hant">
-                                                                {'中文(繁體)'}
-                                                            </ElDropdownItem>
-                                                            {!unref(isIntl) ? (
-                                                                <ElDropdownItem command="en">
-                                                                    {'English'}
-                                                                </ElDropdownItem>
-                                                            ) : null}
-                                                            <ElDropdownItem command="ja">{'日本語'}</ElDropdownItem>
-                                                            <ElDropdownItem command="pt-BR">
-                                                                {'Português (Brasil)'}
-                                                            </ElDropdownItem>
-                                                            <ElDropdownItem command="ko">{'한국어'}</ElDropdownItem>
-                                                            <ElDropdownItem command="ru">{'Русский'}</ElDropdownItem>
-                                                            <ElDropdownItem command="ms">
-                                                                {'Bahasa Melayu'}
-                                                            </ElDropdownItem>
-                                                            <ElDropdownItem command="tr">{'Turkish'}</ElDropdownItem>
-                                                            <ElDropdownItem command="fa">{'فارسی'}</ElDropdownItem>
-                                                            <ElDropdownItem command="lo">{'ພາສາລາວ'}</ElDropdownItem>
-                                                        </ElDropdownMenu>
-                                                    </>
-                                                ),
+                            </ElForm>
+                        </div>
+                    )}
+                    <DialogPro
+                        v-model={open.value}
+                        center
+                        size="w-90"
+                        v-slots={{
+                            footer: () => (
+                                <>
+                                    <span class={'dialog-footer login-footer-btn'}>
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                open.value = false;
                                             }}
                                         >
-                                            <span class={'flex items-center space-x-1'}>
-                                                {unref(dropdownText)}
-                                                <ElIcon>
-                                                    <ArrowDown />
-                                                </ElIcon>
-                                            </span>
-                                        </ElDropdown>
-                                    </div>
-                                </div>
-                                <ElForm ref={loginFormRef} model={loginForm} size="default" rules={loginRules}>
-                                    <div class={'flex-grow space-y-6'}>
-                                        <ElFormItem prop="name" class={'w-full'}>
-                                            <ElInput
-                                                modelValue={loginForm.name}
-                                                onUpdate:modelValue={($v) => {
-                                                    loginForm.name = typeof $v === 'string' ? $v.trim() : $v;
-                                                }}
-                                                placeholder={$t('commons.login.username')}
-                                                size="large"
-                                                name="username"
-                                                autocomplete="username"
-                                                ref={userNameRef}
-                                                class={'w-full'}
-                                            />
-                                        </ElFormItem>
-                                        <ElFormItem prop="password" class={'w-full'}>
-                                            <ElInput
-                                                type="password"
-                                                show-password
-                                                modelValue={loginForm.password}
-                                                onUpdate:modelValue={($v) => {
-                                                    loginForm.password = typeof $v === 'string' ? $v.trim() : $v;
-                                                }}
-                                                size="large"
-                                                placeholder={$t('commons.login.password')}
-                                                name="password"
-                                                autocomplete="current-password"
-                                                class={'w-full'}
-                                            />
-                                        </ElFormItem>
-                                        <ElRow gutter={10}>
-                                            {!unref(ignoreCaptcha) ? (
-                                                <ElCol span={12}>
-                                                    <ElFormItem prop="captcha">
-                                                        <ElInput
-                                                            modelValue={loginForm.captcha}
-                                                            onUpdate:modelValue={($v) => {
-                                                                loginForm.captcha =
-                                                                    typeof $v === 'string' ? $v.trim() : $v;
-                                                            }}
-                                                            size="large"
-                                                            placeholder={$t('commons.login.captchaHelper')}
-                                                        />
-                                                    </ElFormItem>
-                                                </ElCol>
-                                            ) : null}
-                                            {!unref(ignoreCaptcha) ? (
-                                                <ElCol span={12}>
-                                                    {captcha.imagePath ? (
-                                                        <img
-                                                            src={captcha.imagePath}
-                                                            alt={$t('commons.login.captchaHelper')}
-                                                            onClick={($event?: any) => {
-                                                                loginVerify();
-                                                            }}
-                                                            class={'h-10 w-full'}
-                                                        />
-                                                    ) : null}
-                                                </ElCol>
-                                            ) : null}
-                                            <ElCol span={24} class={'h-0.5'}>
-                                                <span
-                                                    class={'input-error'}
-                                                    style={[{}, { display: unref(errCaptcha) ? '' : 'none' }]}
-                                                >
-                                                    {$t('commons.login.errorCaptcha')}
-                                                </span>
-                                                <span
-                                                    class={'input-error'}
-                                                    style={[{}, { display: unref(errAuthInfo) ? '' : 'none' }]}
-                                                >
-                                                    {$t('commons.login.errorAuthInfo')}
-                                                </span>
-                                            </ElCol>
-                                        </ElRow>
-                                        <ElFormItem>
-                                            <ElButton
-                                                onClick={($event?: any) => {
-                                                    login(unref(loginFormRef));
-                                                }}
-                                                onFocus={($event?: any) => {
-                                                    loginButtonFocused.value = true;
-                                                }}
-                                                onBlur={($event?: any) => {
-                                                    loginButtonFocused.value = false;
-                                                }}
-                                                type="primary"
-                                                size="default"
-                                                disabled={unref(loginSettingsLoading)}
-                                                class={'login-button w-full'}
-                                            >
-                                                {$t('commons.button.login')}
-                                            </ElButton>
-                                        </ElFormItem>
-                                        {unref(isDemo) ? (
-                                            <ElText type="danger" class={'demo'}>
-                                                {$t('commons.login.username')}
-                                                {':demo '}
-                                                {$t('commons.login.password')}
-                                                {':1panel '}
-                                            </ElText>
-                                        ) : null}
-                                        {!unref(loginSettingsLoading) && unref(requireCommunityLicense) ? (
-                                            <ElFormItem prop="agreeLicense">
-                                                <ElCheckbox
-                                                    modelValue={loginForm.agreeLicense}
-                                                    onUpdate:modelValue={($v) => {
-                                                        loginForm.agreeLicense = $v as any;
-                                                    }}
-                                                    v-slots={{
-                                                        default: () => (
-                                                            <>
-                                                                <span class={'agree-title'}>
-                                                                    {$t('commons.button.agree')}
-                                                                    <a
-                                                                        href="https://www.fit2cloud.com/legal/licenses.html"
-                                                                        target="_blank"
-                                                                        class={'agree'}
-                                                                    >
-                                                                        {$t('commons.login.licenseHelper')}
-                                                                    </a>
-                                                                </span>
-                                                            </>
-                                                        ),
-                                                    }}
-                                                />
-                                            </ElFormItem>
-                                        ) : null}
-                                    </div>
-                                </ElForm>
-                            </div>
-                        )}
-                        <DialogPro
-                            modelValue={unref(open)}
-                            onUpdate:modelValue={($v) => {
-                                open.value = $v as any;
-                            }}
-                            center
-                            size="w-90"
-                            v-slots={{
-                                footer: () => (
-                                    <>
-                                        <span class={'dialog-footer login-footer-btn'}>
-                                            <ElButton
-                                                onClick={($event?: any) => {
-                                                    open.value = false;
-                                                }}
-                                            >
-                                                {$t('commons.button.notAgree')}
-                                            </ElButton>
-                                            <ElButton
-                                                type="primary"
-                                                onClick={($event?: any) => {
-                                                    agreeWithLogin();
-                                                }}
-                                            >
-                                                {$t('commons.button.agree')}
-                                            </ElButton>
-                                        </span>
-                                    </>
-                                ),
-                            }}
-                        >
-                            <ElRow type="flex" justify="center">
-                                <span class={'mb-4 text-base'}>{$t('commons.login.agreeTitle')}</span>
-                            </ElRow>
-                            <div>
-                                <span innerHTML={$t('commons.login.agreeContent')} />
-                            </div>
-                        </DialogPro>
-                    </div>
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                                            {$t('commons.button.notAgree')}
+                                        </ElButton>
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                agreeWithLogin();
+                                            }}
+                                        >
+                                            {$t('commons.button.agree')}
+                                        </ElButton>
+                                    </span>
+                                </>
+                            ),
+                        }}
+                    >
+                        <ElRow type="flex" justify="center">
+                            <span class={'mb-4 text-base'}>{$t('commons.login.agreeTitle')}</span>
+                        </ElRow>
+                        <div>
+                            <span innerHTML={$t('commons.login.agreeContent')} />
+                        </div>
+                    </DialogPro>
+                </div>
+            </div>
+        );
     },
     options,
 );

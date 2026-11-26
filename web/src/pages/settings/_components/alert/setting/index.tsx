@@ -25,7 +25,6 @@ import AlertDrawer from '@/pages/settings/_components/alert/setting/drawer/index
 import { formatCustomWebhookDetails, formatCustomWebhookSafeSummary } from './drawer/custom-webhook';
 import { getAlertConfigDisplayName, rawSecretValue } from './drawer/secret-field';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
@@ -388,7 +387,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('commons.button.set')}
                         divider={true}
@@ -397,7 +396,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <>
                                     <div class={'flex items-center justify-between'}>
                                         <span>{$t('xpack.alert.commonConfig')}</span>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 plain
                                                 round
@@ -405,11 +404,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onClick={($event?: any) => {
                                                     onChangeCommon(unref(commonConfig).id);
                                                 }}
+                                                v-permission={true}
                                             >
                                                 {$t('commons.button.edit')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </div>
                                 </>
                             ),
@@ -434,21 +433,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 {!unref(isMaster) ? (
                                                     <div>
                                                         <ElFormItem label={$t('xpack.alert.offline')} prop="isOffline">
-                                                            {withDirectives(
+                                                            {
                                                                 <ElSwitch
                                                                     onChange={($event?: any) => {
                                                                         (onChangeOffline as any)($event);
                                                                     }}
-                                                                    modelValue={unref(commonConfig).config.isOffline}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        unref(commonConfig).config.isOffline =
-                                                                            $v as any;
-                                                                    }}
+                                                                    v-model={unref(commonConfig).config.isOffline}
                                                                     active-value="Enable"
                                                                     inactive-value="Disable"
-                                                                />,
-                                                                [[permissionDirective, true]],
-                                                            )}
+                                                                    v-permission={true}
+                                                                />
+                                                            }
                                                             <span class={'input-help'}>
                                                                 {$t('xpack.alert.offlineHelper')}
                                                             </span>
@@ -461,27 +456,27 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
-                {withDirectives(
+                        v-loading={unref(loading)}
+                    />
+                }
+                {
                     <LayoutContent
                         title={$t('xpack.alert.methodConfig')}
                         divider={true}
                         v-slots={{
                             leftToolBar: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 (onCreate as any)($event);
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('xpack.alert.createMethod')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </>
                             ),
                             main: () => (
@@ -606,10 +601,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 default: ({ row }) => (
                                                     <>
                                                         <ElSwitch
-                                                            modelValue={row.status}
-                                                            onUpdate:modelValue={($v) => {
-                                                                row.status = $v as any;
-                                                            }}
+                                                            v-model={row.status}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                             disabled={isStatusChangeDisabled(row)}
@@ -647,9 +639,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <AlertDrawer
                     ref={alertDrawerRef}
                     onSearch={($event?: any) => {

@@ -26,7 +26,6 @@ import { routerToFileWithPath, routerToNameWithQuery } from '@/utils/router';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { useOperateNodeContext } from '@/composables/useOperateNodeContext';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import FuTablePagination from '@/components/table/TablePagination';
@@ -426,7 +425,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={unref(activeName)}
                         v-slots={{
@@ -453,20 +452,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {$t('commons.button.refresh')}
                                         </ElButton>
                                     ) : null}
-                                    {unref(mode) === 'installed' && !unref(sortMode) && unref(data) != null
-                                        ? withDirectives(
-                                              <ElButton
-                                                  onClick={($event?: any) => {
-                                                      (enterSortMode as any)($event);
-                                                  }}
-                                                  type="primary"
-                                                  plain
-                                              >
-                                                  {$t('app.sortMode')}
-                                              </ElButton>,
-                                              [[permissionDirective, true]],
-                                          )
-                                        : null}
+                                    {unref(mode) === 'installed' && !unref(sortMode) && unref(data) != null ? (
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                (enterSortMode as any)($event);
+                                            }}
+                                            type="primary"
+                                            plain
+                                            v-permission={true}
+                                        >
+                                            {$t('app.sortMode')}
+                                        </ElButton>
+                                    ) : null}
                                     {unref(sortMode) ? (
                                         <ElButton
                                             onClick={($event?: any) => {
@@ -622,7 +619,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             >
                                                                                 {(buttons || []).map((button, key) => (
                                                                                     <>
-                                                                                        {withDirectives(
+                                                                                        {
                                                                                             <ElButton
                                                                                                 type={
                                                                                                     button.disabled &&
@@ -649,16 +646,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                     )
                                                                                                 }
                                                                                                 class={'app-button'}
+                                                                                                v-permission={true}
                                                                                             >
                                                                                                 {button.label}
-                                                                                            </ElButton>,
-                                                                                            [
-                                                                                                [
-                                                                                                    permissionDirective,
-                                                                                                    true,
-                                                                                                ],
-                                                                                            ],
-                                                                                        )}
+                                                                                            </ElButton>
+                                                                                        }
                                                                                     </>
                                                                                 ))}
                                                                             </div>
@@ -694,9 +686,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading) || unref(syncLoading)]],
-                )}
+                        v-loading={unref(loading) || unref(syncLoading)}
+                    />
+                }
                 <Backups ref={backupRef} />
                 <Uploads ref={uploadRef} />
                 <AppResources

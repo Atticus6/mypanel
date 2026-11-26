@@ -212,10 +212,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.menuSetting')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -264,10 +261,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onChange={($event?: any) => {
                                     onSaveSetting('MenuAccordion', form.menuAccordion);
                                 }}
-                                modelValue={form.menuAccordion}
-                                onUpdate:modelValue={($v) => {
-                                    form.menuAccordion = $v as any;
-                                }}
+                                v-model={form.menuAccordion}
                             >
                                 <ElRadioButton value="Enable">
                                     <span>{$t('commons.button.enable')}</span>
@@ -305,10 +299,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <span class={'flex w-[60px] justify-center'}>
                                                 {!data.disabled ? (
                                                     <ElSwitch
-                                                        modelValue={data.isShow}
-                                                        onUpdate:modelValue={($v) => {
-                                                            data.isShow = $v as any;
-                                                        }}
+                                                        v-model={data.isShow}
                                                         onChange={($event?: any) => {
                                                             onChangeShow(data);
                                                         }}

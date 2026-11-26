@@ -21,7 +21,6 @@ import { useOperateNodeContext } from '@/composables/useOperateNodeContext';
 import TaskLog from '@/components/log/task/index';
 import { newUUID } from '@/utils/id';
 import { Rules } from '@/global/form-rules';
-import permissionDirective from '@/directives/modules/permission';
 import RouterButton from '@/components/router-button/index';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
@@ -373,76 +372,76 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     v-slots={{
                         leftToolBar: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             openSSL();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('ssl.create')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             openUpload();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('ssl.upload')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         type="primary"
                                         plain
                                         onClick={($event?: any) => {
                                             openCA();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('ssl.selfSigned')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         type="primary"
                                         plain
                                         onClick={($event?: any) => {
                                             openAcmeAccount();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('website.acmeAccountManage')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         type="primary"
                                         plain
                                         onClick={($event?: any) => {
                                             openDnsAccount();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('website.dnsAccountManage')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                                {withDirectives(
+                                    </ElButton>
+                                }
+                                {
                                     <ElButton
                                         plain
                                         onClick={($event?: any) => {
                                             deletessl(null);
                                         }}
                                         disabled={unref(selects).length === 0}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.delete')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                         rightToolBar: () => (
@@ -472,7 +471,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                         main: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ComplexTable
                                         data={unref(data)}
                                         cache-pagination={false}
@@ -490,6 +489,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onSortChange={($event?: any) => {
                                             (changeSort as any)($event);
                                         }}
+                                        v-loading={unref(loading)}
                                     >
                                         <ElTableColumn type="selection" width="30" />
                                         <ElTableColumn label="ID" prop="id" width="50px" />
@@ -610,7 +610,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             v-slots={{
                                                 default: ({ row }) => (
                                                     <>
-                                                        {withDirectives(
+                                                        {
                                                             <FuReadWriteSwitch
                                                                 v-slots={{
                                                                     read: () => (
@@ -624,10 +624,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     default: ({ read }) => (
                                                                         <>
                                                                             <ElInput
-                                                                                modelValue={row.description}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    row.description = $v as any;
-                                                                                }}
+                                                                                v-model={row.description}
                                                                                 onBlur={($event?: any) => {
                                                                                     updateDesc(row, read);
                                                                                 }}
@@ -635,9 +632,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         </>
                                                                     ),
                                                                 }}
-                                                            />,
-                                                            [[permissionDirective, true]],
-                                                        )}
+                                                                v-permission={true}
+                                                            />
+                                                        }
                                                     </>
                                                 ),
                                             }}
@@ -649,23 +646,20 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             v-slots={{
                                                 default: ({ row }) => (
                                                     <>
-                                                        {withDirectives(
+                                                        {
                                                             <ElSwitch
                                                                 disabled={
                                                                     row.provider === 'dnsManual' ||
                                                                     row.provider === 'manual' ||
                                                                     row.provider === 'fromMaster'
                                                                 }
-                                                                modelValue={row.autoRenew}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    row.autoRenew = $v as any;
-                                                                }}
+                                                                v-model={row.autoRenew}
                                                                 onChange={($event?: any) => {
                                                                     updateConfig(row);
                                                                 }}
-                                                            />,
-                                                            [[permissionDirective, true]],
-                                                        )}
+                                                                v-permission={true}
+                                                            />
+                                                        }
                                                     </>
                                                 ),
                                             }}
@@ -686,9 +680,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             width="320px"
                                             fix
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </>
                         ),
                     }}
@@ -744,10 +737,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         }}
                     />
                     <DrawerPro
-                        modelValue={unref(pushOpen)}
-                        onUpdate:modelValue={($v) => {
-                            pushOpen.value = $v as any;
-                        }}
+                        v-model={pushOpen.value}
                         header={$t('commons.button.sync')}
                         size="large"
                         onClose={($event?: any) => {
@@ -765,29 +755,30 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         >
                                             {$t('commons.button.cancel')}
                                         </ElButton>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 type="primary"
                                                 onClick={($event?: any) => {
                                                     (submitPush as any)($event);
                                                 }}
                                                 disabled={unref(pushLoading)}
+                                                v-permission={'website_cert_manage'}
                                             >
                                                 {$t('commons.button.confirm')}
-                                            </ElButton>,
-                                            [[permissionDirective, 'website_cert_manage']],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </span>
                                 </>
                             ),
                         }}
                     >
-                        {withDirectives(
+                        {
                             <ElForm
                                 ref={pushFormRef}
                                 label-position="top"
                                 model={unref(pushForm)}
                                 rules={unref(pushRules)}
+                                v-loading={unref(pushLoading)}
                             >
                                 {unref(isMaster) && unref(isXpackOrEE) ? (
                                     <PushToNode
@@ -802,9 +793,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         }}
                                     />
                                 ) : null}
-                            </ElForm>,
-                            [[vLoading, unref(pushLoading)]],
-                        )}
+                            </ElForm>
+                        }
                     </DrawerPro>
                     <TaskLog
                         ref={taskLogRef}

@@ -92,10 +92,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('ssh.permitRootLogin')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -126,7 +123,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -134,24 +131,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('ssh.permitRootLogin')} prop="permitRootLogin">
-                            <ElSelect
-                                modelValue={form.permitRootLogin}
-                                onUpdate:modelValue={($v) => {
-                                    form.permitRootLogin = $v as any;
-                                }}
-                                style={'width: 100%'}
-                            >
+                            <ElSelect v-model={form.permitRootLogin} style={'width: 100%'}>
                                 <ElOption label={$t('ssh.rootHelper1')} value="yes" />
                                 <ElOption label={$t('ssh.rootHelper2')} value="no" />
                                 <ElOption label={$t('ssh.rootHelper3')} value="without-password" />
                                 <ElOption label={$t('ssh.rootHelper4')} value="forced-commands-only" />
                             </ElSelect>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

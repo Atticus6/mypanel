@@ -93,10 +93,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('commons.button.delete')}
                 size="w-60"
                 class={'file-delete-dialog'}
@@ -127,8 +124,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <div>
+                {
+                    <div v-loading={unref(loading)}>
                         <ElRow>
                             <ElCol span={22} offset={1}>
                                 <ElAlert
@@ -147,13 +144,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElAlert>
                                 {unref(recycleStatus) === 'Enable' ? (
                                     <div class={'mt-4'}>
-                                        <ElCheckbox
-                                            modelValue={unref(forceDelete)}
-                                            onUpdate:modelValue={($v) => {
-                                                forceDelete.value = $v as any;
-                                            }}
-                                            class={'force-delete'}
-                                        >
+                                        <ElCheckbox v-model={forceDelete.value} class={'force-delete'}>
                                             <span>{$t('file.forceDeleteHelper')}</span>
                                         </ElCheckbox>
                                     </div>
@@ -177,9 +168,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </div>
                             </ElCol>
                         </ElRow>
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DialogPro>
         );
     },

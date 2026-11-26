@@ -87,10 +87,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.imagePush')}
                     onClose={($event?: any) => {
                         (onCloseLog as any)($event);
@@ -124,10 +121,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElFormItem label={$t('container.tag')} rules={Rules.requiredSelect} prop="tagName">
                             <ElSelect
                                 filterable
-                                modelValue={form.tagName}
-                                onUpdate:modelValue={($v) => {
-                                    form.tagName = $v as any;
-                                }}
+                                v-model={form.tagName}
                                 onChange={($event?: any) => {
                                     (handleChange as any)($event);
                                 }}
@@ -141,10 +135,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElSelect
                                 clearable
                                 filterable
-                                modelValue={form.repoID}
-                                onUpdate:modelValue={($v) => {
-                                    form.repoID = $v as any;
-                                }}
+                                v-model={form.repoID}
                                 onChange={($event?: any) => {
                                     (handleChange as any)($event);
                                 }}

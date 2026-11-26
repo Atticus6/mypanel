@@ -8,8 +8,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import TableRefresh from '@/components/table/TableRefresh';
@@ -124,7 +122,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('ssh.loginLogs', 2)}
                         v-slots={{
@@ -138,44 +136,37 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ),
                             leftToolBar: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             plain
                                             onClick={($event?: any) => {
                                                 (onClean as any)($event);
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('logs.deleteLogs')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
-                                    {withDirectives(
+                                        </ElButton>
+                                    }
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 (onExport as any)($event);
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.button.export')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </>
                             ),
                             rightToolBar: () => (
                                 <>
                                     <ElSelect
-                                        modelValue={unref(searchStatus)}
-                                        onUpdate:modelValue={($v) => {
-                                            searchStatus.value = $v as any;
-                                        }}
+                                        v-model={searchStatus.value}
                                         onChange={($event?: any) => {
                                             search();
                                         }}
@@ -276,14 +267,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <DialogPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     title={$t('commons.button.export')}
                     size="mini"
                     v-slots={{
@@ -298,42 +286,35 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         {$t('commons.button.cancel')}
                                     </ElButton>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 (onSubmitExport as any)($event);
                                             }}
                                             disabled={unref(loading)}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {$t('commons.button.confirm')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </span>
                             </>
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref="backupForm"
                             onSubmit={($event?: any) => {
                                 $event.preventDefault();
                             }}
                             class={'mt-5'}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('commons.table.status')}>
-                                <ElSelect
-                                    modelValue={exportConfig.status}
-                                    onUpdate:modelValue={($v) => {
-                                        exportConfig.status = $v as any;
-                                    }}
-                                    class={'w-full'}
-                                >
+                                <ElSelect v-model={exportConfig.status} class={'w-full'}>
                                     <ElOption label={$t('commons.table.all')} value="All" />
                                     <ElOption label={$t('commons.status.success')} value="Success" />
                                     <ElOption label={$t('commons.status.failed')} value="Failed" />
@@ -354,9 +335,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElOption value={1000} label={1000} />
                                 </ElSelect>
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DialogPro>
                 <ConfirmDialog
                     ref={confirmDialogRef}

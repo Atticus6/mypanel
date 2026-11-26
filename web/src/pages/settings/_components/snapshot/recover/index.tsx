@@ -153,10 +153,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DialogPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     title={$t('commons.button.recover')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -210,8 +207,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <ElForm ref={recoverForm} label-position="top">
+                    {
+                        <ElForm ref={recoverForm} label-position="top" v-loading={unref(loading)}>
                             {unref(recoverReq).isNew ? (
                                 <div style={'margin-left: 20px; line-height: 32px'}>
                                     {$t('setting.recoverHelper', [unref(recoverReq).name])}
@@ -253,28 +250,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             {!unref(recoverReq).isNew ? (
                                 <ElFormItem label={$t('setting.snapshotLabel')}>
-                                    <ElCheckbox
-                                        modelValue={unref(recoverReq).reDownload}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(recoverReq).reDownload = $v as any;
-                                        }}
-                                    >
+                                    <ElCheckbox v-model={unref(recoverReq).reDownload}>
                                         {$t('setting.reDownload')}
                                     </ElCheckbox>
                                 </ElFormItem>
                             ) : null}
                             <ElFormItem label={$t('setting.compressPassword')}>
                                 <ElInput
-                                    modelValue={unref(recoverReq).secret}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(recoverReq).secret = $v as any;
-                                    }}
+                                    v-model={unref(recoverReq).secret}
                                     placeholder={$t('setting.backupRecoverMessage')}
                                 />
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DialogPro>
                 <TaskLog
                     ref={taskLogRef}

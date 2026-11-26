@@ -6,7 +6,6 @@ import FileList from '@/components/file-list/index';
 import { MsgSuccess } from '@/utils/message';
 import { Website } from '@/types/website';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -149,10 +148,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('ssl.upload')}
                     size="large"
                     onClose={($event?: any) => {
@@ -170,38 +166,34 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         {$t('commons.button.cancel')}
                                     </ElButton>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 submit();
                                             }}
                                             disabled={unref(loading)}
+                                            v-permission={'website_cert_manage'}
                                         >
                                             {$t('commons.button.confirm')}
-                                        </ElButton>,
-                                        [[permissionDirective, 'website_cert_manage']],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </span>
                             </>
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={sslForm}
                             label-position="top"
                             model={unref(ssl)}
                             label-width="100px"
                             rules={unref(rules)}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('website.importType')} prop="type">
-                                <ElSelect
-                                    modelValue={unref(ssl).type}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(ssl).type = $v as any;
-                                    }}
-                                >
+                                <ElSelect v-model={unref(ssl).type}>
                                     <ElOption label={$t('website.pasteSSL')} value={'paste'} />
                                     <ElOption label={$t('website.localSSL')} value={'local'} />
                                     <ElOption label={$t('commons.button.upload') + $t('menu.files')} value={'upload'} />
@@ -210,24 +202,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             {unref(ssl).type === 'paste' ? (
                                 <div>
                                     <ElFormItem label={$t('website.certificate')} prop="certificate">
-                                        <ElInput
-                                            modelValue={unref(ssl).certificate}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).certificate = $v as any;
-                                            }}
-                                            rows={6}
-                                            type="textarea"
-                                        />
+                                        <ElInput v-model={unref(ssl).certificate} rows={6} type="textarea" />
                                     </ElFormItem>
                                     <ElFormItem label={$t('website.privateKey')} prop="privateKey">
-                                        <ElInput
-                                            modelValue={unref(ssl).privateKey}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).privateKey = $v as any;
-                                            }}
-                                            rows={6}
-                                            type="textarea"
-                                        />
+                                        <ElInput v-model={unref(ssl).privateKey} rows={6} type="textarea" />
                                     </ElFormItem>
                                 </div>
                             ) : null}
@@ -235,10 +213,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <div>
                                     <ElFormItem label={$t('website.certificatePath')} prop="certificatePath">
                                         <ElInput
-                                            modelValue={unref(ssl).certificatePath}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).certificatePath = $v as any;
-                                            }}
+                                            v-model={unref(ssl).certificatePath}
                                             v-slots={{
                                                 prepend: () => (
                                                     <>
@@ -255,10 +230,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElFormItem>
                                     <ElFormItem label={$t('website.privateKeyPath')} prop="privateKeyPath">
                                         <ElInput
-                                            modelValue={unref(ssl).privateKeyPath}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(ssl).privateKeyPath = $v as any;
-                                            }}
+                                            v-model={unref(ssl).privateKeyPath}
                                             v-slots={{
                                                 prepend: () => (
                                                     <>
@@ -318,12 +290,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </div>
                             ) : null}
                             <ElFormItem label={$t('website.remark')} prop="description">
-                                <ElInput
-                                    modelValue={unref(ssl).description}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(ssl).description = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={unref(ssl).description} />
                             </ElFormItem>
                             {unref(isMaster) && unref(isXpackOrEE) ? (
                                 <PushToNode
@@ -338,9 +305,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }}
                                 />
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <FileList
                     ref={keyFileRef}

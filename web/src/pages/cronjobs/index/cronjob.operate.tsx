@@ -828,10 +828,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             onChange={($event?: any) => {
                                                                 (changeType as any)($event);
                                                             }}
-                                                            modelValue={form.type}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.type = $v as any;
-                                                            }}
+                                                            v-model={form.type}
                                                             class={'mini-form-item'}
                                                         >
                                                             {(cronjobTypes || []).map((item) => (
@@ -938,14 +935,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     </LayoutCol>
                                                     <LayoutCol>
                                                         <ElFormItem label={$t('commons.table.group')} prop="groupID">
-                                                            <ElSelect
-                                                                filterable
-                                                                modelValue={form.groupID}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    form.groupID = $v as any;
-                                                                }}
-                                                                clearable
-                                                            >
+                                                            <ElSelect filterable v-model={form.groupID} clearable>
                                                                 {(unref(groupOptions) || []).map((item) => (
                                                                     <ElOption
                                                                         label={item.name}
@@ -959,22 +949,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 </ElRow>
                                             </ElCard>
                                             {form.type == 'cleanLog' ? (
-                                                <CleanLogConfig
-                                                    modelValue={form.scopes}
-                                                    onUpdate:modelValue={($v) => {
-                                                        form.scopes = $v as any;
-                                                    }}
-                                                    class={'mt-5'}
-                                                />
+                                                <CleanLogConfig v-model={form.scopes} class={'mt-5'} />
                                             ) : null}
                                             <ElCard class={'mt-5'}>
                                                 <ElFormItem label={$t('cronjob.cronSpec')} prop="specCustom">
                                                     <ElCheckbox
                                                         label={$t('container.custom')}
-                                                        modelValue={form.specCustom}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.specCustom = $v as any;
-                                                        }}
+                                                        v-model={form.specCustom}
                                                     />
                                                 </ElFormItem>
                                                 {!form.specCustom ? (
@@ -983,10 +964,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             {(form.specObjs || []).map((specObj, index) => (
                                                                 <div style={'width: 100%'} key={index}>
                                                                     <ElSelect
-                                                                        modelValue={specObj.specType}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            specObj.specType = $v as any;
-                                                                        }}
+                                                                        v-model={specObj.specType}
                                                                         onChange={($event?: any) => {
                                                                             changeSpecType(index);
                                                                         }}
@@ -1002,10 +980,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     </ElSelect>
                                                                     {specObj.specType === 'perWeek' ? (
                                                                         <ElSelect
-                                                                            modelValue={specObj.week}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                specObj.week = $v as any;
-                                                                            }}
+                                                                            v-model={specObj.week}
                                                                             class={'specClass'}
                                                                         >
                                                                             {(weekOptions || []).map((item) => (
@@ -1157,10 +1132,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             {(form.specs || []).map((spec, index) => (
                                                                 <div class={'w-full'} key={index}>
                                                                     <ElInput
-                                                                        modelValue={form.specs[index]}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            form.specs[index] = $v as any;
-                                                                        }}
+                                                                        v-model={form.specs[index]}
                                                                         class={'specCustom'}
                                                                     />
                                                                     <ElPopover
@@ -1248,10 +1220,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 prop="websiteList"
                                                             >
                                                                 <ElSelect
-                                                                    modelValue={form.websiteList}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.websiteList = $v as any;
-                                                                    }}
+                                                                    v-model={form.websiteList}
                                                                     multiple
                                                                     onChange={($event?: any) => {
                                                                         form.websiteList = form.websiteList.includes(
@@ -1304,10 +1273,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             <ElFormItem label={$t('cronjob.app')} prop="appIdList">
                                                                 <ElSelect
                                                                     clearable
-                                                                    modelValue={form.appIdList}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.appIdList = $v as any;
-                                                                    }}
+                                                                    v-model={form.appIdList}
                                                                     multiple
                                                                     onChange={($event?: any) => {
                                                                         form.appIdList = form.appIdList.includes('all')
@@ -1339,13 +1305,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     {form.type === 'directory' ? (
                                                         <LayoutCol>
                                                             <ElFormItem label={$t('commons.button.backup')}>
-                                                                <ElRadioGroup
-                                                                    modelValue={form.isDir}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.isDir = $v as any;
-                                                                    }}
-                                                                    class={'w-full'}
-                                                                >
+                                                                <ElRadioGroup v-model={form.isDir} class={'w-full'}>
                                                                     <ElRadio value={true}>{$t('file.dir')}</ElRadio>
                                                                     <ElRadio value={false}>{$t('menu.files')}</ElRadio>
                                                                 </ElRadioGroup>
@@ -1358,18 +1318,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 {(form.urlItems || []).map((item, index) => (
                                                                     <div class={'curl-url-group'} key={index}>
                                                                         <ElInput
-                                                                            modelValue={item.url}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                item.url = $v as any;
-                                                                            }}
+                                                                            v-model={item.url}
                                                                             aria-label={$t('cronjob.url')}
                                                                             placeholder={$t('cronjob.url')}
                                                                         />
                                                                         <ElInput
-                                                                            modelValue={item.header}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                item.header = $v as any;
-                                                                            }}
+                                                                            v-model={item.header}
                                                                             type="textarea"
                                                                             autosize={{ minRows: 1, maxRows: 4 }}
                                                                             aria-label="User-Agent"
@@ -1407,10 +1361,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     onChange={($event?: any) => {
                                                                         loadUserOptions(false);
                                                                     }}
-                                                                    modelValue={form.inContainer}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.inContainer = $v as any;
-                                                                    }}
+                                                                    v-model={form.inContainer}
                                                                 >
                                                                     {$t('cronjob.containerCheckBox')}
                                                                 </ElCheckbox>
@@ -1423,10 +1374,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             prop="containerName"
                                                                         >
                                                                             <ElSelect
-                                                                                modelValue={form.containerName}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.containerName = $v as any;
-                                                                                }}
+                                                                                v-model={form.containerName}
                                                                                 onChange={($event?: any) => {
                                                                                     loadUserOptions(false);
                                                                                 }}
@@ -1459,23 +1407,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             prop="command"
                                                                             rules={Rules.requiredInput}
                                                                         >
-                                                                            <ElCheckbox
-                                                                                border
-                                                                                modelValue={form.isCustom}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.isCustom = $v as any;
-                                                                                }}
-                                                                            >
+                                                                            <ElCheckbox border v-model={form.isCustom}>
                                                                                 {$t('container.custom')}
                                                                             </ElCheckbox>
                                                                             {!form.isCustom ? (
                                                                                 <ElSelect
                                                                                     filterable
                                                                                     clearable
-                                                                                    modelValue={form.command}
-                                                                                    onUpdate:modelValue={($v) => {
-                                                                                        form.command = $v as any;
-                                                                                    }}
+                                                                                    v-model={form.command}
                                                                                     style={'width: calc(100% - 100px)'}
                                                                                 >
                                                                                     <ElOption
@@ -1494,10 +1433,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             ) : (
                                                                                 <ElInput
                                                                                     clearable
-                                                                                    modelValue={form.command}
-                                                                                    onUpdate:modelValue={($v) => {
-                                                                                        form.command = $v as any;
-                                                                                    }}
+                                                                                    v-model={form.command}
                                                                                     style={'width: calc(100% - 100px)'}
                                                                                 />
                                                                             )}
@@ -1511,13 +1447,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         label={$t('commons.table.user')}
                                                                         prop="user"
                                                                     >
-                                                                        <ElSelect
-                                                                            filterable
-                                                                            modelValue={form.user}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                form.user = $v as any;
-                                                                            }}
-                                                                        >
+                                                                        <ElSelect filterable v-model={form.user}>
                                                                             {(unref(userOptions) || []).map((item) => (
                                                                                 <div key={item}>
                                                                                     <ElOption
@@ -1535,21 +1465,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             label={$t('cronjob.executor')}
                                                                             prop="executor"
                                                                         >
-                                                                            <ElCheckbox
-                                                                                border
-                                                                                modelValue={form.isCustom}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.isCustom = $v as any;
-                                                                                }}
-                                                                            >
+                                                                            <ElCheckbox border v-model={form.isCustom}>
                                                                                 {$t('container.custom')}
                                                                             </ElCheckbox>
                                                                             {!form.isCustom ? (
                                                                                 <ElSelect
-                                                                                    modelValue={form.executor}
-                                                                                    onUpdate:modelValue={($v) => {
-                                                                                        form.executor = $v as any;
-                                                                                    }}
+                                                                                    v-model={form.executor}
                                                                                     style={'width: calc(100% - 100px)'}
                                                                                 >
                                                                                     <ElOption
@@ -1573,10 +1494,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             ) : (
                                                                                 <ElInput
                                                                                     clearable
-                                                                                    modelValue={form.executor}
-                                                                                    onUpdate:modelValue={($v) => {
-                                                                                        form.executor = $v as any;
-                                                                                    }}
+                                                                                    v-model={form.executor}
                                                                                     style={'width: calc(100% - 100px)'}
                                                                                 />
                                                                             )}
@@ -1592,10 +1510,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     onChange={($event?: any) => {
                                                                         form.script = '';
                                                                     }}
-                                                                    modelValue={form.scriptMode}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.scriptMode = $v as any;
-                                                                    }}
+                                                                    v-model={form.scriptMode}
                                                                 >
                                                                     <ElRadio value="input">
                                                                         {$t('commons.button.edit')}
@@ -1611,10 +1526,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             {form.scriptMode === 'input' ? (
                                                                 <ElFormItem prop="script" class={'-mt-4'}>
                                                                     <CodemirrorPro
-                                                                        modelValue={form.script}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            form.script = $v as any;
-                                                                        }}
+                                                                        v-model={form.script}
                                                                         placeholder="#Define or paste the content of your shell file here"
                                                                         mode="javascript"
                                                                         heightDiff={400}
@@ -1627,10 +1539,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         <ElFormItem prop="scriptID">
                                                                             <ElSelect
                                                                                 filterable
-                                                                                modelValue={form.scriptID}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.scriptID = $v as any;
-                                                                                }}
+                                                                                v-model={form.scriptID}
                                                                             >
                                                                                 {(unref(scriptOptions) || []).map(
                                                                                     (item) => (
@@ -1651,10 +1560,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                     $t('commons.example') +
                                                                                     '/tmp/test.sh'
                                                                                 }
-                                                                                modelValue={form.script}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.script = $v as any;
-                                                                                }}
+                                                                                v-model={form.script}
                                                                                 v-slots={{
                                                                                     prepend: () => (
                                                                                         <>
@@ -1687,10 +1593,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 prop="sourceDir"
                                                             >
                                                                 <ElInput
-                                                                    modelValue={form.sourceDir}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.sourceDir = $v as any;
-                                                                    }}
+                                                                    v-model={form.sourceDir}
                                                                     v-slots={{
                                                                         prepend: () => (
                                                                             <>
@@ -1775,10 +1678,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         <LayoutCol>
                                                             <ElFormItem prop="withImage">
                                                                 <ElCheckbox
-                                                                    modelValue={form.withImage}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.withImage = $v as any;
-                                                                    }}
+                                                                    v-model={form.withImage}
                                                                     label={$t('cronjob.withImage')}
                                                                 />
                                                             </ElFormItem>
@@ -1793,10 +1693,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 prop="ignoreAppIDs"
                                                             >
                                                                 <ElSelect
-                                                                    modelValue={form.ignoreAppIDs}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.ignoreAppIDs = $v as any;
-                                                                    }}
+                                                                    v-model={form.ignoreAppIDs}
                                                                     multiple
                                                                     cleanable
                                                                 >
@@ -1824,10 +1721,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             >
                                                                 <ElSelect
                                                                     multiple
-                                                                    modelValue={form.sourceAccountItems}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.sourceAccountItems = $v as any;
-                                                                    }}
+                                                                    v-model={form.sourceAccountItems}
                                                                     onChange={($event?: any) => {
                                                                         (changeAccount as any)($event);
                                                                     }}
@@ -1878,12 +1772,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 label={$t('cronjob.default_download_path')}
                                                                 prop="downloadAccountID"
                                                             >
-                                                                <ElSelect
-                                                                    modelValue={form.downloadAccountID}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.downloadAccountID = $v as any;
-                                                                    }}
-                                                                >
+                                                                <ElSelect v-model={form.downloadAccountID}>
                                                                     {(unref(accountOptions) || []).map((item) => (
                                                                         <div key={item.id}>
                                                                             {item.type !== $t('setting.LOCAL') ? (
@@ -1922,10 +1811,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 <ElInput
                                                                     type="password"
                                                                     show-password
-                                                                    modelValue={form.secret}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.secret = $v as any;
-                                                                    }}
+                                                                    v-model={form.secret}
                                                                 />
                                                             </ElFormItem>
                                                         </LayoutCol>
@@ -1985,10 +1871,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <LayoutCol span={20}>
                                                         <ElFormItem prop="hasAlert">
                                                             <ElCheckbox
-                                                                modelValue={form.hasAlert}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    form.hasAlert = $v as any;
-                                                                }}
+                                                                v-model={form.hasAlert}
                                                                 label={$t('xpack.alert.isAlert')}
                                                             />
                                                             <span class={'input-help'}>
@@ -2005,10 +1888,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 prop="alertTriggerMode"
                                                             >
                                                                 <ElSelect
-                                                                    modelValue={form.alertTriggerMode}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.alertTriggerMode = $v as any;
-                                                                    }}
+                                                                    v-model={form.alertTriggerMode}
                                                                     class={'selectClass'}
                                                                 >
                                                                     {(cronjobAlertModes || []).map((item) => (
@@ -2032,10 +1912,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             >
                                                                 <ElSelect
                                                                     popper-class="alert-config-method-dropdown"
-                                                                    modelValue={form.alertMethodItems}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.alertMethodItems = $v as any;
-                                                                    }}
+                                                                    v-model={form.alertMethodItems}
                                                                     multiple
                                                                     cleanable
                                                                     collapse-tags
@@ -2124,10 +2001,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         <LayoutCol span={20}>
                                                             <ElFormItem>
                                                                 <ElCheckbox
-                                                                    modelValue={form.ignoreErr}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.ignoreErr = $v as any;
-                                                                    }}
+                                                                    v-model={form.ignoreErr}
                                                                     label={$t('cronjob.ignoreErr')}
                                                                 />
                                                                 <span class={'input-help'}>
@@ -2149,10 +2023,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     append: () => (
                                                                         <>
                                                                             <ElSelect
-                                                                                modelValue={form.timeoutUnit}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.timeoutUnit = $v as any;
-                                                                                }}
+                                                                                v-model={form.timeoutUnit}
                                                                                 style={'width: 80px'}
                                                                             >
                                                                                 <ElOption

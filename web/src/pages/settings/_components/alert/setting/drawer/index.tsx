@@ -28,7 +28,6 @@ interface DrawerProps {
     updateUser?: string;
 }
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -534,10 +533,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={unref(drawerHeader)}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -548,7 +544,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <>
                             {form.type === 'email' ? (
                                 <div class={'flex items-center justify-between'}>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             disabled={unref(loading)}
                                             onClick={($event?: any) => {
@@ -556,11 +552,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             }}
                                             plain
                                             type="primary"
+                                            v-permission={true}
                                         >
                                             {$t('xpack.alert.test')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                     <div>
                                         <ElButton
                                             onClick={($event?: any) => {
@@ -569,23 +565,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         >
                                             {$t('commons.button.cancel')}
                                         </ElButton>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 disabled={unref(loading) || (form.type === 'email' && !unref(isOK))}
                                                 type="primary"
                                                 onClick={($event?: any) => {
                                                     onSave(unref(formRef));
                                                 }}
+                                                v-permission={true}
                                             >
                                                 {$t('commons.button.confirm')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </div>
                                 </div>
                             ) : form.type === 'custom' ? (
                                 <div class={'custom-webhook-footer'}>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             plain
                                             type="primary"
@@ -593,11 +589,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onClick={($event?: any) => {
                                                 onTest(unref(formRef));
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('xpack.alert.test')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                     <div class={'custom-webhook-footer__actions'}>
                                         <ElButton
                                             onClick={($event?: any) => {
@@ -606,7 +602,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         >
                                             {$t('commons.button.cancel')}
                                         </ElButton>
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 disabled={
                                                     unref(loading) ||
@@ -617,11 +613,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onClick={($event?: any) => {
                                                     onSave(unref(formRef));
                                                 }}
+                                                v-permission={true}
                                             >
                                                 {$t('commons.button.confirm')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </div>
                                 </div>
                             ) : (
@@ -633,25 +629,25 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         {$t('commons.button.cancel')}
                                     </ElButton>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             disabled={unref(loading)}
                                             type="primary"
                                             onClick={($event?: any) => {
                                                 onSave(unref(formRef));
                                             }}
+                                            v-permission={true}
                                         >
                                             {$t('commons.button.confirm')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </div>
                             )}
                         </>
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         rules={unref(currentRules)}
@@ -660,16 +656,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElRow type="flex" justify="center">
                             <ElCol span={unref(isMobile) ? 24 : 22}>
                                 {!unref(isEdit) ? (
                                     <ElFormItem label={$t('commons.table.type')} prop="type">
                                         <ElSelect
-                                            modelValue={form.type}
-                                            onUpdate:modelValue={($v) => {
-                                                form.type = $v as any;
-                                            }}
+                                            v-model={form.type}
                                             onChange={($event?: any) => {
                                                 (onTypeChange as any)($event);
                                             }}
@@ -684,12 +678,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {form.type === 'email' ? (
                                     <>
                                         <ElFormItem label={$t('xpack.alert.displayName')} prop="config.displayName">
-                                            <ElInput
-                                                modelValue={form.config.displayName}
-                                                onUpdate:modelValue={($v) => {
-                                                    form.config.displayName = $v as any;
-                                                }}
-                                            />
+                                            <ElInput v-model={form.config.displayName} />
                                             <span class={'input-help'}>{$t('xpack.alert.displayNameHelper')}</span>
                                         </ElFormItem>
                                         <ElFormItem label={$t('xpack.alert.sender')} prop="config.sender">
@@ -711,14 +700,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <span class={'input-help'}>{$t('xpack.alert.userNameHelper')}</span>
                                         </ElFormItem>
                                         <ElFormItem label={$t('xpack.alert.password')} prop="emailPassword">
-                                            <ElInput
-                                                modelValue={form.emailPassword}
-                                                onUpdate:modelValue={($v) => {
-                                                    form.emailPassword = $v as any;
-                                                }}
-                                                type="password"
-                                                show-password
-                                            />
+                                            <ElInput v-model={form.emailPassword} type="password" show-password />
                                             <span class={'input-help'}>{$t('xpack.alert.passwordHelper')}</span>
                                         </ElFormItem>
                                         <ElFormItem label={$t('xpack.alert.host')} prop="config.host">
@@ -744,40 +726,34 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <ElFormItem label={$t('xpack.alert.encryption')} prop="config.encryption">
                                             <div class={'flex items-center gap-2'}>
                                                 <span class={'el-form-item__label'}>{'SSL'}</span>
-                                                {withDirectives(
+                                                {
                                                     <ElSwitch
-                                                        modelValue={form.config.encryption}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.config.encryption = $v as any;
-                                                        }}
+                                                        v-model={form.config.encryption}
                                                         active-value={'SSL'}
                                                         inactive-value={
                                                             form.config.encryption === 'SSL'
                                                                 ? 'NONE'
                                                                 : form.config.encryption
                                                         }
-                                                    />,
-                                                    [[permissionDirective, true]],
-                                                )}
+                                                        v-permission={true}
+                                                    />
+                                                }
                                             </div>
                                             <span class={'input-help'}>{$t('xpack.alert.sslHelper')}</span>
                                             <div class={'flex items-center gap-2'}>
                                                 <span class={'el-form-item__label'}>{'TLS'}</span>
-                                                {withDirectives(
+                                                {
                                                     <ElSwitch
-                                                        modelValue={form.config.encryption}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.config.encryption = $v as any;
-                                                        }}
+                                                        v-model={form.config.encryption}
                                                         active-value={'TLS'}
                                                         inactive-value={
                                                             form.config.encryption === 'TLS'
                                                                 ? 'NONE'
                                                                 : form.config.encryption
                                                         }
-                                                    />,
-                                                    [[permissionDirective, true]],
-                                                )}
+                                                        v-permission={true}
+                                                    />
+                                                }
                                             </div>
                                             <span class={'input-help'}>{$t('xpack.alert.tlsHelper')}</span>
                                         </ElFormItem>
@@ -826,22 +802,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </>
                                 ) : form.type === 'custom' ? (
                                     <CustomWebhookForm
-                                        modelValue={form.customWebhook}
-                                        onUpdate:modelValue={($v) => {
-                                            form.customWebhook = $v as any;
-                                        }}
+                                        v-model={form.customWebhook}
                                         validation-issues={unref(customWebhookValidationIssues)}
                                         allow-clear-url={form.status === 'Disable'}
                                     />
                                 ) : (
                                     <>
                                         <ElFormItem label={$t('xpack.alert.webhookName')} prop="webhookName">
-                                            <ElInput
-                                                modelValue={form.webhookName}
-                                                onUpdate:modelValue={($v) => {
-                                                    form.webhookName = $v as any;
-                                                }}
-                                            />
+                                            <ElInput v-model={form.webhookName} />
                                         </ElFormItem>
                                         <ElFormItem label={$t('xpack.alert.webhookUrl')} prop="webhookUrl">
                                             <ElInput
@@ -863,9 +831,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ) : null}
                             </ElCol>
                         </ElRow>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

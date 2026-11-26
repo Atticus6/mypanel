@@ -5,8 +5,6 @@ import FamilyIssues from '@/pages/hosts/_components/firewall/components/family-i
 import i18n from '@/lang';
 import { routerToName, routerToNameWithQuery } from '@/utils/router';
 import { dockerGuardFamilyStatusMessage } from '@/pages/hosts/_components/firewall/docker/model';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import { I18nT } from 'vue-i18n';
 
 interface CodemodProps {
@@ -98,71 +96,59 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </div>
                                 <div class={'mt-0.5 flex items-center'}>
                                     {unref(anyFamilyBound) ? <ElDivider direction="vertical" /> : null}
-                                    {!unref(anyFamilyInitialized)
-                                        ? withDirectives(
-                                              <ElButton
-                                                  type="primary"
-                                                  link
-                                                  onClick={($event?: any) => {
-                                                      ctx.emit('operate', 'initialize');
-                                                  }}
-                                              >
-                                                  {$t('commons.button.init')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )
-                                        : !unref(anyFamilyBound)
-                                          ? withDirectives(
-                                                <ElButton
-                                                    type="primary"
-                                                    link
-                                                    onClick={($event?: any) => {
-                                                        ctx.emit('operate', 'bind');
-                                                    }}
-                                                >
-                                                    {$t('commons.button.bind')}
-                                                </ElButton>,
-                                                [
-                                                    [permissionDirective, true],
-                                                    [nodeAdminDirective, true],
-                                                ],
-                                            )
-                                          : withDirectives(
-                                                <ElButton
-                                                    type="primary"
-                                                    link
-                                                    onClick={($event?: any) => {
-                                                        ctx.emit('operate', 'unbind');
-                                                    }}
-                                                >
-                                                    {$t('commons.button.unbind')}
-                                                </ElButton>,
-                                                [
-                                                    [permissionDirective, true],
-                                                    [nodeAdminDirective, true],
-                                                ],
-                                            )}
+                                    {!unref(anyFamilyInitialized) ? (
+                                        <ElButton
+                                            type="primary"
+                                            link
+                                            onClick={($event?: any) => {
+                                                ctx.emit('operate', 'initialize');
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.init')}
+                                        </ElButton>
+                                    ) : !unref(anyFamilyBound) ? (
+                                        <ElButton
+                                            type="primary"
+                                            link
+                                            onClick={($event?: any) => {
+                                                ctx.emit('operate', 'bind');
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.bind')}
+                                        </ElButton>
+                                    ) : (
+                                        <ElButton
+                                            type="primary"
+                                            link
+                                            onClick={($event?: any) => {
+                                                ctx.emit('operate', 'unbind');
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('commons.button.unbind')}
+                                        </ElButton>
+                                    )}
                                     {unref(anyFamilyInitialized) ? (
                                         <>
                                             <ElDivider direction="vertical" />
-                                            {withDirectives(
+                                            {
                                                 <ElButton
                                                     type="primary"
                                                     link
                                                     onClick={($event?: any) => {
                                                         ctx.emit('cleanup');
                                                     }}
+                                                    v-permission={true}
+                                                    v-node-admin={true}
                                                 >
                                                     {$t('commons.button.reset')}
-                                                </ElButton>,
-                                                [
-                                                    [permissionDirective, true],
-                                                    [nodeAdminDirective, true],
-                                                ],
-                                            )}
+                                                </ElButton>
+                                            }
                                         </>
                                     ) : null}
                                 </div>

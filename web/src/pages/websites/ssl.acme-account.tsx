@@ -8,7 +8,6 @@ import Create from '@/pages/websites/_components/ssl/acme-account/create/index';
 import { getAccountName, getKeyName } from '@/utils/ssl';
 import { MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import permissionDirective from '@/directives/modules/permission';
 import RouterButton from '@/components/router-button/index';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
@@ -103,17 +102,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     v-slots={{
                         leftToolBar: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             (openCreate as any)($event);
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.create')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </>
                         ),
                         prompt: () => (
@@ -123,7 +122,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                         main: () => (
                             <>
-                                {withDirectives(
+                                {
                                     <ComplexTable
                                         data={unref(data)}
                                         cache-pagination={false}
@@ -131,6 +130,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onSearch={($event?: any) => {
                                             search();
                                         }}
+                                        v-loading={unref(loading)}
                                     >
                                         <ElTableColumn
                                             label={$t('website.email')}
@@ -158,18 +158,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 v-slots={{
                                                     default: ({ row }) => (
                                                         <>
-                                                            {withDirectives(
+                                                            {
                                                                 <ElSwitch
-                                                                    modelValue={row.useProxy}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        row.useProxy = $v as any;
-                                                                    }}
+                                                                    v-model={row.useProxy}
                                                                     onChange={($event?: any) => {
                                                                         update(row);
                                                                     }}
-                                                                />,
-                                                                [[permissionDirective, true]],
-                                                            )}
+                                                                    v-permission={true}
+                                                                />
+                                                            }
                                                         </>
                                                     ),
                                                 }}
@@ -183,9 +180,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             fixed="right"
                                             fix
                                         />
-                                    </ComplexTable>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </ComplexTable>
+                                }
                             </>
                         ),
                     }}

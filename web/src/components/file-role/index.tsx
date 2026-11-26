@@ -149,80 +149,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             <div>
                 <ElForm ref={ruleForm} label-position="left" model={unref(form)} label-width="100px" rules={rules}>
                     <ElFormItem label={$t('file.owner')}>
-                        <ElCheckbox
-                            modelValue={unref(form).owner.r}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).owner.r = $v as any;
-                            }}
-                            label={$t('file.rRole')}
-                        />
-                        <ElCheckbox
-                            modelValue={unref(form).owner.w}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).owner.w = $v as any;
-                            }}
-                            label={$t('file.wRole')}
-                        />
-                        <ElCheckbox
-                            modelValue={unref(form).owner.x}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).owner.x = $v as any;
-                            }}
-                            label={$t('file.xRole')}
-                        />
+                        <ElCheckbox v-model={unref(form).owner.r} label={$t('file.rRole')} />
+                        <ElCheckbox v-model={unref(form).owner.w} label={$t('file.wRole')} />
+                        <ElCheckbox v-model={unref(form).owner.x} label={$t('file.xRole')} />
                     </ElFormItem>
                     <ElFormItem label={$t('file.group')}>
-                        <ElCheckbox
-                            modelValue={unref(form).group.r}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).group.r = $v as any;
-                            }}
-                            label={$t('file.rRole')}
-                        />
-                        <ElCheckbox
-                            modelValue={unref(form).group.w}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).group.w = $v as any;
-                            }}
-                            label={$t('file.wRole')}
-                        />
-                        <ElCheckbox
-                            modelValue={unref(form).group.x}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).group.x = $v as any;
-                            }}
-                            label={$t('file.xRole')}
-                        />
+                        <ElCheckbox v-model={unref(form).group.r} label={$t('file.rRole')} />
+                        <ElCheckbox v-model={unref(form).group.w} label={$t('file.wRole')} />
+                        <ElCheckbox v-model={unref(form).group.x} label={$t('file.xRole')} />
                     </ElFormItem>
                     <ElFormItem label={$t('file.public')}>
-                        <ElCheckbox
-                            modelValue={unref(form).public.r}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).public.r = $v as any;
-                            }}
-                            label={$t('file.rRole')}
-                        />
-                        <ElCheckbox
-                            modelValue={unref(form).public.w}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).public.w = $v as any;
-                            }}
-                            label={$t('file.wRole')}
-                        />
-                        <ElCheckbox
-                            modelValue={unref(form).public.x}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).public.x = $v as any;
-                            }}
-                            label={$t('file.xRole')}
-                        />
+                        <ElCheckbox v-model={unref(form).public.r} label={$t('file.rRole')} />
+                        <ElCheckbox v-model={unref(form).public.w} label={$t('file.wRole')} />
+                        <ElCheckbox v-model={unref(form).public.x} label={$t('file.xRole')} />
                     </ElFormItem>
                     <ElFormItem label={$t('file.role')} required prop="mode">
                         <ElInput
-                            modelValue={unref(form).mode}
-                            onUpdate:modelValue={($v) => {
-                                unref(form).mode = $v as any;
-                            }}
+                            v-model={unref(form).mode}
                             maxlength="4"
                             onInput={($event?: any) => {
                                 (changeMode as any)($event);

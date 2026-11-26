@@ -179,18 +179,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('setting.safe')}
                         divider={true}
                         v-slots={{
                             main: () => (
                                 <>
-                                    {withDirectives(
+                                    {
                                         <ElForm
                                             model={form}
                                             label-position={unref(isMobile) ? 'top' : 'left'}
                                             label-width="150px"
+                                            v-loading={unref(loading)}
                                         >
                                             <ElRow>
                                                 <ElCol span={1}>
@@ -223,10 +224,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <ElFormItem label={$t('setting.bindInfo')} prop="bindAddress">
                                                         <ElInput
                                                             disabled
-                                                            modelValue={form.bindAddress}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.bindAddress = $v as any;
-                                                            }}
+                                                            v-model={form.bindAddress}
                                                             v-slots={{
                                                                 append: () => (
                                                                     <>
@@ -248,10 +246,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             <ElInput
                                                                 type="password"
                                                                 disabled
-                                                                modelValue={form.securityEntrance}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    form.securityEntrance = $v as any;
-                                                                }}
+                                                                v-model={form.securityEntrance}
                                                                 v-slots={{
                                                                     append: () => (
                                                                         <>
@@ -271,10 +266,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {!form.securityEntrance ? (
                                                             <ElInput
                                                                 disabled
-                                                                modelValue={unref(unset)}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    unset.value = $v as any;
-                                                                }}
+                                                                v-model={unset.value}
                                                                 v-slots={{
                                                                     append: () => (
                                                                         <>
@@ -296,10 +288,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <ElFormItem label={$t('setting.noAuthSetting')}>
                                                         <ElInput
                                                             disabled
-                                                            modelValue={form.noAuthSetting}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.noAuthSetting = $v as any;
-                                                            }}
+                                                            v-model={form.noAuthSetting}
                                                             v-slots={{
                                                                 append: () => (
                                                                     <>
@@ -323,10 +312,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     type="textarea"
                                                                     rows={3}
                                                                     disabled
-                                                                    modelValue={form.allowIPs}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        form.allowIPs = $v as any;
-                                                                    }}
+                                                                    v-model={form.allowIPs}
                                                                     style={'width: calc(100% - 80px)'}
                                                                 />
                                                                 <ElButton
@@ -343,10 +329,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {!form.allowIPs ? (
                                                             <ElInput
                                                                 disabled
-                                                                modelValue={unref(unset)}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    unset.value = $v as any;
-                                                                }}
+                                                                v-model={unset.value}
                                                                 v-slots={{
                                                                     append: () => (
                                                                         <>
@@ -369,10 +352,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {form.bindDomain ? (
                                                             <ElInput
                                                                 disabled
-                                                                modelValue={form.bindDomain}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    form.bindDomain = $v as any;
-                                                                }}
+                                                                v-model={form.bindDomain}
                                                                 v-slots={{
                                                                     append: () => (
                                                                         <>
@@ -392,10 +372,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         {!form.bindDomain ? (
                                                             <ElInput
                                                                 disabled
-                                                                modelValue={unref(unset)}
-                                                                onUpdate:modelValue={($v) => {
-                                                                    unset.value = $v as any;
-                                                                }}
+                                                                v-model={unset.value}
                                                                 v-slots={{
                                                                     append: () => (
                                                                         <>
@@ -421,10 +398,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             onChange={($event?: any) => {
                                                                 (handleSSL as any)($event);
                                                             }}
-                                                            modelValue={form.sslItem}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.sslItem = $v as any;
-                                                            }}
+                                                            v-model={form.sslItem}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                         />
@@ -459,10 +433,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     >
                                                         <ElInput
                                                             disabled
-                                                            modelValue={form.expirationDays}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.expirationDays = $v as any;
-                                                            }}
+                                                            v-model={form.expirationDays}
                                                             v-slots={{
                                                                 append: () => (
                                                                     <>
@@ -492,10 +463,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             onChange={($event?: any) => {
                                                                 (onSaveComplexity as any)($event);
                                                             }}
-                                                            modelValue={form.complexityVerification}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.complexityVerification = $v as any;
-                                                            }}
+                                                            v-model={form.complexityVerification}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
                                                         />
@@ -505,15 +473,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     </ElFormItem>
                                                 </ElCol>
                                             </ElRow>
-                                        </ElForm>,
-                                        [[vLoading, unref(loading)]],
-                                    )}
+                                        </ElForm>
+                                    }
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <PortSetting ref={portRef} />
                 <BindSetting ref={bindRef} />
                 <SSLSetting

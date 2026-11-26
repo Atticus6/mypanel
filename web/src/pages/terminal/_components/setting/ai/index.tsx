@@ -144,10 +144,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     {$t('terminal.aiAssistant')}
                 </ElButton>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('terminal.aiAssistant')}
                     size="60%"
                     onClose={($event?: any) => {
@@ -186,15 +183,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <div>
+                    {
+                        <div v-loading={unref(loading)}>
                             <ElForm ref={formRef} model={formModel} label-position="top">
                                 <ElFormItem label={$t('terminal.aiAssistant')}>
                                     <ElSwitch
-                                        modelValue={formModel.status}
-                                        onUpdate:modelValue={($v) => {
-                                            formModel.status = $v as any;
-                                        }}
+                                        v-model={formModel.status}
                                         active-value="Enable"
                                         inactive-value="Disable"
                                     />
@@ -206,10 +200,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         rules={accountRules}
                                     >
                                         <ElSelect
-                                            modelValue={formModel.accountId}
-                                            onUpdate:modelValue={($v) => {
-                                                formModel.accountId = $v as any;
-                                            }}
+                                            v-model={formModel.accountId}
                                             clearable
                                             filterable
                                             class={'formInput'}
@@ -238,13 +229,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElFormItem>
                                 ) : null}
                                 <ElFormItem label={$t('terminal.aiPrefix')} prop="prefix" rules={Rules.requiredSelect}>
-                                    <ElSelect
-                                        modelValue={formModel.prefix}
-                                        onUpdate:modelValue={($v) => {
-                                            formModel.prefix = $v as any;
-                                        }}
-                                        class={'formInput'}
-                                    >
+                                    <ElSelect v-model={formModel.prefix} class={'formInput'}>
                                         {(prefixOptions || []).map((item) => (
                                             <ElOption label={item} value={item} key={item} />
                                         ))}
@@ -255,10 +240,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElFormItem>
                                 <ElFormItem label={$t('terminal.aiRiskCommands')}>
                                     <CodemirrorPro
-                                        modelValue={formModel.riskCommands}
-                                        onUpdate:modelValue={($v) => {
-                                            formModel.riskCommands = $v as any;
-                                        }}
+                                        v-model={formModel.riskCommands}
                                         mode="shell"
                                         line-wrapping
                                         height-diff={560}
@@ -267,9 +249,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <span class={'input-help'}>{$t('terminal.aiRiskCommandsHelper')}</span>
                                 </ElFormItem>
                             </ElForm>
-                        </div>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </div>
+                    }
                 </DrawerPro>
             </>
         );

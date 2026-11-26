@@ -4,7 +4,6 @@ import { newUUID } from '@/utils/id';
 import TaskLog from '@/components/log/task/index';
 import FileList from '@/components/file-list/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -103,13 +102,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             <>
                 <ElForm label-position="right" label-width="100px">
                     <ElFormItem label={$t('website.execParameters')}>
-                        <ElSelect
-                            modelValue={req.command}
-                            onUpdate:modelValue={($v) => {
-                                req.command = $v as any;
-                            }}
-                            class={'p-w-400'}
-                        >
+                        <ElSelect v-model={req.command} class={'p-w-400'}>
                             <ElOption label="install" value="install" />
                             <ElOption label="update" value="update" />
                             <ElOption label="require" value="require" />
@@ -127,13 +120,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         />
                     </ElFormItem>
                     <ElFormItem label={$t('website.mirror')}>
-                        <ElSelect
-                            modelValue={req.mirror}
-                            onUpdate:modelValue={($v) => {
-                                req.mirror = $v as any;
-                            }}
-                            class={'p-w-400'}
-                        >
+                        <ElSelect v-model={req.mirror} class={'p-w-400'}>
                             {(mirrors || []).map((mirror) => (
                                 <ElOption
                                     value={mirror.value}
@@ -144,13 +131,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElSelect>
                     </ElFormItem>
                     <ElFormItem label={$t('website.execUser')}>
-                        <ElSelect
-                            modelValue={req.user}
-                            onUpdate:modelValue={($v) => {
-                                req.user = $v as any;
-                            }}
-                            class={'p-w-400'}
-                        >
+                        <ElSelect v-model={req.user} class={'p-w-400'}>
                             <ElOption label="www-data" value="www-data" />
                             <ElOption label="root" value="root" />
                         </ElSelect>
@@ -177,17 +158,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         />
                     </ElFormItem>
                     <ElFormItem>
-                        {withDirectives(
+                        {
                             <ElButton
                                 type="primary"
                                 onClick={($event?: any) => {
                                     (exec as any)($event);
                                 }}
+                                v-permission={true}
                             >
                                 {$t('commons.button.handle')}
-                            </ElButton>,
-                            [[permissionDirective, true]],
-                        )}
+                            </ElButton>
+                        }
                     </ElFormItem>
                 </ElForm>
                 <TaskLog

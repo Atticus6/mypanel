@@ -125,10 +125,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('commons.button.sync')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -158,17 +155,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={formRef} label-position="top" model={form} rules={rules}>
+                {
+                    <ElForm ref={formRef} label-position="top" model={form} rules={rules} v-loading={unref(loading)}>
                         <ElFormItem label={$t('setting.backupAccount')} prop="from">
                             <ElSelect
                                 onChange={($event?: any) => {
                                     loadFiles();
                                 }}
-                                modelValue={form.backupAccountID}
-                                onUpdate:modelValue={($v) => {
-                                    form.backupAccountID = $v as any;
-                                }}
+                                v-model={form.backupAccountID}
                                 clearable
                             >
                                 {(unref(backupOptions) || []).map((item) => (
@@ -201,32 +195,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.name')} prop="names">
-                            <ElSelect
-                                modelValue={form.names}
-                                onUpdate:modelValue={($v) => {
-                                    form.names = $v as any;
-                                }}
-                                multiple
-                                clearable
-                            >
+                            <ElSelect v-model={form.names} multiple clearable>
                                 {(unref(fileNames) || []).map((item) => (
                                     <ElOption disabled={checkDisable(item)} value={item} label={item} key={item} />
                                 ))}
                             </ElSelect>
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.description')} prop="description">
-                            <ElInput
-                                type="textarea"
-                                clearable
-                                modelValue={form.description}
-                                onUpdate:modelValue={($v) => {
-                                    form.description = $v as any;
-                                }}
-                            />
+                            <ElInput type="textarea" clearable v-model={form.description} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

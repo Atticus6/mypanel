@@ -9,7 +9,6 @@ interface LoadBalanceOperate {
     operate: string;
     upstream?: Website.NginxUpstream;
 }
-import permissionDirective from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
@@ -182,10 +181,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
                 }}
@@ -204,18 +200,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             (submit as any)($event);
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
@@ -223,10 +219,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             >
                 <LoadBalanceForm
                     ref={lbFormRef}
-                    modelValue={unref(formData)}
-                    onUpdate:modelValue={($v) => {
-                        formData.value = $v as any;
-                    }}
+                    v-model={formData.value}
                     disabled={unref(operate) === 'edit' && unref(disableName)}
                 />
             </DrawerPro>

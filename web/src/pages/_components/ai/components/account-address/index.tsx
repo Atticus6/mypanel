@@ -75,12 +75,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             <>
                 {__panelSetupProps.showSync && !__panelSetupProps.hideSyncToggle ? (
                     <ElFormItem>
-                        <ElCheckbox
-                            modelValue={__panelSetupProps.form.syncModelAccount}
-                            onUpdate:modelValue={($v) => {
-                                __panelSetupProps.form.syncModelAccount = $v as any;
-                            }}
-                        >
+                        <ElCheckbox v-model={__panelSetupProps.form.syncModelAccount}>
                             {$t('aiTools.model.syncModelAccount')}
                         </ElCheckbox>
                     </ElFormItem>
@@ -95,12 +90,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             prop="modelAccountBaseURLType"
                             rules={Rules.requiredSelect}
                         >
-                            <ElRadioGroup
-                                modelValue={__panelSetupProps.form.modelAccountBaseURLType}
-                                onUpdate:modelValue={($v) => {
-                                    __panelSetupProps.form.modelAccountBaseURLType = $v as any;
-                                }}
-                            >
+                            <ElRadioGroup v-model={__panelSetupProps.form.modelAccountBaseURLType}>
                                 {(unref(addressTypes) || []).map((item) => (
                                     <ElRadioButton
                                         value={item.value}

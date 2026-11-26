@@ -6,7 +6,6 @@ import { rpc } from '@/lib/rpc';
 interface RenewProps {
     ssl: Website.SSL;
 }
-import permissionDirective from '@/directives/modules/permission';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
@@ -56,10 +55,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('ssl.apply')}
                 size="small"
                 onClose={($event?: any) => {
@@ -77,25 +73,25 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit();
                                         }}
                                         disabled={unref(loading)}
+                                        v-permission={'website_cert_manage'}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, 'website_cert_manage']],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
                 }}
             >
-                {withDirectives(
-                    <div class={'text-center'}>
+                {
+                    <div class={'text-center'} v-loading={unref(loading)}>
                         {unref(ssl).websites && unref(ssl).websites.length > 0 ? (
                             <div>
                                 <span>{$t('ssl.renewWebsite')}</span>
@@ -113,9 +109,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         ) : null}
                         <span>{$t('ssl.renewConfirm', [unref(ssl).primaryDomain])}</span>
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DialogPro>
         );
     },

@@ -126,10 +126,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(backupVisible)}
-                onUpdate:modelValue={($v) => {
-                    backupVisible.value = $v as any;
-                }}
+                v-model={backupVisible.value}
                 header={$t('commons.button.backup')}
                 resource={unref(cronjob)}
                 onClose={($event?: any) => {
@@ -139,7 +136,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 v-slots={{
                     content: () => (
                         <>
-                            {withDirectives(
+                            {
                                 <ComplexTable
                                     pagination-config={paginationConfig}
                                     selects={unref(selects)}
@@ -150,6 +147,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         (search as any)($event);
                                     }}
                                     data={unref(data)}
+                                    v-loading={unref(loading)}
                                 >
                                     <ElTableColumn
                                         label={$t('commons.table.name')}
@@ -213,9 +211,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         label={$t('commons.table.operate')}
                                         fix
                                     />
-                                </ComplexTable>,
-                                [[vLoading, unref(loading)]],
-                            )}
+                                </ComplexTable>
+                            }
                         </>
                     ),
                 }}

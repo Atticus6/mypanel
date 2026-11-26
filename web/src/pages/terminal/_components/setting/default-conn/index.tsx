@@ -112,10 +112,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('terminal.defaultConn')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -153,8 +150,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={formRef} label-position="top" model={form} rules={rules}>
+                {
+                    <ElForm ref={formRef} label-position="top" model={form} rules={rules} v-loading={unref(loading)}>
                         <ElFormItem label={$t('terminal.ip')} prop="addr">
                             <ElInput
                                 onChange={($event?: any) => {
@@ -173,10 +170,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     isOK.value = false;
                                 }}
                                 clearable
-                                modelValue={form.user}
-                                onUpdate:modelValue={($v) => {
-                                    form.user = $v as any;
-                                }}
+                                v-model={form.user}
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('terminal.authMode')} prop="authMode">
@@ -184,10 +178,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onChange={($event?: any) => {
                                     isOK.value = false;
                                 }}
-                                modelValue={form.authMode}
-                                onUpdate:modelValue={($v) => {
-                                    form.authMode = $v as any;
-                                }}
+                                v-model={form.authMode}
                             >
                                 <ElRadio value="password">{$t('terminal.passwordMode')}</ElRadio>
                                 <ElRadio value="key">{$t('terminal.keyMode')}</ElRadio>
@@ -202,10 +193,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     clearable
                                     show-password
                                     type="password"
-                                    modelValue={form.password}
-                                    onUpdate:modelValue={($v) => {
-                                        form.password = $v as any;
-                                    }}
+                                    v-model={form.password}
                                 />
                             </ElFormItem>
                         ) : null}
@@ -217,10 +205,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }}
                                     clearable
                                     type="textarea"
-                                    modelValue={form.privateKey}
-                                    onUpdate:modelValue={($v) => {
-                                        form.privateKey = $v as any;
-                                    }}
+                                    v-model={form.privateKey}
                                 />
                             </ElFormItem>
                         ) : null}
@@ -233,10 +218,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     type="password"
                                     show-password
                                     clearable
-                                    modelValue={form.passPhrase}
-                                    onUpdate:modelValue={($v) => {
-                                        form.passPhrase = $v as any;
-                                    }}
+                                    v-model={form.passPhrase}
                                 />
                             </ElFormItem>
                         ) : null}
@@ -252,9 +234,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

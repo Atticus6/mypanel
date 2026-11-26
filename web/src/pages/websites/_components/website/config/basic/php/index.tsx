@@ -13,7 +13,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import Composer from './composer/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -109,91 +108,74 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             getWebsiteDetail();
             getRuntimes();
         });
-        return () =>
-            withDirectives(
-                <div>
-                    <ElTabs
-                        type="border-card"
-                        modelValue={unref(tabIndex)}
-                        onUpdate:modelValue={($v) => {
-                            tabIndex.value = $v as any;
-                        }}
-                    >
-                        <ElTabPane label={$t('website.changeVersion')}>
-                            {unref(tabIndex) == '0' ? (
-                                <ElForm label-position="right" label-width="100px">
-                                    {unref(website).type === 'static' ? (
-                                        <ElFormItem>
-                                            <ElText type="info">{$t('website.staticChangePHPHelper')}</ElText>
-                                        </ElFormItem>
-                                    ) : null}
-                                    <ElFormItem label={$t('website.changeVersion')}>
-                                        <ElRow gutter={20}>
-                                            <ElCol span={20}>
-                                                <ElSelect
-                                                    modelValue={versionReq.runtimeID}
-                                                    onUpdate:modelValue={($v) => {
-                                                        versionReq.runtimeID = $v as any;
+        return () => (
+            <div v-loading={unref(loading)}>
+                <ElTabs type="border-card" v-model={tabIndex.value}>
+                    <ElTabPane label={$t('website.changeVersion')}>
+                        {unref(tabIndex) == '0' ? (
+                            <ElForm label-position="right" label-width="100px">
+                                {unref(website).type === 'static' ? (
+                                    <ElFormItem>
+                                        <ElText type="info">{$t('website.staticChangePHPHelper')}</ElText>
+                                    </ElFormItem>
+                                ) : null}
+                                <ElFormItem label={$t('website.changeVersion')}>
+                                    <ElRow gutter={20}>
+                                        <ElCol span={20}>
+                                            <ElSelect v-model={versionReq.runtimeID} class={'p-w-200'}>
+                                                <ElOption label={$t('website.static')} value={0} key={-1} />
+                                                {(unref(versions) || []).map((item, index) => (
+                                                    <ElOption label={item.label} value={item.value} key={index} />
+                                                ))}
+                                            </ElSelect>
+                                        </ElCol>
+                                        <ElCol span={4}>
+                                            {
+                                                <ElButton
+                                                    type="primary"
+                                                    onClick={($event?: any) => {
+                                                        submit();
                                                     }}
-                                                    class={'p-w-200'}
+                                                    disabled={versionReq.runtimeID === unref(oldRuntimeID)}
+                                                    v-permission={true}
                                                 >
-                                                    <ElOption label={$t('website.static')} value={0} key={-1} />
-                                                    {(unref(versions) || []).map((item, index) => (
-                                                        <ElOption label={item.label} value={item.value} key={index} />
-                                                    ))}
-                                                </ElSelect>
-                                            </ElCol>
-                                            <ElCol span={4}>
-                                                {withDirectives(
-                                                    <ElButton
-                                                        type="primary"
-                                                        onClick={($event?: any) => {
-                                                            submit();
-                                                        }}
-                                                        disabled={versionReq.runtimeID === unref(oldRuntimeID)}
-                                                    >
-                                                        {$t('commons.button.save')}
-                                                    </ElButton>,
-                                                    [[permissionDirective, true]],
-                                                )}
-                                            </ElCol>
-                                        </ElRow>
+                                                    {$t('commons.button.save')}
+                                                </ElButton>
+                                            }
+                                        </ElCol>
+                                    </ElRow>
+                                </ElFormItem>
+                            </ElForm>
+                        ) : null}
+                    </ElTabPane>
+                    {unref(website).type === 'runtime' && unref(website).runtimeType == 'php' ? (
+                        <ElTabPane label={$t('website.openBaseDir')}>
+                            {unref(tabIndex) == '1' ? (
+                                <ElForm label-position="right" label-width="100px">
+                                    <ElFormItem label={$t('website.openBaseDir')}>
+                                        {
+                                            <ElSwitch
+                                                v-model={openBaseDir.value}
+                                                onChange={($event?: any) => {
+                                                    (operateCrossSite as any)($event);
+                                                }}
+                                                v-permission={true}
+                                            />
+                                        }
+                                        <span class={'input-help'}>{$t('website.openBaseDirHelper')}</span>
                                     </ElFormItem>
                                 </ElForm>
                             ) : null}
                         </ElTabPane>
-                        {unref(website).type === 'runtime' && unref(website).runtimeType == 'php' ? (
-                            <ElTabPane label={$t('website.openBaseDir')}>
-                                {unref(tabIndex) == '1' ? (
-                                    <ElForm label-position="right" label-width="100px">
-                                        <ElFormItem label={$t('website.openBaseDir')}>
-                                            {withDirectives(
-                                                <ElSwitch
-                                                    modelValue={unref(openBaseDir)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        openBaseDir.value = $v as any;
-                                                    }}
-                                                    onChange={($event?: any) => {
-                                                        (operateCrossSite as any)($event);
-                                                    }}
-                                                />,
-                                                [[permissionDirective, true]],
-                                            )}
-                                            <span class={'input-help'}>{$t('website.openBaseDirHelper')}</span>
-                                        </ElFormItem>
-                                    </ElForm>
-                                ) : null}
-                            </ElTabPane>
-                        ) : null}
-                        {unref(website).type === 'runtime' && unref(website).runtimeType == 'php' ? (
-                            <ElTabPane label={'Composer'}>
-                                {unref(tabIndex) == '2' ? <Composer websiteID={__panelSetupProps.id} /> : null}
-                            </ElTabPane>
-                        ) : null}
-                    </ElTabs>
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                    ) : null}
+                    {unref(website).type === 'runtime' && unref(website).runtimeType == 'php' ? (
+                        <ElTabPane label={'Composer'}>
+                            {unref(tabIndex) == '2' ? <Composer websiteID={__panelSetupProps.id} /> : null}
+                        </ElTabPane>
+                    ) : null}
+                </ElTabs>
+            </div>
+        );
     },
     options,
 );

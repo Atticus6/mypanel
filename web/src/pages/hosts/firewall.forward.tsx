@@ -16,8 +16,6 @@ import { downloadWithContent } from '@/utils/file';
 import { getCurrentDateFormatted } from '@/utils/date';
 import { rpc } from '@/lib/rpc';
 import '@/pages/hosts/_components/firewall/forward/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import TableRefresh from '@/components/table/TableRefresh';
@@ -260,8 +258,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <FireRouter />
-                {withDirectives(
-                    <div>
+                {
+                    <div v-loading={unref(loading)}>
                         <FireStatus
                             ref={fireStatusRef}
                             onSearch={($event?: any) => {
@@ -288,21 +286,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 actions: () => (
                                     <>
                                         <ElDivider direction="vertical" />
-                                        {withDirectives(
+                                        {
                                             <ElButton
                                                 type="primary"
                                                 link
                                                 onClick={($event?: any) => {
                                                     (cleanupBackend as any)($event);
                                                 }}
+                                                v-permission={true}
+                                                v-node-admin={true}
                                             >
                                                 {$t('commons.button.reset')}
-                                            </ElButton>,
-                                            [
-                                                [permissionDirective, true],
-                                                [nodeAdminDirective, true],
-                                            ],
-                                        )}
+                                            </ElButton>
+                                        }
                                     </>
                                 ),
                             }}
@@ -324,63 +320,55 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     v-slots={{
                                         leftToolBar: () => (
                                             <>
-                                                {withDirectives(
+                                                {
                                                     <ElButton
                                                         type="primary"
                                                         onClick={($event?: any) => {
                                                             onOpenDialog('create');
                                                         }}
+                                                        v-permission={true}
+                                                        v-node-admin={true}
                                                     >
                                                         {$t('commons.button.create')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )}
-                                                {withDirectives(
+                                                    </ElButton>
+                                                }
+                                                {
                                                     <ElButton
                                                         onClick={($event?: any) => {
                                                             onDelete(null);
                                                         }}
                                                         plain
                                                         disabled={unref(selects).length === 0}
+                                                        v-permission={true}
+                                                        v-node-admin={true}
                                                     >
                                                         {$t('commons.button.delete')}
-                                                    </ElButton>,
-                                                    [
-                                                        [permissionDirective, true],
-                                                        [nodeAdminDirective, true],
-                                                    ],
-                                                )}
+                                                    </ElButton>
+                                                }
                                                 <ElButtonGroup>
-                                                    {withDirectives(
+                                                    {
                                                         <ElButton
                                                             onClick={($event?: any) => {
                                                                 (onImport as any)($event);
                                                             }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('commons.button.import')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
-                                                    {withDirectives(
+                                                        </ElButton>
+                                                    }
+                                                    {
                                                         <ElButton
                                                             disabled={unref(loading)}
                                                             onClick={($event?: any) => {
                                                                 (onExport as any)($event);
                                                             }}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('commons.button.export')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                        </ElButton>
+                                                    }
                                                 </ElButtonGroup>
                                             </>
                                         ),
@@ -500,9 +488,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                             </div>
                         ) : null}
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
                 <OpDialog
                     ref={opRef}
                     onSearch={($event?: any) => {

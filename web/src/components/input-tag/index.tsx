@@ -66,10 +66,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <ElInputTag
-                    modelValue={unref(tmpTags)}
-                    onUpdate:modelValue={($v) => {
-                        tmpTags.value = $v as any;
-                    }}
+                    v-model={tmpTags.value}
                     trigger="Enter"
                     onPaste={($event?: any) => {
                         (handlePaste as any)($event);

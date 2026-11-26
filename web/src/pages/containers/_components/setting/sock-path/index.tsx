@@ -99,10 +99,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.sockPath')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -131,7 +128,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={formRef}
                             label-position="top"
@@ -140,13 +137,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             onSubmit={($event?: any) => {
                                 $event.preventDefault();
                             }}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('container.sockPath')} prop="dockerSockPath">
                                 <ElInput
-                                    modelValue={form.dockerSockPath}
-                                    onUpdate:modelValue={($v) => {
-                                        form.dockerSockPath = $v as any;
-                                    }}
+                                    v-model={form.dockerSockPath}
                                     v-slots={{
                                         prepend: () => <>{'unix://'}</>,
                                         append: () => (
@@ -163,9 +158,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 />
                                 <span class={'input-help'}>{$t('container.sockPathHelper1')}</span>
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <FileList
                     ref={fileRef}

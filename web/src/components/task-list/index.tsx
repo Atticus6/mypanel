@@ -84,10 +84,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 size="large"
                 header={$t('menu.msgCenter')}
                 onClose={($event?: any) => {
@@ -96,17 +93,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 v-slots={{
                     content: () => (
                         <>
-                            {withDirectives(
+                            {
                                 <LayoutContent
                                     title={$t('logs.task')}
                                     v-slots={{
                                         leftToolBar: () => (
                                             <>
                                                 <NodeSelect
-                                                    modelValue={unref(targeNode)}
-                                                    onUpdate:modelValue={($v) => {
-                                                        targeNode.value = $v as any;
-                                                    }}
+                                                    v-model={targeNode.value}
                                                     onChange={($event?: any) => {
                                                         search();
                                                     }}
@@ -116,10 +110,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         rightToolBar: () => (
                                             <>
                                                 <ElSelect
-                                                    modelValue={req.status}
-                                                    onUpdate:modelValue={($v) => {
-                                                        req.status = $v as any;
-                                                    }}
+                                                    v-model={req.status}
                                                     onChange={($event?: any) => {
                                                         search();
                                                     }}
@@ -207,9 +198,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </>
                                         ),
                                     }}
-                                />,
-                                [[vLoading, unref(loading)]],
-                            )}
+                                    v-loading={unref(loading)}
+                                />
+                            }
                             <TaskLog ref={taskLogRef} width="70%" />
                         </>
                     ),

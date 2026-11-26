@@ -180,10 +180,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(monitorVisible)}
-                onUpdate:modelValue={($v) => {
-                    monitorVisible.value = $v as any;
-                }}
+                v-model={monitorVisible.value}
                 header={$t('menu.monitor')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -199,10 +196,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 >
                     <ElFormItem label={$t('container.refreshTime')}>
                         <ElSelect
-                            modelValue={unref(timeInterval)}
-                            onUpdate:modelValue={($v) => {
-                                timeInterval.value = $v as any;
-                            }}
+                            v-model={timeInterval.value}
                             onChange={($event?: any) => {
                                 (changeTimer as any)($event);
                             }}

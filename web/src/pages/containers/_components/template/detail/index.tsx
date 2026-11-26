@@ -33,10 +33,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(detailVisible)}
-                onUpdate:modelValue={($v) => {
-                    detailVisible.value = $v as any;
-                }}
+                v-model={detailVisible.value}
                 header={$t('commons.button.view')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -60,10 +57,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             >
                 <CodemirrorPro
                     placeholder={$t('commons.msg.noneData')}
-                    modelValue={unref(detailInfo)}
-                    onUpdate:modelValue={($v) => {
-                        detailInfo.value = $v as any;
-                    }}
+                    v-model={detailInfo.value}
                     mode="yaml"
                     heightDiff={160}
                     readonly={true}

@@ -375,10 +375,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(uploadOpen)}
-                    onUpdate:modelValue={($v) => {
-                        uploadOpen.value = $v as any;
-                    }}
+                    v-model={uploadOpen.value}
                     header={$t('commons.button.import')}
                     resource={unref(title)}
                     onClose={($event?: any) => {
@@ -388,8 +385,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     v-slots={{
                         content: () => (
                             <>
-                                {withDirectives(
-                                    <div>
+                                {
+                                    <div v-loading={unref(loading)}>
                                         {unref(type) !== 'mongodb' ? (
                                             <div>
                                                 <ElAlert
@@ -516,18 +513,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 fix
                                             />
                                         </ComplexTable>
-                                    </div>,
-                                    [[vLoading, unref(loading)]],
-                                )}
+                                    </div>
+                                }
                             </>
                         ),
                     }}
                 />
                 <DialogPro
-                    modelValue={unref(recoverDialog)}
-                    onUpdate:modelValue={($v) => {
-                        recoverDialog.value = $v as any;
-                    }}
+                    v-model={recoverDialog.value}
                     title={
                         unref(title)
                             ? $t('commons.button.recover') + ' - ' + unref(title)
@@ -563,22 +556,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref="backupForm"
                             onSubmit={($event?: any) => {
                                 $event.preventDefault();
                             }}
                             label-position="top"
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('setting.compressPassword')}>
-                                <ElInput
-                                    modelValue={unref(secret)}
-                                    onUpdate:modelValue={($v) => {
-                                        secret.value = $v as any;
-                                    }}
-                                    placeholder={$t('setting.backupRecoverMessage')}
-                                />
+                                <ElInput v-model={secret.value} placeholder={$t('setting.backupRecoverMessage')} />
                             </ElFormItem>
                             {unref(type) !== 'app' && unref(type) !== 'website' ? (
                                 <ElFormItem label={$t('cronjob.timeout')} prop="timeoutItem">
@@ -592,13 +580,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         v-slots={{
                                             append: () => (
                                                 <>
-                                                    <ElSelect
-                                                        modelValue={unref(timeoutUnit)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            timeoutUnit.value = $v as any;
-                                                        }}
-                                                        style={'width: 80px'}
-                                                    >
+                                                    <ElSelect v-model={timeoutUnit.value} style={'width: 80px'}>
                                                         <ElOption label={$t('commons.units.second')} value="s" />
                                                         <ElOption label={$t('commons.units.minute')} value="m" />
                                                         <ElOption label={$t('commons.units.hour')} value="h" />
@@ -610,9 +592,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <span class={'input-help'}>{$t('database.recoverTimeoutHelper')}</span>
                                 </ElFormItem>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DialogPro>
                 <OpDialog
                     ref={opRef}

@@ -112,10 +112,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.imagePull')}
                     onClose={($event?: any) => {
                         (onCloseLog as any)($event);
@@ -147,26 +144,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 >
                     <ElForm ref={formRef} label-position="top" model={form} rules={rules}>
                         <ElFormItem label={$t('app.source')}>
-                            <ElCheckbox
-                                modelValue={form.fromRepo}
-                                onUpdate:modelValue={($v) => {
-                                    form.fromRepo = $v as any;
-                                }}
-                            >
-                                {$t('container.imageRepo')}
-                            </ElCheckbox>
+                            <ElCheckbox v-model={form.fromRepo}>{$t('container.imageRepo')}</ElCheckbox>
                         </ElFormItem>
                         {form.fromRepo ? (
                             <ElFormItem label={$t('container.repoName')} prop="repoID">
-                                <ElSelect
-                                    clearable
-                                    filterable
-                                    modelValue={form.repoID}
-                                    onUpdate:modelValue={($v) => {
-                                        form.repoID = $v as any;
-                                    }}
-                                    style={'width: 100%'}
-                                >
+                                <ElSelect clearable filterable v-model={form.repoID} style={'width: 100%'}>
                                     {(unref(repos) || []).map((item) => (
                                         <ElOption value={item.id} label={item.name} key={item.id} />
                                     ))}
@@ -176,10 +158,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElFormItem label={$t('container.imageName')} prop="imageName">
                             {form.fromRepo ? (
                                 <ElInputTag
-                                    modelValue={form.imageName}
-                                    onUpdate:modelValue={($v) => {
-                                        form.imageName = $v as any;
-                                    }}
+                                    v-model={form.imageName}
                                     v-slots={{
                                         prefix: () => (
                                             <>
@@ -190,12 +169,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }}
                                 />
                             ) : (
-                                <ElInputTag
-                                    modelValue={form.imageName}
-                                    onUpdate:modelValue={($v) => {
-                                        form.imageName = $v as any;
-                                    }}
-                                />
+                                <ElInputTag v-model={form.imageName} />
                             )}
                             <span class={'input-help'}>{$t('container.imagePullHelper')}</span>
                         </ElFormItem>

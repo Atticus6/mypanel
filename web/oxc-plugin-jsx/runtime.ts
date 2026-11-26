@@ -16,7 +16,8 @@ function resolveCustomDirectives(props: Record<string, unknown>): unknown[][] {
         const segments = name.slice(2).split('.');
         const value = props[name];
         delete props[name];
-        const directive = resolveDirective(camelize(segments[0]));
+        // v-node-admin 这类带连字符的指令注册名与 camelize 结果不同，两种名字都尝试。
+        const directive = resolveDirective(camelize(segments[0])) ?? resolveDirective(segments[0]);
         if (!directive) continue;
         if (Array.isArray(value)) {
             directives.push([

@@ -3,6 +3,7 @@ import App from './App';
 
 import 'element-plus/dist/index.css';
 import * as Icons from '@element-plus/icons-vue';
+import { ClickOutside, vLoading } from 'element-plus';
 
 import '@/styles/index.scss';
 import '@/styles/common.scss';
@@ -43,6 +44,9 @@ const bootstrap = async () => {
     app.use(i18n);
     app.use(Components);
     app.use(directives);
+    // TSX 里用 v-loading / v-click-outside，组件按需引入时不会自动注册，这里补上。
+    app.directive('loading', vLoading);
+    app.directive('click-outside', ClickOutside);
 
     app.mount('#app');
 };

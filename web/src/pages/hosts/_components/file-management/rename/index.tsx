@@ -79,10 +79,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('file.rename')}
                 resource={unref(oldName)}
                 onClose={($event?: any) => {
@@ -113,16 +110,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={fileForm} label-position="top" model={addForm} label-width="100px" rules={rules}>
+                {
+                    <ElForm
+                        ref={fileForm}
+                        label-position="top"
+                        model={addForm}
+                        label-width="100px"
+                        rules={rules}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('file.path')} prop="path">
-                            <ElInput
-                                modelValue={addForm.path}
-                                onUpdate:modelValue={($v) => {
-                                    addForm.path = $v as any;
-                                }}
-                                disabled
-                            />
+                            <ElInput v-model={addForm.path} disabled />
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.name')} prop="newName">
                             <ElInput
@@ -132,9 +130,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

@@ -8,8 +8,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { splitTimeFromSecond, transTimeUnit } from '@/utils/validate';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {
@@ -111,7 +109,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <MonitorRouter />
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('menu.settings', 2)}
                         v-slots={{
@@ -132,35 +130,27 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <ElCol span={12}>
                                                 <h3 class={'mb-4'}>{$t('monitor.hostMonitor')}</h3>
                                                 <ElFormItem label={$t('monitor.enableMonitor')} prop="monitorStatus">
-                                                    {withDirectives(
+                                                    {
                                                         <ElSwitch
                                                             onChange={($event?: any) => {
                                                                 onSaveStatus('MonitorStatus', form.monitorStatus);
                                                             }}
-                                                            modelValue={form.monitorStatus}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.monitorStatus = $v as any;
-                                                            }}
+                                                            v-model={form.monitorStatus}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
-                                                        />,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        />
+                                                    }
                                                 </ElFormItem>
                                                 <ElFormItem label={$t('monitor.storeDays')} prop="monitorStoreDays">
                                                     <ElInput
                                                         disabled
-                                                        modelValue={form.monitorStoreDays}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.monitorStoreDays = $v as any;
-                                                        }}
+                                                        v-model={form.monitorStoreDays}
                                                         v-slots={{
                                                             append: () => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElButton
                                                                             onClick={($event?: any) => {
                                                                                 onChangeStoreDays(
@@ -169,14 +159,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 );
                                                                             }}
                                                                             icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {$t('commons.button.set')}
-                                                                        </ElButton>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
@@ -185,14 +173,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <ElFormItem label={$t('monitor.interval')} prop="monitorIntervalItem">
                                                     <ElInput
                                                         disabled
-                                                        modelValue={form.monitorIntervalItem}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.monitorIntervalItem = $v as any;
-                                                        }}
+                                                        v-model={form.monitorIntervalItem}
                                                         v-slots={{
                                                             append: () => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElButton
                                                                             onClick={($event?: any) => {
                                                                                 onChangeInterval(
@@ -201,14 +186,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 );
                                                                             }}
                                                                             icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {$t('commons.button.set')}
-                                                                        </ElButton>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
@@ -217,27 +200,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <ElFormItem label={$t('monitor.defaultNetwork')}>
                                                     <ElInput
                                                         disabled
-                                                        modelValue={form.defaultNetwork}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.defaultNetwork = $v as any;
-                                                        }}
+                                                        v-model={form.defaultNetwork}
                                                         v-slots={{
                                                             append: () => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElButton
                                                                             onClick={($event?: any) => {
                                                                                 (onChangeNetwork as any)($event);
                                                                             }}
                                                                             icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {$t('commons.button.set')}
-                                                                        </ElButton>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
@@ -249,27 +227,22 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <ElFormItem label={$t('monitor.defaultIO')}>
                                                     <ElInput
                                                         disabled
-                                                        modelValue={form.defaultIO}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.defaultIO = $v as any;
-                                                        }}
+                                                        v-model={form.defaultIO}
                                                         v-slots={{
                                                             append: () => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElButton
                                                                             onClick={($event?: any) => {
                                                                                 (onChangeIO as any)($event);
                                                                             }}
                                                                             icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {$t('commons.button.set')}
-                                                                        </ElButton>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
@@ -277,53 +250,43 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <span class={'input-help'}>{$t('monitor.defaultIOHelper')}</span>
                                                 </ElFormItem>
                                                 <ElFormItem>
-                                                    {withDirectives(
+                                                    {
                                                         <ElButton
                                                             onClick={($event?: any) => {
                                                                 onClean('host');
                                                             }}
                                                             icon="Delete"
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('monitor.cleanMonitor')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                        </ElButton>
+                                                    }
                                                 </ElFormItem>
                                                 <ElDivider />
                                                 <h3 class={'mb-4'}>{$t('monitor.gpuMonitor')}</h3>
                                                 <ElFormItem label={$t('monitor.enableMonitor')} prop="gpuMonitorStatus">
-                                                    {withDirectives(
+                                                    {
                                                         <ElSwitch
                                                             onChange={($event?: any) => {
                                                                 onSaveStatus('GPUMonitorStatus', form.gpuMonitorStatus);
                                                             }}
-                                                            modelValue={form.gpuMonitorStatus}
-                                                            onUpdate:modelValue={($v) => {
-                                                                form.gpuMonitorStatus = $v as any;
-                                                            }}
+                                                            v-model={form.gpuMonitorStatus}
                                                             active-value="Enable"
                                                             inactive-value="Disable"
-                                                        />,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                            v-permission={true}
+                                                            v-node-admin={true}
+                                                        />
+                                                    }
                                                 </ElFormItem>
                                                 <ElFormItem label={$t('monitor.storeDays')} prop="gpuMonitorStoreDays">
                                                     <ElInput
                                                         disabled
-                                                        modelValue={form.gpuMonitorStoreDays}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.gpuMonitorStoreDays = $v as any;
-                                                        }}
+                                                        v-model={form.gpuMonitorStoreDays}
                                                         v-slots={{
                                                             append: () => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElButton
                                                                             onClick={($event?: any) => {
                                                                                 onChangeStoreDays(
@@ -332,14 +295,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 );
                                                                             }}
                                                                             icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {$t('commons.button.set')}
-                                                                        </ElButton>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
@@ -351,14 +312,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 >
                                                     <ElInput
                                                         disabled
-                                                        modelValue={form.gpuMonitorIntervalItem}
-                                                        onUpdate:modelValue={($v) => {
-                                                            form.gpuMonitorIntervalItem = $v as any;
-                                                        }}
+                                                        v-model={form.gpuMonitorIntervalItem}
                                                         v-slots={{
                                                             append: () => (
                                                                 <>
-                                                                    {withDirectives(
+                                                                    {
                                                                         <ElButton
                                                                             onClick={($event?: any) => {
                                                                                 onChangeInterval(
@@ -367,34 +325,30 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 );
                                                                             }}
                                                                             icon="Setting"
+                                                                            v-permission={true}
+                                                                            v-node-admin={true}
                                                                         >
                                                                             {$t('commons.button.set')}
-                                                                        </ElButton>,
-                                                                        [
-                                                                            [permissionDirective, true],
-                                                                            [nodeAdminDirective, true],
-                                                                        ],
-                                                                    )}
+                                                                        </ElButton>
+                                                                    }
                                                                 </>
                                                             ),
                                                         }}
                                                     />
                                                 </ElFormItem>
                                                 <ElFormItem>
-                                                    {withDirectives(
+                                                    {
                                                         <ElButton
                                                             onClick={($event?: any) => {
                                                                 onClean('gpu');
                                                             }}
                                                             icon="Delete"
+                                                            v-permission={true}
+                                                            v-node-admin={true}
                                                         >
                                                             {$t('monitor.cleanMonitor')}
-                                                        </ElButton>,
-                                                        [
-                                                            [permissionDirective, true],
-                                                            [nodeAdminDirective, true],
-                                                        ],
-                                                    )}
+                                                        </ElButton>
+                                                    }
                                                 </ElFormItem>
                                             </ElCol>
                                         </ElRow>
@@ -402,9 +356,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <Interval
                     ref={intervalRef}
                     onSearch={($event?: any) => {

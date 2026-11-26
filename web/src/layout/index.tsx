@@ -161,79 +161,66 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 });
             }
         });
-        return () =>
-            withDirectives(
-                <div
-                    element-loading-text={unref(loadingText)}
-                    fullscreen
-                    class={cn('app-wrapper relative', unref(classObj))}
-                >
-                    {unref(classObj).mobile && unref(classObj).openSidebar ? (
-                        <div
-                            onClick={($event?: any) => {
-                                (handleClickOutside as any)($event);
-                            }}
-                            class={'drawer-bg'}
-                        />
-                    ) : null}
-                    {!unref(classObj).mobile ? (
-                        <ElAffix offset={unref(classObj).openMenuTabs ? 8 : 15} class={'affix'}>
-                            <ElTooltip
-                                content={
-                                    menuStore.isCollapse ? $t('commons.button.expand') : $t('commons.button.collapse')
-                                }
-                            >
-                                <ElButton
-                                    size="small"
-                                    circle
-                                    icon={menuStore.isCollapse ? 'ArrowRight' : 'ArrowLeft'}
-                                    plain
-                                    onClick={($event?: any) => {
-                                        handleCollapse();
-                                    }}
-                                    style={{
-                                        'margin-left': menuStore.isCollapse ? '63px' : '168px',
-                                        position: 'absolute',
-                                    }}
-                                />
-                            </ElTooltip>
-                        </ElAffix>
-                    ) : null}
-                    {!unref(isFullScreen) ? (
-                        <div class={'app-sidebar'}>
-                            <Sidebar
-                                onMenuClick={($event?: any) => {
-                                    (handleMenuClick as any)($event);
+        return () => (
+            <div
+                element-loading-text={unref(loadingText)}
+                fullscreen
+                class={cn('app-wrapper relative', unref(classObj))}
+                v-loading={unref(loading)}
+            >
+                {unref(classObj).mobile && unref(classObj).openSidebar ? (
+                    <div
+                        onClick={($event?: any) => {
+                            (handleClickOutside as any)($event);
+                        }}
+                        class={'drawer-bg'}
+                    />
+                ) : null}
+                {!unref(classObj).mobile ? (
+                    <ElAffix offset={unref(classObj).openMenuTabs ? 8 : 15} class={'affix'}>
+                        <ElTooltip
+                            content={menuStore.isCollapse ? $t('commons.button.expand') : $t('commons.button.collapse')}
+                        >
+                            <ElButton
+                                size="small"
+                                circle
+                                icon={menuStore.isCollapse ? 'ArrowRight' : 'ArrowLeft'}
+                                plain
+                                onClick={($event?: any) => {
+                                    handleCollapse();
                                 }}
-                                menu-router={!unref(classObj).openMenuTabs}
-                                onOpenTask={($event?: any) => {
-                                    (openTask as any)($event);
+                                style={{
+                                    'margin-left': menuStore.isCollapse ? '63px' : '168px',
+                                    position: 'absolute',
                                 }}
                             />
-                        </div>
-                    ) : null}
-                    {unref(isXpackOrEE) && unref(watermarkShow) && unref(watermark) ? (
-                        <ElWatermark
-                            content={loadContent()}
-                            font={{
-                                fontSize: unref(watermark).fontSize,
-                                color: unref(isDarkTheme) ? unref(watermark).darkColor : unref(watermark).lightColor,
-                                textBaseline: 'top',
+                        </ElTooltip>
+                    </ElAffix>
+                ) : null}
+                {!unref(isFullScreen) ? (
+                    <div class={'app-sidebar'}>
+                        <Sidebar
+                            onMenuClick={($event?: any) => {
+                                (handleMenuClick as any)($event);
                             }}
-                            rotate={unref(watermark).rotate}
-                            gap={[unref(watermark).gap, unref(watermark).gap]}
-                        >
-                            <div class={'main-container'}>
-                                {unref(classObj).mobile ? <MobileHeader /> : null}
-                                {unref(classObj).openMenuTabs ? <Tabs /> : null}
-                                <AppMain
-                                    keepAlive={unref(classObj).openMenuTabs ? tabsStore.keepAliveTabs : null}
-                                    class={'app-main'}
-                                />
-                                {!unref(isFullScreen) ? <Footer class={'app-footer'} /> : null}
-                            </div>
-                        </ElWatermark>
-                    ) : (
+                            menu-router={!unref(classObj).openMenuTabs}
+                            onOpenTask={($event?: any) => {
+                                (openTask as any)($event);
+                            }}
+                        />
+                    </div>
+                ) : null}
+                {unref(isXpackOrEE) && unref(watermarkShow) && unref(watermark) ? (
+                    <ElWatermark
+                        content={loadContent()}
+                        font={{
+                            fontSize: unref(watermark).fontSize,
+                            color: unref(isDarkTheme) ? unref(watermark).darkColor : unref(watermark).lightColor,
+                            textBaseline: 'top',
+                        }}
+                        rotate={unref(watermark).rotate}
+                        gap={[unref(watermark).gap, unref(watermark).gap]}
+                    >
                         <div class={'main-container'}>
                             {unref(classObj).mobile ? <MobileHeader /> : null}
                             {unref(classObj).openMenuTabs ? <Tabs /> : null}
@@ -243,13 +230,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                             {!unref(isFullScreen) ? <Footer class={'app-footer'} /> : null}
                         </div>
-                    )}
-                    <TaskList ref={taskListRef} />
-                    <TerminalHost />
-                    <TerminalDock />
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                    </ElWatermark>
+                ) : (
+                    <div class={'main-container'}>
+                        {unref(classObj).mobile ? <MobileHeader /> : null}
+                        {unref(classObj).openMenuTabs ? <Tabs /> : null}
+                        <AppMain
+                            keepAlive={unref(classObj).openMenuTabs ? tabsStore.keepAliveTabs : null}
+                            class={'app-main'}
+                        />
+                        {!unref(isFullScreen) ? <Footer class={'app-footer'} /> : null}
+                    </div>
+                )}
+                <TaskList ref={taskListRef} />
+                <TerminalHost />
+                <TerminalDock />
+            </div>
+        );
     },
     options,
 );

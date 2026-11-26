@@ -260,10 +260,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(visible)}
-                    onUpdate:modelValue={($v) => {
-                        visible.value = $v as any;
-                    }}
+                    v-model={visible.value}
                     header={$t('home.dir')}
                     resource={unref(title)}
                     size="large"
@@ -320,10 +317,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ) : (
                                             <ElInput
                                                 ref={pathInputRef}
-                                                modelValue={unref(pathInput)}
-                                                onUpdate:modelValue={($v) => {
-                                                    pathInput.value = $v as any;
-                                                }}
+                                                v-model={pathInput.value}
                                                 onBlur={($event?: any) => {
                                                     (cancelPathEditing as any)($event);
                                                 }}
@@ -483,10 +477,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     }}
                 />
                 <DialogPro
-                    modelValue={unref(previewVisible)}
-                    onUpdate:modelValue={($v) => {
-                        previewVisible.value = $v as any;
-                    }}
+                    v-model={previewVisible.value}
                     title={unref(previewTitle)}
                     size="w-70"
                     close-on-click-modal={true}

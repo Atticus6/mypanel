@@ -92,10 +92,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.mirrors')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -124,7 +121,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={formRef}
                             label-position="top"
@@ -133,21 +130,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 $event.preventDefault();
                             }}
                             rules={rules}
+                            v-loading={unref(loading)}
                         >
                             <ElFormItem label={$t('container.mirrors')} prop="mirrors">
                                 <ElInput
                                     type="textarea"
                                     placeholder={$t('container.mirrorHelper')}
                                     rows={5}
-                                    modelValue={form.mirrors}
-                                    onUpdate:modelValue={($v) => {
-                                        form.mirrors = $v as any;
-                                    }}
+                                    v-model={form.mirrors}
                                 />
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <ConfirmDialog
                     ref={confirmDialogRef}

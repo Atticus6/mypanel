@@ -4,7 +4,6 @@ import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -87,79 +86,47 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             search();
         });
-        return () =>
-            withDirectives(
-                <ElRow gutter={20}>
-                    <ElCol xs={24} sm={24} md={18} lg={14} xl={8}>
-                        <ElForm
-                            ref={websiteForm}
-                            label-position="right"
-                            label-width="80px"
-                            model={form}
-                            rules={unref(rules)}
-                        >
-                            <ElFormItem label={$t('commons.table.name')} prop="primaryDomain">
-                                <ElInput
-                                    modelValue={form.primaryDomain}
-                                    onUpdate:modelValue={($v) => {
-                                        form.primaryDomain = $v as any;
+        return () => (
+            <ElRow gutter={20} v-loading={unref(loading)}>
+                <ElCol xs={24} sm={24} md={18} lg={14} xl={8}>
+                    <ElForm
+                        ref={websiteForm}
+                        label-position="right"
+                        label-width="80px"
+                        model={form}
+                        rules={unref(rules)}
+                    >
+                        <ElFormItem label={$t('commons.table.name')} prop="primaryDomain">
+                            <ElInput v-model={form.primaryDomain} />
+                        </ElFormItem>
+                        <ElFormItem label={$t('website.alias')} prop="alias">
+                            <ElInput v-model={form.alias} disabled />
+                        </ElFormItem>
+                        <GroupSelect v-model={form.webSiteGroupId} prop={'webSiteGroupId'} groupType={'website'} />
+                        <ElFormItem label={$t('website.remark')} prop="remark">
+                            <ElInput v-model={form.remark} />
+                        </ElFormItem>
+                        <ElFormItem prop="IPV6">
+                            <ElCheckbox v-model={form.IPV6} label={$t('website.ipv6')} size="large" />
+                        </ElFormItem>
+                        <ElFormItem>
+                            {
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        submit(unref(websiteForm));
                                     }}
-                                />
-                            </ElFormItem>
-                            <ElFormItem label={$t('website.alias')} prop="alias">
-                                <ElInput
-                                    modelValue={form.alias}
-                                    onUpdate:modelValue={($v) => {
-                                        form.alias = $v as any;
-                                    }}
-                                    disabled
-                                />
-                            </ElFormItem>
-                            <GroupSelect
-                                modelValue={form.webSiteGroupId}
-                                onUpdate:modelValue={($v) => {
-                                    form.webSiteGroupId = $v as any;
-                                }}
-                                prop={'webSiteGroupId'}
-                                groupType={'website'}
-                            />
-                            <ElFormItem label={$t('website.remark')} prop="remark">
-                                <ElInput
-                                    modelValue={form.remark}
-                                    onUpdate:modelValue={($v) => {
-                                        form.remark = $v as any;
-                                    }}
-                                />
-                            </ElFormItem>
-                            <ElFormItem prop="IPV6">
-                                <ElCheckbox
-                                    modelValue={form.IPV6}
-                                    onUpdate:modelValue={($v) => {
-                                        form.IPV6 = $v as any;
-                                    }}
-                                    label={$t('website.ipv6')}
-                                    size="large"
-                                />
-                            </ElFormItem>
-                            <ElFormItem>
-                                {withDirectives(
-                                    <ElButton
-                                        type="primary"
-                                        onClick={($event?: any) => {
-                                            submit(unref(websiteForm));
-                                        }}
-                                        disabled={unref(loading)}
-                                    >
-                                        {$t('commons.button.save')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
-                            </ElFormItem>
-                        </ElForm>
-                    </ElCol>
-                </ElRow>,
-                [[vLoading, unref(loading)]],
-            );
+                                    disabled={unref(loading)}
+                                    v-permission={true}
+                                >
+                                    {$t('commons.button.save')}
+                                </ElButton>
+                            }
+                        </ElFormItem>
+                    </ElForm>
+                </ElCol>
+            </ElRow>
+        );
     },
     options,
 );

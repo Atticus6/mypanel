@@ -85,10 +85,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.imageBuild')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -132,12 +129,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                         </ElFormItem>
                         <ElFormItem label="Dockerfile" prop="from">
-                            <ElRadioGroup
-                                modelValue={form.from}
-                                onUpdate:modelValue={($v) => {
-                                    form.from = $v as any;
-                                }}
-                            >
+                            <ElRadioGroup v-model={form.from}>
                                 <ElRadio value="edit">{$t('commons.button.edit')}</ElRadio>
                                 <ElRadio value="path">{$t('container.pathSelect')}</ElRadio>
                             </ElRadioGroup>
@@ -145,10 +137,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {form.from === 'edit' ? (
                             <ElFormItem rules={Rules.requiredInput}>
                                 <CodemirrorPro
-                                    modelValue={form.dockerfile}
-                                    onUpdate:modelValue={($v) => {
-                                        form.dockerfile = $v as any;
-                                    }}
+                                    v-model={form.dockerfile}
                                     mode="dockerfile"
                                     placeholder="#Define or paste the content of your Dockerfile here"
                                 />
@@ -157,10 +146,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <ElFormItem rules={Rules.requiredSelect} prop="dockerfile">
                                 <ElInput
                                     clearable
-                                    modelValue={form.dockerfile}
-                                    onUpdate:modelValue={($v) => {
-                                        form.dockerfile = $v as any;
-                                    }}
+                                    v-model={form.dockerfile}
                                     v-slots={{
                                         prepend: () => (
                                             <>
@@ -181,10 +167,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 placeholder={$t('container.tagHelper')}
                                 type="textarea"
                                 rows={3}
-                                modelValue={form.argStr}
-                                onUpdate:modelValue={($v) => {
-                                    form.argStr = $v as any;
-                                }}
+                                v-model={form.argStr}
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('container.tag')}>
@@ -192,10 +175,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 placeholder={$t('container.tagHelper')}
                                 type="textarea"
                                 rows={3}
-                                modelValue={form.tagStr}
-                                onUpdate:modelValue={($v) => {
-                                    form.tagStr = $v as any;
-                                }}
+                                v-model={form.tagStr}
                             />
                         </ElFormItem>
                     </ElForm>

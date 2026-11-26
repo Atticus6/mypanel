@@ -18,14 +18,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const tabIndex = ref('0');
         return () => (
             <div>
-                <ElTabs
-                    tab-position="left"
-                    modelValue={unref(tabIndex)}
-                    onUpdate:modelValue={($v) => {
-                        tabIndex.value = $v as any;
-                    }}
-                    ref="tabsRef"
-                >
+                <ElTabs tab-position="left" v-model={tabIndex.value} ref="tabsRef">
                     <ElTabPane label={$t('nginx.defaultHttps')} name="0">
                         {unref(tabIndex) == '0' ? <Https /> : null}
                     </ElTabPane>

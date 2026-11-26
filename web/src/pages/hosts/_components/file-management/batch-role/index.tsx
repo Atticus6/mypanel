@@ -102,10 +102,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('file.editPermissions')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -135,8 +132,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <div>
+                {
+                    <div v-loading={unref(loading)}>
                         <FileRole
                             mode={unref(mode)}
                             onGetMode={($event?: any) => {
@@ -147,10 +144,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElForm ref="fileForm" label-position="left" model={addForm} label-width="100px" rules={rules}>
                             <ElFormItem label={$t('commons.table.user')} prop="user">
                                 <ElSelect
-                                    modelValue={addForm.user}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.user = $v as any;
-                                    }}
+                                    v-model={addForm.user}
                                     onChange={($event?: any) => {
                                         (handleUserChange as any)($event);
                                     }}
@@ -163,33 +157,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </ElSelect>
                             </ElFormItem>
                             <ElFormItem label={$t('file.group')} prop="group">
-                                <ElSelect
-                                    modelValue={addForm.group}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.group = $v as any;
-                                    }}
-                                    filterable
-                                    allow-create
-                                >
+                                <ElSelect v-model={addForm.group} filterable allow-create>
                                     {(unref(groups) || []).map((group) => (
                                         <ElOption label={group} value={group} key={group} />
                                     ))}
                                 </ElSelect>
                             </ElFormItem>
                             <ElFormItem>
-                                <ElCheckbox
-                                    modelValue={addForm.sub}
-                                    onUpdate:modelValue={($v) => {
-                                        addForm.sub = $v as any;
-                                    }}
-                                >
-                                    {$t('file.containSub')}
-                                </ElCheckbox>
+                                <ElCheckbox v-model={addForm.sub}>{$t('file.containSub')}</ElCheckbox>
                             </ElFormItem>
                         </ElForm>
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DrawerPro>
         );
     },

@@ -4,7 +4,6 @@ import { MsgSuccess } from '@/utils/message';
 import LogFile from '@/components/log/file/index';
 import MainDiv from '@/components/main-div/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import LayoutContent from '@/components/layout-content/index';
 import ConfirmDialog from '@/components/confirm-dialog/index';
@@ -102,7 +101,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <div>
-                {withDirectives(
+                {
                     <LayoutContent
                         title={$t('logs.websiteLog')}
                         v-slots={{
@@ -131,10 +130,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             leftToolBar: () => (
                                 <>
                                     <ElSelect
-                                        modelValue={logConfig.id}
-                                        onUpdate:modelValue={($v) => {
-                                            logConfig.id = $v as any;
-                                        }}
+                                        v-model={logConfig.id}
                                         onChange={($event?: any) => {
                                             changeWebsite();
                                         }}
@@ -147,10 +143,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElSelect>
                                     <ElButton>
                                         <ElCheckbox
-                                            modelValue={unref(tailLog)}
-                                            onUpdate:modelValue={($v) => {
-                                                tailLog.value = $v as any;
-                                            }}
+                                            v-model={tailLog.value}
                                             onChange={($event?: any) => {
                                                 (changeTail as any)($event);
                                             }}
@@ -159,19 +152,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {$t('commons.button.watch')}
                                         </ElCheckbox>
                                     </ElButton>
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             onClick={($event?: any) => {
                                                 (onDownload as any)($event);
                                             }}
                                             icon="Download"
                                             disabled={!unref(hasContent)}
+                                            v-permission={true}
                                         >
                                             {$t('commons.button.download')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
-                                    {withDirectives(
+                                        </ElButton>
+                                    }
+                                    {
                                         <ElButton
                                             type="primary"
                                             plain
@@ -179,11 +172,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onClean();
                                             }}
                                             disabled={!unref(hasContent)}
+                                            v-permission={true}
                                         >
                                             {$t('logs.deleteLogs')}
-                                        </ElButton>,
-                                        [[permissionDirective, true]],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </>
                             ),
                             main: () => (
@@ -208,9 +201,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 </>
                             ),
                         }}
-                    />,
-                    [[vLoading, unref(loading)]],
-                )}
+                        v-loading={unref(loading)}
+                    />
+                }
                 <ConfirmDialog
                     ref={confirmDialogRef}
                     onConfirm={($event?: any) => {

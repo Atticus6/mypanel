@@ -126,10 +126,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('container.imageTag')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -161,7 +158,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         label-position="top"
                         ref={formRef}
@@ -171,26 +168,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onSubmit={($event?: any) => {
                             $event.preventDefault();
                         }}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('app.source')}>
-                            <ElCheckbox
-                                modelValue={form.fromRepo}
-                                onUpdate:modelValue={($v) => {
-                                    form.fromRepo = $v as any;
-                                }}
-                            >
-                                {$t('container.imageRepo')}
-                            </ElCheckbox>
+                            <ElCheckbox v-model={form.fromRepo}>{$t('container.imageRepo')}</ElCheckbox>
                         </ElFormItem>
                         {form.fromRepo ? (
                             <ElFormItem label={$t('container.repoName')} rules={Rules.requiredSelect} prop="repo">
                                 <ElSelect
                                     clearable
                                     filterable
-                                    modelValue={form.repo}
-                                    onUpdate:modelValue={($v) => {
-                                        form.repo = $v as any;
-                                    }}
+                                    v-model={form.repo}
                                     onChange={($event?: any) => {
                                         (changeRepo as any)($event);
                                     }}
@@ -207,10 +195,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onAddTag={($event?: any) => {
                                     (handleAdd as any)($event);
                                 }}
-                                modelValue={form.tags}
-                                onUpdate:modelValue={($v) => {
-                                    form.tags = $v as any;
-                                }}
+                                v-model={form.tags}
                                 v-slots={{
                                     tag: ({ value }) => (
                                         <>
@@ -230,9 +215,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                             <span class={'input-help'}>{$t('container.imageTagHelper')}</span>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

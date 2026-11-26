@@ -105,13 +105,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <div class={'fu-table-column-select__list'}>
                             {(__panelSetupProps.columns || []).map((column) => (
                                 <div class={'fu-table-column-select__item'} key={column.key}>
-                                    <ElCheckbox
-                                        modelValue={column.show}
-                                        onUpdate:modelValue={($v) => {
-                                            column.show = $v as any;
-                                        }}
-                                        disabled={isFixedColumn(column)}
-                                    >
+                                    <ElCheckbox v-model={column.show} disabled={isFixedColumn(column)}>
                                         {column.label}
                                     </ElCheckbox>
                                 </div>

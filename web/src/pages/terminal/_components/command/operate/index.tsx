@@ -127,10 +127,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={unref(title)}
                 resource={unref(dialogData).title === 'create' ? '' : unref(dialogData).rowData?.name}
                 onClose={($event?: any) => {
@@ -173,32 +170,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 >
                     {unref(dialogData).title === 'create' ? (
                         <ElFormItem label={$t('terminal.batchInput')}>
-                            <ElSwitch
-                                modelValue={unref(batchMode)}
-                                onUpdate:modelValue={($v) => {
-                                    batchMode.value = $v as any;
-                                }}
-                            />
+                            <ElSwitch v-model={batchMode.value} />
                         </ElFormItem>
                     ) : null}
                     {!unref(batchMode) ? (
                         <ElFormItem label={$t('commons.table.name')} prop="name">
-                            <ElInput
-                                clearable
-                                modelValue={unref(dialogData).rowData!.name}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.name = $v as any;
-                                }}
-                            />
+                            <ElInput clearable v-model={unref(dialogData).rowData!.name} />
                         </ElFormItem>
                     ) : null}
                     <ElFormItem label={$t('commons.table.group')} prop="groupID">
                         <ElSelect
                             filterable
-                            modelValue={unref(dialogData).rowData!.groupID}
-                            onUpdate:modelValue={($v) => {
-                                unref(dialogData).rowData!.groupID = $v as any;
-                            }}
+                            v-model={unref(dialogData).rowData!.groupID}
                             clearable
                             style={'width: 100%'}
                         >
@@ -209,22 +192,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </ElFormItem>
                     {!unref(batchMode) ? (
                         <ElFormItem label={$t('terminal.command')} prop="command">
-                            <ElInput
-                                type="textarea"
-                                clearable
-                                modelValue={unref(dialogData).rowData!.command}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.command = $v as any;
-                                }}
-                            />
+                            <ElInput type="textarea" clearable v-model={unref(dialogData).rowData!.command} />
                         </ElFormItem>
                     ) : (
                         <ElFormItem label={$t('terminal.command')}>
                             <ElInput
-                                modelValue={unref(batchCommandText)}
-                                onUpdate:modelValue={($v) => {
-                                    batchCommandText.value = $v as any;
-                                }}
+                                v-model={batchCommandText.value}
                                 type="textarea"
                                 clearable
                                 autosize={{ minRows: 8, maxRows: 16 }}

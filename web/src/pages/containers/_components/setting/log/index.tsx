@@ -106,10 +106,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('container.cutLog')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -154,8 +151,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ),
                         }}
                     />
-                    {withDirectives(
-                        <ElForm model={form} ref={formRef} rules={rules} label-position="top">
+                    {
+                        <ElForm
+                            model={form}
+                            ref={formRef}
+                            rules={rules}
+                            label-position="top"
+                            v-loading={unref(loading)}
+                        >
                             <ElFormItem prop="logMaxSize" label={$t('container.maxSize')}>
                                 <ElInput
                                     modelValue={form.logMaxSize}
@@ -165,13 +168,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     v-slots={{
                                         append: () => (
                                             <>
-                                                <ElSelect
-                                                    modelValue={form.sizeUnit}
-                                                    onUpdate:modelValue={($v) => {
-                                                        form.sizeUnit = $v as any;
-                                                    }}
-                                                    style={'width: 70px'}
-                                                >
+                                                <ElSelect v-model={form.sizeUnit} style={'width: 70px'}>
                                                     <ElOption label="Byte" value="b" />
                                                     <ElOption label="KB" value="k" />
                                                     <ElOption label="MB" value="m" />
@@ -190,9 +187,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     }}
                                 />
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <ConfirmDialog
                     ref={confirmDialogRef}

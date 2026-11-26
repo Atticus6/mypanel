@@ -87,10 +87,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.entrance')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -119,7 +116,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -128,14 +125,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             $event.preventDefault();
                         }}
                         rules={rules}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('setting.entrance')} prop="securityEntrance">
                             <ElInput
                                 clearable
-                                modelValue={form.securityEntrance}
-                                onUpdate:modelValue={($v) => {
-                                    form.securityEntrance = $v as any;
-                                }}
+                                v-model={form.securityEntrance}
                                 v-slots={{
                                     append: () => (
                                         <>
@@ -153,17 +148,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <span class={'input-help'}>{$t('setting.entranceInputHelper')}</span>
                         </ElFormItem>
                         <ElFormItem>
-                            <ElCheckbox
-                                modelValue={unref(show)}
-                                onUpdate:modelValue={($v) => {
-                                    show.value = $v as any;
-                                }}
-                                label={$t('setting.showEntrance')}
-                            />
+                            <ElCheckbox v-model={show.value} label={$t('setting.showEntrance')} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

@@ -4,7 +4,6 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import CorsSetting from '@/pages/websites/_components/website/cors/index';
 import { rpc } from '@/lib/rpc';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -73,19 +72,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <ElRow>
                 <ElCol xs={24} sm={18} md={18} lg={14} xl={14}>
-                    {withDirectives(
+                    {
                         <ElForm
                             ref={corsForm}
                             label-position="right"
                             label-width="150px"
                             model={unref(corsSetting)}
                             rules={unref(rules)}
+                            v-loading={unref(loading)}
                         >
                             <CorsSetting
-                                modelValue={unref(corsSetting).cors}
-                                onUpdate:modelValue={($v) => {
-                                    unref(corsSetting).cors = $v as any;
-                                }}
+                                v-model={unref(corsSetting).cors}
                                 config={{
                                     allowOrigins: unref(corsSetting).allowOrigins,
                                     allowMethods: unref(corsSetting).allowMethods,
@@ -99,21 +96,20 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 }}
                             />
                             <ElFormItem>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit();
                                         }}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.save')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </ElFormItem>
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </ElCol>
             </ElRow>
         );

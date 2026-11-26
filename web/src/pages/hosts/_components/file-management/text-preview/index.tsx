@@ -96,18 +96,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         ctx.expose({ acceptParams });
         return () => (
-            <ElDrawer
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
-                title={unref(title)}
-                size="50%"
-                before-close={handleClose}
-                destroy-on-close
-            >
-                {withDirectives(
-                    <div>
+            <ElDrawer v-model={open.value} title={unref(title)} size="50%" before-close={handleClose} destroy-on-close>
+                {
+                    <div v-loading={unref(loading)}>
                         <div class={'mb-4 flex items-center justify-between'}>
                             {unref(isTruncated) ? <ElTag type="warning">{$t('file.previewTruncated')}</ElTag> : null}
                             <ElButton
@@ -143,9 +134,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <div class={'empty-content'}>{$t('file.previewEmpty')}</div>
                             ) : null}
                         </div>
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </ElDrawer>
         );
     },

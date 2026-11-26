@@ -3,7 +3,6 @@ import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { Website } from '@/types/website';
 import { MsgSuccess } from '@/utils/message';
-import permissionDirective from '@/directives/modules/permission';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
@@ -80,10 +79,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DialogPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 title={$t('website.delete') + ' - ' + unref(websiteName)}
                 size="small"
                 onClose={($event?: any) => {
@@ -101,67 +97,46 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('commons.button.cancel')}
                                 </ElButton>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
                                             submit();
                                         }}
                                         disabled={unref(loading) || unref(deleteInfo) != unref(websiteName)}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.confirm')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </span>
                         </>
                     ),
                 }}
             >
-                {withDirectives(
-                    <div key={key}>
+                {
+                    <div key={key} v-loading={unref(loading)}>
                         <ElForm ref={deleteForm} label-position="left">
                             <ElFormItem>
-                                <ElCheckbox
-                                    modelValue={unref(deleteReq).forceDelete}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(deleteReq).forceDelete = $v as any;
-                                    }}
-                                    label={$t('website.forceDelete')}
-                                />
+                                <ElCheckbox v-model={unref(deleteReq).forceDelete} label={$t('website.forceDelete')} />
                                 <span class={'input-help'}>{$t('website.forceDeleteHelper')}</span>
                             </ElFormItem>
                             {unref(type) === 'deployment' ? (
                                 <ElFormItem>
-                                    <ElCheckbox
-                                        modelValue={unref(deleteReq).deleteApp}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(deleteReq).deleteApp = $v as any;
-                                        }}
-                                        label={$t('website.deleteApp')}
-                                    />
+                                    <ElCheckbox v-model={unref(deleteReq).deleteApp} label={$t('website.deleteApp')} />
                                     <span class={'input-help'}>{$t('website.deleteAppHelper')}</span>
                                 </ElFormItem>
                             ) : null}
                             <ElFormItem>
                                 <ElCheckbox
-                                    modelValue={unref(deleteReq).deleteBackup}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(deleteReq).deleteBackup = $v as any;
-                                    }}
+                                    v-model={unref(deleteReq).deleteBackup}
                                     label={$t('website.deleteBackup')}
                                 />
                                 <span class={'input-help'}>{$t('website.deleteBackupHelper')}</span>
                             </ElFormItem>
                             {unref(type) === 'runtime' ? (
                                 <ElFormItem>
-                                    <ElCheckbox
-                                        modelValue={unref(deleteReq).deleteDB}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(deleteReq).deleteDB = $v as any;
-                                        }}
-                                        label={$t('app.deleteDB')}
-                                    />
+                                    <ElCheckbox v-model={unref(deleteReq).deleteDB} label={$t('app.deleteDB')} />
                                     <span class={'input-help'}>{$t('website.deleteDatabaseHelper')}</span>
                                 </ElFormItem>
                             ) : null}
@@ -174,18 +149,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ) : null}
                             <ElFormItem>
                                 <span innerHTML={unref(deleteHelper)} />
-                                <ElInput
-                                    modelValue={unref(deleteInfo)}
-                                    onUpdate:modelValue={($v) => {
-                                        deleteInfo.value = $v as any;
-                                    }}
-                                    placeholder={unref(websiteName)}
-                                />
+                                <ElInput v-model={deleteInfo.value} placeholder={unref(websiteName)} />
                             </ElFormItem>
                         </ElForm>
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </div>
+                }
             </DialogPro>
         );
     },

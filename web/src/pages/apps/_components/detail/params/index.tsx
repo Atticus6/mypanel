@@ -274,10 +274,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {p.type == 'service' ? (
                             <div class={'service-param-row'}>
                                 <ElSelect
-                                    modelValue={__panelSetupProps.form[p.envKey]}
-                                    onUpdate:modelValue={($v) => {
-                                        __panelSetupProps.form[p.envKey] = $v as any;
-                                    }}
+                                    v-model={__panelSetupProps.form[p.envKey]}
                                     onChange={($event?: any) => {
                                         changeService(__panelSetupProps.form[p.envKey], p.services);
                                     }}
@@ -305,10 +302,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ) : null}
                         {p.type == 'select' ? (
                             <ElSelect
-                                modelValue={__panelSetupProps.form[p.envKey]}
-                                onUpdate:modelValue={($v) => {
-                                    __panelSetupProps.form[p.envKey] = $v as any;
-                                }}
+                                v-model={__panelSetupProps.form[p.envKey]}
                                 multiple={p.multiple}
                                 allowCreate={p.allowCreate}
                                 filterable
@@ -323,10 +317,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <div class={'app-service-row__app'}>
                                     <ElFormItem prop={p.prop}>
                                         <ElSelect
-                                            modelValue={__panelSetupProps.form[p.envKey]}
-                                            onUpdate:modelValue={($v) => {
-                                                __panelSetupProps.form[p.envKey] = $v as any;
-                                            }}
+                                            v-model={__panelSetupProps.form[p.envKey]}
                                             onChange={($event?: any) => {
                                                 getServices(p.child.envKey, __panelSetupProps.form[p.envKey], p);
                                             }}
@@ -346,10 +337,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElFormItem prop={p.childProp}>
                                         {p.child.type == 'service' ? (
                                             <ElSelect
-                                                modelValue={__panelSetupProps.form[p.child.envKey]}
-                                                onUpdate:modelValue={($v) => {
-                                                    __panelSetupProps.form[p.child.envKey] = $v as any;
-                                                }}
+                                                v-model={__panelSetupProps.form[p.child.envKey]}
                                                 onChange={($event?: any) => {
                                                     changeService(__panelSetupProps.form[p.child.envKey], p.services);
                                                 }}
@@ -413,10 +401,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElFormItem label={$t('database.format')} prop="format">
                             <ElSelect
                                 filterable
-                                modelValue={__panelSetupProps.form.format}
-                                onUpdate:modelValue={($v) => {
-                                    __panelSetupProps.form.format = $v as any;
-                                }}
+                                v-model={__panelSetupProps.form.format}
                                 onChange={($event?: any) => {
                                     loadCollations();
                                 }}
@@ -429,13 +414,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ) : null}
                     {isMysql(__panelSetupProps.form, p.envKey) ? (
                         <ElFormItem label={$t('database.collation')} prop="collation">
-                            <ElSelect
-                                filterable
-                                modelValue={__panelSetupProps.form.collation}
-                                onUpdate:modelValue={($v) => {
-                                    __panelSetupProps.form.collation = $v as any;
-                                }}
-                            >
+                            <ElSelect filterable v-model={__panelSetupProps.form.collation}>
                                 {(unref(collationOptions) || []).map((item) => (
                                     <ElOption label={item} value={item} key={item} />
                                 ))}

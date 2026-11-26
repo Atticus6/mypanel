@@ -268,10 +268,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('file.formatConvert')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -281,18 +278,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         content: () => (
                             <>
                                 <ElTabs
-                                    modelValue={unref(activeName)}
-                                    onUpdate:modelValue={($v) => {
-                                        activeName.value = $v as any;
-                                    }}
+                                    v-model={activeName.value}
                                     type="card"
                                     onTabClick={($event?: any) => {
                                         (handleClick as any)($event);
                                     }}
                                 >
                                     <ElTabPane label={$t('file.formatConvert')} name="convert">
-                                        {withDirectives(
-                                            <ElForm>
+                                        {
+                                            <ElForm v-loading={unref(loading)}>
                                                 <div class={'flex-row items-center justify-start'}>
                                                     <ElButton
                                                         type="primary"
@@ -336,10 +330,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     >
                                                                         <span>{$t('file.converting')}</span>
                                                                         <ElSelect
-                                                                            modelValue={unref(handleOutputFile)}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                handleOutputFile.value = $v as any;
-                                                                            }}
+                                                                            v-model={handleOutputFile.value}
                                                                             placeholder="Select"
                                                                             size="small"
                                                                             onChange={($event?: any) => {
@@ -364,10 +355,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             default: ({ row }) => (
                                                                 <>
                                                                     <ElSelect
-                                                                        modelValue={row.outputFormat}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            row.outputFormat = $v as any;
-                                                                        }}
+                                                                        v-model={row.outputFormat}
                                                                         value={
                                                                             row.outputFormat ||
                                                                             getOptionsByType(row.type)[0]?.value
@@ -403,17 +391,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         </ElBreadcrumb>
                                                     </div>
                                                     <ElCheckbox
-                                                        modelValue={unref(deleteSource)}
-                                                        onUpdate:modelValue={($v) => {
-                                                            deleteSource.value = $v as any;
-                                                        }}
+                                                        v-model={deleteSource.value}
                                                         label={$t('file.deleteSourceFile')}
                                                         size="large"
                                                     />
                                                 </div>
-                                            </ElForm>,
-                                            [[vLoading, unref(loading)]],
-                                        )}
+                                            </ElForm>
+                                        }
                                     </ElTabPane>
                                     <ElTabPane label={$t('file.convertLogs')} name="log">
                                         <ComplexTable

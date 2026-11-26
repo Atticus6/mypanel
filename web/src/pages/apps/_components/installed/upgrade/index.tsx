@@ -316,10 +316,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('commons.button.' + operateReq.operate)}
                     resource={unref(resourceName)}
                     onClose={($event?: any) => {
@@ -354,8 +351,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                     }}
                 >
-                    {withDirectives(
-                        <div>
+                    {
+                        <div v-loading={unref(loading) || unref(loadingVersions)}>
                             <ElDescriptions direction="vertical">
                                 <ElDescriptionsItem>
                                     <ElLink
@@ -405,10 +402,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             >
                                 <ElFormItem label={$t('app.versionSelect')} prop="detailId">
                                     <ElSelect
-                                        modelValue={operateReq.version}
-                                        onUpdate:modelValue={($v) => {
-                                            operateReq.version = $v as any;
-                                        }}
+                                        v-model={operateReq.version}
                                         onChange={($event?: any) => {
                                             getVersions(operateReq.version);
                                         }}
@@ -485,10 +479,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {operateReq.operate === 'upgrade' ? (
                                     <ElFormItem prop="backup">
                                         <ElCheckbox
-                                            modelValue={operateReq.backup}
-                                            onUpdate:modelValue={($v) => {
-                                                operateReq.backup = $v as any;
-                                            }}
+                                            v-model={operateReq.backup}
                                             disabled={unref(feishuLegacy)}
                                             label={$t('app.backupApp')}
                                         />
@@ -500,10 +491,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {operateReq.operate === 'upgrade' ? (
                                     <ElFormItem prop="pullImage">
                                         <ElCheckbox
-                                            modelValue={operateReq.pullImage}
-                                            onUpdate:modelValue={($v) => {
-                                                operateReq.pullImage = $v as any;
-                                            }}
+                                            v-model={operateReq.pullImage}
                                             label={$t('app.pullImage')}
                                             size="large"
                                         />
@@ -513,10 +501,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {operateReq.operate === 'upgrade' ? (
                                     <ElFormItem prop="deleteImage">
                                         <ElCheckbox
-                                            modelValue={operateReq.deleteImage}
-                                            onUpdate:modelValue={($v) => {
-                                                operateReq.deleteImage = $v as any;
-                                            }}
+                                            v-model={operateReq.deleteImage}
                                             label={$t('app.upgradeDeleteImage')}
                                         />
                                     </ElFormItem>
@@ -540,10 +525,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </ElButton>
                                     </div>
                                     <ElCheckbox
-                                        modelValue={unref(useNewCompose)}
-                                        onUpdate:modelValue={($v) => {
-                                            useNewCompose.value = $v as any;
-                                        }}
+                                        v-model={useNewCompose.value}
                                         label={$t('app.useCustom')}
                                         size="large"
                                     />
@@ -552,20 +534,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {!unref(isEdit) ? (
                                                 <ElText type="danger">{$t('app.useCustomHelper')}</ElText>
                                             ) : null}
-                                            <CodemirrorPro
-                                                modelValue={unref(newCompose)}
-                                                onUpdate:modelValue={($v) => {
-                                                    newCompose.value = $v as any;
-                                                }}
-                                                mode="yaml"
-                                            />
+                                            <CodemirrorPro v-model={newCompose.value} mode="yaml" />
                                         </div>
                                     ) : null}
                                 </div>
                             ) : null}
-                        </div>,
-                        [[vLoading, unref(loading) || unref(loadingVersions)]],
-                    )}
+                        </div>
+                    }
                     <Diff
                         ref={composeDiffRef}
                         onConfirm={($event?: any) => {

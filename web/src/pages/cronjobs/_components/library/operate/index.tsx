@@ -114,10 +114,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={unref(title)}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -150,40 +147,29 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <ElForm ref={formRef} label-position="top" model={unref(dialogData).rowData} rules={rules}>
+                {
+                    <ElForm
+                        ref={formRef}
+                        label-position="top"
+                        model={unref(dialogData).rowData}
+                        rules={rules}
+                        v-loading={unref(loading)}
+                    >
                         <ElFormItem label={$t('commons.table.name')} prop="name">
                             {unref(dialogData).title === 'edit' ? (
                                 <ElTag>{unref(dialogData).rowData!.name}</ElTag>
                             ) : (
-                                <ElInput
-                                    modelValue={unref(dialogData).rowData!.name}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(dialogData).rowData!.name = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={unref(dialogData).rowData!.name} />
                             )}
                         </ElFormItem>
                         <ElFormItem prop="isInteractive">
-                            <ElCheckbox
-                                modelValue={unref(dialogData).rowData!.isInteractive}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.isInteractive = $v as any;
-                                }}
-                            >
+                            <ElCheckbox v-model={unref(dialogData).rowData!.isInteractive}>
                                 {$t('cronjob.library.interactive')}
                             </ElCheckbox>
                             <span class={'input-help'}>{$t('cronjob.library.interactiveHelper')}</span>
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.group')} prop="groupList">
-                            <ElSelect
-                                filterable
-                                modelValue={unref(dialogData).rowData!.groupList}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.groupList = $v as any;
-                                }}
-                                multiple
-                            >
+                            <ElSelect filterable v-model={unref(dialogData).rowData!.groupList} multiple>
                                 {(unref(groupOptions) || []).map((item) => (
                                     <ElOption label={item.name} value={item.id} key={item.id} />
                                 ))}
@@ -192,27 +178,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         <ElFormItem label={$t('cronjob.shellContent')} prop="script" class={'mt-5'}>
                             <CodemirrorPro
-                                modelValue={unref(dialogData).rowData!.script}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.script = $v as any;
-                                }}
+                                v-model={unref(dialogData).rowData!.script}
                                 placeholder="#Define or paste the content of your script file here"
                                 mode="javascript"
                                 heightDiff={400}
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.description')} prop="description">
-                            <ElInput
-                                clearable
-                                modelValue={unref(dialogData).rowData!.description}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.description = $v as any;
-                                }}
-                            />
+                            <ElInput clearable v-model={unref(dialogData).rowData!.description} />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

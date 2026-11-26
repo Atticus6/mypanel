@@ -12,8 +12,6 @@ interface ShareProps {
     path: string;
 }
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 import DialogPro from '@/components/dialog-pro/index';
@@ -233,10 +231,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <DrawerPro
-                    modelValue={unref(open)}
-                    onUpdate:modelValue={($v) => {
-                        open.value = $v as any;
-                    }}
+                    v-model={open.value}
                     header={$t('file.shareFile')}
                     size="large"
                     onClose={($event?: any) => {
@@ -254,22 +249,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     >
                                         {$t('commons.button.cancel')}
                                     </ElButton>
-                                    {unref(shareInfo)
-                                        ? withDirectives(
-                                              <ElButton
-                                                  disabled={unref(loading)}
-                                                  onClick={($event?: any) => {
-                                                      (cancelShare as any)($event);
-                                                  }}
-                                              >
-                                                  {$t('file.shareClose')}
-                                              </ElButton>,
-                                              [
-                                                  [permissionDirective, true],
-                                                  [nodeAdminDirective, true],
-                                              ],
-                                          )
-                                        : null}
+                                    {unref(shareInfo) ? (
+                                        <ElButton
+                                            disabled={unref(loading)}
+                                            onClick={($event?: any) => {
+                                                (cancelShare as any)($event);
+                                            }}
+                                            v-permission={true}
+                                            v-node-admin={true}
+                                        >
+                                            {$t('file.shareClose')}
+                                        </ElButton>
+                                    ) : null}
                                     {unref(shareInfo) ? (
                                         <ElButton
                                             disabled={unref(loading)}
@@ -280,21 +271,19 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             {$t('file.shareCopyLink')}
                                         </ElButton>
                                     ) : null}
-                                    {withDirectives(
+                                    {
                                         <ElButton
                                             type="primary"
                                             disabled={unref(loading)}
                                             onClick={($event?: any) => {
                                                 (generate as any)($event);
                                             }}
+                                            v-permission={true}
+                                            v-node-admin={true}
                                         >
                                             {unref(shareInfo) ? $t('file.shareRegenerate') : $t('file.shareGenerate')}
-                                        </ElButton>,
-                                        [
-                                            [permissionDirective, true],
-                                            [nodeAdminDirective, true],
-                                        ],
-                                    )}
+                                        </ElButton>
+                                    }
                                 </span>
                             </>
                         ),
@@ -307,19 +296,20 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         show-icon
                         class={'share-risk-alert'}
                     />
-                    {withDirectives(
-                        <ElForm ref={shareFormRef} model={form} rules={rules} label-position="top" label-width="100px">
+                    {
+                        <ElForm
+                            ref={shareFormRef}
+                            model={form}
+                            rules={rules}
+                            label-position="top"
+                            label-width="100px"
+                            v-loading={unref(loading)}
+                        >
                             <ElFormItem label={$t('file.path')}>
                                 <ElInput model-value={unref(filePath)} type="textarea" rows={2} readonly />
                             </ElFormItem>
                             <ElFormItem label={$t('file.shareExpire')}>
-                                <ElSelect
-                                    modelValue={form.expireMinutes}
-                                    onUpdate:modelValue={($v) => {
-                                        form.expireMinutes = $v as any;
-                                    }}
-                                    class={'w-full'}
-                                >
+                                <ElSelect v-model={form.expireMinutes} class={'w-full'}>
                                     {(unref(expireOptions) || []).map((opt) => (
                                         <ElOption label={opt.label} value={opt.value} key={opt.value} />
                                     ))}
@@ -327,10 +317,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElFormItem>
                             <ElFormItem label={$t('file.sharePassword')} prop="sharePassword">
                                 <ElInput
-                                    modelValue={form.sharePassword}
-                                    onUpdate:modelValue={($v) => {
-                                        form.sharePassword = $v as any;
-                                    }}
+                                    v-model={form.sharePassword}
                                     type="password"
                                     show-password
                                     clearable
@@ -382,18 +369,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElFormItem>
                                 </>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
-                <DialogPro
-                    modelValue={unref(qrDialogOpen)}
-                    onUpdate:modelValue={($v) => {
-                        qrDialogOpen.value = $v as any;
-                    }}
-                    title={$t('file.shareQrDialogTitle')}
-                    size="small"
-                >
+                <DialogPro v-model={qrDialogOpen.value} title={$t('file.shareQrDialogTitle')} size="small">
                     <div class={'share-qr-dialog'}>
                         <div class={'share-qr-title'}>{$t('file.shareQrDialogTitle')}</div>
                         {unref(qrCodeUrl) ? (

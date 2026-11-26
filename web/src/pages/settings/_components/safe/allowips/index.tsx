@@ -114,10 +114,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.allowIPs')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -146,7 +143,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={formRef}
                         label-position="top"
@@ -155,16 +152,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         }}
                         model={form}
                         rules={rules}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('setting.allowIPs')} prop="allowIPs">
                             <ElInput
                                 type="textarea"
                                 placeholder={$t('setting.allowIPEgs')}
                                 rows={3}
-                                modelValue={form.allowIPs}
-                                onUpdate:modelValue={($v) => {
-                                    form.allowIPs = $v as any;
-                                }}
+                                v-model={form.allowIPs}
                             />
                             <span class={'input-help'}>{$t('setting.allowIPsHelper1')}</span>
                             <span class={'input-help'}>{$t('setting.allowIPsPrivateHelper')}</span>
@@ -174,16 +169,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 type="textarea"
                                 placeholder={$t('setting.apiTrustedProxiesEgs')}
                                 rows={3}
-                                modelValue={form.allowIPTrustedProxies}
-                                onUpdate:modelValue={($v) => {
-                                    form.allowIPTrustedProxies = $v as any;
-                                }}
+                                v-model={form.allowIPTrustedProxies}
                             />
                             <span class={'input-help'}>{$t('setting.apiTrustedProxiesHelper')}</span>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

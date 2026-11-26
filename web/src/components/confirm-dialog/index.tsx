@@ -55,10 +55,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
         });
         return () => (
             <DialogPro
-                modelValue={unref(submitVisible)}
-                onUpdate:modelValue={($v) => {
-                    submitVisible.value = $v as any;
-                }}
+                v-model={submitVisible.value}
                 title={unref(header)}
                 size="mini"
                 onClose={($event?: any) => {
@@ -100,13 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                             {"'"}
                         </span>
                     </div>
-                    <ElInput
-                        modelValue={unref(submitInput)}
-                        onUpdate:modelValue={($v) => {
-                            submitInput.value = $v as any;
-                        }}
-                        style={'margin-top: 10px'}
-                    />
+                    <ElInput v-model={submitInput.value} style={'margin-top: 10px'} />
                 </div>
             </DialogPro>
         );

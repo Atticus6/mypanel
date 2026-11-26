@@ -26,13 +26,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         let index = ref('0');
         return () => (
-            <ElTabs
-                tab-position="left"
-                modelValue={unref(index)}
-                onUpdate:modelValue={($v) => {
-                    index.value = $v as any;
-                }}
-            >
+            <ElTabs tab-position="left" v-model={index.value}>
                 <ElTabPane label={$t('logs.websiteLog')} name="0">
                     {unref(index) == '0' ? <LogFile id={unref(id)} log-type={'access.log'} /> : null}
                 </ElTabPane>

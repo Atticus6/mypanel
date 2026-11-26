@@ -60,10 +60,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         return () => (
             <ElTabs
-                modelValue={unref(currentTab)}
-                onUpdate:modelValue={($v) => {
-                    currentTab.value = $v as any;
-                }}
+                v-model={currentTab.value}
                 type="card"
                 closable={true}
                 onTabRemove={($event?: any) => {

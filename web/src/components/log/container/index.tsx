@@ -11,7 +11,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import { checkStreamAuth } from '@/utils/stream-auth';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
@@ -315,10 +314,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             onChange={($event?: any) => {
                                 (searchLogs as any)($event);
                             }}
-                            modelValue={logSearch.mode}
-                            onUpdate:modelValue={($v) => {
-                                logSearch.mode = $v as any;
-                            }}
+                            v-model={logSearch.mode}
                             class={'fetchClass'}
                             v-slots={{ prefix: () => <>{$t('container.fetch')}</> }}
                         >
@@ -349,10 +345,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onChange={($event?: any) => {
                                     (searchLogs as any)($event);
                                 }}
-                                modelValue={logSearch.isWatch}
-                                onUpdate:modelValue={($v) => {
-                                    logSearch.isWatch = $v as any;
-                                }}
+                                v-model={logSearch.isWatch}
                             >
                                 {$t('commons.button.watch')}
                             </ElCheckbox>
@@ -363,10 +356,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onChange={($event?: any) => {
                                     (searchLogs as any)($event);
                                 }}
-                                modelValue={logSearch.isShowTimestamp}
-                                onUpdate:modelValue={($v) => {
-                                    logSearch.isShowTimestamp = $v as any;
-                                }}
+                                v-model={logSearch.isShowTimestamp}
                             >
                                 {$t('commons.table.date')}
                             </ElCheckbox>
@@ -380,28 +370,25 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         >
                             {$t('commons.button.download')}
                         </ElButton>
-                        {withDirectives(
+                        {
                             <ElButton
                                 onClick={($event?: any) => {
                                     (onClean as any)($event);
                                 }}
                                 icon="Delete"
                                 class={'margin-button'}
+                                v-permission={'container_manage'}
                             >
                                 {$t('commons.button.clean')}
-                            </ElButton>,
-                            [[permissionDirective, 'container_manage']],
-                        )}
+                            </ElButton>
+                        }
                     </div>
                 ) : null}
                 <div class={'log-container'} style={unref(styleVars)}>
                     <div ref={terminalElement} class={'xterm-log-viewer'} />
                 </div>
                 <DialogPro
-                    modelValue={unref(downloadDialogVisible)}
-                    onUpdate:modelValue={($v) => {
-                        downloadDialogVisible.value = $v as any;
-                    }}
+                    v-model={downloadDialogVisible.value}
                     title={$t('commons.button.download')}
                     size="small"
                     close-on-click-modal={true}
@@ -429,13 +416,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 >
                     <ElForm label-position="top">
                         <ElFormItem label={$t('container.fetch')}>
-                            <ElSelect
-                                modelValue={downloadForm.mode}
-                                onUpdate:modelValue={($v) => {
-                                    downloadForm.mode = $v as any;
-                                }}
-                                class={'w-full'}
-                            >
+                            <ElSelect v-model={downloadForm.mode} class={'w-full'}>
                                 {(unref(timeOptions) || []).map((item) => (
                                     <ElOption value={item.value} label={item.label} key={item.label} />
                                 ))}
@@ -443,10 +424,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         </ElFormItem>
                         <ElFormItem label={$t('container.lines')}>
                             <ElSelect
-                                modelValue={downloadForm.tail}
-                                onUpdate:modelValue={($v) => {
-                                    downloadForm.tail = $v as any;
-                                }}
+                                v-model={downloadForm.tail}
                                 filterable
                                 allow-create
                                 default-first-option

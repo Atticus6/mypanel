@@ -6,7 +6,6 @@ import i18n from '@/lang';
 import { Rules } from '@/global/form-rules';
 import { MsgSuccess } from '@/utils/message';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -191,83 +190,75 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         onMounted(() => {
             get();
         });
-        return () =>
-            withDirectives(
-                <ElRow gutter={20}>
-                    <ElCol xs={24} sm={18} md={18} lg={14} xl={14}>
-                        <ElAlert
-                            closable={false}
-                            v-slots={{
-                                default: () => (
-                                    <>
-                                        <span class={'whitespace-pre-line'}>{$t('website.SSLHelper')}</span>
-                                    </>
-                                ),
-                            }}
-                        />
-                        <ElForm
-                            ref={httpsForm}
-                            label-position="right"
-                            label-width="150px"
-                            model={form}
-                            rules={unref(rules)}
-                            class={'moblie-form'}
-                        >
-                            <ElFormItem prop="enable" label={$t('website.enableHTTPS')}>
-                                {withDirectives(
-                                    <ElSwitch
-                                        modelValue={form.enable}
-                                        onUpdate:modelValue={($v) => {
-                                            form.enable = $v as any;
+        return () => (
+            <ElRow gutter={20} v-loading={unref(loading)}>
+                <ElCol xs={24} sm={18} md={18} lg={14} xl={14}>
+                    <ElAlert
+                        closable={false}
+                        v-slots={{
+                            default: () => (
+                                <>
+                                    <span class={'whitespace-pre-line'}>{$t('website.SSLHelper')}</span>
+                                </>
+                            ),
+                        }}
+                    />
+                    <ElForm
+                        ref={httpsForm}
+                        label-position="right"
+                        label-width="150px"
+                        model={form}
+                        rules={unref(rules)}
+                        class={'moblie-form'}
+                    >
+                        <ElFormItem prop="enable" label={$t('website.enableHTTPS')}>
+                            {
+                                <ElSwitch
+                                    v-model={form.enable}
+                                    onChange={($event?: any) => {
+                                        (changeEnable as any)($event);
+                                    }}
+                                    v-permission={true}
+                                />
+                            }
+                        </ElFormItem>
+                        <ElCollapseTransition>
+                            {form.enable ? (
+                                <div>
+                                    <ElFormItem label={'HTTPS ' + $t('commons.table.port')} prop="httpsPort">
+                                        <ElText>{form.httpsPort}</ElText>
+                                    </ElFormItem>
+                                    <ElText type="warning" class={'!ml-2'}>
+                                        {$t('website.ipWebsiteWarn')}
+                                    </ElText>
+                                    <ElDivider content-position="left">{$t('website.SSLConfig')}</ElDivider>
+                                    <HttpsConfig
+                                        v-model={form}
+                                        website-ssl={unref(websiteSSL)}
+                                        onSslChange={($event?: any) => {
+                                            (handleSSLChange as any)($event);
                                         }}
-                                        onChange={($event?: any) => {
-                                            (changeEnable as any)($event);
-                                        }}
-                                    />,
-                                    [[permissionDirective, true]],
-                                )}
-                            </ElFormItem>
-                            <ElCollapseTransition>
-                                {form.enable ? (
-                                    <div>
-                                        <ElFormItem label={'HTTPS ' + $t('commons.table.port')} prop="httpsPort">
-                                            <ElText>{form.httpsPort}</ElText>
-                                        </ElFormItem>
-                                        <ElText type="warning" class={'!ml-2'}>
-                                            {$t('website.ipWebsiteWarn')}
-                                        </ElText>
-                                        <ElDivider content-position="left">{$t('website.SSLConfig')}</ElDivider>
-                                        <HttpsConfig
-                                            modelValue={form}
-                                            onUpdate:modelValue={($v) => {
-                                                form = $v as any;
-                                            }}
-                                            website-ssl={unref(websiteSSL)}
-                                            onSslChange={($event?: any) => {
-                                                (handleSSLChange as any)($event);
-                                            }}
-                                        />
-                                        <ElFormItem>
-                                            {withDirectives(
-                                                <ElButton
-                                                    type="primary"
-                                                    onClick={($event?: any) => {
-                                                        submit(unref(httpsForm));
-                                                    }}
-                                                >
-                                                    {$t('commons.button.save')}
-                                                </ElButton>,
-                                                [[permissionDirective, true]],
-                                            )}
-                                        </ElFormItem>
-                                    </div>
-                                ) : null}
-                            </ElCollapseTransition>
-                        </ElForm>
-                    </ElCol>
-                </ElRow>,
-                [[vLoading, unref(loading)]],
-            );
+                                    />
+                                    <ElFormItem>
+                                        {
+                                            <ElButton
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    submit(unref(httpsForm));
+                                                }}
+                                                v-permission={true}
+                                            >
+                                                {$t('commons.button.save')}
+                                            </ElButton>
+                                        }
+                                    </ElFormItem>
+                                </div>
+                            ) : null}
+                        </ElCollapseTransition>
+                    </ElForm>
+                </ElCol>
+            </ElRow>
+        );
     },
     options,
 );

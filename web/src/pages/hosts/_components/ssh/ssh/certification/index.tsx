@@ -18,8 +18,6 @@ import { copyText } from '@/utils/clipboard';
 import { Base64 } from 'js-base64';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
-import { nodeAdminDirective } from '@/directives/modules/permission';
 import DrawerPro from '@/components/drawer-pro/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';
@@ -218,10 +216,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header={$t('ssh.pubkey')}
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -246,50 +241,44 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <div class={'mb-4'}>
                         <ElAlert closable={false}>{$t('ssh.pubKeyHelper', [unref(currentUser)])}</ElAlert>
                     </div>
-                    {withDirectives(
+                    {
                         <ElButton
                             type="primary"
                             plain
                             onClick={($event?: any) => {
                                 onOpenDialog('create');
                             }}
+                            v-permission={true}
+                            v-node-admin={true}
                         >
                             {$t('commons.button.create')}
-                        </ElButton>,
-                        [
-                            [permissionDirective, true],
-                            [nodeAdminDirective, true],
-                        ],
-                    )}
-                    {withDirectives(
+                        </ElButton>
+                    }
+                    {
                         <ElButton
                             plain
                             onClick={($event?: any) => {
                                 onSync();
                             }}
+                            v-permission={true}
+                            v-node-admin={true}
                         >
                             {$t('commons.button.sync')}
-                        </ElButton>,
-                        [
-                            [permissionDirective, true],
-                            [nodeAdminDirective, true],
-                        ],
-                    )}
-                    {withDirectives(
+                        </ElButton>
+                    }
+                    {
                         <ElButton
                             plain
                             disabled={unref(selects).length === 0}
                             onClick={($event?: any) => {
                                 onDelete(null);
                             }}
+                            v-permission={true}
+                            v-node-admin={true}
                         >
                             {$t('commons.button.delete')}
-                        </ElButton>,
-                        [
-                            [permissionDirective, true],
-                            [nodeAdminDirective, true],
-                        ],
-                    )}
+                        </ElButton>
+                    }
                     <ComplexTable
                         pagination-config={paginationConfig}
                         selects={unref(selects)}
@@ -310,10 +299,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     </ComplexTable>
                 </DrawerPro>
                 <DialogPro
-                    modelValue={unref(connOpen)}
-                    onUpdate:modelValue={($v) => {
-                        connOpen.value = $v as any;
-                    }}
+                    v-model={connOpen.value}
                     title={$t('ssh.pubkey')}
                     size="small"
                     showClose={false}
@@ -406,13 +392,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <>
                                 <ElForm ref="deleteForm" label-position="left">
                                     <ElFormItem>
-                                        <ElCheckbox
-                                            modelValue={unref(forceDelete)}
-                                            onUpdate:modelValue={($v) => {
-                                                forceDelete.value = $v as any;
-                                            }}
-                                            label={$t('website.forceDelete')}
-                                        />
+                                        <ElCheckbox v-model={forceDelete.value} label={$t('website.forceDelete')} />
                                         <span class={'input-help'}>{$t('website.forceDeleteHelper')}</span>
                                     </ElFormItem>
                                 </ElForm>

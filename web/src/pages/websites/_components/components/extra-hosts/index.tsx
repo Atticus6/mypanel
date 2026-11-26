@@ -4,7 +4,6 @@ interface ExtraHost {
     ip: string;
 }
 import { Rules } from '@/global/form-rules';
-import permissionDirective from '@/directives/modules/permission';
 
 interface CodemodProps {
     [key: string]: any;
@@ -44,29 +43,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <ElRow gutter={20} key={index}>
                         <ElCol span={7}>
                             <ElFormItem prop={`volumes.${index}.hostname`} rules={rules.hostname}>
-                                <ElInput
-                                    modelValue={volume.hostname}
-                                    onUpdate:modelValue={($v) => {
-                                        volume.hostname = $v as any;
-                                    }}
-                                    placeholder={$t('toolbox.device.hostname')}
-                                />
+                                <ElInput v-model={volume.hostname} placeholder={$t('toolbox.device.hostname')} />
                             </ElFormItem>
                         </ElCol>
                         <ElCol span={7}>
                             <ElFormItem prop={`volumes.${index}.ip`} rules={rules.ip}>
-                                <ElInput
-                                    modelValue={volume.ip}
-                                    onUpdate:modelValue={($v) => {
-                                        volume.ip = $v as any;
-                                    }}
-                                    placeholder={'IP'}
-                                />
+                                <ElInput v-model={volume.ip} placeholder={'IP'} />
                             </ElFormItem>
                         </ElCol>
                         <ElCol span={4}>
                             <ElFormItem>
-                                {withDirectives(
+                                {
                                     <ElButton
                                         type="primary"
                                         onClick={($event?: any) => {
@@ -74,27 +61,27 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         }}
                                         link
                                         class={'mt-1'}
+                                        v-permission={true}
                                     >
                                         {$t('commons.button.delete')}
-                                    </ElButton>,
-                                    [[permissionDirective, true]],
-                                )}
+                                    </ElButton>
+                                }
                             </ElFormItem>
                         </ElCol>
                     </ElRow>
                 ))}
                 <ElRow gutter={20}>
                     <ElCol span={4}>
-                        {withDirectives(
+                        {
                             <ElButton
                                 onClick={($event?: any) => {
                                     (addEnv as any)($event);
                                 }}
+                                v-permission={true}
                             >
                                 {$t('commons.button.add')}
-                            </ElButton>,
-                            [[permissionDirective, true]],
-                        )}
+                            </ElButton>
+                        }
                     </ElCol>
                 </ElRow>
             </div>

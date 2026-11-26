@@ -80,10 +80,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(logVisible)}
-                onUpdate:modelValue={($v) => {
-                    logVisible.value = $v as any;
-                }}
+                v-model={logVisible.value}
                 header={$t('commons.button.log')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);

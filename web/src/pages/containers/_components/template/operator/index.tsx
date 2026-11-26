@@ -85,10 +85,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('container.composeTemplate')}
                 resource={unref(dialogData).title === 'create' ? '' : unref(dialogData).rowData?.name}
                 onClose={($event?: any) => {
@@ -123,13 +120,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         label-position="top"
                         ref={formRef}
                         model={unref(dialogData).rowData}
                         rules={rules}
                         label-width="80px"
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem label={$t('commons.table.name')} prop="name">
                             <ElInput
@@ -141,27 +139,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                         </ElFormItem>
                         <ElFormItem label={$t('commons.table.description')}>
-                            <ElInput
-                                modelValue={unref(dialogData).rowData!.description}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.description = $v as any;
-                                }}
-                            />
+                            <ElInput v-model={unref(dialogData).rowData!.description} />
                         </ElFormItem>
                         <ElFormItem>
                             <CodemirrorPro
                                 placeholder="#Define or paste the content of your docker-compose file here"
-                                modelValue={unref(dialogData).rowData!.content}
-                                onUpdate:modelValue={($v) => {
-                                    unref(dialogData).rowData!.content = $v as any;
-                                }}
+                                v-model={unref(dialogData).rowData!.content}
                                 mode="yaml"
                                 heightDiff={400}
                             />
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

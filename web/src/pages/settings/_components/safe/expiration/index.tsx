@@ -60,10 +60,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(drawerVisible)}
-                onUpdate:modelValue={($v) => {
-                    drawerVisible.value = $v as any;
-                }}
+                v-model={drawerVisible.value}
                 header={$t('setting.expirationTime')}
                 onClose={($event?: any) => {
                     (handleClose as any)($event);
@@ -92,7 +89,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
+                {
                     <ElForm
                         ref={timeoutFormRef}
                         onSubmit={($event?: any) => {
@@ -100,6 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         }}
                         label-position="top"
                         model={form}
+                        v-loading={unref(loading)}
                     >
                         <ElFormItem
                             label={$t('setting.days')}
@@ -115,9 +113,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                             <span class={'input-help'}>{$t('setting.expirationHelper')}</span>
                         </ElFormItem>
-                    </ElForm>,
-                    [[vLoading, unref(loading)]],
-                )}
+                    </ElForm>
+                }
             </DrawerPro>
         );
     },

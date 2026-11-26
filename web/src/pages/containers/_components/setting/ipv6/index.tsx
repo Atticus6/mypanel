@@ -104,10 +104,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 <DrawerPro
-                    modelValue={unref(drawerVisible)}
-                    onUpdate:modelValue={($v) => {
-                        drawerVisible.value = $v as any;
-                    }}
+                    v-model={drawerVisible.value}
                     header="IPv6"
                     onClose={($event?: any) => {
                         (handleClose as any)($event);
@@ -160,51 +157,35 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             ),
                         }}
                     />
-                    {withDirectives(
-                        <ElForm model={form} ref={formRef} rules={rules} label-position="top">
+                    {
+                        <ElForm
+                            model={form}
+                            ref={formRef}
+                            rules={rules}
+                            label-position="top"
+                            v-loading={unref(loading)}
+                        >
                             <ElFormItem prop="fixedCidrV6" label={$t('container.subnet')}>
-                                <ElInput
-                                    modelValue={form.fixedCidrV6}
-                                    onUpdate:modelValue={($v) => {
-                                        form.fixedCidrV6 = $v as any;
-                                    }}
-                                />
+                                <ElInput v-model={form.fixedCidrV6} />
                                 <span class={'input-help'}>{$t('container.ipv6CidrHelper')}</span>
                             </ElFormItem>
                             <ElFormItem>
-                                <ElCheckbox
-                                    modelValue={unref(showMore)}
-                                    onUpdate:modelValue={($v) => {
-                                        showMore.value = $v as any;
-                                    }}
-                                    label={$t('app.advanced')}
-                                />
+                                <ElCheckbox v-model={showMore.value} label={$t('app.advanced')} />
                             </ElFormItem>
                             {unref(showMore) ? (
                                 <div>
                                     <ElFormItem prop="ip6Tables" label="ip6tables">
-                                        <ElSwitch
-                                            modelValue={form.ip6Tables}
-                                            onUpdate:modelValue={($v) => {
-                                                form.ip6Tables = $v as any;
-                                            }}
-                                        />
+                                        <ElSwitch v-model={form.ip6Tables} />
                                         <span class={'input-help'}>{$t('container.ipv6TablesHelper')}</span>
                                     </ElFormItem>
                                     <ElFormItem prop="experimental" label="experimental">
-                                        <ElSwitch
-                                            modelValue={form.experimental}
-                                            onUpdate:modelValue={($v) => {
-                                                form.experimental = $v as any;
-                                            }}
-                                        />
+                                        <ElSwitch v-model={form.experimental} />
                                         <span class={'input-help'}>{$t('container.experimentalHelper')}</span>
                                     </ElFormItem>
                                 </div>
                             ) : null}
-                        </ElForm>,
-                        [[vLoading, unref(loading)]],
-                    )}
+                        </ElForm>
+                    }
                 </DrawerPro>
                 <ConfirmDialog
                     ref={confirmDialogRef}

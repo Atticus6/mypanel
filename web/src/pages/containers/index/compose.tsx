@@ -23,7 +23,6 @@ import { Rules } from '@/global/form-rules';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 type FormInstance = InstanceType<typeof ElForm>;
 import '@/pages/containers/_components/compose/index.styles.css';
-import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
@@ -502,1194 +501,1084 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const onOpenLog = (row: any) => {
             containerLogDialogRef.value?.acceptParams({ container: row.name });
         };
-        return () =>
-            withDirectives(
-                <div>
-                    <DockerStatus
-                        isActive={unref(isActive)}
-                        onUpdate:isActive={($v) => {
-                            isActive.value = $v as any;
-                        }}
-                        isExist={unref(isExist)}
-                        onUpdate:isExist={($v) => {
-                            isExist.value = $v as any;
-                        }}
-                        loading={unref(loading)}
-                        onUpdate:loading={($v) => {
-                            loading.value = $v as any;
-                        }}
-                        onSearch={($event?: any) => {
-                            search(true);
-                        }}
-                    />
-                    {unref(isExist) ? (
-                        <LayoutContent
-                            title={$t('container.compose', 2)}
-                            class={{ mask: !unref(isActive) }}
-                            v-slots={{
-                                leftToolBar: () => (
-                                    <>
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                onClick={($event?: any) => {
-                                                    onOpenDialog();
-                                                }}
-                                            >
-                                                {$t('commons.button.create')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                        {withDirectives(
-                                            <ElButton
-                                                type="primary"
-                                                plain
-                                                onClick={($event?: any) => {
-                                                    onImportCompose();
-                                                }}
-                                            >
-                                                {$t('commons.button.import')}
-                                            </ElButton>,
-                                            [[permissionDirective, true]],
-                                        )}
-                                    </>
-                                ),
-                                rightToolBar: () => (
-                                    <>
-                                        <TableSearch
-                                            onSearch={($event?: any) => {
-                                                search();
+        return () => (
+            <div v-loading={unref(loading)}>
+                <DockerStatus
+                    isActive={unref(isActive)}
+                    onUpdate:isActive={($v) => {
+                        isActive.value = $v as any;
+                    }}
+                    isExist={unref(isExist)}
+                    onUpdate:isExist={($v) => {
+                        isExist.value = $v as any;
+                    }}
+                    loading={unref(loading)}
+                    onUpdate:loading={($v) => {
+                        loading.value = $v as any;
+                    }}
+                    onSearch={($event?: any) => {
+                        search(true);
+                    }}
+                />
+                {unref(isExist) ? (
+                    <LayoutContent
+                        title={$t('container.compose', 2)}
+                        class={{ mask: !unref(isActive) }}
+                        v-slots={{
+                            leftToolBar: () => (
+                                <>
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                onOpenDialog();
                                             }}
-                                            searchName={unref(searchName)}
-                                            onUpdate:searchName={($v) => {
-                                                searchName.value = $v as any;
-                                            }}
-                                        />
-                                        <ElTooltip
-                                            content={
-                                                unref(includeAppStore)
-                                                    ? $t('container.includeAppstore')
-                                                    : $t('container.excludeAppstore')
-                                            }
+                                            v-permission={true}
                                         >
-                                            <ElButton
-                                                type={unref(includeAppStore) ? '' : 'primary'}
-                                                onClick={($event?: any) => {
-                                                    searchWithAppShow(!unref(includeAppStore));
-                                                }}
-                                                icon={unref(includeAppStore) ? 'View' : 'Hide'}
-                                            />
-                                        </ElTooltip>
-                                        <TableRefresh
-                                            onSearch={($event?: any) => {
-                                                search();
+                                            {$t('commons.button.create')}
+                                        </ElButton>
+                                    }
+                                    {
+                                        <ElButton
+                                            type="primary"
+                                            plain
+                                            onClick={($event?: any) => {
+                                                onImportCompose();
                                             }}
-                                        />
-                                        <TableSetting
-                                            title="container-refresh"
-                                            onSearch={($event?: any) => {
-                                                refresh();
+                                            v-permission={true}
+                                        >
+                                            {$t('commons.button.import')}
+                                        </ElButton>
+                                    }
+                                </>
+                            ),
+                            rightToolBar: () => (
+                                <>
+                                    <TableSearch
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                        searchName={unref(searchName)}
+                                        onUpdate:searchName={($v) => {
+                                            searchName.value = $v as any;
+                                        }}
+                                    />
+                                    <ElTooltip
+                                        content={
+                                            unref(includeAppStore)
+                                                ? $t('container.includeAppstore')
+                                                : $t('container.excludeAppstore')
+                                        }
+                                    >
+                                        <ElButton
+                                            type={unref(includeAppStore) ? '' : 'primary'}
+                                            onClick={($event?: any) => {
+                                                searchWithAppShow(!unref(includeAppStore));
                                             }}
+                                            icon={unref(includeAppStore) ? 'View' : 'Hide'}
                                         />
-                                    </>
-                                ),
-                                main: () => (
-                                    <>
-                                        {unref(data).length > 0 || unref(isOnCreate) ? (
-                                            <ElRow gutter={20} class={'row-box'}>
-                                                <ElCol xs={24} sm={24} md={8} lg={8} xl={6}>
-                                                    <ElCard>
-                                                        <ElTable
-                                                            max-height={loadTableHeight()}
-                                                            show-header={false}
-                                                            onRowClick={($event?: any) => {
-                                                                (row, column, event) => loadDetail(row, true);
-                                                            }}
-                                                            data={unref(data)}
-                                                        >
-                                                            <ElTableColumn
-                                                                prop="name"
-                                                                v-slots={{
-                                                                    default: ({ row }) => (
-                                                                        <>
+                                    </ElTooltip>
+                                    <TableRefresh
+                                        onSearch={($event?: any) => {
+                                            search();
+                                        }}
+                                    />
+                                    <TableSetting
+                                        title="container-refresh"
+                                        onSearch={($event?: any) => {
+                                            refresh();
+                                        }}
+                                    />
+                                </>
+                            ),
+                            main: () => (
+                                <>
+                                    {unref(data).length > 0 || unref(isOnCreate) ? (
+                                        <ElRow gutter={20} class={'row-box'}>
+                                            <ElCol xs={24} sm={24} md={8} lg={8} xl={6}>
+                                                <ElCard>
+                                                    <ElTable
+                                                        max-height={loadTableHeight()}
+                                                        show-header={false}
+                                                        onRowClick={($event?: any) => {
+                                                            (row, column, event) => loadDetail(row, true);
+                                                        }}
+                                                        data={unref(data)}
+                                                    >
+                                                        <ElTableColumn
+                                                            prop="name"
+                                                            v-slots={{
+                                                                default: ({ row }) => (
+                                                                    <>
+                                                                        <div
+                                                                            class={cn('compose-item', {
+                                                                                'is-active':
+                                                                                    unref(currentCompose)?.name ===
+                                                                                        row.name && !unref(isOnCreate),
+                                                                            })}
+                                                                        >
                                                                             <div
-                                                                                class={cn('compose-item', {
-                                                                                    'is-active':
-                                                                                        unref(currentCompose)?.name ===
-                                                                                            row.name &&
-                                                                                        !unref(isOnCreate),
-                                                                                })}
+                                                                                class={
+                                                                                    'compose-title text-base font-medium'
+                                                                                }
                                                                             >
-                                                                                <div
-                                                                                    class={
-                                                                                        'compose-title text-base font-medium'
+                                                                                <span class={'compose-title__name'}>
+                                                                                    {row.name}
+                                                                                </span>
+                                                                                {!row.composeFileExists ? (
+                                                                                    <ElTooltip
+                                                                                        content={$t(
+                                                                                            'container.composeFileMissing',
+                                                                                        )}
+                                                                                    >
+                                                                                        <ElButton
+                                                                                            link
+                                                                                            icon="WarningFilled"
+                                                                                            onClick={($event?: any) => {
+                                                                                                $event.stopPropagation();
+                                                                                            }}
+                                                                                        >
+                                                                                            <WarningFilled />
+                                                                                        </ElButton>
+                                                                                    </ElTooltip>
+                                                                                ) : null}
+                                                                                <ElTooltip
+                                                                                    content={
+                                                                                        row.isPinned
+                                                                                            ? $t('commons.table.unpin')
+                                                                                            : $t('commons.table.pin')
                                                                                     }
                                                                                 >
-                                                                                    <span class={'compose-title__name'}>
-                                                                                        {row.name}
-                                                                                    </span>
-                                                                                    {!row.composeFileExists ? (
-                                                                                        <ElTooltip
-                                                                                            content={$t(
-                                                                                                'container.composeFileMissing',
-                                                                                            )}
-                                                                                        >
-                                                                                            <ElButton
-                                                                                                link
-                                                                                                icon="WarningFilled"
-                                                                                                onClick={(
-                                                                                                    $event?: any,
-                                                                                                ) => {
-                                                                                                    $event.stopPropagation();
-                                                                                                }}
-                                                                                            >
-                                                                                                <WarningFilled />
-                                                                                            </ElButton>
-                                                                                        </ElTooltip>
-                                                                                    ) : null}
-                                                                                    <ElTooltip
-                                                                                        content={
-                                                                                            row.isPinned
-                                                                                                ? $t(
-                                                                                                      'commons.table.unpin',
-                                                                                                  )
-                                                                                                : $t(
-                                                                                                      'commons.table.pin',
-                                                                                                  )
-                                                                                        }
-                                                                                    >
-                                                                                        {withDirectives(
-                                                                                            <ElButton
-                                                                                                link
-                                                                                                type={
-                                                                                                    row.isPinned
-                                                                                                        ? 'warning'
-                                                                                                        : 'info'
-                                                                                                }
-                                                                                                onClick={(
-                                                                                                    $event?: any,
-                                                                                                ) => {
-                                                                                                    $event.stopPropagation();
-                                                                                                    changePinned(row);
-                                                                                                }}
-                                                                                                class={cn(
-                                                                                                    'compose-pin-button',
-                                                                                                    {
-                                                                                                        'is-pinned':
-                                                                                                            row.isPinned,
-                                                                                                    },
-                                                                                                )}
-                                                                                            >
-                                                                                                <SvgIcon
-                                                                                                    iconName="p-pushpin"
-                                                                                                    className="compose-pin-icon"
-                                                                                                />
-                                                                                            </ElButton>,
-                                                                                            [
-                                                                                                [
-                                                                                                    permissionDirective,
-                                                                                                    true,
-                                                                                                ],
-                                                                                            ],
-                                                                                        )}
-                                                                                    </ElTooltip>
-                                                                                </div>
-                                                                                <div class={'mb-1'}>
-                                                                                    <ElText
-                                                                                        link
-                                                                                        size="small"
-                                                                                        type="info"
-                                                                                        class={'w-12'}
-                                                                                    >
-                                                                                        {loadFrom(row)}
-                                                                                    </ElText>
-                                                                                    <ElDivider direction="vertical" />
-                                                                                    <ElText
-                                                                                        link
-                                                                                        size="small"
-                                                                                        type="info"
-                                                                                        class={'ml-2'}
-                                                                                    >
-                                                                                        {row.createdAt}
-                                                                                    </ElText>
-                                                                                    <ElDivider direction="vertical" />
-                                                                                    {row.containerCount === 0 ? (
-                                                                                        <ElText
-                                                                                            link
-                                                                                            type="danger"
-                                                                                            size="small"
-                                                                                        >
-                                                                                            {$t('container.exited')}
-                                                                                        </ElText>
-                                                                                    ) : (
-                                                                                        <ElText
+                                                                                    {
+                                                                                        <ElButton
                                                                                             link
                                                                                             type={
-                                                                                                row.containerCount ===
-                                                                                                row.runningCount
-                                                                                                    ? 'success'
-                                                                                                    : 'warning'
-                                                                                            }
-                                                                                            size="small"
-                                                                                        >
-                                                                                            {$t('container.running', [
-                                                                                                row.runningCount,
-                                                                                                row.containerCount,
-                                                                                            ])}
-                                                                                        </ElText>
-                                                                                    )}
-                                                                                </div>
-                                                                                <div
-                                                                                    onClick={($event?: any) => {
-                                                                                        $event.stopPropagation();
-                                                                                    }}
-                                                                                    class={'compose-actions'}
-                                                                                >
-                                                                                    <ElDropdown
-                                                                                        placement="bottom"
-                                                                                        v-slots={{
-                                                                                            dropdown: () => (
-                                                                                                <>
-                                                                                                    <ElDropdownMenu>
-                                                                                                        <ElDropdownItem
-                                                                                                            disabled={
-                                                                                                                row.containerCount ===
-                                                                                                                    row.runningCount &&
-                                                                                                                row.runningCount >
-                                                                                                                    0
-                                                                                                            }
-                                                                                                            onClick={(
-                                                                                                                $event?: any,
-                                                                                                            ) => {
-                                                                                                                handleComposeOperate(
-                                                                                                                    'up',
-                                                                                                                    row,
-                                                                                                                );
-                                                                                                            }}
-                                                                                                        >
-                                                                                                            {$t(
-                                                                                                                'commons.operate.start',
-                                                                                                            )}
-                                                                                                        </ElDropdownItem>
-                                                                                                        <ElDropdownItem
-                                                                                                            disabled={
-                                                                                                                row.runningCount ===
-                                                                                                                0
-                                                                                                            }
-                                                                                                            onClick={(
-                                                                                                                $event?: any,
-                                                                                                            ) => {
-                                                                                                                handleComposeOperate(
-                                                                                                                    'stop',
-                                                                                                                    row,
-                                                                                                                );
-                                                                                                            }}
-                                                                                                        >
-                                                                                                            {$t(
-                                                                                                                'commons.operate.stop',
-                                                                                                            )}
-                                                                                                        </ElDropdownItem>
-                                                                                                        <ElDropdownItem
-                                                                                                            onClick={(
-                                                                                                                $event?: any,
-                                                                                                            ) => {
-                                                                                                                handleComposeOperate(
-                                                                                                                    'restart',
-                                                                                                                    row,
-                                                                                                                );
-                                                                                                            }}
-                                                                                                        >
-                                                                                                            {$t(
-                                                                                                                'commons.button.restart',
-                                                                                                            )}
-                                                                                                        </ElDropdownItem>
-                                                                                                        <ElDropdownItem
-                                                                                                            onClick={(
-                                                                                                                $event?: any,
-                                                                                                            ) => {
-                                                                                                                handleComposeOperate(
-                                                                                                                    'rebuild',
-                                                                                                                    row,
-                                                                                                                );
-                                                                                                            }}
-                                                                                                        >
-                                                                                                            {$t(
-                                                                                                                'commons.operate.rebuild',
-                                                                                                            )}
-                                                                                                        </ElDropdownItem>
-                                                                                                    </ElDropdownMenu>
-                                                                                                </>
-                                                                                            ),
-                                                                                        }}
-                                                                                    >
-                                                                                        {withDirectives(
-                                                                                            <Status
-                                                                                                status={getComposeStatus(
-                                                                                                    row,
-                                                                                                )}
-                                                                                                operate={true}
-                                                                                            />,
-                                                                                            [
-                                                                                                [
-                                                                                                    permissionDirective,
-                                                                                                    true,
-                                                                                                ],
-                                                                                            ],
-                                                                                        )}
-                                                                                    </ElDropdown>
-                                                                                    {withDirectives(
-                                                                                        <ElButton
-                                                                                            plain
-                                                                                            round
-                                                                                            size="small"
-                                                                                            disabled={!row?.workdir}
-                                                                                            onClick={($event?: any) => {
-                                                                                                openComposeFolder(row);
-                                                                                            }}
-                                                                                            class={'round-btn ml-3'}
-                                                                                        >
-                                                                                            {$t('home.dir')}
-                                                                                        </ElButton>,
-                                                                                        [
-                                                                                            [
-                                                                                                permissionDirective,
-                                                                                                'host_file_view',
-                                                                                            ],
-                                                                                        ],
-                                                                                    )}
-                                                                                    {withDirectives(
-                                                                                        <ElButton
-                                                                                            plain
-                                                                                            round
-                                                                                            size="small"
-                                                                                            onClick={($event?: any) => {
-                                                                                                onBackupList(row);
-                                                                                            }}
-                                                                                            class={'round-btn'}
-                                                                                        >
-                                                                                            {$t(
-                                                                                                'commons.button.backup',
-                                                                                            )}
-                                                                                        </ElButton>,
-                                                                                        [[permissionDirective, true]],
-                                                                                    )}
-                                                                                    {withDirectives(
-                                                                                        <ElButton
-                                                                                            plain
-                                                                                            round
-                                                                                            size="small"
-                                                                                            onClick={($event?: any) => {
-                                                                                                onDelete(row);
-                                                                                            }}
-                                                                                            class={'round-btn'}
-                                                                                        >
-                                                                                            {$t(
-                                                                                                'commons.operate.delete',
-                                                                                            )}
-                                                                                        </ElButton>,
-                                                                                        [[permissionDirective, true]],
-                                                                                    )}
-                                                                                </div>
-                                                                            </div>
-                                                                        </>
-                                                                    ),
-                                                                }}
-                                                            />
-                                                        </ElTable>
-                                                    </ElCard>
-                                                </ElCol>
-                                                <ElCol xs={24} sm={24} md={16} lg={16} xl={18}>
-                                                    {unref(currentCompose) && !unref(isOnCreate) ? (
-                                                        withDirectives(
-                                                            <ElCard>
-                                                                <div class={'flex items-center justify-between'}>
-                                                                    <div class={'flex items-center gap-2.5'}>
-                                                                        <span class={'text-base font-medium'}>
-                                                                            {unref(currentCompose).name}
-                                                                        </span>
-                                                                        <ElTag size="small" effect="plain" round>
-                                                                            {loadFrom(unref(currentCompose))}
-                                                                        </ElTag>
-                                                                        <ElDivider direction="vertical" />
-                                                                        <ElText size="small" type="info">
-                                                                            {unref(currentCompose).createdAt}
-                                                                        </ElText>
-                                                                    </div>
-                                                                    {unref(currentCompose).containerCount === 0 ? (
-                                                                        <ElTag type="danger" effect="light" round>
-                                                                            {$t('container.exited')}
-                                                                        </ElTag>
-                                                                    ) : (
-                                                                        <ElTag
-                                                                            type={
-                                                                                unref(currentCompose).containerCount ===
-                                                                                unref(currentCompose).runningCount
-                                                                                    ? 'success'
-                                                                                    : 'warning'
-                                                                            }
-                                                                            effect="light"
-                                                                            round
-                                                                        >
-                                                                            {$t('container.running', [
-                                                                                unref(currentCompose).runningCount,
-                                                                                unref(currentCompose).containerCount,
-                                                                            ])}
-                                                                        </ElTag>
-                                                                    )}
-                                                                </div>
-                                                                <ElDivider class={'!my-3'} />
-                                                                {unref(composeContainers).length > 0 ? (
-                                                                    <ElTable
-                                                                        tooltip-options={TABLE_OVERFLOW_TOOLTIP_OPTIONS}
-                                                                        data={unref(tableData)}
-                                                                        size="small"
-                                                                        max-height="230"
-                                                                        stripe
-                                                                        class={'compose-container-table'}
-                                                                    >
-                                                                        <ElTableColumn
-                                                                            label={$t('commons.table.name')}
-                                                                            prop="name"
-                                                                            show-overflow-tooltip
-                                                                            fixed="left"
-                                                                            v-slots={{
-                                                                                default: ({ row }) => (
-                                                                                    <>
-                                                                                        <ElText
-                                                                                            type="primary"
-                                                                                            onClick={($event?: any) => {
-                                                                                                onInspectContainer(row);
-                                                                                            }}
-                                                                                            class={'cursor-pointer'}
-                                                                                        >
-                                                                                            {row.name}
-                                                                                        </ElText>
-                                                                                    </>
-                                                                                ),
-                                                                            }}
-                                                                        />
-                                                                        <ElTableColumn
-                                                                            label={$t('commons.table.status')}
-                                                                            prop="state"
-                                                                            width="120"
-                                                                            v-slots={{
-                                                                                default: ({ row }) => (
-                                                                                    <>
-                                                                                        <Status
-                                                                                            status={row.state}
-                                                                                            key={row.state}
-                                                                                        />
-                                                                                    </>
-                                                                                ),
-                                                                            }}
-                                                                        />
-                                                                        <ElTableColumn
-                                                                            label={$t('container.source')}
-                                                                            show-overflow-tooltip
-                                                                            prop="resource"
-                                                                            v-slots={{
-                                                                                default: ({ row }) => (
-                                                                                    <>
-                                                                                        {row.hasLoad ? (
-                                                                                            <div>
-                                                                                                <div
-                                                                                                    class={
-                                                                                                        'source-font'
-                                                                                                    }
-                                                                                                >
-                                                                                                    {'CPU: '}
-                                                                                                    {row.cpuPercent.toFixed(
-                                                                                                        2,
-                                                                                                    )}
-                                                                                                    {'%'}
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class={
-                                                                                                        'source-font float-left'
-                                                                                                    }
-                                                                                                >
-                                                                                                    {$t(
-                                                                                                        'monitor.memory',
-                                                                                                    )}
-                                                                                                    {': '}
-                                                                                                    {row.memoryPercent.toFixed(
-                                                                                                        2,
-                                                                                                    )}
-                                                                                                    {'% '}
-                                                                                                </div>
-                                                                                                <ElPopover
-                                                                                                    placement="right"
-                                                                                                    width="500px"
-                                                                                                    class={
-                                                                                                        'float-right'
-                                                                                                    }
-                                                                                                    v-slots={{
-                                                                                                        reference:
-                                                                                                            () => (
-                                                                                                                <>
-                                                                                                                    <SvgIcon
-                                                                                                                        iconName="p-xiangqing"
-                                                                                                                        className="resource-detail-icon"
-                                                                                                                    />
-                                                                                                                </>
-                                                                                                            ),
-                                                                                                        default: () => (
-                                                                                                            <>
-                                                                                                                <ElDescriptions
-                                                                                                                    direction="vertical"
-                                                                                                                    border
-                                                                                                                    column={
-                                                                                                                        3
-                                                                                                                    }
-                                                                                                                    size="small"
-                                                                                                                >
-                                                                                                                    <ElDescriptionsItem
-                                                                                                                        label={$t(
-                                                                                                                            'container.cpuUsage',
-                                                                                                                        )}
-                                                                                                                    >
-                                                                                                                        {computeCPU(
-                                                                                                                            row.cpuTotalUsage,
-                                                                                                                        )}
-                                                                                                                    </ElDescriptionsItem>
-                                                                                                                    <ElDescriptionsItem
-                                                                                                                        label={$t(
-                                                                                                                            'container.cpuTotal',
-                                                                                                                        )}
-                                                                                                                    >
-                                                                                                                        {computeCPU(
-                                                                                                                            row.systemUsage,
-                                                                                                                        )}
-                                                                                                                    </ElDescriptionsItem>
-                                                                                                                    <ElDescriptionsItem
-                                                                                                                        label={$t(
-                                                                                                                            'container.core',
-                                                                                                                        )}
-                                                                                                                    >
-                                                                                                                        {
-                                                                                                                            row.percpuUsage
-                                                                                                                        }
-                                                                                                                    </ElDescriptionsItem>
-                                                                                                                    <ElDescriptionsItem
-                                                                                                                        label={$t(
-                                                                                                                            'container.memUsage',
-                                                                                                                        )}
-                                                                                                                    >
-                                                                                                                        {computeSizeForDocker(
-                                                                                                                            row.memoryUsage,
-                                                                                                                        )}
-                                                                                                                    </ElDescriptionsItem>
-                                                                                                                    <ElDescriptionsItem
-                                                                                                                        label={$t(
-                                                                                                                            'container.memCache',
-                                                                                                                        )}
-                                                                                                                    >
-                                                                                                                        {computeSizeForDocker(
-                                                                                                                            row.memoryCache,
-                                                                                                                        )}
-                                                                                                                    </ElDescriptionsItem>
-                                                                                                                    <ElDescriptionsItem
-                                                                                                                        label={$t(
-                                                                                                                            'container.memTotal',
-                                                                                                                        )}
-                                                                                                                    >
-                                                                                                                        {computeSizeForDocker(
-                                                                                                                            row.memoryLimit,
-                                                                                                                        )}
-                                                                                                                    </ElDescriptionsItem>
-                                                                                                                    {row.hasLoadSize ? (
-                                                                                                                        <ElDescriptionsItem
-                                                                                                                            v-slots={{
-                                                                                                                                label: () => (
-                                                                                                                                    <>
-                                                                                                                                        {$t(
-                                                                                                                                            'container.sizeRw',
-                                                                                                                                        )}
-                                                                                                                                        <ElTooltip
-                                                                                                                                            content={$t(
-                                                                                                                                                'container.sizeRwHelper',
-                                                                                                                                            )}
-                                                                                                                                        >
-                                                                                                                                            <ElIcon
-                                                                                                                                                class={
-                                                                                                                                                    'icon-item'
-                                                                                                                                                }
-                                                                                                                                            >
-                                                                                                                                                <InfoFilled />
-                                                                                                                                            </ElIcon>
-                                                                                                                                        </ElTooltip>
-                                                                                                                                    </>
-                                                                                                                                ),
-                                                                                                                            }}
-                                                                                                                        >
-                                                                                                                            {computeSize2(
-                                                                                                                                row.sizeRw,
-                                                                                                                            )}
-                                                                                                                        </ElDescriptionsItem>
-                                                                                                                    ) : null}
-                                                                                                                    {row.hasLoadSize ? (
-                                                                                                                        <ElDescriptionsItem
-                                                                                                                            label={$t(
-                                                                                                                                'container.sizeRootFs',
-                                                                                                                            )}
-                                                                                                                            v-slots={{
-                                                                                                                                label: () => (
-                                                                                                                                    <>
-                                                                                                                                        {$t(
-                                                                                                                                            'container.sizeRootFs',
-                                                                                                                                        )}
-                                                                                                                                        <ElTooltip
-                                                                                                                                            content={$t(
-                                                                                                                                                'container.sizeRootFsHelper',
-                                                                                                                                            )}
-                                                                                                                                        >
-                                                                                                                                            <ElIcon
-                                                                                                                                                class={
-                                                                                                                                                    'icon-item'
-                                                                                                                                                }
-                                                                                                                                            >
-                                                                                                                                                <InfoFilled />
-                                                                                                                                            </ElIcon>
-                                                                                                                                        </ElTooltip>
-                                                                                                                                    </>
-                                                                                                                                ),
-                                                                                                                            }}
-                                                                                                                        >
-                                                                                                                            {computeSize2(
-                                                                                                                                row.sizeRootFs,
-                                                                                                                            )}
-                                                                                                                        </ElDescriptionsItem>
-                                                                                                                    ) : null}
-                                                                                                                </ElDescriptions>
-                                                                                                                {!row.hasLoadSize ? (
-                                                                                                                    <ElButton
-                                                                                                                        size="small"
-                                                                                                                        link
-                                                                                                                        type="primary"
-                                                                                                                        onClick={(
-                                                                                                                            $event?: any,
-                                                                                                                        ) => {
-                                                                                                                            loadSize(
-                                                                                                                                row,
-                                                                                                                            );
-                                                                                                                        }}
-                                                                                                                        class={
-                                                                                                                            'mt-2'
-                                                                                                                        }
-                                                                                                                    >
-                                                                                                                        {$t(
-                                                                                                                            'container.loadSize',
-                                                                                                                        )}
-                                                                                                                    </ElButton>
-                                                                                                                ) : null}
-                                                                                                            </>
-                                                                                                        ),
-                                                                                                    }}
-                                                                                                />
-                                                                                            </div>
-                                                                                        ) : null}
-                                                                                        {!row.hasLoad ? (
-                                                                                            <div>
-                                                                                                <ElButton
-                                                                                                    link
-                                                                                                    loading
-                                                                                                />
-                                                                                            </div>
-                                                                                        ) : null}
-                                                                                    </>
-                                                                                ),
-                                                                            }}
-                                                                        />
-                                                                        <ElTableColumn
-                                                                            label={$t('commons.table.operate')}
-                                                                            width="160"
-                                                                            v-slots={{
-                                                                                default: ({ row }) => (
-                                                                                    <>
-                                                                                        <ElButton
-                                                                                            type="primary"
-                                                                                            link
-                                                                                            disabled={
-                                                                                                !unref(
-                                                                                                    isAdminOrNodeAdmin,
-                                                                                                )
+                                                                                                row.isPinned
+                                                                                                    ? 'warning'
+                                                                                                    : 'info'
                                                                                             }
                                                                                             onClick={($event?: any) => {
-                                                                                                onOpenTerminal(row);
+                                                                                                $event.stopPropagation();
+                                                                                                changePinned(row);
                                                                                             }}
+                                                                                            class={cn(
+                                                                                                'compose-pin-button',
+                                                                                                {
+                                                                                                    'is-pinned':
+                                                                                                        row.isPinned,
+                                                                                                },
+                                                                                            )}
+                                                                                            v-permission={true}
                                                                                         >
-                                                                                            {$t('menu.terminal')}
-                                                                                        </ElButton>
-                                                                                        <ElButton
-                                                                                            type="primary"
-                                                                                            link
-                                                                                            onClick={($event?: any) => {
-                                                                                                onOpenLog(row);
-                                                                                            }}
-                                                                                        >
-                                                                                            {$t('commons.button.log')}
-                                                                                        </ElButton>
-                                                                                    </>
-                                                                                ),
-                                                                            }}
-                                                                        />
-                                                                    </ElTable>
-                                                                ) : null}
-                                                                {unref(composeContainers).length > 0 ? (
-                                                                    <ElDivider class={'!my-2'} />
-                                                                ) : null}
-                                                                <div class={'mb-2 flex items-center justify-between'}>
-                                                                    <ElRadioGroup
-                                                                        modelValue={unref(showType)}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            showType.value = $v as any;
-                                                                        }}
-                                                                    >
-                                                                        <ElRadioButton value="compose">
-                                                                            {$t('container.compose')}
-                                                                        </ElRadioButton>
-                                                                        <ElRadioButton value="log">
-                                                                            {$t('commons.button.log')}
-                                                                        </ElRadioButton>
-                                                                        <ElRadioButton value="env">
-                                                                            {$t('container.env')}
-                                                                        </ElRadioButton>
-                                                                    </ElRadioGroup>
-                                                                    {unref(showType) !== 'log' &&
-                                                                    !(
-                                                                        unref(showType) === 'env' &&
-                                                                        unref(isAppStoreCompose)
-                                                                    )
-                                                                        ? withDirectives(
-                                                                              <ElButton
-                                                                                  type="primary"
-                                                                                  disabled={
-                                                                                      unref(detailLoading) ||
-                                                                                      !unref(composeContent)
-                                                                                  }
-                                                                                  onClick={($event?: any) => {
-                                                                                      (onSubmitEdit as any)($event);
-                                                                                  }}
-                                                                              >
-                                                                                  {$t('commons.button.save')}
-                                                                              </ElButton>,
-                                                                              [[permissionDirective, true]],
-                                                                          )
-                                                                        : null}
-                                                                </div>
-                                                                {unref(currentCompose).path.indexOf(',') !== -1 ? (
-                                                                    <ElSelect
-                                                                        modelValue={unref(currentYamlPath)}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            currentYamlPath.value = $v as any;
-                                                                        }}
-                                                                        onChange={($event?: any) => {
-                                                                            inspectCompose(
-                                                                                unref(currentCompose).name,
-                                                                                unref(currentYamlPath),
-                                                                            );
-                                                                        }}
-                                                                        class={'p-w-300 mb-2'}
-                                                                        v-slots={{
-                                                                            prefix: () => (
-                                                                                <>{$t('container.composeFile')}</>
-                                                                            ),
-                                                                        }}
-                                                                    >
-                                                                        {(
-                                                                            unref(currentCompose).path.split(',') || []
-                                                                        ).map((item) => (
-                                                                            <ElOption
-                                                                                value={item}
-                                                                                label={item.split('/').pop()}
-                                                                                key={item}
-                                                                            />
-                                                                        ))}
-                                                                    </ElSelect>
-                                                                ) : null}
-                                                                <div
-                                                                    style={[
-                                                                        {},
-                                                                        {
-                                                                            display:
-                                                                                unref(showType) === 'compose'
-                                                                                    ? ''
-                                                                                    : 'none',
-                                                                        },
-                                                                    ]}
-                                                                >
-                                                                    {!unref(currentCompose).composeFileExists ? (
-                                                                        <ElAlert
-                                                                            title={$t('container.composeFileMissing')}
-                                                                            type="warning"
-                                                                            closable={false}
-                                                                            show-icon
-                                                                        />
-                                                                    ) : (
-                                                                        <CodemirrorPro
-                                                                            modelValue={unref(composeContent)}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                composeContent.value = $v as any;
-                                                                            }}
-                                                                            mode="yaml"
-                                                                            heightDiff={475}
-                                                                            placeholder={$t(
-                                                                                'container.composeContentPlaceholder',
-                                                                            )}
-                                                                        />
-                                                                    )}
-                                                                </div>
-                                                                <div
-                                                                    style={[
-                                                                        {},
-                                                                        {
-                                                                            display:
-                                                                                unref(showType) === 'log' ? '' : 'none',
-                                                                        },
-                                                                    ]}
-                                                                >
-                                                                    {!unref(currentCompose).composeFileExists ? (
-                                                                        <ElAlert
-                                                                            title={$t('container.composeFileMissing')}
-                                                                            type="warning"
-                                                                            closable={false}
-                                                                            show-icon
-                                                                        />
-                                                                    ) : (
-                                                                        <ContainerLog
-                                                                            compose={unref(currentCompose).path}
-                                                                            resource={unref(currentCompose).name}
-                                                                            highlightDiff={450}
-                                                                            defaultFollow={true}
-                                                                            key={unref(currentCompose).path}
-                                                                        />
-                                                                    )}
-                                                                </div>
-                                                                <div
-                                                                    style={[
-                                                                        {},
-                                                                        {
-                                                                            display:
-                                                                                unref(showType) === 'env' ? '' : 'none',
-                                                                        },
-                                                                    ]}
-                                                                >
-                                                                    <ElInput
-                                                                        placeholder="key=value"
-                                                                        type="textarea"
-                                                                        rows={18}
-                                                                        readonly={unref(isAppStoreCompose)}
-                                                                        modelValue={unref(env)}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            env.value = $v as any;
-                                                                        }}
-                                                                    />
-                                                                    {unref(isAppStoreCompose) ? (
-                                                                        <span class={'input-help'}>
-                                                                            {$t('container.composeEnvHelper2')}
-                                                                        </span>
-                                                                    ) : null}
-                                                                </div>
-                                                            </ElCard>,
-                                                            [[vLoading, unref(detailLoading)]],
-                                                        )
-                                                    ) : (
-                                                        <ElCard>
-                                                            {withDirectives(
-                                                                <ElForm
-                                                                    ref={formRef}
-                                                                    onSubmit={($event?: any) => {
-                                                                        $event.preventDefault();
-                                                                    }}
-                                                                    label-position="top"
-                                                                    model={form}
-                                                                    rules={unref(rules)}
-                                                                >
-                                                                    <ElFormItem label={$t('app.source')}>
-                                                                        <ElRadioGroup
-                                                                            modelValue={form.from}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                form.from = $v as any;
-                                                                            }}
-                                                                            onChange={($event?: any) => {
-                                                                                onEdit('form');
-                                                                            }}
-                                                                        >
-                                                                            <ElRadio value="edit">
-                                                                                {$t('commons.button.edit')}
-                                                                            </ElRadio>
-                                                                            <ElRadio value="path">
-                                                                                {$t('container.pathSelect')}
-                                                                            </ElRadio>
-                                                                            <ElRadio value="template">
-                                                                                {$t('container.composeTemplate')}
-                                                                            </ElRadio>
-                                                                        </ElRadioGroup>
-                                                                    </ElFormItem>
-                                                                    {form.from === 'path' ? (
-                                                                        <ElFormItem prop="path">
-                                                                            <ElInput
-                                                                                onChange={($event?: any) => {
-                                                                                    loadDir(form.path);
-                                                                                }}
-                                                                                placeholder={
-                                                                                    $t('commons.example') +
-                                                                                    '/tmp/docker-compose.yml'
-                                                                                }
-                                                                                modelValue={form.path}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.path = $v as any;
-                                                                                }}
-                                                                                v-slots={{
-                                                                                    prepend: () => (
-                                                                                        <>
-                                                                                            <ElButton
-                                                                                                icon="Folder"
-                                                                                                onClick={(
-                                                                                                    $event?: any,
-                                                                                                ) => {
-                                                                                                    unref(
-                                                                                                        fileRef,
-                                                                                                    ).acceptParams({
-                                                                                                        dir: false,
-                                                                                                    });
-                                                                                                }}
+                                                                                            <SvgIcon
+                                                                                                iconName="p-pushpin"
+                                                                                                className="compose-pin-icon"
                                                                                             />
-                                                                                        </>
-                                                                                    ),
-                                                                                }}
-                                                                            />
-                                                                        </ElFormItem>
-                                                                    ) : null}
-                                                                    {form.from === 'template' ? (
-                                                                        <ElFormItem prop="template">
-                                                                            <ElSelect
-                                                                                modelValue={form.template}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.template = $v as any;
-                                                                                }}
-                                                                                onChange={($event?: any) => {
-                                                                                    onEdit('template');
-                                                                                }}
-                                                                                v-slots={{
-                                                                                    prefix: () => (
-                                                                                        <>{$t('container.template')}</>
-                                                                                    ),
-                                                                                }}
-                                                                            >
-                                                                                {(unref(templateOptions) || []).map(
-                                                                                    (item) => (
-                                                                                        <ElOption
-                                                                                            value={item.id}
-                                                                                            label={item.name}
-                                                                                            key={item.id}
-                                                                                        />
-                                                                                    ),
-                                                                                )}
-                                                                            </ElSelect>
-                                                                        </ElFormItem>
-                                                                    ) : null}
-                                                                    {form.from === 'edit' ||
-                                                                    form.from === 'template' ? (
-                                                                        <ElFormItem prop="dirName">
-                                                                            <ElInput
-                                                                                onInput={($event?: any) => {
-                                                                                    (changePath as any)($event);
-                                                                                }}
-                                                                                onChange={($event?: any) => {
-                                                                                    onEdit('');
-                                                                                }}
-                                                                                modelValue={form.dirName}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.dirName =
-                                                                                        typeof $v === 'string'
-                                                                                            ? $v.trim()
-                                                                                            : $v;
-                                                                                }}
-                                                                                v-slots={{
-                                                                                    prefix: () => (
-                                                                                        <>
-                                                                                            <span
-                                                                                                style={
-                                                                                                    'margin-right: 8px'
-                                                                                                }
-                                                                                            >
-                                                                                                {$t(
-                                                                                                    'commons.table.name',
-                                                                                                )}
-                                                                                            </span>
-                                                                                        </>
-                                                                                    ),
-                                                                                }}
-                                                                            />
-                                                                            <span class={'input-help'}>
-                                                                                {$t('container.composePathHelper', [
-                                                                                    unref(composeFile),
-                                                                                    form.dirName,
-                                                                                ])}
-                                                                            </span>
-                                                                        </ElFormItem>
-                                                                    ) : null}
-                                                                    {form.from === 'path' ? (
-                                                                        <ElFormItem prop="name">
-                                                                            <ElInput
-                                                                                modelValue={form.name}
-                                                                                onUpdate:modelValue={($v) => {
-                                                                                    form.name =
-                                                                                        typeof $v === 'string'
-                                                                                            ? $v.trim()
-                                                                                            : $v;
-                                                                                }}
-                                                                                v-slots={{
-                                                                                    prefix: () => (
-                                                                                        <>
-                                                                                            <span
-                                                                                                style={
-                                                                                                    'margin-right: 8px'
-                                                                                                }
-                                                                                            >
-                                                                                                {$t(
-                                                                                                    'commons.table.name',
-                                                                                                )}
-                                                                                            </span>
-                                                                                        </>
-                                                                                    ),
-                                                                                }}
-                                                                            />
-                                                                            <span class={'input-help'}>
-                                                                                {$t(
-                                                                                    'container.composeNamePriorityHelper',
-                                                                                )}
-                                                                            </span>
-                                                                        </ElFormItem>
-                                                                    ) : null}
-                                                                    <ElFormItem>
-                                                                        {form.from === 'edit' ||
-                                                                        form.from === 'template' ? (
-                                                                            <div class={'w-full'}>
-                                                                                <CodemirrorPro
-                                                                                    modelValue={form.file}
-                                                                                    onUpdate:modelValue={($v) => {
-                                                                                        form.file = $v as any;
-                                                                                    }}
-                                                                                    placeholder={$t(
-                                                                                        'container.composeContentPlaceholder',
-                                                                                    )}
-                                                                                    mode="yaml"
-                                                                                    heightDiff={400}
-                                                                                />
+                                                                                        </ElButton>
+                                                                                    }
+                                                                                </ElTooltip>
                                                                             </div>
-                                                                        ) : null}
-                                                                    </ElFormItem>
-                                                                    <span class={'envTitle'}>
-                                                                        {$t('container.env')}
-                                                                    </span>
-                                                                    <ElInput
-                                                                        placeholder="key=value"
-                                                                        type="textarea"
-                                                                        rows={3}
-                                                                        modelValue={form.env}
-                                                                        onUpdate:modelValue={($v) => {
-                                                                            form.env = $v as any;
-                                                                        }}
-                                                                    />
-                                                                    <span class={'envTitle'}>
-                                                                        {$t('commons.button.set')}
-                                                                    </span>
-                                                                    <ElFormItem>
-                                                                        <ElCheckbox
-                                                                            modelValue={form.forcePull}
-                                                                            onUpdate:modelValue={($v) => {
-                                                                                form.forcePull = $v as any;
-                                                                            }}
-                                                                            label={$t('container.forcePull')}
-                                                                        />
-                                                                        <span class={'input-help'}>
-                                                                            {$t('container.forcePullHelper')}
-                                                                        </span>
-                                                                    </ElFormItem>
-                                                                </ElForm>,
-                                                                [[vLoading, unref(detailLoading)]],
+                                                                            <div class={'mb-1'}>
+                                                                                <ElText
+                                                                                    link
+                                                                                    size="small"
+                                                                                    type="info"
+                                                                                    class={'w-12'}
+                                                                                >
+                                                                                    {loadFrom(row)}
+                                                                                </ElText>
+                                                                                <ElDivider direction="vertical" />
+                                                                                <ElText
+                                                                                    link
+                                                                                    size="small"
+                                                                                    type="info"
+                                                                                    class={'ml-2'}
+                                                                                >
+                                                                                    {row.createdAt}
+                                                                                </ElText>
+                                                                                <ElDivider direction="vertical" />
+                                                                                {row.containerCount === 0 ? (
+                                                                                    <ElText
+                                                                                        link
+                                                                                        type="danger"
+                                                                                        size="small"
+                                                                                    >
+                                                                                        {$t('container.exited')}
+                                                                                    </ElText>
+                                                                                ) : (
+                                                                                    <ElText
+                                                                                        link
+                                                                                        type={
+                                                                                            row.containerCount ===
+                                                                                            row.runningCount
+                                                                                                ? 'success'
+                                                                                                : 'warning'
+                                                                                        }
+                                                                                        size="small"
+                                                                                    >
+                                                                                        {$t('container.running', [
+                                                                                            row.runningCount,
+                                                                                            row.containerCount,
+                                                                                        ])}
+                                                                                    </ElText>
+                                                                                )}
+                                                                            </div>
+                                                                            <div
+                                                                                onClick={($event?: any) => {
+                                                                                    $event.stopPropagation();
+                                                                                }}
+                                                                                class={'compose-actions'}
+                                                                            >
+                                                                                <ElDropdown
+                                                                                    placement="bottom"
+                                                                                    v-slots={{
+                                                                                        dropdown: () => (
+                                                                                            <>
+                                                                                                <ElDropdownMenu>
+                                                                                                    <ElDropdownItem
+                                                                                                        disabled={
+                                                                                                            row.containerCount ===
+                                                                                                                row.runningCount &&
+                                                                                                            row.runningCount >
+                                                                                                                0
+                                                                                                        }
+                                                                                                        onClick={(
+                                                                                                            $event?: any,
+                                                                                                        ) => {
+                                                                                                            handleComposeOperate(
+                                                                                                                'up',
+                                                                                                                row,
+                                                                                                            );
+                                                                                                        }}
+                                                                                                    >
+                                                                                                        {$t(
+                                                                                                            'commons.operate.start',
+                                                                                                        )}
+                                                                                                    </ElDropdownItem>
+                                                                                                    <ElDropdownItem
+                                                                                                        disabled={
+                                                                                                            row.runningCount ===
+                                                                                                            0
+                                                                                                        }
+                                                                                                        onClick={(
+                                                                                                            $event?: any,
+                                                                                                        ) => {
+                                                                                                            handleComposeOperate(
+                                                                                                                'stop',
+                                                                                                                row,
+                                                                                                            );
+                                                                                                        }}
+                                                                                                    >
+                                                                                                        {$t(
+                                                                                                            'commons.operate.stop',
+                                                                                                        )}
+                                                                                                    </ElDropdownItem>
+                                                                                                    <ElDropdownItem
+                                                                                                        onClick={(
+                                                                                                            $event?: any,
+                                                                                                        ) => {
+                                                                                                            handleComposeOperate(
+                                                                                                                'restart',
+                                                                                                                row,
+                                                                                                            );
+                                                                                                        }}
+                                                                                                    >
+                                                                                                        {$t(
+                                                                                                            'commons.button.restart',
+                                                                                                        )}
+                                                                                                    </ElDropdownItem>
+                                                                                                    <ElDropdownItem
+                                                                                                        onClick={(
+                                                                                                            $event?: any,
+                                                                                                        ) => {
+                                                                                                            handleComposeOperate(
+                                                                                                                'rebuild',
+                                                                                                                row,
+                                                                                                            );
+                                                                                                        }}
+                                                                                                    >
+                                                                                                        {$t(
+                                                                                                            'commons.operate.rebuild',
+                                                                                                        )}
+                                                                                                    </ElDropdownItem>
+                                                                                                </ElDropdownMenu>
+                                                                                            </>
+                                                                                        ),
+                                                                                    }}
+                                                                                >
+                                                                                    {
+                                                                                        <Status
+                                                                                            status={getComposeStatus(
+                                                                                                row,
+                                                                                            )}
+                                                                                            operate={true}
+                                                                                            v-permission={true}
+                                                                                        />
+                                                                                    }
+                                                                                </ElDropdown>
+                                                                                {
+                                                                                    <ElButton
+                                                                                        plain
+                                                                                        round
+                                                                                        size="small"
+                                                                                        disabled={!row?.workdir}
+                                                                                        onClick={($event?: any) => {
+                                                                                            openComposeFolder(row);
+                                                                                        }}
+                                                                                        class={'round-btn ml-3'}
+                                                                                        v-permission={'host_file_view'}
+                                                                                    >
+                                                                                        {$t('home.dir')}
+                                                                                    </ElButton>
+                                                                                }
+                                                                                {
+                                                                                    <ElButton
+                                                                                        plain
+                                                                                        round
+                                                                                        size="small"
+                                                                                        onClick={($event?: any) => {
+                                                                                            onBackupList(row);
+                                                                                        }}
+                                                                                        class={'round-btn'}
+                                                                                        v-permission={true}
+                                                                                    >
+                                                                                        {$t('commons.button.backup')}
+                                                                                    </ElButton>
+                                                                                }
+                                                                                {
+                                                                                    <ElButton
+                                                                                        plain
+                                                                                        round
+                                                                                        size="small"
+                                                                                        onClick={($event?: any) => {
+                                                                                            onDelete(row);
+                                                                                        }}
+                                                                                        class={'round-btn'}
+                                                                                        v-permission={true}
+                                                                                    >
+                                                                                        {$t('commons.operate.delete')}
+                                                                                    </ElButton>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
+                                                                ),
+                                                            }}
+                                                        />
+                                                    </ElTable>
+                                                </ElCard>
+                                            </ElCol>
+                                            <ElCol xs={24} sm={24} md={16} lg={16} xl={18}>
+                                                {unref(currentCompose) && !unref(isOnCreate) ? (
+                                                    <ElCard v-loading={unref(detailLoading)}>
+                                                        <div class={'flex items-center justify-between'}>
+                                                            <div class={'flex items-center gap-2.5'}>
+                                                                <span class={'text-base font-medium'}>
+                                                                    {unref(currentCompose).name}
+                                                                </span>
+                                                                <ElTag size="small" effect="plain" round>
+                                                                    {loadFrom(unref(currentCompose))}
+                                                                </ElTag>
+                                                                <ElDivider direction="vertical" />
+                                                                <ElText size="small" type="info">
+                                                                    {unref(currentCompose).createdAt}
+                                                                </ElText>
+                                                            </div>
+                                                            {unref(currentCompose).containerCount === 0 ? (
+                                                                <ElTag type="danger" effect="light" round>
+                                                                    {$t('container.exited')}
+                                                                </ElTag>
+                                                            ) : (
+                                                                <ElTag
+                                                                    type={
+                                                                        unref(currentCompose).containerCount ===
+                                                                        unref(currentCompose).runningCount
+                                                                            ? 'success'
+                                                                            : 'warning'
+                                                                    }
+                                                                    effect="light"
+                                                                    round
+                                                                >
+                                                                    {$t('container.running', [
+                                                                        unref(currentCompose).runningCount,
+                                                                        unref(currentCompose).containerCount,
+                                                                    ])}
+                                                                </ElTag>
                                                             )}
-                                                            {withDirectives(
+                                                        </div>
+                                                        <ElDivider class={'!my-3'} />
+                                                        {unref(composeContainers).length > 0 ? (
+                                                            <ElTable
+                                                                tooltip-options={TABLE_OVERFLOW_TOOLTIP_OPTIONS}
+                                                                data={unref(tableData)}
+                                                                size="small"
+                                                                max-height="230"
+                                                                stripe
+                                                                class={'compose-container-table'}
+                                                            >
+                                                                <ElTableColumn
+                                                                    label={$t('commons.table.name')}
+                                                                    prop="name"
+                                                                    show-overflow-tooltip
+                                                                    fixed="left"
+                                                                    v-slots={{
+                                                                        default: ({ row }) => (
+                                                                            <>
+                                                                                <ElText
+                                                                                    type="primary"
+                                                                                    onClick={($event?: any) => {
+                                                                                        onInspectContainer(row);
+                                                                                    }}
+                                                                                    class={'cursor-pointer'}
+                                                                                >
+                                                                                    {row.name}
+                                                                                </ElText>
+                                                                            </>
+                                                                        ),
+                                                                    }}
+                                                                />
+                                                                <ElTableColumn
+                                                                    label={$t('commons.table.status')}
+                                                                    prop="state"
+                                                                    width="120"
+                                                                    v-slots={{
+                                                                        default: ({ row }) => (
+                                                                            <>
+                                                                                <Status
+                                                                                    status={row.state}
+                                                                                    key={row.state}
+                                                                                />
+                                                                            </>
+                                                                        ),
+                                                                    }}
+                                                                />
+                                                                <ElTableColumn
+                                                                    label={$t('container.source')}
+                                                                    show-overflow-tooltip
+                                                                    prop="resource"
+                                                                    v-slots={{
+                                                                        default: ({ row }) => (
+                                                                            <>
+                                                                                {row.hasLoad ? (
+                                                                                    <div>
+                                                                                        <div class={'source-font'}>
+                                                                                            {'CPU: '}
+                                                                                            {row.cpuPercent.toFixed(2)}
+                                                                                            {'%'}
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class={
+                                                                                                'source-font float-left'
+                                                                                            }
+                                                                                        >
+                                                                                            {$t('monitor.memory')}
+                                                                                            {': '}
+                                                                                            {row.memoryPercent.toFixed(
+                                                                                                2,
+                                                                                            )}
+                                                                                            {'% '}
+                                                                                        </div>
+                                                                                        <ElPopover
+                                                                                            placement="right"
+                                                                                            width="500px"
+                                                                                            class={'float-right'}
+                                                                                            v-slots={{
+                                                                                                reference: () => (
+                                                                                                    <>
+                                                                                                        <SvgIcon
+                                                                                                            iconName="p-xiangqing"
+                                                                                                            className="resource-detail-icon"
+                                                                                                        />
+                                                                                                    </>
+                                                                                                ),
+                                                                                                default: () => (
+                                                                                                    <>
+                                                                                                        <ElDescriptions
+                                                                                                            direction="vertical"
+                                                                                                            border
+                                                                                                            column={3}
+                                                                                                            size="small"
+                                                                                                        >
+                                                                                                            <ElDescriptionsItem
+                                                                                                                label={$t(
+                                                                                                                    'container.cpuUsage',
+                                                                                                                )}
+                                                                                                            >
+                                                                                                                {computeCPU(
+                                                                                                                    row.cpuTotalUsage,
+                                                                                                                )}
+                                                                                                            </ElDescriptionsItem>
+                                                                                                            <ElDescriptionsItem
+                                                                                                                label={$t(
+                                                                                                                    'container.cpuTotal',
+                                                                                                                )}
+                                                                                                            >
+                                                                                                                {computeCPU(
+                                                                                                                    row.systemUsage,
+                                                                                                                )}
+                                                                                                            </ElDescriptionsItem>
+                                                                                                            <ElDescriptionsItem
+                                                                                                                label={$t(
+                                                                                                                    'container.core',
+                                                                                                                )}
+                                                                                                            >
+                                                                                                                {
+                                                                                                                    row.percpuUsage
+                                                                                                                }
+                                                                                                            </ElDescriptionsItem>
+                                                                                                            <ElDescriptionsItem
+                                                                                                                label={$t(
+                                                                                                                    'container.memUsage',
+                                                                                                                )}
+                                                                                                            >
+                                                                                                                {computeSizeForDocker(
+                                                                                                                    row.memoryUsage,
+                                                                                                                )}
+                                                                                                            </ElDescriptionsItem>
+                                                                                                            <ElDescriptionsItem
+                                                                                                                label={$t(
+                                                                                                                    'container.memCache',
+                                                                                                                )}
+                                                                                                            >
+                                                                                                                {computeSizeForDocker(
+                                                                                                                    row.memoryCache,
+                                                                                                                )}
+                                                                                                            </ElDescriptionsItem>
+                                                                                                            <ElDescriptionsItem
+                                                                                                                label={$t(
+                                                                                                                    'container.memTotal',
+                                                                                                                )}
+                                                                                                            >
+                                                                                                                {computeSizeForDocker(
+                                                                                                                    row.memoryLimit,
+                                                                                                                )}
+                                                                                                            </ElDescriptionsItem>
+                                                                                                            {row.hasLoadSize ? (
+                                                                                                                <ElDescriptionsItem
+                                                                                                                    v-slots={{
+                                                                                                                        label: () => (
+                                                                                                                            <>
+                                                                                                                                {$t(
+                                                                                                                                    'container.sizeRw',
+                                                                                                                                )}
+                                                                                                                                <ElTooltip
+                                                                                                                                    content={$t(
+                                                                                                                                        'container.sizeRwHelper',
+                                                                                                                                    )}
+                                                                                                                                >
+                                                                                                                                    <ElIcon
+                                                                                                                                        class={
+                                                                                                                                            'icon-item'
+                                                                                                                                        }
+                                                                                                                                    >
+                                                                                                                                        <InfoFilled />
+                                                                                                                                    </ElIcon>
+                                                                                                                                </ElTooltip>
+                                                                                                                            </>
+                                                                                                                        ),
+                                                                                                                    }}
+                                                                                                                >
+                                                                                                                    {computeSize2(
+                                                                                                                        row.sizeRw,
+                                                                                                                    )}
+                                                                                                                </ElDescriptionsItem>
+                                                                                                            ) : null}
+                                                                                                            {row.hasLoadSize ? (
+                                                                                                                <ElDescriptionsItem
+                                                                                                                    label={$t(
+                                                                                                                        'container.sizeRootFs',
+                                                                                                                    )}
+                                                                                                                    v-slots={{
+                                                                                                                        label: () => (
+                                                                                                                            <>
+                                                                                                                                {$t(
+                                                                                                                                    'container.sizeRootFs',
+                                                                                                                                )}
+                                                                                                                                <ElTooltip
+                                                                                                                                    content={$t(
+                                                                                                                                        'container.sizeRootFsHelper',
+                                                                                                                                    )}
+                                                                                                                                >
+                                                                                                                                    <ElIcon
+                                                                                                                                        class={
+                                                                                                                                            'icon-item'
+                                                                                                                                        }
+                                                                                                                                    >
+                                                                                                                                        <InfoFilled />
+                                                                                                                                    </ElIcon>
+                                                                                                                                </ElTooltip>
+                                                                                                                            </>
+                                                                                                                        ),
+                                                                                                                    }}
+                                                                                                                >
+                                                                                                                    {computeSize2(
+                                                                                                                        row.sizeRootFs,
+                                                                                                                    )}
+                                                                                                                </ElDescriptionsItem>
+                                                                                                            ) : null}
+                                                                                                        </ElDescriptions>
+                                                                                                        {!row.hasLoadSize ? (
+                                                                                                            <ElButton
+                                                                                                                size="small"
+                                                                                                                link
+                                                                                                                type="primary"
+                                                                                                                onClick={(
+                                                                                                                    $event?: any,
+                                                                                                                ) => {
+                                                                                                                    loadSize(
+                                                                                                                        row,
+                                                                                                                    );
+                                                                                                                }}
+                                                                                                                class={
+                                                                                                                    'mt-2'
+                                                                                                                }
+                                                                                                            >
+                                                                                                                {$t(
+                                                                                                                    'container.loadSize',
+                                                                                                                )}
+                                                                                                            </ElButton>
+                                                                                                        ) : null}
+                                                                                                    </>
+                                                                                                ),
+                                                                                            }}
+                                                                                        />
+                                                                                    </div>
+                                                                                ) : null}
+                                                                                {!row.hasLoad ? (
+                                                                                    <div>
+                                                                                        <ElButton link loading />
+                                                                                    </div>
+                                                                                ) : null}
+                                                                            </>
+                                                                        ),
+                                                                    }}
+                                                                />
+                                                                <ElTableColumn
+                                                                    label={$t('commons.table.operate')}
+                                                                    width="160"
+                                                                    v-slots={{
+                                                                        default: ({ row }) => (
+                                                                            <>
+                                                                                <ElButton
+                                                                                    type="primary"
+                                                                                    link
+                                                                                    disabled={
+                                                                                        !unref(isAdminOrNodeAdmin)
+                                                                                    }
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOpenTerminal(row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('menu.terminal')}
+                                                                                </ElButton>
+                                                                                <ElButton
+                                                                                    type="primary"
+                                                                                    link
+                                                                                    onClick={($event?: any) => {
+                                                                                        onOpenLog(row);
+                                                                                    }}
+                                                                                >
+                                                                                    {$t('commons.button.log')}
+                                                                                </ElButton>
+                                                                            </>
+                                                                        ),
+                                                                    }}
+                                                                />
+                                                            </ElTable>
+                                                        ) : null}
+                                                        {unref(composeContainers).length > 0 ? (
+                                                            <ElDivider class={'!my-2'} />
+                                                        ) : null}
+                                                        <div class={'mb-2 flex items-center justify-between'}>
+                                                            <ElRadioGroup v-model={showType.value}>
+                                                                <ElRadioButton value="compose">
+                                                                    {$t('container.compose')}
+                                                                </ElRadioButton>
+                                                                <ElRadioButton value="log">
+                                                                    {$t('commons.button.log')}
+                                                                </ElRadioButton>
+                                                                <ElRadioButton value="env">
+                                                                    {$t('container.env')}
+                                                                </ElRadioButton>
+                                                            </ElRadioGroup>
+                                                            {unref(showType) !== 'log' &&
+                                                            !(unref(showType) === 'env' && unref(isAppStoreCompose)) ? (
                                                                 <ElButton
                                                                     type="primary"
+                                                                    disabled={
+                                                                        unref(detailLoading) || !unref(composeContent)
+                                                                    }
                                                                     onClick={($event?: any) => {
-                                                                        onSubmit(unref(formRef));
+                                                                        (onSubmitEdit as any)($event);
                                                                     }}
-                                                                    class={'mt-2'}
+                                                                    v-permission={true}
                                                                 >
                                                                     {$t('commons.button.save')}
-                                                                </ElButton>,
-                                                                [[permissionDirective, true]],
+                                                                </ElButton>
+                                                            ) : null}
+                                                        </div>
+                                                        {unref(currentCompose).path.indexOf(',') !== -1 ? (
+                                                            <ElSelect
+                                                                v-model={currentYamlPath.value}
+                                                                onChange={($event?: any) => {
+                                                                    inspectCompose(
+                                                                        unref(currentCompose).name,
+                                                                        unref(currentYamlPath),
+                                                                    );
+                                                                }}
+                                                                class={'p-w-300 mb-2'}
+                                                                v-slots={{
+                                                                    prefix: () => <>{$t('container.composeFile')}</>,
+                                                                }}
+                                                            >
+                                                                {(unref(currentCompose).path.split(',') || []).map(
+                                                                    (item) => (
+                                                                        <ElOption
+                                                                            value={item}
+                                                                            label={item.split('/').pop()}
+                                                                            key={item}
+                                                                        />
+                                                                    ),
+                                                                )}
+                                                            </ElSelect>
+                                                        ) : null}
+                                                        <div
+                                                            style={[
+                                                                {},
+                                                                {
+                                                                    display:
+                                                                        unref(showType) === 'compose' ? '' : 'none',
+                                                                },
+                                                            ]}
+                                                        >
+                                                            {!unref(currentCompose).composeFileExists ? (
+                                                                <ElAlert
+                                                                    title={$t('container.composeFileMissing')}
+                                                                    type="warning"
+                                                                    closable={false}
+                                                                    show-icon
+                                                                />
+                                                            ) : (
+                                                                <CodemirrorPro
+                                                                    v-model={composeContent.value}
+                                                                    mode="yaml"
+                                                                    heightDiff={475}
+                                                                    placeholder={$t(
+                                                                        'container.composeContentPlaceholder',
+                                                                    )}
+                                                                />
                                                             )}
-                                                        </ElCard>
-                                                    )}
-                                                </ElCol>
-                                            </ElRow>
-                                        ) : (
-                                            <ElEmpty description={$t('commons.msg.noneData')} />
-                                        )}
-                                    </>
-                                ),
-                            }}
-                        />
-                    ) : null}
-                    <TaskLog
-                        ref={taskLogRef}
-                        width="70%"
-                        v-slots={{
-                            'task-footer': () => (
-                                <>
-                                    <ElButton
-                                        onClick={($event?: any) => {
-                                            (handleClose as any)($event);
-                                        }}
-                                    >
-                                        {$t('commons.table.backToList')}
-                                    </ElButton>
-                                    <ElButton
-                                        type="primary"
-                                        onClick={($event?: any) => {
-                                            (closeTask as any)($event);
-                                        }}
-                                    >
-                                        {$t('commons.table.keepEdit')}
-                                    </ElButton>
+                                                        </div>
+                                                        <div
+                                                            style={[
+                                                                {},
+                                                                {
+                                                                    display: unref(showType) === 'log' ? '' : 'none',
+                                                                },
+                                                            ]}
+                                                        >
+                                                            {!unref(currentCompose).composeFileExists ? (
+                                                                <ElAlert
+                                                                    title={$t('container.composeFileMissing')}
+                                                                    type="warning"
+                                                                    closable={false}
+                                                                    show-icon
+                                                                />
+                                                            ) : (
+                                                                <ContainerLog
+                                                                    compose={unref(currentCompose).path}
+                                                                    resource={unref(currentCompose).name}
+                                                                    highlightDiff={450}
+                                                                    defaultFollow={true}
+                                                                    key={unref(currentCompose).path}
+                                                                />
+                                                            )}
+                                                        </div>
+                                                        <div
+                                                            style={[
+                                                                {},
+                                                                {
+                                                                    display: unref(showType) === 'env' ? '' : 'none',
+                                                                },
+                                                            ]}
+                                                        >
+                                                            <ElInput
+                                                                placeholder="key=value"
+                                                                type="textarea"
+                                                                rows={18}
+                                                                readonly={unref(isAppStoreCompose)}
+                                                                v-model={env.value}
+                                                            />
+                                                            {unref(isAppStoreCompose) ? (
+                                                                <span class={'input-help'}>
+                                                                    {$t('container.composeEnvHelper2')}
+                                                                </span>
+                                                            ) : null}
+                                                        </div>
+                                                    </ElCard>
+                                                ) : (
+                                                    <ElCard>
+                                                        {
+                                                            <ElForm
+                                                                ref={formRef}
+                                                                onSubmit={($event?: any) => {
+                                                                    $event.preventDefault();
+                                                                }}
+                                                                label-position="top"
+                                                                model={form}
+                                                                rules={unref(rules)}
+                                                                v-loading={unref(detailLoading)}
+                                                            >
+                                                                <ElFormItem label={$t('app.source')}>
+                                                                    <ElRadioGroup
+                                                                        v-model={form.from}
+                                                                        onChange={($event?: any) => {
+                                                                            onEdit('form');
+                                                                        }}
+                                                                    >
+                                                                        <ElRadio value="edit">
+                                                                            {$t('commons.button.edit')}
+                                                                        </ElRadio>
+                                                                        <ElRadio value="path">
+                                                                            {$t('container.pathSelect')}
+                                                                        </ElRadio>
+                                                                        <ElRadio value="template">
+                                                                            {$t('container.composeTemplate')}
+                                                                        </ElRadio>
+                                                                    </ElRadioGroup>
+                                                                </ElFormItem>
+                                                                {form.from === 'path' ? (
+                                                                    <ElFormItem prop="path">
+                                                                        <ElInput
+                                                                            onChange={($event?: any) => {
+                                                                                loadDir(form.path);
+                                                                            }}
+                                                                            placeholder={
+                                                                                $t('commons.example') +
+                                                                                '/tmp/docker-compose.yml'
+                                                                            }
+                                                                            v-model={form.path}
+                                                                            v-slots={{
+                                                                                prepend: () => (
+                                                                                    <>
+                                                                                        <ElButton
+                                                                                            icon="Folder"
+                                                                                            onClick={($event?: any) => {
+                                                                                                unref(
+                                                                                                    fileRef,
+                                                                                                ).acceptParams({
+                                                                                                    dir: false,
+                                                                                                });
+                                                                                            }}
+                                                                                        />
+                                                                                    </>
+                                                                                ),
+                                                                            }}
+                                                                        />
+                                                                    </ElFormItem>
+                                                                ) : null}
+                                                                {form.from === 'template' ? (
+                                                                    <ElFormItem prop="template">
+                                                                        <ElSelect
+                                                                            v-model={form.template}
+                                                                            onChange={($event?: any) => {
+                                                                                onEdit('template');
+                                                                            }}
+                                                                            v-slots={{
+                                                                                prefix: () => (
+                                                                                    <>{$t('container.template')}</>
+                                                                                ),
+                                                                            }}
+                                                                        >
+                                                                            {(unref(templateOptions) || []).map(
+                                                                                (item) => (
+                                                                                    <ElOption
+                                                                                        value={item.id}
+                                                                                        label={item.name}
+                                                                                        key={item.id}
+                                                                                    />
+                                                                                ),
+                                                                            )}
+                                                                        </ElSelect>
+                                                                    </ElFormItem>
+                                                                ) : null}
+                                                                {form.from === 'edit' || form.from === 'template' ? (
+                                                                    <ElFormItem prop="dirName">
+                                                                        <ElInput
+                                                                            onInput={($event?: any) => {
+                                                                                (changePath as any)($event);
+                                                                            }}
+                                                                            onChange={($event?: any) => {
+                                                                                onEdit('');
+                                                                            }}
+                                                                            modelValue={form.dirName}
+                                                                            onUpdate:modelValue={($v) => {
+                                                                                form.dirName =
+                                                                                    typeof $v === 'string'
+                                                                                        ? $v.trim()
+                                                                                        : $v;
+                                                                            }}
+                                                                            v-slots={{
+                                                                                prefix: () => (
+                                                                                    <>
+                                                                                        <span
+                                                                                            style={'margin-right: 8px'}
+                                                                                        >
+                                                                                            {$t('commons.table.name')}
+                                                                                        </span>
+                                                                                    </>
+                                                                                ),
+                                                                            }}
+                                                                        />
+                                                                        <span class={'input-help'}>
+                                                                            {$t('container.composePathHelper', [
+                                                                                unref(composeFile),
+                                                                                form.dirName,
+                                                                            ])}
+                                                                        </span>
+                                                                    </ElFormItem>
+                                                                ) : null}
+                                                                {form.from === 'path' ? (
+                                                                    <ElFormItem prop="name">
+                                                                        <ElInput
+                                                                            modelValue={form.name}
+                                                                            onUpdate:modelValue={($v) => {
+                                                                                form.name =
+                                                                                    typeof $v === 'string'
+                                                                                        ? $v.trim()
+                                                                                        : $v;
+                                                                            }}
+                                                                            v-slots={{
+                                                                                prefix: () => (
+                                                                                    <>
+                                                                                        <span
+                                                                                            style={'margin-right: 8px'}
+                                                                                        >
+                                                                                            {$t('commons.table.name')}
+                                                                                        </span>
+                                                                                    </>
+                                                                                ),
+                                                                            }}
+                                                                        />
+                                                                        <span class={'input-help'}>
+                                                                            {$t('container.composeNamePriorityHelper')}
+                                                                        </span>
+                                                                    </ElFormItem>
+                                                                ) : null}
+                                                                <ElFormItem>
+                                                                    {form.from === 'edit' ||
+                                                                    form.from === 'template' ? (
+                                                                        <div class={'w-full'}>
+                                                                            <CodemirrorPro
+                                                                                v-model={form.file}
+                                                                                placeholder={$t(
+                                                                                    'container.composeContentPlaceholder',
+                                                                                )}
+                                                                                mode="yaml"
+                                                                                heightDiff={400}
+                                                                            />
+                                                                        </div>
+                                                                    ) : null}
+                                                                </ElFormItem>
+                                                                <span class={'envTitle'}>{$t('container.env')}</span>
+                                                                <ElInput
+                                                                    placeholder="key=value"
+                                                                    type="textarea"
+                                                                    rows={3}
+                                                                    v-model={form.env}
+                                                                />
+                                                                <span class={'envTitle'}>
+                                                                    {$t('commons.button.set')}
+                                                                </span>
+                                                                <ElFormItem>
+                                                                    <ElCheckbox
+                                                                        v-model={form.forcePull}
+                                                                        label={$t('container.forcePull')}
+                                                                    />
+                                                                    <span class={'input-help'}>
+                                                                        {$t('container.forcePullHelper')}
+                                                                    </span>
+                                                                </ElFormItem>
+                                                            </ElForm>
+                                                        }
+                                                        {
+                                                            <ElButton
+                                                                type="primary"
+                                                                onClick={($event?: any) => {
+                                                                    onSubmit(unref(formRef));
+                                                                }}
+                                                                class={'mt-2'}
+                                                                v-permission={true}
+                                                            >
+                                                                {$t('commons.button.save')}
+                                                            </ElButton>
+                                                        }
+                                                    </ElCard>
+                                                )}
+                                            </ElCol>
+                                        </ElRow>
+                                    ) : (
+                                        <ElEmpty description={$t('commons.msg.noneData')} />
+                                    )}
                                 </>
                             ),
                         }}
                     />
-                    <FileList
-                        ref={fileRef}
-                        onChoose={($event?: any) => {
-                            (loadDir as any)($event);
-                        }}
-                    />
-                    <DeleteDialog
-                        onSearch={($event?: any) => {
-                            search(true);
-                        }}
-                        ref={dialogDelRef}
-                    />
-                    <ContainerInspectDialog ref={containerInspectRef} />
-                    <TerminalDialog ref={terminalDialogRef} />
-                    <ContainerLogDialog ref={containerLogDialogRef} highlightDiff={210} />
-                    <Backups
-                        ref={dialogBackupRef}
-                        onClose={($event?: any) => {
-                            search(true);
-                        }}
-                    />
-                    <Uploads
-                        ref={uploadRef}
-                        onClose={($event?: any) => {
-                            search(true);
-                        }}
-                    />
-                </div>,
-                [[vLoading, unref(loading)]],
-            );
+                ) : null}
+                <TaskLog
+                    ref={taskLogRef}
+                    width="70%"
+                    v-slots={{
+                        'task-footer': () => (
+                            <>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        (handleClose as any)($event);
+                                    }}
+                                >
+                                    {$t('commons.table.backToList')}
+                                </ElButton>
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        (closeTask as any)($event);
+                                    }}
+                                >
+                                    {$t('commons.table.keepEdit')}
+                                </ElButton>
+                            </>
+                        ),
+                    }}
+                />
+                <FileList
+                    ref={fileRef}
+                    onChoose={($event?: any) => {
+                        (loadDir as any)($event);
+                    }}
+                />
+                <DeleteDialog
+                    onSearch={($event?: any) => {
+                        search(true);
+                    }}
+                    ref={dialogDelRef}
+                />
+                <ContainerInspectDialog ref={containerInspectRef} />
+                <TerminalDialog ref={terminalDialogRef} />
+                <ContainerLogDialog ref={containerLogDialogRef} highlightDiff={210} />
+                <Backups
+                    ref={dialogBackupRef}
+                    onClose={($event?: any) => {
+                        search(true);
+                    }}
+                />
+                <Uploads
+                    ref={uploadRef}
+                    onClose={($event?: any) => {
+                        search(true);
+                    }}
+                />
+            </div>
+        );
     },
     options,
 );

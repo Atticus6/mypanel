@@ -834,10 +834,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <DrawerPro
-                modelValue={unref(open)}
-                onUpdate:modelValue={($v) => {
-                    open.value = $v as any;
-                }}
+                v-model={open.value}
                 header={$t('commons.button.create')}
                 size="60%"
                 onClose={($event?: any) => {
@@ -867,9 +864,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     ),
                 }}
             >
-                {withDirectives(
-                    <div class={{ mask: !unref(versionExist) }}>
-                        {withDirectives(
+                {
+                    <div class={{ mask: !unref(versionExist) }} v-loading={unref(loading)}>
+                        {
                             <ElForm
                                 ref={websiteForm}
                                 label-position="top"
@@ -877,13 +874,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 label-width="125px"
                                 rules={unref(rules)}
                                 validate-on-rule-change={false}
+                                v-loading={unref(loading)}
                             >
                                 <ElFormItem>
                                     <ElRadioGroup
-                                        modelValue={unref(website).type}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(website).type = $v as any;
-                                        }}
+                                        v-model={unref(website).type}
                                         onChange={($event?: any) => {
                                             (changeType as any)($event);
                                         }}
@@ -901,10 +896,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     class={'mb-2'}
                                 />
                                 <GroupSelect
-                                    modelValue={unref(website).webSiteGroupId}
-                                    onUpdate:modelValue={($v) => {
-                                        unref(website).webSiteGroupId = $v as any;
-                                    }}
+                                    v-model={unref(website).webSiteGroupId}
                                     prop={'webSiteGroupId'}
                                     groupType={'website'}
                                 />
@@ -912,10 +904,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <div>
                                         <ElFormItem prop="appType">
                                             <ElRadioGroup
-                                                modelValue={unref(website).appType}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(website).appType = $v as any;
-                                                }}
+                                                v-model={unref(website).appType}
                                                 onChange={($event?: any) => {
                                                     changeAppType(unref(website).appType);
                                                 }}
@@ -930,13 +919,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </ElFormItem>
                                         {unref(website).appType == 'installed' ? (
                                             <ElFormItem label={$t('website.appInstalled')} prop="appInstallId">
-                                                <ElSelect
-                                                    modelValue={unref(website).appInstallId}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(website).appInstallId = $v as any;
-                                                    }}
-                                                    class={'p-w-300'}
-                                                >
+                                                <ElSelect v-model={unref(website).appInstallId} class={'p-w-300'}>
                                                     {(unref(appInstalls) || []).map((appInstall, index) => (
                                                         <ElOption
                                                             label={appInstall.name}
@@ -962,10 +945,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <div>
                                                 <ElFormItem label={$t('app.app')} prop="appinstall.appId">
                                                     <ElSelect
-                                                        modelValue={unref(website).appinstall.appId}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(website).appinstall.appId = $v as any;
-                                                        }}
+                                                        v-model={unref(website).appinstall.appId}
                                                         onChange={($event?: any) => {
                                                             changeApp();
                                                         }}
@@ -984,10 +964,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 </ElFormItem>
                                                 <AppInstallForm
                                                     ref={installFormRef}
-                                                    modelValue={unref(website).appinstall}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(website).appinstall = $v as any;
-                                                    }}
+                                                    v-model={unref(website).appinstall}
                                                     loading={unref(loading)}
                                                 />
                                             </div>
@@ -998,10 +975,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <div>
                                         <ElFormItem label={$t('website.parentWbeiste')} prop="parentWebsiteID">
                                             <ElSelect
-                                                modelValue={unref(website).parentWebsiteID}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(website).parentWebsiteID = $v as any;
-                                                }}
+                                                v-model={unref(website).parentWebsiteID}
                                                 onChange={($event?: any) => {
                                                     getDir(unref(website).parentWebsiteID);
                                                 }}
@@ -1012,14 +986,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </ElSelect>
                                         </ElFormItem>
                                         <ElFormItem label={$t('website.runDir')} prop="siteDir">
-                                            <ElSelect
-                                                modelValue={unref(website).siteDir}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(website).siteDir = $v as any;
-                                                }}
-                                                filterable
-                                                class={'p-w-200'}
-                                            >
+                                            <ElSelect v-model={unref(website).siteDir} filterable class={'p-w-200'}>
                                                 {(unref(dirs) || []).map((item, index) => (
                                                     <ElOption label={item} value={item} key={index} />
                                                 ))}
@@ -1033,10 +1000,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <ElCol span={8}>
                                                 <ElFormItem label={$t('commons.table.type')} prop="runtimeType">
                                                     <ElSelect
-                                                        modelValue={unref(website).runtimeType}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(website).runtimeType = $v as any;
-                                                        }}
+                                                        v-model={unref(website).runtimeType}
                                                         onChange={($event?: any) => {
                                                             changeRuntimeType();
                                                         }}
@@ -1053,10 +1017,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <ElCol span={16}>
                                                 <ElFormItem label={$t('runtime.runtime')} prop="runtimeID">
                                                     <ElSelect
-                                                        modelValue={unref(website).runtimeID}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(website).runtimeID = $v as any;
-                                                        }}
+                                                        v-model={unref(website).runtimeID}
                                                         onChange={($event?: any) => {
                                                             changeRuntime(unref(website).runtimeID);
                                                         }}
@@ -1090,12 +1051,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         {unref(website).runtimeType === 'php' && unref(runtimeResource) === 'local' ? (
                                             <div>
                                                 <ElFormItem label={$t('website.proxyType')} prop="proxyType">
-                                                    <ElSelect
-                                                        modelValue={unref(website).proxyType}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(website).proxyType = $v as any;
-                                                        }}
-                                                    >
+                                                    <ElSelect v-model={unref(website).proxyType}>
                                                         <ElOption label={$t('website.tcp')} value={'tcp'} />
                                                         <ElOption label={$t('website.unix')} value={'unix'} />
                                                     </ElSelect>
@@ -1114,12 +1070,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         ) : null}
                                         {unref(website).runtimeType !== 'php' && unref(runtimePorts).length > 1 ? (
                                             <ElFormItem label={$t('setting.proxyPort')} prop="port">
-                                                <ElSelect
-                                                    modelValue={unref(website).port}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(website).port = $v as any;
-                                                    }}
-                                                >
+                                                <ElSelect v-model={unref(website).port}>
                                                     {(unref(runtimePorts) || []).map((port, index) => (
                                                         <ElOption label={port} value={port} key={index} />
                                                     ))}
@@ -1146,19 +1097,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <div>
                                         <ElFormItem label={$t('website.streamPorts')} prop="streamPorts">
                                             <ElInput
-                                                modelValue={unref(website).streamPorts}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(website).streamPorts = $v as any;
-                                                }}
+                                                v-model={unref(website).streamPorts}
                                                 placeholder={$t('website.streamPortsHelper')}
                                             />
                                         </ElFormItem>
                                         <ElFormItem prop="udp">
                                             <ElCheckbox
-                                                modelValue={unref(website).udp}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(website).udp = $v as any;
-                                                }}
+                                                v-model={unref(website).udp}
                                                 label={$t('website.udp')}
                                                 size="large"
                                             />
@@ -1205,23 +1150,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </div>
                                 </ElFormItem>
                                 <ElFormItem prop="IPV6">
-                                    <ElCheckbox
-                                        modelValue={unref(website).IPV6}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(website).IPV6 = $v as any;
-                                        }}
-                                        label={$t('website.ipv6')}
-                                        size="large"
-                                    />
+                                    <ElCheckbox v-model={unref(website).IPV6} label={$t('website.ipv6')} size="large" />
                                 </ElFormItem>
                                 {unref(website).type == 'stream' ? (
                                     <div>
                                         <LoadBalanceForm
                                             ref={lbFormRef}
-                                            modelValue={unref(steamConfig)}
-                                            onUpdate:modelValue={($v) => {
-                                                steamConfig.value = $v as any;
-                                            }}
+                                            v-model={steamConfig.value}
                                             disabled={true}
                                             type="stream"
                                         />
@@ -1230,10 +1165,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <div>
                                         <ElFormItem prop="enableSSL">
                                             <ElCheckbox
-                                                modelValue={unref(website).enableSSL}
-                                                onUpdate:modelValue={($v) => {
-                                                    unref(website).enableSSL = $v as any;
-                                                }}
+                                                v-model={unref(website).enableSSL}
                                                 label={$t('website.enableHTTPS')}
                                                 size="large"
                                             />
@@ -1246,10 +1178,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     prop="acmeAccountID"
                                                 >
                                                     <ElSelect
-                                                        modelValue={unref(website).acmeAccountID}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(website).acmeAccountID = $v as any;
-                                                        }}
+                                                        v-model={unref(website).acmeAccountID}
                                                         placeholder={$t('website.selectAcme')}
                                                         onChange={($event?: any) => {
                                                             (listSSLs as any)($event);
@@ -1274,10 +1203,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     hide-required-asterisk={true}
                                                 >
                                                     <ElSelect
-                                                        modelValue={unref(website).websiteSSLID}
-                                                        onUpdate:modelValue={($v) => {
-                                                            unref(website).websiteSSLID = $v as any;
-                                                        }}
+                                                        v-model={unref(website).websiteSSLID}
                                                         placeholder={$t('website.selectSSL')}
                                                         onChange={($event?: any) => {
                                                             (handleSSLSelectChange as any)($event);
@@ -1314,14 +1240,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 )}
                                 {unref(website).type === 'static' ? (
                                     <ElFormItem label={$t('template.importButton')} prop="templateOutputID">
-                                        <ElSelect
-                                            modelValue={unref(website).templateOutputID}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(website).templateOutputID = $v as any;
-                                            }}
-                                            clearable
-                                            class={'p-w-200'}
-                                        >
+                                        <ElSelect v-model={unref(website).templateOutputID} clearable class={'p-w-200'}>
                                             {(unref(templateOutputs) || []).map((output) => (
                                                 <ElOption
                                                     label={output.name + ' (' + output.templateName + ')'}
@@ -1338,10 +1257,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onChange={($event?: any) => {
                                                 (random as any)($event);
                                             }}
-                                            modelValue={unref(website).enableFtp}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(website).enableFtp = $v as any;
-                                            }}
+                                            v-model={unref(website).enableFtp}
                                             label={$t('commons.button.create') + ' FTP'}
                                             size="large"
                                         />
@@ -1352,12 +1268,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElRow gutter={20}>
                                         <ElCol span={12}>
                                             <ElFormItem prop="ftpUser" label={$t('website.ftpUser')}>
-                                                <ElInput
-                                                    modelValue={unref(website).ftpUser}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(website).ftpUser = $v as any;
-                                                    }}
-                                                />
+                                                <ElInput v-model={unref(website).ftpUser} />
                                             </ElFormItem>
                                         </ElCol>
                                         <ElCol span={12}>
@@ -1365,10 +1276,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <ElInput
                                                     type="password"
                                                     clearable
-                                                    modelValue={unref(website).ftpPassword}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(website).ftpPassword = $v as any;
-                                                    }}
+                                                    v-model={unref(website).ftpPassword}
                                                     show-password
                                                     v-slots={{
                                                         append: () => (
@@ -1393,19 +1301,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <ElCol span={12}>
                                             <ElFormItem label={$t('website.proxyAddress')} prop="proxyAddress">
                                                 <ElInput
-                                                    modelValue={unref(website).proxyAddress}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(website).proxyAddress = $v as any;
-                                                    }}
+                                                    v-model={unref(website).proxyAddress}
                                                     placeholder={$t('website.proxyHelper')}
                                                     v-slots={{
                                                         prepend: () => (
                                                             <>
                                                                 <ElSelect
-                                                                    modelValue={unref(website).proxyProtocol}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        unref(website).proxyProtocol = $v as any;
-                                                                    }}
+                                                                    v-model={unref(website).proxyProtocol}
                                                                     class={'pre-select'}
                                                                 >
                                                                     <ElOption label="http" value="http://" />
@@ -1421,10 +1323,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <ElCol span={12}>
                                             <ElFormItem label={$t('app.app')}>
                                                 <ElSelect
-                                                    modelValue={unref(website).appInstallId}
-                                                    onUpdate:modelValue={($v) => {
-                                                        unref(website).appInstallId = $v as any;
-                                                    }}
+                                                    v-model={unref(website).appInstallId}
                                                     filterable
                                                     onChange={($event?: any) => {
                                                         (changeInstall as any)($event);
@@ -1449,10 +1348,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onChange={($event?: any) => {
                                                 (randomDbPassword as any)($event);
                                             }}
-                                            modelValue={unref(website).createDb}
-                                            onUpdate:modelValue={($v) => {
-                                                unref(website).createDb = $v as any;
-                                            }}
+                                            v-model={unref(website).createDb}
                                             label={$t('website.createDb')}
                                             size="large"
                                         />
@@ -1465,10 +1361,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 <ElRow gutter={20}>
                                                     <ElCol span={12}>
                                                         <ElSelect
-                                                            modelValue={unref(website).dbType}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(website).dbType = $v as any;
-                                                            }}
+                                                            v-model={unref(website).dbType}
                                                             onChange={($event?: any) => {
                                                                 getAppByService(unref(website).dbType);
                                                             }}
@@ -1480,13 +1373,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         </ElSelect>
                                                     </ElCol>
                                                     <ElCol span={12}>
-                                                        <ElSelect
-                                                            modelValue={unref(website).dbHost}
-                                                            onUpdate:modelValue={($v) => {
-                                                                unref(website).dbHost = $v as any;
-                                                            }}
-                                                            class={'p-w-200'}
-                                                        >
+                                                        <ElSelect v-model={unref(website).dbHost} class={'p-w-200'}>
                                                             {(unref(dbServices) || []).map((service, index) => (
                                                                 <ElOption
                                                                     label={service.label}
@@ -1514,10 +1401,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         append: () => (
                                                             <>
                                                                 <ElSelect
-                                                                    modelValue={unref(website).dbFormat}
-                                                                    onUpdate:modelValue={($v) => {
-                                                                        unref(website).dbFormat = $v as any;
-                                                                    }}
+                                                                    v-model={unref(website).dbFormat}
                                                                     class={'p-w-100'}
                                                                 >
                                                                     <ElOption label="utf8mb4" value="utf8mb4" />
@@ -1577,22 +1461,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </ElText>
                                 </ElDivider>
                                 <ElFormItem label={$t('website.remark')} prop="remark">
-                                    <ElInput
-                                        type="textarea"
-                                        rows={3}
-                                        clearable
-                                        modelValue={unref(website).remark}
-                                        onUpdate:modelValue={($v) => {
-                                            unref(website).remark = $v as any;
-                                        }}
-                                    />
+                                    <ElInput type="textarea" rows={3} clearable v-model={unref(website).remark} />
                                 </ElFormItem>
-                            </ElForm>,
-                            [[vLoading, unref(loading)]],
-                        )}
-                    </div>,
-                    [[vLoading, unref(loading)]],
-                )}
+                            </ElForm>
+                        }
+                    </div>
+                }
                 <Check ref={preCheckRef} />
                 {!unref(versionExist) ? (
                     <ElCard width="30%" class={'mask-prompt'}>
