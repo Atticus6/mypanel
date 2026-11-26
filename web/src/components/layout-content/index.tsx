@@ -6,12 +6,13 @@ import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vu
 import { cn } from '@/utils/cn';
 import { ElCard } from 'element-plus';
 import BackButton from '@/components/back-button/index';
+import type { RouteName } from '@/utils/router';
 
 interface CodemodProps {
     [key: string]: any;
     title?: string;
     backPath?: string;
-    backName?: string;
+    backName?: RouteName;
     backTo?: Record<string, any>;
     reload?: boolean;
     divider?: boolean;

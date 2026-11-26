@@ -1,5 +1,5 @@
 import { $t } from '@/utils/i18n-t';
-import { routerToName } from '@/utils/router';
+import { routerToName, type RouteName } from '@/utils/router';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { defineComponent, Fragment, unref, withDirectives } from 'vue';
 import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
@@ -27,7 +27,7 @@ const options = {
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
     (__panelSetupProps, ctx) => {
         const { isAdmin } = useGlobalStore();
-        const onChangeRoute = async (addr: string) => {
+        const onChangeRoute = async (addr: RouteName) => {
             routerToName(addr);
         };
         return () => (

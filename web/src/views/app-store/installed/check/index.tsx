@@ -3,7 +3,7 @@ import { App } from '@/types/app';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { routerToName } from '@/utils/router';
+import { routerToExtensionName, routerToName } from '@/utils/router';
 import { ref } from 'vue';
 import ErrPrompt from '@/components/error-prompt/index';
 interface CheckRrops {
@@ -74,7 +74,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 routerToName('Website');
             }
             if (key === 'database') {
-                routerToName('MySQL');
+                routerToExtensionName('MySQL');
             }
         };
         const onConfirm = () => {

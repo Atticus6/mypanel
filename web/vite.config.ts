@@ -8,7 +8,8 @@ import { defineConfig, loadEnv, ConfigEnv, UserConfig, Plugin } from 'vite';
 import pkg from './package.json' with { type: 'json' };
 import dayjs from 'dayjs';
 
-import VueRouter from 'unplugin-vue-router/vite';
+import VueRouter from 'vue-router/vite';
+import { VueRouterAutoImports } from 'vue-router/unplugin';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -68,7 +69,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
         optimizeDeps: {
             noDiscovery: true,
             include: [
-                'unplugin-vue-router/runtime',
+                'vue-router/experimental',
                 'element-plus/es/components/base/style/index',
                 'element-plus/es/components/message-box/style/index',
                 'anser',
@@ -201,7 +202,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
                 // 只扫描业务源码，跳过生成代码与声明文件，减少 transform 调用。
                 include: ['src/**/*.{ts,tsx}'],
                 exclude: ['src/gen/**', 'src/types/**', 'src/assets/**'],
-                imports: ['vue', 'vue-router'],
+                imports: ['vue', VueRouterAutoImports],
                 resolvers: [
                     ElementPlusResolver({
                         importStyle: 'sass',

@@ -7,7 +7,7 @@ import { computed, onMounted, ref } from 'vue';
 import bus from '@/global/bus';
 import router from '@/routers';
 import { loadProductProFromDB } from '@/utils/xpack';
-import { routerToNameWithQuery } from '@/utils/router';
+import { routerToExtensionName, routerToNameWithQuery } from '@/utils/router';
 import { changeToLocal, listNodes, setDefaultNodeInfo } from '@/utils/node';
 import type { AuthInfo, AuthInfoUpdate } from '@/utils/rbac';
 import { syncAuthInfo } from '@/utils/rbac';
@@ -188,7 +188,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             ctx.emit('openTask');
         };
         const openNodeDashboard = () => {
-            routerToNameWithQuery('NodeDashboard', { uncached: 'true' });
+            routerToExtensionName('NodeDashboard', { uncached: 'true' });
         };
         const logout = () => {
             popoverVisible.value = false;

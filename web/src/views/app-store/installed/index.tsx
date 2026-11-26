@@ -303,7 +303,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const toContainer = async (row: App.AppInstalled) => {
             routerToNameWithQuery('ContainerItem', {
                 filters: 'com.docker.compose.project=' + row.serviceName,
-                uncached: true,
+                uncached: 'true',
             });
         };
         const openBackups = (row: App.AppInstalled) => {

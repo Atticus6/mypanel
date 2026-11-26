@@ -25,7 +25,7 @@ import i18n from '@/lang';
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import GPUStatus from './gpu';
 import { useMediaQuery } from '@/composables/useMediaQuery';
-import { routerToFileWithPath, routerToNameWithQuery } from '@/utils/router';
+import { routerToExtensionName, routerToFileWithPath, routerToNameWithQuery } from '@/utils/router';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
@@ -926,7 +926,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <GPUStatus
                         current={unref(currentInfo)}
                         onOpen={($event?: any) => {
-                            routerToNameWithQuery('GPUHistory', { uncached: 'true' });
+                            routerToExtensionName('GPUHistory', { uncached: 'true' });
                         }}
                     />
                 ) : null}

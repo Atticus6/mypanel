@@ -6,7 +6,7 @@ import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { routerToName } from '@/utils/router';
+import { routerToExtensionName, routerToName, type RouteName } from '@/utils/router';
 import { checkCidr, checkCidrV6, checkIpV4V6 } from '@/utils/validate';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { getAlertConfigDisplayName } from '@/views/setting/alert/setting/drawer/secret-field';
@@ -565,7 +565,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             const expireDate = new Date(time);
             return expireDate < new Date('1970-01-02');
         };
-        const quickJump = (name: string) => {
+        const quickJump = (name: RouteName) => {
             handleClose();
             routerToName(name);
         };
@@ -807,7 +807,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElLink
                                         icon="Position"
                                         onClick={($event?: any) => {
-                                            quickJump('Clam');
+                                            routerToExtensionName('Clam');
                                         }}
                                         type="primary"
                                         style={'font-size: 12px; margin-left: 5px'}

@@ -3,12 +3,13 @@ import { TabsStore } from '@/store';
 import { hasRouteAccess } from '@/utils/rbac';
 import i18n from '@/lang';
 import { MsgError } from '@/utils/message';
-import type { RouteLocationRaw } from 'vue-router';
+import type { LocationQueryRaw, RouteLocationAsString, RouteLocationRaw, Router } from 'vue-router';
+import type { RouteNamedMap } from 'vue-router/auto-routes';
 import { panelCacheKey, readPanelCache, removePanelCache } from '@/utils/panel-cache';
 
-// 业务侧用字符串拼路由名，文件路由的编译期类型无法枚举，统一在此收口。
-type DynamicRouteLocation = { name: string; params?: any; query?: any };
-const toLocation = (value: DynamicRouteLocation): RouteLocationRaw => value as unknown as RouteLocationRaw;
+// 路由名、参数都取自文件路由生成的映射表，拼错名字或漏传参数会在编译期报错。
+export type RouteName = Extract<keyof RouteNamedMap, string>;
+type RouteParams<Name extends RouteName> = RouteNamedMap[Name]['paramsRaw'];
 
 const pushWithAccessCheck = async (to: RouteLocationRaw) => {
     const resolvedRoute = router.resolve(to);
@@ -49,32 +50,39 @@ export const openMenu = async (to: RouteLocationRaw) => {
     return openPage(to);
 };
 
-export const routerToName = async (name: string) => {
-    await openPage(toLocation({ name }));
+// RouteLocationRaw 是按路由名展开的联合类型，TS 无法把联合的 name 收窄到单个成员；
+// 入口参数已由 RouteName 约束，这里只在内部做一次断言。
+export const routerToName = async (name: RouteName) => {
+    await openPage({ name } as RouteLocationRaw);
 };
 
-export const routerToPath = async (path: string) => {
-    await openPage({ path: path });
+export const routerToPath = async (path: RouteLocationAsString) => {
+    await openPage({ path });
 };
 
 export const routerToFileWithPath = async (pathItem: string) => {
     await openPage({ name: 'File', query: { path: pathItem, uncached: 'true' } });
 };
 
-export const routerToNameWithQuery = async (name: string, query: any) => {
-    await openPage(toLocation({ name, query }));
+export const routerToNameWithQuery = async (name: RouteName, query: LocationQueryRaw) => {
+    await openPage({ name, query } as RouteLocationRaw);
 };
 
-export const routerToPathWithQuery = async (path: string, query: any) => {
-    await openPage({ path: path, query: query });
+export const routerToPathWithQuery = async (path: RouteLocationAsString, query: LocationQueryRaw) => {
+    await openPage({ path, query });
 };
 
-export const jumpToPath = (router: any, path: string) => {
+export const jumpToPath = (_router: Router, path: RouteLocationAsString) => {
     routerToPathWithQuery(path, { uncached: 'true' });
 };
 
-export const routerToNameWithParams = async (name: string, params: any) => {
-    await openPage(toLocation({ name, params }));
+export const routerToNameWithParams = async <Name extends RouteName>(name: Name, params: RouteParams<Name>) => {
+    await openPage({ name, params } as RouteLocationRaw);
+};
+
+/** 扩展包在运行时注册路由，OSS 侧没有对应文件，显式收口以免绕过主路由的类型检查。 */
+export const routerToExtensionName = async (name: string, query?: LocationQueryRaw) => {
+    await openPage({ name, query } as RouteLocationRaw);
 };
 
 const tabStoreMiddleWare = () => {

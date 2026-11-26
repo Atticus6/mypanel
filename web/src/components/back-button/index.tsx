@@ -1,4 +1,4 @@
-import { routerToName, routerToPath } from '@/utils/router';
+import { routerToName, routerToPath, type RouteName } from '@/utils/router';
 import { inject, useSlots } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineComponent, Fragment, unref, withDirectives } from 'vue';
@@ -8,7 +8,7 @@ import { ElPageHeader } from 'element-plus';
 interface CodemodProps {
     [key: string]: any;
     path?: string;
-    name?: string;
+    name?: RouteName;
     to?: Record<string, any>;
     header?: string;
     reload?: boolean;

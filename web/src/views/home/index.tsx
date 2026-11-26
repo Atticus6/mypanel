@@ -18,7 +18,7 @@ import { copyText } from '@/utils/clipboard';
 import { useRouter } from 'vue-router';
 import { rpc } from '@/lib/rpc';
 import { toHomeBaseInfo, toHomeCurrentInfo } from '@/lib/rpc/dashboard';
-import { routerToNameWithQuery, routerToPath } from '@/utils/router';
+import { routerToExtensionName, routerToNameWithQuery, routerToPath } from '@/utils/router';
 import {
     clearDashboardCache,
     clearDashboardCacheByPrefix,
@@ -1617,7 +1617,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <ElTooltip content={$t('xpack.node.panelItem')} placement="top">
                                                         <ElButton
                                                             onClick={($event?: any) => {
-                                                                routerToNameWithQuery('SimpleNode', {
+                                                                routerToExtensionName('SimpleNode', {
                                                                     uncached: 'true',
                                                                 });
                                                             }}
