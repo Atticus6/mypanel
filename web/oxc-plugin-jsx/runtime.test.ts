@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { KeepAlive } from 'vue';
+import { Fragment, KeepAlive } from 'vue';
 import { createVNode, isSlot, jsx } from './runtime';
 
 const Comp = { name: 'TestComp', setup: () => () => null };
@@ -47,6 +47,11 @@ describe('createVNode', () => {
         const vnode = createVNode(KeepAlive, { include: [] }, 'child');
         expect(Array.isArray(vnode.children)).toBe(true);
         expect(vnode.children).toEqual(['child']);
+    });
+
+    test('Fragment 子节点过滤条件分支的空值', () => {
+        const vnode = createVNode(Fragment, null, ['a', null, 'b', undefined, false]);
+        expect(vnode.children).toEqual(['a', 'b']);
     });
 
     test('jsx 入口透传 key', () => {

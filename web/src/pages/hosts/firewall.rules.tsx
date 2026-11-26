@@ -22,6 +22,7 @@ import {
     dockerGuardManagementTarget,
 } from '@/pages/hosts/_components/firewall/docker/model';
 import { formatHostAddress } from '@/pages/hosts/_components/firewall/utils/validation';
+import { canEditDescription, isDeletableRule } from '@/pages/hosts/_components/firewall/utils/rule';
 import RuleImport from '@/pages/hosts/_components/firewall/rule/import/index';
 import RuleOperate from '@/pages/hosts/_components/firewall/rule/operate/index';
 import FireRouter from '@/pages/hosts/_components/firewall/index';
@@ -755,9 +756,6 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             }
             return removeRules([row]);
         };
-        const canEditDescription = (row: Firewall.InventoryItem) =>
-            (row.isWhitelist || !row.observed.protected) && Boolean(row.observed.instanceKey);
-        const isDeletableRule = (row: Firewall.InventoryItem) => !row.observed.protected;
         const displayRulePriority = (row: Firewall.InventoryItem) => {
             if (row.rule.scope.provider === 'firewalld') {
                 if (!supportsFirewalldPriority.value || row.rule.nativeKind !== 'rich_rule') return '-';
@@ -1073,7 +1071,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 />
                                                                             ) : null}
                                                                             {actionLabel(row.rule.action)}
-                                                                            {row.observed.protected &&
+                                                                            {row.observed?.protected &&
                                                                             !row.isWhitelist ? (
                                                                                 <ElTooltip
                                                                                     content={$t(

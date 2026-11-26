@@ -112,11 +112,15 @@ export function createVNode(
 
     // Fragment 的 children 必须是数组；字符串 / VNode / null 都会让 Vue 的 ensureValidVNode 递归时崩溃。
     if (type === Fragment) {
-        nodeChildren = Array.isArray(nodeChildren)
-            ? nodeChildren
-            : nodeChildren === undefined || nodeChildren === null
-              ? []
-              : [nodeChildren];
+        // Element Plus 的 ElSelect 会递归读取子节点数组，条件分支留下的 null 会让它崩溃；
+        // Fragment 只承载真实子节点，过滤掉空值。
+        nodeChildren = (
+            Array.isArray(nodeChildren)
+                ? nodeChildren
+                : nodeChildren === undefined || nodeChildren === null
+                  ? []
+                  : [nodeChildren]
+        ).filter((child) => child !== null && child !== undefined && child !== false);
     }
 
     const vnode = h(type as never, props as never, nodeChildren as never);
