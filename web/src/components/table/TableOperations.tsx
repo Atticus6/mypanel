@@ -1,5 +1,5 @@
 import { computed, type PropType } from 'vue';
-import { useMediaQuery } from '@vueuse/core';
+import { useMediaQuery } from '@/composables/useMediaQuery';
 import FuTableOperationActions from './TableOperationActions';
 import type { FuTableOperationButton } from './shared';
 type DropdownTrigger = 'hover' | 'click' | 'contextmenu';

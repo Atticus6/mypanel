@@ -6,7 +6,7 @@ import { SortBy, TableV2SortOrder, ElIcon } from 'element-plus';
 import { Filter } from '@element-plus/icons-vue';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { useMediaQuery } from '@vueuse/core';
+import { useMediaQuery } from '@/composables/useMediaQuery';
 import './index.styles.css';
 import { defineComponent, Fragment, unref, withDirectives } from 'vue';
 import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';

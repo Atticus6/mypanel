@@ -28,7 +28,7 @@ import RuleReset from '@/views/host/firewall/components/rule-reset';
 import TaskLog from '@/components/log/task/index';
 import DockerRestart from '@/components/docker-proxy/docker-restart';
 import { toRef, computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
-import { useElementSize } from '@vueuse/core';
+import { useElementSize } from '@/composables/useElementSize';
 import { ElMessageBox } from 'element-plus';
 import { Expand, Loading, Lock, Refresh } from '@element-plus/icons-vue';
 import { rpc } from '@/lib/rpc';

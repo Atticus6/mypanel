@@ -24,7 +24,7 @@ import { computeSize } from '@/utils/size';
 import i18n from '@/lang';
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import GPUStatus from './gpu';
-import { useMediaQuery } from '@vueuse/core';
+import { useMediaQuery } from '@/composables/useMediaQuery';
 import { routerToFileWithPath, routerToNameWithQuery } from '@/utils/router';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';

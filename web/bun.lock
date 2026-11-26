@@ -19,7 +19,6 @@
         "@pinia/colada": "^1.4.9",
         "@vue-office/docx": "^1.6.2",
         "@vue-office/excel": "^1.7.8",
-        "@vueuse/core": "^15.0.0",
         "@xterm/addon-fit": "^0.11.0",
         "@xterm/xterm": "^6.0.0",
         "anser": "^2.3.5",

@@ -2,7 +2,7 @@ import { $t } from '@/utils/i18n-t';
 import asset_no_app from '@/assets/images/no_app.svg';
 import { panelCacheKey, writePanelCache, readCachedPageSize } from '@/utils/panel-cache';
 import { reactive, ref } from 'vue';
-import { useMediaQuery } from '@vueuse/core';
+import { useMediaQuery } from '@/composables/useMediaQuery';
 import { Cronjob } from '@/types/cronjob';
 import type { CronjobRecord } from '@/gen/panel/agent/v1/cronjob_pb';
 import { rpc } from '@/lib/rpc';

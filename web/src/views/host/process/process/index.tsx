@@ -7,7 +7,7 @@ import { ProcessStore } from '@/store';
 import { SortBy, TableV2SortOrder, ElButton } from 'element-plus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import RuntimeDiagnostics from './diagnostics/index';
-import { useMediaQuery } from '@vueuse/core';
+import { useMediaQuery } from '@/composables/useMediaQuery';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
 import { defineComponent, Fragment, unref } from 'vue';
