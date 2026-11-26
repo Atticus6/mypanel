@@ -37,6 +37,18 @@ describe('createVNode', () => {
         expect((vnode as any).props?.['v-show']).toBeUndefined();
     });
 
+    test('v-model 系列不会被当成自定义指令', () => {
+        const warnings: string[] = [];
+        const original = console.warn;
+        console.warn = (...args: unknown[]) => warnings.push(args.map(String).join(' '));
+        try {
+            createVNode(Comp, { 'v-model': false, 'v-model:title': 'x', 'v-models': [] }, undefined);
+        } finally {
+            console.warn = original;
+        }
+        expect(warnings).toEqual([]);
+    });
+
     test('transformOn 风格的对象事件被展开', () => {
         const onClick = () => 1;
         const vnode = createVNode(Comp, { on: { click: onClick } }, undefined);

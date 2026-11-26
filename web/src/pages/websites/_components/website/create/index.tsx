@@ -1312,7 +1312,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     <ElOption label="http" value="http://" />
                                                                     <ElOption label="https" value="https://" />
-                                                                    <ElOption label={$t('website.other')} value />
+                                                                    <ElOption label={$t('website.other')} value="" />
                                                                 </ElSelect>
                                                             </>
                                                         ),

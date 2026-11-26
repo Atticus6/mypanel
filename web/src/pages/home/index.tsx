@@ -1228,7 +1228,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <ElCol xs={24} sm={24} md={8} lg={8} xl={8} class={'dashboard-right'}>
                         <ElCarousel
                             height="368px"
-                            indicator-position
+                            indicator-position=""
                             arrow="never"
                             autoplay={!unref(showMemoCarousel) || !unref(memoEditing)}
                             class={cn('my-carousel', { 'no-indicator': unref(carouselItemCount) <= 1 })}

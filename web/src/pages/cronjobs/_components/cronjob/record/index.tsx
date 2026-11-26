@@ -355,7 +355,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'p-w-200'}
                                         v-slots={{ prefix: () => <>{$t('commons.table.status')}</> }}
                                     >
-                                        <ElOption label={$t('commons.table.all')} value />
+                                        <ElOption label={$t('commons.table.all')} value="" />
                                         <ElOption label={$t('commons.status.success')} value="Success" />
                                         <ElOption label={$t('commons.status.waiting')} value="Waiting" />
                                         <ElOption label={$t('commons.status.unexecuted')} value="Unexecuted" />

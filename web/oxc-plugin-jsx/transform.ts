@@ -1,11 +1,28 @@
 import { parseSync, Visitor } from 'rolldown/utils';
 import type { ResolvedOptions } from './options';
 
-interface Edit {
+/** 属性级改写（v-model / v-html / v-text / xlink），替换属性自身。 */
+interface AttrEdit {
+    kind: 'attr';
     start: number;
     end: number;
     text: string;
 }
+
+/**
+ * 子节点惰性插槽改写，替换开标签与闭标签之间的区域。
+ *
+ * 保留子节点 AST 而不是直接拼好字符串：子节点里可能还有 v-model 等待改写的属性，
+ * 只有真正渲染这一层时才知道内层改写的最终文本。
+ */
+interface SlotEdit {
+    kind: 'slot';
+    start: number;
+    end: number;
+    children: any[];
+}
+
+type Edit = AttrEdit | SlotEdit;
 
 interface AttributeInfo {
     name: string;
@@ -40,24 +57,6 @@ function collectElements(code: string): ElementInfo[] {
     });
     visitor.visit(result.program);
     return elements;
-}
-
-/** 把子节点源码转成数组元素文本。 */
-function childExpressions(code: string, children: any[]): string[] {
-    return children
-        .map((child) => {
-            if (child.type === 'JSXExpressionContainer') {
-                return child.expression.type === 'JSXEmptyExpression'
-                    ? null
-                    : code.slice(child.expression.start, child.expression.end);
-            }
-            if (child.type === 'JSXText') {
-                const text = child.value.trim();
-                return text ? JSON.stringify(text) : null;
-            }
-            return code.slice(child.start, child.end);
-        })
-        .filter(Boolean) as string[];
 }
 
 /** 仅 v-model 系列需要在编译期保留左值，其余 Vue 特性交给运行时处理。 */
@@ -182,6 +181,53 @@ function rewriteModels(attr: AttributeInfo, code: string): string {
     return `{...{${props.join(', ')}}}`;
 }
 
+/** 判断 span 是否被另一个 span 严格包含（相等不算）。 */
+function isInside(outer: Edit, inner: Edit): boolean {
+    return outer.start <= inner.start && outer.end >= inner.end && (outer.start < inner.start || outer.end > inner.end);
+}
+
+/** 渲染一段源码，并应用完全落在该范围内的改写。 */
+function renderRange(code: string, start: number, end: number, edits: Edit[], skip?: Edit): string {
+    // skip 是当前正在渲染的插槽改写自身：它与唯一子节点的 span 可能完全重合，
+    // 不排除就会在 renderRange -> renderChildren 之间无限递归。
+    const contained = edits.filter((edit) => edit !== skip && edit.start >= start && edit.end <= end);
+    if (!contained.length) return code.slice(start, end);
+    // 只在这一层应用最外层的改写，被包含的内层改写交给递归处理。
+    // 之前把所有改写平铺后丢弃「被包含的」，会让插槽内的 v-model 直接丢失。
+    const outermost = contained
+        .filter((edit) => !contained.some((other) => other !== edit && isInside(other, edit)))
+        .sort((a, b) => a.start - b.start);
+
+    let result = '';
+    let cursor = start;
+    for (const edit of outermost) {
+        result += code.slice(cursor, edit.start);
+        result += edit.kind === 'attr' ? edit.text : `{() => [${renderChildren(code, edit.children, edits, edit)}]}`;
+        cursor = edit.end;
+    }
+    return result + code.slice(cursor, end);
+}
+
+/** 渲染惰性插槽的子节点，保持原有「表达式原样、文本转字符串」的规则。 */
+function renderChildren(code: string, children: any[], edits: Edit[], skip?: Edit): string {
+    const parts: string[] = [];
+    for (const child of children) {
+        if (child.type === 'JSXExpressionContainer') {
+            const expression = child.expression;
+            if (!expression || expression.type === 'JSXEmptyExpression') continue;
+            parts.push(renderRange(code, expression.start, expression.end, edits, skip));
+            continue;
+        }
+        if (child.type === 'JSXText') {
+            const text = child.value.trim();
+            if (text) parts.push(JSON.stringify(text));
+            continue;
+        }
+        parts.push(renderRange(code, child.start, child.end, edits, skip));
+    }
+    return parts.join(', ');
+}
+
 /**
  * 把 Babel 插件的 Vue 专有 JSX 语法改写成标准 JSX。
  * 属性重命名基于 oxc 解析器给出的 span，避免正则误伤字符串内容。
@@ -191,21 +237,27 @@ export function transformVueJSX(code: string, options: ResolvedOptions): string 
 
     for (const attr of collectAttributes(code)) {
         if (attr.name === 'v-models') {
-            edits.push({ start: attr.start, end: attr.end, text: rewriteModels(attr, code) });
+            edits.push({ kind: 'attr', start: attr.start, end: attr.end, text: rewriteModels(attr, code) });
             continue;
         }
         if (modelAttribute.test(attr.name)) {
-            edits.push({ start: attr.start, end: attr.end, text: rewriteModel(attr, code) });
+            edits.push({ kind: 'attr', start: attr.start, end: attr.end, text: rewriteModel(attr, code) });
             continue;
         }
         if (attr.name === 'v-html' || attr.name === 'v-text') {
             const replacement = attr.name === 'v-html' ? 'innerHTML' : 'textContent';
-            edits.push({ start: attr.start, end: attr.start + attr.name.length, text: replacement });
+            edits.push({
+                kind: 'attr',
+                start: attr.start,
+                end: attr.start + attr.name.length,
+                text: replacement,
+            });
             continue;
         }
         const xlink = xlinkAttribute.exec(attr.name);
         if (xlink) {
             edits.push({
+                kind: 'attr',
                 start: attr.start,
                 end: attr.start + attr.name.length,
                 text: `xlink:${xlink[1].toLowerCase()}${xlink[2]}`,
@@ -227,27 +279,10 @@ export function transformVueJSX(code: string, options: ResolvedOptions): string 
         ) {
             continue;
         }
-        const expressions = childExpressions(code, element.children);
-        edits.push({
-            start: element.openEnd,
-            end: element.closeStart,
-            text: `{() => [${expressions.join(', ')}]}`,
-        });
+        edits.push({ kind: 'slot', start: element.openEnd, end: element.closeStart, children: element.children });
     }
 
     if (!edits.length) return code;
-
-    // 外层组件的子节点改写会包含内层 JSX，丢掉被包含的编辑避免重叠。
-    const kept: Edit[] = [];
-    for (const edit of [...edits].sort((a, b) => a.start - b.start || b.end - a.end)) {
-        if (kept.some((other) => edit.start >= other.start && edit.end <= other.end)) continue;
-        kept.push(edit);
-    }
-
-    let result = code;
-    for (const edit of kept.sort((a, b) => b.start - a.start)) {
-        result = result.slice(0, edit.start) + edit.text + result.slice(edit.end);
-    }
     void options;
-    return result;
+    return renderRange(code, 0, code.length, edits);
 }

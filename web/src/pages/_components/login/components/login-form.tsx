@@ -105,7 +105,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const loginRules = reactive({
             name: [{ required: true, validator: checkUsername, trigger: 'blur' }],
             password: [{ required: true, validator: checkPassword, trigger: 'blur' }],
-            agreeLicense: [{ required: true, validator: checkAgreeLicense, trigger: 'blur' }],
+            agreeLicense: [{ required: true, validator: checkAgreeLicense, trigger: ['blur', 'change'] }],
         });
         function checkUsername(rule: any, value: any, callback: any) {
             if (value === '') {
@@ -125,6 +125,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             }
             callback();
         }
+        // 单个 ElCheckbox 不会像输入框那样在 value 变化时通知 FormItem 重新校验，
+        // 勾选后「请点击同意社区软件许可协议」会一直停在原地；这里主动清掉。
+        const revalidateAgreeLicense = () => {
+            loginFormRef.value?.validateField('agreeLicense').catch(() => {});
+        };
         let isLoggingIn = false;
         const userNameRef = ref();
         const mfaLoginRef = ref();
@@ -810,6 +815,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <ElFormItem prop="agreeLicense">
                                             <ElCheckbox
                                                 v-model={loginForm.agreeLicense}
+                                                onChange={() => {
+                                                    revalidateAgreeLicense();
+                                                }}
                                                 v-slots={{
                                                     default: () => (
                                                         <>

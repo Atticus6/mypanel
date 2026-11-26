@@ -274,7 +274,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'p-w-200'}
                                         v-slots={{ prefix: () => <>{$t('logs.resource')}</> }}
                                     >
-                                        <ElOption label={$t('commons.table.all')} value />
+                                        <ElOption label={$t('commons.table.all')} value="" />
                                         <ElOption label={$t('logs.detail.dashboard')} value="dashboard" />
                                         <ElOption label={$t('logs.detail.apps')} value="apps" />
                                         <ElOption label={$t('xpack.customApp.name')} value="custom" />
@@ -329,7 +329,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'p-w-200'}
                                         v-slots={{ prefix: () => <>{$t('commons.table.status')}</> }}
                                     >
-                                        <ElOption label={$t('commons.table.all')} value />
+                                        <ElOption label={$t('commons.table.all')} value="" />
                                         <ElOption label={$t('commons.status.success')} value="Success" />
                                         <ElOption label={$t('commons.status.failed')} value="Failed" />
                                     </ElSelect>
@@ -344,7 +344,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             class={'p-w-200'}
                                             v-slots={{ prefix: () => <>{$t('xpack.node.node')}</> }}
                                         >
-                                            <ElOption label={$t('commons.table.all')} value />
+                                            <ElOption label={$t('commons.table.all')} value="" />
                                             {(unref(nodes) || []).map((node, index) => (
                                                 <ElOption
                                                     label={loadNodeName(node.name)}

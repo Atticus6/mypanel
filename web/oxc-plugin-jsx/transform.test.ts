@@ -30,6 +30,28 @@ describe('transformVueJSX', () => {
         expect(result).toContain('onUpdate:modelValue={$event => { form.name = $event }}');
     });
 
+    test('组件插槽内的 v-model 同样展开', () => {
+        const result = run('<ElFormItem><ElCheckbox v-model={form.agree} /></ElFormItem>');
+        expect(result).toContain('modelValue={form.agree}');
+        expect(result).toContain('onUpdate:modelValue={$event => { form.agree = $event }}');
+        expect(result).not.toContain('v-model=');
+    });
+
+    test('多层嵌套插槽内的 v-model 与惰性插槽同时生效', () => {
+        const result = run(
+            '<ElForm><ElFormItem><ElInput v-model={form.name} /><ElCheckbox v-model={form.agree} /></ElFormItem></ElForm>',
+        );
+        expect(result).toBe(
+            '<ElForm>{() => [<ElFormItem>{() => [<ElInput modelValue={form.name} onUpdate:modelValue={$event => { form.name = $event }} />, <ElCheckbox modelValue={form.agree} onUpdate:modelValue={$event => { form.agree = $event }} />]}</ElFormItem>]}</ElForm>',
+        );
+    });
+
+    test('插槽内表达式里的 JSX 也能展开 v-model', () => {
+        const result = run('<Comp>{ok && <ElInput v-model={form.name} />}</Comp>');
+        expect(result).toContain('modelValue={form.name}');
+        expect(result).toContain('onUpdate:modelValue={$event => { form.name = $event }}');
+    });
+
     test('v-model 支持参数与修饰符', () => {
         const result = run('<Comp v-model:title_trim={title} />');
         expect(result).toContain('title={title}');

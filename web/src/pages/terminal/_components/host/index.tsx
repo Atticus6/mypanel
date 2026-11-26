@@ -182,7 +182,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'p-w-200'}
                                         v-slots={{ prefix: () => <>{$t('commons.table.group')}</> }}
                                     >
-                                        <ElOption label={$t('commons.table.all')} value />
+                                        <ElOption label={$t('commons.table.all')} value="" />
                                         {(unref(groupList) || []).map((item) => (
                                             <ElOption label={item.name} value={item.id} key={item.id} />
                                         ))}

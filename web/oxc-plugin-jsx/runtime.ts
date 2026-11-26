@@ -8,11 +8,29 @@ export const isSlot = (value: unknown): boolean =>
 
 const camelize = (text: string) => text.replace(/-(\w)/g, (_, char: string) => char.toUpperCase());
 
+/**
+ * 编译期就该被消掉的 Vue JSX 属性。
+ *
+ * 这些不是自定义指令，漏到运行时只说明编译期改写出了问题；
+ * 不能交给 resolveDirective 处理，否则会报「Failed to resolve directive: model」这种误导性警告。
+ */
+function isCompileTimeProp(name: string): boolean {
+    return (
+        name === 'v-slots' ||
+        name === 'v-show' ||
+        name === 'v-html' ||
+        name === 'v-text' ||
+        name === 'v-models' ||
+        name === 'v-model' ||
+        name.startsWith('v-model:')
+    );
+}
+
 /** 把 v-xxx 属性解析成 withDirectives 需要的数组。 */
 function resolveCustomDirectives(props: Record<string, unknown>): unknown[][] {
     const directives: unknown[][] = [];
     for (const name of Object.keys(props)) {
-        if (!name.startsWith('v-') || name === 'v-slots' || name === 'v-show') continue;
+        if (!name.startsWith('v-') || isCompileTimeProp(name)) continue;
         const segments = name.slice(2).split('.');
         const value = props[name];
         delete props[name];

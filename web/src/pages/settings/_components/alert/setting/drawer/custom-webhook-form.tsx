@@ -424,7 +424,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <>
                             <div class={'secret-editor'}>
                                 <ElInput
-                                    model-value
+                                    model-value=""
                                     aria-label={$t('xpack.alert.webhookUrl')}
                                     type="password"
                                     show-password
@@ -638,7 +638,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <>
                                                 <div class={'secret-editor'}>
                                                     <ElInput
-                                                        model-value
+                                                        model-value=""
                                                         maxlength={webhookHeaderValueLimit}
                                                         type="password"
                                                         show-password
