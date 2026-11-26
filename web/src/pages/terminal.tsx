@@ -1,9 +1,4 @@
 import Layout from '@/layout/index';
-definePage({
-    name: 'Terminal-Menu',
-    redirect: '/terminal',
-    meta: { title: 'menu.terminal', icon: 'p-terminal2', protectedRoleOnly: true, sort: 8 },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -23,3 +18,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'Terminal-Menu',
+    redirect: '/terminal',
+    meta: { title: 'menu.terminal', icon: 'p-terminal2', protectedRoleOnly: true, sort: 8 },
+});

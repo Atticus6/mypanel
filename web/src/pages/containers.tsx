@@ -1,9 +1,4 @@
 import Layout from '@/layout/index';
-definePage({
-    name: 'Container-Menu',
-    redirect: '/containers/container',
-    meta: { icon: 'p-docker1', title: 'menu.container', permission: 'container_view', sort: 6 },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -23,3 +18,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'Container-Menu',
+    redirect: '/containers/container',
+    meta: { icon: 'p-docker1', title: 'menu.container', permission: 'container_view', sort: 6 },
+});

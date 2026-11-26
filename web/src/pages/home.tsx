@@ -1,10 +1,4 @@
 import Layout from '@/layout/index';
-definePage({
-    name: 'Home-Menu',
-    path: '/',
-    redirect: '/',
-    meta: { icon: 'p-home', title: 'menu.home', sort: 1 },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -24,3 +18,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'Home-Menu',
+    path: '/',
+    redirect: '/',
+    meta: { icon: 'p-home', title: 'menu.home', sort: 1 },
+});

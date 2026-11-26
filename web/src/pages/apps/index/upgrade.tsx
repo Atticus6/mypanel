@@ -1,9 +1,4 @@
 import PageView from '@/pages/views/app-store/installed/index';
-definePage({
-    name: 'AppUpgrade',
-    props: true,
-    meta: { activeMenu: '/apps', parent: 'menu.app', title: 'app.canUpgrade', permission: 'app_view', hidden: true },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -25,3 +20,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'AppUpgrade',
+    props: true,
+    meta: { activeMenu: '/apps', parent: 'menu.app', title: 'app.canUpgrade', permission: 'app_view', hidden: true },
+});

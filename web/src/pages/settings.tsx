@@ -1,8 +1,4 @@
 import Layout from '@/layout/index';
-definePage({
-    name: 'Setting-Menu',
-    meta: { title: 'menu.settings', icon: 'p-config', sort: 12 },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -22,3 +18,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'Setting-Menu',
+    meta: { title: 'menu.settings', icon: 'p-config', sort: 12 },
+});

@@ -1,9 +1,4 @@
 import Layout from '@/layout/index';
-definePage({
-    name: 'Website-Menu',
-    redirect: '/websites',
-    meta: { icon: 'p-website', title: 'menu.website', sort: 4 },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -23,3 +18,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'Website-Menu',
+    redirect: '/websites',
+    meta: { icon: 'p-website', title: 'menu.website', sort: 4 },
+});

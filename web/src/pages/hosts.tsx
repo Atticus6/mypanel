@@ -1,9 +1,4 @@
 import Layout from '@/layout/index';
-definePage({
-    name: 'System-Menu',
-    redirect: '/hosts/files',
-    meta: { icon: 'p-host', title: 'menu.system', sort: 7 },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -23,3 +18,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'System-Menu',
+    redirect: '/hosts/files',
+    meta: { icon: 'p-host', title: 'menu.system', sort: 7 },
+});

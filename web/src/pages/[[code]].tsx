@@ -1,8 +1,4 @@
 import PageView from '@/pages/views/login/index';
-definePage({
-    name: 'entrance',
-    props: true,
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -24,3 +20,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'entrance',
+    props: true,
+});

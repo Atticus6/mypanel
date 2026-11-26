@@ -1,9 +1,4 @@
 import Layout from '@/layout/index';
-definePage({
-    name: 'Cronjob-Menu',
-    redirect: '/cronjobs/cronjob',
-    meta: { icon: 'p-plan', title: 'menu.cronjob', permission: 'cronjob_view', sort: 9 },
-});
 
 interface CodemodProps {
     [key: string]: any;
@@ -23,3 +18,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
     },
     options,
 );
+
+definePage({
+    name: 'Cronjob-Menu',
+    redirect: '/cronjobs/cronjob',
+    meta: { icon: 'p-plan', title: 'menu.cronjob', permission: 'cronjob_view', sort: 9 },
+});

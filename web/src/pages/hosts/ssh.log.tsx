@@ -1,14 +1,5 @@
-import PageView from '@/pages/views/host/ssh/log/index';
-definePage({
-    name: 'SSHLog',
-    meta: {
-        parent: 'menu.ssh',
-        title: 'ssh.loginLogs',
-        activeMenu: '/hosts/ssh/ssh',
-        permission: 'host_ssh_view',
-        hidden: true,
-    },
-});
+import FireRouter from '@/pages/views/host/ssh/index';
+import Log from '@/pages/logs/index/ssh';
 
 interface CodemodProps {
     [key: string]: any;
@@ -24,7 +15,23 @@ const options = {
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
     (__panelSetupProps, ctx) => {
-        return () => <PageView />;
+        return () => (
+            <div>
+                <FireRouter />
+                <Log />
+            </div>
+        );
     },
     options,
 );
+
+definePage({
+    name: 'SSHLog',
+    meta: {
+        parent: 'menu.ssh',
+        title: 'ssh.loginLogs',
+        activeMenu: '/hosts/ssh/ssh',
+        permission: 'host_ssh_view',
+        hidden: true,
+    },
+});
