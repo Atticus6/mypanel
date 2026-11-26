@@ -1,4 +1,4 @@
-import { Fragment, h, isVNode, resolveDirective, vShow, withDirectives } from 'vue';
+import { Fragment, KeepAlive, h, isVNode, resolveDirective, vShow, withDirectives } from 'vue';
 
 export { Fragment, withDirectives };
 
@@ -99,6 +99,11 @@ export function createVNode(
                 : { default: isChildSlotFn ? children : defaultSlot, ...(normalizedSlots as object) };
     } else if (isChildSlotFn) {
         nodeChildren = children;
+    } else if (type === KeepAlive) {
+        // Transition 离场时会克隆 KeepAlive 并把 children 置空但保留 slots 标志，
+        // Vue 的 updateSlots 会对 null children 取 `._` 崩溃；用数组子节点规避该路径。
+        nodeChildren =
+            children === undefined || children === null ? [] : Array.isArray(children) ? children : [children];
     } else if (isComponent && type !== Fragment && children !== undefined && children !== null && !isSlot(children)) {
         nodeChildren = { default: defaultSlot };
     } else if (isSlot(children)) {

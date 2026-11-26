@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test';
+import { KeepAlive } from 'vue';
 import { createVNode, isSlot, jsx } from './runtime';
 
 const Comp = { name: 'TestComp', setup: () => () => null };
@@ -40,6 +41,12 @@ describe('createVNode', () => {
         const onClick = () => 1;
         const vnode = createVNode(Comp, { on: { click: onClick } }, undefined);
         expect(vnode.props).toEqual({ onClick });
+    });
+
+    test('KeepAlive 使用数组子节点，避免 Transition 克隆后 slots 为空崩溃', () => {
+        const vnode = createVNode(KeepAlive, { include: [] }, 'child');
+        expect(Array.isArray(vnode.children)).toBe(true);
+        expect(vnode.children).toEqual(['child']);
     });
 
     test('jsx 入口透传 key', () => {
