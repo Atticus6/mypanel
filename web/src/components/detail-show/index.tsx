@@ -1,13 +1,7 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 interface DialogProps {
     list: Array<string>;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 import CopyButton from '@/components/copy-button/index';
 

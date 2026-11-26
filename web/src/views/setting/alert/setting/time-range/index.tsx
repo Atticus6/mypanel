@@ -1,8 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, ComputedRef, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { FormInstance } from 'element-plus';
 import { rpc } from '@/lib/rpc';
 import { Alert } from '@/types/alert';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -33,15 +31,7 @@ interface ConfigInfo {
     isOffline: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElTransfer } from 'element-plus';
-import { ElTimePicker } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

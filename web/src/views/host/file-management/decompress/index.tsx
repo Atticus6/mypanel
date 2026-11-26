@@ -1,9 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 import i18n from '@/lang';
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { File } from '@/types/file';
 import { Log } from '@/types/log';
-import { FormInstance, FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 import FileList from '@/components/file-list/index';
@@ -18,14 +16,6 @@ interface DecompressProps {
     path: string;
     type: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElProgress } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

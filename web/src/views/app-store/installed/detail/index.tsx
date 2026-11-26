@@ -1,4 +1,3 @@
-import { h } from 'vue';
 import { $t } from '@/utils/i18n-t';
 import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
 type Init<T extends DescMessage> = MessageInitShape<T>;
@@ -50,8 +49,6 @@ import { expandInvalidFormSection } from '@/components/form-section';
 import AccountAddress from '@/views/ai/components/account-address/index';
 import GPUConfig from '@/views/ai/components/gpu-config/index';
 import Diff from '@/views/app-store/installed/upgrade/diff/index';
-import { computed, nextTick, onBeforeUnmount, reactive, ref } from 'vue';
-import { FormInstance } from 'element-plus';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { getLabel } from '@/utils/app-store';
@@ -69,20 +66,6 @@ interface EditForm extends InstallParams {
     default: any;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import CopyButton from '@/components/copy-button/index';
 import CodemirrorPro from '@/components/codemirror-pro/index';

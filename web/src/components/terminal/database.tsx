@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, nextTick } from 'vue';
 import Terminal from '@/components/terminal/index';
 interface DialogProps {
     databaseType?: string;
@@ -11,8 +10,6 @@ interface DialogProps {
     initCmd?: string;
     waitForPrompt?: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

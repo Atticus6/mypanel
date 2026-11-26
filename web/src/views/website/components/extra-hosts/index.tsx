@@ -3,17 +3,8 @@ interface ExtraHost {
     hostname: string;
     ip: string;
 }
-import { reactive } from 'vue';
-import { FormRules } from 'element-plus';
 import { Rules } from '@/global/form-rules';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

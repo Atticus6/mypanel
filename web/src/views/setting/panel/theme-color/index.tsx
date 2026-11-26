@@ -1,8 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { FormInstance } from 'element-plus';
 import { initFavicon, updateXpackSettingByKey } from '@/utils/xpack';
 import { setPrimaryColor } from '@/utils/theme';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -26,16 +24,6 @@ interface ThemeColor {
     };
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElColorPicker } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

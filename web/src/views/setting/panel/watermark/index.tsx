@@ -1,23 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { ElMessageBox, FormInstance } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { updateXpackSettingByKey } from '@/utils/xpack';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElWatermark } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElColorPicker } from 'element-plus';
-import { ElSlider } from 'element-plus';
-import { ElInputNumber } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

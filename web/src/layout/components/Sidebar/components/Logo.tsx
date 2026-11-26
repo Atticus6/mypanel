@@ -1,11 +1,8 @@
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import PrimaryLogo from '@/assets/images/1panel-logo.svg?component';
 import MenuLogo from '@/assets/images/1panel-menu-logo.svg?component';
-import { ref } from 'vue';
 import { routerToNameWithQuery } from '@/utils/router';
 import './Logo.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

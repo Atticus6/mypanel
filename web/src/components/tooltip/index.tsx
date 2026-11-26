@@ -1,9 +1,5 @@
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { onMounted, ref } from 'vue';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTooltip } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

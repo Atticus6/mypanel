@@ -1,21 +1,10 @@
 import { $t } from '@/utils/i18n-t';
 import { TABLE_OVERFLOW_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { onBeforeUnmount, ref, watch } from 'vue';
 import { type RemoteImage } from '@/api/modules/container';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { showImageProxyRequired, isRuntimeProxyRequired } from '@/utils/image-remote';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElPagination } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

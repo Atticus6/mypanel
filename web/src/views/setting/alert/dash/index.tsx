@@ -1,12 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import { toRef } from 'vue';
 import { useSearchState } from '@/utils/search-reset';
-import { onMounted, reactive, ref } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { getAlertConfigDisplayName } from '@/views/setting/alert/setting/drawer/secret-field';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { ElMessageBox } from 'element-plus';
 import AddTask from '@/views/setting/alert/dash/task/index';
 import { Alert } from '@/types/alert';
 import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
@@ -18,15 +15,7 @@ import {
     getCronjobAlertTitle,
 } from '@/utils/cronjob-alert';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElAlert } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';

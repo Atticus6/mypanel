@@ -10,11 +10,6 @@ interface Props {
     sortMode?: boolean;
 }
 import './card.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElCard } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

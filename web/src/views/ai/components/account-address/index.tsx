@@ -1,16 +1,8 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, onMounted, ref } from 'vue';
 import { rpc } from '@/lib/rpc';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElInput } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

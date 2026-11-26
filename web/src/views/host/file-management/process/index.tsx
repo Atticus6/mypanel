@@ -1,9 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 import { rpc } from '@/lib/rpc';
 import { computeSize } from '@/utils/size';
-import { onBeforeUnmount, ref, watch } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { ElMessageBox } from 'element-plus';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { checkStreamAuth } from '@/utils/stream-auth';
@@ -18,13 +16,7 @@ interface DownloadProcess {
     error?: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import { cn } from '@/utils/cn';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElProgress } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

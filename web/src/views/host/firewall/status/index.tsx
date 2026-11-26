@@ -4,8 +4,6 @@ import i18n from '@/lang';
 import NoSuchService from '@/components/layout-content/no-such-service';
 import DialogPro from '@/components/dialog-pro/index';
 import { MsgSuccess } from '@/utils/message';
-import { ElMessageBox } from 'element-plus';
-import { computed, nextTick, onBeforeUnmount, ref } from 'vue';
 import { rpc } from '@/lib/rpc';
 import { Document } from '@element-plus/icons-vue';
 import { routerToName, routerToNameWithQuery } from '@/utils/router';
@@ -17,21 +15,8 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 interface FamilyIssue extends Firewall.BackendFamilyStatus {
     family: 'IPv4' | 'IPv6';
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElCard } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
 import { I18nT } from 'vue-i18n';
 import Status from '@/components/status/index';
 

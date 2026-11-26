@@ -1,11 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { onActivated, ref, watch } from 'vue';
 import { Search } from '@element-plus/icons-vue';
 import './TableSearch.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElInput } from 'element-plus';
-import { ElIcon } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

@@ -1,22 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, computed } from 'vue';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import { copyText } from '@/utils/clipboard';
 interface DialogProps {
     data: any;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import CopyButton from '@/components/copy-button/index';
 

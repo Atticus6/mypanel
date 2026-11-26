@@ -1,5 +1,3 @@
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import {
     hasManagePermissionAccess,

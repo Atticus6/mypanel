@@ -1,14 +1,9 @@
 import { $t } from '@/utils/i18n-t';
 import i18n from '@/lang';
-import { FormInstance } from 'element-plus';
-import { reactive, ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

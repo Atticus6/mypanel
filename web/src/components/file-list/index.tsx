@@ -1,7 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import { File } from '@/types/file';
 import { rpc } from '@/lib/rpc';
-import { computed, nextTick, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess, MsgWarning } from '@/utils/message';
 import { useSearchableForSelect } from '@/views/host/file-management/hooks/searchable';
@@ -16,19 +15,6 @@ interface DialogProps {
     selectedPaths?: string[];
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElPopover } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElTag } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 import { HomeFilled } from '@element-plus/icons-vue';
 import SvgIcon from '@/components/svg-icon/svg-icon';

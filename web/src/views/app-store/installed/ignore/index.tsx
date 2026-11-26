@@ -1,17 +1,10 @@
 import { $t } from '@/utils/i18n-t';
 import { rpc } from '@/lib/rpc';
-import { ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import bus from '@/global/bus';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

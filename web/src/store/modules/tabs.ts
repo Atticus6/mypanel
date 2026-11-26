@@ -1,4 +1,3 @@
-import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { getTabCacheName } from '@/utils/tab-cache';
 

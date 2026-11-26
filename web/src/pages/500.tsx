@@ -1,8 +1,6 @@
 import { useI18n } from 'vue-i18n';
 definePage({ name: '500' });
 import './500.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

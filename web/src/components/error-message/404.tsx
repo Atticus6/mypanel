@@ -1,9 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 
 import './404.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
 import notFoundImg from '@/assets/images/404.svg';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

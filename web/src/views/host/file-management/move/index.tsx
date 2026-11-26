@@ -6,8 +6,6 @@ import FileList from '@/components/file-list/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { FormInstance, FormRules } from 'element-plus';
-import { ref, reactive, computed, ComputedRef, onMounted, onUnmounted } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { getDateStr } from '@/utils/date';
 import { getErrorMessage } from '@/utils/misc';
@@ -21,18 +19,6 @@ interface MoveProps {
     isDir: boolean;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElProgress } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElTransfer } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

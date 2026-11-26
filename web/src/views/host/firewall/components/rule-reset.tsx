@@ -1,14 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import DialogPro from '@/components/dialog-pro/index';
 import './rule-reset.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElAlert } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

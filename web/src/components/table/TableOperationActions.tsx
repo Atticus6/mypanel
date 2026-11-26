@@ -1,17 +1,7 @@
-import { h } from 'vue';
-import { computed, type PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { isOperationDisabled, isOperationVisible, type FuTableOperationButton } from './shared';
 type DropdownTrigger = 'hover' | 'click' | 'contextmenu';
 type DropdownTriggerValue = DropdownTrigger | DropdownTrigger[];
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElBadge } from 'element-plus';
-import { ElDropdown } from 'element-plus';
-import { ElDropdownMenu } from 'element-plus';
-import { ElDropdownItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

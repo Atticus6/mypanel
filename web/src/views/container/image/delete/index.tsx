@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref } from 'vue';
-import { ElForm } from 'element-plus';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 interface DialogProps {
@@ -8,12 +6,6 @@ interface DialogProps {
     isUsed: boolean;
     tags: Array<string>;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElCheckboxGroup } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import OpDialog from '@/components/del-dialog/index';
 

@@ -1,10 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import { listNodes } from '@/utils/node';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

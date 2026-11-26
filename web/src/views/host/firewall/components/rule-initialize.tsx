@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, ref } from 'vue';
 import i18n from '@/lang';
 import { Document, FolderOpened } from '@element-plus/icons-vue';
 import DialogPro from '@/components/dialog-pro/index';
@@ -9,17 +8,7 @@ import { GlobalStore } from '@/store';
 import { downloadFile } from '@/utils/file';
 import { rpc } from '@/lib/rpc';
 import './rule-initialize.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElAlert } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElEmpty } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

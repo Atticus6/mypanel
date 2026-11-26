@@ -2,11 +2,6 @@ import { $t } from '@/utils/i18n-t';
 import { RouteRecordRaw } from 'vue-router';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 import './SubItem.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElSubMenu } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElMenuItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

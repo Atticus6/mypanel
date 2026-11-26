@@ -1,11 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, nextTick, reactive, ref } from 'vue';
 import { Firewall } from '@/types/firewall';
 import i18n from '@/lang';
 import { MsgError, MsgWarning } from '@/utils/message';
 import { getErrorMessage } from '@/utils/misc';
 import { getHttpResponseMessage } from '@/api/http-core';
-import { ElMessageBox, type FormInstance, type FormRules } from 'element-plus';
 import { rpc } from '@/lib/rpc';
 import {
     dockerGuardEndpointManagementMessage,
@@ -23,23 +21,9 @@ type PolicyMode = Extract<Firewall.DockerGuardPolicy['mode'], 'deny_sources' | '
 type PolicyForm = Pick<Firewall.DockerGuardPolicy, 'sources'> & { mode: PolicyMode | '' };
 type ValidationCallback = (error?: Error) => void;
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
-import { ElCheckbox } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElCard } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElInput } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import DialogPro from '@/components/dialog-pro/index';
 

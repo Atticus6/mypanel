@@ -1,6 +1,5 @@
 import { $t } from '@/utils/i18n-t';
 import { readCachedPageSize } from '@/utils/panel-cache';
-import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref } from 'vue';
 import { dateFormatSimpleWithSecond } from '@/utils/date';
 import { computeSize } from '@/utils/size';
 import { MsgError, MsgSuccess } from '@/utils/message';
@@ -8,7 +7,6 @@ import { rpc } from '@/lib/rpc';
 import type { FileHistoryEntry } from '@/gen/panel/agent/v1/file_pb';
 import { Setting } from '@/types/setting';
 import { loadMonacoLanguageSupport, setupMonacoEnvironment } from '@/utils/monaco';
-import { ElMessageBox, type FormInstance, type FormRules } from 'element-plus';
 import { Languages } from '@/global/mimetype';
 import i18n from '@/lang';
 import ComplexTable from '@/components/table/complex/ComplexTable';
@@ -27,27 +25,8 @@ type HistoryRow = FileHistoryEntry & {
     currentContent?: string;
 };
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { vLoading } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElCard } from 'element-plus';
-import { ElCollapse } from 'element-plus';
-import { ElCollapseItem } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElInputNumber } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElSpace } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

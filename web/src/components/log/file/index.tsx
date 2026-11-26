@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { nextTick, onMounted, onUnmounted, reactive, ref, computed } from 'vue';
 import { downloadFile } from '@/utils/file';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -20,11 +19,6 @@ interface LogProps {
     operateNode?: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

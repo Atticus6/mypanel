@@ -1,4 +1,3 @@
-import { createApp } from 'vue';
 import { PiniaColada } from '@pinia/colada';
 import App from './App';
 

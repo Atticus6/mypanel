@@ -1,5 +1,3 @@
-import { defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
 import PageView from '@/views/app-store/apps/index';
 
 definePage({

@@ -1,7 +1,6 @@
 import { bindSearchState } from '@/utils/search-reset';
 import { panelCacheKey } from '@/utils/panel-cache';
 import { defineStore } from 'pinia';
-import { ref, reactive, toRef } from 'vue';
 import { MsgError } from '@/utils/message';
 import { checkStreamAuth } from '@/utils/stream-auth';
 

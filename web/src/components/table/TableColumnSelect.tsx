@@ -1,12 +1,6 @@
 import { Setting } from '@element-plus/icons-vue';
-import { computed, ref, type PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { FuTableColumnConfig } from './shared';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElPopover } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

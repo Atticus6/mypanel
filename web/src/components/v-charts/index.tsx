@@ -1,8 +1,5 @@
-import { h } from 'vue';
 import line from './components/Line';
 import pie from './components/Pie';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

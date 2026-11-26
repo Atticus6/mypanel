@@ -27,18 +27,11 @@ interface NodeItemBase {
 }
 import DrawerPro from '@/components/drawer-pro/index';
 import i18n from '@/lang';
-import { computed, ref, watch } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 type NodeItem = NodeItemBase & {
     group?: string;
 };
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElInput } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 import { Warning } from '@element-plus/icons-vue';
 

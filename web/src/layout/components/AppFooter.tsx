@@ -3,8 +3,6 @@ import SystemUpgrade from '@/components/system-upgrade/index';
 import FooterNavigation from '@/components/footer-navigation/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './AppFooter.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
 
 interface CodemodProps {

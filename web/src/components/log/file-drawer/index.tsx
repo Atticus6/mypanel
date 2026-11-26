@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import LogFile from '@/components/log/file/index';
 import i18n from '@/lang';
 import screenfull from 'screenfull';
@@ -11,10 +10,6 @@ interface LogProps {
     tail: boolean;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

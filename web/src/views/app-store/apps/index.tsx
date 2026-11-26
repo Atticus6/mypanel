@@ -1,7 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import { useSearchState } from '@/utils/search-reset';
 import { App } from '@/types/app';
-import { toRef, onMounted, reactive, ref } from 'vue';
 import {
     syncCutomAppStore,
     getCurrentNodeCustomAppConfig,
@@ -24,15 +23,7 @@ import { jumpToInstall } from '@/utils/app';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElButton } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import FuTablePagination from '@/components/table/TablePagination';

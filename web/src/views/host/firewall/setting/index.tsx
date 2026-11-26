@@ -1,12 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, h, ref } from 'vue';
 import { Firewall } from '@/types/firewall';
 import FireRouter from '@/views/host/firewall/index';
 import WhiteList from '@/views/host/firewall/setting/white-list/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { ElMessageBox } from 'element-plus';
 import { Check } from '@element-plus/icons-vue';
 import TaskLog from '@/components/log/task/index';
 import { rpc } from '@/lib/rpc';
@@ -15,24 +13,8 @@ interface BackendInitializationState {
     type: 'success' | 'info';
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElButton } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {

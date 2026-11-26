@@ -1,10 +1,8 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, reactive, ref } from 'vue';
 import { computeSize } from '@/utils/size';
 import { newUUID } from '@/utils/id';
 import { transferTimeToSecond } from '@/utils/validate';
 import i18n from '@/lang';
-import { UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile, genFileId } from 'element-plus';
 import { File } from '@/types/file';
 import { chunkUploadFileData } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
@@ -17,19 +15,6 @@ interface DialogProps {
     remark: string;
     node?: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElUpload } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElProgress } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';

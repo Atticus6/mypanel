@@ -1,16 +1,5 @@
-import { computed, useSlots, ref } from 'vue';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElDrawer } from 'element-plus';
-import { ElPageHeader } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

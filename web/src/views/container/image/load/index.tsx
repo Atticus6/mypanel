@@ -1,7 +1,5 @@
 import { $t } from '@/utils/i18n-t';
 import FileList from '@/components/file-list/index';
-import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue';
-import { genFileId, type UploadFile, type UploadInstance, type UploadProps, type UploadRawFile } from 'element-plus';
 import TaskLog from '@/components/log/task/index';
 import i18n from '@/lang';
 import { imageLoad } from '@/api/modules/container';
@@ -12,15 +10,6 @@ import { MsgError, MsgSuccess } from '@/utils/message';
 import { computeSize } from '@/utils/size';
 import { newUUID } from '@/utils/id';
 import { CHUNK_SIZE, uploadChunkWithRetry } from '@/utils/chunk-upload';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElForm } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElUpload } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElProgress } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import { UploadFilled } from '@element-plus/icons-vue';
 

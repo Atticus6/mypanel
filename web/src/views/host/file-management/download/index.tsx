@@ -1,7 +1,5 @@
 import { $t } from '@/utils/i18n-t';
-import { FormInstance, FormRules } from 'element-plus';
 import { CompressExtension, CompressType } from '@/enums/files';
-import { computed, reactive, ref } from 'vue';
 import { downloadFile } from '@/api/modules/files';
 import { File } from '@/types/file';
 import { Rules } from '@/global/form-rules';
@@ -9,15 +7,6 @@ interface DownloadProps {
     paths: Array<string>;
     name: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

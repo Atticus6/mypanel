@@ -1,4 +1,3 @@
-import { h } from 'vue';
 import { $t } from '@/utils/i18n-t';
 interface GPUGroup {
     description: string;
@@ -33,31 +32,14 @@ interface ModelNUMANode {
     cpus: string;
     memory: boolean;
 }
-import { computed, defineAsyncComponent, onBeforeUnmount, ref, watch } from 'vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import GPUTopology from '@/views/ai/components/gpu-topology/index';
 import { loadModelGPUDevices, listGPUGroups } from '@/api/modules/ai';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
-import { ElSwitch } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElInputNumber } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElCheckboxGroup } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

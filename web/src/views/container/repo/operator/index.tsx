@@ -9,10 +9,8 @@ interface RepoInfo {
     password: string;
     auth: boolean;
 }
-import { reactive, ref } from 'vue';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { ElForm } from 'element-plus';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 interface DialogProps {
@@ -21,14 +19,6 @@ interface DialogProps {
     getTableList?: () => Promise<any>;
 }
 type FormInstance = InstanceType<typeof ElForm>;
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import ConfirmDialog from '@/components/confirm-dialog/index';
 

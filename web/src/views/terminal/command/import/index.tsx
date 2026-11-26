@@ -1,19 +1,8 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
-import { genFileId, UploadFile, UploadFiles, UploadProps, UploadRawFile } from 'element-plus';
 import { uploadCommands } from '@/api/modules/command';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElUpload } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElCard } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 

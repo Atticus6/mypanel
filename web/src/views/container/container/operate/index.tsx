@@ -57,10 +57,8 @@ interface ContainerHelper {
     env: Array<string>;
     restartPolicy: string;
 }
-import { reactive, ref } from 'vue';
 import { Rules, checkFloatNumberRange, checkNumberRange } from '@/global/form-rules';
 import i18n from '@/lang';
-import { ElForm } from 'element-plus';
 import Confirm from '@/views/container/container/operate/confirm';
 import Volume from '@/views/container/container/operate/volume';
 import type { Container } from '@/types/container';
@@ -77,27 +75,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 type FormInstance = InstanceType<typeof ElForm>;
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElCard } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElDivider } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 import { Position } from '@element-plus/icons-vue';
 

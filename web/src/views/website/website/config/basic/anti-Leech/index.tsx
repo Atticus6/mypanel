@@ -1,27 +1,11 @@
 import { $t } from '@/utils/i18n-t';
 import { rpc } from '@/lib/rpc';
 import { Rules, checkNumberRange } from '@/global/form-rules';
-import { FormInstance } from 'element-plus';
-import { computed, onMounted, reactive } from 'vue';
-import { ref } from 'vue';
 import { Units } from '@/global/mimetype';
 import { MsgSuccess, MsgError } from '@/utils/message';
 import i18n from '@/lang';
 import { Plus, Delete } from '@element-plus/icons-vue';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

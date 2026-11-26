@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { getEnterpriseFooterSetting } from '@/extensions/footer-setting';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import {
@@ -11,10 +10,6 @@ import {
 import type { FooterNavigationKey, FooterNavigationSetting } from './model';
 import { FOOTER_NAVIGATION_REFRESH_EVENT } from './event';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElLink } from 'element-plus';
-import { ElDivider } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

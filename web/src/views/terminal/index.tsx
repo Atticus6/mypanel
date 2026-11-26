@@ -2,15 +2,11 @@ import HostTab from '@/views/terminal/host/index';
 import CommandTab from '@/views/terminal/command/index';
 import TerminalTab from '@/views/terminal/terminal/index';
 import SettingTab from '@/views/terminal/setting/index';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
 import CachedTabs from '@/components/cached-tabs/index';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
 import { TerminalStore } from '@/store';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

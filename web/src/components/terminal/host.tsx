@@ -1,11 +1,8 @@
-import { onMounted } from 'vue';
 import Terminal from '@/components/terminal/index';
 import { TerminalDockSessionStore, TerminalSessionStore, TerminalStore } from '@/store';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './host.styles.css';
-import { defineComponent, Fragment, Teleport, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

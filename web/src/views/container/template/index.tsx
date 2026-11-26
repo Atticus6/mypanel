@@ -14,7 +14,6 @@ interface RepoInfo {
     auth: boolean;
 }
 import { useSearchState } from '@/utils/search-reset';
-import { toRef, reactive, ref } from 'vue';
 import { dateFormat, getCurrentDateFormatted } from '@/utils/date';
 import { downloadWithContent } from '@/utils/file';
 import DetailDialog from '@/views/container/template/detail/index';
@@ -23,14 +22,7 @@ import OperatorDialog from '@/views/container/template/operator/index';
 import { rpc } from '@/lib/rpc';
 import DockerStatus from '@/views/container/docker-status/index';
 import i18n from '@/lang';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElButton } from 'element-plus';
-import { ElButtonGroup } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElText } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import TableRefresh from '@/components/table/TableRefresh';

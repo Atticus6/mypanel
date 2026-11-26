@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
-import { genFileId, type UploadFile, type UploadFiles, type UploadProps, type UploadRawFile } from 'element-plus';
 import { MsgError } from '@/utils/message';
 import i18n from '@/lang';
 import { getErrorMessage } from '@/utils/misc';
@@ -11,17 +9,6 @@ import { FIREWALL_BATCH_LIMIT, FIREWALL_IMPORT_MAX_SIZE } from '@/views/host/fir
 import { Document } from '@element-plus/icons-vue';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElUpload } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElCard } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 

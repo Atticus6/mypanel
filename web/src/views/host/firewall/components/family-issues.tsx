@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import { WarningFilled } from '@element-plus/icons-vue';
 import { Firewall } from '@/types/firewall';
 import TaskLog from '@/components/log/task/index';
@@ -13,15 +12,8 @@ interface FamilyIssue {
     action?: 'initialize' | 'repair' | 'bind';
 }
 import './family-issues.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElPopover } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElLink } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

@@ -3,11 +3,6 @@ import type { Container } from '@/types/container';
 import { computeCPU, computeSizeForDocker } from '@/utils/size';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElPopover } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

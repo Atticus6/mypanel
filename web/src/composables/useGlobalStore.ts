@@ -1,7 +1,6 @@
 import { GlobalStore } from '@/store';
 import { storeToRefs } from 'pinia';
 import type { GlobalState } from '@/store/interface';
-import type { ComputedRef, ToRefs } from 'vue';
 
 type GlobalGetterKey =
     | 'isDarkTheme'

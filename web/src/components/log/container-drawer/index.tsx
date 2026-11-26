@@ -1,6 +1,5 @@
 import { $t } from '@/utils/i18n-t';
 import i18n from '@/lang';
-import { onBeforeUnmount, reactive, ref, watch } from 'vue';
 import screenfull from 'screenfull';
 import ContainerLog from '@/components/log/container/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -9,10 +8,6 @@ interface DialogProps {
     containerID: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

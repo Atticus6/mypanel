@@ -1,10 +1,4 @@
-import { computed, type PropType } from 'vue';
 import type { Step, Stepper } from './Stepper';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElSteps } from 'element-plus';
-import { ElStep } from 'element-plus';
-import { ElCollapseTransition } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

@@ -1,20 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { FormInstance } from 'element-plus';
-import { onBeforeUnmount, ref } from 'vue';
 import { App } from '@/types/app';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import bus from '@/global/bus';
 import TaskLog from '@/components/log/task/index';
 import { v4 as uuidv4 } from 'uuid';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

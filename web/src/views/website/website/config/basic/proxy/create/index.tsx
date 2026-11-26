@@ -1,8 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { FormInstance } from 'element-plus';
-import { ref, watch } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { Website } from '@/types/website';
 import { Units } from '@/global/mimetype';
@@ -10,25 +8,7 @@ import { isDomain } from '@/utils/validate';
 import { Delete, Plus } from '@element-plus/icons-vue';
 import CorsSetting from '@/views/website/website/cors/index';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElButtonGroup } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElCollapseTransition } from 'element-plus';
-import { ElIcon } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

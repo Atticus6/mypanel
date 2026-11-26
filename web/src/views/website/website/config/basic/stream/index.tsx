@@ -1,21 +1,10 @@
 import { $t } from '@/utils/i18n-t';
 import LoadBalanceForm from '@/views/website/website/config/basic/load-balance/form/index';
-import { ref, onMounted } from 'vue';
 import { Rules } from '@/global/form-rules';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

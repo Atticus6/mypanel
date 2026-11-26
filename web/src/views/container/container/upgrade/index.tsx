@@ -24,8 +24,6 @@ interface ContainerOption {
     name: string;
     state: string;
 }
-import { computed, onBeforeUnmount, reactive, ref } from 'vue';
-import { ElMessageBox, type CheckboxValueType, type FormInstance } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import { newUUID } from '@/utils/id';
 import i18n from '@/lang';
@@ -53,16 +51,6 @@ interface DialogProps {
     hasUpdate?: boolean;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElForm } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElCheckboxGroup } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import CopyButton from '@/components/copy-button/index';
 

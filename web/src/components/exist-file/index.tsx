@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import { computeSize } from '@/utils/size';
 interface DialogProps {
     name: string;
@@ -8,12 +7,6 @@ interface DialogProps {
     uploadSize: number;
     modTime: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElAlert } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

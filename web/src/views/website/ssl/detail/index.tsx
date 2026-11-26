@@ -1,17 +1,7 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import { dateFormatSimple } from '@/utils/date';
 import { getProvider, getDNSName } from '@/utils/ssl';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElInput } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import CopyButton from '@/components/copy-button/index';
 

@@ -10,8 +10,6 @@ interface RootCertInfo {
     publicKey: string;
     privateKey: string;
 }
-import { computed, reactive, ref } from 'vue';
-import type { FormInstance, FormItemRule, FormRules } from 'element-plus';
 import { Base64 } from 'js-base64';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -24,18 +22,6 @@ interface DialogProps {
 }
 type AuthMode = 'key' | 'password';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

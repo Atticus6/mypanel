@@ -1,15 +1,5 @@
 import { $t } from '@/utils/i18n-t';
 import { rpc } from '@/lib/rpc';
-import { ref } from 'vue';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 

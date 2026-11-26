@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, nextTick, ref } from 'vue';
 import {
     deleteContainerFile,
     downloadContainerFile,
@@ -9,7 +8,6 @@ import {
 } from '@/api/modules/container';
 import { MsgError, MsgSuccess, MsgWarning } from '@/utils/message';
 import i18n from '@/lang';
-import { ElInput, ElMessageBox } from 'element-plus';
 import FileUpload from '@/views/host/file-management/upload/index';
 import { Document, FolderOpened, HomeFilled } from '@element-plus/icons-vue';
 import { computeSize2 } from '@/utils/size';
@@ -19,17 +17,6 @@ interface DrawerProps {
     workingDir?: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElBreadcrumb } from 'element-plus';
-import { ElBreadcrumbItem } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElAlert } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import DialogPro from '@/components/dialog-pro/index';

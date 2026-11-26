@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { nextTick, reactive, ref } from 'vue';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
@@ -23,16 +22,6 @@ interface AgentAccountOption {
 }
 type FormInstance = InstanceType<typeof ElForm>;
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElTag } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

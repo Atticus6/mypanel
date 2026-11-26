@@ -1,21 +1,11 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive } from 'vue';
-import { onMounted } from 'vue';
-import { ref, nextTick } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import LogFile from '@/components/log/file/index';
 import MainDiv from '@/components/main-div/index';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
-import { ElButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 import ConfirmDialog from '@/components/confirm-dialog/index';
 

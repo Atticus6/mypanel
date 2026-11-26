@@ -1,5 +1,3 @@
-import type { VNode } from 'vue';
-import type { UseTooltipProps } from 'element-plus';
 import { hasManagePermissionAccess, hasPermissionAccess, type PermissionBindingValue } from '@/utils/permission';
 
 export { flattenVNodes } from '@/components/shared/vnode';

@@ -1,6 +1,4 @@
-import { computed, defineComponent, nextTick, provide, reactive, ref } from 'vue';
 import { RouterView } from 'vue-router';
-import { ElConfigProvider } from 'element-plus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import zhTw from 'element-plus/es/locale/lang/zh-tw';

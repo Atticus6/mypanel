@@ -208,6 +208,7 @@ cd web && bun test        # 或 bun run test
 - 只测**纯函数与纯逻辑**。不测 Vue 组件的渲染细节，不搭 DOM 环境。
   需要测的行为先从组件里抽成纯函数（参考 `src/lib/rpc/create-rpc.ts`）。
 - `@/*` 路径别名在 `bun test` 下可用（见 `tsconfig.json`）。
+- `bun test` 不经过 Vite 的自动导入，被测源码里用到的 Vue / Element Plus API 要保留显式 `import`。
 - 断言用 `expect`，避免 `toBeTruthy()` 这类模糊断言，写清期望的具体值。
 - 不写「跑通就算过」的空测试，也不为了覆盖率造无意义用例。
 

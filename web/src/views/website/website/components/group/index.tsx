@@ -1,12 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, computed, onMounted } from 'vue';
 import { Group } from '@/types/group';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

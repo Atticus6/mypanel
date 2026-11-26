@@ -1,10 +1,8 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref } from 'vue';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { getErrorMessage } from '@/utils/misc';
 import { getHttpResponseMessage } from '@/api/http-core';
-import { ElForm } from 'element-plus';
 import { MsgError } from '@/utils/message';
 import { Firewall } from '@/types/firewall';
 import { deepCopy } from '@/utils/misc';
@@ -16,14 +14,6 @@ interface DialogProps {
     getTableList?: () => Promise<any>;
 }
 type FormInstance = InstanceType<typeof ElForm>;
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

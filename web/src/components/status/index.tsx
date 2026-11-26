@@ -1,14 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { computed, ref } from 'vue';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElTooltip } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElButton } from 'element-plus';
 import { Loading } from '@element-plus/icons-vue';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 

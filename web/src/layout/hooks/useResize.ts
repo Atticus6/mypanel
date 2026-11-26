@@ -1,5 +1,3 @@
-import { watch, onBeforeMount, onMounted, onBeforeUnmount } from 'vue';
-import { useRoute } from 'vue-router';
 import { MenuStore } from '@/store';
 import { DeviceType } from '@/enums/app';
 import { useGlobalStore } from '@/composables/useGlobalStore';

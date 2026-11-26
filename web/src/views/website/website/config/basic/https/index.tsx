@@ -2,26 +2,11 @@ import { $t } from '@/utils/i18n-t';
 import HttpsConfig from '@/views/website/website/components/https/index';
 import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
-import { ElMessageBox, FormInstance } from 'element-plus';
-import { computed, onMounted, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { Rules } from '@/global/form-rules';
 import { MsgSuccess } from '@/utils/message';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElCollapseTransition } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

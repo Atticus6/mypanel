@@ -1,9 +1,6 @@
-import { computed } from 'vue';
 import ProviderLogo from '@/components/agent-provider-logo/index';
 import { getAgentProviderDisplayName } from '@/utils/agent';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

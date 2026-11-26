@@ -9,21 +9,7 @@ import { rpc } from '@/lib/rpc';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
-import { FormInstance, FormItemRule } from 'element-plus';
-import { onMounted, reactive, ref } from 'vue';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

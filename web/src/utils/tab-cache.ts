@@ -1,5 +1,3 @@
-import type { ComputedRef, InjectionKey } from 'vue';
-
 export type KeepAlivePattern = Array<string | RegExp>;
 
 export interface RouteCacheContext {

@@ -1,5 +1,4 @@
 import i18n from '@/lang';
-import { FormItemRule } from 'element-plus';
 
 type ValidatorValue = string;
 type ValidatorCallback = (error?: Error) => void;

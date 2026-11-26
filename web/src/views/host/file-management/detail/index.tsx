@@ -2,17 +2,11 @@ import { $t } from '@/utils/i18n-t';
 import { rpc } from '@/lib/rpc';
 import { toPlainNumbers } from '@/lib/rpc/dashboard';
 import { computeSize } from '@/utils/size';
-import { ref } from 'vue';
 import { dateFormatSimple } from '@/utils/date';
 interface InfoProps {
     path: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

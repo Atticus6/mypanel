@@ -1,14 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
 import { panelCacheKey, readPanelCache, writePanelCache } from '@/utils/panel-cache';
 import './TableSetting.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElDropdown } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElDropdownMenu } from 'element-plus';
-import { ElDropdownItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

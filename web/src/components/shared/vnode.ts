@@ -1,5 +1,3 @@
-import { Comment, Fragment, Text, type VNode } from 'vue';
-
 export const flattenVNodes = (nodes: VNode[] = []): VNode[] => {
     const flattened: VNode[] = [];
     for (const node of nodes) {

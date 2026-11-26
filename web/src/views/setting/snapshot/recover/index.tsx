@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
-import { FormInstance } from 'element-plus';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import TaskLog from '@/components/log/task/index';
@@ -20,14 +18,6 @@ interface DialogProps {
     status: string;
     message: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElInput } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

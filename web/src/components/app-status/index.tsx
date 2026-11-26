@@ -1,20 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { onMounted, reactive, ref } from 'vue';
 import Status from '@/components/status/index';
-import { ElMessageBox } from 'element-plus';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElCard } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElAlert } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

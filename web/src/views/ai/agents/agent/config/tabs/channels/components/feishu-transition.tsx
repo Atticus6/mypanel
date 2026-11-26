@@ -1,10 +1,4 @@
 import { useI18n } from 'vue-i18n';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElSwitch } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

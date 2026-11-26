@@ -1,7 +1,5 @@
 import { UploadFilled } from '@element-plus/icons-vue';
 import { $t } from '@/utils/i18n-t';
-import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
-import { UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile, genFileId } from 'element-plus';
 import { uploadContainerFile } from '@/api/modules/container';
 import { stopChunkUpload, uploadFileData } from '@/api/modules/files';
 import { rpc } from '@/lib/rpc';
@@ -20,15 +18,7 @@ interface UploadFileProps {
 }
 type DrawerCloseDone = () => void;
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElAlert } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElUpload } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElProgress } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import { Select } from '@element-plus/icons-vue';
 interface CodemodProps {

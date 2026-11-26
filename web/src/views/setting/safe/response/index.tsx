@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref } from 'vue';
-import { FormInstance } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
@@ -9,14 +7,6 @@ interface DialogProps {
     noAuthSetting: string;
     noAuthOptions: [{ value: string; label: string }];
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

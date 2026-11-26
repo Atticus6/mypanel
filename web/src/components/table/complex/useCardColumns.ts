@@ -1,5 +1,3 @@
-import { computed, defineComponent, h, type Component, type PropType, type VNode } from 'vue';
-
 import FuTableOperations from '@/components/table/TableOperations';
 import { getTableColumnKey, isElTableColumnVNode } from '@/components/table/shared';
 

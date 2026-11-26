@@ -1,18 +1,9 @@
 import { $t } from '@/utils/i18n-t';
 import { Website } from '@/types/website';
 import { routerToName } from '@/utils/router';
-import { ref } from 'vue';
 interface InstallRrops {
     items: Website.CheckRes[];
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElRow } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

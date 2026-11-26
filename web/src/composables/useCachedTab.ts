@@ -1,4 +1,3 @@
-import { nextTick, onActivated, onDeactivated, onMounted, onScopeDispose, readonly, ref, watch } from 'vue';
 import GlobalStore from '@/store/modules/global';
 import { panelCacheKey, readPanelCache, writePanelCache } from '@/utils/panel-cache';
 

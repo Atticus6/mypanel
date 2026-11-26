@@ -2,23 +2,9 @@ import { $t } from '@/utils/i18n-t';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
-import { FormInstance } from 'element-plus';
-import { computed, onMounted, reactive, ref } from 'vue';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

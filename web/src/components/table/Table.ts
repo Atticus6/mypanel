@@ -1,6 +1,3 @@
-import { ElTable } from 'element-plus';
-import { cloneVNode, computed, defineComponent, h, onMounted, ref, watch, type PropType, type VNode } from 'vue';
-
 import {
     FU_TABLE_STORAGE_PREFIX,
     flattenVNodes,

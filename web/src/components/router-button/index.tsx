@@ -1,21 +1,11 @@
 import { $t } from '@/utils/i18n-t';
 import { openPage } from '@/utils/router';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
 import { hasPermissionMetaAccess, hasRouteAccess } from '@/utils/rbac';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 import { listNodes } from '@/utils/node';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElCard } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElBadge } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElLink } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

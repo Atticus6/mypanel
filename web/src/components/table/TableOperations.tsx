@@ -1,12 +1,8 @@
-import { computed, type PropType } from 'vue';
 import { useMediaQuery } from '@/composables/useMediaQuery';
 import FuTableOperationActions from './TableOperationActions';
 import type { FuTableOperationButton } from './shared';
 type DropdownTrigger = 'hover' | 'click' | 'contextmenu';
 type DropdownTriggerValue = DropdownTrigger | DropdownTrigger[];
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTableColumn } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

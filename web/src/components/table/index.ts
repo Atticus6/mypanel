@@ -1,5 +1,3 @@
-import type { App } from 'vue';
-
 import FuTable from './Table';
 import FuTableColumnSelect from './TableColumnSelect';
 import FuTableOperations from './TableOperations';

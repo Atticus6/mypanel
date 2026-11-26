@@ -1,24 +1,15 @@
-import { h } from 'vue';
 import { panelCacheKey, writePanelCache } from '@/utils/panel-cache';
-import { computed, onDeactivated, onMounted, ref, useAttrs } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { flattenVNodes, TABLE_OVERFLOW_TOOLTIP_OPTIONS, type FuTableOperationButton } from '@/components/table/shared';
 import { useCardColumns } from './useCardColumns';
 import { useContextMenu } from './useContextMenu';
 import { useResponsivePagination } from './useResponsivePagination';
 import { useTableSelection } from './useTableSelection';
-import { useRoute } from 'vue-router';
 import { usePaginationCache } from './usePaginationCache';
 type DropdownProps = FuTableOperationButton;
 type ViewMode = 'table' | 'card';
 import './ComplexTable.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElCard } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElEmpty } from 'element-plus';
-import { ElPagination } from 'element-plus';
 import FuTable from '@/components/table/Table';
 
 interface CodemodProps {

@@ -1,12 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElCard } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElTag } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

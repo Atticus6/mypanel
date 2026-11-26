@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, watch } from 'vue';
 interface CorsConfig {
     allowOrigins: string;
     allowMethods: string;
@@ -12,13 +11,7 @@ interface Props {
     config: CorsConfig;
     enableSize: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElSwitch } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElCollapseTransition } from 'element-plus';
-import { ElInput } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

@@ -202,11 +202,65 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
                 // 只扫描业务源码，跳过生成代码与声明文件，减少 transform 调用。
                 include: ['src/**/*.{ts,tsx}'],
                 exclude: ['src/gen/**', 'src/types/**', 'src/assets/**'],
-                imports: ['vue', VueRouterAutoImports],
+                imports: [
+                    'vue',
+                    VueRouterAutoImports,
+                    // 预设没收录却散落在业务里的 API 与类型，补成全局以去掉逐文件的 import。
+                    {
+                        from: 'vue',
+                        imports: [
+                            'Fragment',
+                            'KeepAlive',
+                            'Teleport',
+                            'Text',
+                            'Comment',
+                            'Transition',
+                            'cloneVNode',
+                            'resolveDirective',
+                            'withDirectives',
+                        ],
+                    },
+                    {
+                        from: 'vue',
+                        imports: [
+                            'App',
+                            'CSSProperties',
+                            'ComponentObjectPropsOptions',
+                            'DefineComponent',
+                            'Directive',
+                            'SlotsType',
+                            'ToRefs',
+                            'UnwrapNestedRefs',
+                        ].map((name) => ({ name, type: true })),
+                    },
+                    {
+                        from: 'element-plus',
+                        imports: ['ClickOutside', 'genFileId', 'vLoading'],
+                    },
+                    {
+                        from: 'element-plus',
+                        imports: [
+                            'AllowDropType',
+                            'CheckboxValueType',
+                            'FormInstance',
+                            'FormItemRule',
+                            'FormRules',
+                            'RenderContentContext',
+                            'SortBy',
+                            'TabPaneName',
+                            'TabsPaneContext',
+                            'UploadFile',
+                            'UploadFiles',
+                            'UploadInstance',
+                            'UploadProps',
+                            'UploadRawFile',
+                            'UseTooltipProps',
+                        ].map((name) => ({ name, type: true })),
+                    },
+                ],
                 resolvers: [
-                    ElementPlusResolver({
-                        importStyle: 'sass',
-                    }),
+                    // main.ts 已经引入 element-plus 全量样式，这里不再按组件重复注入一份。
+                    ElementPlusResolver({ importStyle: false }),
                 ],
             }),
             Components({

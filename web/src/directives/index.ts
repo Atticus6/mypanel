@@ -1,4 +1,3 @@
-import { App, Directive } from 'vue';
 import integerInput from './modules/integer';
 import permission, { nodeAdminDirective } from './modules/permission';
 

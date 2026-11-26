@@ -1,5 +1,4 @@
 import type { Setting } from '@/types/setting';
-import { ElMessageBox } from 'element-plus';
 import i18n from '@/lang';
 import { routerToName } from '@/utils/router';
 

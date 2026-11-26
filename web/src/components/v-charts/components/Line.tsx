@@ -1,10 +1,7 @@
-import { onMounted, nextTick, watch, onBeforeUnmount, ref } from 'vue';
 import echarts from '@/utils/echarts';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { computeSizeFromKBs, computeSizeFromKB, computeSizeFromMB } from '@/utils/size';
 import i18n from '@/lang';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

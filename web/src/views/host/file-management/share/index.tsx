@@ -8,26 +8,12 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import { buildFileSharePageUrl, buildFileShareQrCodeUrl, withFileSharePassword } from '@/utils/file';
 import { copyText } from '@/utils/clipboard';
 import { dateFormat as formatDateTime } from '@/utils/date';
-import type { FormInstance, FormRules } from 'element-plus';
-import { computed, reactive, ref, watch } from 'vue';
 interface ShareProps {
     path: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElDivider } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 import DialogPro from '@/components/dialog-pro/index';

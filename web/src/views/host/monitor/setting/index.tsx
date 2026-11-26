@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { onMounted, reactive, ref } from 'vue';
-import { ElMessageBox } from 'element-plus';
 import MonitorRouter from '@/views/host/monitor/index';
 import Interval from '@/views/host/monitor/setting/interval/index';
 import StoreDays from '@/views/host/monitor/setting/days/index';
@@ -10,19 +8,8 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { splitTimeFromSecond, transTimeUnit } from '@/utils/validate';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElDivider } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {

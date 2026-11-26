@@ -7,13 +7,7 @@ interface Props {
     sortMode?: boolean;
 }
 import './header.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElTooltip } from 'element-plus';
-import { ElPopover } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
 import Status from '@/components/status/index';
 import { Warning } from '@element-plus/icons-vue';
 import { Tickets } from '@element-plus/icons-vue';

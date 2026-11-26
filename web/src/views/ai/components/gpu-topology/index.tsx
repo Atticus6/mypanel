@@ -13,17 +13,9 @@ interface ModelNUMANode {
     cpus: string;
     memory: boolean;
 }
-import { computed } from 'vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElTooltip } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElEmpty } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

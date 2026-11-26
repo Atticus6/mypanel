@@ -1,5 +1,3 @@
-import { computed, onBeforeUnmount, onMounted, ref, type Ref } from 'vue';
-
 interface PaginationConfig {
     small?: boolean;
 }

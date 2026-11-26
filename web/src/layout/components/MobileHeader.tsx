@@ -1,7 +1,5 @@
 import { MenuStore } from '@/store';
 import './MobileHeader.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 
 interface CodemodProps {

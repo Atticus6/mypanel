@@ -9,12 +9,6 @@ interface OpenrestyStatusView {
     waiting: number;
 }
 import { rpc } from '@/lib/rpc';
-import { onMounted, ref } from 'vue';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElForm } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElFormItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

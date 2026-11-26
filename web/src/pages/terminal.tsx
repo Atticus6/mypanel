@@ -4,8 +4,6 @@ definePage({
     redirect: '/terminal',
     meta: { title: 'menu.terminal', icon: 'p-terminal2', protectedRoleOnly: true, sort: 8 },
 });
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

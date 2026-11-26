@@ -4,14 +4,8 @@ import Upgrade from '@/components/system-upgrade/upgrade/index';
 import Releases from '@/components/system-upgrade/releases/index';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
-import { onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElLink } from 'element-plus';
-import { ElBadge } from 'element-plus';
-import { ElTag } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

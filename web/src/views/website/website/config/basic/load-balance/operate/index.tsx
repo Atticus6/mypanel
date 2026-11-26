@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
@@ -10,10 +9,7 @@ interface LoadBalanceOperate {
     operate: string;
     upstream?: Website.NginxUpstream;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

@@ -1,4 +1,3 @@
-import { h } from 'vue';
 import { $t } from '@/utils/i18n-t';
 interface Locale {
     zh: string;
@@ -51,8 +50,6 @@ interface AppParams {
 import { expandInvalidFormSection } from '@/components/form-section';
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
-import { FormInstance, FormRules } from 'element-plus';
-import { ref, watch } from 'vue';
 import Params from '../params/index';
 import { Container } from '@/types/container';
 import CodemirrorPro from '@/components/codemirror-pro/index';
@@ -78,16 +75,6 @@ interface Emits {
     (e: 'update:modelValue', value: any): void;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

@@ -3,17 +3,10 @@ import { Firewall } from '@/types/firewall';
 import NoSuchService from '@/components/layout-content/no-such-service';
 import FamilyIssues from '@/views/host/firewall/components/family-issues';
 import i18n from '@/lang';
-import { computed } from 'vue';
 import { routerToName, routerToNameWithQuery } from '@/utils/router';
 import { dockerGuardFamilyStatusMessage } from '@/views/host/firewall/docker/model';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElCard } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElButton } from 'element-plus';
 import { I18nT } from 'vue-i18n';
 
 interface CodemodProps {

@@ -1,7 +1,4 @@
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElCard } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

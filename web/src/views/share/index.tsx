@@ -4,16 +4,7 @@ import { File } from '@/types/file';
 import i18n, { loadLocaleMessages } from '@/lang';
 import { buildFileShareDownloadUrl, getFileSharePasswordFromHash, removeFileSharePasswordFromHash } from '@/utils/file';
 import { dateFormat } from '@/utils/date';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

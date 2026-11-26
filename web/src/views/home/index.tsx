@@ -1,7 +1,4 @@
-import { h } from 'vue';
 import { $t } from '@/utils/i18n-t';
-import { useRoute } from 'vue-router';
-import { onMounted, onBeforeUnmount, ref, reactive, computed, nextTick, watch, defineAsyncComponent } from 'vue';
 import SystemStatus from '@/views/home/status/index';
 import AppLauncher from '@/views/home/app/index';
 import VCharts from '@/components/v-charts/index';
@@ -15,7 +12,6 @@ import { dateFormatForSecond, formatUptime } from '@/utils/date';
 import { computeSize, computeSizeFromKBs } from '@/utils/size';
 import { jumpToPath } from '@/utils/router';
 import { copyText } from '@/utils/clipboard';
-import { useRouter } from 'vue-router';
 import { rpc } from '@/lib/rpc';
 import { toHomeBaseInfo, toHomeCurrentInfo } from '@/lib/rpc/dashboard';
 import { routerToExtensionName, routerToNameWithQuery, routerToPath } from '@/utils/router';
@@ -53,28 +49,7 @@ interface VllmSnapshot {
     metrics?: Record<string, Record<string, number>>;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElAlert } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElCarousel } from 'element-plus';
-import { ElCarouselItem } from 'element-plus';
-import { ElPopover } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElScrollbar } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElInput } from 'element-plus';
 import RouterButton from '@/components/router-button/index';
 import Status from '@/components/status/index';
 

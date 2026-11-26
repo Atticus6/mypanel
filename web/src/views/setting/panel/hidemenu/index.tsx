@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref } from 'vue';
-import { AllowDropType, ElMessageBox, RenderContentContext } from 'element-plus';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
@@ -13,16 +11,7 @@ interface DialogProps {
 }
 type Node = RenderContentContext['node'];
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElCard } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElTree } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

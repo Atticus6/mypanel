@@ -1,25 +1,11 @@
-import { KeepAlive } from 'vue';
 import {
     getTabCacheName,
     routeCacheContextKey,
     type KeepAlivePattern,
     type RouteCacheContext,
 } from '@/utils/tab-cache';
-import {
-    computed,
-    cloneVNode,
-    h,
-    Transition,
-    defineComponent,
-    inject,
-    provide,
-    type Component as VueComponent,
-    type PropType,
-    type VNode,
-} from 'vue';
+import { type Component as VueComponent } from 'vue';
 import type { RouteRecordName } from 'vue-router';
-import { Fragment, unref, withDirectives } from 'vue';
-import { type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { RouterView } from 'vue-router';
 
 interface CodemodProps {

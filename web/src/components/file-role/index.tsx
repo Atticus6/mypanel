@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { FormInstance, FormRules } from 'element-plus';
-import { computed, ref, toRefs, watch, onUpdated, onMounted, reactive } from 'vue';
 import { Rules } from '@/global/form-rules';
 interface Role {
     r: boolean;
@@ -16,12 +14,6 @@ interface RoleForm {
 interface Props {
     mode: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElInput } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

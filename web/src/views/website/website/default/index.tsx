@@ -2,7 +2,6 @@ import { $t } from '@/utils/i18n-t';
 import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
-import { nextTick, reactive, ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
 import { EditorState } from '@codemirror/state';
 import { basicSetup, EditorView } from 'codemirror';
@@ -10,20 +9,7 @@ import { html } from '@codemirror/lang-html';
 import { php } from '@codemirror/lang-php';
 import { oneDark } from '@codemirror/theme-one-dark';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

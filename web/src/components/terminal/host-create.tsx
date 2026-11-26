@@ -1,9 +1,7 @@
 import { $t } from '@/utils/i18n-t';
-import { ElForm } from 'element-plus';
 import { Host } from '@/types/host';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { reactive, ref } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
@@ -12,17 +10,6 @@ interface DialogProps {
     isLocal: boolean;
     nodeName?: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElAlert } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

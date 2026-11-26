@@ -4,11 +4,7 @@ import AlertLogs from '@/views/setting/alert/log/index';
 import AlertSetting from '@/views/setting/alert/setting/index';
 type AlertNoticeTabValue = '0' | '1' | '2';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElCard } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

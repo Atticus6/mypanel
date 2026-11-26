@@ -1,8 +1,3 @@
-import { type PropType } from 'vue';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElPagination } from 'element-plus';
-
 interface CodemodProps {
     [key: string]: any;
     currentPage?: number;

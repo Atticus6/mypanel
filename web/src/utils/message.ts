@@ -1,5 +1,3 @@
-import { ElMessage } from 'element-plus';
-
 let messageDom: any = null;
 const messageTypes: Array<string> = ['success', 'error', 'warning', 'info'];
 const Message: any = (options) => {

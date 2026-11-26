@@ -11,7 +11,6 @@ interface MonitorSearch {
     startTime: Date;
     endTime: Date;
 }
-import { ref, reactive, onMounted, watch } from 'vue';
 import { toMonitorChartSeries } from '@/lib/rpc/monitor';
 import { computeSize, computeSizeFromKBs } from '@/utils/size';
 import { dateFormatWithoutYear } from '@/utils/date';
@@ -21,16 +20,6 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import { shortcuts } from '@/utils/shortcuts';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElCard } from 'element-plus';
-import { ElDatePicker } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElDropdown } from 'element-plus';
-import { ElDropdownMenu } from 'element-plus';
-import { ElDropdownItem } from 'element-plus';
 import TableRefresh from '@/components/table/TableRefresh';
 import VCharts from '@/components/v-charts/index';
 

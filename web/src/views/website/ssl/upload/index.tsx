@@ -2,23 +2,11 @@ import { $t } from '@/utils/i18n-t';
 import { uploadSSL, uploadSSLFile } from '@/api/modules/website';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { FormInstance } from 'element-plus';
 import FileList from '@/components/file-list/index';
-import { defineAsyncComponent, ref } from 'vue';
 import { MsgSuccess } from '@/utils/message';
 import { Website } from '@/types/website';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElUpload } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

@@ -2,8 +2,6 @@ import PageView from '@/views/setting/index';
 definePage({
     name: 'Setting',
 });
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

@@ -1,20 +1,11 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, nextTick, onMounted, reactive, ref } from 'vue';
 import { Rewrites } from '@/global/mimetype';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
 import CustomRewrite from '@/views/website/website/config/basic/rewrite/custom/index';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElAlert } from 'element-plus';
 import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {

@@ -3,13 +3,6 @@ import { $t } from '@/utils/i18n-t';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
 import './tag.styles.css';
-import { defineComponent, Fragment, unref, withDirectives, computed } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElCheckTag } from 'element-plus';
-import { ElDropdown } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElDropdownMenu } from 'element-plus';
-import { ElDropdownItem } from 'element-plus';
 interface CodemodProps {
     [key: string]: any;
     hideKey?: string;

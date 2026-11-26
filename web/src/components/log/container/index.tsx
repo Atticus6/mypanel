@@ -6,22 +6,12 @@ import { Base64 } from 'js-base64';
 import '@xterm/xterm/css/xterm.css';
 import i18n from '@/lang';
 import { dateFormatForName } from '@/utils/date';
-import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue';
-import { ElMessageBox } from 'element-plus';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { checkStreamAuth } from '@/utils/stream-auth';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

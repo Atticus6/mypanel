@@ -1,19 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, ref } from 'vue';
 import { ArrowDown, ArrowRight, ArrowUp } from '@element-plus/icons-vue';
 import { Dashboard } from '@/types/dashboard';
 import { computeSizeForDocker } from '@/utils/size';
 import i18n from '@/lang';
 import './gpu.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElPopover } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElProgress } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

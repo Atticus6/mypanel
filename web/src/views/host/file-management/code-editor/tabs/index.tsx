@@ -1,19 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 interface FileTabs {
     path: string;
     name: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElDropdown } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElDropdownMenu } from 'element-plus';
-import { ElDropdownItem } from 'element-plus';
-import { ElIcon } from 'element-plus';
 import { Close } from '@element-plus/icons-vue';
 import { DArrowLeft } from '@element-plus/icons-vue';
 import { DArrowRight } from '@element-plus/icons-vue';

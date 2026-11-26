@@ -1,5 +1,3 @@
-import { nextTick, ref, watch } from 'vue';
-
 export function useSearchable(paths) {
     const searchableStatus = ref(false);
     const searchablePath = ref('');

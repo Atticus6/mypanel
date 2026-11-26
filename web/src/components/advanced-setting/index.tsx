@@ -1,16 +1,8 @@
 import { $t } from '@/utils/i18n-t';
-import { onMounted, ref, toRef } from 'vue';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import { checkNumberRange } from '@/global/form-rules';
 import { Container } from '@/types/container';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

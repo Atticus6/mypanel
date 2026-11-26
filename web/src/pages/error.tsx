@@ -2,8 +2,6 @@ import Layout from '@/layout/index';
 definePage({
     name: false,
 });
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

@@ -1,18 +1,8 @@
 import { $t } from '@/utils/i18n-t';
 import LogFile from '@/components/log/file/index';
 import LogRouter from '@/views/log/router/index';
-import { nextTick, onMounted, reactive, ref } from 'vue';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {

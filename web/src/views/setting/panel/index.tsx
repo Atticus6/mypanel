@@ -1,7 +1,5 @@
 import { $t } from '@/utils/i18n-t';
 import { applyPanelCacheSettings } from '@/utils/panel-cache';
-import { ref, reactive, onMounted } from 'vue';
-import { ElForm, ElMessageBox } from 'element-plus';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { useTheme } from '@/global/use-theme';
@@ -29,18 +27,6 @@ interface ThemeColor {
     };
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElInput } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {

@@ -1,4 +1,3 @@
-import { defineComponent, type PropType } from 'vue';
 import RouterViewCache from '@/components/router-view-cache/index';
 import type { KeepAlivePattern } from '@/utils/tab-cache';
 

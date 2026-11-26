@@ -8,8 +8,94 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const ClickOutside: typeof import('element-plus').ClickOutside
+  const Comment: typeof import('vue').Comment
   const EffectScope: typeof import('vue').EffectScope
+  const ElAffix: typeof import('element-plus/es').ElAffix
+  const ElAlert: typeof import('element-plus/es').ElAlert
+  const ElAutoResizer: typeof import('element-plus/es').ElAutoResizer
+  const ElAvatar: typeof import('element-plus/es').ElAvatar
+  const ElBadge: typeof import('element-plus/es').ElBadge
+  const ElBreadcrumb: typeof import('element-plus/es').ElBreadcrumb
+  const ElBreadcrumbItem: typeof import('element-plus/es').ElBreadcrumbItem
+  const ElButton: typeof import('element-plus/es').ElButton
+  const ElButtonGroup: typeof import('element-plus/es').ElButtonGroup
+  const ElCard: typeof import('element-plus/es').ElCard
+  const ElCarousel: typeof import('element-plus/es').ElCarousel
+  const ElCarouselItem: typeof import('element-plus/es').ElCarouselItem
+  const ElCascader: typeof import('element-plus/es').ElCascader
+  const ElCheckTag: typeof import('element-plus/es').ElCheckTag
+  const ElCheckbox: typeof import('element-plus/es').ElCheckbox
+  const ElCheckboxGroup: typeof import('element-plus/es').ElCheckboxGroup
+  const ElCol: typeof import('element-plus/es').ElCol
+  const ElCollapse: typeof import('element-plus/es').ElCollapse
+  const ElCollapseItem: typeof import('element-plus/es').ElCollapseItem
+  const ElCollapseTransition: typeof import('element-plus/es').ElCollapseTransition
+  const ElColorPicker: typeof import('element-plus/es').ElColorPicker
+  const ElConfigProvider: typeof import('element-plus/es').ElConfigProvider
+  const ElDatePicker: typeof import('element-plus/es').ElDatePicker
+  const ElDescriptions: typeof import('element-plus/es').ElDescriptions
+  const ElDescriptionsItem: typeof import('element-plus/es').ElDescriptionsItem
+  const ElDialog: typeof import('element-plus/es').ElDialog
+  const ElDivider: typeof import('element-plus/es').ElDivider
+  const ElDrawer: typeof import('element-plus/es').ElDrawer
+  const ElDropdown: typeof import('element-plus/es').ElDropdown
+  const ElDropdownItem: typeof import('element-plus/es').ElDropdownItem
+  const ElDropdownMenu: typeof import('element-plus/es').ElDropdownMenu
+  const ElEmpty: typeof import('element-plus/es').ElEmpty
+  const ElForm: typeof import('element-plus/es').ElForm
+  const ElFormItem: typeof import('element-plus/es').ElFormItem
+  const ElIcon: typeof import('element-plus/es').ElIcon
+  const ElImage: typeof import('element-plus/es').ElImage
+  const ElInput: typeof import('element-plus/es').ElInput
+  const ElInputNumber: typeof import('element-plus/es').ElInputNumber
+  const ElInputTag: typeof import('element-plus/es').ElInputTag
+  const ElLink: typeof import('element-plus/es').ElLink
+  const ElMenu: typeof import('element-plus/es').ElMenu
+  const ElMenuItem: typeof import('element-plus/es').ElMenuItem
+  const ElMessage: typeof import('element-plus/es').ElMessage
   const ElMessageBox: typeof import('element-plus/es').ElMessageBox
+  const ElOption: typeof import('element-plus/es').ElOption
+  const ElOptionGroup: typeof import('element-plus/es').ElOptionGroup
+  const ElPageHeader: typeof import('element-plus/es').ElPageHeader
+  const ElPagination: typeof import('element-plus/es').ElPagination
+  const ElPopover: typeof import('element-plus/es').ElPopover
+  const ElProgress: typeof import('element-plus/es').ElProgress
+  const ElRadio: typeof import('element-plus/es').ElRadio
+  const ElRadioButton: typeof import('element-plus/es').ElRadioButton
+  const ElRadioGroup: typeof import('element-plus/es').ElRadioGroup
+  const ElRow: typeof import('element-plus/es').ElRow
+  const ElScrollbar: typeof import('element-plus/es').ElScrollbar
+  const ElSelect: typeof import('element-plus/es').ElSelect
+  const ElSkeleton: typeof import('element-plus/es').ElSkeleton
+  const ElSlider: typeof import('element-plus/es').ElSlider
+  const ElSpace: typeof import('element-plus/es').ElSpace
+  const ElSplitter: typeof import('element-plus/es').ElSplitter
+  const ElSplitterPanel: typeof import('element-plus/es').ElSplitterPanel
+  const ElStep: typeof import('element-plus/es').ElStep
+  const ElSteps: typeof import('element-plus/es').ElSteps
+  const ElSubMenu: typeof import('element-plus/es').ElSubMenu
+  const ElSwitch: typeof import('element-plus/es').ElSwitch
+  const ElTabPane: typeof import('element-plus/es').ElTabPane
+  const ElTable: typeof import('element-plus/es').ElTable
+  const ElTableColumn: typeof import('element-plus/es').ElTableColumn
+  const ElTableV2: typeof import('element-plus/es').ElTableV2
+  const ElTabs: typeof import('element-plus/es').ElTabs
+  const ElTag: typeof import('element-plus/es').ElTag
+  const ElText: typeof import('element-plus/es').ElText
+  const ElTimePicker: typeof import('element-plus/es').ElTimePicker
+  const ElTooltip: typeof import('element-plus/es').ElTooltip
+  const ElTransfer: typeof import('element-plus/es').ElTransfer
+  const ElTree: typeof import('element-plus/es').ElTree
+  const ElTreeV2: typeof import('element-plus/es').ElTreeV2
+  const ElUpload: typeof import('element-plus/es').ElUpload
+  const ElWatermark: typeof import('element-plus/es').ElWatermark
+  const Fragment: typeof import('vue').Fragment
+  const KeepAlive: typeof import('vue').KeepAlive
+  const Teleport: typeof import('vue').Teleport
+  const Text: typeof import('vue').Text
+  const Transition: typeof import('vue').Transition
+  const cloneVNode: typeof import('vue').cloneVNode
   const computed: typeof import('vue').computed
   const createApp: typeof import('vue').createApp
   const customRef: typeof import('vue').customRef
@@ -17,6 +103,7 @@ declare global {
   const defineComponent: typeof import('vue').defineComponent
   const definePage: typeof import('vue-router/experimental').definePage
   const effectScope: typeof import('vue').effectScope
+  const genFileId: typeof import('element-plus').genFileId
   const getCurrentInstance: typeof import('vue').getCurrentInstance
   const getCurrentScope: typeof import('vue').getCurrentScope
   const getCurrentWatcher: typeof import('vue').getCurrentWatcher
@@ -50,6 +137,7 @@ declare global {
   const readonly: typeof import('vue').readonly
   const ref: typeof import('vue').ref
   const resolveComponent: typeof import('vue').resolveComponent
+  const resolveDirective: typeof import('vue').resolveDirective
   const shallowReactive: typeof import('vue').shallowReactive
   const shallowReadonly: typeof import('vue').shallowReadonly
   const shallowRef: typeof import('vue').shallowRef
@@ -69,14 +157,19 @@ declare global {
   const useRouter: typeof import('vue-router').useRouter
   const useSlots: typeof import('vue').useSlots
   const useTemplateRef: typeof import('vue').useTemplateRef
+  const vLoading: typeof import('element-plus').vLoading
   const watch: typeof import('vue').watch
   const watchEffect: typeof import('vue').watchEffect
   const watchPostEffect: typeof import('vue').watchPostEffect
   const watchSyncEffect: typeof import('vue').watchSyncEffect
+  const withDirectives: typeof import('vue').withDirectives
 }
 // for type re-export
 declare global {
   // @ts-ignore
-  export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, ShallowRef, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
+  export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, ShallowRef, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef, App, CSSProperties, ComponentObjectPropsOptions, DefineComponent, Directive, SlotsType, ToRefs, UnwrapNestedRefs } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { AllowDropType, CheckboxValueType, FormInstance, FormItemRule, FormRules, RenderContentContext, SortBy, TabPaneName, TabsPaneContext, UploadFile, UploadFiles, UploadInstance, UploadProps, UploadRawFile, UseTooltipProps } from 'element-plus'
+  import('element-plus')
 }

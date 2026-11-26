@@ -1,4 +1,3 @@
-import type { Directive, DirectiveBinding, VNode } from 'vue';
 import {
     hasManagePermissionAccess,
     hasPermissionAccess,

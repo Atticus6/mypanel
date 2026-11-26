@@ -8,27 +8,12 @@ interface RuntimeReq extends ReqPage {
     status?: string;
     type?: string;
 }
-import { onMounted, reactive, ref } from 'vue';
 import { Website } from '@/types/website';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import Composer from './composer/index';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElSwitch } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

@@ -66,7 +66,6 @@ interface MonitorData {
     date: Array<Date>;
     value: Array<any>;
 }
-import { computed, onMounted, reactive, ref } from 'vue';
 import { toMonitorChartSeries } from '@/lib/rpc/monitor';
 import { getGPUOptions, loadGPUMonitor } from '@/api/modules/ai';
 import { rpc } from '@/lib/rpc';
@@ -77,23 +76,8 @@ import { useGlobalStore } from '@/composables/useGlobalStore';
 import MonitorRouter from '@/views/host/monitor/index';
 import i18n from '@/lang';
 import { MsgWarning } from '@/utils/message';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElDatePicker } from 'element-plus';
-import { ElCheckboxGroup } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElButton } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {

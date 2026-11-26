@@ -27,8 +27,6 @@ interface ModelGPUDevice {
     numaNode?: number;
     available: boolean;
 }
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
-import { FormInstance } from 'element-plus';
 import { saveGPUGroup } from '@/api/modules/ai';
 import GPUConfig from '@/views/ai/components/gpu-config/index';
 import DrawerPro from '@/components/drawer-pro/index';
@@ -37,15 +35,6 @@ import { Rules } from '@/global/form-rules';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

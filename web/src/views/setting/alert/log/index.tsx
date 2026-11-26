@@ -30,26 +30,16 @@ interface CommonConfig {
     alertSendTimeRange?: string;
 }
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { toRef } from 'vue';
 import { useSearchState } from '@/utils/search-reset';
-import { onMounted, reactive, ref } from 'vue';
 import { dateFormat } from '@/utils/date';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { SyncAlertInfo, SyncAlertAll, SyncOfflineAlert, resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { rpc } from '@/lib/rpc';
-import { ElMessageBox } from 'element-plus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { getAlertConfigDisplayName } from '@/views/setting/alert/setting/drawer/secret-field';
 import { cronjobAlertTypes, getCronjobAlertResult } from '@/utils/cronjob-alert';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElButton } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElTooltip } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';

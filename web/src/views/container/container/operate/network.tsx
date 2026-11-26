@@ -10,15 +10,7 @@ interface ContainerNetwork {
     gwPriority?: number;
     linkLocalIPs?: Array<string>;
 }
-import { ref, onMounted } from 'vue';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTableColumn } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 
 interface CodemodProps {

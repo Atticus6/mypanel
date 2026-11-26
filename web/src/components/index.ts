@@ -1,4 +1,3 @@
-import { type App } from 'vue';
 import LayoutContent from './layout-content/index';
 import RouterButton from './router-button/index';
 import ComplexTable from './table/complex/ComplexTable';

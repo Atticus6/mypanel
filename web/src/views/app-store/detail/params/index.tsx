@@ -34,7 +34,6 @@ interface FromParam {
     value: string;
     envKey: string;
 }
-import { computed, onMounted, reactive, ref } from 'vue';
 import { getRandomStr } from '@/utils/id';
 import { Rules } from '@/global/form-rules';
 import { getDBName, getLabel, getDescription } from '@/utils/app-store';
@@ -46,16 +45,6 @@ interface ParamObj extends FromField {
     childProp: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElTag } from 'element-plus';
 import Status from '@/components/status/index';
 
 interface CodemodProps {

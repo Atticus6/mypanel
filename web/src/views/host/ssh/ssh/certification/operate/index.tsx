@@ -10,9 +10,7 @@ interface RootCertInfo {
     publicKey: string;
     privateKey: string;
 }
-import { computed, onBeforeUnmount, reactive, ref } from 'vue';
 import i18n from '@/lang';
-import { ElForm, genFileId, UploadFile, UploadProps, UploadRawFile } from 'element-plus';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { Rules } from '@/global/form-rules';
 import { getRandomStr } from '@/utils/id';
@@ -24,19 +22,6 @@ interface DialogProps {
 }
 type FormInstance = InstanceType<typeof ElForm>;
 type KeyField = 'privateKey' | 'publicKey';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElUpload } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { onBeforeUnmount, ref } from 'vue';
 import { dateFormatForSecond } from '@/utils/date';
 import VCharts from '@/components/v-charts/index';
 import i18n from '@/lang';
@@ -8,13 +7,6 @@ interface DialogProps {
     containerID: string;
     container: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElCard } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

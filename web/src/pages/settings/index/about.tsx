@@ -1,4 +1,3 @@
-import { defineComponent } from 'vue';
 import PageView from '@/views/setting/about/index';
 
 definePage({

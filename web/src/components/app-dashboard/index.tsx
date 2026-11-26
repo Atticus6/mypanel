@@ -1,16 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, onMounted, ref } from 'vue';
 import type { InstalledApp } from '@/gen/panel/agent/v1/app_pb';
 import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { toLink } from '@/utils/browser';
 import { routerToName } from '@/utils/router';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElPopover } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElLink } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

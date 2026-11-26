@@ -1,10 +1,8 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgError, MsgWarning } from '@/utils/message';
 import { jumpToPath } from '@/utils/router';
-import { useRouter } from 'vue-router';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 interface DialogProps {
     port: any;
@@ -14,11 +12,6 @@ interface DialogProps {
     query?: string;
     hash?: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElAlert } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

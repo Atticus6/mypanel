@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref, onMounted, computed } from 'vue';
-import { ElForm } from 'element-plus';
 import { Alert } from '@/types/alert';
 import { resolveAlertConfigExcludeTypes } from '@/api/modules/alert';
 import { MsgSuccess } from '@/utils/message';
@@ -18,20 +16,7 @@ interface DialogProps {
 }
 type FormInstance = InstanceType<typeof ElForm>;
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

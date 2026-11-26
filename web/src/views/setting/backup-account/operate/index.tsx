@@ -1,8 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, watch, computed, onUnmounted } from 'vue';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
-import { ElForm } from 'element-plus';
 import { Backup } from '@/types/backup';
 import FileList from '@/components/file-list/index';
 import { cities } from './../helper';
@@ -20,23 +18,7 @@ interface DialogProps {
     rowData?: Backup.BackupInfo;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElFormItem } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElInputNumber } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

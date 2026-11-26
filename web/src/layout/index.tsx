@@ -1,6 +1,5 @@
 import { $t } from '@/utils/i18n-t';
 import { prunePanelCache } from '@/utils/panel-cache';
-import { onMounted, computed, ref, watch, onBeforeUnmount } from 'vue';
 import { Sidebar, Footer, AppMain, MobileHeader, Tabs } from './components';
 import TerminalHost from '@/components/terminal/host';
 import TerminalDock from '@/components/terminal/dock/index';
@@ -14,14 +13,7 @@ import TaskList from '@/components/task-list/index';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import { cn } from '@/utils/cn';
-import { ElAffix } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElWatermark } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

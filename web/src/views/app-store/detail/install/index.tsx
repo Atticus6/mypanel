@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { useRouter } from 'vue-router';
 import AppInstallForm from '@/views/app-store/detail/form/index';
 import { rpc } from '@/lib/rpc';
 import { MsgError } from '@/utils/message';
@@ -7,9 +6,6 @@ import { newUUID } from '@/utils/id';
 import { routerToName } from '@/utils/router';
 import TaskLog from '@/components/log/task/index';
 import i18n from '@/lang';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

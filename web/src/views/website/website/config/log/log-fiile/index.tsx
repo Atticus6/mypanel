@@ -1,16 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, onMounted, ref } from 'vue';
 import i18n from '@/lang';
 import LogFile from '@/components/log/file/index';
 import { MsgSuccess } from '@/utils/message';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import permissionDirective from '@/directives/modules/permission';
-import { ElFormItem } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElButton } from 'element-plus';
 import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {

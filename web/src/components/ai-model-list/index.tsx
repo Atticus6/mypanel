@@ -1,12 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 import CopyButton from '@/components/copy-button/index';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElTag } from 'element-plus';
-import { ElPopover } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

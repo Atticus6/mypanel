@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref } from 'vue';
 import { computeSize } from '@/utils/size';
 import { dateFormat } from '@/utils/date';
 import { downloadFile } from '@/utils/file';
@@ -10,11 +9,6 @@ interface DialogProps {
     cronjob: string;
     cronjobID: number;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import FuTableOperations from '@/components/table/TableOperations';

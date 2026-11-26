@@ -6,21 +6,8 @@ interface Volume {
     mode: string;
 }
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
-import { ref, onMounted } from 'vue';
 import { rpc } from '@/lib/rpc';
 import './volume.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTableColumn } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElButton } from 'element-plus';
 import ComplexTable from '@/components/table/complex/ComplexTable';
 import { Bottom } from '@element-plus/icons-vue';
 

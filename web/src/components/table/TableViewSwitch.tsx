@@ -1,13 +1,6 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, watch } from 'vue';
 import { Grid, List } from '@element-plus/icons-vue';
 type ViewMode = 'table' | 'card';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElRadioGroup } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

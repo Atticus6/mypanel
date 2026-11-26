@@ -5,17 +5,8 @@ import { MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 import './disk-card.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { ElCard } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElProgress } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

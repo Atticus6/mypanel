@@ -1,8 +1,4 @@
-import { computed, ref } from 'vue';
 import './FuDropdownItem.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElDropdownItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

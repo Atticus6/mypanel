@@ -1,10 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import { dateFormatSimple } from '@/utils/date';
 import { getProvider } from '@/utils/ssl';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

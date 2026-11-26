@@ -3,9 +3,6 @@ import DiskRouter from '@/views/host/disk-management/index';
 import DiskCard from '@/views/host/disk-management/components/disk-card';
 import Partition from '@/views/host/disk-management/partition/index';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import MainDiv from '@/components/main-div/index';
 
 interface CodemodProps {

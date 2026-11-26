@@ -127,8 +127,6 @@ import LoadBalanceForm from '@/views/website/website/config/basic/load-balance/f
 import { Rules, checkNumberRange } from '@/global/form-rules';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
-import { ElForm, FormInstance } from 'element-plus';
-import { reactive, ref, watch } from 'vue';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { getRandomStr } from '@/utils/id';
 import { getRuntimeLabel } from '@/utils/app-store';
@@ -145,24 +143,6 @@ type SSLItem = SSLDTO & {
     };
 };
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElRadioGroup } from 'element-plus';
-import { ElRadioButton } from 'element-plus';
-import { ElRadio } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElText } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElCard } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 import Status from '@/components/status/index';
 

@@ -1,5 +1,3 @@
-import type { Directive, DirectiveBinding } from 'vue';
-
 const integerInput: Directive = {
     mounted(el: HTMLElement, binding: DirectiveBinding) {
         const { value } = binding;

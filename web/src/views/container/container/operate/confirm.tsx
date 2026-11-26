@@ -1,11 +1,7 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 interface DialogProps {
     isFromApp: boolean;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

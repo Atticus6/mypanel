@@ -1,7 +1,5 @@
-import { h } from 'vue';
 import { $t } from '@/utils/i18n-t';
 import i18n from '@/lang';
-import { ref } from 'vue';
 import { Close, FullScreen } from '@element-plus/icons-vue';
 import VueOfficeDocx from '@vue-office/docx';
 import VueOfficeExcel from '@vue-office/excel';
@@ -17,14 +15,7 @@ interface EditProps {
     currentNode: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import { cn } from '@/utils/cn';
-import { ElSpace } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElImage } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

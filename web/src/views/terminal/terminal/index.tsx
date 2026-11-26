@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, watch, nextTick, onMounted, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 import screenfull from 'screenfull';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -10,17 +9,7 @@ import { TerminalSessionStore } from '@/store';
 import ConnectionMenu from '@/components/terminal/connection-menu/index';
 import type { TerminalConnectionOptions } from '@/components/terminal/connection-menu/types';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElCascader } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElEmpty } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

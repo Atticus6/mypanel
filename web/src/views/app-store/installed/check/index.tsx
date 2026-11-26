@@ -4,7 +4,6 @@ import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { routerToExtensionName, routerToName } from '@/utils/router';
-import { ref } from 'vue';
 import ErrPrompt from '@/components/error-prompt/index';
 interface CheckRrops {
     items: App.AppInstallResource[];
@@ -12,15 +11,6 @@ interface CheckRrops {
     key: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElDescriptions } from 'element-plus';
-import { ElDescriptionsItem } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

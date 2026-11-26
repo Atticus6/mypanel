@@ -27,9 +27,7 @@ import ProcessDetail from '@/views/host/process/process/detail/index';
 import RuleReset from '@/views/host/firewall/components/rule-reset';
 import TaskLog from '@/components/log/task/index';
 import DockerRestart from '@/components/docker-proxy/docker-restart';
-import { toRef, computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { useElementSize } from '@/composables/useElementSize';
-import { ElMessageBox } from 'element-plus';
 import { Expand, Loading, Lock, Refresh } from '@element-plus/icons-vue';
 import { rpc } from '@/lib/rpc';
 interface RuleRow extends Firewall.InventoryItem {
@@ -50,25 +48,9 @@ interface DisplayNotice {
 }
 type RuleFilter = 'family:ipv4' | 'family:ipv6' | 'action:accept' | 'action:deny';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
-import { vLoading } from 'element-plus';
 import { cn } from '@/utils/cn';
-import { ElDivider } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElCard } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElButtonGroup } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOptionGroup } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElPopover } from 'element-plus';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import TableRefresh from '@/components/table/TableRefresh';

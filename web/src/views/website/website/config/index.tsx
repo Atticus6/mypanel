@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { onMounted, ref, watch } from 'vue';
 import Basic from './basic/index';
 import Resource from './resource/index';
 import Log from './log/index';
@@ -9,10 +8,6 @@ import MainDiv from '@/components/main-div/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { useOperateNodeContext } from '@/composables/useOperateNodeContext';
 import { rpc } from '@/lib/rpc';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElButton } from 'element-plus';
 import RouterButton from '@/components/router-button/index';
 import LayoutContent from '@/components/layout-content/index';
 

@@ -1,10 +1,6 @@
-import { computed, useSlots } from 'vue';
 import FormButton from './form-button';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElCard } from 'element-plus';
 import BackButton from '@/components/back-button/index';
 import type { RouteName } from '@/utils/router';
 

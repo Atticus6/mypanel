@@ -1,19 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, ref } from 'vue';
 import { TabsStore, TerminalSessionStore } from '@/store';
 import i18n from '@/lang';
 import { Close, DArrowLeft, DArrowRight, Lock, More, Unlock } from '@element-plus/icons-vue';
 import './TabItem.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
-import { ElTabPane } from 'element-plus';
-import { ElDropdown } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElDropdownMenu } from 'element-plus';
-import { ElDropdownItem } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

@@ -1,4 +1,3 @@
-import { ref, shallowRef, watch, onActivated, onBeforeUnmount, nextTick, computed, onMounted } from 'vue';
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
 import { FitAddon } from '@xterm/addon-fit';
@@ -21,8 +20,6 @@ interface TerminalBufferLine {
     translateToString(trimRight?: boolean, startColumn?: number, endColumn?: number): string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { cn } from '@/utils/cn';
 
 interface CodemodProps {

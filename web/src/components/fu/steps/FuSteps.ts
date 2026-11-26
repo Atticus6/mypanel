@@ -1,5 +1,3 @@
-import { defineComponent, h, ref } from 'vue';
-
 import FuHorizontalSteps from './FuHorizontalSteps';
 import FuVerticalSteps from './FuVerticalSteps';
 

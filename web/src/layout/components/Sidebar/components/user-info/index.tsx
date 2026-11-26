@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, reactive, ref } from 'vue';
-import { ElMessageBox, FormInstance } from 'element-plus';
 import { Check, Close, QuestionFilled } from '@element-plus/icons-vue';
 import DrawerPro from '@/components/drawer-pro/index';
 import DialogPro from '@/components/dialog-pro/index';
@@ -15,24 +13,7 @@ import { MsgError, MsgSuccess } from '@/utils/message';
 import { routerToNameWithQuery } from '@/utils/router';
 import { checkNumberRange, Rules } from '@/global/form-rules';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
 import { cn } from '@/utils/cn';
-import { ElAlert } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElTooltip } from 'element-plus';
-import { ElIcon } from 'element-plus';
-import { ElSwitch } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElLink } from 'element-plus';
-import { ElImage } from 'element-plus';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
-import { ElTable } from 'element-plus';
-import { ElTableColumn } from 'element-plus';
 import CopyButton from '@/components/copy-button/index';
 
 interface CodemodProps {

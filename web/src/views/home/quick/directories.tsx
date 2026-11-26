@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, ref } from 'vue';
-import { ElMessageBox } from 'element-plus';
 import i18n from '@/lang';
 import { routerToFileWithPath } from '@/utils/router';
 import FileList from '@/components/file-list/index';
@@ -13,12 +11,6 @@ type DirectoryRow = Dashboard.QuickDirectory & {
     busy: boolean;
 };
 import './directories.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElPopover } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElInput } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

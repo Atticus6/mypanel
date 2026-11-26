@@ -4,8 +4,6 @@ definePage({
     redirect: '/cronjobs/cronjob',
     meta: { icon: 'p-plan', title: 'menu.cronjob', permission: 'cronjob_view', sort: 9 },
 });
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, watch, onMounted, ref } from 'vue';
 import { getAccountName } from '@/utils/ssl';
 import { dateFormatSimple } from '@/utils/date';
 import WebsiteSSL from '@/views/website/website/components/website-ssl/index';
@@ -40,17 +39,6 @@ interface Emits {
     (e: 'select-cert-file'): void;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElTag } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElDivider } from 'element-plus';
-import { ElCheckboxGroup } from 'element-plus';
 import FileList from '@/components/file-list/index';
 
 interface CodemodProps {

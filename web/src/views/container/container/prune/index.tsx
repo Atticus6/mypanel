@@ -1,12 +1,8 @@
 import { $t } from '@/utils/i18n-t';
 import TaskLog from '@/components/log/task/index';
-import { ref } from 'vue';
 import { newUUID } from '@/utils/id';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {

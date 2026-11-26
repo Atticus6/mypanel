@@ -1,9 +1,5 @@
 import { $t } from '@/utils/i18n-t';
 
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElAlert } from 'element-plus';
-
 interface CodemodProps {
     [key: string]: any;
     websiteType?: string;

@@ -1,10 +1,5 @@
 import { $t } from '@/utils/i18n-t';
-import { computed, ref } from 'vue';
 import LogFile from './log-fiile/index';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElTabs } from 'element-plus';
-import { ElTabPane } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

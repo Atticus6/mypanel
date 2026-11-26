@@ -1,22 +1,11 @@
 import { $t } from '@/utils/i18n-t';
-import { nextTick, reactive, ref } from 'vue';
-import type { FormInstance, UploadFile, UploadInstance, UploadRawFile } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import FileList from '@/components/file-list/index';
 import { uploadCA } from '@/api/modules/website';
 import { rpc } from '@/lib/rpc';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import permissionDirective from '@/directives/modules/permission';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
-import { ElUpload } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

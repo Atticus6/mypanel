@@ -1,10 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import Status from '@/components/status/index';
 import { dateFormatSimple } from '@/utils/date';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElCard } from 'element-plus';
-import { ElTag } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;

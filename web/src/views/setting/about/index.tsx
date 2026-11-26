@@ -1,5 +1,3 @@
-import { defineComponent, onMounted, ref, withDirectives } from 'vue';
-import { ElIcon, ElLink, vLoading } from 'element-plus';
 import { Document } from '@element-plus/icons-vue';
 import LayoutContent from '@/components/layout-content/index';
 import SystemUpgrade from '@/components/system-upgrade/index';

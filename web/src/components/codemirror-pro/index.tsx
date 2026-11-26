@@ -1,4 +1,3 @@
-import { CSSProperties } from 'vue';
 import { basicSetup, EditorView } from 'codemirror';
 import { EditorState, Extension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
@@ -12,8 +11,6 @@ import { KeyBinding, placeholder } from '@codemirror/view';
 import { json } from '@codemirror/lang-json';
 import { keymap } from '@codemirror/view';
 import { defaultKeymap, indentWithTab } from '@codemirror/commands';
-import { defineComponent, Fragment, unref, withDirectives, computed } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 
 interface CodemodProps {
     [key: string]: any;

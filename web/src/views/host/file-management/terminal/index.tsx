@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, nextTick } from 'vue';
 import Terminal from '@/components/terminal/index';
 import { rpc } from '@/lib/rpc';
 interface DialogProps {
@@ -7,10 +6,6 @@ interface DialogProps {
     command: string;
 }
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElAlert } from 'element-plus';
-import { ElCascader } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

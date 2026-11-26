@@ -1,5 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, reactive } from 'vue';
 import { Rules } from '@/global/form-rules';
 import { rpc } from '@/lib/rpc';
 interface DialogProps {
@@ -7,14 +6,6 @@ interface DialogProps {
     groupType: string;
 }
 type FormInstance = InstanceType<typeof ElForm>;
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElForm } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

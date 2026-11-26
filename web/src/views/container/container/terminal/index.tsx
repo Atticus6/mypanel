@@ -1,6 +1,4 @@
 import { $t } from '@/utils/i18n-t';
-import { reactive, ref, nextTick } from 'vue';
-import { ElForm, FormInstance } from 'element-plus';
 import { Rules } from '@/global/form-rules';
 import Terminal from '@/components/terminal/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -9,14 +7,6 @@ interface DialogProps {
     title: string;
     node?: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElFormItem } from 'element-plus';
-import { ElSelect } from 'element-plus';
-import { ElOption } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElCheckbox } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {

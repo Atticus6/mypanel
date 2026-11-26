@@ -4,9 +4,6 @@ interface Props {
     appKey: string;
     icon?: string;
 }
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElAvatar } from 'element-plus';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 
 interface CodemodProps {

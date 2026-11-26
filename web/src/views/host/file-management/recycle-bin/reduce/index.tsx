@@ -1,18 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { ref } from 'vue';
 import { getIcon } from '@/utils/file';
 import { rpc } from '@/lib/rpc';
 import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { File } from '@/types/file';
 import './index.styles.css';
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { vLoading } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElAlert } from 'element-plus';
-import { ElButton } from 'element-plus';
 import DialogPro from '@/components/dialog-pro/index';
 import SvgIcon from '@/components/svg-icon/svg-icon';
 

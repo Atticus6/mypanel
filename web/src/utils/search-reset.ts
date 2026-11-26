@@ -1,5 +1,4 @@
 import { storeToRefs } from 'pinia';
-import { nextTick, onActivated, onDeactivated, onScopeDispose, watch, type Ref } from 'vue';
 import { panelCacheKey, readPanelCache, writePanelCache } from '@/utils/panel-cache';
 import GlobalStore from '@/store/modules/global';
 

@@ -1,20 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import { ref, onMounted, reactive } from 'vue';
 import { rpc } from '@/lib/rpc';
-import { ElForm } from 'element-plus';
 import i18n from '@/lang';
 import { Rules } from '@/global/form-rules';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { routerToName } from '@/utils/router';
 type FormInstance = InstanceType<typeof ElForm>;
-import { defineComponent, Fragment, unref, withDirectives } from 'vue';
-import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import { ElCard } from 'element-plus';
-import { ElRow } from 'element-plus';
-import { ElCol } from 'element-plus';
-import { ElFormItem } from 'element-plus';
-import { ElInput } from 'element-plus';
-import { ElButton } from 'element-plus';
 
 interface CodemodProps {
     [key: string]: any;
