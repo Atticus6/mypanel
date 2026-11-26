@@ -5,6 +5,15 @@ declare global {
         class?: unknown;
         style?: unknown;
         'v-slots'?: Record<string, (...args: unknown[]) => unknown>;
+        'v-if'?: unknown;
+        'v-else-if'?: unknown;
+        'v-else'?: boolean;
+        'v-show'?: unknown;
+        'v-model'?: unknown;
+        'v-loading'?: unknown;
+        'v-permission'?: unknown;
+        'v-node-admin'?: unknown;
+        'v-click-outside'?: unknown;
         onMouseenter?: (...args: unknown[]) => unknown;
     }
 

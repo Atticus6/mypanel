@@ -3,6 +3,7 @@ import type { Plugin } from 'vite';
 import { resolveOptions, type VueJSXPluginOptions } from './options.ts';
 import { injectHmr } from './hmr.ts';
 import { transformVueJSX } from './transform.ts';
+import { transformConditionalJSX } from './conditional.ts';
 
 export type { VueJSXPluginOptions } from './options';
 
@@ -43,7 +44,7 @@ export function vueJsxOxc(options: VueJSXPluginOptions = {}): Plugin {
         transform(code, id, transformOptions) {
             const filename = id.split('?')[0];
             if (!/\.[jt]sx$/.test(filename)) return null;
-            let result = transformVueJSX(code, resolved);
+            let result = transformConditionalJSX(transformVueJSX(code, resolved));
             const ssr = transformOptions?.ssr === true;
             if (needHmr && !ssr) {
                 result = injectHmr(result, filename);

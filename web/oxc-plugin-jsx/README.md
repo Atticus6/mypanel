@@ -27,6 +27,7 @@ export default defineConfig({
 | `v-models` 多重绑定                           | `transform.ts`                                                                 |
 | `v-html` / `v-text`                           | `transform.ts` 改写为 `innerHTML` / `textContent`                              |
 | `v-show` 与自定义 `v-xxx` 指令                | `runtime.ts`，`withDirectives` + `resolveDirective`                            |
+| `v-if` / `v-else-if` / `v-else`               | `conditional.ts`，相邻兄弟节点编译成条件表达式（官方 Babel 插件没有该语法）    |
 | `transformOn`（`on` / `nativeOn` 对象）       | `runtime.ts`                                                                   |
 | `xlink:Href` 命名空间                         | `transform.ts`                                                                 |
 | `mergeProps`、`enableObjectSlots`、`pragma`   | 选项保留，`runtime.ts` 按 Vue 语义处理                                         |
