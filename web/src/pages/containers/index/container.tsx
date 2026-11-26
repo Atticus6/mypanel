@@ -1,19 +1,19 @@
 import { $t } from '@/utils/i18n-t';
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { useSearchState } from '@/utils/search-reset';
-import PruneDialog from '@/pages/views/container/container/prune/index';
-import RenameDialog from '@/pages/views/container/container/rename/index';
-import UpgradeDialog from '@/pages/views/container/container/upgrade/index';
-import CommitDialog from '@/pages/views/container/container/commit/index';
-import MonitorDialog from '@/pages/views/container/container/monitor/index';
-import TerminalDialog from '@/pages/views/container/container/terminal/index';
-import ContainerFileDrawer from '@/pages/views/container/container/file-browser/index';
-import ContainerInspectDialog from '@/pages/views/container/container/inspect/index';
+import PruneDialog from '@/pages/containers/_components/container/prune/index';
+import RenameDialog from '@/pages/containers/_components/container/rename/index';
+import UpgradeDialog from '@/pages/containers/_components/container/upgrade/index';
+import CommitDialog from '@/pages/containers/_components/container/commit/index';
+import MonitorDialog from '@/pages/containers/_components/container/monitor/index';
+import TerminalDialog from '@/pages/containers/_components/container/terminal/index';
+import ContainerFileDrawer from '@/pages/containers/_components/container/file-browser/index';
+import ContainerInspectDialog from '@/pages/containers/_components/container/inspect/index';
 import PortJumpDialog from '@/components/port-jump/index';
 import TaskLog from '@/components/log/task/index';
 import Backups from '@/components/backup/index';
 import Uploads from '@/components/upload/index';
-import DockerStatus from '@/pages/views/container/docker-status/index';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
 import ContainerLogDialog from '@/components/log/container-drawer/index';
 import Status from '@/components/status/index';
 import { Container } from '@/types/container';
@@ -30,7 +30,7 @@ import { newUUID } from '@/utils/id';
 interface Filters {
     filters?: string;
 }
-import '@/pages/views/container/container/index.styles.css';
+import '@/pages/containers/_components/container/index.styles.css';
 import permissionDirective from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';
 import LayoutContent from '@/components/layout-content/index';

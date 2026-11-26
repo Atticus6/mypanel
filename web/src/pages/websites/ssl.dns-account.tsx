@@ -1,7 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { readCachedPageSize } from '@/utils/panel-cache';
-import Create from '@/pages/views/website/ssl/dns-account/create/index';
+import Create from '@/pages/websites/_components/ssl/dns-account/create/index';
 import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';

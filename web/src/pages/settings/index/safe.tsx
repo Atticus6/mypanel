@@ -1,18 +1,18 @@
 import { $t } from '@/utils/i18n-t';
-import PortSetting from '@/pages/views/setting/safe/port/index';
-import BindSetting from '@/pages/views/setting/safe/bind/index';
-import ResponseSetting from '@/pages/views/setting/safe/response/index';
-import SSLSetting from '@/pages/views/setting/safe/ssl/index';
-import ExpirationSetting from '@/pages/views/setting/safe/expiration/index';
-import EntranceSetting from '@/pages/views/setting/safe/entrance/index';
-import DomainSetting from '@/pages/views/setting/safe/domain/index';
-import AllowIPsSetting from '@/pages/views/setting/safe/allowips/index';
+import PortSetting from '@/pages/settings/_components/safe/port/index';
+import BindSetting from '@/pages/settings/_components/safe/bind/index';
+import ResponseSetting from '@/pages/settings/_components/safe/response/index';
+import SSLSetting from '@/pages/settings/_components/safe/ssl/index';
+import ExpirationSetting from '@/pages/settings/_components/safe/expiration/index';
+import EntranceSetting from '@/pages/settings/_components/safe/entrance/index';
+import DomainSetting from '@/pages/settings/_components/safe/domain/index';
+import AllowIPsSetting from '@/pages/settings/_components/safe/allowips/index';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { Setting } from '@/types/setting';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import '@/pages/views/setting/safe/index.styles.css';
+import '@/pages/settings/_components/safe/index.styles.css';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {

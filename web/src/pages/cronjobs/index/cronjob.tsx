@@ -1,14 +1,14 @@
 import { $t } from '@/utils/i18n-t';
 import { useSearchState } from '@/utils/search-reset';
-import Records from '@/pages/views/cronjob/cronjob/record/index';
-import Backups from '@/pages/views/cronjob/cronjob/backup/index';
-import Import from '@/pages/views/cronjob/cronjob/import/index';
+import Records from '@/pages/cronjobs/_components/cronjob/record/index';
+import Backups from '@/pages/cronjobs/_components/cronjob/backup/index';
+import Import from '@/pages/cronjobs/_components/cronjob/import/index';
 import { exportCronjob } from '@/api/modules/cronjob';
 import i18n from '@/lang';
 import { Cronjob } from '@/types/cronjob';
 import GroupDialog from '@/components/group/index';
 import { MsgSuccess } from '@/utils/message';
-import { hasBackup, transSpecToStr } from '@/pages/views/cronjob/cronjob/helper';
+import { hasBackup, transSpecToStr } from '@/pages/cronjobs/_components/cronjob/helper';
 import { getCurrentDateFormatted } from '@/utils/date';
 import { routerToNameWithQuery } from '@/utils/router';
 import { useGlobalStore } from '@/composables/useGlobalStore';

@@ -1,12 +1,12 @@
 import { $t } from '@/utils/i18n-t';
 import CodemirrorPro from '@/components/codemirror-pro/index';
-import Mirror from '@/pages/views/container/setting/mirror/index';
-import Registry from '@/pages/views/container/setting/registry/index';
-import LogOption from '@/pages/views/container/setting/log/index';
-import Ipv6Option from '@/pages/views/container/setting/ipv6/index';
-import SockPath from '@/pages/views/container/setting/sock-path/index';
+import Mirror from '@/pages/containers/_components/setting/mirror/index';
+import Registry from '@/pages/containers/_components/setting/registry/index';
+import LogOption from '@/pages/containers/_components/setting/log/index';
+import Ipv6Option from '@/pages/containers/_components/setting/ipv6/index';
+import SockPath from '@/pages/containers/_components/setting/sock-path/index';
 import ConfirmDialog from '@/components/confirm-dialog/index';
-import DockerStatus from '@/pages/views/container/docker-status/index';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
 import i18n from '@/lang';
 import { loadDaemonJsonFile } from '@/api/modules/container';
 import { rpc } from '@/lib/rpc';

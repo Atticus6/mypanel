@@ -4,7 +4,7 @@ import { Website } from '@/types/website';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { useSearchState } from '@/utils/search-reset';
-import Create from '@/pages/views/website/ssl/acme-account/create/index';
+import Create from '@/pages/websites/_components/ssl/acme-account/create/index';
 import { getAccountName, getKeyName } from '@/utils/ssl';
 import { MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';

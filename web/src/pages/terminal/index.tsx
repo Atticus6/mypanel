@@ -1,7 +1,7 @@
-import HostTab from '@/pages/views/terminal/host/index';
-import CommandTab from '@/pages/views/terminal/command/index';
-import TerminalTab from '@/pages/views/terminal/terminal/index';
-import SettingTab from '@/pages/views/terminal/setting/index';
+import HostTab from '@/pages/terminal/_components/host/index';
+import CommandTab from '@/pages/terminal/_components/command/index';
+import TerminalTab from '@/pages/terminal/_components/terminal/index';
+import SettingTab from '@/pages/terminal/_components/setting/index';
 import CachedTabs from '@/components/cached-tabs/index';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';

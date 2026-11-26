@@ -9,7 +9,7 @@ import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import TaskLog from '@/components/log/task/index';
 import { routerToFileWithPath } from '@/utils/router';
-import { loadMysqlArgs } from '@/pages/views/cronjob/cronjob/helper';
+import { loadMysqlArgs } from '@/pages/cronjobs/_components/cronjob/helper';
 interface DialogProps {
     type: string;
     name: string;

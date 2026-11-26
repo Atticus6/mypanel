@@ -1,4 +1,4 @@
-import PageView from '@/pages/views/login/index';
+import PageView from '@/pages/_components/login/index';
 
 interface CodemodProps {
     [key: string]: any;

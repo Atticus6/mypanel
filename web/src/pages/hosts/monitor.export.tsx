@@ -73,7 +73,7 @@ import { shortcuts } from '@/utils/shortcuts';
 import { dateFormatForName } from '@/utils/date';
 import { exportMonitorTables, MonitorExportTable } from '@/utils/monitor-export';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import MonitorRouter from '@/pages/views/host/monitor/index';
+import MonitorRouter from '@/pages/hosts/_components/monitor/index';
 import i18n from '@/lang';
 import { MsgWarning } from '@/utils/message';
 import permissionDirective from '@/directives/modules/permission';

@@ -1,9 +1,9 @@
 import { $t } from '@/utils/i18n-t';
 import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { useSearchState } from '@/utils/search-reset';
-import CreateDialog from '@/pages/views/container/volume/create/index';
+import CreateDialog from '@/pages/containers/_components/volume/create/index';
 import CodemirrorDrawer from '@/components/codemirror-pro/drawer';
-import DockerStatus from '@/pages/views/container/docker-status/index';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
 import { dateFormat } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { rpc } from '@/lib/rpc';

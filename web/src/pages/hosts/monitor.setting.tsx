@@ -1,9 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import MonitorRouter from '@/pages/views/host/monitor/index';
-import Interval from '@/pages/views/host/monitor/setting/interval/index';
-import StoreDays from '@/pages/views/host/monitor/setting/days/index';
-import Network from '@/pages/views/host/monitor/setting/default-network/index';
-import IO from '@/pages/views/host/monitor/setting/default-io/index';
+import MonitorRouter from '@/pages/hosts/_components/monitor/index';
+import Interval from '@/pages/hosts/_components/monitor/setting/interval/index';
+import StoreDays from '@/pages/hosts/_components/monitor/setting/days/index';
+import Network from '@/pages/hosts/_components/monitor/setting/default-network/index';
+import IO from '@/pages/hosts/_components/monitor/setting/default-io/index';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { splitTimeFromSecond, transTimeUnit } from '@/utils/validate';

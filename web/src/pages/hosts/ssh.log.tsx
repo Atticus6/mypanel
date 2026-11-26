@@ -1,4 +1,4 @@
-import FireRouter from '@/pages/views/host/ssh/index';
+import FireRouter from '@/pages/hosts/_components/ssh/index';
 import Log from '@/pages/logs/index/ssh';
 
 interface CodemodProps {

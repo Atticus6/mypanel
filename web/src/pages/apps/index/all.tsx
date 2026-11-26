@@ -7,22 +7,22 @@ import {
     getLocalAppSyncConfig,
     dispatchLocalAppSync,
 } from '@/api/modules/app';
-import Install from '@/pages/views/app-store/detail/install/index';
+import Install from '@/pages/apps/_components/detail/install/index';
 import router from '@/routers';
 import { MsgSuccess } from '@/utils/message';
 import { newUUID } from '@/utils/id';
-import Detail from '@/pages/views/app-store/detail/index';
+import Detail from '@/pages/apps/_components/detail/index';
 import TaskLog from '@/components/log/task/index';
 import bus from '@/global/bus';
-import Tags from '@/pages/views/app-store/components/tag';
-import DockerStatus from '@/pages/views/container/docker-status/index';
-import NoApp from '@/pages/views/app-store/apps/no-app/index';
-import AppCard from '@/pages/views/app-store/apps/app/index';
+import Tags from '@/pages/apps/_components/components/tag';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
+import NoApp from '@/pages/apps/_components/apps/no-app/index';
+import AppCard from '@/pages/apps/_components/apps/app/index';
 import MainDiv from '@/components/main-div/index';
 import { jumpToInstall } from '@/utils/app';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
-import '@/pages/views/app-store/apps/index.styles.css';
+import '@/pages/apps/_components/apps/index.styles.css';
 import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';

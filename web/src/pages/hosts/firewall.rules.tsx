@@ -2,7 +2,7 @@ import { $t } from '@/utils/i18n-t';
 import { useSearchState } from '@/utils/search-reset';
 import { Firewall } from '@/types/firewall';
 import { TABLE_TOOLTIP_OPTIONS, type FuTableOperationButton } from '@/components/table/shared';
-import { buildHostRuleExport } from '@/pages/views/host/firewall/rule/transfer';
+import { buildHostRuleExport } from '@/pages/hosts/_components/firewall/rule/transfer';
 interface ListeningProcess {
     pid?: number;
     ports?: number[];
@@ -20,14 +20,14 @@ import { MsgError, MsgInfo, MsgSuccess } from '@/utils/message';
 import {
     dockerGuardEndpointManagementMessage,
     dockerGuardManagementTarget,
-} from '@/pages/views/host/firewall/docker/model';
-import { formatHostAddress } from '@/pages/views/host/firewall/utils/validation';
-import RuleImport from '@/pages/views/host/firewall/rule/import/index';
-import RuleOperate from '@/pages/views/host/firewall/rule/operate/index';
-import FireRouter from '@/pages/views/host/firewall/index';
-import FireStatus from '@/pages/views/host/firewall/status/index';
-import ProcessDetail from '@/pages/views/host/process/process/detail/index';
-import RuleReset from '@/pages/views/host/firewall/components/rule-reset';
+} from '@/pages/hosts/_components/firewall/docker/model';
+import { formatHostAddress } from '@/pages/hosts/_components/firewall/utils/validation';
+import RuleImport from '@/pages/hosts/_components/firewall/rule/import/index';
+import RuleOperate from '@/pages/hosts/_components/firewall/rule/operate/index';
+import FireRouter from '@/pages/hosts/_components/firewall/index';
+import FireStatus from '@/pages/hosts/_components/firewall/status/index';
+import ProcessDetail from '@/pages/hosts/_components/process/process/detail/index';
+import RuleReset from '@/pages/hosts/_components/firewall/components/rule-reset';
 import TaskLog from '@/components/log/task/index';
 import DockerRestart from '@/components/docker-proxy/docker-restart';
 import { useElementSize } from '@/composables/useElementSize';
@@ -50,7 +50,7 @@ interface DisplayNotice {
     text: string;
 }
 type RuleFilter = 'family:ipv4' | 'family:ipv6' | 'action:accept' | 'action:deny';
-import '@/pages/views/host/firewall/rule/index.styles.css';
+import '@/pages/hosts/_components/firewall/rule/index.styles.css';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
 import { cn } from '@/utils/cn';

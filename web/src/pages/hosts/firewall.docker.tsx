@@ -1,14 +1,14 @@
 import { $t } from '@/utils/i18n-t';
 import { useSearchState } from '@/utils/search-reset';
-import FireRouter from '@/pages/views/host/firewall/index';
-import DockerGuardStatus from '@/pages/views/host/firewall/docker/status/index';
-import DockerGuardDetail from '@/pages/views/host/firewall/docker/detail/index';
-import DockerGuardImport from '@/pages/views/host/firewall/docker/import/index';
-import RuleReset from '@/pages/views/host/firewall/components/rule-reset';
+import FireRouter from '@/pages/hosts/_components/firewall/index';
+import DockerGuardStatus from '@/pages/hosts/_components/firewall/docker/status/index';
+import DockerGuardDetail from '@/pages/hosts/_components/firewall/docker/detail/index';
+import DockerGuardImport from '@/pages/hosts/_components/firewall/docker/import/index';
+import RuleReset from '@/pages/hosts/_components/firewall/components/rule-reset';
 import TaskLog from '@/components/log/task/index';
-import RuleInitialize from '@/pages/views/host/firewall/components/rule-initialize';
+import RuleInitialize from '@/pages/hosts/_components/firewall/components/rule-initialize';
 import { Firewall } from '@/types/firewall';
-import { buildDockerPolicyExport } from '@/pages/views/host/firewall/docker/transfer';
+import { buildDockerPolicyExport } from '@/pages/hosts/_components/firewall/docker/transfer';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { getErrorMessage } from '@/utils/misc';
@@ -22,11 +22,11 @@ import {
     dockerGuardEndpointStatusMessage,
     dockerGuardManagementTarget,
     isDockerGuardRuntimeEndpoint,
-} from '@/pages/views/host/firewall/docker/model';
-import { formatHostAddressList } from '@/pages/views/host/firewall/utils/validation';
+} from '@/pages/hosts/_components/firewall/docker/model';
+import { formatHostAddressList } from '@/pages/hosts/_components/firewall/utils/validation';
 import { newUUID } from '@/utils/id';
 import { rpc } from '@/lib/rpc';
-import '@/pages/views/host/firewall/docker/index.styles.css';
+import '@/pages/hosts/_components/firewall/docker/index.styles.css';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';

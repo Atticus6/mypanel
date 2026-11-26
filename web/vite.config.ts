@@ -185,8 +185,8 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
             // 文件路由必须放在 vue() 之前，definePage 宏才能在 SFC 编译前被提取。
             VueRouter({
                 extensions: ['.tsx', '.vue'],
-                // views 是与路由页放在一起的业务组件，不能被当成页面生成路由。
-                exclude: ['**/views/**'],
+                // _components 是与路由页放在一起的业务组件，不能被当成页面生成路由。
+                exclude: ['**/_components/**'],
                 dts: 'src/types/typed-router.d.ts',
             }),
             benchmarkReportPlugin(import.meta.dirname),

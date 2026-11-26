@@ -3,7 +3,7 @@ import { TABLE_TOOLTIP_OPTIONS } from '@/components/table/shared';
 import { useSearchState } from '@/utils/search-reset';
 import { dateFormat } from '@/utils/date';
 import { rpc } from '@/lib/rpc';
-import Operate from '@/pages/views/setting/backup-account/operate/index';
+import Operate from '@/pages/settings/_components/backup-account/operate/index';
 import DetailShow from '@/components/detail-show/index';
 import { Backup } from '@/types/backup';
 import i18n from '@/lang';

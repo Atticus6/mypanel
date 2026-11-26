@@ -1,5 +1,5 @@
 import { $t } from '@/utils/i18n-t';
-import DockerStatus from '@/pages/views/container/docker-status/index';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
 import { rpc } from '@/lib/rpc';
 import { computeSize2 } from '@/utils/size';
 import { newUUID } from '@/utils/id';
@@ -7,7 +7,7 @@ import TaskLog from '@/components/log/task/index';
 import { routerToName } from '@/utils/router';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import '@/pages/views/container/dashboard/index.styles.css';
+import '@/pages/containers/_components/dashboard/index.styles.css';
 import permissionDirective from '@/directives/modules/permission';
 import CardWithHeader from '@/components/card-with-header/index';
 import { Position } from '@element-plus/icons-vue';

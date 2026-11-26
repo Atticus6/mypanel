@@ -4,7 +4,7 @@ import { File } from '@/types/file';
 import i18n, { loadLocaleMessages } from '@/lang';
 import { buildFileShareDownloadUrl, getFileSharePasswordFromHash, removeFileSharePasswordFromHash } from '@/utils/file';
 import { dateFormat } from '@/utils/date';
-import '@/pages/views/share/index.styles.css';
+import '@/pages/s/_components/index.styles.css';
 
 interface CodemodProps {
     [key: string]: any;

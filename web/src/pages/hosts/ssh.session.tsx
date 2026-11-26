@@ -1,6 +1,6 @@
 import { $t } from '@/utils/i18n-t';
 import { useSearchState } from '@/utils/search-reset';
-import FireRouter from '@/pages/views/host/ssh/index';
+import FireRouter from '@/pages/hosts/_components/ssh/index';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
 import { useGlobalStore } from '@/composables/useGlobalStore';

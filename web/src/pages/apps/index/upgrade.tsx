@@ -1,4 +1,4 @@
-import PageView from '@/pages/views/app-store/installed/index';
+import PageView from '@/pages/apps/_components/installed/index';
 
 interface CodemodProps {
     [key: string]: any;

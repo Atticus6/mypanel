@@ -1,12 +1,12 @@
 import { $t } from '@/utils/i18n-t';
-import FireRouter from '@/pages/views/host/process/index';
+import FireRouter from '@/pages/hosts/_components/process/index';
 import { ProcessStore } from '@/store';
 import { TableV2SortOrder } from 'element-plus';
 import { Filter } from '@element-plus/icons-vue';
 import i18n from '@/lang';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { useMediaQuery } from '@/composables/useMediaQuery';
-import '@/pages/views/host/process/network/index.styles.css';
+import '@/pages/hosts/_components/process/network/index.styles.css';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 

@@ -1,8 +1,8 @@
 import { $t } from '@/utils/i18n-t';
-import Basic from '@/pages/views/website/website/config/basic/index';
-import Resource from '@/pages/views/website/website/config/resource/index';
-import Log from '@/pages/views/website/website/config/log/index';
-import WebsiteStatus from '@/pages/views/website/website/status/index';
+import Basic from '@/pages/websites/_components/website/config/basic/index';
+import Resource from '@/pages/websites/_components/website/config/resource/index';
+import Log from '@/pages/websites/_components/website/config/log/index';
+import WebsiteStatus from '@/pages/websites/_components/website/status/index';
 import { routerToNameWithParams } from '@/utils/router';
 import MainDiv from '@/components/main-div/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';

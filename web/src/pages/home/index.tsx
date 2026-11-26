@@ -1,9 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import SystemStatus from '@/pages/views/home/status/index';
-import AppLauncher from '@/pages/views/home/app/index';
+import SystemStatus from '@/pages/home/_components/status/index';
+import AppLauncher from '@/pages/home/_components/app/index';
 import VCharts from '@/components/v-charts/index';
-import QuickJump from '@/pages/views/home/quick/index';
-import QuickDirectories from '@/pages/views/home/quick/directories';
+import QuickJump from '@/pages/home/_components/quick/index';
+import QuickDirectories from '@/pages/home/_components/quick/directories';
 import CardWithHeader from '@/components/card-with-header/index';
 import MarkDownEditor from '@/components/mkdown-editor/index';
 import i18n from '@/lang';
@@ -48,7 +48,7 @@ interface VllmSnapshot {
     waiting: number | null;
     metrics?: Record<string, Record<string, number>>;
 }
-import '@/pages/views/home/index.styles.css';
+import '@/pages/home/_components/index.styles.css';
 import { cn } from '@/utils/cn';
 import RouterButton from '@/components/router-button/index';
 import Status from '@/components/status/index';

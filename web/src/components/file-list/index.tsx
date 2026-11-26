@@ -3,7 +3,7 @@ import { File } from '@/types/file';
 import { rpc } from '@/lib/rpc';
 import i18n from '@/lang';
 import { MsgSuccess, MsgWarning } from '@/utils/message';
-import { useSearchableForSelect } from '@/pages/views/host/file-management/hooks/searchable';
+import { useSearchableForSelect } from '@/pages/hosts/_components/file-management/hooks/searchable';
 import { computeSize } from '@/utils/size';
 import { debounce } from '@/utils/misc';
 interface DialogProps {

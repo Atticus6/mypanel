@@ -16,11 +16,11 @@ interface RepoInfo {
 import { useSearchState } from '@/utils/search-reset';
 import { dateFormat, getCurrentDateFormatted } from '@/utils/date';
 import { downloadWithContent } from '@/utils/file';
-import DetailDialog from '@/pages/views/container/template/detail/index';
-import ImportDialog from '@/pages/views/container/template/import/index';
-import OperatorDialog from '@/pages/views/container/template/operator/index';
+import DetailDialog from '@/pages/containers/_components/template/detail/index';
+import ImportDialog from '@/pages/containers/_components/template/import/index';
+import OperatorDialog from '@/pages/containers/_components/template/operator/index';
 import { rpc } from '@/lib/rpc';
-import DockerStatus from '@/pages/views/container/docker-status/index';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
 import i18n from '@/lang';
 import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';

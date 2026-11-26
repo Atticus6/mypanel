@@ -1,14 +1,14 @@
 import { $t } from '@/utils/i18n-t';
-import FireRouter from '@/pages/views/host/process/index';
-import ProcessDetail from '@/pages/views/host/process/process/detail/index';
+import FireRouter from '@/pages/hosts/_components/process/index';
+import ProcessDetail from '@/pages/hosts/_components/process/process/detail/index';
 import i18n from '@/lang';
 import { ProcessStore } from '@/store';
 import { TableV2SortOrder } from 'element-plus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import RuntimeDiagnostics from '@/pages/views/host/process/process/diagnostics/index';
+import RuntimeDiagnostics from '@/pages/hosts/_components/process/process/diagnostics/index';
 import { useMediaQuery } from '@/composables/useMediaQuery';
 import { rpc } from '@/lib/rpc';
-import '@/pages/views/host/process/process/index.styles.css';
+import '@/pages/hosts/_components/process/process/index.styles.css';
 import LayoutContent from '@/components/layout-content/index';
 import TableSearch from '@/components/table/TableSearch';
 import OpDialog from '@/components/del-dialog/index';

@@ -10,10 +10,10 @@ interface RepoInfo {
     auth: boolean;
 }
 import { useSearchState } from '@/utils/search-reset';
-import OperatorDialog from '@/pages/views/container/repo/operator/index';
+import OperatorDialog from '@/pages/containers/_components/repo/operator/index';
 import { dateFormat } from '@/utils/date';
 import { rpc } from '@/lib/rpc';
-import DockerStatus from '@/pages/views/container/docker-status/index';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
 import i18n from '@/lang';
 import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';

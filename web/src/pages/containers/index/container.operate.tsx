@@ -59,22 +59,22 @@ interface ContainerHelper {
 }
 import { Rules, checkFloatNumberRange, checkNumberRange } from '@/global/form-rules';
 import i18n from '@/lang';
-import Confirm from '@/pages/views/container/container/operate/confirm';
-import Volume from '@/pages/views/container/container/operate/volume';
+import Confirm from '@/pages/containers/_components/container/operate/confirm';
+import Volume from '@/pages/containers/_components/container/operate/volume';
 import type { Container } from '@/types/container';
-import Network from '@/pages/views/container/container/operate/network';
-import ExtraHosts from '@/pages/views/website/components/extra-hosts/index';
+import Network from '@/pages/containers/_components/container/operate/network';
+import ExtraHosts from '@/pages/websites/_components/components/extra-hosts/index';
 import { MsgError } from '@/utils/message';
 import TaskLog from '@/components/log/task/index';
 import { checkIpV4V6, checkPort } from '@/utils/validate';
 import { newUUID } from '@/utils/id';
 import router from '@/routers';
-import TerminalDialog from '@/pages/views/host/file-management/terminal/index';
+import TerminalDialog from '@/pages/hosts/_components/file-management/terminal/index';
 import { routerToName, routerToNameWithQuery } from '@/utils/router';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { rpc } from '@/lib/rpc';
 type FormInstance = InstanceType<typeof ElForm>;
-import '@/pages/views/container/container/operate/index.styles.css';
+import '@/pages/containers/_components/container/operate/index.styles.css';
 import LayoutContent from '@/components/layout-content/index';
 import { Position } from '@element-plus/icons-vue';
 

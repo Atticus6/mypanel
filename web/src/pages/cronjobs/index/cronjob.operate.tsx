@@ -3,7 +3,7 @@ import FileList from '@/components/file-list/index';
 import CodemirrorPro from '@/components/codemirror-pro/index';
 import InputTag from '@/components/input-tag/index';
 import LayoutCol from '@/components/layout-col/form';
-import CleanLogConfig from '@/pages/views/cronjob/cronjob/config/clean-log';
+import CleanLogConfig from '@/pages/cronjobs/_components/cronjob/config/clean-log';
 import { Rules } from '@/global/form-rules';
 import i18n from '@/lang';
 import { Cronjob } from '@/types/cronjob';
@@ -18,15 +18,15 @@ import {
     transSpecToObj,
     weekOptions,
     cronjobTypes,
-} from '@/pages/views/cronjob/cronjob/helper';
+} from '@/pages/cronjobs/_components/cronjob/helper';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { splitTimeFromSecond, transferTimeToSecond } from '@/utils/validate';
 import { routerToName, routerToPath } from '@/utils/router';
 import { rpc } from '@/lib/rpc';
-import { getAlertConfigDisplayName } from '@/pages/views/setting/alert/setting/drawer/secret-field';
+import { getAlertConfigDisplayName } from '@/pages/settings/_components/alert/setting/drawer/secret-field';
 import { cronjobAlertModes, normalizeCronjobAlertMode } from '@/utils/cronjob-alert';
 type FormInstance = InstanceType<typeof ElForm>;
-import '@/pages/views/cronjob/cronjob/operate/index.styles.css';
+import '@/pages/cronjobs/_components/cronjob/operate/index.styles.css';
 import LayoutContent from '@/components/layout-content/index';
 import Status from '@/components/status/index';
 import ComplexTable from '@/components/table/complex/ComplexTable';

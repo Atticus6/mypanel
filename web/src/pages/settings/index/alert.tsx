@@ -1,9 +1,9 @@
 import { $t } from '@/utils/i18n-t';
-import AlertDash from '@/pages/views/setting/alert/dash/index';
-import AlertLogs from '@/pages/views/setting/alert/log/index';
-import AlertSetting from '@/pages/views/setting/alert/setting/index';
+import AlertDash from '@/pages/settings/_components/alert/dash/index';
+import AlertLogs from '@/pages/settings/_components/alert/log/index';
+import AlertSetting from '@/pages/settings/_components/alert/setting/index';
 type AlertNoticeTabValue = '0' | '1' | '2';
-import '@/pages/views/setting/alert/index.styles.css';
+import '@/pages/settings/_components/alert/index.styles.css';
 import { cn } from '@/utils/cn';
 
 interface CodemodProps {

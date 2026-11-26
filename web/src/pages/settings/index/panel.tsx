@@ -4,15 +4,15 @@ import { rpc } from '@/lib/rpc';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { useTheme } from '@/global/use-theme';
 import { MsgSuccess } from '@/utils/message';
-import ThemeColor from '@/pages/views/setting/panel/theme-color/index';
-import Watermark from '@/pages/views/setting/panel/watermark/index';
-import Edition from '@/pages/views/setting/panel/edition/index';
-import Timeout from '@/pages/views/setting/panel/timeout/index';
-import PanelName from '@/pages/views/setting/panel/name/index';
-import SystemIP from '@/pages/views/setting/panel/systemip/index';
-import Proxy from '@/pages/views/setting/panel/proxy/index';
-import CacheSettings from '@/pages/views/setting/panel/cache/index';
-import HideMenu from '@/pages/views/setting/panel/hidemenu/index';
+import ThemeColor from '@/pages/settings/_components/panel/theme-color/index';
+import Watermark from '@/pages/settings/_components/panel/watermark/index';
+import Edition from '@/pages/settings/_components/panel/edition/index';
+import Timeout from '@/pages/settings/_components/panel/timeout/index';
+import PanelName from '@/pages/settings/_components/panel/name/index';
+import SystemIP from '@/pages/settings/_components/panel/systemip/index';
+import Proxy from '@/pages/settings/_components/panel/proxy/index';
+import CacheSettings from '@/pages/settings/_components/panel/cache/index';
+import HideMenu from '@/pages/settings/_components/panel/hidemenu/index';
 import { getXpackProxyDocker } from '@/extensions/xpack';
 import { getXpackSetting, updateXpackSettingByKey } from '@/utils/xpack';
 import { setPrimaryColor } from '@/utils/theme';
@@ -26,7 +26,7 @@ interface ThemeColor {
         dark: string[];
     };
 }
-import '@/pages/views/setting/panel/index.styles.css';
+import '@/pages/settings/_components/panel/index.styles.css';
 import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {

@@ -1,7 +1,7 @@
 import { $t } from '@/utils/i18n-t';
 import { Firewall } from '@/types/firewall';
-import FireRouter from '@/pages/views/host/firewall/index';
-import WhiteList from '@/pages/views/host/firewall/setting/white-list/index';
+import FireRouter from '@/pages/hosts/_components/firewall/index';
+import WhiteList from '@/pages/hosts/_components/firewall/setting/white-list/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { MsgError, MsgSuccess } from '@/utils/message';
@@ -12,7 +12,7 @@ interface BackendInitializationState {
     label: string;
     type: 'success' | 'info';
 }
-import '@/pages/views/host/firewall/setting/index.styles.css';
+import '@/pages/hosts/_components/firewall/setting/index.styles.css';
 import permissionDirective from '@/directives/modules/permission';
 import { nodeAdminDirective } from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';

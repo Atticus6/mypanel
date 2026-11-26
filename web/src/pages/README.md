@@ -6,7 +6,7 @@
 页面元数据写在 `definePage()` 宏里（TSX 中全局可用，构建时被提取），例如：
 
 ```tsx
-import PageView from '@/pages/views/app-store/apps/index';
+import PageView from '@/pages/apps/_components/apps/index';
 definePage({
     name: 'AppAll',
     meta: { activeMenu: '/apps', title: 'app.all', permission: 'app_view', hidden: true },
@@ -19,8 +19,8 @@ export default defineComponent(() => () => <PageView {...useRoute().params} />);
 
 - `name` 保持与原 1Panel 一致（`Home-Menu`、`App-Menu` 等），后端下发的菜单隐藏配置依赖这些名字。
 - `meta.sort` 只标在九个一级菜单分组首页上，决定侧栏顺序；`meta.hidden` 替代旧的非标准 `hidden` 字段。
-- 布局分组首页渲染 `<Layout />`，中间层级渲染 `src/pages/views/` 下的业务组件。
-  `views/` 子目录已在 `vite.config.ts` 中用 `exclude: ['**/views/**']` 排除，里面的 `.tsx` 不会生成路由。
+- 布局分组首页渲染 `<Layout />`，中间层级渲染同一功能目录下 `_components/` 里的业务组件。
+  `_components/` 已在 `vite.config.ts` 中用 `exclude: ['**/_components/**']` 排除，里面的 `.tsx` 不会生成路由。
 - 嵌套到同一 URL 下但不需要嵌套布局的路由用 `.` 拼文件名（如 `hosts/firewall.rules.tsx` → `/hosts/firewall/rules`），
   需要中间布局的用 `xxx/index/` 子目录（如 `apps/index/all.tsx` → `/apps/all`，父级是 `apps/index.tsx`）。
 - `props: true` 的页面需要把 `useRoute().params` 透传给业务组件。

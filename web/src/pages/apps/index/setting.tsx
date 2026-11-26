@@ -5,7 +5,7 @@ import { MsgSuccess } from '@/utils/message';
 import i18n from '@/lang';
 import { loadOptionalComponent } from '@/extensions/optional';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import '@/pages/views/app-store/setting/index.styles.css';
+import '@/pages/apps/_components/setting/index.styles.css';
 import permissionDirective from '@/directives/modules/permission';
 import LayoutContent from '@/components/layout-content/index';
 

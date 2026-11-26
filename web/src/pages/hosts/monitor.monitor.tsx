@@ -15,11 +15,11 @@ import { toMonitorChartSeries } from '@/lib/rpc/monitor';
 import { computeSize, computeSizeFromKBs } from '@/utils/size';
 import { dateFormatWithoutYear } from '@/utils/date';
 import i18n from '@/lang';
-import MonitorRouter from '@/pages/views/host/monitor/index';
+import MonitorRouter from '@/pages/hosts/_components/monitor/index';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import { shortcuts } from '@/utils/shortcuts';
 import { rpc } from '@/lib/rpc';
-import '@/pages/views/host/monitor/monitor/index.styles.css';
+import '@/pages/hosts/_components/monitor/monitor/index.styles.css';
 import TableRefresh from '@/components/table/TableRefresh';
 import VCharts from '@/components/v-charts/index';
 

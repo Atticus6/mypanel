@@ -1,14 +1,14 @@
 import { $t } from '@/utils/i18n-t';
 import { useSearchState } from '@/utils/search-reset';
-import CreateDialog from '@/pages/views/container/network/create/index';
-import DetailDrawer from '@/pages/views/container/network/detail/index';
+import CreateDialog from '@/pages/containers/_components/network/create/index';
+import DetailDrawer from '@/pages/containers/_components/network/detail/index';
 import { dateFormat } from '@/utils/date';
 import { newUUID } from '@/utils/id';
 import { rpc } from '@/lib/rpc';
 import { Container } from '@/types/container';
 import TaskLog from '@/components/log/task/index';
 import i18n from '@/lang';
-import DockerStatus from '@/pages/views/container/docker-status/index';
+import DockerStatus from '@/pages/containers/_components/docker-status/index';
 interface DialogExpose {
     acceptParams: () => void;
 }

@@ -1,7 +1,7 @@
 import { Host } from '@/types/host';
-import DiskRouter from '@/pages/views/host/disk-management/index';
-import DiskCard from '@/pages/views/host/disk-management/components/disk-card';
-import Partition from '@/pages/views/host/disk-management/partition/index';
+import DiskRouter from '@/pages/hosts/_components/disk-management/index';
+import DiskCard from '@/pages/hosts/_components/disk-management/components/disk-card';
+import Partition from '@/pages/hosts/_components/disk-management/partition/index';
 import { rpc } from '@/lib/rpc';
 import MainDiv from '@/components/main-div/index';
 

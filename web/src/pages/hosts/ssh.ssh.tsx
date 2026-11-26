@@ -1,10 +1,10 @@
 import { $t } from '@/utils/i18n-t';
-import FireRouter from '@/pages/views/host/ssh/index';
-import AuthKeys from '@/pages/views/host/ssh/ssh/auth-keys/index';
-import Cert from '@/pages/views/host/ssh/ssh/certification/index';
-import Root from '@/pages/views/host/ssh/ssh/root/index';
-import Port from '@/pages/views/host/ssh/ssh/port/index';
-import Address from '@/pages/views/host/ssh/ssh/address/index';
+import FireRouter from '@/pages/hosts/_components/ssh/index';
+import AuthKeys from '@/pages/hosts/_components/ssh/ssh/auth-keys/index';
+import Cert from '@/pages/hosts/_components/ssh/ssh/certification/index';
+import Root from '@/pages/hosts/_components/ssh/ssh/root/index';
+import Port from '@/pages/hosts/_components/ssh/ssh/port/index';
+import Address from '@/pages/hosts/_components/ssh/ssh/address/index';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import CodemirrorPro from '@/components/codemirror-pro/index';

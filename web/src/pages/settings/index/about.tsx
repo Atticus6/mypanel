@@ -6,7 +6,7 @@ import PrimaryLogo from '@/assets/images/1panel-logo.svg?component';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';
 import { rpc } from '@/lib/rpc';
-import '@/pages/views/setting/about/index.styles.css';
+import '@/pages/settings/_components/about/index.styles.css';
 
 const options = {
     name: 'About',
