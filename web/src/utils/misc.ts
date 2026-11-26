@@ -78,8 +78,9 @@ export function sortMenu(arr: any[]) {
     arr.sort(compareBySort);
 }
 
-export function isPunycoded(domain: string): boolean {
-    return domain.includes('xn--');
+/** 表格测量用的隐藏行会传空 row，参数可能不是字符串；此时一律按非 punycode 处理。 */
+export function isPunycoded(domain?: string): boolean {
+    return typeof domain === 'string' && domain.includes('xn--');
 }
 
 export function GetPunyCodeDomain(domain: string): string {

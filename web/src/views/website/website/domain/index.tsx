@@ -138,13 +138,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const favoriteWebsite = (row: Website.Website) => {
             ctx.emit('favoriteChange', row);
         };
-        const getDisplayDomain = (domain: string) => {
-            if (!isPunycoded(domain)) {
-                return domain;
+        const getDisplayDomain = (domain?: string) => {
+            const value = domain ?? '';
+            if (!isPunycoded(value)) {
+                return value;
             }
-            return `${domain} (${GetPunyCodeDomain(domain)})`;
+            return `${value} (${GetPunyCodeDomain(value)})`;
         };
-        const shouldShowDomainTooltip = (domain: string) => {
+        const shouldShowDomainTooltip = (domain?: string) => {
             return getDisplayDomain(domain).length > 30;
         };
         return () => (
