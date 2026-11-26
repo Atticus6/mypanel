@@ -28,4 +28,4 @@ definePage({
   需要中间布局的用 `xxx/index/` 子目录（如 `apps/index/all.vue` → `/apps/all`，父级是 `apps/index.vue`）。
 - `props: true` 的页面必须在模板里用 `v-bind="$route.params"` 把参数透传给业务组件。
 - 带 store 判断的动态重定向、菜单排序和 catch-all 无法写进宏，集中在 `src/routers/router.ts` 处理。
-- `src/typed-router.d.ts` 由插件生成，随代码提交，不要手改。
+- `src/types/typed-router.d.ts` 由插件生成，随代码提交，不要手改。

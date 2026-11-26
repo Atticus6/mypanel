@@ -15,9 +15,9 @@ endOfLine = "lf"
 ignorePatterns = [
     "src/gen/",
     "src/assets/iconfont/",
-    "src/typed-router.d.ts",
-    "auto-imports.d.ts",
-    "components.d.ts",
+    "src/types/auto-imports.d.ts",
+    "src/types/components.d.ts",
+    "src/types/typed-router.d.ts",
 ]
 
 [fmt.sortTailwindcss]

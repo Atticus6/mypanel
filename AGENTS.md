@@ -219,7 +219,7 @@ cd web && bun test        # 或 bun run test
 约定：
 
 - 组件按需自动导入：`unplugin-vue-components` + `unplugin-auto-import` 已在 `vite.config.ts` 配好，
-  `ref` / `reactive` / `onMounted` 等无需手写 import；类型由根目录生成的 `auto-imports.d.ts` 提供。
+  `ref` / `reactive` / `onMounted` 等无需手写 import；类型由 `web/src/types/auto-imports.d.ts` 提供。
 - 布局用 Element Plus 的栅格与 `LayoutContent` 等既有容器，不要手写一套新的布局体系。
 - 颜色、间距优先用 `web/src/styles/` 里的变量与工具类；不要把颜色写死在新页面里。
 - 提示与错误用 `MsgSuccess` / `MsgError`（`@/utils/message`），不要自己拼弹窗。

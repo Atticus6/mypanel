@@ -118,7 +118,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
         },
         plugins: [
             // 文件路由必须放在 vue() 之前，definePage 宏才能在 SFC 编译前被提取。
-            VueRouter({ extensions: ['.tsx', '.vue'], dts: 'src/typed-router.d.ts' }),
+            VueRouter({ extensions: ['.tsx', '.vue'], dts: 'src/types/typed-router.d.ts' }),
             benchmarkReportPlugin(__dirname),
             patchCodeFilterOverflow(),
             tailwindcss(),
@@ -133,6 +133,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
                     ext: '.gz',
                 }),
             AutoImport({
+                dts: 'src/types/auto-imports.d.ts',
                 imports: ['vue', 'vue-router'],
                 resolvers: [
                     ElementPlusResolver({
@@ -141,6 +142,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
                 ],
             }),
             Components({
+                dts: 'src/types/components.d.ts',
                 resolvers: [
                     ElementPlusResolver({
                         importStyle: 'sass',
