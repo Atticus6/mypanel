@@ -155,7 +155,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             >
                 {withDirectives(
                     <div
-                        class={unref(fileType) === 'image' ? 'overflow-y-auto' : 'flex justify-center items-center'}
+                        class={unref(fileType) === 'image' ? 'overflow-y-auto' : 'flex items-center justify-center'}
                         style={unref(isFullscreen) ? 'height: 90vh' : 'height: 80vh'}
                     >
                         {unref(fileType) === 'image' ? (
@@ -163,7 +163,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <div class={'flex h-full'}>
                                     {unref(imageFiles).length > 1 ? (
                                         <aside
-                                            class={'w-[200px] overflow-y-auto p-2 sm:block hidden left-aside rounded'}
+                                            class={'left-aside hidden w-[200px] overflow-y-auto rounded p-2 sm:block'}
                                         >
                                             {(unref(imageFiles) || []).map((item, index) => (
                                                 <>
@@ -173,7 +173,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 changeImg(item.path);
                                                             }}
                                                             class={cn(
-                                                                'text-sm dialog-object-name mb-1 rounded p-1 left-item',
+                                                                'dialog-object-name left-item mb-1 rounded p-1 text-sm',
                                                                 item.path === unref(filePath)
                                                                     ? 'left-item-default'
                                                                     : '',
@@ -193,7 +193,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 src={unref(fileUrl)}
                                                 alt={unref(filePath)}
                                                 fit="contain"
-                                                class={'w-full h-full'}
+                                                class={'h-full w-full'}
                                             />
                                         </ElTooltip>
                                     </main>
@@ -204,17 +204,29 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ) : unref(fileType) === 'audio' ? (
                             <audio src={unref(fileUrl)} controls />
                         ) : unref(fileType) === 'word' ? (
-                            h(VueOfficeDocx, { src: unref(fileUrl), onRendered: ($event?: any) => {
+                            h(VueOfficeDocx, {
+                                src: unref(fileUrl),
+                                onRendered: ($event?: any) => {
                                     (renderedHandler as any)($event);
-                                }, onError: ($event?: any) => {
+                                },
+                                onError: ($event?: any) => {
                                     (errorHandler as any)($event);
-                                }, class: 'w-full', style: unref(isFullscreen) ? 'height: 90vh' : 'height: 80vh' })
+                                },
+                                class: 'w-full',
+                                style: unref(isFullscreen) ? 'height: 90vh' : 'height: 80vh',
+                            })
                         ) : unref(fileType) === 'excel' ? (
-                            h(VueOfficeExcel, { src: unref(fileUrl), onRendered: ($event?: any) => {
+                            h(VueOfficeExcel, {
+                                src: unref(fileUrl),
+                                onRendered: ($event?: any) => {
                                     (renderedHandler as any)($event);
-                                }, onError: ($event?: any) => {
+                                },
+                                onError: ($event?: any) => {
                                     (errorHandler as any)($event);
-                                }, class: 'w-full', style: unref(isFullscreen) ? 'height: 90vh;' : 'height: 80vh' })
+                                },
+                                class: 'w-full',
+                                style: unref(isFullscreen) ? 'height: 90vh;' : 'height: 80vh',
+                            })
                         ) : null}
                     </div>,
                     [[vLoading, unref(loading)]],

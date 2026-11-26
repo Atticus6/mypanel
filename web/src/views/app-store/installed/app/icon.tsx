@@ -17,26 +17,34 @@ interface CodemodProps {
 }
 
 const emits = {
-    'openDetail': (...args: unknown[]) => true,
+    openDetail: (...args: unknown[]) => true,
 };
 
-
-
 const options = {
-        name: "icon",
-        props: {
-    "currentNode": String,
-    "appKey": String,
-    "icon": String,
-} as unknown as ComponentObjectPropsOptions<CodemodProps>,
-        emits: emits,
+    name: 'icon',
+    props: {
+        currentNode: String,
+        appKey: String,
+        icon: String,
+    } as unknown as ComponentObjectPropsOptions<CodemodProps>,
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
     (__panelSetupProps, ctx) => {
-        
         return () => (
-            <div class={"icon"}><ElAvatar onClick={($event?: any) => { ctx.emit('openDetail'); }} shape="square" size={77} src={getAppIconUrl(__panelSetupProps.appKey, __panelSetupProps.currentNode, __panelSetupProps.icon)}><SvgIcon iconName="p-appstore" /></ElAvatar></div>
+            <div class={'icon'}>
+                <ElAvatar
+                    onClick={($event?: any) => {
+                        ctx.emit('openDetail');
+                    }}
+                    shape="square"
+                    size={77}
+                    src={getAppIconUrl(__panelSetupProps.appKey, __panelSetupProps.currentNode, __panelSetupProps.icon)}
+                >
+                    <SvgIcon iconName="p-appstore" />
+                </ElAvatar>
+            </div>
         );
     },
     options,

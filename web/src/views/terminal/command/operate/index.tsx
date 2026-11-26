@@ -239,7 +239,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 clearable
                                 autosize={{ minRows: 8, maxRows: 16 }}
                             />
-                            <div class={'input-help mt-1 text-[var(--el-text-color-secondary)] text-xs leading-5'}>
+                            <div class={'input-help mt-1 text-xs leading-5 text-[var(--el-text-color-secondary)]'}>
                                 {$t('terminal.quickCommandBatchHelper')}
                             </div>
                         </ElFormItem>

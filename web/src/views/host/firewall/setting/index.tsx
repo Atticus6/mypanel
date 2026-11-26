@@ -294,7 +294,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 onChange={($event?: any) => {
                                                                     changeBackend(item.subsystem, item.group);
                                                                 }}
-                                                                class={'sm:!w-2/3 !w-full'}
+                                                                class={'!w-full sm:!w-2/3'}
                                                             >
                                                                 {(sortedOptions(item.group) || []).map((option) => (
                                                                     <ElOption

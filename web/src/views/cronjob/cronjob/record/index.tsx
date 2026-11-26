@@ -256,7 +256,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                           <div class={'app-status card-interval'}>
                               <ElCard>
                                   <div class={'flex w-full flex-col gap-4 md:flex-row'}>
-                                      <div class={'flex flex-wrap gap-4 ml-3'}>
+                                      <div class={'ml-3 flex flex-wrap gap-4'}>
                                           {unref(dialogData).rowData.name.length >= 15 ? (
                                               <ElPopover
                                                   placement="top-start"
@@ -384,7 +384,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                               start-placeholder={$t('commons.search.timeStart')}
                                               end-placeholder={$t('commons.search.timeEnd')}
                                               shortcuts={shortcuts}
-                                              class={'mr-2.5 record-time-range'}
+                                              class={'record-time-range mr-2.5'}
                                           />
                                           <ElSelect
                                               onChange={($event?: any) => {
@@ -441,7 +441,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                   <Status
                                                                                       status={row.status}
                                                                                       class={
-                                                                                          'mr-2 mt-1 ml-1 float-left w-20'
+                                                                                          'float-left mt-1 mr-2 ml-1 w-20'
                                                                                       }
                                                                                   />
                                                                                   <div class={'mt-0.5'}>

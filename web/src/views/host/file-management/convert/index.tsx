@@ -309,7 +309,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElTabPane label={$t('file.formatConvert')} name="convert">
                                         {withDirectives(
                                             <ElForm>
-                                                <div class={'flex-row justify-start items-center'}>
+                                                <div class={'flex-row items-center justify-start'}>
                                                     <ElButton
                                                         type="primary"
                                                         plain
@@ -411,8 +411,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         width="100"
                                                     />
                                                 </ComplexTable>
-                                                <div class={'flex-row justify-start items-center pt-6'}>
-                                                    <div class={'flex justify-start items-center'}>
+                                                <div class={'flex-row items-center justify-start pt-6'}>
+                                                    <div class={'flex items-center justify-start'}>
                                                         <ElBreadcrumbItem>{$t('file.saveDir') + ':'}</ElBreadcrumbItem>
                                                         <ElBreadcrumb separator="/">
                                                             <ElBreadcrumbItem>{unref(outputPath)}</ElBreadcrumbItem>

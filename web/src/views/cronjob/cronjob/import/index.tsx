@@ -240,7 +240,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onClick={($event?: any) => {
                             (onImport as any)($event);
                         }}
-                        class={'ml-2 mt-2'}
+                        class={'mt-2 ml-2'}
                     >
                         {$t('commons.button.import')}
                     </ElButton>

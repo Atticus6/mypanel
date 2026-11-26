@@ -26,19 +26,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "save",
-        props: {},
-        emits: emits,
+    name: 'save',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -96,13 +93,104 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             form.path = path;
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(drawerVisible)} onUpdate:modelValue={$v => { drawerVisible.value = $v as any }} header={$t('container.exportImage')} onClose={($event?: any) => { (handleClose as any)($event); }} size="small" v-slots={{ "footer": () => <><ElButton disabled={unref(loading)} onClick={($event?: any) => { drawerVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton disabled={unref(loading)} type="primary" onClick={($event?: any) => { onSubmit(unref(formRef)); }}>{$t('container.export')}</ElButton></> }}>{withDirectives(<ElForm label-position="top" ref={formRef} model={form} label-width="80px"><ElFormItem label={$t('container.tag')} rules={Rules.requiredSelect} prop="tagName"><ElSelect filterable modelValue={form.tagName} onUpdate:modelValue={$v => { form.tagName = $v as any }}>{((form.tags || [])).map((item) => <ElOption disabled={item.indexOf(':<none>') !== -1} value={item} label={item} key={item} />)}</ElSelect></ElFormItem><ElFormItem label={$t('container.path')} rules={Rules.requiredInput} prop="path"><ElInput modelValue={form.path} onUpdate:modelValue={$v => { form.path = $v as any }} v-slots={{ "prepend": () => <><ElButton icon="Folder" onClick={($event?: any) => { unref(fileRef).acceptParams({ dir: true }); }} /></> }} /></ElFormItem><ElFormItem label={$t('container.fileName')} rules={Rules.requiredInput} prop="name"><ElInput modelValue={form.name} onUpdate:modelValue={$v => { form.name = $v as any }} v-slots={{ "append": () => <>{".tar"}</> }} /></ElFormItem></ElForm>, [[vLoading, unref(loading)]])}</DrawerPro>
-            <FileList ref={fileRef} onChoose={($event?: any) => { (loadSaveDir as any)($event); }} />
-            <TaskLog ref={taskLogRef} width="70%" />
+                <DrawerPro
+                    modelValue={unref(drawerVisible)}
+                    onUpdate:modelValue={($v) => {
+                        drawerVisible.value = $v as any;
+                    }}
+                    header={$t('container.exportImage')}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    size="small"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    onClick={($event?: any) => {
+                                        drawerVisible.value = false;
+                                    }}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        onSubmit(unref(formRef));
+                                    }}
+                                >
+                                    {$t('container.export')}
+                                </ElButton>
+                            </>
+                        ),
+                    }}
+                >
+                    {withDirectives(
+                        <ElForm label-position="top" ref={formRef} model={form} label-width="80px">
+                            <ElFormItem label={$t('container.tag')} rules={Rules.requiredSelect} prop="tagName">
+                                <ElSelect
+                                    filterable
+                                    modelValue={form.tagName}
+                                    onUpdate:modelValue={($v) => {
+                                        form.tagName = $v as any;
+                                    }}
+                                >
+                                    {(form.tags || []).map((item) => (
+                                        <ElOption
+                                            disabled={item.indexOf(':<none>') !== -1}
+                                            value={item}
+                                            label={item}
+                                            key={item}
+                                        />
+                                    ))}
+                                </ElSelect>
+                            </ElFormItem>
+                            <ElFormItem label={$t('container.path')} rules={Rules.requiredInput} prop="path">
+                                <ElInput
+                                    modelValue={form.path}
+                                    onUpdate:modelValue={($v) => {
+                                        form.path = $v as any;
+                                    }}
+                                    v-slots={{
+                                        prepend: () => (
+                                            <>
+                                                <ElButton
+                                                    icon="Folder"
+                                                    onClick={($event?: any) => {
+                                                        unref(fileRef).acceptParams({ dir: true });
+                                                    }}
+                                                />
+                                            </>
+                                        ),
+                                    }}
+                                />
+                            </ElFormItem>
+                            <ElFormItem label={$t('container.fileName')} rules={Rules.requiredInput} prop="name">
+                                <ElInput
+                                    modelValue={form.name}
+                                    onUpdate:modelValue={($v) => {
+                                        form.name = $v as any;
+                                    }}
+                                    v-slots={{ append: () => <>{'.tar'}</> }}
+                                />
+                            </ElFormItem>
+                        </ElForm>,
+                        [[vLoading, unref(loading)]],
+                    )}
+                </DrawerPro>
+                <FileList
+                    ref={fileRef}
+                    onChoose={($event?: any) => {
+                        (loadSaveDir as any)($event);
+                    }}
+                />
+                <TaskLog ref={taskLogRef} width="70%" />
             </>
         );
     },

@@ -39,17 +39,14 @@ import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "setting",
-        props: {},
-        emits: emits,
+    name: 'setting',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -86,16 +83,16 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             nvidiaSupported: false,
             iptables: true,
             cgroupDriver: '',
-        
+
             ipv6: false,
             fixedCidrV6: '',
             ip6Tables: false,
             experimental: false,
-        
+
             logOptionShow: false,
             logMaxSize: '',
             logMaxFile: 3,
-        
+
             dockerSockPath: '',
         });
         const rules = reactive({
@@ -216,7 +213,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         const save = async (key: string, value: string) => {
             loading.value = true;
-            await rpc.container.updateDaemonJson({ key, value })
+            await rpc.container
+                .updateDaemonJson({ key, value })
                 .then(() => {
                     loading.value = false;
                     search();
@@ -241,7 +239,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 },
             ).then(async () => {
                 loading.value = true;
-                await rpc.container.operateDocker({ operation })
+                await rpc.container
+                    .operateDocker({ operation })
                     .then(() => {
                         loading.value = false;
                         window.location.reload();
@@ -255,7 +254,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const onSubmitSaveFile = async () => {
             let param = { file: dockerConf.value };
             loading.value = true;
-            await rpc.container.updateDaemonJsonByFile(param as any)
+            await rpc.container
+                .updateDaemonJsonByFile(param as any)
                 .then(() => {
                     loading.value = false;
                     MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -306,17 +306,653 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             form.fixedCidrV6 = res.fixedCidrV6;
             form.ip6Tables = res.ip6Tables;
             form.experimental = res.experimental;
-        
+
             const settingRes = await rpc.agentSetting.getInfo({});
             form.dockerSockPath = settingRes.dockerSockPath || 'unix:///var/run/docker.sock';
         };
         onMounted(() => {
             search();
         });
-        return () => (
-            withDirectives(<div><DockerStatus isActive={unref(isActive)} onUpdate:isActive={$v => { isActive.value = $v as any }} isExist={unref(isExist)} onUpdate:isExist={$v => { isExist.value = $v as any }} is-hide={true} loading={unref(loading)} onUpdate:loading={$v => { loading.value = $v as any }} onSearch={($event?: any) => { (search as any)($event); }} />{(unref(isExist)) ? <div class={"app-status card-interval"}><ElCard><div class={"flex w-full flex-col gap-4 md:flex-row"}><div class={"flex flex-wrap gap-4 ml-3"}><ElTag effect="dark" type="success" class={"float-left"}>{"Docker"}</ElTag><Status status={unref(isActive) ? 'enable' : 'disable'} class={"mt-0.5"} /><ElTag>{$t('app.version')}{": "}{form.version}</ElTag></div><div class={"mt-0.5"}>{(unref(isActive)) ? withDirectives(<ElButton type="primary" onClick={($event?: any) => { onOperator('stop'); }} link>{$t('commons.operate.stop')}</ElButton>, [[permissionDirective, true]]) : null}{(!unref(isActive)) ? withDirectives(<ElButton type="primary" onClick={($event?: any) => { onOperator('start'); }} link>{$t('commons.operate.start')}</ElButton>, [[permissionDirective, true]]) : null}<ElDivider direction="vertical" />{withDirectives(<ElButton type="primary" onClick={($event?: any) => { onOperator('restart'); }} link>{$t('commons.button.restart')}</ElButton>, [[permissionDirective, true]])}</div></div></ElCard></div> : null}{(unref(isExist)) ? <LayoutContent title={$t('container.setting', 2)} class={"card-interval"} v-slots={{ "main": () => <><ElRadioGroup modelValue={unref(confShowType)} onUpdate:modelValue={$v => { confShowType.value = $v as any }} onChange={($event?: any) => { (changeMode as any)($event); }}><ElRadioButton value="base">{$t('database.baseConf')}</ElRadioButton><ElRadioButton value="all">{$t('database.allConf')}</ElRadioButton></ElRadioGroup>{(unref(confShowType) === 'base') ? <ElRow class={"p-mt-20"}><ElCol span={1}><br /></ElCol><ElCol xs={24} sm={24} md={15} lg={12} xl={10}><ElForm model={form} label-position={unref(isMobile) ? 'top' : 'left'} rules={rules} ref={formRef} label-width="auto"><ElFormItem label={$t('container.mirrors')} prop="mirrors">{(form.mirrors) ? <div class={"flex w-full min-w-0 flex-col items-start gap-2 md:flex-row md:gap-0"}><ElInput type="textarea" rows={5} disabled modelValue={form.mirrors} onUpdate:modelValue={$v => { form.mirrors = $v as any }} class={"w-full min-w-0 md:flex-1"} />{withDirectives(<ElButton onClick={($event?: any) => { (onChangeMirrors as any)($event); }} icon="Setting" class={"custom-input-textarea w-full md:w-auto"}>{$t('commons.button.set')}</ElButton>, [[permissionDirective, true]])}</div> : null}{(!form.mirrors) ? <ElInput disabled modelValue={unref(unset)} onUpdate:modelValue={$v => { unset.value = $v as any }} v-slots={{ "append": () => <>{withDirectives(<ElButton onClick={($event?: any) => { (onChangeMirrors as any)($event); }} icon="Setting">{$t('commons.button.set')}</ElButton>, [[permissionDirective, true]])}</> }} /> : null}<span class={"input-help"}>{$t('container.mirrorsHelper')}</span><span class={"input-help flex min-w-0 flex-wrap flx-align-center"}>{$t('container.mirrorsHelper2')}<ElLink icon="Position" onClick={($event?: any) => { toDoc(); }} type="primary" class={"p-ml-5 text-xs"}>{$t('firewall.quickJump')}</ElLink></span></ElFormItem><ElFormItem label={$t('container.registries')} prop="registries">{(form.registries) ? <div class={"flex w-full min-w-0 flex-col items-start gap-2 md:flex-row md:gap-0"}><ElInput type="textarea" rows={5} disabled modelValue={form.registries} onUpdate:modelValue={$v => { form.registries = $v as any }} class={"w-full min-w-0 md:flex-1"} />{withDirectives(<ElButton onClick={($event?: any) => { (onChangeRegistries as any)($event); }} icon="Setting" class={"w-full md:w-auto"}>{$t('commons.button.set')}</ElButton>, [[permissionDirective, true]])}</div> : null}{(!form.registries) ? <ElInput disabled modelValue={unref(unset)} onUpdate:modelValue={$v => { unset.value = $v as any }} v-slots={{ "append": () => <>{withDirectives(<ElButton onClick={($event?: any) => { (onChangeRegistries as any)($event); }} icon="Setting">{$t('commons.button.set')}</ElButton>, [[permissionDirective, true]])}</> }} /> : null}</ElFormItem><ElFormItem label="IPv6" prop="ipv6">{withDirectives(<ElSwitch modelValue={form.ipv6} onUpdate:modelValue={$v => { form.ipv6 = $v as any }} onChange={($event?: any) => { (handleIPv6 as any)($event); }} />, [[permissionDirective, true]])}<span class={"input-help"} />{(unref(ipv6OptionShow)) ? <div><ElTag>{$t('container.subnet')}{": "}{form.fixedCidrV6}</ElTag><div><ElButton onClick={($event?: any) => { (handleIPv6 as any)($event); }} type="primary" link>{$t('commons.button.view')}</ElButton></div></div> : null}</ElFormItem><ElFormItem label={$t('container.cutLog')} prop="hasLogOption">{withDirectives(<ElSwitch modelValue={form.logOptionShow} onUpdate:modelValue={$v => { form.logOptionShow = $v as any }} onChange={($event?: any) => { (handleLogOption as any)($event); }} />, [[permissionDirective, true]])}<span class={"input-help"} />{(unref(logOptionShow)) ? <div><ElTag>{$t('container.maxSize')}{": "}{form.logMaxSize}</ElTag><ElTag class={"p-ml-5"}>{$t('container.maxFile')}{": "}{form.logMaxFile}</ElTag><div><ElButton onClick={($event?: any) => { (handleLogOption as any)($event); }} type="primary" link>{$t('commons.button.view')}</ElButton></div></div> : null}</ElFormItem><ElFormItem label="iptables" prop="iptables">{withDirectives(<ElSwitch modelValue={form.iptables} onUpdate:modelValue={$v => { form.iptables = $v as any }} onChange={($event?: any) => { (handleIptables as any)($event); }} />, [[permissionDirective, true]])}<span class={"input-help"}>{$t('container.iptablesHelper1')}</span></ElFormItem><ElFormItem label={$t('container.nvidiaSupport')} prop="nvidia">{withDirectives(<ElSwitch modelValue={form.nvidia} onUpdate:modelValue={$v => { form.nvidia = $v as any }} disabled={!form.nvidiaSupported} onChange={($event?: any) => { (handleNVIDIA as any)($event); }} />, [[permissionDirective, true]])}<span class={"input-help"}>{$t('container.nvidiaHelper')}</span>{(!form.nvidiaSupported) ? <span class={"input-help"}>{$t('container.nvidiaLocalOnly')}</span> : null}</ElFormItem><ElFormItem label="Live restore" prop="liveRestore">{withDirectives(<ElSwitch disabled={form.isSwarm} modelValue={form.liveRestore} onUpdate:modelValue={$v => { form.liveRestore = $v as any }} onChange={($event?: any) => { (handleLive as any)($event); }} />, [[permissionDirective, true]])}<span class={"input-help"}>{$t('container.liveHelper')}</span>{(form.isSwarm) ? <span class={"input-help"}>{$t('container.liveWithSwarmHelper')}</span> : null}</ElFormItem><ElFormItem label="Cgroup Driver" prop="cgroupDriver">{withDirectives(<ElRadioGroup modelValue={form.cgroupDriver} onUpdate:modelValue={$v => { form.cgroupDriver = $v as any }} onChange={($event?: any) => { (handleCgroup as any)($event); }}><ElRadio value="cgroupfs">{"cgroupfs"}</ElRadio><ElRadio value="systemd">{"systemd"}</ElRadio></ElRadioGroup>, [[permissionDirective, true]])}</ElFormItem><ElFormItem label={$t('container.sockPath')} prop="dockerSockPath"><ElInput disabled modelValue={form.dockerSockPath} onUpdate:modelValue={$v => { form.dockerSockPath = $v as any }} v-slots={{ "append": () => <>{withDirectives(<ElButton onClick={($event?: any) => { (onChangeSockPath as any)($event); }} icon="Setting">{$t('commons.button.set')}</ElButton>, [[permissionDirective, true]])}</> }} /><span class={"input-help"}>{$t('container.sockPathHelper')}</span></ElFormItem></ElForm></ElCol></ElRow> : null}{(unref(confShowType) === 'all') ? <div><CodemirrorPro heightDiff={loadHeight()} minHeight={350} modelValue={unref(dockerConf)} onUpdate:modelValue={$v => { dockerConf.value = $v as any }} mode="json" placeholder="# The Docker configuration file does not exist or is empty" class={"mt-5"} />{withDirectives(<ElButton disabled={unref(loading)} type="primary" onClick={($event?: any) => { (onSaveFile as any)($event); }} class={"mt-2.5"}>{$t('commons.button.save')}</ElButton>, [[permissionDirective, true]])}</div> : null}</> }} /> : null}<DialogPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} title={$t('container.iptablesDisable')} size="small" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { open.value = false;
-                                        search();; }}>{$t('commons.button.cancel')}</ElButton>{withDirectives(<ElButton disabled={unref(submitInput) !== $t('database.restartNow')} type="primary" onClick={($event?: any) => { (onSubmitCloseIPtable as any)($event); }}>{$t('commons.button.confirm')}</ElButton>, [[permissionDirective, true]])}</span></> }}><div class={"mt-2.5"}><span class={"text-rose-500"}>{$t('container.iptablesHelper2')}</span><div class={"mt-2.5"}><span class={"text-xs"}>{$t('container.restartHelper')}</span></div><div class={"mt-2.5"}><span class={"text-xs"}>{$t('commons.msg.operateConfirm')}</span><span class={"text-xs text-rose-500 font-medium"}>{"'"}{$t('database.restartNow')}{"'"}</span></div><ElInput modelValue={unref(submitInput)} onUpdate:modelValue={$v => { submitInput.value = $v as any }} class={"mt-2.5"} /></div></DialogPro><Mirror ref={mirrorRef} onSearch={($event?: any) => { (search as any)($event); }} /><Registry ref={registriesRef} onSearch={($event?: any) => { (search as any)($event); }} /><LogOption ref={logOptionRef} onSearch={($event?: any) => { (search as any)($event); }} /><Ipv6Option ref={ipv6OptionRef} onSearch={($event?: any) => { (search as any)($event); }} /><SockPath ref={sockPathRef} onSearch={($event?: any) => { (search as any)($event); }} /><ConfirmDialog ref={confirmDialogRefIpv6} onConfirm={($event?: any) => { (onSaveIPv6 as any)($event); }} onCancel={($event?: any) => { (search as any)($event); }} /><ConfirmDialog ref={confirmDialogRefIptable} onConfirm={($event?: any) => { (onSubmitOpenIPtable as any)($event); }} onCancel={($event?: any) => { (search as any)($event); }} /><ConfirmDialog ref={confirmDialogRefLog} onConfirm={($event?: any) => { (onSubmitSaveLog as any)($event); }} onCancel={($event?: any) => { (search as any)($event); }} /><ConfirmDialog ref={confirmDialogRefNVIDIA} onConfirm={($event?: any) => { (onSubmitSaveNVIDIA as any)($event); }} onCancel={($event?: any) => { (search as any)($event); }} /><ConfirmDialog ref={confirmDialogRefLive} onConfirm={($event?: any) => { (onSubmitSaveLive as any)($event); }} onCancel={($event?: any) => { (search as any)($event); }} /><ConfirmDialog ref={confirmDialogRefCgroup} onConfirm={($event?: any) => { (onSubmitSaveCgroup as any)($event); }} onCancel={($event?: any) => { (search as any)($event); }} /><ConfirmDialog ref={confirmDialogRefFile} onConfirm={($event?: any) => { (onSubmitSaveFile as any)($event); }} onCancel={($event?: any) => { (search as any)($event); }} /></div>, [[vLoading, unref(loading)]])
-        );
+        return () =>
+            withDirectives(
+                <div>
+                    <DockerStatus
+                        isActive={unref(isActive)}
+                        onUpdate:isActive={($v) => {
+                            isActive.value = $v as any;
+                        }}
+                        isExist={unref(isExist)}
+                        onUpdate:isExist={($v) => {
+                            isExist.value = $v as any;
+                        }}
+                        is-hide={true}
+                        loading={unref(loading)}
+                        onUpdate:loading={($v) => {
+                            loading.value = $v as any;
+                        }}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    {unref(isExist) ? (
+                        <div class={'app-status card-interval'}>
+                            <ElCard>
+                                <div class={'flex w-full flex-col gap-4 md:flex-row'}>
+                                    <div class={'ml-3 flex flex-wrap gap-4'}>
+                                        <ElTag effect="dark" type="success" class={'float-left'}>
+                                            {'Docker'}
+                                        </ElTag>
+                                        <Status status={unref(isActive) ? 'enable' : 'disable'} class={'mt-0.5'} />
+                                        <ElTag>
+                                            {$t('app.version')}
+                                            {': '}
+                                            {form.version}
+                                        </ElTag>
+                                    </div>
+                                    <div class={'mt-0.5'}>
+                                        {unref(isActive)
+                                            ? withDirectives(
+                                                  <ElButton
+                                                      type="primary"
+                                                      onClick={($event?: any) => {
+                                                          onOperator('stop');
+                                                      }}
+                                                      link
+                                                  >
+                                                      {$t('commons.operate.stop')}
+                                                  </ElButton>,
+                                                  [[permissionDirective, true]],
+                                              )
+                                            : null}
+                                        {!unref(isActive)
+                                            ? withDirectives(
+                                                  <ElButton
+                                                      type="primary"
+                                                      onClick={($event?: any) => {
+                                                          onOperator('start');
+                                                      }}
+                                                      link
+                                                  >
+                                                      {$t('commons.operate.start')}
+                                                  </ElButton>,
+                                                  [[permissionDirective, true]],
+                                              )
+                                            : null}
+                                        <ElDivider direction="vertical" />
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    onOperator('restart');
+                                                }}
+                                                link
+                                            >
+                                                {$t('commons.button.restart')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                    </div>
+                                </div>
+                            </ElCard>
+                        </div>
+                    ) : null}
+                    {unref(isExist) ? (
+                        <LayoutContent
+                            title={$t('container.setting', 2)}
+                            class={'card-interval'}
+                            v-slots={{
+                                main: () => (
+                                    <>
+                                        <ElRadioGroup
+                                            modelValue={unref(confShowType)}
+                                            onUpdate:modelValue={($v) => {
+                                                confShowType.value = $v as any;
+                                            }}
+                                            onChange={($event?: any) => {
+                                                (changeMode as any)($event);
+                                            }}
+                                        >
+                                            <ElRadioButton value="base">{$t('database.baseConf')}</ElRadioButton>
+                                            <ElRadioButton value="all">{$t('database.allConf')}</ElRadioButton>
+                                        </ElRadioGroup>
+                                        {unref(confShowType) === 'base' ? (
+                                            <ElRow class={'p-mt-20'}>
+                                                <ElCol span={1}>
+                                                    <br />
+                                                </ElCol>
+                                                <ElCol xs={24} sm={24} md={15} lg={12} xl={10}>
+                                                    <ElForm
+                                                        model={form}
+                                                        label-position={unref(isMobile) ? 'top' : 'left'}
+                                                        rules={rules}
+                                                        ref={formRef}
+                                                        label-width="auto"
+                                                    >
+                                                        <ElFormItem label={$t('container.mirrors')} prop="mirrors">
+                                                            {form.mirrors ? (
+                                                                <div
+                                                                    class={
+                                                                        'flex w-full min-w-0 flex-col items-start gap-2 md:flex-row md:gap-0'
+                                                                    }
+                                                                >
+                                                                    <ElInput
+                                                                        type="textarea"
+                                                                        rows={5}
+                                                                        disabled
+                                                                        modelValue={form.mirrors}
+                                                                        onUpdate:modelValue={($v) => {
+                                                                            form.mirrors = $v as any;
+                                                                        }}
+                                                                        class={'w-full min-w-0 md:flex-1'}
+                                                                    />
+                                                                    {withDirectives(
+                                                                        <ElButton
+                                                                            onClick={($event?: any) => {
+                                                                                (onChangeMirrors as any)($event);
+                                                                            }}
+                                                                            icon="Setting"
+                                                                            class={
+                                                                                'custom-input-textarea w-full md:w-auto'
+                                                                            }
+                                                                        >
+                                                                            {$t('commons.button.set')}
+                                                                        </ElButton>,
+                                                                        [[permissionDirective, true]],
+                                                                    )}
+                                                                </div>
+                                                            ) : null}
+                                                            {!form.mirrors ? (
+                                                                <ElInput
+                                                                    disabled
+                                                                    modelValue={unref(unset)}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        unset.value = $v as any;
+                                                                    }}
+                                                                    v-slots={{
+                                                                        append: () => (
+                                                                            <>
+                                                                                {withDirectives(
+                                                                                    <ElButton
+                                                                                        onClick={($event?: any) => {
+                                                                                            (onChangeMirrors as any)(
+                                                                                                $event,
+                                                                                            );
+                                                                                        }}
+                                                                                        icon="Setting"
+                                                                                    >
+                                                                                        {$t('commons.button.set')}
+                                                                                    </ElButton>,
+                                                                                    [[permissionDirective, true]],
+                                                                                )}
+                                                                            </>
+                                                                        ),
+                                                                    }}
+                                                                />
+                                                            ) : null}
+                                                            <span class={'input-help'}>
+                                                                {$t('container.mirrorsHelper')}
+                                                            </span>
+                                                            <span
+                                                                class={
+                                                                    'input-help flx-align-center flex min-w-0 flex-wrap'
+                                                                }
+                                                            >
+                                                                {$t('container.mirrorsHelper2')}
+                                                                <ElLink
+                                                                    icon="Position"
+                                                                    onClick={($event?: any) => {
+                                                                        toDoc();
+                                                                    }}
+                                                                    type="primary"
+                                                                    class={'p-ml-5 text-xs'}
+                                                                >
+                                                                    {$t('firewall.quickJump')}
+                                                                </ElLink>
+                                                            </span>
+                                                        </ElFormItem>
+                                                        <ElFormItem
+                                                            label={$t('container.registries')}
+                                                            prop="registries"
+                                                        >
+                                                            {form.registries ? (
+                                                                <div
+                                                                    class={
+                                                                        'flex w-full min-w-0 flex-col items-start gap-2 md:flex-row md:gap-0'
+                                                                    }
+                                                                >
+                                                                    <ElInput
+                                                                        type="textarea"
+                                                                        rows={5}
+                                                                        disabled
+                                                                        modelValue={form.registries}
+                                                                        onUpdate:modelValue={($v) => {
+                                                                            form.registries = $v as any;
+                                                                        }}
+                                                                        class={'w-full min-w-0 md:flex-1'}
+                                                                    />
+                                                                    {withDirectives(
+                                                                        <ElButton
+                                                                            onClick={($event?: any) => {
+                                                                                (onChangeRegistries as any)($event);
+                                                                            }}
+                                                                            icon="Setting"
+                                                                            class={'w-full md:w-auto'}
+                                                                        >
+                                                                            {$t('commons.button.set')}
+                                                                        </ElButton>,
+                                                                        [[permissionDirective, true]],
+                                                                    )}
+                                                                </div>
+                                                            ) : null}
+                                                            {!form.registries ? (
+                                                                <ElInput
+                                                                    disabled
+                                                                    modelValue={unref(unset)}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        unset.value = $v as any;
+                                                                    }}
+                                                                    v-slots={{
+                                                                        append: () => (
+                                                                            <>
+                                                                                {withDirectives(
+                                                                                    <ElButton
+                                                                                        onClick={($event?: any) => {
+                                                                                            (onChangeRegistries as any)(
+                                                                                                $event,
+                                                                                            );
+                                                                                        }}
+                                                                                        icon="Setting"
+                                                                                    >
+                                                                                        {$t('commons.button.set')}
+                                                                                    </ElButton>,
+                                                                                    [[permissionDirective, true]],
+                                                                                )}
+                                                                            </>
+                                                                        ),
+                                                                    }}
+                                                                />
+                                                            ) : null}
+                                                        </ElFormItem>
+                                                        <ElFormItem label="IPv6" prop="ipv6">
+                                                            {withDirectives(
+                                                                <ElSwitch
+                                                                    modelValue={form.ipv6}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        form.ipv6 = $v as any;
+                                                                    }}
+                                                                    onChange={($event?: any) => {
+                                                                        (handleIPv6 as any)($event);
+                                                                    }}
+                                                                />,
+                                                                [[permissionDirective, true]],
+                                                            )}
+                                                            <span class={'input-help'} />
+                                                            {unref(ipv6OptionShow) ? (
+                                                                <div>
+                                                                    <ElTag>
+                                                                        {$t('container.subnet')}
+                                                                        {': '}
+                                                                        {form.fixedCidrV6}
+                                                                    </ElTag>
+                                                                    <div>
+                                                                        <ElButton
+                                                                            onClick={($event?: any) => {
+                                                                                (handleIPv6 as any)($event);
+                                                                            }}
+                                                                            type="primary"
+                                                                            link
+                                                                        >
+                                                                            {$t('commons.button.view')}
+                                                                        </ElButton>
+                                                                    </div>
+                                                                </div>
+                                                            ) : null}
+                                                        </ElFormItem>
+                                                        <ElFormItem label={$t('container.cutLog')} prop="hasLogOption">
+                                                            {withDirectives(
+                                                                <ElSwitch
+                                                                    modelValue={form.logOptionShow}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        form.logOptionShow = $v as any;
+                                                                    }}
+                                                                    onChange={($event?: any) => {
+                                                                        (handleLogOption as any)($event);
+                                                                    }}
+                                                                />,
+                                                                [[permissionDirective, true]],
+                                                            )}
+                                                            <span class={'input-help'} />
+                                                            {unref(logOptionShow) ? (
+                                                                <div>
+                                                                    <ElTag>
+                                                                        {$t('container.maxSize')}
+                                                                        {': '}
+                                                                        {form.logMaxSize}
+                                                                    </ElTag>
+                                                                    <ElTag class={'p-ml-5'}>
+                                                                        {$t('container.maxFile')}
+                                                                        {': '}
+                                                                        {form.logMaxFile}
+                                                                    </ElTag>
+                                                                    <div>
+                                                                        <ElButton
+                                                                            onClick={($event?: any) => {
+                                                                                (handleLogOption as any)($event);
+                                                                            }}
+                                                                            type="primary"
+                                                                            link
+                                                                        >
+                                                                            {$t('commons.button.view')}
+                                                                        </ElButton>
+                                                                    </div>
+                                                                </div>
+                                                            ) : null}
+                                                        </ElFormItem>
+                                                        <ElFormItem label="iptables" prop="iptables">
+                                                            {withDirectives(
+                                                                <ElSwitch
+                                                                    modelValue={form.iptables}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        form.iptables = $v as any;
+                                                                    }}
+                                                                    onChange={($event?: any) => {
+                                                                        (handleIptables as any)($event);
+                                                                    }}
+                                                                />,
+                                                                [[permissionDirective, true]],
+                                                            )}
+                                                            <span class={'input-help'}>
+                                                                {$t('container.iptablesHelper1')}
+                                                            </span>
+                                                        </ElFormItem>
+                                                        <ElFormItem label={$t('container.nvidiaSupport')} prop="nvidia">
+                                                            {withDirectives(
+                                                                <ElSwitch
+                                                                    modelValue={form.nvidia}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        form.nvidia = $v as any;
+                                                                    }}
+                                                                    disabled={!form.nvidiaSupported}
+                                                                    onChange={($event?: any) => {
+                                                                        (handleNVIDIA as any)($event);
+                                                                    }}
+                                                                />,
+                                                                [[permissionDirective, true]],
+                                                            )}
+                                                            <span class={'input-help'}>
+                                                                {$t('container.nvidiaHelper')}
+                                                            </span>
+                                                            {!form.nvidiaSupported ? (
+                                                                <span class={'input-help'}>
+                                                                    {$t('container.nvidiaLocalOnly')}
+                                                                </span>
+                                                            ) : null}
+                                                        </ElFormItem>
+                                                        <ElFormItem label="Live restore" prop="liveRestore">
+                                                            {withDirectives(
+                                                                <ElSwitch
+                                                                    disabled={form.isSwarm}
+                                                                    modelValue={form.liveRestore}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        form.liveRestore = $v as any;
+                                                                    }}
+                                                                    onChange={($event?: any) => {
+                                                                        (handleLive as any)($event);
+                                                                    }}
+                                                                />,
+                                                                [[permissionDirective, true]],
+                                                            )}
+                                                            <span class={'input-help'}>
+                                                                {$t('container.liveHelper')}
+                                                            </span>
+                                                            {form.isSwarm ? (
+                                                                <span class={'input-help'}>
+                                                                    {$t('container.liveWithSwarmHelper')}
+                                                                </span>
+                                                            ) : null}
+                                                        </ElFormItem>
+                                                        <ElFormItem label="Cgroup Driver" prop="cgroupDriver">
+                                                            {withDirectives(
+                                                                <ElRadioGroup
+                                                                    modelValue={form.cgroupDriver}
+                                                                    onUpdate:modelValue={($v) => {
+                                                                        form.cgroupDriver = $v as any;
+                                                                    }}
+                                                                    onChange={($event?: any) => {
+                                                                        (handleCgroup as any)($event);
+                                                                    }}
+                                                                >
+                                                                    <ElRadio value="cgroupfs">{'cgroupfs'}</ElRadio>
+                                                                    <ElRadio value="systemd">{'systemd'}</ElRadio>
+                                                                </ElRadioGroup>,
+                                                                [[permissionDirective, true]],
+                                                            )}
+                                                        </ElFormItem>
+                                                        <ElFormItem
+                                                            label={$t('container.sockPath')}
+                                                            prop="dockerSockPath"
+                                                        >
+                                                            <ElInput
+                                                                disabled
+                                                                modelValue={form.dockerSockPath}
+                                                                onUpdate:modelValue={($v) => {
+                                                                    form.dockerSockPath = $v as any;
+                                                                }}
+                                                                v-slots={{
+                                                                    append: () => (
+                                                                        <>
+                                                                            {withDirectives(
+                                                                                <ElButton
+                                                                                    onClick={($event?: any) => {
+                                                                                        (onChangeSockPath as any)(
+                                                                                            $event,
+                                                                                        );
+                                                                                    }}
+                                                                                    icon="Setting"
+                                                                                >
+                                                                                    {$t('commons.button.set')}
+                                                                                </ElButton>,
+                                                                                [[permissionDirective, true]],
+                                                                            )}
+                                                                        </>
+                                                                    ),
+                                                                }}
+                                                            />
+                                                            <span class={'input-help'}>
+                                                                {$t('container.sockPathHelper')}
+                                                            </span>
+                                                        </ElFormItem>
+                                                    </ElForm>
+                                                </ElCol>
+                                            </ElRow>
+                                        ) : null}
+                                        {unref(confShowType) === 'all' ? (
+                                            <div>
+                                                <CodemirrorPro
+                                                    heightDiff={loadHeight()}
+                                                    minHeight={350}
+                                                    modelValue={unref(dockerConf)}
+                                                    onUpdate:modelValue={($v) => {
+                                                        dockerConf.value = $v as any;
+                                                    }}
+                                                    mode="json"
+                                                    placeholder="# The Docker configuration file does not exist or is empty"
+                                                    class={'mt-5'}
+                                                />
+                                                {withDirectives(
+                                                    <ElButton
+                                                        disabled={unref(loading)}
+                                                        type="primary"
+                                                        onClick={($event?: any) => {
+                                                            (onSaveFile as any)($event);
+                                                        }}
+                                                        class={'mt-2.5'}
+                                                    >
+                                                        {$t('commons.button.save')}
+                                                    </ElButton>,
+                                                    [[permissionDirective, true]],
+                                                )}
+                                            </div>
+                                        ) : null}
+                                    </>
+                                ),
+                            }}
+                        />
+                    ) : null}
+                    <DialogPro
+                        modelValue={unref(open)}
+                        onUpdate:modelValue={($v) => {
+                            open.value = $v as any;
+                        }}
+                        title={$t('container.iptablesDisable')}
+                        size="small"
+                        v-slots={{
+                            footer: () => (
+                                <>
+                                    <span class={'dialog-footer'}>
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                open.value = false;
+                                                search();
+                                            }}
+                                        >
+                                            {$t('commons.button.cancel')}
+                                        </ElButton>
+                                        {withDirectives(
+                                            <ElButton
+                                                disabled={unref(submitInput) !== $t('database.restartNow')}
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    (onSubmitCloseIPtable as any)($event);
+                                                }}
+                                            >
+                                                {$t('commons.button.confirm')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                    </span>
+                                </>
+                            ),
+                        }}
+                    >
+                        <div class={'mt-2.5'}>
+                            <span class={'text-rose-500'}>{$t('container.iptablesHelper2')}</span>
+                            <div class={'mt-2.5'}>
+                                <span class={'text-xs'}>{$t('container.restartHelper')}</span>
+                            </div>
+                            <div class={'mt-2.5'}>
+                                <span class={'text-xs'}>{$t('commons.msg.operateConfirm')}</span>
+                                <span class={'text-xs font-medium text-rose-500'}>
+                                    {"'"}
+                                    {$t('database.restartNow')}
+                                    {"'"}
+                                </span>
+                            </div>
+                            <ElInput
+                                modelValue={unref(submitInput)}
+                                onUpdate:modelValue={($v) => {
+                                    submitInput.value = $v as any;
+                                }}
+                                class={'mt-2.5'}
+                            />
+                        </div>
+                    </DialogPro>
+                    <Mirror
+                        ref={mirrorRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Registry
+                        ref={registriesRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <LogOption
+                        ref={logOptionRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Ipv6Option
+                        ref={ipv6OptionRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <SockPath
+                        ref={sockPathRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialogRefIpv6}
+                        onConfirm={($event?: any) => {
+                            (onSaveIPv6 as any)($event);
+                        }}
+                        onCancel={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialogRefIptable}
+                        onConfirm={($event?: any) => {
+                            (onSubmitOpenIPtable as any)($event);
+                        }}
+                        onCancel={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialogRefLog}
+                        onConfirm={($event?: any) => {
+                            (onSubmitSaveLog as any)($event);
+                        }}
+                        onCancel={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialogRefNVIDIA}
+                        onConfirm={($event?: any) => {
+                            (onSubmitSaveNVIDIA as any)($event);
+                        }}
+                        onCancel={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialogRefLive}
+                        onConfirm={($event?: any) => {
+                            (onSubmitSaveLive as any)($event);
+                        }}
+                        onCancel={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialogRefCgroup}
+                        onConfirm={($event?: any) => {
+                            (onSubmitSaveCgroup as any)($event);
+                        }}
+                        onCancel={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialogRefFile}
+                        onConfirm={($event?: any) => {
+                            (onSubmitSaveFile as any)($event);
+                        }}
+                        onCancel={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                </div>,
+                [[vLoading, unref(loading)]],
+            );
     },
     options,
 );

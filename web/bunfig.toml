@@ -10,3 +10,16 @@ trailingComma = "all"
 bracketSpacing = true
 arrowParens = "always"
 endOfLine = "lf"
+
+# 生成产物由 ./scripts/gen.sh 或 Vite 插件维护，格式化会污染 diff 并在下次生成时被覆盖
+ignorePatterns = [
+    "src/gen/",
+    "src/assets/iconfont/",
+    "src/typed-router.d.ts",
+    "auto-imports.d.ts",
+    "components.d.ts",
+]
+
+[fmt.sortTailwindcss]
+stylesheet = "./src/styles/style.css"
+functions = ["cn", "clsx", "twMerge"]

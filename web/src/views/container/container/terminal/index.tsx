@@ -21,17 +21,14 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "terminal",
-        props: {},
-        emits: emits,
+    name: 'terminal',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -91,10 +88,143 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             terminalVisible.value = false;
         }
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DrawerPro modelValue={unref(terminalVisible)} onUpdate:modelValue={$v => { terminalVisible.value = $v as any }} header={$t('menu.terminal')} onClose={($event?: any) => { (handleClose as any)($event); }} resource={unref(title)} autoClose={!unref(terminalOpen)} size="large" fullScreen={true} v-slots={{ "content": () => <><ElForm ref={formRef} model={form} label-position="top">{(form.containerIDList.length > 1) ? <ElFormItem label={$t('menu.container')} prop="containerID"><ElSelect placeholder="container" clearable modelValue={form.containerID} onUpdate:modelValue={$v => { form.containerID = $v as any }}>{((form.containerIDList || [])).map((item) => <ElOption label={item} value={item} key={item} />)}</ElSelect></ElFormItem> : null}<ElFormItem label={$t('commons.table.user')} prop="user"><ElInput placeholder="root" clearable modelValue={form.user} onUpdate:modelValue={$v => { form.user = $v as any }} /></ElFormItem>{(form.isCustom) ? <ElFormItem label={$t('container.command')} prop="command" rules={Rules.requiredInput}><ElCheckbox border modelValue={form.isCustom} onUpdate:modelValue={$v => { form.isCustom = $v as any }} onChange={($event?: any) => { (onChangeCommand as any)($event); }} class={"p-w-100"}>{$t('container.custom')}</ElCheckbox><ElInput clearable modelValue={form.command} onUpdate:modelValue={$v => { form.command = $v as any }} style={"width: calc(100% - 100px)"} /></ElFormItem> : null}{(!form.isCustom) ? <ElFormItem label={$t('container.command')} prop="command" rules={Rules.requiredSelect}><ElCheckbox border modelValue={form.isCustom} onUpdate:modelValue={$v => { form.isCustom = $v as any }} onChange={($event?: any) => { (onChangeCommand as any)($event); }} class={"p-w-100"}>{$t('container.custom')}</ElCheckbox><ElSelect filterable clearable modelValue={form.command} onUpdate:modelValue={$v => { form.command = $v as any }} style={"width: calc(100% - 100px)"}><ElOption value="/bin/ash" label="/bin/ash" /><ElOption value="/bin/bash" label="/bin/bash" /><ElOption value="/bin/sh" label="/bin/sh" /></ElSelect></ElFormItem> : null}{(!unref(terminalOpen)) ? <ElButton onClick={($event?: any) => { initTerm(unref(formRef)); }}>{$t('commons.button.conn')}</ElButton> : <ElButton onClick={($event?: any) => { onClose(); }}>{$t('commons.button.disConn')}</ElButton>}{(unref(terminalOpen)) ? <Terminal ref={terminalRef} style={"height: calc(100vh - 312px); margin-top: 18px"} /> : null}</ElForm></> }} />
+            <DrawerPro
+                modelValue={unref(terminalVisible)}
+                onUpdate:modelValue={($v) => {
+                    terminalVisible.value = $v as any;
+                }}
+                header={$t('menu.terminal')}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                resource={unref(title)}
+                autoClose={!unref(terminalOpen)}
+                size="large"
+                fullScreen={true}
+                v-slots={{
+                    content: () => (
+                        <>
+                            <ElForm ref={formRef} model={form} label-position="top">
+                                {form.containerIDList.length > 1 ? (
+                                    <ElFormItem label={$t('menu.container')} prop="containerID">
+                                        <ElSelect
+                                            placeholder="container"
+                                            clearable
+                                            modelValue={form.containerID}
+                                            onUpdate:modelValue={($v) => {
+                                                form.containerID = $v as any;
+                                            }}
+                                        >
+                                            {(form.containerIDList || []).map((item) => (
+                                                <ElOption label={item} value={item} key={item} />
+                                            ))}
+                                        </ElSelect>
+                                    </ElFormItem>
+                                ) : null}
+                                <ElFormItem label={$t('commons.table.user')} prop="user">
+                                    <ElInput
+                                        placeholder="root"
+                                        clearable
+                                        modelValue={form.user}
+                                        onUpdate:modelValue={($v) => {
+                                            form.user = $v as any;
+                                        }}
+                                    />
+                                </ElFormItem>
+                                {form.isCustom ? (
+                                    <ElFormItem
+                                        label={$t('container.command')}
+                                        prop="command"
+                                        rules={Rules.requiredInput}
+                                    >
+                                        <ElCheckbox
+                                            border
+                                            modelValue={form.isCustom}
+                                            onUpdate:modelValue={($v) => {
+                                                form.isCustom = $v as any;
+                                            }}
+                                            onChange={($event?: any) => {
+                                                (onChangeCommand as any)($event);
+                                            }}
+                                            class={'p-w-100'}
+                                        >
+                                            {$t('container.custom')}
+                                        </ElCheckbox>
+                                        <ElInput
+                                            clearable
+                                            modelValue={form.command}
+                                            onUpdate:modelValue={($v) => {
+                                                form.command = $v as any;
+                                            }}
+                                            style={'width: calc(100% - 100px)'}
+                                        />
+                                    </ElFormItem>
+                                ) : null}
+                                {!form.isCustom ? (
+                                    <ElFormItem
+                                        label={$t('container.command')}
+                                        prop="command"
+                                        rules={Rules.requiredSelect}
+                                    >
+                                        <ElCheckbox
+                                            border
+                                            modelValue={form.isCustom}
+                                            onUpdate:modelValue={($v) => {
+                                                form.isCustom = $v as any;
+                                            }}
+                                            onChange={($event?: any) => {
+                                                (onChangeCommand as any)($event);
+                                            }}
+                                            class={'p-w-100'}
+                                        >
+                                            {$t('container.custom')}
+                                        </ElCheckbox>
+                                        <ElSelect
+                                            filterable
+                                            clearable
+                                            modelValue={form.command}
+                                            onUpdate:modelValue={($v) => {
+                                                form.command = $v as any;
+                                            }}
+                                            style={'width: calc(100% - 100px)'}
+                                        >
+                                            <ElOption value="/bin/ash" label="/bin/ash" />
+                                            <ElOption value="/bin/bash" label="/bin/bash" />
+                                            <ElOption value="/bin/sh" label="/bin/sh" />
+                                        </ElSelect>
+                                    </ElFormItem>
+                                ) : null}
+                                {!unref(terminalOpen) ? (
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            initTerm(unref(formRef));
+                                        }}
+                                    >
+                                        {$t('commons.button.conn')}
+                                    </ElButton>
+                                ) : (
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            onClose();
+                                        }}
+                                    >
+                                        {$t('commons.button.disConn')}
+                                    </ElButton>
+                                )}
+                                {unref(terminalOpen) ? (
+                                    <Terminal
+                                        ref={terminalRef}
+                                        style={'height: calc(100vh - 312px); margin-top: 18px'}
+                                    />
+                                ) : null}
+                            </ElForm>
+                        </>
+                    ),
+                }}
+            />
         );
     },
     options,

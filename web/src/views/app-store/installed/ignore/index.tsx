@@ -16,20 +16,17 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'close': (...args: unknown[]) => true,
+    close: (...args: unknown[]) => true,
 };
 
-
-
 const options = {
-        name: "ignore",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-f7b94c24",
+    name: 'ignore',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-f7b94c24',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -71,10 +68,80 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 });
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DrawerPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} header={$t('app.ignoreList')} onClose={($event?: any) => { (handleClose as any)($event); }} size="small" v-slots={{ "content": () => <><ElTable data={unref(apps)}><ElTableColumn prop="name" label={$t('app.app')} /><ElTableColumn prop="scope" label={$t('license.trialInfo')} v-slots={{ "default": ({ row }) => <>{(row.version != '') ? <ElTag>{row.version}</ElTag> : <ElTag>{$t('commons.table.all') + $t('app.version')}</ElTag>}</> }} /><ElTableColumn prop="scope" label={$t('commons.table.operate')} v-slots={{ "default": ({ row }) => <>{withDirectives(<ElButton type="primary" link onClick={($event?: any) => { cancelIgnore(row.id); }}>{$t('app.cancelIgnore')}</ElButton>, [[permissionDirective, true]])}</> }} /></ElTable></>, "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { (handleClose as any)($event); }} disabled={unref(loading)}>{$t('commons.button.cancel')}</ElButton></span></> }} />
+            <DrawerPro
+                modelValue={unref(open)}
+                onUpdate:modelValue={($v) => {
+                    open.value = $v as any;
+                }}
+                header={$t('app.ignoreList')}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                size="small"
+                v-slots={{
+                    content: () => (
+                        <>
+                            <ElTable data={unref(apps)}>
+                                <ElTableColumn prop="name" label={$t('app.app')} />
+                                <ElTableColumn
+                                    prop="scope"
+                                    label={$t('license.trialInfo')}
+                                    v-slots={{
+                                        default: ({ row }) => (
+                                            <>
+                                                {row.version != '' ? (
+                                                    <ElTag>{row.version}</ElTag>
+                                                ) : (
+                                                    <ElTag>{$t('commons.table.all') + $t('app.version')}</ElTag>
+                                                )}
+                                            </>
+                                        ),
+                                    }}
+                                />
+                                <ElTableColumn
+                                    prop="scope"
+                                    label={$t('commons.table.operate')}
+                                    v-slots={{
+                                        default: ({ row }) => (
+                                            <>
+                                                {withDirectives(
+                                                    <ElButton
+                                                        type="primary"
+                                                        link
+                                                        onClick={($event?: any) => {
+                                                            cancelIgnore(row.id);
+                                                        }}
+                                                    >
+                                                        {$t('app.cancelIgnore')}
+                                                    </ElButton>,
+                                                    [[permissionDirective, true]],
+                                                )}
+                                            </>
+                                        ),
+                                    }}
+                                />
+                            </ElTable>
+                        </>
+                    ),
+                    footer: () => (
+                        <>
+                            <span class={'dialog-footer'}>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        (handleClose as any)($event);
+                                    }}
+                                    disabled={unref(loading)}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                            </span>
+                        </>
+                    ),
+                }}
+            />
         );
     },
     options,

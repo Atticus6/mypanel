@@ -26,18 +26,15 @@ import { Promotion } from '@element-plus/icons-vue';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "detail",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-787f760a",
+    name: 'detail',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-787f760a',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -98,12 +95,131 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             }
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} header={$t('app.detail')} onClose={($event?: any) => { (handleClose as any)($event); }} size="large" v-slots={{ "content": () => <>{withDirectives(<div class={"brief"}><div class={"detail flex"}><div class={"w-12 h-12 rounded p-1 shadow-md icon"}><ElAvatar src={getAppIconUrl(unref(app).key, unref(currentNode), unref(app).icon)} alt="App Icon" shape="square" fit="contain" class={"!w-full !h-full rounded"}><SvgIcon iconName="p-appstore" /></ElAvatar></div><div class={"ml-4"}><div class={"name mb-2"}><span>{unref(app).name}</span></div><div class={"description mb-4"}><span>{unref(app).description}</span></div><br />{(!unref(loadingDetail)) ? <div class={"mb-2"}>{(!unref(appDetail).enable) ? <ElAlert title={$t('app.limitHelper')} type="warning" show-icon closable={false} /> : null}</div> : null}{(unref(appDetail).enable && unref(operate) === 'install') ? withDirectives(<ElButton round onClick={($event?: any) => { (openInstall as any)($event); }} type="primary" class={"brief-button"}>{$t('commons.button.install')}</ElButton>, [[permissionDirective, true]]) : null}</div></div><div class={"descriptions"}><ElDescriptions border size="large" direction="vertical"><ElDescriptionsItem label={$t('app.appOfficeWebsite')}><ElLink onClick={($event?: any) => { toLink(unref(app).website); }}>{$t('app.link')}<ElIcon class={"ml-1.5"}><Promotion /></ElIcon></ElLink></ElDescriptionsItem><ElDescriptionsItem label={$t('app.github')}><ElLink onClick={($event?: any) => { toLink(unref(app).github); }}>{$t('app.link')}<ElIcon class={"ml-1.5"}><Promotion /></ElIcon></ElLink></ElDescriptionsItem>{(unref(appDetail).memoryRequired > 0) ? <ElDescriptionsItem label={$t('app.requireMemory')}><span>{computeSizeFromMB(unref(appDetail).memoryRequired)}</span></ElDescriptionsItem> : null}{(unref(architectures).length > 0) ? <ElDescriptionsItem label={$t('app.supportedArchitectures')}>{((unref(architectures) || [])).map((arch, index) => <ElTag class={"mx-1"} key={index}>{arch}</ElTag>)}</ElDescriptionsItem> : null}</ElDescriptions></div></div>, [[vLoading, unref(loadingApp)]])}<MarkDownEditor content={unref(app).readMe} /></> }} />
-            <Install ref={installRef} />
+                <DrawerPro
+                    modelValue={unref(open)}
+                    onUpdate:modelValue={($v) => {
+                        open.value = $v as any;
+                    }}
+                    header={$t('app.detail')}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    size="large"
+                    v-slots={{
+                        content: () => (
+                            <>
+                                {withDirectives(
+                                    <div class={'brief'}>
+                                        <div class={'detail flex'}>
+                                            <div class={'icon h-12 w-12 rounded p-1 shadow-md'}>
+                                                <ElAvatar
+                                                    src={getAppIconUrl(
+                                                        unref(app).key,
+                                                        unref(currentNode),
+                                                        unref(app).icon,
+                                                    )}
+                                                    alt="App Icon"
+                                                    shape="square"
+                                                    fit="contain"
+                                                    class={'!h-full !w-full rounded'}
+                                                >
+                                                    <SvgIcon iconName="p-appstore" />
+                                                </ElAvatar>
+                                            </div>
+                                            <div class={'ml-4'}>
+                                                <div class={'name mb-2'}>
+                                                    <span>{unref(app).name}</span>
+                                                </div>
+                                                <div class={'description mb-4'}>
+                                                    <span>{unref(app).description}</span>
+                                                </div>
+                                                <br />
+                                                {!unref(loadingDetail) ? (
+                                                    <div class={'mb-2'}>
+                                                        {!unref(appDetail).enable ? (
+                                                            <ElAlert
+                                                                title={$t('app.limitHelper')}
+                                                                type="warning"
+                                                                show-icon
+                                                                closable={false}
+                                                            />
+                                                        ) : null}
+                                                    </div>
+                                                ) : null}
+                                                {unref(appDetail).enable && unref(operate) === 'install'
+                                                    ? withDirectives(
+                                                          <ElButton
+                                                              round
+                                                              onClick={($event?: any) => {
+                                                                  (openInstall as any)($event);
+                                                              }}
+                                                              type="primary"
+                                                              class={'brief-button'}
+                                                          >
+                                                              {$t('commons.button.install')}
+                                                          </ElButton>,
+                                                          [[permissionDirective, true]],
+                                                      )
+                                                    : null}
+                                            </div>
+                                        </div>
+                                        <div class={'descriptions'}>
+                                            <ElDescriptions border size="large" direction="vertical">
+                                                <ElDescriptionsItem label={$t('app.appOfficeWebsite')}>
+                                                    <ElLink
+                                                        onClick={($event?: any) => {
+                                                            toLink(unref(app).website);
+                                                        }}
+                                                    >
+                                                        {$t('app.link')}
+                                                        <ElIcon class={'ml-1.5'}>
+                                                            <Promotion />
+                                                        </ElIcon>
+                                                    </ElLink>
+                                                </ElDescriptionsItem>
+                                                <ElDescriptionsItem label={$t('app.github')}>
+                                                    <ElLink
+                                                        onClick={($event?: any) => {
+                                                            toLink(unref(app).github);
+                                                        }}
+                                                    >
+                                                        {$t('app.link')}
+                                                        <ElIcon class={'ml-1.5'}>
+                                                            <Promotion />
+                                                        </ElIcon>
+                                                    </ElLink>
+                                                </ElDescriptionsItem>
+                                                {unref(appDetail).memoryRequired > 0 ? (
+                                                    <ElDescriptionsItem label={$t('app.requireMemory')}>
+                                                        <span>
+                                                            {computeSizeFromMB(unref(appDetail).memoryRequired)}
+                                                        </span>
+                                                    </ElDescriptionsItem>
+                                                ) : null}
+                                                {unref(architectures).length > 0 ? (
+                                                    <ElDescriptionsItem label={$t('app.supportedArchitectures')}>
+                                                        {(unref(architectures) || []).map((arch, index) => (
+                                                            <ElTag class={'mx-1'} key={index}>
+                                                                {arch}
+                                                            </ElTag>
+                                                        ))}
+                                                    </ElDescriptionsItem>
+                                                ) : null}
+                                            </ElDescriptions>
+                                        </div>
+                                    </div>,
+                                    [[vLoading, unref(loadingApp)]],
+                                )}
+                                <MarkDownEditor content={unref(app).readMe} />
+                            </>
+                        ),
+                    }}
+                />
+                <Install ref={installRef} />
             </>
         );
     },

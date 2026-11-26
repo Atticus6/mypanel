@@ -19,19 +19,16 @@ import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "delete",
-        props: {},
-        emits: emits,
+    name: 'delete',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -95,10 +92,93 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             });
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <div><DrawerPro modelValue={unref(deleteVisible)} onUpdate:modelValue={$v => { deleteVisible.value = $v as any }} header={$t('container.imageDelete')} onClose={($event?: any) => { (handleClose as any)($event); }} size="small" v-slots={{ "footer": () => <><ElButton onClick={($event?: any) => { deleteVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" disabled={form.deleteTags.length === 0} onClick={($event?: any) => { batchDelete(); }}>{$t('commons.button.delete')}</ElButton></> }}><ElForm onSubmit={($event?: any) => { $event.preventDefault(); ; }} model={form} label-position="top"><ElFormItem label={$t('container.tag')} prop="tagName"><div style={"width: 100%"}><ElCheckbox modelValue={unref(deleteAll)} onUpdate:modelValue={$v => { deleteAll.value = $v as any }} indeterminate={unref(isIndeterminate)} onChange={($event?: any) => { (handleCheckAllChange as any)($event); }}>{$t('container.removeAll')}</ElCheckbox></div><ElCheckboxGroup modelValue={form.deleteTags} onUpdate:modelValue={$v => { form.deleteTags = $v as any }} onChange={($event?: any) => { (handleCheckedChange as any)($event); }}><div>{((form.tags || [])).map((item) => <ElCheckbox value={item} label={item} style={"width: 100%"} key={item} />)}</div></ElCheckboxGroup></ElFormItem></ElForm></DrawerPro><OpDialog ref={opRef} onSearch={($event?: any) => { (onSearch as any)($event); }} onCancel={($event?: any) => { (handleClose as any)($event); }} /></div>
+            <div>
+                <DrawerPro
+                    modelValue={unref(deleteVisible)}
+                    onUpdate:modelValue={($v) => {
+                        deleteVisible.value = $v as any;
+                    }}
+                    header={$t('container.imageDelete')}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    size="small"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        deleteVisible.value = false;
+                                    }}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    type="primary"
+                                    disabled={form.deleteTags.length === 0}
+                                    onClick={($event?: any) => {
+                                        batchDelete();
+                                    }}
+                                >
+                                    {$t('commons.button.delete')}
+                                </ElButton>
+                            </>
+                        ),
+                    }}
+                >
+                    <ElForm
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                        model={form}
+                        label-position="top"
+                    >
+                        <ElFormItem label={$t('container.tag')} prop="tagName">
+                            <div style={'width: 100%'}>
+                                <ElCheckbox
+                                    modelValue={unref(deleteAll)}
+                                    onUpdate:modelValue={($v) => {
+                                        deleteAll.value = $v as any;
+                                    }}
+                                    indeterminate={unref(isIndeterminate)}
+                                    onChange={($event?: any) => {
+                                        (handleCheckAllChange as any)($event);
+                                    }}
+                                >
+                                    {$t('container.removeAll')}
+                                </ElCheckbox>
+                            </div>
+                            <ElCheckboxGroup
+                                modelValue={form.deleteTags}
+                                onUpdate:modelValue={($v) => {
+                                    form.deleteTags = $v as any;
+                                }}
+                                onChange={($event?: any) => {
+                                    (handleCheckedChange as any)($event);
+                                }}
+                            >
+                                <div>
+                                    {(form.tags || []).map((item) => (
+                                        <ElCheckbox value={item} label={item} style={'width: 100%'} key={item} />
+                                    ))}
+                                </div>
+                            </ElCheckboxGroup>
+                        </ElFormItem>
+                    </ElForm>
+                </DrawerPro>
+                <OpDialog
+                    ref={opRef}
+                    onSearch={($event?: any) => {
+                        (onSearch as any)($event);
+                    }}
+                    onCancel={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                />
+            </div>
         );
     },
     options,

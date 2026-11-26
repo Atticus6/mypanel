@@ -474,7 +474,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 }}
                 destroy-on-close
             >
-                <div class={'flex flex-col gap-4 min-h-[60vh]'}>
+                <div class={'flex min-h-[60vh] flex-col gap-4'}>
                     <ElAlert type="info" closable={false} show-icon>
                         {$t('file.historyHint')}
                     </ElAlert>
@@ -550,7 +550,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <div class={'history-workspace'}>
                         <ElCard
                             shadow="never"
-                            class={'min-h-0 history-list-card'}
+                            class={'history-list-card min-h-0'}
                             v-slots={{
                                 header: () => (
                                     <>
@@ -612,7 +612,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         onClick={($event?: any) => {
                                                             deleteSelected(null);
                                                         }}
-                                                        class={'w-full sm:w-auto !ml-0'}
+                                                        class={'!ml-0 w-full sm:w-auto'}
                                                     >
                                                         {$t('commons.button.delete')}
                                                     </ElButton>,
@@ -734,7 +734,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         {unref(selectedHistory) ? (
                             <ElCard
                                 shadow="never"
-                                class={'min-h-0 history-preview-card'}
+                                class={'history-preview-card min-h-0'}
                                 v-slots={{
                                     header: () => (
                                         <>
@@ -744,11 +744,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 }
                                             >
                                                 <div class={'min-w-0'}>
-                                                    <div class={'font-medium truncate'}>
+                                                    <div class={'truncate font-medium'}>
                                                         {unref(selectedHistory).fileName}
                                                     </div>
                                                     <div
-                                                        class={'text-xs text-[var(--el-text-color-secondary)] truncate'}
+                                                        class={'truncate text-xs text-[var(--el-text-color-secondary)]'}
                                                     >
                                                         {unref(selectedHistory).path}
                                                     </div>
@@ -756,7 +756,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     unref(selectedHistory).targetPath ? (
                                                         <div
                                                             class={
-                                                                'text-xs text-[var(--el-text-color-secondary)] truncate'
+                                                                'truncate text-xs text-[var(--el-text-color-secondary)]'
                                                             }
                                                         >
                                                             {unref(selectedHistory).sourcePath ||

@@ -27,7 +27,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <>
                 <div class={'app-warn'}>
-                    <div class={'flex flex-col gap-2 items-center justify-center w-full sm:flex-row'}>
+                    <div class={'flex w-full flex-col items-center justify-center gap-2 sm:flex-row'}>
                         <span>{$t('app.noAppHelper')}</span>
                         <span
                             onClick={($event?: any) => {

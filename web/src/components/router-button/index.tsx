@@ -191,7 +191,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                 <ElCard class={'router_card p-1 sm:p-0'}>
                     <div
                         class={
-                            'flex w-full flex-col justify-start sm:items-center items-start sm:justify-between sm:flex-row'
+                            'flex w-full flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between'
                         }
                     >
                         <ElRadioGroup
@@ -249,7 +249,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                         <div>
                                             <div
                                                 class={
-                                                    'flex flex-col gap-2 items-center justify-center w-full sm:flex-row'
+                                                    'flex w-full flex-col items-center justify-center gap-2 sm:flex-row'
                                                 }
                                             >
                                                 <span>{$t(unref(expiresAlertKey), [unref(expiresInfo)])}</span>

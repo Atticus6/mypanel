@@ -1,7 +1,10 @@
 import { useTheme } from '@/global/use-theme';
 import { GlobalStore } from '@/store';
 import faviconUrl from '@/assets/images/favicon.svg';
-import { searchXpackSetting, updateXpackSettingByKey as updateXpackSettingByKeyFromExtension } from '@/extensions/xpack';
+import {
+    searchXpackSetting,
+    updateXpackSettingByKey as updateXpackSettingByKeyFromExtension,
+} from '@/extensions/xpack';
 
 /**
  * 社区版主题与品牌设置。

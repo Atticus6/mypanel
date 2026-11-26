@@ -302,18 +302,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             onNodeDrop={($event?: any) => {
                                 (handleDrop as any)($event);
                             }}
-                            class={'mt-3 menu-hide-tree'}
+                            class={'menu-hide-tree mt-3'}
                             v-slots={{
                                 default: ({ node, data }) => (
                                     <>
-                                        <div class={'grid grid-cols-4 gap-4 items-center w-full py-2 group'}>
+                                        <div class={'group grid w-full grid-cols-4 items-center gap-4 py-2'}>
                                             <span
                                                 class={'col-span-2'}
                                                 style={{ paddingLeft: `${(node.level - 1) * 16}px` }}
                                             >
                                                 {i18n.global.t(data.title)}
                                             </span>
-                                            <span class={'flex justify-center w-[60px]'}>
+                                            <span class={'flex w-[60px] justify-center'}>
                                                 {!data.disabled ? (
                                                     <ElSwitch
                                                         modelValue={data.isShow}
@@ -336,7 +336,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </span>
                                             <span
                                                 class={cn(
-                                                    'text-right hidden cursor-move',
+                                                    'hidden cursor-move text-right',
                                                     data.label == 'Home-Menu' || data.children?.length > 0
                                                         ? ''
                                                         : 'group-hover:block',

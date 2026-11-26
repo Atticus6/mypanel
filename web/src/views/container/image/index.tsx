@@ -53,18 +53,15 @@ import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "image",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-3b08cae1",
+    name: 'image',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-3b08cae1',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -112,10 +109,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const updateTagOptions = ref<Array<string>>([]);
         const updateSelectedTags = ref<Array<string>>([]);
         const updateCheckAll = computed(
-            () => updateTagOptions.value.length > 0 && updateSelectedTags.value.length === updateTagOptions.value.length,
+            () =>
+                updateTagOptions.value.length > 0 && updateSelectedTags.value.length === updateTagOptions.value.length,
         );
         const updateIndeterminate = computed(
-            () => updateSelectedTags.value.length > 0 && updateSelectedTags.value.length < updateTagOptions.value.length,
+            () =>
+                updateSelectedTags.value.length > 0 && updateSelectedTags.value.length < updateTagOptions.value.length,
         );
         const search = async (column?: any) => {
             if (!isActive.value || !isExist.value) {
@@ -182,7 +181,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const onSubmitDelete = async () => {
             loading.value = true;
             let taskID = newUUID();
-            await rpc.container.removeImages({ names: names.value, taskId: taskID })
+            await rpc.container
+                .removeImages({ names: names.value, taskId: taskID })
                 .then(() => {
                     loading.value = false;
                     openTaskLog(taskID);
@@ -308,18 +308,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             dialogPruneRef.value!.acceptParams();
         };
         const onOpenBuildCache = () => {
-            ElMessageBox.confirm(i18n.global.t('container.delBuildCacheHelper'), i18n.global.t('container.cleanBuildCache'), {
-                confirmButtonText: i18n.global.t('commons.button.confirm'),
-                cancelButtonText: i18n.global.t('commons.button.cancel'),
-                type: 'info',
-            }).then(async () => {
+            ElMessageBox.confirm(
+                i18n.global.t('container.delBuildCacheHelper'),
+                i18n.global.t('container.cleanBuildCache'),
+                {
+                    confirmButtonText: i18n.global.t('commons.button.confirm'),
+                    cancelButtonText: i18n.global.t('commons.button.cancel'),
+                    type: 'info',
+                },
+            ).then(async () => {
                 loading.value = true;
                 let params = {
                     taskID: newUUID(),
                     pruneType: 'buildcache',
                     withTagAll: false,
                 };
-                await rpc.container.prune(params)
+                await rpc.container
+                    .prune(params)
                     .then(() => {
                         loading.value = false;
                         openTaskLog(params.taskID);
@@ -459,9 +464,398 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 },
             },
         ];
-        return () => (
-            withDirectives(<div><DockerStatus isActive={unref(isActive)} onUpdate:isActive={$v => { isActive.value = $v as any }} isExist={unref(isExist)} onUpdate:isExist={$v => { isExist.value = $v as any }} loading={unref(loading)} onUpdate:loading={$v => { loading.value = $v as any }} onSearch={($event?: any) => { (search as any)($event); }} onMounted={($event?: any) => { (loadRepos as any)($event); }} />{(unref(isExist)) ? <LayoutContent title={$t('container.image', 2)} class={{ mask: !unref(isActive) }} v-slots={{ "leftToolBar": () => <>{withDirectives(<ElButton type="primary" plain onClick={($event?: any) => { (onOpenPull as any)($event); }}>{$t('container.imagePull')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton type="primary" plain onClick={($event?: any) => { unref(remoteSearchRef).open(); }}>{$t('container.imageRemoteSearch')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton type="primary" plain onClick={($event?: any) => { (onOpenLoad as any)($event); }}>{$t('container.importImage')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton type="primary" plain onClick={($event?: any) => { (onOpenBuild as any)($event); }}>{$t('container.imageBuild')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton type="primary" plain onClick={($event?: any) => { onOpenBuildCache(); }}>{$t('container.cleanBuildCache')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton type="primary" plain onClick={($event?: any) => { onOpenPrune(); }}>{$t('container.imagePrune')}</ElButton>, [[permissionDirective, true]])}</>, "rightToolBar": () => <><TableSearch onSearch={($event?: any) => { search(); }} searchName={paginationConfig.name} onUpdate:searchName={$v => { paginationConfig.name = $v as any }} /><TableRefresh onSearch={($event?: any) => { search(); }} /><TableSetting title="image-refresh" onSearch={($event?: any) => { search(); }} /></>, "main": () => <><ComplexTable cache-pagination={false} pagination-config={paginationConfig} data={unref(data)} onSortChange={($event?: any) => { (search as any)($event); }} columns={unref(columns)} onSearch={($event?: any) => { (search as any)($event); }} heightDiff={300}><ElTableColumn label="ID" prop="id" width="180" v-slots={{ "default": ({ row }) => <><ElText type="primary" onClick={($event?: any) => { onInspect(row.id); }} class={"cursor-pointer"}>{row.id.replaceAll('sha256:', '').substring(0, 12)}</ElText><div class={"float-right"}><ElTooltip {...TABLE_TOOLTIP_OPTIONS} content={row.isPinned ? $t('commons.table.unpin') : $t('commons.table.pin')}>{withDirectives(<ElButton link size="large" type={row.isPinned ? 'warning' : 'info'} onClick={($event?: any) => { changePinned(row, true); }} class={cn("image-pin-button", { 'is-pinned': row.isPinned })}><SvgIcon iconName="p-pushpin" className="image-pin-icon" /></ElButton>, [[permissionDirective, true]])}</ElTooltip></div></> }} /><ElTableColumn label={$t('commons.table.status')} prop="isUsed" width="100" sortable="custom" v-slots={{ "default": ({ row }) => <><Status status={row.isUsed ? 'used' : 'unused'} /></> }} /><ElTableColumn label={$t('container.tag')} prop="tags" sortable="custom" min-width="160" width={unref(isMobile) ? 400 : 'auto'} fix v-slots={{ "default": ({ row }) => <>{((row.tags || [])).map((item, index) => <ElTag title={item} type="info" class={"ml-2.5"} key={index}>{item}</ElTag>)}</> }} /><ElTableColumn label={$t('container.size')} prop="size" min-width="60" fix sortable="custom" v-slots={{ "default": ({ row }) => <>{computeSize2(row.size)}</> }} /><ElTableColumn sortable="custom" prop="createdAt" min-width="80" label={$t('commons.table.date')} formatter={dateFormat} /><FuTableOperations width="250px" ellipsis={2} buttons={buttons} label={$t('commons.table.operate')} /></ComplexTable></> }} /> : null}<CodemirrorDrawer ref={myDetail} /><DialogPro modelValue={unref(updateDialogVisible)} onUpdate:modelValue={$v => { updateDialogVisible.value = $v as any }} title={$t('commons.button.update')} onClose={($event?: any) => { (handleUpdateDialogClose as any)($event); }} v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { (handleUpdateDialogClose as any)($event); }}>{$t('commons.button.cancel')}</ElButton>{withDirectives(<ElButton type="primary" onClick={($event?: any) => { (submitUpdateSelection as any)($event); }}>{$t('commons.button.confirm')}</ElButton>, [[permissionDirective, true]])}</span></> }}><ElForm label-position="top"><ElFormItem label={$t('container.tag')}><ElCheckbox model-value={unref(updateCheckAll)} indeterminate={unref(updateIndeterminate)} onChange={($event?: any) => { (onUpdateCheckAllChange as any)($event); }} class={"w-full"}>{$t('commons.table.all')}</ElCheckbox><ElCheckboxGroup modelValue={unref(updateSelectedTags)} onUpdate:modelValue={$v => { updateSelectedTags.value = $v as any }}>{((unref(updateTagOptions) || [])).map((tag) => <ElCheckbox label={tag} key={tag}>{tag}</ElCheckbox>)}</ElCheckboxGroup><span class={"input-help"}>{$t('container.imageUpdateHelper')}</span></ElFormItem></ElForm></DialogPro><OpDialog ref={opRef} onSubmit={($event?: any) => { (onSubmitDelete as any)($event); }} /><Pull ref={dialogPullRef} onSearch={($event?: any) => { (search as any)($event); }} /><RemoteSearch ref={remoteSearchRef} onPull={($event?: any) => { (onRemotePull as any)($event); }} /><Tag ref={dialogTagRef} onSearch={($event?: any) => { (search as any)($event); }} /><Push ref={dialogPushRef} onSearch={($event?: any) => { (search as any)($event); }} /><Save ref={dialogSaveRef} onSearch={($event?: any) => { (search as any)($event); }} /><Load ref={dialogLoadRef} onSearch={($event?: any) => { (search as any)($event); }} /><Build ref={dialogBuildRef} onSearch={($event?: any) => { (search as any)($event); }} /><Delete ref={dialogDeleteRef} onSearch={($event?: any) => { (search as any)($event); }} /><Prune ref={dialogPruneRef} onSearch={($event?: any) => { (search as any)($event); }} /><TaskLog ref={taskLogRef} width="70%" onClose={($event?: any) => { (search as any)($event); }} /></div>, [[vLoading, unref(loading)]])
-        );
+        return () =>
+            withDirectives(
+                <div>
+                    <DockerStatus
+                        isActive={unref(isActive)}
+                        onUpdate:isActive={($v) => {
+                            isActive.value = $v as any;
+                        }}
+                        isExist={unref(isExist)}
+                        onUpdate:isExist={($v) => {
+                            isExist.value = $v as any;
+                        }}
+                        loading={unref(loading)}
+                        onUpdate:loading={($v) => {
+                            loading.value = $v as any;
+                        }}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                        onMounted={($event?: any) => {
+                            (loadRepos as any)($event);
+                        }}
+                    />
+                    {unref(isExist) ? (
+                        <LayoutContent
+                            title={$t('container.image', 2)}
+                            class={{ mask: !unref(isActive) }}
+                            v-slots={{
+                                leftToolBar: () => (
+                                    <>
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                onClick={($event?: any) => {
+                                                    (onOpenPull as any)($event);
+                                                }}
+                                            >
+                                                {$t('container.imagePull')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                onClick={($event?: any) => {
+                                                    unref(remoteSearchRef).open();
+                                                }}
+                                            >
+                                                {$t('container.imageRemoteSearch')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                onClick={($event?: any) => {
+                                                    (onOpenLoad as any)($event);
+                                                }}
+                                            >
+                                                {$t('container.importImage')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                onClick={($event?: any) => {
+                                                    (onOpenBuild as any)($event);
+                                                }}
+                                            >
+                                                {$t('container.imageBuild')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                onClick={($event?: any) => {
+                                                    onOpenBuildCache();
+                                                }}
+                                            >
+                                                {$t('container.cleanBuildCache')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                onClick={($event?: any) => {
+                                                    onOpenPrune();
+                                                }}
+                                            >
+                                                {$t('container.imagePrune')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                    </>
+                                ),
+                                rightToolBar: () => (
+                                    <>
+                                        <TableSearch
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                            searchName={paginationConfig.name}
+                                            onUpdate:searchName={($v) => {
+                                                paginationConfig.name = $v as any;
+                                            }}
+                                        />
+                                        <TableRefresh
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                        <TableSetting
+                                            title="image-refresh"
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                    </>
+                                ),
+                                main: () => (
+                                    <>
+                                        <ComplexTable
+                                            cache-pagination={false}
+                                            pagination-config={paginationConfig}
+                                            data={unref(data)}
+                                            onSortChange={($event?: any) => {
+                                                (search as any)($event);
+                                            }}
+                                            columns={unref(columns)}
+                                            onSearch={($event?: any) => {
+                                                (search as any)($event);
+                                            }}
+                                            heightDiff={300}
+                                        >
+                                            <ElTableColumn
+                                                label="ID"
+                                                prop="id"
+                                                width="180"
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <ElText
+                                                                type="primary"
+                                                                onClick={($event?: any) => {
+                                                                    onInspect(row.id);
+                                                                }}
+                                                                class={'cursor-pointer'}
+                                                            >
+                                                                {row.id.replaceAll('sha256:', '').substring(0, 12)}
+                                                            </ElText>
+                                                            <div class={'float-right'}>
+                                                                <ElTooltip
+                                                                    {...TABLE_TOOLTIP_OPTIONS}
+                                                                    content={
+                                                                        row.isPinned
+                                                                            ? $t('commons.table.unpin')
+                                                                            : $t('commons.table.pin')
+                                                                    }
+                                                                >
+                                                                    {withDirectives(
+                                                                        <ElButton
+                                                                            link
+                                                                            size="large"
+                                                                            type={row.isPinned ? 'warning' : 'info'}
+                                                                            onClick={($event?: any) => {
+                                                                                changePinned(row, true);
+                                                                            }}
+                                                                            class={cn('image-pin-button', {
+                                                                                'is-pinned': row.isPinned,
+                                                                            })}
+                                                                        >
+                                                                            <SvgIcon
+                                                                                iconName="p-pushpin"
+                                                                                className="image-pin-icon"
+                                                                            />
+                                                                        </ElButton>,
+                                                                        [[permissionDirective, true]],
+                                                                    )}
+                                                                </ElTooltip>
+                                                            </div>
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                label={$t('commons.table.status')}
+                                                prop="isUsed"
+                                                width="100"
+                                                sortable="custom"
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <Status status={row.isUsed ? 'used' : 'unused'} />
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                label={$t('container.tag')}
+                                                prop="tags"
+                                                sortable="custom"
+                                                min-width="160"
+                                                width={unref(isMobile) ? 400 : 'auto'}
+                                                fix
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            {(row.tags || []).map((item, index) => (
+                                                                <ElTag
+                                                                    title={item}
+                                                                    type="info"
+                                                                    class={'ml-2.5'}
+                                                                    key={index}
+                                                                >
+                                                                    {item}
+                                                                </ElTag>
+                                                            ))}
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                label={$t('container.size')}
+                                                prop="size"
+                                                min-width="60"
+                                                fix
+                                                sortable="custom"
+                                                v-slots={{ default: ({ row }) => <>{computeSize2(row.size)}</> }}
+                                            />
+                                            <ElTableColumn
+                                                sortable="custom"
+                                                prop="createdAt"
+                                                min-width="80"
+                                                label={$t('commons.table.date')}
+                                                formatter={dateFormat}
+                                            />
+                                            <FuTableOperations
+                                                width="250px"
+                                                ellipsis={2}
+                                                buttons={buttons}
+                                                label={$t('commons.table.operate')}
+                                            />
+                                        </ComplexTable>
+                                    </>
+                                ),
+                            }}
+                        />
+                    ) : null}
+                    <CodemirrorDrawer ref={myDetail} />
+                    <DialogPro
+                        modelValue={unref(updateDialogVisible)}
+                        onUpdate:modelValue={($v) => {
+                            updateDialogVisible.value = $v as any;
+                        }}
+                        title={$t('commons.button.update')}
+                        onClose={($event?: any) => {
+                            (handleUpdateDialogClose as any)($event);
+                        }}
+                        v-slots={{
+                            footer: () => (
+                                <>
+                                    <span class={'dialog-footer'}>
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                (handleUpdateDialogClose as any)($event);
+                                            }}
+                                        >
+                                            {$t('commons.button.cancel')}
+                                        </ElButton>
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    (submitUpdateSelection as any)($event);
+                                                }}
+                                            >
+                                                {$t('commons.button.confirm')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                    </span>
+                                </>
+                            ),
+                        }}
+                    >
+                        <ElForm label-position="top">
+                            <ElFormItem label={$t('container.tag')}>
+                                <ElCheckbox
+                                    model-value={unref(updateCheckAll)}
+                                    indeterminate={unref(updateIndeterminate)}
+                                    onChange={($event?: any) => {
+                                        (onUpdateCheckAllChange as any)($event);
+                                    }}
+                                    class={'w-full'}
+                                >
+                                    {$t('commons.table.all')}
+                                </ElCheckbox>
+                                <ElCheckboxGroup
+                                    modelValue={unref(updateSelectedTags)}
+                                    onUpdate:modelValue={($v) => {
+                                        updateSelectedTags.value = $v as any;
+                                    }}
+                                >
+                                    {(unref(updateTagOptions) || []).map((tag) => (
+                                        <ElCheckbox label={tag} key={tag}>
+                                            {tag}
+                                        </ElCheckbox>
+                                    ))}
+                                </ElCheckboxGroup>
+                                <span class={'input-help'}>{$t('container.imageUpdateHelper')}</span>
+                            </ElFormItem>
+                        </ElForm>
+                    </DialogPro>
+                    <OpDialog
+                        ref={opRef}
+                        onSubmit={($event?: any) => {
+                            (onSubmitDelete as any)($event);
+                        }}
+                    />
+                    <Pull
+                        ref={dialogPullRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <RemoteSearch
+                        ref={remoteSearchRef}
+                        onPull={($event?: any) => {
+                            (onRemotePull as any)($event);
+                        }}
+                    />
+                    <Tag
+                        ref={dialogTagRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Push
+                        ref={dialogPushRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Save
+                        ref={dialogSaveRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Load
+                        ref={dialogLoadRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Build
+                        ref={dialogBuildRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Delete
+                        ref={dialogDeleteRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <Prune
+                        ref={dialogPruneRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <TaskLog
+                        ref={taskLogRef}
+                        width="70%"
+                        onClose={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                </div>,
+                [[vLoading, unref(loading)]],
+            );
     },
     options,
 );

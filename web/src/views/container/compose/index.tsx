@@ -653,7 +653,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             >
                                                                                 <div
                                                                                     class={
-                                                                                        'font-medium text-base compose-title'
+                                                                                        'compose-title text-base font-medium'
                                                                                     }
                                                                                 >
                                                                                     <span class={'compose-title__name'}>
@@ -1036,7 +1036,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                 </div>
                                                                                                 <div
                                                                                                     class={
-                                                                                                        'float-left source-font'
+                                                                                                        'source-font float-left'
                                                                                                     }
                                                                                                 >
                                                                                                     {$t(
@@ -1269,7 +1269,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 {unref(composeContainers).length > 0 ? (
                                                                     <ElDivider class={'!my-2'} />
                                                                 ) : null}
-                                                                <div class={'flex items-center justify-between mb-2'}>
+                                                                <div class={'mb-2 flex items-center justify-between'}>
                                                                     <ElRadioGroup
                                                                         modelValue={unref(showType)}
                                                                         onUpdate:modelValue={($v) => {

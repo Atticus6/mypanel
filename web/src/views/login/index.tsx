@@ -138,18 +138,18 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 : 'flex items-center justify-center p-4 w-full min-w-0';
         });
         return () => (
-            <div class={'flex items-center justify-center min-h-screen relative bg-gray-100'}>
+            <div class={'relative flex min-h-screen items-center justify-center bg-gray-100'}>
                 <div class={'absolute inset-0 bg-cover bg-center bg-no-repeat'} style={unref(backgroundStyle)} />
                 <div
                     id="login-container"
-                    class={'bg-white shadow-lg relative z-10 border border-gray-200 flex overflow-hidden'}
+                    class={'relative z-10 flex overflow-hidden border border-gray-200 bg-white shadow-lg'}
                     style={{
                         opacity: unref(backgroundOpacity),
                         width: unref(containerWidth),
                         height: unref(containerHeight),
                     }}
                 >
-                    <div class={'grid items-stretch w-full'} style={unref(loginGridStyle)}>
+                    <div class={'grid w-full items-stretch'} style={unref(loginGridStyle)}>
                         {unref(showLogo) ? (
                             <div class={'flex justify-center'} style={{ height: unref(containerHeight) }}>
                                 <img
@@ -161,7 +161,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     onError={($event?: any) => {
                                         (onImgError as any)($event);
                                     }}
-                                    class={'max-w-full max-h-full object-cover bg-cover bg-center'}
+                                    class={'max-h-full max-w-full bg-cover bg-center object-cover'}
                                     style={[{}, { display: unref(imgLoaded) ? '' : 'none' }]}
                                 />
                             </div>

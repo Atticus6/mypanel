@@ -105,8 +105,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             />
                         </div>
                     ))}
-                    <div class={'flex items-center justify-between gap-4 mt-4'}>
-                        <div class={'flex items-center gap-2 shrink-0'}>
+                    <div class={'mt-4 flex items-center justify-between gap-4'}>
+                        <div class={'flex shrink-0 items-center gap-2'}>
                             <span>{$t('setting.panelCache.duration')}</span>
                             <ElTooltip
                                 content={$t('setting.panelCache.helper')}

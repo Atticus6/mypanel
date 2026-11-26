@@ -43,7 +43,11 @@ export type ServiceRpc<S extends DescService> = {
 };
 
 export type Rpc<T extends Record<string, ServiceLike>> = {
-    [K in keyof T]: T[K] extends DescService ? ServiceRpc<T[K]> : T[K] extends Record<string, ServiceLike> ? Rpc<T[K]> : never;
+    [K in keyof T]: T[K] extends DescService
+        ? ServiceRpc<T[K]>
+        : T[K] extends Record<string, ServiceLike>
+          ? Rpc<T[K]>
+          : never;
 };
 
 type InputOf<S extends DescService, M extends keyof S['method']> = MessageInitShape<S['method'][M]['input']>;
@@ -193,46 +197,43 @@ function createMethod<S extends DescService, M extends UnaryMethodKeys<S>>(
         }
     };
 
-    const entry = Object.assign(
-        (input: InputOf<S, M>, options?: CallOptions) => call(input, options),
-        {
-            key,
-            queryOptions,
-            useQuery: (
-                input: InputOf<S, M> | (() => InputOf<S, M>),
-                options?: Omit<UseQueryOptions<OutputOf<S, M>>, 'key' | 'query'>,
-            ) => useQuery(queryOptions(input, options) as never),
-            useSuspenseQuery: async (
-                input: InputOf<S, M> | (() => InputOf<S, M>),
-                options?: Omit<UseQueryOptions<OutputOf<S, M>>, 'key' | 'query'>,
-            ) => {
-                const query = useQuery(queryOptions(input, options) as never);
-                // Colada 没有原生 Suspense：缓存命中直接返回，未命中等待一次请求，
-                // 失败时 refresh(true) 会抛错，交给上层 <Suspense> / onErrorCaptured。
-                if (query.status.value !== 'success') {
-                    await query.refresh(true);
-                }
-                return query;
-            },
-            useInfiniteQuery: (page: PageMapper<any>, options: InfiniteOptions<OutputOf<S, M>, any>) =>
-                useInfiniteQuery({
-                    key: (options.key ?? [service.typeName, String(method), 'infinite']) as EntryKey,
-                    initialPageParam: options.initialPageParam,
-                    getNextPageParam: options.getNextPageParam,
-                    query: ({ pageParam }) => call(page(pageParam) as InputOf<S, M>),
-                } as UseInfiniteQueryOptions<OutputOf<S, M>, Error, any, any>),
-            useMutation: (options?: Omit<UseMutationOptions<OutputOf<S, M>, InputOf<S, M>>, 'mutation'>) =>
-                useMutation({
-                    mutation: (input: InputOf<S, M>) => call(input),
-                    ...options,
-                }),
-            validate,
-            refresh: (input: InputOf<S, M>) => {
-                const cache = useQueryCache();
-                return cache.invalidateQueries({ key: key(input) });
-            },
+    const entry = Object.assign((input: InputOf<S, M>, options?: CallOptions) => call(input, options), {
+        key,
+        queryOptions,
+        useQuery: (
+            input: InputOf<S, M> | (() => InputOf<S, M>),
+            options?: Omit<UseQueryOptions<OutputOf<S, M>>, 'key' | 'query'>,
+        ) => useQuery(queryOptions(input, options) as never),
+        useSuspenseQuery: async (
+            input: InputOf<S, M> | (() => InputOf<S, M>),
+            options?: Omit<UseQueryOptions<OutputOf<S, M>>, 'key' | 'query'>,
+        ) => {
+            const query = useQuery(queryOptions(input, options) as never);
+            // Colada 没有原生 Suspense：缓存命中直接返回，未命中等待一次请求，
+            // 失败时 refresh(true) 会抛错，交给上层 <Suspense> / onErrorCaptured。
+            if (query.status.value !== 'success') {
+                await query.refresh(true);
+            }
+            return query;
         },
-    );
+        useInfiniteQuery: (page: PageMapper<any>, options: InfiniteOptions<OutputOf<S, M>, any>) =>
+            useInfiniteQuery({
+                key: (options.key ?? [service.typeName, String(method), 'infinite']) as EntryKey,
+                initialPageParam: options.initialPageParam,
+                getNextPageParam: options.getNextPageParam,
+                query: ({ pageParam }) => call(page(pageParam) as InputOf<S, M>),
+            } as UseInfiniteQueryOptions<OutputOf<S, M>, Error, any, any>),
+        useMutation: (options?: Omit<UseMutationOptions<OutputOf<S, M>, InputOf<S, M>>, 'mutation'>) =>
+            useMutation({
+                mutation: (input: InputOf<S, M>) => call(input),
+                ...options,
+            }),
+        validate,
+        refresh: (input: InputOf<S, M>) => {
+            const cache = useQueryCache();
+            return cache.invalidateQueries({ key: key(input) });
+        },
+    });
 
     return entry as unknown as RpcMethod<S, M>;
 }

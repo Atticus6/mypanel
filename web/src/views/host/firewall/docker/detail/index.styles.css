@@ -1,93 +1,93 @@
 .port-detail-toolbar[data-v-e12f4c28] {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
 }
 .port-family-filter[data-v-e12f4c28] {
-  width: 130px;
-  margin-left: auto;
+    width: 130px;
+    margin-left: auto;
 }
 .port-detail-toolbar[data-v-e12f4c28] .el-button + .el-button {
-  margin-left: 0;
+    margin-left: 0;
 }
 .mixed-family-alert[data-v-e12f4c28] {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 .source-address-row[data-v-e12f4c28] {
-  display: flex;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 .source-address-input[data-v-e12f4c28] {
-  flex: 1;
+    flex: 1;
 }
 .port-card-grid[data-v-e12f4c28] {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
 }
 .port-detail-card[data-v-e12f4c28] {
-  min-width: 0;
-  cursor: pointer;
-  font-size: 12px;
-  transition: border-color 0.2s;
+    min-width: 0;
+    cursor: pointer;
+    font-size: 12px;
+    transition: border-color 0.2s;
 }
 .port-detail-card.is-selected[data-v-e12f4c28] {
-  border-color: var(--el-color-primary);
+    border-color: var(--el-color-primary);
 }
 .port-detail-card[data-v-e12f4c28] .el-card__body {
-  padding: 8px 12px;
+    padding: 8px 12px;
 }
 .port-card-header[data-v-e12f4c28] {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 .port-card-title[data-v-e12f4c28] {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 10px;
 }
 .port-mapping[data-v-e12f4c28] {
-  min-width: 0;
-  overflow: hidden;
-  color: var(--el-text-color-primary);
-  font-weight: 600;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--el-text-color-primary);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .port-card-field[data-v-e12f4c28] {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: 0;
-  margin-top: 5px;
-  padding-left: 28px;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0;
+    margin-top: 5px;
+    padding-left: 28px;
 }
 .port-card-label[data-v-e12f4c28] {
-  width: 44px;
-  flex: none;
-  color: var(--el-text-color-secondary);
+    width: 44px;
+    flex: none;
+    color: var(--el-text-color-secondary);
 }
 .port-card-label[data-v-e12f4c28]::after {
-  content: ":";
+    content: ':';
 }
 .port-card-value[data-v-e12f4c28] {
-  min-width: 0;
-  overflow: hidden;
-  color: var(--el-text-color-regular);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--el-text-color-regular);
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .port-card-value.is-warning[data-v-e12f4c28] {
-  color: var(--el-color-warning);
+    color: var(--el-color-warning);
 }
 .port-card-actions[data-v-e12f4c28] {
-  display: flex;
-  flex: none;
-  align-items: center;
+    display: flex;
+    flex: none;
+    align-items: center;
 }

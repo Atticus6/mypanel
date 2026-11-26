@@ -24,19 +24,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "push",
-        props: {},
-        emits: emits,
+    name: 'push',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -65,7 +62,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const formRef = ref<FormInstance>();
         const handleChange = () => {
             let repoURL = loadDetailInfo(form.repoID);
-            form.name = form.tagName.indexOf(repoURL) !== -1 ? form.tagName.replaceAll(repoURL + '/', '') : form.tagName;
+            form.name =
+                form.tagName.indexOf(repoURL) !== -1 ? form.tagName.replaceAll(repoURL + '/', '') : form.tagName;
         };
         const onSubmit = async (formEl: FormInstance | undefined) => {
             if (!formEl) return;
@@ -93,12 +91,103 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             return '';
         }
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(drawerVisible)} onUpdate:modelValue={$v => { drawerVisible.value = $v as any }} header={$t('container.imagePush')} onClose={($event?: any) => { (onCloseLog as any)($event); }} size="large" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { drawerVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" onClick={($event?: any) => { onSubmit(unref(formRef)); }}>{$t('container.push')}</ElButton></span></> }}><ElForm ref={formRef} label-position="top" model={form} label-width="80px"><ElFormItem label={$t('container.tag')} rules={Rules.requiredSelect} prop="tagName"><ElSelect filterable modelValue={form.tagName} onUpdate:modelValue={$v => { form.tagName = $v as any }} onChange={($event?: any) => { (handleChange as any)($event); }}>{((form.tags || [])).map((item) => <ElOption value={item} label={item} key={item} />)}</ElSelect></ElFormItem><ElFormItem label={$t('container.repoName')} rules={Rules.requiredSelect} prop="repoID"><ElSelect clearable filterable modelValue={form.repoID} onUpdate:modelValue={$v => { form.repoID = $v as any }} onChange={($event?: any) => { (handleChange as any)($event); }} class={"w-full"}>{((unref(dialogData).repos || [])).map((item) => <ElOption value={item.id} label={item.name} key={item.id} />)}</ElSelect></ElFormItem><ElFormItem label={$t('container.image')} rules={Rules.imageName} prop="name"><ElInput modelValue={form.name} onUpdate:modelValue={$v => { form.name = typeof $v === 'string' ? $v.trim() : $v }} v-slots={{ "prepend": () => <>{loadDetailInfo(form.repoID)}{"/"}</> }} />{(form.tags?.length !== 1) ? <span class={"input-help"}>{$t('container.imagePushHelper', [loadDetailInfo(form.repoID) + '/' + form.name])}</span> : null}</ElFormItem></ElForm></DrawerPro>
-            <TaskLog ref={taskLogRef} width="70%" />
+                <DrawerPro
+                    modelValue={unref(drawerVisible)}
+                    onUpdate:modelValue={($v) => {
+                        drawerVisible.value = $v as any;
+                    }}
+                    header={$t('container.imagePush')}
+                    onClose={($event?: any) => {
+                        (onCloseLog as any)($event);
+                    }}
+                    size="large"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <span class={'dialog-footer'}>
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            drawerVisible.value = false;
+                                        }}
+                                    >
+                                        {$t('commons.button.cancel')}
+                                    </ElButton>
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onSubmit(unref(formRef));
+                                        }}
+                                    >
+                                        {$t('container.push')}
+                                    </ElButton>
+                                </span>
+                            </>
+                        ),
+                    }}
+                >
+                    <ElForm ref={formRef} label-position="top" model={form} label-width="80px">
+                        <ElFormItem label={$t('container.tag')} rules={Rules.requiredSelect} prop="tagName">
+                            <ElSelect
+                                filterable
+                                modelValue={form.tagName}
+                                onUpdate:modelValue={($v) => {
+                                    form.tagName = $v as any;
+                                }}
+                                onChange={($event?: any) => {
+                                    (handleChange as any)($event);
+                                }}
+                            >
+                                {(form.tags || []).map((item) => (
+                                    <ElOption value={item} label={item} key={item} />
+                                ))}
+                            </ElSelect>
+                        </ElFormItem>
+                        <ElFormItem label={$t('container.repoName')} rules={Rules.requiredSelect} prop="repoID">
+                            <ElSelect
+                                clearable
+                                filterable
+                                modelValue={form.repoID}
+                                onUpdate:modelValue={($v) => {
+                                    form.repoID = $v as any;
+                                }}
+                                onChange={($event?: any) => {
+                                    (handleChange as any)($event);
+                                }}
+                                class={'w-full'}
+                            >
+                                {(unref(dialogData).repos || []).map((item) => (
+                                    <ElOption value={item.id} label={item.name} key={item.id} />
+                                ))}
+                            </ElSelect>
+                        </ElFormItem>
+                        <ElFormItem label={$t('container.image')} rules={Rules.imageName} prop="name">
+                            <ElInput
+                                modelValue={form.name}
+                                onUpdate:modelValue={($v) => {
+                                    form.name = typeof $v === 'string' ? $v.trim() : $v;
+                                }}
+                                v-slots={{
+                                    prepend: () => (
+                                        <>
+                                            {loadDetailInfo(form.repoID)}
+                                            {'/'}
+                                        </>
+                                    ),
+                                }}
+                            />
+                            {form.tags?.length !== 1 ? (
+                                <span class={'input-help'}>
+                                    {$t('container.imagePushHelper', [loadDetailInfo(form.repoID) + '/' + form.name])}
+                                </span>
+                            ) : null}
+                        </ElFormItem>
+                    </ElForm>
+                </DrawerPro>
+                <TaskLog ref={taskLogRef} width="70%" />
             </>
         );
     },

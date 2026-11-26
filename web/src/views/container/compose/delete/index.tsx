@@ -21,20 +21,17 @@ import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "delete",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-0dd324ed",
+    name: 'delete',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-0dd324ed',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -64,7 +61,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 withFile: deleteFile.value,
                 force: force.value,
             };
-            await rpc.container.operateCompose(params)
+            await rpc.container
+                .operateCompose(params)
                 .then(() => {
                     loading.value = false;
                     ctx.emit('search');
@@ -76,10 +74,84 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 });
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DialogPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} title={$t('commons.button.delete') + ' - ' + unref(composeName)} size="small" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { open.value = false; }} disabled={unref(loading)}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" onClick={($event?: any) => { (submit as any)($event); }} disabled={unref(deleteInfo) != unref(composeName) || unref(loading)}>{$t('commons.button.confirm')}</ElButton></span></> }}>{withDirectives(<ElForm ref={deleteForm}><ElFormItem><ElCheckbox modelValue={unref(deleteFile)} onUpdate:modelValue={$v => { deleteFile.value = $v as any }} label={$t('container.deleteFile')} /><span class={"input-help whitespace-break-spaces"}>{$t('container.deleteComposeHelper')}</span></ElFormItem><ElFormItem><ElCheckbox modelValue={unref(force)} onUpdate:modelValue={$v => { force.value = $v as any }} label={$t('website.forceDelete')} /><span class={"input-help"}>{$t('website.forceDeleteHelper')}</span></ElFormItem><ElFormItem><div class={"font"}><span>{$t('database.delete')}</span><span class={"warning"}>{unref(composeName)}</span><span>{$t('container.deleteCompose')}</span></div><ElInput modelValue={unref(deleteInfo)} onUpdate:modelValue={$v => { deleteInfo.value = $v as any }} placeholder={unref(composeName)} /></ElFormItem></ElForm>, [[vLoading, unref(loading)]])}</DialogPro>
+            <DialogPro
+                modelValue={unref(open)}
+                onUpdate:modelValue={($v) => {
+                    open.value = $v as any;
+                }}
+                title={$t('commons.button.delete') + ' - ' + unref(composeName)}
+                size="small"
+                v-slots={{
+                    footer: () => (
+                        <>
+                            <span class={'dialog-footer'}>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        open.value = false;
+                                    }}
+                                    disabled={unref(loading)}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        (submit as any)($event);
+                                    }}
+                                    disabled={unref(deleteInfo) != unref(composeName) || unref(loading)}
+                                >
+                                    {$t('commons.button.confirm')}
+                                </ElButton>
+                            </span>
+                        </>
+                    ),
+                }}
+            >
+                {withDirectives(
+                    <ElForm ref={deleteForm}>
+                        <ElFormItem>
+                            <ElCheckbox
+                                modelValue={unref(deleteFile)}
+                                onUpdate:modelValue={($v) => {
+                                    deleteFile.value = $v as any;
+                                }}
+                                label={$t('container.deleteFile')}
+                            />
+                            <span class={'input-help whitespace-break-spaces'}>
+                                {$t('container.deleteComposeHelper')}
+                            </span>
+                        </ElFormItem>
+                        <ElFormItem>
+                            <ElCheckbox
+                                modelValue={unref(force)}
+                                onUpdate:modelValue={($v) => {
+                                    force.value = $v as any;
+                                }}
+                                label={$t('website.forceDelete')}
+                            />
+                            <span class={'input-help'}>{$t('website.forceDeleteHelper')}</span>
+                        </ElFormItem>
+                        <ElFormItem>
+                            <div class={'font'}>
+                                <span>{$t('database.delete')}</span>
+                                <span class={'warning'}>{unref(composeName)}</span>
+                                <span>{$t('container.deleteCompose')}</span>
+                            </div>
+                            <ElInput
+                                modelValue={unref(deleteInfo)}
+                                onUpdate:modelValue={($v) => {
+                                    deleteInfo.value = $v as any;
+                                }}
+                                placeholder={unref(composeName)}
+                            />
+                        </ElFormItem>
+                    </ElForm>,
+                    [[vLoading, unref(loading)]],
+                )}
+            </DialogPro>
         );
     },
     options,

@@ -1,6 +1,12 @@
 import { $t } from '@/utils/i18n-t';
 import { computed, nextTick, ref } from 'vue';
-import { deleteContainerFile, downloadContainerFile, getContainerFileContent, getContainerFileSize, listContainerFiles } from '@/api/modules/container';
+import {
+    deleteContainerFile,
+    downloadContainerFile,
+    getContainerFileContent,
+    getContainerFileSize,
+    listContainerFiles,
+} from '@/api/modules/container';
 import { MsgError, MsgSuccess, MsgWarning } from '@/utils/message';
 import i18n from '@/lang';
 import { ElInput, ElMessageBox } from 'element-plus';
@@ -30,18 +36,15 @@ import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "file-browser",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-6990ab7e",
+    name: 'file-browser',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-6990ab7e',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -214,9 +217,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         const onDeleteFile = async (row: any) => {
             try {
-                await ElMessageBox.confirm(i18n.global.t('file.deleteHelper2'), i18n.global.t('commons.button.delete'), {
-                    type: 'warning',
-                });
+                await ElMessageBox.confirm(
+                    i18n.global.t('file.deleteHelper2'),
+                    i18n.global.t('commons.button.delete'),
+                    {
+                        type: 'warning',
+                    },
+                );
             } catch {
                 return;
             }
@@ -237,9 +244,13 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 return;
             }
             try {
-                await ElMessageBox.confirm(i18n.global.t('file.deleteHelper2'), i18n.global.t('commons.button.delete'), {
-                    type: 'warning',
-                });
+                await ElMessageBox.confirm(
+                    i18n.global.t('file.deleteHelper2'),
+                    i18n.global.t('commons.button.delete'),
+                    {
+                        type: 'warning',
+                    },
+                );
             } catch {
                 return;
             }
@@ -257,13 +268,253 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 });
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(visible)} onUpdate:modelValue={$v => { visible.value = $v as any }} header={$t('home.dir')} resource={unref(title)} size="large" fullScreen={true} onClose={($event?: any) => { visible.value = false; }} v-slots={{ "content": () => <><ElForm label-position="top" onSubmit={($event?: any) => { $event.preventDefault(); ; }}><ElFormItem>{(!unref(pathEditing)) ? <div onClick={($event?: any) => { (enablePathEditing as any)($event); }} class={"path-breadcrumb"}><ElBreadcrumb separator="/"><ElBreadcrumbItem><ElLink type="primary" onClick={($event?: any) => { $event.stopPropagation(); navigateToPath('/'); }}><ElIcon><HomeFilled /></ElIcon></ElLink></ElBreadcrumbItem>{((unref(pathSegments) || [])).map((item) => <ElBreadcrumbItem key={item.path}><ElLink type="primary" onClick={($event?: any) => { $event.stopPropagation(); navigateToPath(item.path); }}>{item.name}</ElLink></ElBreadcrumbItem>)}</ElBreadcrumb></div> : <ElInput ref={pathInputRef} modelValue={unref(pathInput)} onUpdate:modelValue={$v => { pathInput.value = $v as any }} onBlur={($event?: any) => { (cancelPathEditing as any)($event); }} onKeyup={($event?: any) => { $event.preventDefault(); if (!($event.key === "Enter")) return; (submitPathInput as any)($event); }} class={"path-breadcrumb path-input"} />}<ElButton type="primary" plain onClick={($event?: any) => { (onUpload as any)($event); }} class={"mt-2"}>{$t('commons.button.upload')}</ElButton><ElButton plain disabled={unref(selectedRows).length === 0} onClick={($event?: any) => { (onBatchDelete as any)($event); }} class={"mt-2 ml-3"}>{$t('commons.button.delete')}</ElButton><ElButton plain onClick={($event?: any) => { (loadContainerFiles as any)($event); }} class={"mt-2"}>{$t('commons.button.refresh')}</ElButton></ElFormItem><ComplexTable data={unref(containerFiles)} size="small" max-height="calc(100vh - 240px)" selects={unref(selectedRows)} onUpdate:selects={$v => { selectedRows.value = $v as any }}><ElTableColumn type="selection" width="48" /><ElTableColumn label={$t('commons.table.name')} min-width="260" show-overflow-tooltip v-slots={{ "default": ({ row }) => <><div class={"name-cell"}><ElIcon>{(row.isDir) ? <FolderOpened /> : <Document />}</ElIcon>{(row.isDir) ? <ElLink type="primary" onClick={($event?: any) => { enterDir(row.path); }}>{row.name}</ElLink> : <ElLink type="primary" onClick={($event?: any) => { onOpenFile(row.path); }}>{row.name}</ElLink>}{(row.isLink && row.linkTo) ? <span class={"symlink-target"}>{"-> "}{row.linkTo}</span> : null}</div></> }} /><ElTableColumn label={$t('file.size')} width="130" v-slots={{ "default": ({ row }) => <>{(!row.isDir) ? <span>{formatSize(row.size)}</span> : (!row.sizeLoaded) ? <ElButton link type="primary" loading={row.sizeLoading} onClick={($event?: any) => { onCalcDirSize(row); }}>{$t('file.calculate')}</ElButton> : <span>{formatSize(row.size)}</span>}</> }} /><ElTableColumn label={$t('commons.table.operate')} width="220" v-slots={{ "default": ({ row }) => <><ElButton type="primary" link onClick={($event?: any) => { onDownloadFile(row); }}>{$t('commons.button.download')}</ElButton><ElButton type="primary" link onClick={($event?: any) => { onDeleteFile(row); }}>{$t('commons.button.delete')}</ElButton></> }} /></ComplexTable></ElForm></> }} />
-            <FileUpload ref={uploadRef} onClose={($event?: any) => { (loadContainerFiles as any)($event); }} />
-            <DialogPro modelValue={unref(previewVisible)} onUpdate:modelValue={$v => { previewVisible.value = $v as any }} title={unref(previewTitle)} size="w-70" close-on-click-modal={true}>{(unref(previewTruncated)) ? <ElAlert title={$t('file.previewTruncated')} type="warning" closable={false} show-icon class={"mb-2"} /> : null}<pre class={"preview-content"}>{unref(previewContent)}</pre></DialogPro>
+                <DrawerPro
+                    modelValue={unref(visible)}
+                    onUpdate:modelValue={($v) => {
+                        visible.value = $v as any;
+                    }}
+                    header={$t('home.dir')}
+                    resource={unref(title)}
+                    size="large"
+                    fullScreen={true}
+                    onClose={($event?: any) => {
+                        visible.value = false;
+                    }}
+                    v-slots={{
+                        content: () => (
+                            <>
+                                <ElForm
+                                    label-position="top"
+                                    onSubmit={($event?: any) => {
+                                        $event.preventDefault();
+                                    }}
+                                >
+                                    <ElFormItem>
+                                        {!unref(pathEditing) ? (
+                                            <div
+                                                onClick={($event?: any) => {
+                                                    (enablePathEditing as any)($event);
+                                                }}
+                                                class={'path-breadcrumb'}
+                                            >
+                                                <ElBreadcrumb separator="/">
+                                                    <ElBreadcrumbItem>
+                                                        <ElLink
+                                                            type="primary"
+                                                            onClick={($event?: any) => {
+                                                                $event.stopPropagation();
+                                                                navigateToPath('/');
+                                                            }}
+                                                        >
+                                                            <ElIcon>
+                                                                <HomeFilled />
+                                                            </ElIcon>
+                                                        </ElLink>
+                                                    </ElBreadcrumbItem>
+                                                    {(unref(pathSegments) || []).map((item) => (
+                                                        <ElBreadcrumbItem key={item.path}>
+                                                            <ElLink
+                                                                type="primary"
+                                                                onClick={($event?: any) => {
+                                                                    $event.stopPropagation();
+                                                                    navigateToPath(item.path);
+                                                                }}
+                                                            >
+                                                                {item.name}
+                                                            </ElLink>
+                                                        </ElBreadcrumbItem>
+                                                    ))}
+                                                </ElBreadcrumb>
+                                            </div>
+                                        ) : (
+                                            <ElInput
+                                                ref={pathInputRef}
+                                                modelValue={unref(pathInput)}
+                                                onUpdate:modelValue={($v) => {
+                                                    pathInput.value = $v as any;
+                                                }}
+                                                onBlur={($event?: any) => {
+                                                    (cancelPathEditing as any)($event);
+                                                }}
+                                                onKeyup={($event?: any) => {
+                                                    $event.preventDefault();
+                                                    if (!($event.key === 'Enter')) return;
+                                                    (submitPathInput as any)($event);
+                                                }}
+                                                class={'path-breadcrumb path-input'}
+                                            />
+                                        )}
+                                        <ElButton
+                                            type="primary"
+                                            plain
+                                            onClick={($event?: any) => {
+                                                (onUpload as any)($event);
+                                            }}
+                                            class={'mt-2'}
+                                        >
+                                            {$t('commons.button.upload')}
+                                        </ElButton>
+                                        <ElButton
+                                            plain
+                                            disabled={unref(selectedRows).length === 0}
+                                            onClick={($event?: any) => {
+                                                (onBatchDelete as any)($event);
+                                            }}
+                                            class={'mt-2 ml-3'}
+                                        >
+                                            {$t('commons.button.delete')}
+                                        </ElButton>
+                                        <ElButton
+                                            plain
+                                            onClick={($event?: any) => {
+                                                (loadContainerFiles as any)($event);
+                                            }}
+                                            class={'mt-2'}
+                                        >
+                                            {$t('commons.button.refresh')}
+                                        </ElButton>
+                                    </ElFormItem>
+                                    <ComplexTable
+                                        data={unref(containerFiles)}
+                                        size="small"
+                                        max-height="calc(100vh - 240px)"
+                                        selects={unref(selectedRows)}
+                                        onUpdate:selects={($v) => {
+                                            selectedRows.value = $v as any;
+                                        }}
+                                    >
+                                        <ElTableColumn type="selection" width="48" />
+                                        <ElTableColumn
+                                            label={$t('commons.table.name')}
+                                            min-width="260"
+                                            show-overflow-tooltip
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <div class={'name-cell'}>
+                                                            <ElIcon>
+                                                                {row.isDir ? <FolderOpened /> : <Document />}
+                                                            </ElIcon>
+                                                            {row.isDir ? (
+                                                                <ElLink
+                                                                    type="primary"
+                                                                    onClick={($event?: any) => {
+                                                                        enterDir(row.path);
+                                                                    }}
+                                                                >
+                                                                    {row.name}
+                                                                </ElLink>
+                                                            ) : (
+                                                                <ElLink
+                                                                    type="primary"
+                                                                    onClick={($event?: any) => {
+                                                                        onOpenFile(row.path);
+                                                                    }}
+                                                                >
+                                                                    {row.name}
+                                                                </ElLink>
+                                                            )}
+                                                            {row.isLink && row.linkTo ? (
+                                                                <span class={'symlink-target'}>
+                                                                    {'-> '}
+                                                                    {row.linkTo}
+                                                                </span>
+                                                            ) : null}
+                                                        </div>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('file.size')}
+                                            width="130"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        {!row.isDir ? (
+                                                            <span>{formatSize(row.size)}</span>
+                                                        ) : !row.sizeLoaded ? (
+                                                            <ElButton
+                                                                link
+                                                                type="primary"
+                                                                loading={row.sizeLoading}
+                                                                onClick={($event?: any) => {
+                                                                    onCalcDirSize(row);
+                                                                }}
+                                                            >
+                                                                {$t('file.calculate')}
+                                                            </ElButton>
+                                                        ) : (
+                                                            <span>{formatSize(row.size)}</span>
+                                                        )}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                        <ElTableColumn
+                                            label={$t('commons.table.operate')}
+                                            width="220"
+                                            v-slots={{
+                                                default: ({ row }) => (
+                                                    <>
+                                                        <ElButton
+                                                            type="primary"
+                                                            link
+                                                            onClick={($event?: any) => {
+                                                                onDownloadFile(row);
+                                                            }}
+                                                        >
+                                                            {$t('commons.button.download')}
+                                                        </ElButton>
+                                                        <ElButton
+                                                            type="primary"
+                                                            link
+                                                            onClick={($event?: any) => {
+                                                                onDeleteFile(row);
+                                                            }}
+                                                        >
+                                                            {$t('commons.button.delete')}
+                                                        </ElButton>
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                    </ComplexTable>
+                                </ElForm>
+                            </>
+                        ),
+                    }}
+                />
+                <FileUpload
+                    ref={uploadRef}
+                    onClose={($event?: any) => {
+                        (loadContainerFiles as any)($event);
+                    }}
+                />
+                <DialogPro
+                    modelValue={unref(previewVisible)}
+                    onUpdate:modelValue={($v) => {
+                        previewVisible.value = $v as any;
+                    }}
+                    title={unref(previewTitle)}
+                    size="w-70"
+                    close-on-click-modal={true}
+                >
+                    {unref(previewTruncated) ? (
+                        <ElAlert
+                            title={$t('file.previewTruncated')}
+                            type="warning"
+                            closable={false}
+                            show-icon
+                            class={'mb-2'}
+                        />
+                    ) : null}
+                    <pre class={'preview-content'}>{unref(previewContent)}</pre>
+                </DialogPro>
             </>
         );
     },

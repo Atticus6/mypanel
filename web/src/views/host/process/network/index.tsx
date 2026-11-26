@@ -211,7 +211,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         v-slots={{
                             rightToolBar: () => (
                                 <>
-                                    <div class={'network-toolbar w-full flex justify-end items-center gap-5'}>
+                                    <div class={'network-toolbar flex w-full items-center justify-end gap-5'}>
                                         <ElSelect
                                             modelValue={unref(filters)}
                                             onUpdate:modelValue={($v) => {

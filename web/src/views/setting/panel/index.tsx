@@ -320,8 +320,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             </ElCol>
                                             <ElCol xs={24} sm={20} md={15} lg={12} xl={12}>
                                                 <ElFormItem label={$t('setting.theme')} prop="theme">
-                                                    <div class={'flex justify-center items-center sm:gap-6 gap-2'}>
-                                                        <div class={'sm:contents hidden'}>
+                                                    <div class={'flex items-center justify-center gap-2 sm:gap-6'}>
+                                                        <div class={'hidden sm:contents'}>
                                                             <ElRadioGroup
                                                                 onChange={($event?: any) => {
                                                                     onSave('Theme', form.theme);
@@ -342,7 +342,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 </ElRadioButton>
                                                             </ElRadioGroup>
                                                         </div>
-                                                        <div class={'sm:hidden block w-32 !h-[33.5px]'}>
+                                                        <div class={'block !h-[33.5px] w-32 sm:hidden'}>
                                                             <ElSelect
                                                                 onChange={($event?: any) => {
                                                                     onSave('Theme', form.theme);
@@ -465,7 +465,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         onUpdate:modelValue={($v) => {
                                                             form.language = $v as any;
                                                         }}
-                                                        class={'sm:!w-1/2 !w-full'}
+                                                        class={'!w-full sm:!w-1/2'}
                                                     >
                                                         {(unref(languageOptions) || []).map((option) => (
                                                             <ElOption

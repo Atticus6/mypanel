@@ -964,7 +964,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             disabled={appInstall.status !== 'Running'}
                                                             key={index}
                                                         >
-                                                            <div class={'flex justify-between items-center w-full'}>
+                                                            <div class={'flex w-full items-center justify-between'}>
                                                                 <span>{appInstall.name}</span>
                                                                 <span>
                                                                     <Status

@@ -1,17 +1,17 @@
 .custom-tabs-label[data-v-63be570a] {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 .tab-keep-alive-button[data-v-63be570a] {
-  width: 18px;
-  height: 18px;
-  min-height: 18px;
-  padding: 0;
-  opacity: 0.65;
-  transition: opacity 0.15s ease;
+    width: 18px;
+    height: 18px;
+    min-height: 18px;
+    padding: 0;
+    opacity: 0.65;
+    transition: opacity 0.15s ease;
 }
 .tab-keep-alive-button.is-active[data-v-63be570a],
 .tab-keep-alive-button[data-v-63be570a]:hover {
-  opacity: 1;
+    opacity: 1;
 }

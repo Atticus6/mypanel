@@ -268,7 +268,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         hasChecked: '${checked}/${total}',
                                     }}
                                     data={unref(data)}
-                                    class={'text-left inline-block'}
+                                    class={'inline-block text-left'}
                                     v-slots={{
                                         'left-footer': () => (
                                             <>
@@ -281,7 +281,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         is-range
                                                         start-placeholder={$t('commons.search.timeStart')}
                                                         end-placeholder={$t('commons.search.timeEnd')}
-                                                        class={'!w-[235px] mx-1 mt-1'}
+                                                        class={'mx-1 mt-1 !w-[235px]'}
                                                     />
                                                     <span class={'input-help ml-2'}>
                                                         {$t('xpack.alert.sendTimeRangeHelper', [
@@ -302,7 +302,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         is-range
                                                         start-placeholder={$t('commons.search.timeStart')}
                                                         end-placeholder={$t('commons.search.timeEnd')}
-                                                        class={'!w-[235px] mx-1 mt-1'}
+                                                        class={'mx-1 mt-1 !w-[235px]'}
                                                     />
                                                     <span class={'input-help ml-2'}>
                                                         {$t('xpack.alert.sendTimeRangeHelper', [

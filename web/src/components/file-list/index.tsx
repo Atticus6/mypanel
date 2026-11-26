@@ -410,7 +410,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onClick={($event?: any) => {
                             searchableStatus.value = true;
                         }}
-                        class={'address-bar shadow-md rounded-md px-4 py-2 flex items-center flex-grow'}
+                        class={'address-bar flex flex-grow items-center rounded-md px-4 py-2 shadow-md'}
                         style={[{}, { display: !unref(searchableStatus) ? '' : 'none' }]}
                     >
                         <span class={'root mr-1'}>
@@ -429,14 +429,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <span>
                                 {(unref(paths) || []).map((_, index) => (
                                     <span class={'inline-flex items-center'} key={index}>
-                                        <span class={'ml-1 mr-1 arrow'}>{'>'}</span>
+                                        <span class={'arrow mr-1 ml-1'}>{'>'}</span>
                                         <ElTooltip effect="dark" content={unref(paths)[index]} placement="top">
                                             <ElLink
                                                 onClick={($event?: any) => {
                                                     $event.stopPropagation();
                                                     jump(index);
                                                 }}
-                                                class={'path-segment cursor-pointer mr-1 pathname'}
+                                                class={'path-segment pathname mr-1 cursor-pointer'}
                                             >
                                                 {unref(paths)[index].length > 25
                                                     ? unref(paths)[index].substring(0, 22) + '...'
@@ -462,7 +462,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             jumpPath();
                             searchableStatus.value = false;
                         }}
-                        class={'px-4 py-2 border rounded-md shadow-md'}
+                        class={'rounded-md border px-4 py-2 shadow-md'}
                         style={[{}, { display: unref(searchableStatus) ? '' : 'none' }]}
                     />
                 </div>
@@ -473,11 +473,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     }}
                     type="primary"
                     size="small"
-                    class={'mt-4 float-left'}
+                    class={'float-left mt-4'}
                 >
                     {$t('file.top')}
                 </ElButton>
-                <div class={'mt-4 float-right'}>
+                <div class={'float-right mt-4'}>
                     <ElPopover
                         placement="bottom-end"
                         width={300}
@@ -496,7 +496,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         }}
                     >
                         {unref(favorites).length === 0 ? (
-                            <div class={'text-center py-3 text-gray-400 text-sm'}>{$t('commons.msg.noneData')}</div>
+                            <div class={'py-3 text-center text-sm text-gray-400'}>{$t('commons.msg.noneData')}</div>
                         ) : (
                             <div class={'favorite-list max-h-52 overflow-y-auto'}>
                                 {(unref(favorites) || []).map((item) => (
@@ -504,7 +504,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         onClick={($event?: any) => {
                                             jumpToFavorite(item);
                                         }}
-                                        class={'favorite-item flex items-center cursor-pointer px-2 py-1.5 rounded'}
+                                        class={'favorite-item flex cursor-pointer items-center rounded px-2 py-1.5'}
                                         key={item.id}
                                     >
                                         <SvgIcon
@@ -549,7 +549,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             onRowClick={($event?: any) => {
                                 (handleRowClick as any)($event);
                             }}
-                            class={'cursor-pointer dialog-file-list'}
+                            class={'dialog-file-list cursor-pointer'}
                         >
                             {unref(isMultiple) && form.dir ? (
                                 <ElTableColumn

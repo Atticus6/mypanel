@@ -427,7 +427,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                 unref(handleRowClick);
                             }}
                             tooltip-options={unref(resolvedTooltipOptions)}
-                            v-slots={{ ...(ctx.slots['empty'] ? { empty: () => ctx.slots['empty']?.(undefined) } : {}) }}
+                            v-slots={{
+                                ...(ctx.slots['empty'] ? { empty: () => ctx.slots['empty']?.(undefined) } : {}),
+                            }}
                         >
                             {ctx.slots['default']?.(undefined)}
                         </FuTable>
@@ -465,14 +467,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                         />
                                                     ) : null}
                                                     <div class={'complex-table__card-name'}>
-                                                        {(unref(cardColumns).name || []).map((nameColumn) => (
-                                                            h(CardColumnValue, { column: nameColumn, row: cardRow, index: cardIndex, key: unref(getColumnKey)(nameColumn) })
-                                                        ))}
+                                                        {(unref(cardColumns).name || []).map((nameColumn) =>
+                                                            h(CardColumnValue, {
+                                                                column: nameColumn,
+                                                                row: cardRow,
+                                                                index: cardIndex,
+                                                                key: unref(getColumnKey)(nameColumn),
+                                                            }),
+                                                        )}
                                                     </div>
                                                     <div class={'complex-table__card-status'}>
-                                                        {(unref(cardColumns).status || []).map((statusColumn) => (
-                                                            h(CardColumnValue, { column: statusColumn, row: cardRow, index: cardIndex, key: unref(getColumnKey)(statusColumn) })
-                                                        ))}
+                                                        {(unref(cardColumns).status || []).map((statusColumn) =>
+                                                            h(CardColumnValue, {
+                                                                column: statusColumn,
+                                                                row: cardRow,
+                                                                index: cardIndex,
+                                                                key: unref(getColumnKey)(statusColumn),
+                                                            }),
+                                                        )}
                                                     </div>
                                                 </div>
                                             ) : null}
@@ -490,7 +502,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                                 {unref(getColumnLabel)(contentColumn)}
                                                             </span>
                                                             <strong class={'complex-table__card-value'}>
-                                                                {h(CardColumnValue, { column: contentColumn, row: cardRow, index: cardIndex })}
+                                                                {h(CardColumnValue, {
+                                                                    column: contentColumn,
+                                                                    row: cardRow,
+                                                                    index: cardIndex,
+                                                                })}
                                                             </strong>
                                                         </div>
                                                     ))}
@@ -508,7 +524,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                                     {unref(getColumnLabel)(fullContentColumn)}
                                                                 </span>
                                                                 <div class={'complex-table__card-full-content-value'}>
-                                                                    {h(CardColumnValue, { column: fullContentColumn, row: cardRow, index: cardIndex })}
+                                                                    {h(CardColumnValue, {
+                                                                        column: fullContentColumn,
+                                                                        row: cardRow,
+                                                                        index: cardIndex,
+                                                                    })}
                                                                 </div>
                                                             </div>
                                                         ),
@@ -524,7 +544,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                         >
                                                             <span>{unref(getColumnLabel)(descriptionColumn)}</span>
                                                             <strong>
-                                                                {h(CardColumnValue, { column: descriptionColumn, row: cardRow, index: cardIndex })}
+                                                                {h(CardColumnValue, {
+                                                                    column: descriptionColumn,
+                                                                    row: cardRow,
+                                                                    index: cardIndex,
+                                                                })}
                                                             </strong>
                                                         </div>
                                                     ))}
@@ -532,9 +556,14 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                             ) : null}
                                             {unref(cardColumns).button.length ? (
                                                 <div class={'complex-table__card-buttons'}>
-                                                    {(unref(cardColumns).button || []).map((buttonColumn) => (
-                                                        h(CardColumnValue, { column: buttonColumn, row: cardRow, index: cardIndex, key: unref(getColumnKey)(buttonColumn) })
-                                                    ))}
+                                                    {(unref(cardColumns).button || []).map((buttonColumn) =>
+                                                        h(CardColumnValue, {
+                                                            column: buttonColumn,
+                                                            row: cardRow,
+                                                            index: cardIndex,
+                                                            key: unref(getColumnKey)(buttonColumn),
+                                                        }),
+                                                    )}
                                                 </div>
                                             ) : null}
                                         </ElCard>
@@ -552,13 +581,15 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                 </div>
                 <div class={'table-footer-container'}>
                     {unref(slots).footerLeft ? (
-                        <div class={'footer-left'}>{ctx.slots['footerLeft']?.({ selected: unref(leftSelect), toggleSelection })}</div>
+                        <div class={'footer-left'}>
+                            {ctx.slots['footerLeft']?.({ selected: unref(leftSelect), toggleSelection })}
+                        </div>
                     ) : null}
                     {__panelSetupProps.paginationConfig ? (
                         <div
                             ref={paginationRef}
                             class={cn(
-                                'complex-table__pagination flex items-center w-full sm:flex-row flex-col text-xs sm:text-sm',
+                                'complex-table__pagination flex w-full flex-col items-center text-xs sm:flex-row sm:text-sm',
                                 {
                                     '!justify-between': unref(slots).paginationLeft,
                                     '!justify-end': !unref(slots).paginationLeft,

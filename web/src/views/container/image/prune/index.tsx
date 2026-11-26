@@ -18,19 +18,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "prune",
-        props: {},
-        emits: emits,
+    name: 'prune',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -151,14 +148,106 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 });
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(dialogVisible)} onUpdate:modelValue={$v => { dialogVisible.value = $v as any }} header={$t('container.imagePrune')} onClose={($event?: any) => { (handleClose as any)($event); }} size="small" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { dialogVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" disabled={unref(data).length === 0 || unref(loading)} onClick={($event?: any) => { (onClean as any)($event); }}>{$t('commons.button.confirm')}</ElButton></span></> }}>{withDirectives(<ElForm ref="deleteForm"><ElFormItem><ElRadioGroup modelValue={unref(scope)} onUpdate:modelValue={$v => { scope.value = $v as any }} onChange={($event?: any) => { (changeScope as any)($event); }} class={"w-full"}><ElRadio value="untag">{$t('container.imagePruneSome')}</ElRadio><ElRadio value="unused">{$t('container.imagePruneAll')}</ElRadio></ElRadioGroup><span class={"input-help"}>{unref(showMsg)}</span>{(unref(data).length !== 0) ? <ElCheckbox modelValue={unref(checkAll)} onUpdate:modelValue={$v => { checkAll.value = $v as any }} indeterminate={unref(isIndeterminate)} onChange={($event?: any) => { (handleCheckAllChange as any)($event); }} class={"w-full"}>{$t('commons.table.all')}</ElCheckbox> : null}<ElCheckboxGroup modelValue={unref(checkedLists)} onUpdate:modelValue={$v => { checkedLists.value = $v as any }} onChange={($event?: any) => { (handleCheckedChange as any)($event); }}>{((unref(data) || [])).map((item, index) => <ElCheckbox value={item.id} class={"w-full"} key={index}>{item.tags && item.tags[0]
-                                            ? item.tags[0]
-                                            : item.id.replaceAll('sha256:', '').substring(0, 12)}</ElCheckbox>)}</ElCheckboxGroup></ElFormItem></ElForm>, [[vLoading, unref(loading)]])}</DrawerPro>
-            <TaskLog ref={taskLogRef} width="70%" onClose={($event?: any) => { (onSearch as any)($event); }} />
+                <DrawerPro
+                    modelValue={unref(dialogVisible)}
+                    onUpdate:modelValue={($v) => {
+                        dialogVisible.value = $v as any;
+                    }}
+                    header={$t('container.imagePrune')}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    size="small"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <span class={'dialog-footer'}>
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            dialogVisible.value = false;
+                                        }}
+                                    >
+                                        {$t('commons.button.cancel')}
+                                    </ElButton>
+                                    <ElButton
+                                        type="primary"
+                                        disabled={unref(data).length === 0 || unref(loading)}
+                                        onClick={($event?: any) => {
+                                            (onClean as any)($event);
+                                        }}
+                                    >
+                                        {$t('commons.button.confirm')}
+                                    </ElButton>
+                                </span>
+                            </>
+                        ),
+                    }}
+                >
+                    {withDirectives(
+                        <ElForm ref="deleteForm">
+                            <ElFormItem>
+                                <ElRadioGroup
+                                    modelValue={unref(scope)}
+                                    onUpdate:modelValue={($v) => {
+                                        scope.value = $v as any;
+                                    }}
+                                    onChange={($event?: any) => {
+                                        (changeScope as any)($event);
+                                    }}
+                                    class={'w-full'}
+                                >
+                                    <ElRadio value="untag">{$t('container.imagePruneSome')}</ElRadio>
+                                    <ElRadio value="unused">{$t('container.imagePruneAll')}</ElRadio>
+                                </ElRadioGroup>
+                                <span class={'input-help'}>{unref(showMsg)}</span>
+                                {unref(data).length !== 0 ? (
+                                    <ElCheckbox
+                                        modelValue={unref(checkAll)}
+                                        onUpdate:modelValue={($v) => {
+                                            checkAll.value = $v as any;
+                                        }}
+                                        indeterminate={unref(isIndeterminate)}
+                                        onChange={($event?: any) => {
+                                            (handleCheckAllChange as any)($event);
+                                        }}
+                                        class={'w-full'}
+                                    >
+                                        {$t('commons.table.all')}
+                                    </ElCheckbox>
+                                ) : null}
+                                <ElCheckboxGroup
+                                    modelValue={unref(checkedLists)}
+                                    onUpdate:modelValue={($v) => {
+                                        checkedLists.value = $v as any;
+                                    }}
+                                    onChange={($event?: any) => {
+                                        (handleCheckedChange as any)($event);
+                                    }}
+                                >
+                                    {(unref(data) || []).map((item, index) => (
+                                        <ElCheckbox value={item.id} class={'w-full'} key={index}>
+                                            {item.tags && item.tags[0]
+                                                ? item.tags[0]
+                                                : item.id.replaceAll('sha256:', '').substring(0, 12)}
+                                        </ElCheckbox>
+                                    ))}
+                                </ElCheckboxGroup>
+                            </ElFormItem>
+                        </ElForm>,
+                        [[vLoading, unref(loading)]],
+                    )}
+                </DrawerPro>
+                <TaskLog
+                    ref={taskLogRef}
+                    width="70%"
+                    onClose={($event?: any) => {
+                        (onSearch as any)($event);
+                    }}
+                />
             </>
         );
     },

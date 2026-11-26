@@ -42,7 +42,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                         main: () => (
                             <>
                                 <div class={'app-warn'}>
-                                    <div class={'flex flex-col gap-2 items-center justify-center w-full sm:flex-row'}>
+                                    <div class={'flex w-full flex-col items-center justify-center gap-2 sm:flex-row'}>
                                         {ctx.slots['default']?.(undefined) ?? (
                                             <>
                                                 <span>{$t('cronjob.library.noSuchApp', [__panelSetupProps.name])}</span>

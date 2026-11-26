@@ -667,7 +667,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                       hasChecked: '${checked}/${total}',
                                                   }}
                                                   data={unref(transferData)}
-                                                  class={'text-left inline-block mt-4'}
+                                                  class={'mt-4 inline-block text-left'}
                                               />
                                           </div>
                                       ) : null}

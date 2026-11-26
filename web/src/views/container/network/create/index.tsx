@@ -24,19 +24,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "create",
-        props: {},
-        emits: emits,
+    name: 'create',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -182,7 +179,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 if (form.driver === 'macvlan') {
                     form.options.push('parent=' + form.parentNetworkCard);
                 }
-                await rpc.container.createNetwork(form)
+                await rpc.container
+                    .createNetwork(form)
                     .then(() => {
                         loading.value = false;
                         MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
@@ -195,10 +193,346 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             });
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DrawerPro modelValue={unref(drawerVisible)} onUpdate:modelValue={$v => { drawerVisible.value = $v as any }} header={$t('commons.button.create')} onClose={($event?: any) => { (handleClose as any)($event); }} size="large" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton disabled={unref(loading)} onClick={($event?: any) => { drawerVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton disabled={unref(loading)} type="primary" onClick={($event?: any) => { onSubmit(unref(formRef)); }}>{$t('commons.button.confirm')}</ElButton></span></> }}>{withDirectives(<ElForm ref={formRef} label-position="top" model={form} rules={rules} label-width="80px"><ElFormItem label={$t('container.networkName')} prop="name"><ElInput clearable modelValue={form.name} onUpdate:modelValue={$v => { form.name = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem><ElFormItem label={$t('container.driver')} prop="driver"><ElSelect modelValue={form.driver} onUpdate:modelValue={$v => { form.driver = $v as any }}><ElOption label="bridge" value="bridge" /><ElOption label="ipvlan" value="ipvlan" /><ElOption label="macvlan" value="macvlan" /><ElOption label="overlay" value="overlay" /></ElSelect></ElFormItem>{(form.driver === 'macvlan') ? <ElFormItem label={$t('container.parentNetworkCard')} prop="parentNetworkCard"><ElSelect modelValue={form.parentNetworkCard} onUpdate:modelValue={$v => { form.parentNetworkCard = $v as any }}>{((unref(netOptions) || [])).map((item) => <span key={item}>{(item !== 'all') ? <ElOption label={item} value={item} /> : null}</span>)}</ElSelect></ElFormItem> : null}<ElCheckbox modelValue={form.ipv4} onUpdate:modelValue={$v => { form.ipv4 = $v as any }}>{"IPv4"}</ElCheckbox>{(form.ipv4) ? <div><ElRow type="flex" justify="center" gutter={20}><ElCol span={12}><ElFormItem label={$t('container.subnet')} prop="subnet"><ElInput placeholder="172.13.0.0/16" clearable modelValue={form.subnet} onUpdate:modelValue={$v => { form.subnet = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem></ElCol><ElCol span={12}><ElFormItem label={$t('container.gateway')} prop="gateway"><ElInput placeholder="172.13.10.254" clearable modelValue={form.gateway} onUpdate:modelValue={$v => { form.gateway = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem></ElCol><ElCol span={12}><ElFormItem label={$t('container.scope')} prop="ipRange"><ElInput placeholder="172.13.1.0/24" clearable modelValue={form.ipRange} onUpdate:modelValue={$v => { form.ipRange = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem></ElCol><ElCol span={12} /></ElRow><ElFormItem label={$t('container.auxAddress')} prop="auxAddress">{(form.auxAddress.length !== 0) ? <ElTable data={form.auxAddress}><ElTableColumn label={$t('container.label')} min-width="100" v-slots={{ "default": ({ row }) => <><ElInput placeholder="my-router" modelValue={row.key} onUpdate:modelValue={$v => { row.key = $v as any }} /></> }} /><ElTableColumn label="IP" min-width="150" v-slots={{ "default": ({ row }) => <><ElInput placeholder="172.13.1.13" modelValue={row.value} onUpdate:modelValue={$v => { row.value = $v as any }} /></> }} /><ElTableColumn min-width="40" v-slots={{ "default": (scope) => <><ElButton link type="primary" onClick={($event?: any) => { handleV4Delete(scope.$index); }}>{$t('commons.button.delete')}</ElButton></> }} /></ElTable> : null}<ElButton onClick={($event?: any) => { handleV4Add(); }} class={"mt-2"}>{$t('commons.button.add')}</ElButton></ElFormItem></div> : null}<ElCheckbox modelValue={form.ipv6} onUpdate:modelValue={$v => { form.ipv6 = $v as any }} class={"mb-4"}>{"IPv6"}</ElCheckbox>{(form.ipv6) ? <div><ElRow type="flex" justify="center" gutter={20}><ElCol span={12}><ElFormItem label={$t('container.subnet')} prop="subnetV6"><ElInput placeholder="2408:400e::/48" clearable modelValue={form.subnetV6} onUpdate:modelValue={$v => { form.subnetV6 = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem></ElCol><ElCol span={12}><ElFormItem label={$t('container.gateway')} prop="gatewayV6"><ElInput placeholder="2408:400e::1" clearable modelValue={form.gatewayV6} onUpdate:modelValue={$v => { form.gatewayV6 = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem></ElCol><ElCol span={12}><ElFormItem label={$t('container.scope')} prop="ipRangeV6"><ElInput placeholder="2408:400e::/64" clearable modelValue={form.ipRangeV6} onUpdate:modelValue={$v => { form.ipRangeV6 = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem></ElCol><ElCol span={12} /></ElRow><ElFormItem label={$t('container.auxAddress')} prop="auxAddressV6">{(form.auxAddressV6.length !== 0) ? <ElTable data={form.auxAddressV6}><ElTableColumn label={$t('container.label')} min-width="100" v-slots={{ "default": ({ row }) => <><ElInput placeholder="my-router" modelValue={row.key} onUpdate:modelValue={$v => { row.key = $v as any }} /></> }} /><ElTableColumn label="IP" min-width="150" v-slots={{ "default": ({ row }) => <><ElInput placeholder="2408:400e::3" modelValue={row.value} onUpdate:modelValue={$v => { row.value = $v as any }} /></> }} /><ElTableColumn min-width="40" v-slots={{ "default": (scope) => <><ElButton link type="primary" onClick={($event?: any) => { handleV6Delete(scope.$index); }}>{$t('commons.button.delete')}</ElButton></> }} /></ElTable> : null}<ElButton onClick={($event?: any) => { handleV6Add(); }} class={"mt-2"}>{$t('commons.button.add')}</ElButton></ElFormItem></div> : null}<ElFormItem label={$t('container.option')} prop="optionStr"><ElInput type="textarea" placeholder={$t('container.tagHelper')} rows={3} modelValue={form.optionStr} onUpdate:modelValue={$v => { form.optionStr = $v as any }} /></ElFormItem><ElFormItem label={$t('container.tag')} prop="labelStr"><ElInput type="textarea" placeholder={$t('container.tagHelper')} rows={3} modelValue={form.labelStr} onUpdate:modelValue={$v => { form.labelStr = $v as any }} /></ElFormItem></ElForm>, [[vLoading, unref(loading)]])}</DrawerPro>
+            <DrawerPro
+                modelValue={unref(drawerVisible)}
+                onUpdate:modelValue={($v) => {
+                    drawerVisible.value = $v as any;
+                }}
+                header={$t('commons.button.create')}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                size="large"
+                v-slots={{
+                    footer: () => (
+                        <>
+                            <span class={'dialog-footer'}>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    onClick={($event?: any) => {
+                                        drawerVisible.value = false;
+                                    }}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        onSubmit(unref(formRef));
+                                    }}
+                                >
+                                    {$t('commons.button.confirm')}
+                                </ElButton>
+                            </span>
+                        </>
+                    ),
+                }}
+            >
+                {withDirectives(
+                    <ElForm ref={formRef} label-position="top" model={form} rules={rules} label-width="80px">
+                        <ElFormItem label={$t('container.networkName')} prop="name">
+                            <ElInput
+                                clearable
+                                modelValue={form.name}
+                                onUpdate:modelValue={($v) => {
+                                    form.name = typeof $v === 'string' ? $v.trim() : $v;
+                                }}
+                            />
+                        </ElFormItem>
+                        <ElFormItem label={$t('container.driver')} prop="driver">
+                            <ElSelect
+                                modelValue={form.driver}
+                                onUpdate:modelValue={($v) => {
+                                    form.driver = $v as any;
+                                }}
+                            >
+                                <ElOption label="bridge" value="bridge" />
+                                <ElOption label="ipvlan" value="ipvlan" />
+                                <ElOption label="macvlan" value="macvlan" />
+                                <ElOption label="overlay" value="overlay" />
+                            </ElSelect>
+                        </ElFormItem>
+                        {form.driver === 'macvlan' ? (
+                            <ElFormItem label={$t('container.parentNetworkCard')} prop="parentNetworkCard">
+                                <ElSelect
+                                    modelValue={form.parentNetworkCard}
+                                    onUpdate:modelValue={($v) => {
+                                        form.parentNetworkCard = $v as any;
+                                    }}
+                                >
+                                    {(unref(netOptions) || []).map((item) => (
+                                        <span key={item}>
+                                            {item !== 'all' ? <ElOption label={item} value={item} /> : null}
+                                        </span>
+                                    ))}
+                                </ElSelect>
+                            </ElFormItem>
+                        ) : null}
+                        <ElCheckbox
+                            modelValue={form.ipv4}
+                            onUpdate:modelValue={($v) => {
+                                form.ipv4 = $v as any;
+                            }}
+                        >
+                            {'IPv4'}
+                        </ElCheckbox>
+                        {form.ipv4 ? (
+                            <div>
+                                <ElRow type="flex" justify="center" gutter={20}>
+                                    <ElCol span={12}>
+                                        <ElFormItem label={$t('container.subnet')} prop="subnet">
+                                            <ElInput
+                                                placeholder="172.13.0.0/16"
+                                                clearable
+                                                modelValue={form.subnet}
+                                                onUpdate:modelValue={($v) => {
+                                                    form.subnet = typeof $v === 'string' ? $v.trim() : $v;
+                                                }}
+                                            />
+                                        </ElFormItem>
+                                    </ElCol>
+                                    <ElCol span={12}>
+                                        <ElFormItem label={$t('container.gateway')} prop="gateway">
+                                            <ElInput
+                                                placeholder="172.13.10.254"
+                                                clearable
+                                                modelValue={form.gateway}
+                                                onUpdate:modelValue={($v) => {
+                                                    form.gateway = typeof $v === 'string' ? $v.trim() : $v;
+                                                }}
+                                            />
+                                        </ElFormItem>
+                                    </ElCol>
+                                    <ElCol span={12}>
+                                        <ElFormItem label={$t('container.scope')} prop="ipRange">
+                                            <ElInput
+                                                placeholder="172.13.1.0/24"
+                                                clearable
+                                                modelValue={form.ipRange}
+                                                onUpdate:modelValue={($v) => {
+                                                    form.ipRange = typeof $v === 'string' ? $v.trim() : $v;
+                                                }}
+                                            />
+                                        </ElFormItem>
+                                    </ElCol>
+                                    <ElCol span={12} />
+                                </ElRow>
+                                <ElFormItem label={$t('container.auxAddress')} prop="auxAddress">
+                                    {form.auxAddress.length !== 0 ? (
+                                        <ElTable data={form.auxAddress}>
+                                            <ElTableColumn
+                                                label={$t('container.label')}
+                                                min-width="100"
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <ElInput
+                                                                placeholder="my-router"
+                                                                modelValue={row.key}
+                                                                onUpdate:modelValue={($v) => {
+                                                                    row.key = $v as any;
+                                                                }}
+                                                            />
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                label="IP"
+                                                min-width="150"
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <ElInput
+                                                                placeholder="172.13.1.13"
+                                                                modelValue={row.value}
+                                                                onUpdate:modelValue={($v) => {
+                                                                    row.value = $v as any;
+                                                                }}
+                                                            />
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                min-width="40"
+                                                v-slots={{
+                                                    default: (scope) => (
+                                                        <>
+                                                            <ElButton
+                                                                link
+                                                                type="primary"
+                                                                onClick={($event?: any) => {
+                                                                    handleV4Delete(scope.$index);
+                                                                }}
+                                                            >
+                                                                {$t('commons.button.delete')}
+                                                            </ElButton>
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                        </ElTable>
+                                    ) : null}
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            handleV4Add();
+                                        }}
+                                        class={'mt-2'}
+                                    >
+                                        {$t('commons.button.add')}
+                                    </ElButton>
+                                </ElFormItem>
+                            </div>
+                        ) : null}
+                        <ElCheckbox
+                            modelValue={form.ipv6}
+                            onUpdate:modelValue={($v) => {
+                                form.ipv6 = $v as any;
+                            }}
+                            class={'mb-4'}
+                        >
+                            {'IPv6'}
+                        </ElCheckbox>
+                        {form.ipv6 ? (
+                            <div>
+                                <ElRow type="flex" justify="center" gutter={20}>
+                                    <ElCol span={12}>
+                                        <ElFormItem label={$t('container.subnet')} prop="subnetV6">
+                                            <ElInput
+                                                placeholder="2408:400e::/48"
+                                                clearable
+                                                modelValue={form.subnetV6}
+                                                onUpdate:modelValue={($v) => {
+                                                    form.subnetV6 = typeof $v === 'string' ? $v.trim() : $v;
+                                                }}
+                                            />
+                                        </ElFormItem>
+                                    </ElCol>
+                                    <ElCol span={12}>
+                                        <ElFormItem label={$t('container.gateway')} prop="gatewayV6">
+                                            <ElInput
+                                                placeholder="2408:400e::1"
+                                                clearable
+                                                modelValue={form.gatewayV6}
+                                                onUpdate:modelValue={($v) => {
+                                                    form.gatewayV6 = typeof $v === 'string' ? $v.trim() : $v;
+                                                }}
+                                            />
+                                        </ElFormItem>
+                                    </ElCol>
+                                    <ElCol span={12}>
+                                        <ElFormItem label={$t('container.scope')} prop="ipRangeV6">
+                                            <ElInput
+                                                placeholder="2408:400e::/64"
+                                                clearable
+                                                modelValue={form.ipRangeV6}
+                                                onUpdate:modelValue={($v) => {
+                                                    form.ipRangeV6 = typeof $v === 'string' ? $v.trim() : $v;
+                                                }}
+                                            />
+                                        </ElFormItem>
+                                    </ElCol>
+                                    <ElCol span={12} />
+                                </ElRow>
+                                <ElFormItem label={$t('container.auxAddress')} prop="auxAddressV6">
+                                    {form.auxAddressV6.length !== 0 ? (
+                                        <ElTable data={form.auxAddressV6}>
+                                            <ElTableColumn
+                                                label={$t('container.label')}
+                                                min-width="100"
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <ElInput
+                                                                placeholder="my-router"
+                                                                modelValue={row.key}
+                                                                onUpdate:modelValue={($v) => {
+                                                                    row.key = $v as any;
+                                                                }}
+                                                            />
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                label="IP"
+                                                min-width="150"
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <ElInput
+                                                                placeholder="2408:400e::3"
+                                                                modelValue={row.value}
+                                                                onUpdate:modelValue={($v) => {
+                                                                    row.value = $v as any;
+                                                                }}
+                                                            />
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                min-width="40"
+                                                v-slots={{
+                                                    default: (scope) => (
+                                                        <>
+                                                            <ElButton
+                                                                link
+                                                                type="primary"
+                                                                onClick={($event?: any) => {
+                                                                    handleV6Delete(scope.$index);
+                                                                }}
+                                                            >
+                                                                {$t('commons.button.delete')}
+                                                            </ElButton>
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                        </ElTable>
+                                    ) : null}
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            handleV6Add();
+                                        }}
+                                        class={'mt-2'}
+                                    >
+                                        {$t('commons.button.add')}
+                                    </ElButton>
+                                </ElFormItem>
+                            </div>
+                        ) : null}
+                        <ElFormItem label={$t('container.option')} prop="optionStr">
+                            <ElInput
+                                type="textarea"
+                                placeholder={$t('container.tagHelper')}
+                                rows={3}
+                                modelValue={form.optionStr}
+                                onUpdate:modelValue={($v) => {
+                                    form.optionStr = $v as any;
+                                }}
+                            />
+                        </ElFormItem>
+                        <ElFormItem label={$t('container.tag')} prop="labelStr">
+                            <ElInput
+                                type="textarea"
+                                placeholder={$t('container.tagHelper')}
+                                rows={3}
+                                modelValue={form.labelStr}
+                                onUpdate:modelValue={($v) => {
+                                    form.labelStr = $v as any;
+                                }}
+                            />
+                        </ElFormItem>
+                    </ElForm>,
+                    [[vLoading, unref(loading)]],
+                )}
+            </DrawerPro>
         );
     },
     options,

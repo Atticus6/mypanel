@@ -1208,7 +1208,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                             );
                                                                                         }}
                                                                                         class={
-                                                                                            'cursor-pointer firewall-used-entry'
+                                                                                            'firewall-used-entry cursor-pointer'
                                                                                         }
                                                                                     >
                                                                                         <span
@@ -1259,7 +1259,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                         effect="plain"
                                                                                                         size="small"
                                                                                                         class={
-                                                                                                            'cursor-pointer firewall-used-more'
+                                                                                                            'firewall-used-more cursor-pointer'
                                                                                                         }
                                                                                                     >
                                                                                                         {' +'}
@@ -1302,7 +1302,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                             );
                                                                                                         }}
                                                                                                         class={
-                                                                                                            'cursor-pointer firewall-used-popover-entry'
+                                                                                                            'firewall-used-popover-entry cursor-pointer'
                                                                                                         }
                                                                                                     >
                                                                                                         <span

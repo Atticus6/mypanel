@@ -23,19 +23,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "commit",
-        props: {},
-        emits: emits,
+    name: 'commit',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -94,12 +91,99 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             ctx.emit('search');
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(drawerVisible)} onUpdate:modelValue={$v => { drawerVisible.value = $v as any }} header={$t('container.makeImage')} onClose={($event?: any) => { (handleClose as any)($event); }} resource={form.containerName} size="large" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton disabled={unref(loading)} onClick={($event?: any) => { drawerVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton disabled={unref(loading)} type="primary" onClick={($event?: any) => { onSubmit(unref(formRef)); }}>{$t('commons.button.confirm')}</ElButton></span></> }}>{withDirectives(<ElForm onSubmit={($event?: any) => { $event.preventDefault(); ; }} ref={formRef} model={form} label-position="top"><ElFormItem prop="newImageName" rules={Rules.imageName} v-slots={{ "label": () => <>{$t('container.newImageName')}</> }}><ElInput modelValue={form.newImageName} onUpdate:modelValue={$v => { form.newImageName = $v as any }} /></ElFormItem><ElFormItem prop="comment" v-slots={{ "label": () => <>{$t('container.commitMessage')}</> }}><ElInput modelValue={form.comment} onUpdate:modelValue={$v => { form.comment = $v as any }} /></ElFormItem><ElFormItem prop="author" v-slots={{ "label": () => <>{$t('container.author')}</> }}><ElInput modelValue={form.author} onUpdate:modelValue={$v => { form.author = $v as any }} /></ElFormItem><ElFormItem prop="pause"><ElCheckbox modelValue={form.pause} onUpdate:modelValue={$v => { form.pause = $v as any }}>{$t('container.ifPause')}</ElCheckbox></ElFormItem></ElForm>, [[vLoading, unref(loading)]])}</DrawerPro>
-            <TaskLog ref={taskLogRef} width="70%" />
+                <DrawerPro
+                    modelValue={unref(drawerVisible)}
+                    onUpdate:modelValue={($v) => {
+                        drawerVisible.value = $v as any;
+                    }}
+                    header={$t('container.makeImage')}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    resource={form.containerName}
+                    size="large"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <span class={'dialog-footer'}>
+                                    <ElButton
+                                        disabled={unref(loading)}
+                                        onClick={($event?: any) => {
+                                            drawerVisible.value = false;
+                                        }}
+                                    >
+                                        {$t('commons.button.cancel')}
+                                    </ElButton>
+                                    <ElButton
+                                        disabled={unref(loading)}
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onSubmit(unref(formRef));
+                                        }}
+                                    >
+                                        {$t('commons.button.confirm')}
+                                    </ElButton>
+                                </span>
+                            </>
+                        ),
+                    }}
+                >
+                    {withDirectives(
+                        <ElForm
+                            onSubmit={($event?: any) => {
+                                $event.preventDefault();
+                            }}
+                            ref={formRef}
+                            model={form}
+                            label-position="top"
+                        >
+                            <ElFormItem
+                                prop="newImageName"
+                                rules={Rules.imageName}
+                                v-slots={{ label: () => <>{$t('container.newImageName')}</> }}
+                            >
+                                <ElInput
+                                    modelValue={form.newImageName}
+                                    onUpdate:modelValue={($v) => {
+                                        form.newImageName = $v as any;
+                                    }}
+                                />
+                            </ElFormItem>
+                            <ElFormItem prop="comment" v-slots={{ label: () => <>{$t('container.commitMessage')}</> }}>
+                                <ElInput
+                                    modelValue={form.comment}
+                                    onUpdate:modelValue={($v) => {
+                                        form.comment = $v as any;
+                                    }}
+                                />
+                            </ElFormItem>
+                            <ElFormItem prop="author" v-slots={{ label: () => <>{$t('container.author')}</> }}>
+                                <ElInput
+                                    modelValue={form.author}
+                                    onUpdate:modelValue={($v) => {
+                                        form.author = $v as any;
+                                    }}
+                                />
+                            </ElFormItem>
+                            <ElFormItem prop="pause">
+                                <ElCheckbox
+                                    modelValue={form.pause}
+                                    onUpdate:modelValue={($v) => {
+                                        form.pause = $v as any;
+                                    }}
+                                >
+                                    {$t('container.ifPause')}
+                                </ElCheckbox>
+                            </ElFormItem>
+                        </ElForm>,
+                        [[vLoading, unref(loading)]],
+                    )}
+                </DrawerPro>
+                <TaskLog ref={taskLogRef} width="70%" />
             </>
         );
     },

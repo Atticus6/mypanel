@@ -34,17 +34,14 @@ import ConfirmDialog from '@/components/confirm-dialog/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "repo",
-        props: {},
-        emits: emits,
+    name: 'repo',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -60,7 +57,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const searchName = ref();
         useSearchState(
             'container/repo/index',
-            { search: searchName, page: toRef(paginationConfig, 'currentPage'), pageSize: toRef(paginationConfig, 'pageSize') },
+            {
+                search: searchName,
+                page: toRef(paginationConfig, 'currentPage'),
+                pageSize: toRef(paginationConfig, 'pageSize'),
+            },
             { onRevisit: () => search() },
         );
         const opRef = ref();
@@ -127,7 +128,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         const submitDelete = async () => {
             loading.value = true;
-            await rpc.container.deleteRepo({ id: currentRepo.value })
+            await rpc.container
+                .deleteRepo({ id: currentRepo.value })
                 .then(() => {
                     loading.value = false;
                     search();
@@ -138,7 +140,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         const onCheckConn = async (row: RepoInfo) => {
             loading.value = true;
-            await rpc.container.checkRepoStatus({ id: row.id })
+            await rpc.container
+                .checkRepoStatus({ id: row.id })
                 .then(() => {
                     loading.value = false;
                     search();
@@ -179,9 +182,158 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 },
             },
         ];
-        return () => (
-            withDirectives(<div><DockerStatus isActive={unref(isActive)} onUpdate:isActive={$v => { isActive.value = $v as any }} isExist={unref(isExist)} onUpdate:isExist={$v => { isExist.value = $v as any }} loading={unref(loading)} onUpdate:loading={$v => { loading.value = $v as any }} onSearch={($event?: any) => { (search as any)($event); }} />{(unref(isExist)) ? <LayoutContent title={$t('container.repo', 2)} class={{ mask: !unref(isActive) }} v-slots={{ "leftToolBar": () => <>{withDirectives(<ElButton type="primary" onClick={($event?: any) => { onOpenDialog('add'); }}>{$t('commons.button.add')}</ElButton>, [[permissionDirective, true]])}</>, "rightToolBar": () => <><TableSearch onSearch={($event?: any) => { search(); }} searchName={unref(searchName)} onUpdate:searchName={$v => { searchName.value = $v as any }} /><TableRefresh onSearch={($event?: any) => { search(); }} /><TableSetting title="repo-refresh" onSearch={($event?: any) => { search(); }} /></>, "main": () => <><ComplexTable cache-pagination={false} pagination-config={paginationConfig} selects={unref(selects)} onUpdate:selects={$v => { selects.value = $v as any }} data={unref(data)} onSearch={($event?: any) => { (search as any)($event); }} heightDiff={300}><ElTableColumn label={$t('commons.table.name')} prop="name" min-width="60" /><ElTableColumn label={$t('container.downloadUrl')} show-overflow-tooltip prop="downloadUrl" min-width="100" fix /><ElTableColumn label={$t('commons.table.protocol')} prop="protocol" min-width="60" fix /><ElTableColumn label={$t('commons.table.status')} prop="status" min-width="60" fix v-slots={{ "default": ({ row }) => <><Status status={row.status} msg={row.message} /></> }} /><ElTableColumn prop="createdAt" label={$t('commons.table.createdAt')} min-width="80" fix formatter={dateFormat} /><FuTableOperations width="200px" buttons={buttons} label={$t('commons.table.operate')} /></ComplexTable></> }} /> : null}<OpDialog ref={opRef} onSearch={($event?: any) => { (search as any)($event); }} onSubmit={($event?: any) => { (submitDelete as any)($event); }} /><OperatorDialog onSearch={($event?: any) => { (search as any)($event); }} ref={dialogRef} /><ConfirmDialog ref={confirmDialog} onConfirm={($event?: any) => { (submitDelete as any)($event); }} /></div>, [[vLoading, unref(loading)]])
-        );
+        return () =>
+            withDirectives(
+                <div>
+                    <DockerStatus
+                        isActive={unref(isActive)}
+                        onUpdate:isActive={($v) => {
+                            isActive.value = $v as any;
+                        }}
+                        isExist={unref(isExist)}
+                        onUpdate:isExist={($v) => {
+                            isExist.value = $v as any;
+                        }}
+                        loading={unref(loading)}
+                        onUpdate:loading={($v) => {
+                            loading.value = $v as any;
+                        }}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    {unref(isExist) ? (
+                        <LayoutContent
+                            title={$t('container.repo', 2)}
+                            class={{ mask: !unref(isActive) }}
+                            v-slots={{
+                                leftToolBar: () => (
+                                    <>
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    onOpenDialog('add');
+                                                }}
+                                            >
+                                                {$t('commons.button.add')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                    </>
+                                ),
+                                rightToolBar: () => (
+                                    <>
+                                        <TableSearch
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                            searchName={unref(searchName)}
+                                            onUpdate:searchName={($v) => {
+                                                searchName.value = $v as any;
+                                            }}
+                                        />
+                                        <TableRefresh
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                        <TableSetting
+                                            title="repo-refresh"
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                    </>
+                                ),
+                                main: () => (
+                                    <>
+                                        <ComplexTable
+                                            cache-pagination={false}
+                                            pagination-config={paginationConfig}
+                                            selects={unref(selects)}
+                                            onUpdate:selects={($v) => {
+                                                selects.value = $v as any;
+                                            }}
+                                            data={unref(data)}
+                                            onSearch={($event?: any) => {
+                                                (search as any)($event);
+                                            }}
+                                            heightDiff={300}
+                                        >
+                                            <ElTableColumn
+                                                label={$t('commons.table.name')}
+                                                prop="name"
+                                                min-width="60"
+                                            />
+                                            <ElTableColumn
+                                                label={$t('container.downloadUrl')}
+                                                show-overflow-tooltip
+                                                prop="downloadUrl"
+                                                min-width="100"
+                                                fix
+                                            />
+                                            <ElTableColumn
+                                                label={$t('commons.table.protocol')}
+                                                prop="protocol"
+                                                min-width="60"
+                                                fix
+                                            />
+                                            <ElTableColumn
+                                                label={$t('commons.table.status')}
+                                                prop="status"
+                                                min-width="60"
+                                                fix
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <Status status={row.status} msg={row.message} />
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                prop="createdAt"
+                                                label={$t('commons.table.createdAt')}
+                                                min-width="80"
+                                                fix
+                                                formatter={dateFormat}
+                                            />
+                                            <FuTableOperations
+                                                width="200px"
+                                                buttons={buttons}
+                                                label={$t('commons.table.operate')}
+                                            />
+                                        </ComplexTable>
+                                    </>
+                                ),
+                            }}
+                        />
+                    ) : null}
+                    <OpDialog
+                        ref={opRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                        onSubmit={($event?: any) => {
+                            (submitDelete as any)($event);
+                        }}
+                    />
+                    <OperatorDialog
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                        ref={dialogRef}
+                    />
+                    <ConfirmDialog
+                        ref={confirmDialog}
+                        onConfirm={($event?: any) => {
+                            (submitDelete as any)($event);
+                        }}
+                    />
+                </div>,
+                [[vLoading, unref(loading)]],
+            );
     },
     options,
 );

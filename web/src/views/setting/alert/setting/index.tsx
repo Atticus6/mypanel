@@ -549,7 +549,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <>
                                                         <div class={'flex items-center gap-2'}>
                                                             <ElIcon size={20} style={{ color: getTypeColor(row.type) }}>
-                                                                {h(getTypeIcon(row.type), {  })}
+                                                                {h(getTypeIcon(row.type), {})}
                                                             </ElIcon>
                                                             <ElTag type={getTypeTagType(row.type)} effect="plain" round>
                                                                 {$t('xpack.alert.' + row.type)}

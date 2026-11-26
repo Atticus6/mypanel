@@ -1,6 +1,12 @@
 html,
 body {
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Arial, sans-serif;
+    font-family:
+        Helvetica Neue,
+        Helvetica,
+        PingFang SC,
+        Hiragino Sans GB,
+        Arial,
+        sans-serif;
     // 内容不足一屏时，容器外露出的背景跟随主题，避免暗色模式下出现白边。
     background-color: var(--panel-main-bg-color-9);
 }
@@ -71,7 +77,9 @@ body {
         border-left-color: $primary-color !important;
     }
     .peg {
-        box-shadow: 0 0 10px $primary-color, 0 0 5px $primary-color !important;
+        box-shadow:
+            0 0 10px $primary-color,
+            0 0 5px $primary-color !important;
     }
 }
 
@@ -231,7 +239,9 @@ body {
     background-color: var(--el-fill-color-light) !important;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    box-shadow: 0 1px 0 0 var(--el-input-border-color) inset, 0 -1px 0 0 var(--el-input-border-color) inset,
+    box-shadow:
+        0 1px 0 0 var(--el-input-border-color) inset,
+        0 -1px 0 0 var(--el-input-border-color) inset,
         -1px 0 0 0 var(--el-input-border-color) inset;
 
     &:hover {

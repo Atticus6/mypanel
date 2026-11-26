@@ -36,20 +36,18 @@ interface CodemodProps {
 }
 
 const emits = {
-    'openTask': (...args: unknown[]) => true,
-    'nodeSwitching': (...args: unknown[]) => true,
-    'userChange': (...args: unknown[]) => true,
+    openTask: (...args: unknown[]) => true,
+    nodeSwitching: (...args: unknown[]) => true,
+    userChange: (...args: unknown[]) => true,
 };
 
-
-
 const options = {
-        name: "Collapse",
-        props: {
-    "version": { type: String },
-} as unknown as ComponentObjectPropsOptions<CodemodProps>,
-        emits: emits,
-        __scopeId: "data-v-05ebdac9",
+    name: 'Collapse',
+    props: {
+        version: { type: String },
+    } as unknown as ComponentObjectPropsOptions<CodemodProps>,
+    emits: emits,
+    __scopeId: 'data-v-05ebdac9',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -227,7 +225,150 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         ctx.expose({ openUserInfo: changeUserInfo, logout });
         return () => (
-            <div><ElPopover visible={unref(popoverVisible)} onUpdate:visible={$v => { popoverVisible.value = $v as any }} placement="right-end" show-arrow={false} offset={0} width={200} trigger="click" onBeforeEnter={($event?: any) => { (showPopover as any)($event); }} popper-class="custom-popover-dropdown" v-slots={{ "reference": () => <>{(!menuStore.isCollapse) ? <div class={"el-dropdown-link"}><ElBadge is-dot value={unref(taskCount)} show-zero={false} offset={[5, 5]}><ElButton link><SvgIcon iconName="p-pcm" class={"icon"} /><span class={"ellipsis-text"}>{loadCurrentName()}</span></ElButton></ElBadge></div> : <div class={"el-dropdown-link"}><ElBadge is-dot value={unref(taskCount)} show-zero={false} offset={[-5, 5]}><SvgIcon iconName="p-pcm" class={"icon"} /></ElBadge></div>}</> }}>{withDirectives(<div class={"dropdown-menu"}><div onClick={($event?: any) => { (openTask as any)($event); }} class={"dropdown-item"}><SvgIcon iconName="p-renwuzhongxin1" class={"icon"} />{$t('menu.msgCenter')}{(unref(taskCount) !== 0) ? <ElTag size="small" round class={"msg-tag"}>{unref(taskCount)}</ElTag> : null}</div>{(showNodes()) ? <ElDivider class={"divider"} /> : null}{(unref(isXpackOrEE)) ? <div onClick={($event?: any) => { (openNodeDashboard as any)($event); }} class={"dropdown-item"}><SvgIcon iconName="p-gailan1" class={"icon"} />{$t('xpack.node.multiOverview')}</div> : null}{(unref(isXpackOrEE)) ? <ElDivider class={"divider"} /> : null}{(showNodes()) ? <div><ElScrollbar max-height="288px" noresize={true}>{((unref(visibleNodeOptions) || [])).map((item) => <div onClick={($event?: any) => { changeNode(item.name); }} disabled={item.status !== 'Healthy'} class={"dropdown-item"} key={item.name}><SvgIcon iconName="p-zhuji" class={"icon"} /><span class={"node-name"}>{displayNodeName(item)}</span>{(item.status !== 'Healthy' || !item.isBound) ? <ElTooltip content={item.isBound ? $t('xpack.node.nodeUnhealthy') : $t('xpack.node.nodeUnbind')} placement="right"><ElIcon type="danger" class={"icon-status"}><Warning /></ElIcon></ElTooltip> : null}</div>)}</ElScrollbar>{(unref(showMoreNodes)) ? <div onClick={($event?: any) => { $event.stopPropagation(); (openNodeDrawer as any)($event); }} class={"dropdown-item more-node-button"}><span class={"more-node-label"}>{$t('tabs.more')}</span><span class={"more-node-count"}>{"+"}{unref(nodeOptions).length - defaultNodeLimit}</span><ElIcon class={"more-node-arrow"}><ArrowRight /></ElIcon></div> : null}</div> : null}</div>, [[vLoading, unref(loading) || unref(switchingNode)]])}</ElPopover><NodeDrawer modelValue={unref(nodeDrawerVisible)} onUpdate:modelValue={$v => { nodeDrawerVisible.value = $v as any }} nodes={unref(nodeOptions)} master-alias={unref(globalStore).getMasterAlias()} onChange={($event?: any) => { (changeNode as any)($event); }} onFavoriteChange={($event?: any) => { (handleFavoriteChange as any)($event); }} /><UserInfo ref={userInfoRef} currentUser={unref(currentUser)} onSearch={($event?: any) => { loadCurrentUser(); }} /></div>
+            <div>
+                <ElPopover
+                    visible={unref(popoverVisible)}
+                    onUpdate:visible={($v) => {
+                        popoverVisible.value = $v as any;
+                    }}
+                    placement="right-end"
+                    show-arrow={false}
+                    offset={0}
+                    width={200}
+                    trigger="click"
+                    onBeforeEnter={($event?: any) => {
+                        (showPopover as any)($event);
+                    }}
+                    popper-class="custom-popover-dropdown"
+                    v-slots={{
+                        reference: () => (
+                            <>
+                                {!menuStore.isCollapse ? (
+                                    <div class={'el-dropdown-link'}>
+                                        <ElBadge is-dot value={unref(taskCount)} show-zero={false} offset={[5, 5]}>
+                                            <ElButton link>
+                                                <SvgIcon iconName="p-pcm" class={'icon'} />
+                                                <span class={'ellipsis-text'}>{loadCurrentName()}</span>
+                                            </ElButton>
+                                        </ElBadge>
+                                    </div>
+                                ) : (
+                                    <div class={'el-dropdown-link'}>
+                                        <ElBadge is-dot value={unref(taskCount)} show-zero={false} offset={[-5, 5]}>
+                                            <SvgIcon iconName="p-pcm" class={'icon'} />
+                                        </ElBadge>
+                                    </div>
+                                )}
+                            </>
+                        ),
+                    }}
+                >
+                    {withDirectives(
+                        <div class={'dropdown-menu'}>
+                            <div
+                                onClick={($event?: any) => {
+                                    (openTask as any)($event);
+                                }}
+                                class={'dropdown-item'}
+                            >
+                                <SvgIcon iconName="p-renwuzhongxin1" class={'icon'} />
+                                {$t('menu.msgCenter')}
+                                {unref(taskCount) !== 0 ? (
+                                    <ElTag size="small" round class={'msg-tag'}>
+                                        {unref(taskCount)}
+                                    </ElTag>
+                                ) : null}
+                            </div>
+                            {showNodes() ? <ElDivider class={'divider'} /> : null}
+                            {unref(isXpackOrEE) ? (
+                                <div
+                                    onClick={($event?: any) => {
+                                        (openNodeDashboard as any)($event);
+                                    }}
+                                    class={'dropdown-item'}
+                                >
+                                    <SvgIcon iconName="p-gailan1" class={'icon'} />
+                                    {$t('xpack.node.multiOverview')}
+                                </div>
+                            ) : null}
+                            {unref(isXpackOrEE) ? <ElDivider class={'divider'} /> : null}
+                            {showNodes() ? (
+                                <div>
+                                    <ElScrollbar max-height="288px" noresize={true}>
+                                        {(unref(visibleNodeOptions) || []).map((item) => (
+                                            <div
+                                                onClick={($event?: any) => {
+                                                    changeNode(item.name);
+                                                }}
+                                                disabled={item.status !== 'Healthy'}
+                                                class={'dropdown-item'}
+                                                key={item.name}
+                                            >
+                                                <SvgIcon iconName="p-zhuji" class={'icon'} />
+                                                <span class={'node-name'}>{displayNodeName(item)}</span>
+                                                {item.status !== 'Healthy' || !item.isBound ? (
+                                                    <ElTooltip
+                                                        content={
+                                                            item.isBound
+                                                                ? $t('xpack.node.nodeUnhealthy')
+                                                                : $t('xpack.node.nodeUnbind')
+                                                        }
+                                                        placement="right"
+                                                    >
+                                                        <ElIcon type="danger" class={'icon-status'}>
+                                                            <Warning />
+                                                        </ElIcon>
+                                                    </ElTooltip>
+                                                ) : null}
+                                            </div>
+                                        ))}
+                                    </ElScrollbar>
+                                    {unref(showMoreNodes) ? (
+                                        <div
+                                            onClick={($event?: any) => {
+                                                $event.stopPropagation();
+                                                (openNodeDrawer as any)($event);
+                                            }}
+                                            class={'dropdown-item more-node-button'}
+                                        >
+                                            <span class={'more-node-label'}>{$t('tabs.more')}</span>
+                                            <span class={'more-node-count'}>
+                                                {'+'}
+                                                {unref(nodeOptions).length - defaultNodeLimit}
+                                            </span>
+                                            <ElIcon class={'more-node-arrow'}>
+                                                <ArrowRight />
+                                            </ElIcon>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            ) : null}
+                        </div>,
+                        [[vLoading, unref(loading) || unref(switchingNode)]],
+                    )}
+                </ElPopover>
+                <NodeDrawer
+                    modelValue={unref(nodeDrawerVisible)}
+                    onUpdate:modelValue={($v) => {
+                        nodeDrawerVisible.value = $v as any;
+                    }}
+                    nodes={unref(nodeOptions)}
+                    master-alias={unref(globalStore).getMasterAlias()}
+                    onChange={($event?: any) => {
+                        (changeNode as any)($event);
+                    }}
+                    onFavoriteChange={($event?: any) => {
+                        (handleFavoriteChange as any)($event);
+                    }}
+                />
+                <UserInfo
+                    ref={userInfoRef}
+                    currentUser={unref(currentUser)}
+                    onSearch={($event?: any) => {
+                        loadCurrentUser();
+                    }}
+                />
+            </div>
         );
     },
     options,

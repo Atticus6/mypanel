@@ -1,23 +1,23 @@
 .router_card[data-v-1b225bb8] {
-  --el-card-padding: 0;
+    --el-card-padding: 0;
 }
 .router_card[data-v-1b225bb8] .el-card__body {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .router_card_button[data-v-1b225bb8] .el-radio-button__inner {
-  min-width: 100px;
-  height: 100%;
-  background-color: var(--panel-button-active) !important;
-  box-shadow: none !important;
-  outline: none !important;
-  border: 2px solid transparent !important;
-  color: var(--el-text-color-regular) !important;
+    min-width: 100px;
+    height: 100%;
+    background-color: var(--panel-button-active) !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: 2px solid transparent !important;
+    color: var(--el-text-color-regular) !important;
 }
 .router_card_button[data-v-1b225bb8] .el-radio-button__original-radio:checked + .el-radio-button__inner {
-  color: var(--panel-button-text-color) !important;
-  background-color: var(--panel-button-bg-color) !important;
-  border-color: var(--panel-color-primary) !important;
-  border-radius: 4px;
+    color: var(--panel-button-text-color) !important;
+    background-color: var(--panel-button-bg-color) !important;
+    border-color: var(--panel-color-primary) !important;
+    border-radius: 4px;
 }

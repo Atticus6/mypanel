@@ -279,7 +279,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <div class={'app-status card-interval'}>
                         <ElCard>
                             <div class={'flex w-full flex-col gap-4 md:flex-row'}>
-                                <div class={'flex flex-wrap gap-4 ml-3'}>
+                                <div class={'ml-3 flex flex-wrap gap-4'}>
                                     <ElTag effect="dark" type="success" class={'float-left'}>
                                         {'SSH'}
                                     </ElTag>
@@ -608,7 +608,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     (changeAllConfMode as any)($event);
                                                 }}
-                                                class={'mt-2 mini-form-item'}
+                                                class={'mini-form-item mt-2'}
                                             >
                                                 {(unref(sshConfOptions) || []).map((item) => (
                                                     <ElOption value={item.value} label={item.label} key={item.value} />

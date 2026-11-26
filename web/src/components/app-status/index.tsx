@@ -136,7 +136,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 <div class={'app-status'}>
                     <ElCard>
                         <div class={'flex w-full flex-col gap-4 md:flex-row'}>
-                            <div class={'flex flex-wrap gap-4 ml-3'}>
+                            <div class={'ml-3 flex flex-wrap gap-4'}>
                                 <ElTag effect="dark" type="success">
                                     {unref(data).app}
                                 </ElTag>
@@ -234,7 +234,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             center
                                             type="warning"
                                             show-icon
-                                            class={'h-6 check-title'}
+                                            class={'check-title h-6'}
                                         />
                                     </ElTooltip>
                                 </div>

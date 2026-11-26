@@ -25,19 +25,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "pull",
-        props: {},
-        emits: emits,
+    name: 'pull',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -120,12 +117,101 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             return '';
         }
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(drawerVisible)} onUpdate:modelValue={$v => { drawerVisible.value = $v as any }} header={$t('container.imagePull')} onClose={($event?: any) => { (onCloseLog as any)($event); }} size="large" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { drawerVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" onClick={($event?: any) => { onSubmit(unref(formRef)); }}>{$t('container.pull')}</ElButton></span></> }}><ElForm ref={formRef} label-position="top" model={form} rules={rules}><ElFormItem label={$t('app.source')}><ElCheckbox modelValue={form.fromRepo} onUpdate:modelValue={$v => { form.fromRepo = $v as any }}>{$t('container.imageRepo')}</ElCheckbox></ElFormItem>{(form.fromRepo) ? <ElFormItem label={$t('container.repoName')} prop="repoID"><ElSelect clearable filterable modelValue={form.repoID} onUpdate:modelValue={$v => { form.repoID = $v as any }} style={"width: 100%"}>{((unref(repos) || [])).map((item) => <ElOption value={item.id} label={item.name} key={item.id} />)}</ElSelect></ElFormItem> : null}<ElFormItem label={$t('container.imageName')} prop="imageName">{(form.fromRepo) ? <ElInputTag modelValue={form.imageName} onUpdate:modelValue={$v => { form.imageName = $v as any }} v-slots={{ "prefix": () => <>{loadDetailInfo(form.repoID)}{"/"}</> }} /> : <ElInputTag modelValue={form.imageName} onUpdate:modelValue={$v => { form.imageName = $v as any }} />}<span class={"input-help"}>{$t('container.imagePullHelper')}</span></ElFormItem></ElForm></DrawerPro>
-            <TaskLog ref={taskLogRef} width="70%" />
+                <DrawerPro
+                    modelValue={unref(drawerVisible)}
+                    onUpdate:modelValue={($v) => {
+                        drawerVisible.value = $v as any;
+                    }}
+                    header={$t('container.imagePull')}
+                    onClose={($event?: any) => {
+                        (onCloseLog as any)($event);
+                    }}
+                    size="large"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <span class={'dialog-footer'}>
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            drawerVisible.value = false;
+                                        }}
+                                    >
+                                        {$t('commons.button.cancel')}
+                                    </ElButton>
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onSubmit(unref(formRef));
+                                        }}
+                                    >
+                                        {$t('container.pull')}
+                                    </ElButton>
+                                </span>
+                            </>
+                        ),
+                    }}
+                >
+                    <ElForm ref={formRef} label-position="top" model={form} rules={rules}>
+                        <ElFormItem label={$t('app.source')}>
+                            <ElCheckbox
+                                modelValue={form.fromRepo}
+                                onUpdate:modelValue={($v) => {
+                                    form.fromRepo = $v as any;
+                                }}
+                            >
+                                {$t('container.imageRepo')}
+                            </ElCheckbox>
+                        </ElFormItem>
+                        {form.fromRepo ? (
+                            <ElFormItem label={$t('container.repoName')} prop="repoID">
+                                <ElSelect
+                                    clearable
+                                    filterable
+                                    modelValue={form.repoID}
+                                    onUpdate:modelValue={($v) => {
+                                        form.repoID = $v as any;
+                                    }}
+                                    style={'width: 100%'}
+                                >
+                                    {(unref(repos) || []).map((item) => (
+                                        <ElOption value={item.id} label={item.name} key={item.id} />
+                                    ))}
+                                </ElSelect>
+                            </ElFormItem>
+                        ) : null}
+                        <ElFormItem label={$t('container.imageName')} prop="imageName">
+                            {form.fromRepo ? (
+                                <ElInputTag
+                                    modelValue={form.imageName}
+                                    onUpdate:modelValue={($v) => {
+                                        form.imageName = $v as any;
+                                    }}
+                                    v-slots={{
+                                        prefix: () => (
+                                            <>
+                                                {loadDetailInfo(form.repoID)}
+                                                {'/'}
+                                            </>
+                                        ),
+                                    }}
+                                />
+                            ) : (
+                                <ElInputTag
+                                    modelValue={form.imageName}
+                                    onUpdate:modelValue={($v) => {
+                                        form.imageName = $v as any;
+                                    }}
+                                />
+                            )}
+                            <span class={'input-help'}>{$t('container.imagePullHelper')}</span>
+                        </ElFormItem>
+                    </ElForm>
+                </DrawerPro>
+                <TaskLog ref={taskLogRef} width="70%" />
             </>
         );
     },

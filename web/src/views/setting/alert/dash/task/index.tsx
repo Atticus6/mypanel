@@ -909,10 +909,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <ElFormItem label={$t('xpack.alert.triggerCondition')} prop="count">
                                     <div
                                         class={
-                                            'flex items-center flex-row md:flex-nowrap sm:flex-nowrap flex-wrap justify-between gap-2 w-full'
+                                            'flex w-full flex-row flex-wrap items-center justify-between gap-2 sm:flex-nowrap md:flex-nowrap'
                                         }
                                     >
-                                        <ElFormItem prop="cycle" class={'md:flex-1 sm:flex-1'}>
+                                        <ElFormItem prop="cycle" class={'sm:flex-1 md:flex-1'}>
                                             <ElInput
                                                 modelValue={unref(dialogData).rowData!.cycle}
                                                 onUpdate:modelValue={($v) => {
@@ -922,10 +922,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 v-slots={{ append: () => <>{$t('commons.units.minute')}</> }}
                                             />
                                         </ElFormItem>
-                                        <span class={'whitespace-nowrap input-help !w-[5rem]'}>
+                                        <span class={'input-help !w-[5rem] whitespace-nowrap'}>
                                             {$t('xpack.alert.loginFail')}
                                         </span>
-                                        <ElFormItem prop="count" class={'md:flex-1 sm:flex-1'}>
+                                        <ElFormItem prop="count" class={'sm:flex-1 md:flex-1'}>
                                             <ElInput
                                                 modelValue={unref(dialogData).rowData!.count}
                                                 onUpdate:modelValue={($v) => {

@@ -118,7 +118,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         label-width="260px"
                                         rules={unref(rules)}
                                         ref={configForm}
-                                        class={'ml-2.5 app-setting-form'}
+                                        class={'app-setting-form ml-2.5'}
                                     >
                                         <ElRow>
                                             <ElCol xs={24} sm={20} md={15} lg={12} xl={12}>
@@ -232,7 +232,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     )}
                                                 </ElFormItem>
                                                 {unref(isXpackOrEE) ? (
-                                                    h(CustomSetting, {  })
+                                                    h(CustomSetting, {})
                                                 ) : (
                                                     <span class={'input-help logText'}>
                                                         {$t('xpack.customApp.licenseHelper')}

@@ -10,7 +10,8 @@
     cursor: not-allowed !important;
     background-color: transparent !important;
 }
-[data-v-85aae938] .fu-dropdown-item--permission-disabled:hover,[data-v-85aae938] .fu-dropdown-item--permission-disabled:focus,
+[data-v-85aae938] .fu-dropdown-item--permission-disabled:hover,
+[data-v-85aae938] .fu-dropdown-item--permission-disabled:focus,
 .fu-dropdown-item.is-disabled[data-v-85aae938] .el-dropdown-menu__item:hover,
 .fu-dropdown-item.is-disabled[data-v-85aae938] .el-dropdown-menu__item:focus,
 .fu-dropdown-item[data-permission-disabled='true'][data-v-85aae938] .el-dropdown-menu__item:hover,

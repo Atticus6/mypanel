@@ -63,7 +63,7 @@ export default defineComponent(() => {
                                 <div class="flex justify-center">
                                     <SystemUpgrade class="upgrade" />
                                 </div>
-                                <div class="flex w-full justify-center my-5 flex-wrap md:flex-row gap-4">
+                                <div class="my-5 flex w-full flex-wrap justify-center gap-4 md:flex-row">
                                     <ElLink onClick={toDoc} class="system-link">
                                         <ElIcon>
                                             <Document />

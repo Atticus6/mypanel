@@ -14,17 +14,14 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "AppInstallPage",
-        props: {},
-        emits: emits,
+    name: 'AppInstallPage',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -66,24 +63,24 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         const handleSubmit = async () => {
             if (!formData.value.appDetailId) return;
-        
+
             const isValid = await installFormRef.value?.validate();
             if (!isValid) return;
-        
+
             const submitData = installFormRef.value?.getFormData();
-        
+
             if (submitData.editCompose && submitData.dockerCompose === '') {
                 MsgError(i18n.global.t('app.composeNullErr'));
                 return;
             }
-        
+
             if (submitData.cpuQuota < 0) {
                 submitData.cpuQuota = 0;
             }
             if (submitData.memoryLimit < 0) {
                 submitData.memoryLimit = 0;
             }
-        
+
             const isHostMode = installFormRef.value?.isHostMode();
             if (!isHostMode && !submitData.allowPort) {
                 ElMessageBox.confirm(i18n.global.t('app.installWarn'), i18n.global.t('app.checkTitle'), {
@@ -100,7 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             loading.value = true;
             const taskID = newUUID();
             submitData.taskID = taskID;
-        
+
             try {
                 // 单进程不再分发到多个节点，统一走本机安装。
                 await rpc.app.install({
@@ -129,12 +126,57 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             installFormRef.value?.initForm(__panelSetupProps.app.key);
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} header={$t('commons.button.install')} onClose={($event?: any) => { (handleClose as any)($event); }} size="large" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { (handleClose as any)($event); }} disabled={unref(loading)}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" onClick={($event?: any) => { (handleSubmit as any)($event); }} disabled={unref(loading) || !unref(formData).appDetailId}>{$t('commons.button.confirm')}</ElButton></span></> }}><AppInstallForm ref={installFormRef} modelValue={unref(formData)} onUpdate:modelValue={$v => { formData.value = $v as any }} loading={unref(loading)} batch-install-support={unref(batchInstallSupport)} /></DrawerPro>
-            <TaskLog ref={taskLogRef} />
+                <DrawerPro
+                    modelValue={unref(open)}
+                    onUpdate:modelValue={($v) => {
+                        open.value = $v as any;
+                    }}
+                    header={$t('commons.button.install')}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    size="large"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <span class={'dialog-footer'}>
+                                    <ElButton
+                                        onClick={($event?: any) => {
+                                            (handleClose as any)($event);
+                                        }}
+                                        disabled={unref(loading)}
+                                    >
+                                        {$t('commons.button.cancel')}
+                                    </ElButton>
+                                    <ElButton
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            (handleSubmit as any)($event);
+                                        }}
+                                        disabled={unref(loading) || !unref(formData).appDetailId}
+                                    >
+                                        {$t('commons.button.confirm')}
+                                    </ElButton>
+                                </span>
+                            </>
+                        ),
+                    }}
+                >
+                    <AppInstallForm
+                        ref={installFormRef}
+                        modelValue={unref(formData)}
+                        onUpdate:modelValue={($v) => {
+                            formData.value = $v as any;
+                        }}
+                        loading={unref(loading)}
+                        batch-install-support={unref(batchInstallSupport)}
+                    />
+                </DrawerPro>
+                <TaskLog ref={taskLogRef} />
             </>
         );
     },

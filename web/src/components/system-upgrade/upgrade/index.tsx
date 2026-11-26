@@ -125,7 +125,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onChange={($event?: any) => {
                             (changeOption as any)($event);
                         }}
-                        class={'inline-block tag'}
+                        class={'tag inline-block'}
                     >
                         {unref(upgradeInfo).newVersion ? (
                             <ElRadio value={unref(upgradeInfo).newVersion}>{unref(upgradeInfo).newVersion}</ElRadio>

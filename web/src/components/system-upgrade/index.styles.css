@@ -1,15 +1,15 @@
 .line-height[data-v-f8a0df33] {
-  line-height: 25px;
+    line-height: 25px;
 }
 [data-v-f8a0df33] .el-link__inner {
-  font-weight: 400;
+    font-weight: 400;
 }
 .version[data-v-f8a0df33] {
-  margin-left: 8px;
-  font-size: 14px;
-  color: var(--panel-color-primary-light-4);
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  font-family: auto;
+    margin-left: 8px;
+    font-size: 14px;
+    color: var(--panel-color-primary-light-4);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: auto;
 }

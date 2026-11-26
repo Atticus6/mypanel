@@ -19,19 +19,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "rename",
-        props: {},
-        emits: emits,
+    name: 'rename',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -48,7 +45,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             formEl.validate(async (valid) => {
                 if (!valid) return;
                 loading.value = true;
-                await rpc.container.renameContainer(renameForm)
+                await rpc.container
+                    .renameContainer(renameForm)
                     .then(() => {
                         loading.value = false;
                         ctx.emit('search');
@@ -70,10 +68,71 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             ctx.emit('search');
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DrawerPro modelValue={unref(newNameVisible)} onUpdate:modelValue={$v => { newNameVisible.value = $v as any }} header={$t('container.rename')} onClose={($event?: any) => { (handleClose as any)($event); }} resource={renameForm.name} size="small" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton disabled={unref(loading)} onClick={($event?: any) => { newNameVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton disabled={unref(loading)} type="primary" onClick={($event?: any) => { onSubmitName(unref(newNameRef)); }}>{$t('commons.button.confirm')}</ElButton></span></> }}>{withDirectives(<ElForm onSubmit={($event?: any) => { $event.preventDefault(); ; }} ref={newNameRef} model={renameForm} label-position="top"><ElFormItem label={$t('container.newName')} rules={[Rules.containerName, Rules.requiredInput]} prop="newName"><ElInput modelValue={renameForm.newName} onUpdate:modelValue={$v => { renameForm.newName = $v as any }} /></ElFormItem></ElForm>, [[vLoading, unref(loading)]])}</DrawerPro>
+            <DrawerPro
+                modelValue={unref(newNameVisible)}
+                onUpdate:modelValue={($v) => {
+                    newNameVisible.value = $v as any;
+                }}
+                header={$t('container.rename')}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                resource={renameForm.name}
+                size="small"
+                v-slots={{
+                    footer: () => (
+                        <>
+                            <span class={'dialog-footer'}>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    onClick={($event?: any) => {
+                                        newNameVisible.value = false;
+                                    }}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        onSubmitName(unref(newNameRef));
+                                    }}
+                                >
+                                    {$t('commons.button.confirm')}
+                                </ElButton>
+                            </span>
+                        </>
+                    ),
+                }}
+            >
+                {withDirectives(
+                    <ElForm
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                        ref={newNameRef}
+                        model={renameForm}
+                        label-position="top"
+                    >
+                        <ElFormItem
+                            label={$t('container.newName')}
+                            rules={[Rules.containerName, Rules.requiredInput]}
+                            prop="newName"
+                        >
+                            <ElInput
+                                modelValue={renameForm.newName}
+                                onUpdate:modelValue={($v) => {
+                                    renameForm.newName = $v as any;
+                                }}
+                            />
+                        </ElFormItem>
+                    </ElForm>,
+                    [[vLoading, unref(loading)]],
+                )}
+            </DrawerPro>
         );
     },
     options,

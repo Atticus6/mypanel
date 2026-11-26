@@ -82,11 +82,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             }}
                             class={'fu-table-operations__button'}
                         >
-                            {button.icon ? (
-                                <ElIcon class={'mr-1'}>
-                                    {h(button.icon, {  })}
-                                </ElIcon>
-                            ) : null}
+                            {button.icon ? <ElIcon class={'mr-1'}>{h(button.icon, {})}</ElIcon> : null}
                             <ElBadge is-dot hidden={!hasDot(button)}>
                                 <span>{button.label}</span>
                             </ElBadge>
@@ -113,9 +109,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     key={getButtonKey(button, index)}
                                                 >
                                                     {button.icon ? (
-                                                        <ElIcon class={'mr-1'}>
-                                                            {h(button.icon, {  })}
-                                                        </ElIcon>
+                                                        <ElIcon class={'mr-1'}>{h(button.icon, {})}</ElIcon>
                                                     ) : null}
                                                     <ElBadge is-dot hidden={!hasDot(button)}>
                                                         <span>{button.label}</span>

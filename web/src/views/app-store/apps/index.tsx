@@ -39,18 +39,15 @@ import FuTablePagination from '@/components/table/TablePagination';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "apps",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-4baf8ce6",
+    name: 'apps',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-4baf8ce6',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -100,7 +97,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             loading.value = true;
             req.pageSize = paginationConfig.pageSize;
             req.page = paginationConfig.currentPage;
-        
+
             const customReq = {
                 page: req.page,
                 pageSize: req.pageSize,
@@ -186,7 +183,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             syncing.value = true;
             try {
                 const dispatch =
-                    isMaster.value && isXpackOrEE.value && isAdmin.value && (await getLocalAppSyncConfig()).data.enabled;
+                    isMaster.value &&
+                    isXpackOrEE.value &&
+                    isAdmin.value &&
+                    (await getLocalAppSyncConfig()).data.enabled;
                 if (dispatch) {
                     await dispatchLocalAppSync(syncReq);
                     taskLogRef.value.openWithTaskID(taskID, true, 'local');
@@ -244,10 +244,181 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <>
-            <div><DockerStatus isActive={unref(isActive)} onUpdate:isActive={$v => { isActive.value = $v as any }} isExist={unref(isExist)} onUpdate:isExist={$v => { isExist.value = $v as any }} />{(unref(isExist)) ? withDirectives(<LayoutContent title={$t('app.app', 2)} class={{ mask: !unref(isActive) }} v-slots={{ "search": () => <><Tags onChange={($event?: any) => { (changeTag as any)($event); }} /></>, "leftToolBar": () => <>{withDirectives(<ElButton onClick={($event?: any) => { (sync as any)($event); }} type="primary" plain disabled={unref(syncing)}><span>{unref(customAppStoreEnabled) ? $t('app.syncCustomApp') : $t('app.syncAppList')}</span></ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton onClick={($event?: any) => { (syncLocal as any)($event); }} type="primary" plain disabled={unref(syncing)} class={"ml-2"}>{$t('app.syncLocalApp')}</ElButton>, [[permissionDirective, true]])}</>, "rightToolBar": () => <><ElCheckbox modelValue={req.showCurrentArch} onUpdate:modelValue={$v => { req.showCurrentArch = $v as any }} onChange={($event?: any) => { search(req); }} class={"!mr-2.5"}>{$t('app.showCurrentArch')}</ElCheckbox><ElCheckbox modelValue={req.resource} onUpdate:modelValue={$v => { req.resource = $v as any }} true-value="all" false-value="remote" onChange={($event?: any) => { search(req); }} class={"!mr-2.5"}>{$t('app.showLocal')}</ElCheckbox><TableSearch onSearch={($event?: any) => { searchByName(); }} searchName={req.name} onUpdate:searchName={$v => { req.name = $v as any }} /></>, "main": () => <><div><MainDiv heightDiff={300}><ElAlert type="info" title={$t('app.appHelper')} closable={false} />{(unref(apps).length > 0) ? <ElRow gutter={5}>{((unref(apps) || [])).map((app, index) => <ElCol xs={24} sm={12} md={8} lg={8} xl={6} class={"app-col-12"} key={index}><AppCard app={app} onOpenInstall={($event?: any) => { (openInstall as any)($event); }} onOpenDetail={($event?: any) => { (openDetail as any)($event); }} /></ElCol>)}</ElRow> : null}{(unref(noApp)) ? <NoApp /> : null}</MainDiv><div class={"page-button"}><FuTablePagination current-page={paginationConfig.currentPage} onUpdate:current-page={$v => { paginationConfig.currentPage = $v as any }} page-size={paginationConfig.pageSize} onUpdate:page-size={$v => { paginationConfig.pageSize = $v as any }} {...paginationConfig} onChange={($event?: any) => { search(req); }} page-sizes={[30, 60, 90]} layout={unref(isMobile) ? 'total, prev, pager, next' : 'total, sizes, prev, pager, next, jumper'} /></div></div></> }} />, [[vLoading, unref(loading)]]) : null}</div>
-            <Install ref={installRef} />
-            <Detail ref={detailRef} />
-            <TaskLog ref={taskLogRef} onClose={($event?: any) => { (refresh as any)($event); }} />
+                <div>
+                    <DockerStatus
+                        isActive={unref(isActive)}
+                        onUpdate:isActive={($v) => {
+                            isActive.value = $v as any;
+                        }}
+                        isExist={unref(isExist)}
+                        onUpdate:isExist={($v) => {
+                            isExist.value = $v as any;
+                        }}
+                    />
+                    {unref(isExist)
+                        ? withDirectives(
+                              <LayoutContent
+                                  title={$t('app.app', 2)}
+                                  class={{ mask: !unref(isActive) }}
+                                  v-slots={{
+                                      search: () => (
+                                          <>
+                                              <Tags
+                                                  onChange={($event?: any) => {
+                                                      (changeTag as any)($event);
+                                                  }}
+                                              />
+                                          </>
+                                      ),
+                                      leftToolBar: () => (
+                                          <>
+                                              {withDirectives(
+                                                  <ElButton
+                                                      onClick={($event?: any) => {
+                                                          (sync as any)($event);
+                                                      }}
+                                                      type="primary"
+                                                      plain
+                                                      disabled={unref(syncing)}
+                                                  >
+                                                      <span>
+                                                          {unref(customAppStoreEnabled)
+                                                              ? $t('app.syncCustomApp')
+                                                              : $t('app.syncAppList')}
+                                                      </span>
+                                                  </ElButton>,
+                                                  [[permissionDirective, true]],
+                                              )}
+                                              {withDirectives(
+                                                  <ElButton
+                                                      onClick={($event?: any) => {
+                                                          (syncLocal as any)($event);
+                                                      }}
+                                                      type="primary"
+                                                      plain
+                                                      disabled={unref(syncing)}
+                                                      class={'ml-2'}
+                                                  >
+                                                      {$t('app.syncLocalApp')}
+                                                  </ElButton>,
+                                                  [[permissionDirective, true]],
+                                              )}
+                                          </>
+                                      ),
+                                      rightToolBar: () => (
+                                          <>
+                                              <ElCheckbox
+                                                  modelValue={req.showCurrentArch}
+                                                  onUpdate:modelValue={($v) => {
+                                                      req.showCurrentArch = $v as any;
+                                                  }}
+                                                  onChange={($event?: any) => {
+                                                      search(req);
+                                                  }}
+                                                  class={'!mr-2.5'}
+                                              >
+                                                  {$t('app.showCurrentArch')}
+                                              </ElCheckbox>
+                                              <ElCheckbox
+                                                  modelValue={req.resource}
+                                                  onUpdate:modelValue={($v) => {
+                                                      req.resource = $v as any;
+                                                  }}
+                                                  true-value="all"
+                                                  false-value="remote"
+                                                  onChange={($event?: any) => {
+                                                      search(req);
+                                                  }}
+                                                  class={'!mr-2.5'}
+                                              >
+                                                  {$t('app.showLocal')}
+                                              </ElCheckbox>
+                                              <TableSearch
+                                                  onSearch={($event?: any) => {
+                                                      searchByName();
+                                                  }}
+                                                  searchName={req.name}
+                                                  onUpdate:searchName={($v) => {
+                                                      req.name = $v as any;
+                                                  }}
+                                              />
+                                          </>
+                                      ),
+                                      main: () => (
+                                          <>
+                                              <div>
+                                                  <MainDiv heightDiff={300}>
+                                                      <ElAlert
+                                                          type="info"
+                                                          title={$t('app.appHelper')}
+                                                          closable={false}
+                                                      />
+                                                      {unref(apps).length > 0 ? (
+                                                          <ElRow gutter={5}>
+                                                              {(unref(apps) || []).map((app, index) => (
+                                                                  <ElCol
+                                                                      xs={24}
+                                                                      sm={12}
+                                                                      md={8}
+                                                                      lg={8}
+                                                                      xl={6}
+                                                                      class={'app-col-12'}
+                                                                      key={index}
+                                                                  >
+                                                                      <AppCard
+                                                                          app={app}
+                                                                          onOpenInstall={($event?: any) => {
+                                                                              (openInstall as any)($event);
+                                                                          }}
+                                                                          onOpenDetail={($event?: any) => {
+                                                                              (openDetail as any)($event);
+                                                                          }}
+                                                                      />
+                                                                  </ElCol>
+                                                              ))}
+                                                          </ElRow>
+                                                      ) : null}
+                                                      {unref(noApp) ? <NoApp /> : null}
+                                                  </MainDiv>
+                                                  <div class={'page-button'}>
+                                                      <FuTablePagination
+                                                          current-page={paginationConfig.currentPage}
+                                                          onUpdate:current-page={($v) => {
+                                                              paginationConfig.currentPage = $v as any;
+                                                          }}
+                                                          page-size={paginationConfig.pageSize}
+                                                          onUpdate:page-size={($v) => {
+                                                              paginationConfig.pageSize = $v as any;
+                                                          }}
+                                                          {...paginationConfig}
+                                                          onChange={($event?: any) => {
+                                                              search(req);
+                                                          }}
+                                                          page-sizes={[30, 60, 90]}
+                                                          layout={
+                                                              unref(isMobile)
+                                                                  ? 'total, prev, pager, next'
+                                                                  : 'total, sizes, prev, pager, next, jumper'
+                                                          }
+                                                      />
+                                                  </div>
+                                              </div>
+                                          </>
+                                      ),
+                                  }}
+                              />,
+                              [[vLoading, unref(loading)]],
+                          )
+                        : null}
+                </div>
+                <Install ref={installRef} />
+                <Detail ref={detailRef} />
+                <TaskLog
+                    ref={taskLogRef}
+                    onClose={($event?: any) => {
+                        (refresh as any)($event);
+                    }}
+                />
             </>
         );
     },

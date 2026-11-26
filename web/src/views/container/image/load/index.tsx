@@ -26,19 +26,16 @@ import { UploadFilled } from '@element-plus/icons-vue';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "load",
-        props: {},
-        emits: emits,
+    name: 'load',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -210,9 +207,163 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <>
-            <DrawerPro modelValue={unref(loadVisible)} onUpdate:modelValue={$v => { loadVisible.value = $v as any }} header={$t('container.importImage')} auto-close={!unref(busy)} confirm-before-close={true} onBeforeClose={($event?: any) => { (beforeClose as any)($event); }} size="small" v-slots={{ "footer": () => <><ElButton disabled={unref(busy)} onClick={($event?: any) => { loadVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton>{(unref(source) === 'server') ? <ElButton disabled={unref(busy) || !!unref(submittedTaskID) || !form.paths.length} loading={unref(loading)} type="primary" onClick={($event?: any) => { (onSubmit as any)($event); }}>{$t('commons.button.import')}</ElButton> : null}</> }}><ElForm onSubmit={($event?: any) => { $event.preventDefault(); ; }} label-position="top"><div class={"flex items-center gap-3 mb-5"}><ElButton disabled={unref(busy)} onClick={($event?: any) => { source.value = 'local'; }}>{$t('database.localUpload')}</ElButton><ElButton disabled={unref(busy)} onClick={($event?: any) => { (onServerSelect as any)($event); }}>{$t('database.hostSelect')}</ElButton></div>{(unref(source) === 'server') ? <ElFormItem label={$t('container.path')}><ElInput modelValue={form.path} onUpdate:modelValue={$v => { form.path = $v as any }} disabled={unref(busy)} onInput={($event?: any) => { (handlePathChange as any)($event); }} /></ElFormItem> : <><ElUpload ref={uploadRef} drag limit={1} auto-upload={false} show-file-list={false} disabled={unref(busy)} on-change={onFileChange} on-exceed={onFileExceed}><ElIcon class={"el-icon--upload"}><UploadFilled /></ElIcon><div class={"el-upload__text"}>{$t('container.imageUploadDrop')}</div></ElUpload><p class={"input-help"}>{$t('container.imageUploadHelper')}</p>{(unref(localFile)) ? <><p class={"break-all"}>{unref(localFile).name}{" ("}{computeSize(unref(localFile).size)}{")"}</p><ElProgress percentage={unref(uploadPercent)} status={unref(uploadFailed) ? 'exception' : unref(uploadedPath) ? 'success' : undefined} />{(unref(uploadedPath)) ? <p class={"input-help break-all"}>{unref(uploadedPath)}</p> : null}{(unref(uploadFailed)) ? <ElButton disabled={unref(busy)} onClick={($event?: any) => { (uploadLocalFile as any)($event); }}>{$t('commons.button.retry')}</ElButton> : null}</> : null}</>}{(unref(submittedTaskID)) ? <ElButton link type="primary" onClick={($event?: any) => { (openTaskLog as any)($event); }}>{$t('commons.button.log')}</ElButton> : null}</ElForm></DrawerPro>
-            {(unref(loadVisible)) ? <FileList ref={fileRef} onChoose={($event?: any) => { (loadLoadDir as any)($event); }} /> : null}
-            <TaskLog ref={taskLogRef} width="70%" onClose={($event?: any) => { ctx.emit('search'); }} />
+                <DrawerPro
+                    modelValue={unref(loadVisible)}
+                    onUpdate:modelValue={($v) => {
+                        loadVisible.value = $v as any;
+                    }}
+                    header={$t('container.importImage')}
+                    auto-close={!unref(busy)}
+                    confirm-before-close={true}
+                    onBeforeClose={($event?: any) => {
+                        (beforeClose as any)($event);
+                    }}
+                    size="small"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <ElButton
+                                    disabled={unref(busy)}
+                                    onClick={($event?: any) => {
+                                        loadVisible.value = false;
+                                    }}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                {unref(source) === 'server' ? (
+                                    <ElButton
+                                        disabled={unref(busy) || !!unref(submittedTaskID) || !form.paths.length}
+                                        loading={unref(loading)}
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            (onSubmit as any)($event);
+                                        }}
+                                    >
+                                        {$t('commons.button.import')}
+                                    </ElButton>
+                                ) : null}
+                            </>
+                        ),
+                    }}
+                >
+                    <ElForm
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                        label-position="top"
+                    >
+                        <div class={'mb-5 flex items-center gap-3'}>
+                            <ElButton
+                                disabled={unref(busy)}
+                                onClick={($event?: any) => {
+                                    source.value = 'local';
+                                }}
+                            >
+                                {$t('database.localUpload')}
+                            </ElButton>
+                            <ElButton
+                                disabled={unref(busy)}
+                                onClick={($event?: any) => {
+                                    (onServerSelect as any)($event);
+                                }}
+                            >
+                                {$t('database.hostSelect')}
+                            </ElButton>
+                        </div>
+                        {unref(source) === 'server' ? (
+                            <ElFormItem label={$t('container.path')}>
+                                <ElInput
+                                    modelValue={form.path}
+                                    onUpdate:modelValue={($v) => {
+                                        form.path = $v as any;
+                                    }}
+                                    disabled={unref(busy)}
+                                    onInput={($event?: any) => {
+                                        (handlePathChange as any)($event);
+                                    }}
+                                />
+                            </ElFormItem>
+                        ) : (
+                            <>
+                                <ElUpload
+                                    ref={uploadRef}
+                                    drag
+                                    limit={1}
+                                    auto-upload={false}
+                                    show-file-list={false}
+                                    disabled={unref(busy)}
+                                    on-change={onFileChange}
+                                    on-exceed={onFileExceed}
+                                >
+                                    <ElIcon class={'el-icon--upload'}>
+                                        <UploadFilled />
+                                    </ElIcon>
+                                    <div class={'el-upload__text'}>{$t('container.imageUploadDrop')}</div>
+                                </ElUpload>
+                                <p class={'input-help'}>{$t('container.imageUploadHelper')}</p>
+                                {unref(localFile) ? (
+                                    <>
+                                        <p class={'break-all'}>
+                                            {unref(localFile).name}
+                                            {' ('}
+                                            {computeSize(unref(localFile).size)}
+                                            {')'}
+                                        </p>
+                                        <ElProgress
+                                            percentage={unref(uploadPercent)}
+                                            status={
+                                                unref(uploadFailed)
+                                                    ? 'exception'
+                                                    : unref(uploadedPath)
+                                                      ? 'success'
+                                                      : undefined
+                                            }
+                                        />
+                                        {unref(uploadedPath) ? (
+                                            <p class={'input-help break-all'}>{unref(uploadedPath)}</p>
+                                        ) : null}
+                                        {unref(uploadFailed) ? (
+                                            <ElButton
+                                                disabled={unref(busy)}
+                                                onClick={($event?: any) => {
+                                                    (uploadLocalFile as any)($event);
+                                                }}
+                                            >
+                                                {$t('commons.button.retry')}
+                                            </ElButton>
+                                        ) : null}
+                                    </>
+                                ) : null}
+                            </>
+                        )}
+                        {unref(submittedTaskID) ? (
+                            <ElButton
+                                link
+                                type="primary"
+                                onClick={($event?: any) => {
+                                    (openTaskLog as any)($event);
+                                }}
+                            >
+                                {$t('commons.button.log')}
+                            </ElButton>
+                        ) : null}
+                    </ElForm>
+                </DrawerPro>
+                {unref(loadVisible) ? (
+                    <FileList
+                        ref={fileRef}
+                        onChoose={($event?: any) => {
+                            (loadLoadDir as any)($event);
+                        }}
+                    />
+                ) : null}
+                <TaskLog
+                    ref={taskLogRef}
+                    width="70%"
+                    onClose={($event?: any) => {
+                        ctx.emit('search');
+                    }}
+                />
             </>
         );
     },

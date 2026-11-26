@@ -13,7 +13,6 @@ export interface NodeItem {
     name: string;
 }
 
-
 export const changeToLocal = async () => {
     const globalStore = GlobalStore();
     let nodes = await listNodes('all');

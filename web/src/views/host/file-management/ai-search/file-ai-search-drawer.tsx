@@ -450,7 +450,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 before-close={handleAiSearchDrawerBeforeClose}
             >
                 {withDirectives(
-                    <div element-loading-lock class={'flex flex-col gap-3 min-h-[50vh] ai-search-drawer-inner'}>
+                    <div element-loading-lock class={'ai-search-drawer-inner flex min-h-[50vh] flex-col gap-3'}>
                         <ElAlert type="info" closable={false} show-icon class={'shrink-0'}>
                             {unref(fileAiStatus) === 'Disable'
                                 ? $t('file.aiSearchGrepOnlyHint')
@@ -647,7 +647,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onUpdate:modelValue={($v) => {
                                                 aiSearchPath.value = $v as any;
                                             }}
-                                            class={'ai-search-field-input min-w-0 flex-1 !w-48'}
+                                            class={'ai-search-field-input !w-48 min-w-0 flex-1'}
                                             v-slots={{
                                                 prepend: () => (
                                                     <>
@@ -656,7 +656,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             onUpdate:modelValue={($v) => {
                                                                 aiSearchContainSub.value = $v as any;
                                                             }}
-                                                            class={'shrink-0 !mr-0'}
+                                                            class={'!mr-0 shrink-0'}
                                                         >
                                                             {$t('file.sub')}
                                                         </ElCheckbox>
@@ -834,7 +834,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         min={1}
                                                         max={2000}
                                                         controls={true}
-                                                        class={'min-w-0 flex-1 !max-w-full sm:!w-52'}
+                                                        class={'!max-w-full min-w-0 flex-1 sm:!w-52'}
                                                         v-slots={{
                                                             suffix: () => (
                                                                 <>
@@ -866,7 +866,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         min={1}
                                                         max={500}
                                                         controls={true}
-                                                        class={'min-w-0 flex-1 !max-w-full sm:!w-52'}
+                                                        class={'!max-w-full min-w-0 flex-1 sm:!w-52'}
                                                         v-slots={{
                                                             suffix: () => (
                                                                 <>
@@ -899,7 +899,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         max={4194304}
                                                         step={1024}
                                                         controls={true}
-                                                        class={'min-w-0 flex-1 !max-w-full sm:!w-52'}
+                                                        class={'!max-w-full min-w-0 flex-1 sm:!w-52'}
                                                         v-slots={{
                                                             suffix: () => (
                                                                 <>
@@ -931,7 +931,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         min={1}
                                                         max={200}
                                                         controls={true}
-                                                        class={'min-w-0 flex-1 !max-w-full sm:!w-52'}
+                                                        class={'!max-w-full min-w-0 flex-1 sm:!w-52'}
                                                         v-slots={{
                                                             suffix: () => (
                                                                 <>
@@ -963,7 +963,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         min={1}
                                                         max={2000}
                                                         controls={true}
-                                                        class={'min-w-0 flex-1 !max-w-full sm:!w-52'}
+                                                        class={'!max-w-full min-w-0 flex-1 sm:!w-52'}
                                                         v-slots={{
                                                             suffix: () => (
                                                                 <>
@@ -1129,12 +1129,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             <div class={'min-w-0 flex-1'}>
                                                                                 <span
                                                                                     class={
-                                                                                        'mr-2 shrink-0 tabular-nums text-[var(--el-text-color-secondary)]'
+                                                                                        'mr-2 shrink-0 text-[var(--el-text-color-secondary)] tabular-nums'
                                                                                     }
                                                                                 >
                                                                                     {h.line > 0 ? h.line : '—'}
                                                                                 </span>
-                                                                                <span class={'break-all font-mono'}>
+                                                                                <span class={'font-mono break-all'}>
                                                                                     {h.text}
                                                                                 </span>
                                                                             </div>

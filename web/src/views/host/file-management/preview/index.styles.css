@@ -1,16 +1,16 @@
 .dialog-top[data-v-a64ad9e9] {
-  top: 0;
+    top: 0;
 }
 .dialog-header-icon[data-v-a64ad9e9] {
-  color: var(--el-color-info);
+    color: var(--el-color-info);
 }
 .left-aside[data-v-a64ad9e9] {
-  background-color: var(--panel-menu-bg-color);
-  opacity: 85%;
+    background-color: var(--panel-menu-bg-color);
+    opacity: 85%;
 }
 .left-item[data-v-a64ad9e9]:hover {
-  background: var(--el-menu-item-bg-color-active) !important;
+    background: var(--el-menu-item-bg-color-active) !important;
 }
 .left-item-default[data-v-a64ad9e9] {
-  background: var(--el-menu-item-bg-color-active) !important;
+    background: var(--el-menu-item-bg-color-active) !important;
 }

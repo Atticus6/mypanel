@@ -776,7 +776,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             rules={mfaRules}
                         >
                             <ElFormItem label={$t('setting.mfaHelper2')}>
-                                <ElImage src={unref(qrImage)} class={'w-32 h-32'} />
+                                <ElImage src={unref(qrImage)} class={'h-32 w-32'} />
                                 <span class={'input-help flex items-center'}>
                                     <span>
                                         {$t('setting.secret')}
@@ -972,7 +972,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 >
                                     {$t('setting.passkeyAdd')}
                                 </ElButton>
-                                <span class={'text-xs text-gray-500 ml-3'}>{unref(passkeyCountText)}</span>
+                                <span class={'ml-3 text-xs text-gray-500'}>{unref(passkeyCountText)}</span>
                             </ElForm>
                             {withDirectives(
                                 <ElTable data={unref(passkeyList)} class={'mt-4'}>
@@ -1020,7 +1020,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElTabPane label={$t('app.advanced')} name="advanced">
                             <ElForm label-position="top">
                                 <ElFormItem label={$t('setting.passkeyTrustedProxies')}>
-                                    <div class={'w-full flex items-start gap-2'}>
+                                    <div class={'flex w-full items-start gap-2'}>
                                         <ElInput
                                             modelValue={unref(passkeyTrustedProxies)}
                                             onUpdate:modelValue={($v) => {

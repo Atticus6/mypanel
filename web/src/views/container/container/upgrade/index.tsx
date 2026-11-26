@@ -19,7 +19,7 @@ type ContainerInfo = Omit<Init<typeof ContainerSchema>, 'network'> & {
     hasLoad: boolean;
     cpuPercent: number;
     memoryPercent: number;
-}
+};
 interface ContainerOption {
     name: string;
     state: string;
@@ -68,20 +68,17 @@ import CopyButton from '@/components/copy-button/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "upgrade",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-47aaf329",
+    name: 'upgrade',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-47aaf329',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -93,7 +90,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         const isBatch = ref(false);
         const isGroupEditable = (group: UpgradeGroup) => ['draft', 'failed'].includes(group.state);
-        const isGroupChecked = (group: UpgradeGroup) => group.options.length > 0 && group.names.length === group.options.length;
+        const isGroupChecked = (group: UpgradeGroup) =>
+            group.options.length > 0 && group.names.length === group.options.length;
         const handleCheckAllChange = (group: UpgradeGroup, value: CheckboxValueType) => {
             if (loading.value || !isGroupEditable(group)) return;
             group.names = value ? group.options.map((item) => item.name) : [];
@@ -301,8 +299,192 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         ctx.expose({ acceptParams });
         return () => (
             <>
-            <DrawerPro modelValue={unref(visible)} onUpdate:modelValue={$v => { visible.value = $v as any }} header={$t(unref(isBatch) ? 'container.batchUpgrade' : 'commons.button.upgrade')} size="large" confirm-before-close={true} onBeforeClose={($event?: any) => { (beforeClose as any)($event); }} onClose={($event?: any) => { (handleClose as any)($event); }} v-slots={{ "footer": () => <><ElButton disabled={unref(loading)} onClick={($event?: any) => { visible.value = false; }}>{$t('commons.button.close')}</ElButton>{(unref(canSubmit)) ? <ElButton type="primary" loading={unref(loading)} onClick={($event?: any) => { (submit as any)($event); }}>{unref(started) ? $t('container.batchUpgradeRetry') : $t('commons.button.confirm')}</ElButton> : null}</> }}><ElForm ref={formRef} model={form} label-position="top" onSubmit={($event?: any) => { $event.preventDefault(); ; }}>{((form.groups || [])).map((group, index) => <section class={"upgrade-group"} key={group.currentImage}>{(unref(isBatch)) ? <div class={"mb-3"}>{((group.names || [])).map((name) => <span class={"group-name mr-2 mb-2"} key={name}>{name}</span>)}</div> : null}{(group.appNames.some((name) => group.names.includes(name))) ? <ElAlert title={$t('container.appHelper')} type="warning" closable={false} class={"common-prompt app-warning"} /> : null}<ElFormItem label={$t('container.oldImage')}><ElTag class={"image-name"}>{group.currentImage}</ElTag></ElFormItem>{(group.options.length > 1) ? <ElFormItem label={$t('container.sameImageContainer')}><div class={"w-full"}><ElCheckbox model-value={isGroupChecked(group)} indeterminate={group.names.length > 0 && !isGroupChecked(group)} disabled={unref(loading) || !isGroupEditable(group)} onChange={($event?: any) => { (value) => handleCheckAllChange(group, value); }}>{$t('commons.table.all')}</ElCheckbox></div><ElCheckboxGroup modelValue={group.names} onUpdate:modelValue={$v => { group.names = $v as any }} disabled={unref(loading) || !isGroupEditable(group)}>{((group.options || [])).map((item) => <ElCheckbox value={item.name} key={item.name}>{item.name}</ElCheckbox>)}</ElCheckboxGroup><span class={"input-help"}>{$t('container.sameImageHelper')}</span></ElFormItem> : null}<ElFormItem prop={`groups.${index}.targetImage`} rules={group.names.length ? Rules.imageName : []} v-slots={{ "label": () => <>{$t('container.targetImage')}{(group.currentImage.includes('sha256:')) ? <span>{' (' + $t('container.imageLoadErr') + ')'}</span> : null}</> }}><ElInput modelValue={group.targetImage} onUpdate:modelValue={$v => { group.targetImage = $v as any }} disabled={unref(loading) || !group.names.length || !isGroupEditable(group)} /><span class={"input-help"}>{$t('container.upgradeHelper')}</span>{(group.availableVersion) ? <div class={"input-help"}>{$t('container.imageCheckUpdateAvailableVersion', { version: group.availableVersion })}{(imageTag(group.currentImage) === group.availableVersion) ? <span>{$t('container.imageCheckUpdateContentChanged')}</span> : null}<CopyButton content={group.availableVersion} /></div> : null}</ElFormItem>{(group.state !== 'draft') ? <div class={"mb-3"}><ElTag type={statusType(group)}>{statusLabel(group)}</ElTag>{(group.state === 'submitted') ? <ElButton link type="primary" onClick={($event?: any) => { openLog(group); }}>{$t('container.batchUpgradeLog')}</ElButton> : null}{(group.state === 'unknown') ? <ElButton link type="primary" onClick={($event?: any) => { refreshGroup(group); }}>{$t('container.batchUpgradeCheck')}</ElButton> : null}</div> : null}</section>)}<ElFormItem><ElCheckbox modelValue={form.forcePull} onUpdate:modelValue={$v => { form.forcePull = $v as any }} disabled={unref(started) || unref(loading)}>{$t('container.forcePull')}</ElCheckbox><span class={"input-help"}>{$t('container.forcePullHelper')}</span></ElFormItem></ElForm></DrawerPro>
-            <TaskLog ref={taskLogRef} width="70%" onClose={($event?: any) => { ctx.emit('search'); }} />
+                <DrawerPro
+                    modelValue={unref(visible)}
+                    onUpdate:modelValue={($v) => {
+                        visible.value = $v as any;
+                    }}
+                    header={$t(unref(isBatch) ? 'container.batchUpgrade' : 'commons.button.upgrade')}
+                    size="large"
+                    confirm-before-close={true}
+                    onBeforeClose={($event?: any) => {
+                        (beforeClose as any)($event);
+                    }}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    onClick={($event?: any) => {
+                                        visible.value = false;
+                                    }}
+                                >
+                                    {$t('commons.button.close')}
+                                </ElButton>
+                                {unref(canSubmit) ? (
+                                    <ElButton
+                                        type="primary"
+                                        loading={unref(loading)}
+                                        onClick={($event?: any) => {
+                                            (submit as any)($event);
+                                        }}
+                                    >
+                                        {unref(started)
+                                            ? $t('container.batchUpgradeRetry')
+                                            : $t('commons.button.confirm')}
+                                    </ElButton>
+                                ) : null}
+                            </>
+                        ),
+                    }}
+                >
+                    <ElForm
+                        ref={formRef}
+                        model={form}
+                        label-position="top"
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                    >
+                        {(form.groups || []).map((group, index) => (
+                            <section class={'upgrade-group'} key={group.currentImage}>
+                                {unref(isBatch) ? (
+                                    <div class={'mb-3'}>
+                                        {(group.names || []).map((name) => (
+                                            <span class={'group-name mr-2 mb-2'} key={name}>
+                                                {name}
+                                            </span>
+                                        ))}
+                                    </div>
+                                ) : null}
+                                {group.appNames.some((name) => group.names.includes(name)) ? (
+                                    <ElAlert
+                                        title={$t('container.appHelper')}
+                                        type="warning"
+                                        closable={false}
+                                        class={'common-prompt app-warning'}
+                                    />
+                                ) : null}
+                                <ElFormItem label={$t('container.oldImage')}>
+                                    <ElTag class={'image-name'}>{group.currentImage}</ElTag>
+                                </ElFormItem>
+                                {group.options.length > 1 ? (
+                                    <ElFormItem label={$t('container.sameImageContainer')}>
+                                        <div class={'w-full'}>
+                                            <ElCheckbox
+                                                model-value={isGroupChecked(group)}
+                                                indeterminate={group.names.length > 0 && !isGroupChecked(group)}
+                                                disabled={unref(loading) || !isGroupEditable(group)}
+                                                onChange={($event?: any) => {
+                                                    (value) => handleCheckAllChange(group, value);
+                                                }}
+                                            >
+                                                {$t('commons.table.all')}
+                                            </ElCheckbox>
+                                        </div>
+                                        <ElCheckboxGroup
+                                            modelValue={group.names}
+                                            onUpdate:modelValue={($v) => {
+                                                group.names = $v as any;
+                                            }}
+                                            disabled={unref(loading) || !isGroupEditable(group)}
+                                        >
+                                            {(group.options || []).map((item) => (
+                                                <ElCheckbox value={item.name} key={item.name}>
+                                                    {item.name}
+                                                </ElCheckbox>
+                                            ))}
+                                        </ElCheckboxGroup>
+                                        <span class={'input-help'}>{$t('container.sameImageHelper')}</span>
+                                    </ElFormItem>
+                                ) : null}
+                                <ElFormItem
+                                    prop={`groups.${index}.targetImage`}
+                                    rules={group.names.length ? Rules.imageName : []}
+                                    v-slots={{
+                                        label: () => (
+                                            <>
+                                                {$t('container.targetImage')}
+                                                {group.currentImage.includes('sha256:') ? (
+                                                    <span>{' (' + $t('container.imageLoadErr') + ')'}</span>
+                                                ) : null}
+                                            </>
+                                        ),
+                                    }}
+                                >
+                                    <ElInput
+                                        modelValue={group.targetImage}
+                                        onUpdate:modelValue={($v) => {
+                                            group.targetImage = $v as any;
+                                        }}
+                                        disabled={unref(loading) || !group.names.length || !isGroupEditable(group)}
+                                    />
+                                    <span class={'input-help'}>{$t('container.upgradeHelper')}</span>
+                                    {group.availableVersion ? (
+                                        <div class={'input-help'}>
+                                            {$t('container.imageCheckUpdateAvailableVersion', {
+                                                version: group.availableVersion,
+                                            })}
+                                            {imageTag(group.currentImage) === group.availableVersion ? (
+                                                <span>{$t('container.imageCheckUpdateContentChanged')}</span>
+                                            ) : null}
+                                            <CopyButton content={group.availableVersion} />
+                                        </div>
+                                    ) : null}
+                                </ElFormItem>
+                                {group.state !== 'draft' ? (
+                                    <div class={'mb-3'}>
+                                        <ElTag type={statusType(group)}>{statusLabel(group)}</ElTag>
+                                        {group.state === 'submitted' ? (
+                                            <ElButton
+                                                link
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    openLog(group);
+                                                }}
+                                            >
+                                                {$t('container.batchUpgradeLog')}
+                                            </ElButton>
+                                        ) : null}
+                                        {group.state === 'unknown' ? (
+                                            <ElButton
+                                                link
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    refreshGroup(group);
+                                                }}
+                                            >
+                                                {$t('container.batchUpgradeCheck')}
+                                            </ElButton>
+                                        ) : null}
+                                    </div>
+                                ) : null}
+                            </section>
+                        ))}
+                        <ElFormItem>
+                            <ElCheckbox
+                                modelValue={form.forcePull}
+                                onUpdate:modelValue={($v) => {
+                                    form.forcePull = $v as any;
+                                }}
+                                disabled={unref(started) || unref(loading)}
+                            >
+                                {$t('container.forcePull')}
+                            </ElCheckbox>
+                            <span class={'input-help'}>{$t('container.forcePullHelper')}</span>
+                        </ElFormItem>
+                    </ElForm>
+                </DrawerPro>
+                <TaskLog
+                    ref={taskLogRef}
+                    width="70%"
+                    onClose={($event?: any) => {
+                        ctx.emit('search');
+                    }}
+                />
             </>
         );
     },

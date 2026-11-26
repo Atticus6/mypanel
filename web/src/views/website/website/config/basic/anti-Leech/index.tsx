@@ -245,7 +245,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <ElFormItem label={$t('website.accessDomain')} prop="domains">
                                         <div class={'domain-list-container'}>
                                             {(unref(domainList) || []).map((_, index) => (
-                                                <div class={'flex items-center mb-2'} key={index}>
+                                                <div class={'mb-2 flex items-center'} key={index}>
                                                     <ElInput
                                                         modelValue={unref(domainList)[index]}
                                                         onUpdate:modelValue={($v) => {
@@ -254,7 +254,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         onInput={($event?: any) => {
                                                             (updateDomainsString as any)($event);
                                                         }}
-                                                        class={'flex-1 mr-2'}
+                                                        class={'mr-2 flex-1'}
                                                     />
                                                     {unref(domainList).length > 1
                                                         ? withDirectives(
@@ -386,7 +386,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     <span class={'input-help'}>{$t('website.leechlogControlHelper')}</span>
                                 </ElFormItem>
                             ) : null}
-                            <div class={'flex items-center gap-4 mt-2'}>
+                            <div class={'mt-2 flex items-center gap-4'}>
                                 {withDirectives(
                                     <ElButton
                                         type="primary"

@@ -550,7 +550,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             ) : null}
                                         </ElButton>
                                         {unref(showCpuDetailedPercent) ? (
-                                            <ElSpace wrap size={5} class={'ml-1 mb-2'}>
+                                            <ElSpace wrap size={5} class={'mb-2 ml-1'}>
                                                 <div class={'cpu-detail'}>
                                                     {$t('home.cpuUser')}
                                                     {': '}

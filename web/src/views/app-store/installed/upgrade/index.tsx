@@ -43,20 +43,17 @@ import { Link } from '@element-plus/icons-vue';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'close': (...args: unknown[]) => true,
+    close: (...args: unknown[]) => true,
 };
 
-
-
 const options = {
-        name: "upgrade",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-9fd27ca3",
+    name: 'upgrade',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-9fd27ca3',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -331,17 +328,269 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             bus.off('upgrade');
         });
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DrawerPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} header={$t('commons.button.' + operateReq.operate)} resource={unref(resourceName)} onClose={($event?: any) => { (handleClose as any)($event); }} v-slots={{ "footer": () => <><ElButton onClick={($event?: any) => { (handleClose as any)($event); }} disabled={unref(loading)}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" onClick={($event?: any) => { (onOperate as any)($event); }} disabled={
-                                unref(versions) == null ||
-                                unref(loading) ||
-                                unref(loadingVersions) ||
-                                (operateReq.operate === 'upgrade' && !unref(composeReady))
-                            }>{$t('commons.button.confirm')}</ElButton></> }}>{withDirectives(<div><ElDescriptions direction="vertical"><ElDescriptionsItem><ElLink onClick={($event?: any) => { toLink(unref(app).website); }}><ElIcon><OfficeBuilding /></ElIcon><span>{$t('app.appOfficeWebsite')}</span></ElLink></ElDescriptionsItem><ElDescriptionsItem><ElLink onClick={($event?: any) => { toLink(unref(app).document); }}><ElIcon><Document /></ElIcon><span>{$t('app.document')}</span></ElLink></ElDescriptionsItem><ElDescriptionsItem><ElLink onClick={($event?: any) => { toLink(unref(app).github); }}><ElIcon><Link /></ElIcon><span>{$t('app.github')}</span></ElLink></ElDescriptionsItem></ElDescriptions><ElForm onSubmit={($event?: any) => { $event.preventDefault(); ; }} ref={updateRef} rules={unref(rules)} label-position="top" model={operateReq}><ElFormItem label={$t('app.versionSelect')} prop="detailId"><ElSelect modelValue={operateReq.version} onUpdate:modelValue={$v => { operateReq.version = $v as any }} onChange={($event?: any) => { getVersions(operateReq.version); }}>{(operateReq.operate == 'ignore') ? <ElOption value={'all'} label={$t('commons.table.all') + $t('app.version')} /> : null}{((unref(versions) || [])).map((version, index) => <ElOption value={version.version} label={version.version} key={index} />)}</ElSelect>{(operateReq.operate === 'upgrade' && !unref(composeReady) && !unref(loadingVersions)) ? <ElButton onClick={($event?: any) => { getVersions(operateReq.version); }} class={"mt-2"}>{$t('commons.button.retry')}</ElButton> : null}</ElFormItem>{(unref(showOpenclawHttpRollbackNotice)) ? <ElAlert type="warning" closable={false} show-icon class={"upgrade-notice"} v-slots={{ "title": () => <>{$t('app.openclawHttpsUpgradeNoticeTitle')}</> }}><div class={"upgrade-notice-content"}><div>{"1. "}{$t('app.openclawHttpsUpgradeNoticeItem1')}</div><div>{"2. "}{$t('app.openclawHttpsUpgradeNoticeItem2')}</div></div></ElAlert> : null}{(unref(feishuLegacy) && operateReq.operate === 'upgrade' && unref(composeReady)) ? <><ElAlert type="warning" closable={false} title={$t('aiTools.agents.feishuUpgradeNotice')} class={"mb-4"} />{(unref(feishuConfigured)) ? <FeishuTransition streaming={feishuTransition.streaming} onUpdate:streaming={$v => { feishuTransition.streaming = $v as any }} group-session-scope={feishuTransition.groupSessionScope} onUpdate:group-session-scope={$v => { feishuTransition.groupSessionScope = $v as any }} require-mention={feishuTransition.requireMention} onUpdate:require-mention={$v => { feishuTransition.requireMention = $v as any }} /> : null}</> : null}{(operateReq.operate === 'upgrade') ? <ElFormItem prop="backup"><ElCheckbox modelValue={operateReq.backup} onUpdate:modelValue={$v => { operateReq.backup = $v as any }} disabled={unref(feishuLegacy)} label={$t('app.backupApp')} /><span class={"input-help"}><ElText type="warning">{$t('app.backupAppHelper')}</ElText></span></ElFormItem> : null}{(operateReq.operate === 'upgrade') ? <ElFormItem prop="pullImage"><ElCheckbox modelValue={operateReq.pullImage} onUpdate:modelValue={$v => { operateReq.pullImage = $v as any }} label={$t('app.pullImage')} size="large" /><span class={"input-help"}>{$t('app.pullImageHelper')}</span></ElFormItem> : null}{(operateReq.operate === 'upgrade') ? <ElFormItem prop="deleteImage"><ElCheckbox modelValue={operateReq.deleteImage} onUpdate:modelValue={$v => { operateReq.deleteImage = $v as any }} label={$t('app.upgradeDeleteImage')} /></ElFormItem> : null}</ElForm>{(operateReq.operate === 'upgrade' && unref(composeReady)) ? <div>{(unref(isEdit)) ? <ElText type="danger">{$t('app.isEdirWarn')}</ElText> : <ElText type="warning">{$t('app.upgradeWarn')}</ElText>}<div><ElButton onClick={($event?: any) => { openDiff(); }} type={unref(isEdit) ? 'warning' : 'primary'}>{$t('app.showDiff')}</ElButton></div><ElCheckbox modelValue={unref(useNewCompose)} onUpdate:modelValue={$v => { useNewCompose.value = $v as any }} label={$t('app.useCustom')} size="large" />{(unref(useNewCompose)) ? <div>{(!unref(isEdit)) ? <ElText type="danger">{$t('app.useCustomHelper')}</ElText> : null}<CodemirrorPro modelValue={unref(newCompose)} onUpdate:modelValue={$v => { newCompose.value = $v as any }} mode="yaml" /></div> : null}</div> : null}</div>, [[vLoading, unref(loading) || unref(loadingVersions)]])}<Diff ref={composeDiffRef} onConfirm={($event?: any) => { (getNewCompose as any)($event); }} /></DrawerPro>
-            <TaskLog ref={taskLogRef} />
+                <DrawerPro
+                    modelValue={unref(open)}
+                    onUpdate:modelValue={($v) => {
+                        open.value = $v as any;
+                    }}
+                    header={$t('commons.button.' + operateReq.operate)}
+                    resource={unref(resourceName)}
+                    onClose={($event?: any) => {
+                        (handleClose as any)($event);
+                    }}
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        (handleClose as any)($event);
+                                    }}
+                                    disabled={unref(loading)}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        (onOperate as any)($event);
+                                    }}
+                                    disabled={
+                                        unref(versions) == null ||
+                                        unref(loading) ||
+                                        unref(loadingVersions) ||
+                                        (operateReq.operate === 'upgrade' && !unref(composeReady))
+                                    }
+                                >
+                                    {$t('commons.button.confirm')}
+                                </ElButton>
+                            </>
+                        ),
+                    }}
+                >
+                    {withDirectives(
+                        <div>
+                            <ElDescriptions direction="vertical">
+                                <ElDescriptionsItem>
+                                    <ElLink
+                                        onClick={($event?: any) => {
+                                            toLink(unref(app).website);
+                                        }}
+                                    >
+                                        <ElIcon>
+                                            <OfficeBuilding />
+                                        </ElIcon>
+                                        <span>{$t('app.appOfficeWebsite')}</span>
+                                    </ElLink>
+                                </ElDescriptionsItem>
+                                <ElDescriptionsItem>
+                                    <ElLink
+                                        onClick={($event?: any) => {
+                                            toLink(unref(app).document);
+                                        }}
+                                    >
+                                        <ElIcon>
+                                            <Document />
+                                        </ElIcon>
+                                        <span>{$t('app.document')}</span>
+                                    </ElLink>
+                                </ElDescriptionsItem>
+                                <ElDescriptionsItem>
+                                    <ElLink
+                                        onClick={($event?: any) => {
+                                            toLink(unref(app).github);
+                                        }}
+                                    >
+                                        <ElIcon>
+                                            <Link />
+                                        </ElIcon>
+                                        <span>{$t('app.github')}</span>
+                                    </ElLink>
+                                </ElDescriptionsItem>
+                            </ElDescriptions>
+                            <ElForm
+                                onSubmit={($event?: any) => {
+                                    $event.preventDefault();
+                                }}
+                                ref={updateRef}
+                                rules={unref(rules)}
+                                label-position="top"
+                                model={operateReq}
+                            >
+                                <ElFormItem label={$t('app.versionSelect')} prop="detailId">
+                                    <ElSelect
+                                        modelValue={operateReq.version}
+                                        onUpdate:modelValue={($v) => {
+                                            operateReq.version = $v as any;
+                                        }}
+                                        onChange={($event?: any) => {
+                                            getVersions(operateReq.version);
+                                        }}
+                                    >
+                                        {operateReq.operate == 'ignore' ? (
+                                            <ElOption
+                                                value={'all'}
+                                                label={$t('commons.table.all') + $t('app.version')}
+                                            />
+                                        ) : null}
+                                        {(unref(versions) || []).map((version, index) => (
+                                            <ElOption value={version.version} label={version.version} key={index} />
+                                        ))}
+                                    </ElSelect>
+                                    {operateReq.operate === 'upgrade' &&
+                                    !unref(composeReady) &&
+                                    !unref(loadingVersions) ? (
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                getVersions(operateReq.version);
+                                            }}
+                                            class={'mt-2'}
+                                        >
+                                            {$t('commons.button.retry')}
+                                        </ElButton>
+                                    ) : null}
+                                </ElFormItem>
+                                {unref(showOpenclawHttpRollbackNotice) ? (
+                                    <ElAlert
+                                        type="warning"
+                                        closable={false}
+                                        show-icon
+                                        class={'upgrade-notice'}
+                                        v-slots={{ title: () => <>{$t('app.openclawHttpsUpgradeNoticeTitle')}</> }}
+                                    >
+                                        <div class={'upgrade-notice-content'}>
+                                            <div>
+                                                {'1. '}
+                                                {$t('app.openclawHttpsUpgradeNoticeItem1')}
+                                            </div>
+                                            <div>
+                                                {'2. '}
+                                                {$t('app.openclawHttpsUpgradeNoticeItem2')}
+                                            </div>
+                                        </div>
+                                    </ElAlert>
+                                ) : null}
+                                {unref(feishuLegacy) && operateReq.operate === 'upgrade' && unref(composeReady) ? (
+                                    <>
+                                        <ElAlert
+                                            type="warning"
+                                            closable={false}
+                                            title={$t('aiTools.agents.feishuUpgradeNotice')}
+                                            class={'mb-4'}
+                                        />
+                                        {unref(feishuConfigured) ? (
+                                            <FeishuTransition
+                                                streaming={feishuTransition.streaming}
+                                                onUpdate:streaming={($v) => {
+                                                    feishuTransition.streaming = $v as any;
+                                                }}
+                                                group-session-scope={feishuTransition.groupSessionScope}
+                                                onUpdate:group-session-scope={($v) => {
+                                                    feishuTransition.groupSessionScope = $v as any;
+                                                }}
+                                                require-mention={feishuTransition.requireMention}
+                                                onUpdate:require-mention={($v) => {
+                                                    feishuTransition.requireMention = $v as any;
+                                                }}
+                                            />
+                                        ) : null}
+                                    </>
+                                ) : null}
+                                {operateReq.operate === 'upgrade' ? (
+                                    <ElFormItem prop="backup">
+                                        <ElCheckbox
+                                            modelValue={operateReq.backup}
+                                            onUpdate:modelValue={($v) => {
+                                                operateReq.backup = $v as any;
+                                            }}
+                                            disabled={unref(feishuLegacy)}
+                                            label={$t('app.backupApp')}
+                                        />
+                                        <span class={'input-help'}>
+                                            <ElText type="warning">{$t('app.backupAppHelper')}</ElText>
+                                        </span>
+                                    </ElFormItem>
+                                ) : null}
+                                {operateReq.operate === 'upgrade' ? (
+                                    <ElFormItem prop="pullImage">
+                                        <ElCheckbox
+                                            modelValue={operateReq.pullImage}
+                                            onUpdate:modelValue={($v) => {
+                                                operateReq.pullImage = $v as any;
+                                            }}
+                                            label={$t('app.pullImage')}
+                                            size="large"
+                                        />
+                                        <span class={'input-help'}>{$t('app.pullImageHelper')}</span>
+                                    </ElFormItem>
+                                ) : null}
+                                {operateReq.operate === 'upgrade' ? (
+                                    <ElFormItem prop="deleteImage">
+                                        <ElCheckbox
+                                            modelValue={operateReq.deleteImage}
+                                            onUpdate:modelValue={($v) => {
+                                                operateReq.deleteImage = $v as any;
+                                            }}
+                                            label={$t('app.upgradeDeleteImage')}
+                                        />
+                                    </ElFormItem>
+                                ) : null}
+                            </ElForm>
+                            {operateReq.operate === 'upgrade' && unref(composeReady) ? (
+                                <div>
+                                    {unref(isEdit) ? (
+                                        <ElText type="danger">{$t('app.isEdirWarn')}</ElText>
+                                    ) : (
+                                        <ElText type="warning">{$t('app.upgradeWarn')}</ElText>
+                                    )}
+                                    <div>
+                                        <ElButton
+                                            onClick={($event?: any) => {
+                                                openDiff();
+                                            }}
+                                            type={unref(isEdit) ? 'warning' : 'primary'}
+                                        >
+                                            {$t('app.showDiff')}
+                                        </ElButton>
+                                    </div>
+                                    <ElCheckbox
+                                        modelValue={unref(useNewCompose)}
+                                        onUpdate:modelValue={($v) => {
+                                            useNewCompose.value = $v as any;
+                                        }}
+                                        label={$t('app.useCustom')}
+                                        size="large"
+                                    />
+                                    {unref(useNewCompose) ? (
+                                        <div>
+                                            {!unref(isEdit) ? (
+                                                <ElText type="danger">{$t('app.useCustomHelper')}</ElText>
+                                            ) : null}
+                                            <CodemirrorPro
+                                                modelValue={unref(newCompose)}
+                                                onUpdate:modelValue={($v) => {
+                                                    newCompose.value = $v as any;
+                                                }}
+                                                mode="yaml"
+                                            />
+                                        </div>
+                                    ) : null}
+                                </div>
+                            ) : null}
+                        </div>,
+                        [[vLoading, unref(loading) || unref(loadingVersions)]],
+                    )}
+                    <Diff
+                        ref={composeDiffRef}
+                        onConfirm={($event?: any) => {
+                            (getNewCompose as any)($event);
+                        }}
+                    />
+                </DrawerPro>
+                <TaskLog ref={taskLogRef} />
             </>
         );
     },

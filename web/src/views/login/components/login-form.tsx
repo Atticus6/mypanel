@@ -521,8 +521,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () =>
             withDirectives(
-                <div class={'w-full h-full flex items-center justify-center px-8'}>
-                    <div class={'w-full flex-grow flex flex-col login-form'}>
+                <div class={'flex h-full w-full items-center justify-center px-8'}>
+                    <div class={'login-form flex w-full flex-grow flex-col'}>
                         {unref(mfaShow) ? (
                             <div>
                                 <ElForm
@@ -530,12 +530,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         $event.preventDefault();
                                     }}
                                 >
-                                    <div class={'flex flex-col justify-center items-center mb-6'}>
-                                        <div class={'text-2xl font-medium text-gray-900 text-center'}>
+                                    <div class={'mb-6 flex flex-col items-center justify-center'}>
+                                        <div class={'text-center text-2xl font-medium text-gray-900'}>
                                             {$t('commons.login.mfaTitle')}
                                         </div>
                                     </div>
-                                    <div class={'space-y-6 flex-grow'}>
+                                    <div class={'flex-grow space-y-6'}>
                                         <ElFormItem>
                                             <ElInput
                                                 ref={mfaLoginRef}
@@ -570,7 +570,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onClick={($event?: any) => {
                                                     mfaLogin(false);
                                                 }}
-                                                class={'w-full login-button'}
+                                                class={'login-button w-full'}
                                             >
                                                 {$t('commons.button.verify')}
                                             </ElButton>
@@ -580,7 +580,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         ) : unref(showPasskeyOnly) ? (
                             <div>
-                                <div class={'flex justify-between items-center mb-6'}>
+                                <div class={'mb-6 flex items-center justify-between'}>
                                     <div class={'text-2xl font-medium text-gray-900'}>{$t('commons.button.login')}</div>
                                     <div class={'cursor-pointer'}>
                                         <ElDropdown
@@ -639,7 +639,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             onClick={($event?: any) => {
                                                 (passkeyLogin as any)($event);
                                             }}
-                                            class={'w-full login-button'}
+                                            class={'login-button w-full'}
                                         >
                                             <ElIcon class={'mr-2'}>
                                                 <Key />
@@ -688,7 +688,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </div>
                         ) : (
                             <div>
-                                <div class={'flex justify-between items-center mb-6'}>
+                                <div class={'mb-6 flex items-center justify-between'}>
                                     <div class={'text-2xl font-medium text-gray-900'}>{$t('commons.button.login')}</div>
                                     <div class={'cursor-pointer'}>
                                         <ElDropdown
@@ -740,7 +740,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </div>
                                 </div>
                                 <ElForm ref={loginFormRef} model={loginForm} size="default" rules={loginRules}>
-                                    <div class={'space-y-6 flex-grow'}>
+                                    <div class={'flex-grow space-y-6'}>
                                         <ElFormItem prop="name" class={'w-full'}>
                                             <ElInput
                                                 modelValue={loginForm.name}
@@ -795,7 +795,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             onClick={($event?: any) => {
                                                                 loginVerify();
                                                             }}
-                                                            class={'w-full h-10'}
+                                                            class={'h-10 w-full'}
                                                         />
                                                     ) : null}
                                                 </ElCol>
@@ -829,7 +829,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 type="primary"
                                                 size="default"
                                                 disabled={unref(loginSettingsLoading)}
-                                                class={'w-full login-button'}
+                                                class={'login-button w-full'}
                                             >
                                                 {$t('commons.button.login')}
                                             </ElButton>
@@ -904,7 +904,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             }}
                         >
                             <ElRow type="flex" justify="center">
-                                <span class={'text-base mb-4'}>{$t('commons.login.agreeTitle')}</span>
+                                <span class={'mb-4 text-base'}>{$t('commons.login.agreeTitle')}</span>
                             </ElRow>
                             <div>
                                 <span innerHTML={$t('commons.login.agreeContent')} />

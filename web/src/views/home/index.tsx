@@ -1256,9 +1256,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             </ElButton>
                                                         ) : null}
                                                     </div>
-                                                    {unref(selectedVllm) ? (
-                                                        h(VllmMonitor, { ref: vllmMonitorRef })
-                                                    ) : null}
+                                                    {unref(selectedVllm)
+                                                        ? h(VllmMonitor, { ref: vllmMonitorRef })
+                                                        : null}
                                                 </>
                                             ) : null}
                                         </div>
@@ -1379,7 +1379,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         body: () => (
                                             <>
                                                 <ElScrollbar>
-                                                    <ElDescriptions column={1} border class={'ml-5 -mt-2 h-systemInfo'}>
+                                                    <ElDescriptions column={1} border class={'h-systemInfo -mt-2 ml-5'}>
                                                         <ElDescriptionsItem
                                                             class-name="system-content"
                                                             label-class-name="system-label"
@@ -1573,7 +1573,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             body: () => (
                                                 <>
                                                     <ElScrollbar height="286px">
-                                                        <div class={'memo-container ml-5 mr-5'}>
+                                                        <div class={'memo-container mr-5 ml-5'}>
                                                             {unref(memoEditing) ? (
                                                                 <ElInput
                                                                     modelValue={unref(memoEditContent)}

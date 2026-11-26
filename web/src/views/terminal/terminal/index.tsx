@@ -301,7 +301,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     'background-color': `var(--panel-logs-bg-color)`,
                                 }}
                             />
-                            <div class={'flex items-center gap-2 w-full py-2 flex-wrap'}>
+                            <div class={'flex w-full flex-wrap items-center gap-2 py-2'}>
                                 {!unref(isMobile) ? <AiSetting class={'shrink-0'} /> : null}
                                 <ElCascader
                                     modelValue={unref(quickCmd)}
@@ -317,7 +317,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     onChange={($event?: any) => {
                                         (handleQuickCommandChange as any)($event);
                                     }}
-                                    class={'quick-command-cascader min-w-[180px] max-w-[260px] shrink-0'}
+                                    class={'quick-command-cascader max-w-[260px] min-w-[180px] shrink-0'}
                                     v-slots={{
                                         default: ({ data }) => (
                                             <>
@@ -361,7 +361,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     type="textarea"
                                     autosize={{ minRows: 1, maxRows: 3 }}
                                     placeholder=">"
-                                    class={'flex-1 basis-[300px] min-w-[200px]'}
+                                    class={'min-w-[200px] flex-1 basis-[300px]'}
                                 />
                                 <ElCheckbox
                                     label={$t('terminal.batchInput')}

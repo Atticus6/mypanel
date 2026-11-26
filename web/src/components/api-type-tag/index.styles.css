@@ -1,10 +1,10 @@
 .api-type-tag--responses[data-v-375bea0b] {
-  --el-tag-bg-color: #f3e8ff;
-  --el-tag-border-color: #d8b4fe;
-  --el-tag-text-color: #7e22ce;
+    --el-tag-bg-color: #f3e8ff;
+    --el-tag-border-color: #d8b4fe;
+    --el-tag-text-color: #7e22ce;
 }
 .api-type-tag--embedding[data-v-375bea0b] {
-  --el-tag-bg-color: #e6f4f1;
-  --el-tag-border-color: #a7d9d1;
-  --el-tag-text-color: #0f766e;
+    --el-tag-bg-color: #e6f4f1;
+    --el-tag-border-color: #a7d9d1;
+    --el-tag-text-color: #0f766e;
 }

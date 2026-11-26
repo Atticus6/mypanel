@@ -643,7 +643,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <div class={'float-left'}>
                                                         <span>{loadApp18n(data.label)}</span>
                                                     </div>
-                                                    <div class={'ml-4 float-left'}>
+                                                    <div class={'float-left ml-4'}>
                                                         {data.size ? <span>{computeSize(data.size)}</span> : null}
                                                     </div>
                                                 </>
@@ -670,7 +670,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             <div class={'float-left'}>
                                                 <span>{data.label}</span>
                                             </div>
-                                            <div class={'ml-4 float-left'}>
+                                            <div class={'float-left ml-4'}>
                                                 {data.size ? <span>{computeSize(data.size)}</span> : null}
                                             </div>
                                         </>
@@ -698,7 +698,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <div class={'float-left'}>
                                                         <span>{load18n(node, data.label)}</span>
                                                     </div>
-                                                    <div class={'ml-4 float-left'}>
+                                                    <div class={'float-left ml-4'}>
                                                         {data.size ? <span>{computeSize(data.size)}</span> : null}
                                                     </div>
                                                 </>

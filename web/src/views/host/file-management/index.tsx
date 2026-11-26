@@ -1789,8 +1789,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             name={item.id}
                             key={item.id}
                         >
-                            <div ref={toolRef} class={'flex flex-wrap items-center gap-3 pb-3 pt-0.5'}>
-                                <div class={'flex shrink-0 items-center gap-1.5 file-navigation__actions'}>
+                            <div ref={toolRef} class={'flex flex-wrap items-center gap-3 pt-0.5 pb-3'}>
+                                <div class={'file-navigation__actions flex shrink-0 items-center gap-1.5'}>
                                     <ElTooltip content={$t('file.back')} placement="top">
                                         <ElButton
                                             icon="Back"
@@ -1843,7 +1843,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         />
                                     </ElTooltip>
                                 </div>
-                                <div ref={(el) => setPathRef(item.id, el)} class={'min-w-0 flex-1 hidden sm:block'}>
+                                <div ref={(el) => setPathRef(item.id, el)} class={'hidden min-w-0 flex-1 sm:block'}>
                                     <div
                                         onClick={($event?: any) => {
                                             searchableStatus.value = true;
@@ -1851,7 +1851,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         class={'address-bar'}
                                         style={[{}, { display: !unref(searchableStatus) ? '' : 'none' }]}
                                     >
-                                        <div ref={breadCrumbRef} class={'flex items-center address-url'}>
+                                        <div ref={breadCrumbRef} class={'address-url flex items-center'}>
                                             <span class={'breadcrumb-root'}>
                                                 <ElLink
                                                     onClick={($event?: any) => {
@@ -1905,7 +1905,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         $event.stopPropagation();
                                                                     }}
                                                                     class={
-                                                                        'path-segment path-segment--overflow cursor-pointer pathname focus:outline-none focus-visible:outline-none'
+                                                                        'path-segment path-segment--overflow pathname cursor-pointer focus:outline-none focus-visible:outline-none'
                                                                     }
                                                                 >
                                                                     {' .. '}
@@ -1923,7 +1923,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         $event.stopPropagation();
                                                                         jump(path.url);
                                                                     }}
-                                                                    class={'path-segment cursor-pointer pathname'}
+                                                                    class={'path-segment pathname cursor-pointer'}
                                                                 >
                                                                     {formatBreadcrumbName(path, index)}
                                                                 </ElLink>
@@ -1942,7 +1942,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         $event.stopPropagation();
                                                                         jump(path.url);
                                                                     }}
-                                                                    class={'path-segment cursor-pointer pathname'}
+                                                                    class={'path-segment pathname cursor-pointer'}
                                                                 >
                                                                     {formatBreadcrumbName(path, index)}
                                                                 </ElLink>
@@ -1971,9 +1971,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         style={[{}, { display: unref(searchableStatus) ? '' : 'none' }]}
                                     />
                                 </div>
-                                <div class={'min-w-0 flex-1 sm:hidden block'}>
+                                <div class={'block min-w-0 flex-1 sm:hidden'}>
                                     <div class={'address-bar'}>
-                                        <div class={'flex items-center address-url'}>
+                                        <div class={'address-url flex items-center'}>
                                             <span class={'breadcrumb-root'}>
                                                 <ElLink
                                                     onClick={($event?: any) => {
@@ -2027,7 +2027,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         $event.stopPropagation();
                                                                     }}
                                                                     class={
-                                                                        'path-segment path-segment--overflow cursor-pointer pathname focus:outline-none focus-visible:outline-none'
+                                                                        'path-segment path-segment--overflow pathname cursor-pointer focus:outline-none focus-visible:outline-none'
                                                                     }
                                                                 >
                                                                     {' .. '}
@@ -2048,7 +2048,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                         $event.stopPropagation();
                                                                         jump(path.url);
                                                                     }}
-                                                                    class={'path-segment cursor-pointer pathname'}
+                                                                    class={'path-segment pathname cursor-pointer'}
                                                                 >
                                                                     {formatBreadcrumbName(path, index)}
                                                                 </ElLink>
@@ -2284,7 +2284,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 <>
                                                                                     <div
                                                                                         class={
-                                                                                            'flex justify-between items-center group'
+                                                                                            'group flex items-center justify-between'
                                                                                         }
                                                                                     >
                                                                                         <ElTooltip
@@ -2326,7 +2326,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                     jump(row.path);
                                                                                                 }}
                                                                                                 class={
-                                                                                                    'hidden group-hover:block cursor-pointer'
+                                                                                                    'hidden cursor-pointer group-hover:block'
                                                                                                 }
                                                                                             >
                                                                                                 <FolderOpened />
@@ -2348,7 +2348,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                             <ElButton
                                                                                 link
                                                                                 class={
-                                                                                    '!w-full !h-full p-2 focus-visible:!outline-none cursor-pointer transition-colors'
+                                                                                    '!h-full !w-full cursor-pointer p-2 transition-colors focus-visible:!outline-none'
                                                                                 }
                                                                             >
                                                                                 {$t('file.fileTools')}

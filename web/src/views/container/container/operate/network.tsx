@@ -28,14 +28,12 @@ interface CodemodProps {
 
 const emits = {};
 
-
-
 const options = {
-        name: "network",
-        props: {
-    "networks": { type: Array<ContainerNetwork>, default: [] },
-} as unknown as ComponentObjectPropsOptions<CodemodProps>,
-        emits: emits,
+    name: 'network',
+    props: {
+        networks: { type: Array<ContainerNetwork>, default: [] },
+    } as unknown as ComponentObjectPropsOptions<CodemodProps>,
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -96,10 +94,117 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             loadNetworkOptions();
         });
         ctx.expose({
-    loadNetworks,
-});
+            loadNetworks,
+        });
         return () => (
-            <div>{(unref(tmpNetworks)) ? <ComplexTable data={unref(tmpNetworks)} style={"width: 100%"}><ElTableColumn label={$t('container.network')} min-width="200" v-slots={{ "default": ({ row }) => <><ElSelect modelValue={row.network} onUpdate:modelValue={$v => { row.network = $v as any }} onChange={($event?: any) => { changeNetwork(row); }}>{((unref(networkOptions) || [])).map((item, indexV) => <ElOption value={item.option} label={item.option} key={indexV} />)}</ElSelect></> }} /><ElTableColumn label={$t('container.macAddr')} min-width="200" v-slots={{ "default": ({ row }) => <><ElInput modelValue={row.macAddr} onUpdate:modelValue={$v => { row.macAddr = $v as any }} /></> }} /><ElTableColumn label="IPv4" min-width="200" v-slots={{ "default": ({ row }) => <><ElInput modelValue={row.ipv4} onUpdate:modelValue={$v => { row.ipv4 = $v as any }} disabled={isIpDisabled(row)} placeholder={$t('container.inputIpv4')} /></> }} /><ElTableColumn label="IPv6" min-width="200" v-slots={{ "default": ({ row }) => <><ElInput modelValue={row.ipv6} onUpdate:modelValue={$v => { row.ipv6 = $v as any }} disabled={isIpDisabled(row)} placeholder={$t('container.inputIpv6')} /></> }} /><ElTableColumn min-width="80" fixed={'right'} v-slots={{ "default": (scope) => <><ElButton link type="primary" onClick={($event?: any) => { handleNetworksDelete(scope.$index); }}>{$t('commons.button.delete')}</ElButton></> }} /></ComplexTable> : null}<ElButton onClick={($event?: any) => { handleNetworksAdd(); }} class={"mt-2"}>{$t('commons.button.add')}</ElButton></div>
+            <div>
+                {unref(tmpNetworks) ? (
+                    <ComplexTable data={unref(tmpNetworks)} style={'width: 100%'}>
+                        <ElTableColumn
+                            label={$t('container.network')}
+                            min-width="200"
+                            v-slots={{
+                                default: ({ row }) => (
+                                    <>
+                                        <ElSelect
+                                            modelValue={row.network}
+                                            onUpdate:modelValue={($v) => {
+                                                row.network = $v as any;
+                                            }}
+                                            onChange={($event?: any) => {
+                                                changeNetwork(row);
+                                            }}
+                                        >
+                                            {(unref(networkOptions) || []).map((item, indexV) => (
+                                                <ElOption value={item.option} label={item.option} key={indexV} />
+                                            ))}
+                                        </ElSelect>
+                                    </>
+                                ),
+                            }}
+                        />
+                        <ElTableColumn
+                            label={$t('container.macAddr')}
+                            min-width="200"
+                            v-slots={{
+                                default: ({ row }) => (
+                                    <>
+                                        <ElInput
+                                            modelValue={row.macAddr}
+                                            onUpdate:modelValue={($v) => {
+                                                row.macAddr = $v as any;
+                                            }}
+                                        />
+                                    </>
+                                ),
+                            }}
+                        />
+                        <ElTableColumn
+                            label="IPv4"
+                            min-width="200"
+                            v-slots={{
+                                default: ({ row }) => (
+                                    <>
+                                        <ElInput
+                                            modelValue={row.ipv4}
+                                            onUpdate:modelValue={($v) => {
+                                                row.ipv4 = $v as any;
+                                            }}
+                                            disabled={isIpDisabled(row)}
+                                            placeholder={$t('container.inputIpv4')}
+                                        />
+                                    </>
+                                ),
+                            }}
+                        />
+                        <ElTableColumn
+                            label="IPv6"
+                            min-width="200"
+                            v-slots={{
+                                default: ({ row }) => (
+                                    <>
+                                        <ElInput
+                                            modelValue={row.ipv6}
+                                            onUpdate:modelValue={($v) => {
+                                                row.ipv6 = $v as any;
+                                            }}
+                                            disabled={isIpDisabled(row)}
+                                            placeholder={$t('container.inputIpv6')}
+                                        />
+                                    </>
+                                ),
+                            }}
+                        />
+                        <ElTableColumn
+                            min-width="80"
+                            fixed={'right'}
+                            v-slots={{
+                                default: (scope) => (
+                                    <>
+                                        <ElButton
+                                            link
+                                            type="primary"
+                                            onClick={($event?: any) => {
+                                                handleNetworksDelete(scope.$index);
+                                            }}
+                                        >
+                                            {$t('commons.button.delete')}
+                                        </ElButton>
+                                    </>
+                                ),
+                            }}
+                        />
+                    </ComplexTable>
+                ) : null}
+                <ElButton
+                    onClick={($event?: any) => {
+                        handleNetworksAdd();
+                    }}
+                    class={'mt-2'}
+                >
+                    {$t('commons.button.add')}
+                </ElButton>
+            </div>
         );
     },
     options,

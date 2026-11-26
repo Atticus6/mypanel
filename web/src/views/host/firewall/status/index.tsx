@@ -409,7 +409,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                     <div class={'app-status card-interval'}>
                         <ElCard>
                             <div class={'flex w-full flex-col gap-4 md:flex-row'}>
-                                <div class={'flex flex-wrap gap-4 ml-3'}>
+                                <div class={'ml-3 flex flex-wrap gap-4'}>
                                     <ElTag effect="dark" type="success">
                                         {unref(baseInfo).name}
                                     </ElTag>

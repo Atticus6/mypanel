@@ -41,10 +41,7 @@ export namespace Log {
 
     export type SearchTaskReq = Init<typeof SearchTasksRequestSchema> & { taskID?: string };
     export type TaskLogReadReq = Init<typeof ReadTaskLogsRequestSchema> & { taskID?: string; resourceID?: number };
-    export type Task = Omit<
-        Init<typeof TaskSchema>,
-        'operationLogId' | 'resourceId' | 'endAt' | 'createdAt'
-    > & {
+    export type Task = Omit<Init<typeof TaskSchema>, 'operationLogId' | 'resourceId' | 'endAt' | 'createdAt'> & {
         operationLogID?: number;
         resourceID?: number;
         endAt?: Date;

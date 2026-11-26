@@ -1,7 +1,7 @@
 .jump[data-v-cd47f038] {
-  color: var(--el-color-primary);
-  cursor: pointer;
+    color: var(--el-color-primary);
+    cursor: pointer;
 }
 .jump[data-v-cd47f038]:hover {
-  color: #74a4f3;
+    color: #74a4f3;
 }

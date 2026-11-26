@@ -1,17 +1,17 @@
 .dropdowns[data-v-dab662c0] {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  flex: 1 1 auto;
-  justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex: 1 1 auto;
+    justify-content: flex-start;
 }
 .search-fields[data-v-dab662c0] {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  flex: 1 1 auto;
-  margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex: 1 1 auto;
+    margin-top: 10px;
 }
 .el-tag[data-v-dab662c0] {
-  cursor: default;
+    cursor: default;
 }

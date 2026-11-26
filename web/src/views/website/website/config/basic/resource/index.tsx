@@ -128,7 +128,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 <ElOption label={$t('website.donotLinkeDB')} value={0} />
                                 {(unref(databases) || []).map((item, index) => (
                                     <ElOption label={item.name} value={item.id + item.type} key={index}>
-                                        <div class={'flex justify-between items-center'}>
+                                        <div class={'flex items-center justify-between'}>
                                             <span>{item.name}</span>
                                             <div>
                                                 <ElTag>{item.databaseName}</ElTag>

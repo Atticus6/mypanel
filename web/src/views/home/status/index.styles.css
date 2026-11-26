@@ -1,56 +1,56 @@
 .buttonClass[data-v-faf3edb4] {
-  margin-top: 28%;
-  font-size: 14px;
+    margin-top: 28%;
+    font-size: 14px;
 }
 .cpu-detail[data-v-faf3edb4] {
-  font-size: 12px;
-  width: 95px;
+    font-size: 12px;
+    width: 95px;
 }
 [data-v-faf3edb4] .el-descriptions__label {
-  width: 80px;
-  background-color: transparent !important;
+    width: 80px;
+    background-color: transparent !important;
 }
 .custom-row[data-v-faf3edb4] {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 10px;
-  width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+    width: 100%;
 }
 .custom-row .el-col[data-v-faf3edb4] {
-  width: 100% !important;
-  max-width: 100% !important;
-  flex: none !important;
-  float: none !important;
-  display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    float: none !important;
+    display: block !important;
 }
 .custom-row .el-col.el-col-xs-6[data-v-faf3edb4] {
-  grid-column: span 6;
-}
-@media (min-width: 768px) {
-.custom-row .el-col.el-col-sm-6[data-v-faf3edb4] {
     grid-column: span 6;
 }
+@media (min-width: 768px) {
+    .custom-row .el-col.el-col-sm-6[data-v-faf3edb4] {
+        grid-column: span 6;
+    }
 }
 @media (min-width: 992px) {
-.custom-row .el-col.el-col-md-3[data-v-faf3edb4] {
-    grid-column: span 3;
-}
+    .custom-row .el-col.el-col-md-3[data-v-faf3edb4] {
+        grid-column: span 3;
+    }
 }
 @media (min-width: 1200px) {
-.custom-row .el-col.el-col-lg-3[data-v-faf3edb4] {
-    grid-column: span 3;
-}
+    .custom-row .el-col.el-col-lg-3[data-v-faf3edb4] {
+        grid-column: span 3;
+    }
 }
 @media (min-width: 1920px) {
-.custom-row .el-col.el-col-xl-3[data-v-faf3edb4] {
-    grid-column: span 3;
-}
+    .custom-row .el-col.el-col-xl-3[data-v-faf3edb4] {
+        grid-column: span 3;
+    }
 }
 @media (max-width: 767px) {
-[data-v-faf3edb4] .dashboard-status-popover {
-    max-width: calc(100vw - 24px);
-    max-height: calc(100vh - 24px);
-    max-height: calc(100dvh - 24px);
-    overflow: auto;
-}
+    [data-v-faf3edb4] .dashboard-status-popover {
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
+        max-height: calc(100dvh - 24px);
+        overflow: auto;
+    }
 }

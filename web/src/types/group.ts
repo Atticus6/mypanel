@@ -1,9 +1,5 @@
 import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-import {
-    GroupSchema,
-    CreateGroupRequestSchema,
-    UpdateGroupRequestSchema,
-} from '@/gen/panel/agent/v1/group_pb';
+import { GroupSchema, CreateGroupRequestSchema, UpdateGroupRequestSchema } from '@/gen/panel/agent/v1/group_pb';
 
 type Init<T extends DescMessage> = MessageInitShape<T>;
 

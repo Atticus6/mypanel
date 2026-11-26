@@ -11,20 +11,17 @@ import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'confirm': (...args: unknown[]) => true,
+    confirm: (...args: unknown[]) => true,
 };
 
-
-
 const options = {
-        name: "diff",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-47f64d90",
+    name: 'diff',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-47f64d90',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -79,20 +76,20 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const initEditor = async () => {
             const monacoApi = await ensureMonaco();
             await nextTick();
-        
+
             if (!container.value) {
                 return;
             }
-        
+
             if (editor) {
                 editor.dispose();
                 editor = null;
             }
             disposeModels();
-        
+
             originalModel = monacoApi.editor.createModel(oldContent.value, 'yaml');
             modifiedModel = monacoApi.editor.createModel(newContent.value, 'yaml');
-        
+
             editor = monacoApi.editor.createDiffEditor(container.value, {
                 theme: 'vs-dark',
                 readOnly: false,
@@ -104,17 +101,62 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 renderMarginRevertIcon: true,
                 renderGutterMenu: false,
             });
-        
+
             editor.setModel({
                 original: originalModel,
                 modified: modifiedModel,
             });
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DialogPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} title={$t('app.composeDiff')} onClose={($event?: any) => { (handleClose as any)($event); }} size="w-90" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton onClick={($event?: any) => { (handleClose as any)($event); }}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" onClick={($event?: any) => { confirm(true); }}>{$t('app.useNew')}</ElButton><ElButton onClick={($event?: any) => { confirm(false); }}>{$t('app.useDefault')}</ElButton></span></> }}><div><ElText type="warning">{$t('app.diffHelper')}</ElText><div ref={container} class={"compose-diff"} /></div></DialogPro>
+            <DialogPro
+                modelValue={unref(open)}
+                onUpdate:modelValue={($v) => {
+                    open.value = $v as any;
+                }}
+                title={$t('app.composeDiff')}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                size="w-90"
+                v-slots={{
+                    footer: () => (
+                        <>
+                            <span class={'dialog-footer'}>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        (handleClose as any)($event);
+                                    }}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        confirm(true);
+                                    }}
+                                >
+                                    {$t('app.useNew')}
+                                </ElButton>
+                                <ElButton
+                                    onClick={($event?: any) => {
+                                        confirm(false);
+                                    }}
+                                >
+                                    {$t('app.useDefault')}
+                                </ElButton>
+                            </span>
+                        </>
+                    ),
+                }}
+            >
+                <div>
+                    <ElText type="warning">{$t('app.diffHelper')}</ElText>
+                    <div ref={container} class={'compose-diff'} />
+                </div>
+            </DialogPro>
         );
     },
     options,

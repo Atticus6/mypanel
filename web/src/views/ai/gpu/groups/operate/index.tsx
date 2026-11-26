@@ -58,22 +58,20 @@ interface CodemodProps {
 
 const emits = {
     'update:modelValue': (value: boolean) => true,
-    'saved': (arg0?: string) => true,
+    saved: (arg0?: string) => true,
 };
 
-
-
 const options = {
-        name: "operate",
-        props: {
-    "group": { type: null },
-    "groups": Array,
-    "devices": Array,
-    "imageType": String,
-    "modelValue": { type: Boolean },
-} as unknown as ComponentObjectPropsOptions<CodemodProps>,
-        emits: emits,
-        __scopeId: "data-v-db33f909",
+    name: 'operate',
+    props: {
+        group: { type: null },
+        groups: Array,
+        devices: Array,
+        imageType: String,
+        modelValue: { type: Boolean },
+    } as unknown as ComponentObjectPropsOptions<CodemodProps>,
+    emits: emits,
+    __scopeId: 'data-v-db33f909',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -91,7 +89,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 { value: 'ascend', label: 'Ascend' },
             ].map((vendor) => ({
                 ...vendor,
-                count: __panelSetupProps.devices.filter((device) => device.type === vendor.value && device.available).length,
+                count: __panelSetupProps.devices.filter((device) => device.type === vendor.value && device.available)
+                    .length,
             })),
         );
         const saving = ref(false);
@@ -117,7 +116,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                       id: 0,
                       name: '',
                       description: '',
-                      imageType: __panelSetupProps.imageType || __panelSetupProps.devices.find((device) => device.available)?.type || 'nvidia',
+                      imageType:
+                          __panelSetupProps.imageType ||
+                          __panelSetupProps.devices.find((device) => device.available)?.type ||
+                          'nvidia',
                       gpu: emptyGPU(),
                   },
         );
@@ -127,7 +129,9 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 {
                     validator: (_rule: unknown, value: string, callback: (error?: Error) => void) => {
                         callback(
-                            __panelSetupProps.groups.some((group) => group.id !== form.value.id && group.name === value.trim())
+                            __panelSetupProps.groups.some(
+                                (group) => group.id !== form.value.id && group.name === value.trim(),
+                            )
                                 ? new Error(i18n.global.t('commons.rule.duplicate'))
                                 : undefined,
                         );
@@ -175,10 +179,137 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             visible.value = false;
         });
         return () => (
-            <DrawerPro modelValue={unref(visible)} onUpdate:modelValue={$v => { visible.value = $v as any }} header={$t(unref(form).id ? 'commons.button.edit' : 'commons.button.create')} resource={$t('aiTools.gpuGroup.groups')} size="large" auto-close={false} confirm-before-close onBeforeClose={($event?: any) => { (close as any)($event); }} v-slots={{ "footer": () => <><ElButton disabled={unref(saving)} onClick={($event?: any) => { visible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton type="primary" loading={unref(saving)} disabled={unref(initializing) || unref(gpuRef)?.loading} onClick={($event?: any) => { (save as any)($event); }}>{$t('commons.button.confirm')}</ElButton></> }}>{withDirectives(<ElForm ref={formRef} model={unref(form)} rules={rules} label-position="top" disabled={unref(initializing) || unref(saving)} onSubmit={($event?: any) => { $event.preventDefault(); ; }}><h3 class={"group-form-heading"}>{$t('home.baseInfo')}</h3><ElFormItem label={$t('commons.table.name')} prop="name"><ElInput modelValue={unref(form).name} onUpdate:modelValue={$v => { unref(form).name = typeof $v === 'string' ? $v.trim() : $v }} maxlength="128" clearable /></ElFormItem><ElFormItem label={$t('aiTools.gpuGroup.vendor')} prop="imageType"><ElSelect modelValue={unref(form).imageType} onUpdate:modelValue={$v => { unref(form).imageType = $v as any }} disabled={!!__panelSetupProps.imageType} onChange={($event?: any) => { (changeVendor as any)($event); }}>{((unref(vendorOptions) || [])).map((vendor) => <ElOption value={vendor.value} label={`${vendor.label} (${vendor.count})`} disabled={vendor.count === 0} key={vendor.value} />)}</ElSelect></ElFormItem><GPUConfig ref={gpuRef} modelValue={unref(form).gpu} onUpdate:modelValue={$v => { unref(form).gpu = $v as any }} image-type={unref(form).imageType} group-editor v-slots={{ "device-meta": ({ device }) => <>{(__panelSetupProps.groups.some((group) => __panelSetupProps.group.id !== unref(form).id && __panelSetupProps.group.gpu.deviceIDs.includes(device.id))) ? <span class={"device-existing-groups"}>{$t('aiTools.gpuGroup.groups')}{" · "}{__panelSetupProps.groups
-                                            .filter((group) => __panelSetupProps.group.id !== unref(form).id && __panelSetupProps.group.gpu.deviceIDs.includes(device.id))
-                                            .map((group) => __panelSetupProps.group.name)
-                                            .join(', ')}</span> : null}</> }} />{(unref(form).id) ? <div class={"input-help"}>{$t('aiTools.gpuGroup.snapshotHelp')}</div> : null}<ElFormItem label={$t('commons.table.description')} prop="description"><ElInput modelValue={unref(form).description} onUpdate:modelValue={$v => { unref(form).description = $v as any }} type="textarea" rows={2} maxlength="500" show-word-limit /></ElFormItem></ElForm>, [[vLoading, unref(initializing) || unref(saving)]])}</DrawerPro>
+            <DrawerPro
+                modelValue={unref(visible)}
+                onUpdate:modelValue={($v) => {
+                    visible.value = $v as any;
+                }}
+                header={$t(unref(form).id ? 'commons.button.edit' : 'commons.button.create')}
+                resource={$t('aiTools.gpuGroup.groups')}
+                size="large"
+                auto-close={false}
+                confirm-before-close
+                onBeforeClose={($event?: any) => {
+                    (close as any)($event);
+                }}
+                v-slots={{
+                    footer: () => (
+                        <>
+                            <ElButton
+                                disabled={unref(saving)}
+                                onClick={($event?: any) => {
+                                    visible.value = false;
+                                }}
+                            >
+                                {$t('commons.button.cancel')}
+                            </ElButton>
+                            <ElButton
+                                type="primary"
+                                loading={unref(saving)}
+                                disabled={unref(initializing) || unref(gpuRef)?.loading}
+                                onClick={($event?: any) => {
+                                    (save as any)($event);
+                                }}
+                            >
+                                {$t('commons.button.confirm')}
+                            </ElButton>
+                        </>
+                    ),
+                }}
+            >
+                {withDirectives(
+                    <ElForm
+                        ref={formRef}
+                        model={unref(form)}
+                        rules={rules}
+                        label-position="top"
+                        disabled={unref(initializing) || unref(saving)}
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                    >
+                        <h3 class={'group-form-heading'}>{$t('home.baseInfo')}</h3>
+                        <ElFormItem label={$t('commons.table.name')} prop="name">
+                            <ElInput
+                                modelValue={unref(form).name}
+                                onUpdate:modelValue={($v) => {
+                                    unref(form).name = typeof $v === 'string' ? $v.trim() : $v;
+                                }}
+                                maxlength="128"
+                                clearable
+                            />
+                        </ElFormItem>
+                        <ElFormItem label={$t('aiTools.gpuGroup.vendor')} prop="imageType">
+                            <ElSelect
+                                modelValue={unref(form).imageType}
+                                onUpdate:modelValue={($v) => {
+                                    unref(form).imageType = $v as any;
+                                }}
+                                disabled={!!__panelSetupProps.imageType}
+                                onChange={($event?: any) => {
+                                    (changeVendor as any)($event);
+                                }}
+                            >
+                                {(unref(vendorOptions) || []).map((vendor) => (
+                                    <ElOption
+                                        value={vendor.value}
+                                        label={`${vendor.label} (${vendor.count})`}
+                                        disabled={vendor.count === 0}
+                                        key={vendor.value}
+                                    />
+                                ))}
+                            </ElSelect>
+                        </ElFormItem>
+                        <GPUConfig
+                            ref={gpuRef}
+                            modelValue={unref(form).gpu}
+                            onUpdate:modelValue={($v) => {
+                                unref(form).gpu = $v as any;
+                            }}
+                            image-type={unref(form).imageType}
+                            group-editor
+                            v-slots={{
+                                'device-meta': ({ device }) => (
+                                    <>
+                                        {__panelSetupProps.groups.some(
+                                            (group) =>
+                                                __panelSetupProps.group.id !== unref(form).id &&
+                                                __panelSetupProps.group.gpu.deviceIDs.includes(device.id),
+                                        ) ? (
+                                            <span class={'device-existing-groups'}>
+                                                {$t('aiTools.gpuGroup.groups')}
+                                                {' · '}
+                                                {__panelSetupProps.groups
+                                                    .filter(
+                                                        (group) =>
+                                                            __panelSetupProps.group.id !== unref(form).id &&
+                                                            __panelSetupProps.group.gpu.deviceIDs.includes(device.id),
+                                                    )
+                                                    .map((group) => __panelSetupProps.group.name)
+                                                    .join(', ')}
+                                            </span>
+                                        ) : null}
+                                    </>
+                                ),
+                            }}
+                        />
+                        {unref(form).id ? <div class={'input-help'}>{$t('aiTools.gpuGroup.snapshotHelp')}</div> : null}
+                        <ElFormItem label={$t('commons.table.description')} prop="description">
+                            <ElInput
+                                modelValue={unref(form).description}
+                                onUpdate:modelValue={($v) => {
+                                    unref(form).description = $v as any;
+                                }}
+                                type="textarea"
+                                rows={2}
+                                maxlength="500"
+                                show-word-limit
+                            />
+                        </ElFormItem>
+                    </ElForm>,
+                    [[vLoading, unref(initializing) || unref(saving)]],
+                )}
+            </DrawerPro>
         );
     },
     options,

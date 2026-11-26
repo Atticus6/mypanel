@@ -320,7 +320,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         <ElRow type="flex" justify="center">
                             <ElCol span={22}>
                                 <ElFormItem label={$t('setting.light')} prop="light">
-                                    <div class={'flex flex-wrap justify-between items-center sm:items-start'}>
+                                    <div class={'flex flex-wrap items-center justify-between sm:items-start'}>
                                         <div class={'flex gap-1'}>
                                             {(lightColors || []).map((colorConfig) => (
                                                 <>
@@ -355,8 +355,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                     </div>
                                 </ElFormItem>
                                 <ElFormItem label={$t('setting.dark')} prop="dark">
-                                    <div class={'flex flex-wrap justify-between items-center sm:items-start'}>
-                                        <div class={'flex flex-wrap justify-between items-center mt-4 sm:mt-0'}>
+                                    <div class={'flex flex-wrap items-center justify-between sm:items-start'}>
+                                        <div class={'mt-4 flex flex-wrap items-center justify-between sm:mt-0'}>
                                             <div class={'flex gap-1'}>
                                                 {(darkColors || []).map((colorConfig) => (
                                                     <>

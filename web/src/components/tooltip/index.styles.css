@@ -1,9 +1,9 @@
 .tooltip-container[data-v-fc3a80ab] {
-  width: 100%;
+    width: 100%;
 }
 .tooltip-container .text-box[data-v-fc3a80ab] {
-  margin: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

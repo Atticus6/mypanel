@@ -42,9 +42,14 @@ const options = {
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
     (__panelSetupProps, ctx) => {
         const typeComponentMap = { line, pie };
-        return () => (
-            h(typeComponentMap[__panelSetupProps.type], { height: __panelSetupProps.height, option: __panelSetupProps.option, dataZoom: __panelSetupProps.dataZoom, renderer: __panelSetupProps.renderer, class: 'v-charts' })
-        );
+        return () =>
+            h(typeComponentMap[__panelSetupProps.type], {
+                height: __panelSetupProps.height,
+                option: __panelSetupProps.option,
+                dataZoom: __panelSetupProps.dataZoom,
+                renderer: __panelSetupProps.renderer,
+                class: 'v-charts',
+            });
     },
     options,
 );

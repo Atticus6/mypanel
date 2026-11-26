@@ -1,6 +1,7 @@
-[data-v-a1ec750d] .el-collapse,[data-v-a1ec750d] .el-collapse-item__wrap {
-  border: none;
+[data-v-a1ec750d] .el-collapse,
+[data-v-a1ec750d] .el-collapse-item__wrap {
+    border: none;
 }
 [data-v-a1ec750d] .el-collapse-item__header {
-  border: none;
+    border: none;
 }

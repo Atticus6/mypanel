@@ -364,7 +364,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 {unref(proxy).proxyProtocol === 'https://' ? (
                                     <>
                                         <ElDivider content-position="left">{$t('website.sniSettings')}</ElDivider>
-                                        <div class={'flex justify-between items-center py-3'}>
+                                        <div class={'flex items-center justify-between py-3'}>
                                             <div class={'flex flex-col gap-1'}>
                                                 <span class={'font-medium'}>{$t('website.sni')}</span>
                                                 <span class={'input-help'}>{$t('website.sniHelper')}</span>
@@ -395,7 +395,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 />
                                             </ElFormItem>
                                         ) : null}
-                                        <div class={'flex justify-between items-center py-3'}>
+                                        <div class={'flex items-center justify-between py-3'}>
                                             <div class={'flex flex-col gap-1'}>
                                                 <span class={'font-medium'}>{$t('website.proxySslVerify')}</span>
                                                 <span class={'input-help'}>{$t('website.proxySslVerifyHelper')}</span>
@@ -413,7 +413,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             </ElTabPane>
                             <ElTabPane label={$t('website.advancedSettings')} name="advanced">
                                 <ElDivider content-position="left">{$t('website.cacheSettings')}</ElDivider>
-                                <div class={'flex justify-between items-center py-3'}>
+                                <div class={'flex items-center justify-between py-3'}>
                                     <div class={'flex flex-col gap-1'}>
                                         <span class={'font-medium'}>{$t('website.serverCache')}</span>
                                     </div>
@@ -476,7 +476,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         </div>
                                     ) : null}
                                 </ElCollapseTransition>
-                                <div class={'flex justify-between items-center py-3'}>
+                                <div class={'flex items-center justify-between py-3'}>
                                     <div class={'flex flex-col gap-1'}>
                                         <span class={'font-medium'}>{$t('website.browserCache')}</span>
                                     </div>

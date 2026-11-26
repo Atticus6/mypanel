@@ -32,17 +32,14 @@ import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "network",
-        props: {},
-        emits: emits,
+    name: 'network',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -60,7 +57,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const searchName = ref();
         useSearchState(
             'container/network/index',
-            { search: searchName, page: toRef(paginationConfig, 'currentPage'), pageSize: toRef(paginationConfig, 'pageSize') },
+            {
+                search: searchName,
+                page: toRef(paginationConfig, 'currentPage'),
+                pageSize: toRef(paginationConfig, 'pageSize'),
+            },
             { onRevisit: () => search() },
         );
         const opRef = ref();
@@ -71,18 +72,23 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             dialogCreateRef.value!.acceptParams();
         };
         const onClean = () => {
-            ElMessageBox.confirm(i18n.global.t('container.networkPruneHelper'), i18n.global.t('container.networkPrune'), {
-                confirmButtonText: i18n.global.t('commons.button.confirm'),
-                cancelButtonText: i18n.global.t('commons.button.cancel'),
-                type: 'info',
-            }).then(async () => {
+            ElMessageBox.confirm(
+                i18n.global.t('container.networkPruneHelper'),
+                i18n.global.t('container.networkPrune'),
+                {
+                    confirmButtonText: i18n.global.t('commons.button.confirm'),
+                    cancelButtonText: i18n.global.t('commons.button.cancel'),
+                    type: 'info',
+                },
+            ).then(async () => {
                 loading.value = true;
                 let params = {
                     taskID: newUUID(),
                     pruneType: 'network',
                     withTagAll: false,
                 };
-                await rpc.container.prune(params)
+                await rpc.container
+                    .prune(params)
                     .then(() => {
                         loading.value = false;
                         openTaskLog(params.taskID);
@@ -171,9 +177,245 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 },
             },
         ];
-        return () => (
-            withDirectives(<div><DockerStatus isActive={unref(isActive)} onUpdate:isActive={$v => { isActive.value = $v as any }} isExist={unref(isExist)} onUpdate:isExist={$v => { isExist.value = $v as any }} loading={unref(loading)} onUpdate:loading={$v => { loading.value = $v as any }} onSearch={($event?: any) => { (search as any)($event); }} />{(unref(isExist)) ? <LayoutContent title={$t('container.network', 2)} class={{ mask: !unref(isActive) }} v-slots={{ "leftToolBar": () => <>{withDirectives(<ElButton type="primary" onClick={($event?: any) => { onCreate(); }}>{$t('commons.button.create')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton type="primary" plain onClick={($event?: any) => { onClean(); }}>{$t('container.networkPrune')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton disabled={unref(selects).length === 0} onClick={($event?: any) => { batchDelete(null); }}>{$t('commons.button.delete')}</ElButton>, [[permissionDirective, true]])}</>, "rightToolBar": () => <><TableSearch onSearch={($event?: any) => { search(); }} searchName={unref(searchName)} onUpdate:searchName={$v => { searchName.value = $v as any }} /><TableRefresh onSearch={($event?: any) => { search(); }} /><TableSetting title="network-refresh" onSearch={($event?: any) => { search(); }} /></>, "main": () => <><ComplexTable selection-context={() => [unref(searchName)]} row-key="id" cache-pagination={false} pagination-config={paginationConfig} selects={unref(selects)} onUpdate:selects={$v => { selects.value = $v as any }} data={unref(data)} onSearch={($event?: any) => { (search as any)($event); }} heightDiff={300}><ElTableColumn type="selection" selectable={selectable} fix /><ElTableColumn label={$t('commons.table.name')} width="130" prop="name" fix show-overflow-tooltip v-slots={{ "default": ({ row }) => <><ElText type="primary" onClick={($event?: any) => { onInspect(row.id); }} class={"cursor-pointer"}>{row.name}</ElText></> }} /><ElTableColumn width="90" v-slots={{ "default": ({ row }) => <>{(row.isSystem || row.name === '1panel-network') ? <ElTag round>{"system"}</ElTag> : null}</> }} /><ElTableColumn label={$t('container.driver')} show-overflow-tooltip min-width="60" prop="driver" /><ElTableColumn label={$t('container.subnet')} min-width="80" prop="subnet" fix /><ElTableColumn label={$t('container.gateway')} min-width="80" prop="gateway" fix /><ElTableColumn label={$t('container.tag')} min-width="140" fix v-slots={{ "default": ({ row }) => <>{((row.labels || [])).map((item, index) => <div key={index}>{(row.expand || (!row.expand && Number(index) < 3)) ? <div><ElButton plain size="small" class={"mt-0.5"}>{item}</ElButton></div> : null}</div>)}{(!row.expand && row.labels.length > 3) ? <div><ElButton link onClick={($event?: any) => { row.expand = true; }}>{$t('commons.button.expand')}{"... "}</ElButton></div> : null}</> }} /><ElTableColumn prop="createdAt" show-overflow-tooltip min-width="90" label={$t('commons.table.date')} formatter={dateFormat} /><FuTableOperations width="100" buttons={buttons} label={$t('commons.table.operate')} fix /></ComplexTable></> }} /> : null}<OpDialog ref={opRef} onSearch={($event?: any) => { (search as any)($event); }} /><DetailDrawer ref={detailDrawerRef} /><CreateDialog onSearch={($event?: any) => { (search as any)($event); }} ref={dialogCreateRef} /><TaskLog ref={taskLogRef} width="70%" onClose={($event?: any) => { (search as any)($event); }} /></div>, [[vLoading, unref(loading)]])
-        );
+        return () =>
+            withDirectives(
+                <div>
+                    <DockerStatus
+                        isActive={unref(isActive)}
+                        onUpdate:isActive={($v) => {
+                            isActive.value = $v as any;
+                        }}
+                        isExist={unref(isExist)}
+                        onUpdate:isExist={($v) => {
+                            isExist.value = $v as any;
+                        }}
+                        loading={unref(loading)}
+                        onUpdate:loading={($v) => {
+                            loading.value = $v as any;
+                        }}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    {unref(isExist) ? (
+                        <LayoutContent
+                            title={$t('container.network', 2)}
+                            class={{ mask: !unref(isActive) }}
+                            v-slots={{
+                                leftToolBar: () => (
+                                    <>
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    onCreate();
+                                                }}
+                                            >
+                                                {$t('commons.button.create')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                onClick={($event?: any) => {
+                                                    onClean();
+                                                }}
+                                            >
+                                                {$t('container.networkPrune')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                disabled={unref(selects).length === 0}
+                                                onClick={($event?: any) => {
+                                                    batchDelete(null);
+                                                }}
+                                            >
+                                                {$t('commons.button.delete')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                    </>
+                                ),
+                                rightToolBar: () => (
+                                    <>
+                                        <TableSearch
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                            searchName={unref(searchName)}
+                                            onUpdate:searchName={($v) => {
+                                                searchName.value = $v as any;
+                                            }}
+                                        />
+                                        <TableRefresh
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                        <TableSetting
+                                            title="network-refresh"
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                    </>
+                                ),
+                                main: () => (
+                                    <>
+                                        <ComplexTable
+                                            selection-context={() => [unref(searchName)]}
+                                            row-key="id"
+                                            cache-pagination={false}
+                                            pagination-config={paginationConfig}
+                                            selects={unref(selects)}
+                                            onUpdate:selects={($v) => {
+                                                selects.value = $v as any;
+                                            }}
+                                            data={unref(data)}
+                                            onSearch={($event?: any) => {
+                                                (search as any)($event);
+                                            }}
+                                            heightDiff={300}
+                                        >
+                                            <ElTableColumn type="selection" selectable={selectable} fix />
+                                            <ElTableColumn
+                                                label={$t('commons.table.name')}
+                                                width="130"
+                                                prop="name"
+                                                fix
+                                                show-overflow-tooltip
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <ElText
+                                                                type="primary"
+                                                                onClick={($event?: any) => {
+                                                                    onInspect(row.id);
+                                                                }}
+                                                                class={'cursor-pointer'}
+                                                            >
+                                                                {row.name}
+                                                            </ElText>
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                width="90"
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            {row.isSystem || row.name === '1panel-network' ? (
+                                                                <ElTag round>{'system'}</ElTag>
+                                                            ) : null}
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                label={$t('container.driver')}
+                                                show-overflow-tooltip
+                                                min-width="60"
+                                                prop="driver"
+                                            />
+                                            <ElTableColumn
+                                                label={$t('container.subnet')}
+                                                min-width="80"
+                                                prop="subnet"
+                                                fix
+                                            />
+                                            <ElTableColumn
+                                                label={$t('container.gateway')}
+                                                min-width="80"
+                                                prop="gateway"
+                                                fix
+                                            />
+                                            <ElTableColumn
+                                                label={$t('container.tag')}
+                                                min-width="140"
+                                                fix
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            {(row.labels || []).map((item, index) => (
+                                                                <div key={index}>
+                                                                    {row.expand ||
+                                                                    (!row.expand && Number(index) < 3) ? (
+                                                                        <div>
+                                                                            <ElButton
+                                                                                plain
+                                                                                size="small"
+                                                                                class={'mt-0.5'}
+                                                                            >
+                                                                                {item}
+                                                                            </ElButton>
+                                                                        </div>
+                                                                    ) : null}
+                                                                </div>
+                                                            ))}
+                                                            {!row.expand && row.labels.length > 3 ? (
+                                                                <div>
+                                                                    <ElButton
+                                                                        link
+                                                                        onClick={($event?: any) => {
+                                                                            row.expand = true;
+                                                                        }}
+                                                                    >
+                                                                        {$t('commons.button.expand')}
+                                                                        {'... '}
+                                                                    </ElButton>
+                                                                </div>
+                                                            ) : null}
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                prop="createdAt"
+                                                show-overflow-tooltip
+                                                min-width="90"
+                                                label={$t('commons.table.date')}
+                                                formatter={dateFormat}
+                                            />
+                                            <FuTableOperations
+                                                width="100"
+                                                buttons={buttons}
+                                                label={$t('commons.table.operate')}
+                                                fix
+                                            />
+                                        </ComplexTable>
+                                    </>
+                                ),
+                            }}
+                        />
+                    ) : null}
+                    <OpDialog
+                        ref={opRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <DetailDrawer ref={detailDrawerRef} />
+                    <CreateDialog
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                        ref={dialogCreateRef}
+                    />
+                    <TaskLog
+                        ref={taskLogRef}
+                        width="70%"
+                        onClose={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                </div>,
+                [[vLoading, unref(loading)]],
+            );
     },
     options,
 );

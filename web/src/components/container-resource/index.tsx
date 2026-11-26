@@ -40,7 +40,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                     {__panelSetupProps.stats.cpuPercent.toFixed(2)}
                     {'%'}
                 </div>
-                <div class={'float-left source-font'}>
+                <div class={'source-font float-left'}>
                     {$t('monitor.memory')}
                     {': '}
                     {__panelSetupProps.stats.memoryPercent.toFixed(2)}

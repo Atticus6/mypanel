@@ -101,7 +101,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                                 <>
                                                                     <div
                                                                         class={
-                                                                            'flex flex-wrap gap-2 items-center justify-start'
+                                                                            'flex flex-wrap items-center justify-start gap-2'
                                                                         }
                                                                     >
                                                                         {unref(slots).leftToolBar
@@ -120,7 +120,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                                                 </div>
                                             ) : (
                                                 <div class={'flex flex-wrap gap-4 sm:justify-between'}>
-                                                    <div class={'flex gap-2 flex-wrap items-center justify-start'}>
+                                                    <div class={'flex flex-wrap items-center justify-start gap-2'}>
                                                         {unref(slots).leftToolBar
                                                             ? ctx.slots['leftToolBar']?.(undefined)
                                                             : null}

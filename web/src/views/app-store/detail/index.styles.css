@@ -1,27 +1,27 @@
 .brief .name span[data-v-787f760a] {
-  font-weight: 500;
-  font-size: 18px;
-  color: var(--el-text-color-regular);
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--el-text-color-regular);
 }
 .brief .description[data-v-787f760a] {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 .brief .description span[data-v-787f760a] {
-  font-size: 14px;
-  color: var(--el-text-color-regular);
+    font-size: 14px;
+    color: var(--el-text-color-regular);
 }
 .brief .icon[data-v-787f760a] {
-  flex-shrink: 0;
-  width: 180px;
-  height: 180px;
-  background-color: #ffffff;
+    flex-shrink: 0;
+    width: 180px;
+    height: 180px;
+    background-color: #ffffff;
 }
 .brief .version[data-v-787f760a] {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 .brief .descriptions[data-v-787f760a] {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 [data-v-787f760a] .md-editor-dark {
-  background-color: var(--panel-main-bg-color-9);
+    background-color: var(--panel-main-bg-color-9);
 }

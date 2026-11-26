@@ -41,17 +41,14 @@ import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "template",
-        props: {},
-        emits: emits,
+    name: 'template',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -73,7 +70,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         const searchName = ref();
         useSearchState(
             'container/template/index',
-            { search: searchName, page: toRef(paginationConfig, 'currentPage'), pageSize: toRef(paginationConfig, 'pageSize') },
+            {
+                search: searchName,
+                page: toRef(paginationConfig, 'currentPage'),
+                pageSize: toRef(paginationConfig, 'pageSize'),
+            },
             { onRevisit: () => search() },
         );
         const search = async () => {
@@ -181,9 +182,196 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 },
             },
         ];
-        return () => (
-            withDirectives(<div><DockerStatus isActive={unref(isActive)} onUpdate:isActive={$v => { isActive.value = $v as any }} isExist={unref(isExist)} onUpdate:isExist={$v => { isExist.value = $v as any }} loading={unref(loading)} onUpdate:loading={$v => { loading.value = $v as any }} onSearch={($event?: any) => { (search as any)($event); }} />{(unref(isExist)) ? <LayoutContent title={$t('container.composeTemplate', 2)} class={{ mask: !unref(isActive) }} v-slots={{ "leftToolBar": () => <>{withDirectives(<ElButton type="primary" onClick={($event?: any) => { onOpenDialog('create'); }}>{$t('commons.button.create')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton type="primary" plain disabled={unref(selects).length === 0} onClick={($event?: any) => { onBatchDelete(null); }}>{$t('commons.button.delete')}</ElButton>, [[permissionDirective, true]])}<ElButtonGroup>{withDirectives(<ElButton onClick={($event?: any) => { (onImport as any)($event); }}>{$t('commons.button.import')}</ElButton>, [[permissionDirective, true]])}{withDirectives(<ElButton disabled={unref(selects).length === 0} onClick={($event?: any) => { (onExport as any)($event); }}>{$t('commons.button.export')}</ElButton>, [[permissionDirective, true]])}</ElButtonGroup></>, "rightToolBar": () => <><TableSearch onSearch={($event?: any) => { search(); }} searchName={unref(searchName)} onUpdate:searchName={$v => { searchName.value = $v as any }} /><TableRefresh onSearch={($event?: any) => { search(); }} /><TableSetting title="template-refresh" onSearch={($event?: any) => { search(); }} /></>, "main": () => <><ComplexTable selection-context={() => [unref(searchName)]} row-key="id" cache-pagination={false} pagination-config={paginationConfig} selects={unref(selects)} onUpdate:selects={$v => { selects.value = $v as any }} data={unref(data)} onSearch={($event?: any) => { (search as any)($event); }} heightDiff={300}><ElTableColumn type="selection" fix /><ElTableColumn label={$t('commons.table.name')} min-width="100" prop="name" sortable fix show-overflow-tooltip v-slots={{ "default": ({ row }) => <><ElText type="primary" onClick={($event?: any) => { onOpenDetail(row); }} class={"cursor-pointer"}>{row.name}</ElText></> }} /><ElTableColumn label={$t('commons.table.description')} prop="description" min-width="200" fix /><ElTableColumn label={$t('commons.table.createdAt')} min-width="80" fix v-slots={{ "default": ({ row }) => <>{dateFormat(0, 0, row.createdAt)}</> }} /><FuTableOperations buttons={buttons} label={$t('commons.table.operate')} /></ComplexTable></> }} /> : null}<OpDialog ref={opRef} onSearch={($event?: any) => { (search as any)($event); }} /><OpDialog ref={opRef} onSearch={($event?: any) => { (search as any)($event); }} /><ImportDialog onSearch={($event?: any) => { (search as any)($event); }} ref={dialogImportRef} /><DetailDialog ref={detailRef} /><OperatorDialog onSearch={($event?: any) => { (search as any)($event); }} ref={dialogRef} /></div>, [[vLoading, unref(loading)]])
-        );
+        return () =>
+            withDirectives(
+                <div>
+                    <DockerStatus
+                        isActive={unref(isActive)}
+                        onUpdate:isActive={($v) => {
+                            isActive.value = $v as any;
+                        }}
+                        isExist={unref(isExist)}
+                        onUpdate:isExist={($v) => {
+                            isExist.value = $v as any;
+                        }}
+                        loading={unref(loading)}
+                        onUpdate:loading={($v) => {
+                            loading.value = $v as any;
+                        }}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    {unref(isExist) ? (
+                        <LayoutContent
+                            title={$t('container.composeTemplate', 2)}
+                            class={{ mask: !unref(isActive) }}
+                            v-slots={{
+                                leftToolBar: () => (
+                                    <>
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                onClick={($event?: any) => {
+                                                    onOpenDialog('create');
+                                                }}
+                                            >
+                                                {$t('commons.button.create')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        {withDirectives(
+                                            <ElButton
+                                                type="primary"
+                                                plain
+                                                disabled={unref(selects).length === 0}
+                                                onClick={($event?: any) => {
+                                                    onBatchDelete(null);
+                                                }}
+                                            >
+                                                {$t('commons.button.delete')}
+                                            </ElButton>,
+                                            [[permissionDirective, true]],
+                                        )}
+                                        <ElButtonGroup>
+                                            {withDirectives(
+                                                <ElButton
+                                                    onClick={($event?: any) => {
+                                                        (onImport as any)($event);
+                                                    }}
+                                                >
+                                                    {$t('commons.button.import')}
+                                                </ElButton>,
+                                                [[permissionDirective, true]],
+                                            )}
+                                            {withDirectives(
+                                                <ElButton
+                                                    disabled={unref(selects).length === 0}
+                                                    onClick={($event?: any) => {
+                                                        (onExport as any)($event);
+                                                    }}
+                                                >
+                                                    {$t('commons.button.export')}
+                                                </ElButton>,
+                                                [[permissionDirective, true]],
+                                            )}
+                                        </ElButtonGroup>
+                                    </>
+                                ),
+                                rightToolBar: () => (
+                                    <>
+                                        <TableSearch
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                            searchName={unref(searchName)}
+                                            onUpdate:searchName={($v) => {
+                                                searchName.value = $v as any;
+                                            }}
+                                        />
+                                        <TableRefresh
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                        <TableSetting
+                                            title="template-refresh"
+                                            onSearch={($event?: any) => {
+                                                search();
+                                            }}
+                                        />
+                                    </>
+                                ),
+                                main: () => (
+                                    <>
+                                        <ComplexTable
+                                            selection-context={() => [unref(searchName)]}
+                                            row-key="id"
+                                            cache-pagination={false}
+                                            pagination-config={paginationConfig}
+                                            selects={unref(selects)}
+                                            onUpdate:selects={($v) => {
+                                                selects.value = $v as any;
+                                            }}
+                                            data={unref(data)}
+                                            onSearch={($event?: any) => {
+                                                (search as any)($event);
+                                            }}
+                                            heightDiff={300}
+                                        >
+                                            <ElTableColumn type="selection" fix />
+                                            <ElTableColumn
+                                                label={$t('commons.table.name')}
+                                                min-width="100"
+                                                prop="name"
+                                                sortable
+                                                fix
+                                                show-overflow-tooltip
+                                                v-slots={{
+                                                    default: ({ row }) => (
+                                                        <>
+                                                            <ElText
+                                                                type="primary"
+                                                                onClick={($event?: any) => {
+                                                                    onOpenDetail(row);
+                                                                }}
+                                                                class={'cursor-pointer'}
+                                                            >
+                                                                {row.name}
+                                                            </ElText>
+                                                        </>
+                                                    ),
+                                                }}
+                                            />
+                                            <ElTableColumn
+                                                label={$t('commons.table.description')}
+                                                prop="description"
+                                                min-width="200"
+                                                fix
+                                            />
+                                            <ElTableColumn
+                                                label={$t('commons.table.createdAt')}
+                                                min-width="80"
+                                                fix
+                                                v-slots={{
+                                                    default: ({ row }) => <>{dateFormat(0, 0, row.createdAt)}</>,
+                                                }}
+                                            />
+                                            <FuTableOperations buttons={buttons} label={$t('commons.table.operate')} />
+                                        </ComplexTable>
+                                    </>
+                                ),
+                            }}
+                        />
+                    ) : null}
+                    <OpDialog
+                        ref={opRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <OpDialog
+                        ref={opRef}
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                    />
+                    <ImportDialog
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                        ref={dialogImportRef}
+                    />
+                    <DetailDialog ref={detailRef} />
+                    <OperatorDialog
+                        onSearch={($event?: any) => {
+                            (search as any)($event);
+                        }}
+                        ref={dialogRef}
+                    />
+                </div>,
+                [[vLoading, unref(loading)]],
+            );
     },
     options,
 );

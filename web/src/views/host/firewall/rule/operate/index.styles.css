@@ -1,27 +1,27 @@
 .protocol-option[data-v-42d71d01] {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 .protocol-option-description[data-v-42d71d01] {
-  color: var(--el-text-color-secondary);
-  font-size: 12px;
+    color: var(--el-text-color-secondary);
+    font-size: 12px;
 }
 .source-address-row[data-v-42d71d01],
 .destination-port-row[data-v-42d71d01] {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
 }
 .source-address-select[data-v-42d71d01] {
-  flex: 1;
+    flex: 1;
 }
 .destination-port-input[data-v-42d71d01] {
-  flex: 1;
+    flex: 1;
 }
 .priority-range[data-v-42d71d01] {
-  margin-left: 12px;
-  color: var(--el-text-color-secondary);
+    margin-left: 12px;
+    color: var(--el-text-color-secondary);
 }

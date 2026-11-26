@@ -29,9 +29,9 @@
     color: var(--el-text-color-secondary);
 }
 @media (min-width: 640px) {
-.ai-search-field-label[data-v-daf49cd7] {
+    .ai-search-field-label[data-v-daf49cd7] {
         width: 6rem;
-}
+    }
 }
 .ai-search-field-input[data-v-daf49cd7] {
     min-width: 0;

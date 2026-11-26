@@ -1,9 +1,6 @@
 import { rpc } from '@/lib/rpc';
 import type { DescMessage, MessageInitShape } from '@bufbuild/protobuf';
-import {
-    CurrentUserSchema,
-    UpdateCurrentUserRequestSchema,
-} from '@/gen/panel/core/v1/auth_pb';
+import { CurrentUserSchema, UpdateCurrentUserRequestSchema } from '@/gen/panel/core/v1/auth_pb';
 
 type Init<T extends DescMessage> = MessageInitShape<T>;
 

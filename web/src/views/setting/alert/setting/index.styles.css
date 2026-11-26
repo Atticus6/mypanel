@@ -1,17 +1,17 @@
 .label[data-v-59d863e9] {
-  color: var(--el-text-color-placeholder);
+    color: var(--el-text-color-placeholder);
 }
 .config-detail[data-v-59d863e9] {
-  align-items: flex-start;
-  display: flex;
-  gap: 4px;
+    align-items: flex-start;
+    display: flex;
+    gap: 4px;
 }
 .config-detail__value[data-v-59d863e9] {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  white-space: normal;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 .config-detail__toggle[data-v-59d863e9] {
-  flex: none;
-  padding: 2px;
+    flex: none;
+    padding: 2px;
 }

@@ -342,17 +342,17 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     content: () => (
                         <>
                             {withDirectives(
-                                <div class={'space-y-4 p-4 min-h-[160px]'}>
+                                <div class={'min-h-[160px] space-y-4 p-4'}>
                                     {(unref(res) || []).map((value) => (
                                         <div
                                             class={cn(
-                                                'rounded-lg p-4 shadow-sm border border-gray-100 transition-all duration-200 hover:shadow-md',
+                                                'rounded-lg border border-gray-100 p-4 shadow-sm transition-all duration-200 hover:shadow-md',
                                                 { completed: getStatus(value) === 'Success' },
                                             )}
                                             key={value.key}
                                         >
                                             <div class={'flex items-center gap-3'}>
-                                                <div class={'flex-1 min-w-0'}>
+                                                <div class={'min-w-0 flex-1'}>
                                                     <ElTooltip content={value.name} placement="top">
                                                         <div class={'dialog-object-name text-gray-700'}>
                                                             {value.name}
@@ -360,12 +360,12 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     </ElTooltip>
                                                     <div class={'text-gray-500'}>{getStatusText(value)}</div>
                                                     {value.error ? (
-                                                        <div class={'text-red-500 break-all'}>{value.error}</div>
+                                                        <div class={'break-all text-red-500'}>{value.error}</div>
                                                     ) : null}
                                                 </div>
                                             </div>
                                             <div class={'space-y-2'}>
-                                                <div class={'flex justify-between items-center mb-1 text-gray-500'}>
+                                                <div class={'mb-1 flex items-center justify-between text-gray-500'}>
                                                     <div>
                                                         <span>{getFileSize(value.written)}</span>
                                                         {value.total > 0 ? (

@@ -1,148 +1,149 @@
 .agree[data-v-43ca622f] {
-  text-decoration: none;
+    text-decoration: none;
 }
 .agree[data-v-43ca622f]:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 [data-v-43ca622f] .el-button {
-  height: 2.5rem;
+    height: 2.5rem;
 }
 [data-v-43ca622f] .el-input__inner {
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-  transition: background-color 50000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    transition: background-color 50000s ease-in-out 0s;
 }
 [data-v-43ca622f] .el-row {
-  padding: 0 !important;
+    padding: 0 !important;
 }
 .login-form .login-button[data-v-43ca622f] {
-  background-color: var(--login-btn-link-color);
-  border-color: var(--login-btn-link-color);
-  color: #ffffff;
+    background-color: var(--login-btn-link-color);
+    border-color: var(--login-btn-link-color);
+    color: #ffffff;
 }
 .login-form .login-button[data-v-43ca622f]:hover {
-  background-color: var(--login-btn-link-hover-color) !important;
-  border-color: var(--login-btn-link-hover-color) !important;
-  outline: none !important;
+    background-color: var(--login-btn-link-hover-color) !important;
+    border-color: var(--login-btn-link-hover-color) !important;
+    outline: none !important;
 }
 .login-form .external-login-section[data-v-43ca622f] {
-  width: 100%;
-  padding-top: 2px;
+    width: 100%;
+    padding-top: 2px;
 }
 .login-form .local-login-link[data-v-43ca622f] {
-  height: auto;
-  margin-top: 6px;
-  font-size: 13px;
+    height: auto;
+    margin-top: 6px;
+    font-size: 13px;
 }
 .login-form .external-login-divider[data-v-43ca622f] {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: var(--el-text-color-secondary);
-  font-size: 13px;
-  white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--el-text-color-secondary);
+    font-size: 13px;
+    white-space: nowrap;
 }
-.login-form .external-login-divider[data-v-43ca622f]::before, .login-form .external-login-divider[data-v-43ca622f]::after {
-  width: 100%;
-  border-top: 1px dashed var(--el-border-color-light);
-  content: "";
+.login-form .external-login-divider[data-v-43ca622f]::before,
+.login-form .external-login-divider[data-v-43ca622f]::after {
+    width: 100%;
+    border-top: 1px dashed var(--el-border-color-light);
+    content: '';
 }
 .login-form .external-login-methods[data-v-43ca622f] {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px 12px;
-  margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 12px;
+    margin-top: 12px;
 }
 .login-form .external-login-separator[data-v-43ca622f] {
-  width: 1px;
-  height: 14px;
-  background-color: var(--el-border-color);
+    width: 1px;
+    height: 14px;
+    background-color: var(--el-border-color);
 }
 .login-form .external-login-button[data-v-43ca622f] {
-  height: auto;
-  margin: 0 !important;
-  padding: 5px 2px;
-  border: 0;
-  background: transparent !important;
-  color: var(--login-btn-link-color);
-  font-size: 14px;
+    height: auto;
+    margin: 0 !important;
+    padding: 5px 2px;
+    border: 0;
+    background: transparent !important;
+    color: var(--login-btn-link-color);
+    font-size: 14px;
 }
 .login-form .external-login-button[data-v-43ca622f]:hover {
-  color: var(--login-btn-link-hover-color) !important;
+    color: var(--login-btn-link-hover-color) !important;
 }
 .login-form .external-login-button[data-v-43ca622f]:focus-visible {
-  border-radius: 3px;
-  outline: 2px solid var(--login-btn-link-color) !important;
-  outline-offset: 2px;
+    border-radius: 3px;
+    outline: 2px solid var(--login-btn-link-color) !important;
+    outline-offset: 2px;
 }
 .login-form[data-v-43ca622f] .el-input {
-  --el-input-border-color: #dcdfe6;
-  background: none !important;
+    --el-input-border-color: #dcdfe6;
+    background: none !important;
 }
 .login-form[data-v-43ca622f] .el-input__wrapper {
-  background: none !important;
+    background: none !important;
 }
 .login-form[data-v-43ca622f] .el-input__wrapper.is-focus {
-  box-shadow: 0 0 0 1px var(--login-btn-link-color) inset !important;
+    box-shadow: 0 0 0 1px var(--login-btn-link-color) inset !important;
 }
 .login-form .demo[data-v-43ca622f] {
-  text-align: center;
+    text-align: center;
 }
 .login-form .demo span[data-v-43ca622f] {
-  color: red;
+    color: red;
 }
 .login-form .agree-title[data-v-43ca622f] {
-  color: var(--login-btn-link-color);
+    color: var(--login-btn-link-color);
 }
 .login-form .agree[data-v-43ca622f] {
-  white-space: pre-wrap;
-  color: var(--login-btn-link-color);
+    white-space: pre-wrap;
+    color: var(--login-btn-link-color);
 }
 .login-form[data-v-43ca622f] a {
-  color: var(--login-btn-link-color);
+    color: var(--login-btn-link-color);
 }
 .login-form[data-v-43ca622f] a:hover {
-  opacity: 75%;
+    opacity: 75%;
 }
 .login-form[data-v-43ca622f] .el-checkbox__input .el-checkbox__inner {
-  background-color: #fff !important;
-  border-color: var(--login-btn-link-color) !important;
+    background-color: #fff !important;
+    border-color: var(--login-btn-link-color) !important;
 }
 .login-form[data-v-43ca622f] .el-checkbox__input.is-checked .el-checkbox__inner {
-  background-color: var(--login-btn-link-color) !important;
-  border-color: var(--login-btn-link-color) !important;
+    background-color: var(--login-btn-link-color) !important;
+    border-color: var(--login-btn-link-color) !important;
 }
 .login-form[data-v-43ca622f] .el-checkbox__input.is-checked .el-checkbox__inner::after {
-  border-color: #ffffff !important;
+    border-color: #ffffff !important;
 }
 .login-form[data-v-43ca622f] .el-input__inner {
-  color: #000 !important;
+    color: #000 !important;
 }
 .cursor-pointer[data-v-43ca622f] {
-  outline: none;
+    outline: none;
 }
 .el-dropdown[data-v-43ca622f]:focus-visible {
-  outline: none;
+    outline: none;
 }
 .el-tooltip__trigger[data-v-43ca622f]:focus-visible {
-  outline: none;
+    outline: none;
 }
 [data-v-43ca622f] .el-dropdown-menu__item:not(.is-disabled):hover {
-  background-color: var(--login-btn-link-color) !important;
-  color: #fff !important;
+    background-color: var(--login-btn-link-color) !important;
+    color: #fff !important;
 }
 [data-v-43ca622f] .el-dropdown-menu__item:not(.is-disabled):focus {
-  background-color: var(--login-btn-link-color) !important;
-  color: #fff !important;
+    background-color: var(--login-btn-link-color) !important;
+    color: #fff !important;
 }
 [data-v-43ca622f] .el-loading-mask {
-  background-color: var(--login-loading-mask-color) !important;
+    background-color: var(--login-loading-mask-color) !important;
 }
 [data-v-43ca622f] .el-loading-mask .el-loading-spinner .path {
-  stroke: var(--login-btn-link-color);
+    stroke: var(--login-btn-link-color);
 }
 .login-footer-btn .el-button--primary[data-v-43ca622f] {
-  border-color: var(--login-btn-link-color) !important;
-  background-color: var(--login-btn-link-color) !important;
+    border-color: var(--login-btn-link-color) !important;
+    background-color: var(--login-btn-link-color) !important;
 }

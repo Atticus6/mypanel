@@ -537,7 +537,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 ) : null}
                                 <div
                                     class={
-                                        'upload-button flex flex-wrap justify-between items-center gap-4 pb-4 md:flex-nowrap'
+                                        'upload-button flex flex-wrap items-center justify-between gap-4 pb-4 md:flex-nowrap'
                                     }
                                 >
                                     <div class={'flex flex-wrap gap-4'}>
@@ -586,7 +586,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             'upload-dragger-disabled': unref(uploadLocked),
                                         })}
                                     >
-                                        <div class={'flex items-center justify-center h-52'}>
+                                        <div class={'flex h-52 items-center justify-center'}>
                                             <div>
                                                 <ElIcon class={'el-icon--upload'}>
                                                     <UploadFilled />

@@ -172,7 +172,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <div class={'flx-align-center mb-1'} key={index}>
                                             <div>
                                                 {row.isDir ? (
-                                                    <SvgIcon className="table-icon mr-1 " iconName="p-file-folder" />
+                                                    <SvgIcon className="table-icon mr-1" iconName="p-file-folder" />
                                                 ) : (
                                                     <SvgIcon
                                                         className="table-icon mr-1"

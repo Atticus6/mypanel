@@ -1,27 +1,27 @@
 .name-cell[data-v-6990ab7e] {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 .symlink-target[data-v-6990ab7e] {
-  color: var(--el-text-color-secondary);
-  font-size: 12px;
+    color: var(--el-text-color-secondary);
+    font-size: 12px;
 }
 .path-breadcrumb[data-v-6990ab7e] {
-  width: 100%;
-  padding: 6px 10px;
-  border: 1px solid var(--el-border-color);
-  border-radius: 4px;
-  overflow-x: auto;
-  cursor: text;
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid var(--el-border-color);
+    border-radius: 4px;
+    overflow-x: auto;
+    cursor: text;
 }
 .path-input[data-v-6990ab7e] {
-  overflow: visible;
+    overflow: visible;
 }
 .preview-content[data-v-6990ab7e] {
-  margin: 0;
-  max-height: 70vh;
-  overflow: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
+    margin: 0;
+    max-height: 70vh;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
 }

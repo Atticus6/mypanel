@@ -11,20 +11,17 @@ import DialogPro from '@/components/dialog-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "prune",
-        props: {},
-        emits: emits,
-        __scopeId: "data-v-d4be4f42",
+    name: 'prune',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-d4be4f42',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -39,7 +36,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 pruneType: 'container',
                 withTagAll: false,
             };
-            await rpc.container.prune(params)
+            await rpc.container
+                .prune(params)
                 .then(() => {
                     loading.value = false;
                     open.value = false;
@@ -59,12 +57,60 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             open.value = true;
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
             <>
-            <DialogPro modelValue={unref(open)} onUpdate:modelValue={$v => { open.value = $v as any }} title={$t('container.containerPrune')} size="small" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton disabled={unref(loading)} onClick={($event?: any) => { open.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton disabled={unref(loading)} type="primary" onClick={($event?: any) => { onClean(); }}>{$t('commons.button.confirm')}</ElButton></span></> }}><div><ul class={"help-ul"}><li class={"lineClass"} style={"color: red"}>{$t('container.containerPruneHelper1')}</li><li class={"lineClass"}>{$t('container.containerPruneHelper2')}</li><li class={"lineClass"}>{$t('container.containerPruneHelper3')}</li></ul></div></DialogPro>
-            <TaskLog ref={taskLogRef} width="70%" onClose={($event?: any) => { (onSearch as any)($event); }} />
+                <DialogPro
+                    modelValue={unref(open)}
+                    onUpdate:modelValue={($v) => {
+                        open.value = $v as any;
+                    }}
+                    title={$t('container.containerPrune')}
+                    size="small"
+                    v-slots={{
+                        footer: () => (
+                            <>
+                                <span class={'dialog-footer'}>
+                                    <ElButton
+                                        disabled={unref(loading)}
+                                        onClick={($event?: any) => {
+                                            open.value = false;
+                                        }}
+                                    >
+                                        {$t('commons.button.cancel')}
+                                    </ElButton>
+                                    <ElButton
+                                        disabled={unref(loading)}
+                                        type="primary"
+                                        onClick={($event?: any) => {
+                                            onClean();
+                                        }}
+                                    >
+                                        {$t('commons.button.confirm')}
+                                    </ElButton>
+                                </span>
+                            </>
+                        ),
+                    }}
+                >
+                    <div>
+                        <ul class={'help-ul'}>
+                            <li class={'lineClass'} style={'color: red'}>
+                                {$t('container.containerPruneHelper1')}
+                            </li>
+                            <li class={'lineClass'}>{$t('container.containerPruneHelper2')}</li>
+                            <li class={'lineClass'}>{$t('container.containerPruneHelper3')}</li>
+                        </ul>
+                    </div>
+                </DialogPro>
+                <TaskLog
+                    ref={taskLogRef}
+                    width="70%"
+                    onClose={($event?: any) => {
+                        (onSearch as any)($event);
+                    }}
+                />
             </>
         );
     },

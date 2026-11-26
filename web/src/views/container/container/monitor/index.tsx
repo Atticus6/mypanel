@@ -19,17 +19,14 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {};
 
-
-
 const options = {
-        name: "monitor",
-        props: {},
-        emits: emits,
+    name: 'monitor',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -116,7 +113,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             if (timeDatas.value.length > 20) {
                 timeDatas.value.splice(0, 1);
             }
-        
+
             chartsOption.value['cpuChart'] = {
                 title: 'CPU',
                 xData: timeDatas.value,
@@ -128,7 +125,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ],
                 formatStr: '%',
             };
-        
+
             chartsOption.value['memoryChart'] = {
                 title: i18n.global.t('monitor.memory'),
                 xData: timeDatas.value,
@@ -144,7 +141,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ],
                 formatStr: 'MB',
             };
-        
+
             chartsOption.value['ioChart'] = {
                 title: i18n.global.t('monitor.disk') + ' IO',
                 xData: timeDatas.value,
@@ -160,7 +157,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                 ],
                 formatStr: 'MB',
             };
-        
+
             chartsOption.value['networkChart'] = {
                 title: i18n.global.t('monitor.network'),
                 xData: timeDatas.value,
@@ -187,10 +184,90 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             handleClose;
         });
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DrawerPro modelValue={unref(monitorVisible)} onUpdate:modelValue={$v => { monitorVisible.value = $v as any }} header={$t('menu.monitor')} onClose={($event?: any) => { (handleClose as any)($event); }} resource={unref(title)} size="large"><ElForm label-position="top" onSubmit={($event?: any) => { $event.preventDefault(); ; }}><ElFormItem label={$t('container.refreshTime')}><ElSelect modelValue={unref(timeInterval)} onUpdate:modelValue={$v => { timeInterval.value = $v as any }} onChange={($event?: any) => { (changeTimer as any)($event); }}><ElOption label="3s" value={3} /><ElOption label="5s" value={5} /><ElOption label="10s" value={10} /><ElOption label="30s" value={30} /><ElOption label="60s" value={60} /></ElSelect></ElFormItem></ElForm><ElCard>{(unref(chartsOption)['cpuChart']) ? <VCharts height="200px" id="cpuChart" type="line" renderer="svg" option={unref(chartsOption)['cpuChart']} /> : null}</ElCard><ElCard class={"mt-2.5"}>{(unref(chartsOption)['memoryChart']) ? <VCharts height="200px" id="memoryChart" type="line" renderer="svg" option={unref(chartsOption)['memoryChart']} /> : null}</ElCard><ElCard class={"mt-2.5"}>{(unref(chartsOption)['ioChart']) ? <VCharts height="200px" id="ioChart" type="line" renderer="svg" option={unref(chartsOption)['ioChart']} /> : null}</ElCard><ElCard class={"mt-2.5"}>{(unref(chartsOption)['networkChart']) ? <VCharts height="200px" id="networkChart" type="line" renderer="svg" option={unref(chartsOption)['networkChart']} /> : null}</ElCard></DrawerPro>
+            <DrawerPro
+                modelValue={unref(monitorVisible)}
+                onUpdate:modelValue={($v) => {
+                    monitorVisible.value = $v as any;
+                }}
+                header={$t('menu.monitor')}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                resource={unref(title)}
+                size="large"
+            >
+                <ElForm
+                    label-position="top"
+                    onSubmit={($event?: any) => {
+                        $event.preventDefault();
+                    }}
+                >
+                    <ElFormItem label={$t('container.refreshTime')}>
+                        <ElSelect
+                            modelValue={unref(timeInterval)}
+                            onUpdate:modelValue={($v) => {
+                                timeInterval.value = $v as any;
+                            }}
+                            onChange={($event?: any) => {
+                                (changeTimer as any)($event);
+                            }}
+                        >
+                            <ElOption label="3s" value={3} />
+                            <ElOption label="5s" value={5} />
+                            <ElOption label="10s" value={10} />
+                            <ElOption label="30s" value={30} />
+                            <ElOption label="60s" value={60} />
+                        </ElSelect>
+                    </ElFormItem>
+                </ElForm>
+                <ElCard>
+                    {unref(chartsOption)['cpuChart'] ? (
+                        <VCharts
+                            height="200px"
+                            id="cpuChart"
+                            type="line"
+                            renderer="svg"
+                            option={unref(chartsOption)['cpuChart']}
+                        />
+                    ) : null}
+                </ElCard>
+                <ElCard class={'mt-2.5'}>
+                    {unref(chartsOption)['memoryChart'] ? (
+                        <VCharts
+                            height="200px"
+                            id="memoryChart"
+                            type="line"
+                            renderer="svg"
+                            option={unref(chartsOption)['memoryChart']}
+                        />
+                    ) : null}
+                </ElCard>
+                <ElCard class={'mt-2.5'}>
+                    {unref(chartsOption)['ioChart'] ? (
+                        <VCharts
+                            height="200px"
+                            id="ioChart"
+                            type="line"
+                            renderer="svg"
+                            option={unref(chartsOption)['ioChart']}
+                        />
+                    ) : null}
+                </ElCard>
+                <ElCard class={'mt-2.5'}>
+                    {unref(chartsOption)['networkChart'] ? (
+                        <VCharts
+                            height="200px"
+                            id="networkChart"
+                            type="line"
+                            renderer="svg"
+                            option={unref(chartsOption)['networkChart']}
+                        />
+                    ) : null}
+                </ElCard>
+            </DrawerPro>
         );
     },
     options,

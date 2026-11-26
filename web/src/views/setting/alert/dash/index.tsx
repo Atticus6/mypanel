@@ -302,7 +302,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onChange={($event?: any) => {
                                                     search();
                                                 }}
-                                                class={'!w-52 dropdown'}
+                                                class={'dropdown !w-52'}
                                                 v-slots={{ prefix: () => <>{$t('commons.table.type')}</> }}
                                             >
                                                 {unref(isMaster) ? (
@@ -403,7 +403,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onClear={($event?: any) => {
                                                     (search as any)($event);
                                                 }}
-                                                class={'!w-52 dropdown'}
+                                                class={'dropdown !w-52'}
                                                 v-slots={{ prefix: () => <>{$t('commons.table.status')}</> }}
                                             >
                                                 <ElOption label={$t('commons.button.enable')} value="Enable" />

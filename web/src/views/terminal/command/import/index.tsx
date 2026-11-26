@@ -176,7 +176,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onClick={($event?: any) => {
                             (onImport as any)($event);
                         }}
-                        class={'ml-2 mt-2'}
+                        class={'mt-2 ml-2'}
                     >
                         {$t('commons.button.import')}
                     </ElButton>
@@ -190,7 +190,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         onChange={($event?: any) => {
                             (changeGroup as any)($event);
                         }}
-                        class={'p-w-200 ml-2 mt-2'}
+                        class={'p-w-200 mt-2 ml-2'}
                     >
                         {(unref(groupList) || []).map((item) => (
                             <ElOption label={item.name} value={item.id} key={item.id} />

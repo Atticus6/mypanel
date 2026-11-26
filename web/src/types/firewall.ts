@@ -93,11 +93,14 @@ export namespace Firewall {
     export type Direction = 'input';
     export type Action = 'accept' | 'drop' | 'reject';
     export type NativeKind =
-        | 'rule' | 'zone_port' | 'rich_rule' | 'ufw_rule' | 'ufw_application' | 'opaque' | 'zone_service';
+        'rule' | 'zone_port' | 'rich_rule' | 'ufw_rule' | 'ufw_application' | 'opaque' | 'zone_service';
     export type ParseStatus = 'supported' | 'partial' | 'opaque';
     export type PersistenceStatus = 'converged' | 'runtime_only' | 'permanent_only';
 
-    export type Scope = Omit<Init<typeof FirewallScopeSchema>, '$typeName' | '$unknown' | 'provider' | 'family' | 'direction'> & {
+    export type Scope = Omit<
+        Init<typeof FirewallScopeSchema>,
+        '$typeName' | '$unknown' | 'provider' | 'family' | 'direction'
+    > & {
         provider: Provider;
         family: Family;
         direction: Direction;
@@ -159,7 +162,10 @@ export namespace Firewall {
         provider?: Provider;
     };
 
-    export type InventoryRequest = Omit<Init<typeof FirewallInventoryRequestSchema>, 'scopes' | 'families' | 'actions'> & {
+    export type InventoryRequest = Omit<
+        Init<typeof FirewallInventoryRequestSchema>,
+        'scopes' | 'families' | 'actions'
+    > & {
         scopes: Scope[];
         families?: Array<'ipv4' | 'ipv6'>;
         actions?: Array<'accept' | 'deny'>;
@@ -251,7 +257,10 @@ export namespace Firewall {
         portGroups: DockerGuardPortGroup[];
     };
 
-    export type DockerGuardList = Omit<Init<typeof DockerGuardOverviewSchema>, 'base' | 'containers' | 'orphanPolicies'> & {
+    export type DockerGuardList = Omit<
+        Init<typeof DockerGuardOverviewSchema>,
+        'base' | 'containers' | 'orphanPolicies'
+    > & {
         base: DockerGuardBase;
         containers: DockerGuardContainer[];
         orphanPolicies: DockerGuardEndpoint[];
@@ -264,7 +273,10 @@ export namespace Firewall {
         protocol: 'tcp' | 'udp';
     }
 
-    export type DockerGuardPolicy = Omit<Init<typeof DockerGuardPolicySchema>, 'family' | 'hostIp' | 'protocol' | 'mode'> & {
+    export type DockerGuardPolicy = Omit<
+        Init<typeof DockerGuardPolicySchema>,
+        'family' | 'hostIp' | 'protocol' | 'mode'
+    > & {
         family: 'ipv4' | 'ipv6';
         hostIP: string;
         protocol: 'tcp' | 'udp';

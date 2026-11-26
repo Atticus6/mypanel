@@ -1,11 +1,11 @@
 .group-form-heading[data-v-db33f909] {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 16px;
 }
 .device-existing-groups[data-v-db33f909] {
-  width: 100%;
-  font-size: 12px;
-  line-height: 20px;
-  color: var(--el-text-color-secondary);
+    width: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--el-text-color-secondary);
 }

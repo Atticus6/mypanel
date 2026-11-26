@@ -150,7 +150,6 @@ export interface MonitorGPUSearch {
     endTime: Date;
 }
 
-
 // AI / 模型 / MCP / Agent 能力已随 xpack 一并剔除。
 // 这里保留少量返回空数据的本地桩，避免通用组件（GPU 配置、监控导出等）
 // 因为引用已删除的 REST 接口而在运行时拿到 SPA 回退的 HTML。

@@ -1,89 +1,90 @@
 .tagMargin[data-v-218212d0] {
-  margin-top: 2px;
+    margin-top: 2px;
 }
 .container-port-list[data-v-218212d0],
 .container-port-dialog[data-v-218212d0] {
-  display: flex;
-  justify-content: flex-start;
-  gap: 6px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 .container-port-empty[data-v-218212d0] {
-  min-height: 24px;
+    min-height: 24px;
 }
 .container-port-list[data-v-218212d0] {
-  width: 100%;
-  text-align: left;
+    width: 100%;
+    text-align: left;
 }
 .container-port-list[data-v-218212d0] .el-button {
-  max-width: calc(50% - 3px);
-  min-width: 0;
+    max-width: calc(50% - 3px);
+    min-width: 0;
 }
 .container-port-list[data-v-218212d0] .el-button > span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .container-port-list[data-v-218212d0] .el-button + .el-button {
-  margin-left: 0;
+    margin-left: 0;
 }
 .container-port-list[data-v-218212d0]:not(.is-card) {
-  flex-direction: column;
-  align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .container-port-list[data-v-218212d0]:not(.is-card) .el-button {
-  max-width: 100%;
+    max-width: 100%;
 }
 .container-port-dialog-filters[data-v-218212d0] {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 .container-port-dialog-filters .el-input[data-v-218212d0] {
-  flex: 1;
+    flex: 1;
 }
 .container-port-dialog[data-v-218212d0] {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  text-align: left;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    text-align: left;
 }
 .container-port-dialog[data-v-218212d0] .el-button {
-  width: 100%;
-  margin-left: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    width: 100%;
+    margin-left: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .tag-button[data-v-218212d0] {
-  margin-top: -5px;
-  margin-right: 10px;
+    margin-top: -5px;
+    margin-right: 10px;
 }
 .tag-button.no-active[data-v-218212d0] {
-  background: none;
-  border: none;
+    background: none;
+    border: none;
 }
 .button-cell[data-v-218212d0] {
-  width: 100%;
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    width: 100%;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .container-pin-button[data-v-218212d0] {
-  opacity: 0.72;
-  transition: opacity 0.2s;
+    opacity: 0.72;
+    transition: opacity 0.2s;
 }
-.container-pin-button[data-v-218212d0]:hover, .container-pin-button[data-v-218212d0]:focus-visible {
-  opacity: 1;
+.container-pin-button[data-v-218212d0]:hover,
+.container-pin-button[data-v-218212d0]:focus-visible {
+    opacity: 1;
 }
 .container-pin-button.is-pinned[data-v-218212d0] {
-  opacity: 1;
+    opacity: 1;
 }
 .container-pin-button[data-v-218212d0] .container-pin-icon {
-  width: 1em;
-  height: 1em;
-  padding: 0;
-  vertical-align: middle;
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    vertical-align: middle;
 }

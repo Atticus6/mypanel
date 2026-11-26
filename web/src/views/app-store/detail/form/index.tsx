@@ -101,21 +101,21 @@ interface CodemodProps {
 const emits = {};
 
 type SlotsShape = {
-    "after-params": (arg?: unknown) => VNode[];
+    'after-params': (arg?: unknown) => VNode[];
 };
 
 const options = {
-        name: "form",
-        props: {
-    "loading": Boolean,
-    "modelValue": { type: null },
-    "batchInstallSupport": Boolean,
-    "sectioned": Boolean,
-    "hideGpuConfig": Boolean,
-} as unknown as ComponentObjectPropsOptions<CodemodProps>,
-        emits: emits,
-        slots: {} as SlotsType<SlotsShape>,
-        __scopeId: "data-v-f7444ba4",
+    name: 'form',
+    props: {
+        loading: Boolean,
+        modelValue: { type: null },
+        batchInstallSupport: Boolean,
+        sectioned: Boolean,
+        hideGpuConfig: Boolean,
+    } as unknown as ComponentObjectPropsOptions<CodemodProps>,
+    emits: emits,
+    slots: {} as SlotsType<SlotsShape>,
+    __scopeId: 'data-v-f7444ba4',
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, SlotsType<SlotsShape>>(
@@ -215,7 +215,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
             isHostMode.value = false;
             memoryRequired.value = 0;
             gpuSupport.value = false;
-        
+
             try {
                 const res = await rpc.app.getAppDetail({ appId: currentApp.value.id, version, type: 'app' });
                 const detail = JSON.parse(res.detailJson || '{}');
@@ -357,19 +357,316 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
             loadLimit();
         });
         ctx.expose({
-    formRef,
-    formData,
-    initForm,
-    resetForm,
-    validate,
-    clearValidate,
-    getFormData,
-    setFormData,
-    isHostMode: () => isHostMode.value,
-    initClusterForm,
-});
+            formRef,
+            formData,
+            initForm,
+            resetForm,
+            validate,
+            clearValidate,
+            getFormData,
+            setFormData,
+            isHostMode: () => isHostMode.value,
+            initClusterForm,
+        });
         return () => (
-            <div>{(unref(isHostMode)) ? <ElAlert title={$t('app.hostModeHelper')} closable={false} type="warning" class={"common-prompt"} /> : null}{(unref(memoryRequired) > 0) ? <ElAlert title={$t('app.memoryRequiredHelper', [computeSizeFromMB(unref(memoryRequired))])} closable={false} type="warning" class={"common-prompt"} /> : null}{withDirectives(<ElForm onValidate={($event?: any) => { (prop, valid) => expandInvalidFormSection(unref(formRef), prop, valid); }} scroll-to-error onSubmit={($event?: any) => { $event.preventDefault(); ; }} ref={formRef} label-position="top" model={unref(formData)} label-width="150px" rules={unref(formRules)} validate-on-rule-change={false}>{h(__panelSetupProps.sectioned ? 'details' : 'section', { open: __panelSetupProps.sectioned, class: { 'form-section': __panelSetupProps.sectioned } }, { default: () => <>{(__panelSetupProps.sectioned) ? <summary class={"form-section-header"}>{$t('home.baseInfo')}</summary> : null}<div class={{ 'form-section-body': __panelSetupProps.sectioned }}><ElFormItem label={$t('commons.table.name')} prop="name"><ElInput modelValue={unref(formData).name} onUpdate:modelValue={$v => { unref(formData).name = typeof $v === 'string' ? $v.trim() : $v }} /></ElFormItem><ElFormItem label={$t('app.version')} prop="version"><ElSelect modelValue={unref(formData).version} onUpdate:modelValue={$v => { unref(formData).version = $v as any }} onChange={($event?: any) => { (handleVersionChange as any)($event); }}>{((unref(appVersions) || [])).map((version, index) => <ElOption label={version} value={version} key={index} />)}</ElSelect></ElFormItem>{(unref(showParams)) ? <Params form={unref(formData).params} onUpdate:form={$v => { unref(formData).params = $v as any }} params={unref(installParams)} onUpdate:params={$v => { installParams.value = $v as any }} rules={unref(formRules).params} onUpdate:rules={$v => { unref(formRules).params = $v as any }} propStart={'params.'} key={unref(paramKey)} /> : null}</div></> })}{ctx.slots["after-params"]?.(undefined)}{h(__panelSetupProps.sectioned ? 'details' : 'section', { open: __panelSetupProps.sectioned, class: { 'form-section': __panelSetupProps.sectioned } }, { default: () => <>{(__panelSetupProps.sectioned) ? <summary class={"form-section-header"}>{$t('app.advanced')}</summary> : null}{(!__panelSetupProps.sectioned) ? <ElFormItem prop="advanced"><ElCheckbox modelValue={unref(formData).advanced} onUpdate:modelValue={$v => { unref(formData).advanced = $v as any }} label={$t('app.advanced')} size="large" /></ElFormItem> : null}{(unref(formData).advanced) ? <div class={{ 'form-section-body': __panelSetupProps.sectioned }}><ElFormItem label={$t('app.containerName')} prop="containerName"><ElInput modelValue={unref(formData).containerName} onUpdate:modelValue={$v => { unref(formData).containerName = typeof $v === 'string' ? $v.trim() : $v }} placeholder={$t('app.containerNameHelper')} /></ElFormItem>{(!unref(isHostMode)) ? <ElFormItem prop="allowPort"><ElCheckbox modelValue={unref(formData).allowPort} onUpdate:modelValue={$v => { unref(formData).allowPort = $v as any }} label={$t('app.allowPort')} size="large" /><span class={"input-help"}>{$t('app.allowPortHelper')}</span></ElFormItem> : null}{(unref(formData).allowPort) ? <ElFormItem label={$t('app.specifyIP')} prop="specifyIP"><ElInput modelValue={unref(formData).specifyIP} onUpdate:modelValue={$v => { unref(formData).specifyIP = $v as any }} /><span class={"input-help"}>{$t('app.specifyIPHelper')}</span></ElFormItem> : null}<ElFormItem label={$t('container.restartPolicy')} prop="restartPolicy"><ElSelect modelValue={unref(formData).restartPolicy} onUpdate:modelValue={$v => { unref(formData).restartPolicy = $v as any }} class={"p-w-300"}><ElOption label={$t('container.no')} value="no" /><ElOption label={$t('container.always')} value="always" /><ElOption label={$t('container.onFailure')} value="on-failure" /><ElOption label={$t('container.unlessStopped')} value="unless-stopped" /></ElSelect></ElFormItem><ElFormItem label={$t('container.cpuQuota')} prop="cpuQuota" rules={checkNumberRange(0, unref(limits).cpu)}><ElInput type="number" modelValue={unref(formData).cpuQuota} onUpdate:modelValue={$v => { unref(formData).cpuQuota = $v === '' ? $v : Number($v) }} maxlength="5" class={"!w-2/5"} v-slots={{ "append": () => <>{$t('app.cpuCore')}</> }} /><span class={"input-help"}>{$t('container.limitHelper', [unref(limits).cpu])}{$t('commons.units.core')}</span></ElFormItem><ElFormItem label={$t('container.memoryLimit')} prop="memoryLimit" rules={checkNumberRange(0, unref(limits).memory)}><ElInput modelValue={unref(formData).memoryLimit} onUpdate:modelValue={$v => { unref(formData).memoryLimit = $v === '' ? $v : Number($v) }} maxlength="10" class={"!w-2/5"} v-slots={{ "append": () => <><ElSelect modelValue={unref(formData).memoryUnit} onUpdate:modelValue={$v => { unref(formData).memoryUnit = $v as any }} placeholder="Select" onChange={($event?: any) => { (changeUnit as any)($event); }} class={"p-w-100"}><ElOption label="MB" value="M" /><ElOption label="GB" value="G" /></ElSelect></> }} /><span class={"input-help"}>{$t('container.limitHelper', [unref(limits).memory])}{unref(formData).memoryUnit}{"B "}</span></ElFormItem>{(unref(gpuSupport) && !__panelSetupProps.hideGpuConfig) ? <ElFormItem pro="gpuConfig"><ElCheckbox modelValue={unref(formData).gpuConfig} onUpdate:modelValue={$v => { unref(formData).gpuConfig = $v as any }} label={$t('app.gpuConfig')} size="large" /><span class={"input-help"}>{$t('app.gpuConfigHelper')}</span></ElFormItem> : null}<ElFormItem pro="pullImage"><ElCheckbox modelValue={unref(formData).pullImage} onUpdate:modelValue={$v => { unref(formData).pullImage = $v as any }} label={$t('app.pullImage')} size="large" /><span class={"input-help"}>{$t('app.pullImageHelper')}</span></ElFormItem>{(unref(isMaster) && unref(isXpackOrEE) && __panelSetupProps.batchInstallSupport) ? <PushToNode push-node={unref(formData).pushNode} nodes={unref(formData).nodes} type="app" onUpdate:push-node={($event?: any) => { unref(unref(formData)).pushNode = $event; }} onUpdate:nodes={($event?: any) => { unref(unref(formData)).nodes = $event; }} /> : null}<ElFormItem prop="editCompose"><ElCheckbox modelValue={unref(formData).editCompose} onUpdate:modelValue={$v => { unref(formData).editCompose = $v as any }} label={$t('app.editCompose')} size="large" /><span class={"input-help"}>{$t('app.editComposeHelper')}</span></ElFormItem>{(unref(formData).editCompose) ? <div><CodemirrorPro modelValue={unref(formData).dockerCompose} onUpdate:modelValue={$v => { unref(formData).dockerCompose = $v as any }} mode="yaml" /></div> : null}</div> : null}</> })}</ElForm>, [[vLoading, __panelSetupProps.loading]])}</div>
+            <div>
+                {unref(isHostMode) ? (
+                    <ElAlert title={$t('app.hostModeHelper')} closable={false} type="warning" class={'common-prompt'} />
+                ) : null}
+                {unref(memoryRequired) > 0 ? (
+                    <ElAlert
+                        title={$t('app.memoryRequiredHelper', [computeSizeFromMB(unref(memoryRequired))])}
+                        closable={false}
+                        type="warning"
+                        class={'common-prompt'}
+                    />
+                ) : null}
+                {withDirectives(
+                    <ElForm
+                        onValidate={($event?: any) => {
+                            (prop, valid) => expandInvalidFormSection(unref(formRef), prop, valid);
+                        }}
+                        scroll-to-error
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                        ref={formRef}
+                        label-position="top"
+                        model={unref(formData)}
+                        label-width="150px"
+                        rules={unref(formRules)}
+                        validate-on-rule-change={false}
+                    >
+                        {h(
+                            __panelSetupProps.sectioned ? 'details' : 'section',
+                            {
+                                open: __panelSetupProps.sectioned,
+                                class: { 'form-section': __panelSetupProps.sectioned },
+                            },
+                            {
+                                default: () => (
+                                    <>
+                                        {__panelSetupProps.sectioned ? (
+                                            <summary class={'form-section-header'}>{$t('home.baseInfo')}</summary>
+                                        ) : null}
+                                        <div class={{ 'form-section-body': __panelSetupProps.sectioned }}>
+                                            <ElFormItem label={$t('commons.table.name')} prop="name">
+                                                <ElInput
+                                                    modelValue={unref(formData).name}
+                                                    onUpdate:modelValue={($v) => {
+                                                        unref(formData).name = typeof $v === 'string' ? $v.trim() : $v;
+                                                    }}
+                                                />
+                                            </ElFormItem>
+                                            <ElFormItem label={$t('app.version')} prop="version">
+                                                <ElSelect
+                                                    modelValue={unref(formData).version}
+                                                    onUpdate:modelValue={($v) => {
+                                                        unref(formData).version = $v as any;
+                                                    }}
+                                                    onChange={($event?: any) => {
+                                                        (handleVersionChange as any)($event);
+                                                    }}
+                                                >
+                                                    {(unref(appVersions) || []).map((version, index) => (
+                                                        <ElOption label={version} value={version} key={index} />
+                                                    ))}
+                                                </ElSelect>
+                                            </ElFormItem>
+                                            {unref(showParams) ? (
+                                                <Params
+                                                    form={unref(formData).params}
+                                                    onUpdate:form={($v) => {
+                                                        unref(formData).params = $v as any;
+                                                    }}
+                                                    params={unref(installParams)}
+                                                    onUpdate:params={($v) => {
+                                                        installParams.value = $v as any;
+                                                    }}
+                                                    rules={unref(formRules).params}
+                                                    onUpdate:rules={($v) => {
+                                                        unref(formRules).params = $v as any;
+                                                    }}
+                                                    propStart={'params.'}
+                                                    key={unref(paramKey)}
+                                                />
+                                            ) : null}
+                                        </div>
+                                    </>
+                                ),
+                            },
+                        )}
+                        {ctx.slots['after-params']?.(undefined)}
+                        {h(
+                            __panelSetupProps.sectioned ? 'details' : 'section',
+                            {
+                                open: __panelSetupProps.sectioned,
+                                class: { 'form-section': __panelSetupProps.sectioned },
+                            },
+                            {
+                                default: () => (
+                                    <>
+                                        {__panelSetupProps.sectioned ? (
+                                            <summary class={'form-section-header'}>{$t('app.advanced')}</summary>
+                                        ) : null}
+                                        {!__panelSetupProps.sectioned ? (
+                                            <ElFormItem prop="advanced">
+                                                <ElCheckbox
+                                                    modelValue={unref(formData).advanced}
+                                                    onUpdate:modelValue={($v) => {
+                                                        unref(formData).advanced = $v as any;
+                                                    }}
+                                                    label={$t('app.advanced')}
+                                                    size="large"
+                                                />
+                                            </ElFormItem>
+                                        ) : null}
+                                        {unref(formData).advanced ? (
+                                            <div class={{ 'form-section-body': __panelSetupProps.sectioned }}>
+                                                <ElFormItem label={$t('app.containerName')} prop="containerName">
+                                                    <ElInput
+                                                        modelValue={unref(formData).containerName}
+                                                        onUpdate:modelValue={($v) => {
+                                                            unref(formData).containerName =
+                                                                typeof $v === 'string' ? $v.trim() : $v;
+                                                        }}
+                                                        placeholder={$t('app.containerNameHelper')}
+                                                    />
+                                                </ElFormItem>
+                                                {!unref(isHostMode) ? (
+                                                    <ElFormItem prop="allowPort">
+                                                        <ElCheckbox
+                                                            modelValue={unref(formData).allowPort}
+                                                            onUpdate:modelValue={($v) => {
+                                                                unref(formData).allowPort = $v as any;
+                                                            }}
+                                                            label={$t('app.allowPort')}
+                                                            size="large"
+                                                        />
+                                                        <span class={'input-help'}>{$t('app.allowPortHelper')}</span>
+                                                    </ElFormItem>
+                                                ) : null}
+                                                {unref(formData).allowPort ? (
+                                                    <ElFormItem label={$t('app.specifyIP')} prop="specifyIP">
+                                                        <ElInput
+                                                            modelValue={unref(formData).specifyIP}
+                                                            onUpdate:modelValue={($v) => {
+                                                                unref(formData).specifyIP = $v as any;
+                                                            }}
+                                                        />
+                                                        <span class={'input-help'}>{$t('app.specifyIPHelper')}</span>
+                                                    </ElFormItem>
+                                                ) : null}
+                                                <ElFormItem label={$t('container.restartPolicy')} prop="restartPolicy">
+                                                    <ElSelect
+                                                        modelValue={unref(formData).restartPolicy}
+                                                        onUpdate:modelValue={($v) => {
+                                                            unref(formData).restartPolicy = $v as any;
+                                                        }}
+                                                        class={'p-w-300'}
+                                                    >
+                                                        <ElOption label={$t('container.no')} value="no" />
+                                                        <ElOption label={$t('container.always')} value="always" />
+                                                        <ElOption
+                                                            label={$t('container.onFailure')}
+                                                            value="on-failure"
+                                                        />
+                                                        <ElOption
+                                                            label={$t('container.unlessStopped')}
+                                                            value="unless-stopped"
+                                                        />
+                                                    </ElSelect>
+                                                </ElFormItem>
+                                                <ElFormItem
+                                                    label={$t('container.cpuQuota')}
+                                                    prop="cpuQuota"
+                                                    rules={checkNumberRange(0, unref(limits).cpu)}
+                                                >
+                                                    <ElInput
+                                                        type="number"
+                                                        modelValue={unref(formData).cpuQuota}
+                                                        onUpdate:modelValue={($v) => {
+                                                            unref(formData).cpuQuota = $v === '' ? $v : Number($v);
+                                                        }}
+                                                        maxlength="5"
+                                                        class={'!w-2/5'}
+                                                        v-slots={{ append: () => <>{$t('app.cpuCore')}</> }}
+                                                    />
+                                                    <span class={'input-help'}>
+                                                        {$t('container.limitHelper', [unref(limits).cpu])}
+                                                        {$t('commons.units.core')}
+                                                    </span>
+                                                </ElFormItem>
+                                                <ElFormItem
+                                                    label={$t('container.memoryLimit')}
+                                                    prop="memoryLimit"
+                                                    rules={checkNumberRange(0, unref(limits).memory)}
+                                                >
+                                                    <ElInput
+                                                        modelValue={unref(formData).memoryLimit}
+                                                        onUpdate:modelValue={($v) => {
+                                                            unref(formData).memoryLimit = $v === '' ? $v : Number($v);
+                                                        }}
+                                                        maxlength="10"
+                                                        class={'!w-2/5'}
+                                                        v-slots={{
+                                                            append: () => (
+                                                                <>
+                                                                    <ElSelect
+                                                                        modelValue={unref(formData).memoryUnit}
+                                                                        onUpdate:modelValue={($v) => {
+                                                                            unref(formData).memoryUnit = $v as any;
+                                                                        }}
+                                                                        placeholder="Select"
+                                                                        onChange={($event?: any) => {
+                                                                            (changeUnit as any)($event);
+                                                                        }}
+                                                                        class={'p-w-100'}
+                                                                    >
+                                                                        <ElOption label="MB" value="M" />
+                                                                        <ElOption label="GB" value="G" />
+                                                                    </ElSelect>
+                                                                </>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <span class={'input-help'}>
+                                                        {$t('container.limitHelper', [unref(limits).memory])}
+                                                        {unref(formData).memoryUnit}
+                                                        {'B '}
+                                                    </span>
+                                                </ElFormItem>
+                                                {unref(gpuSupport) && !__panelSetupProps.hideGpuConfig ? (
+                                                    <ElFormItem pro="gpuConfig">
+                                                        <ElCheckbox
+                                                            modelValue={unref(formData).gpuConfig}
+                                                            onUpdate:modelValue={($v) => {
+                                                                unref(formData).gpuConfig = $v as any;
+                                                            }}
+                                                            label={$t('app.gpuConfig')}
+                                                            size="large"
+                                                        />
+                                                        <span class={'input-help'}>{$t('app.gpuConfigHelper')}</span>
+                                                    </ElFormItem>
+                                                ) : null}
+                                                <ElFormItem pro="pullImage">
+                                                    <ElCheckbox
+                                                        modelValue={unref(formData).pullImage}
+                                                        onUpdate:modelValue={($v) => {
+                                                            unref(formData).pullImage = $v as any;
+                                                        }}
+                                                        label={$t('app.pullImage')}
+                                                        size="large"
+                                                    />
+                                                    <span class={'input-help'}>{$t('app.pullImageHelper')}</span>
+                                                </ElFormItem>
+                                                {unref(isMaster) &&
+                                                unref(isXpackOrEE) &&
+                                                __panelSetupProps.batchInstallSupport ? (
+                                                    <PushToNode
+                                                        push-node={unref(formData).pushNode}
+                                                        nodes={unref(formData).nodes}
+                                                        type="app"
+                                                        onUpdate:push-node={($event?: any) => {
+                                                            unref(unref(formData)).pushNode = $event;
+                                                        }}
+                                                        onUpdate:nodes={($event?: any) => {
+                                                            unref(unref(formData)).nodes = $event;
+                                                        }}
+                                                    />
+                                                ) : null}
+                                                <ElFormItem prop="editCompose">
+                                                    <ElCheckbox
+                                                        modelValue={unref(formData).editCompose}
+                                                        onUpdate:modelValue={($v) => {
+                                                            unref(formData).editCompose = $v as any;
+                                                        }}
+                                                        label={$t('app.editCompose')}
+                                                        size="large"
+                                                    />
+                                                    <span class={'input-help'}>{$t('app.editComposeHelper')}</span>
+                                                </ElFormItem>
+                                                {unref(formData).editCompose ? (
+                                                    <div>
+                                                        <CodemirrorPro
+                                                            modelValue={unref(formData).dockerCompose}
+                                                            onUpdate:modelValue={($v) => {
+                                                                unref(formData).dockerCompose = $v as any;
+                                                            }}
+                                                            mode="yaml"
+                                                        />
+                                                    </div>
+                                                ) : null}
+                                            </div>
+                                        ) : null}
+                                    </>
+                                ),
+                            },
+                        )}
+                    </ElForm>,
+                    [[vLoading, __panelSetupProps.loading]],
+                )}
+            </div>
         );
     },
     options,

@@ -105,10 +105,10 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     <ElCol span={20} offset={2}>
                         <ElAlert title={$t('file.confirmReduce')} show-icon type="error" closable={false} />
                         {(unref(files) || []).map((row, index) => (
-                            <div class={'flx-align-center mb-1 mt-1'} key={index}>
+                            <div class={'flx-align-center mt-1 mb-1'} key={index}>
                                 <div>
                                     {row.isDir ? (
-                                        <SvgIcon className="table-icon mr-1 " iconName="p-file-folder" />
+                                        <SvgIcon className="table-icon mr-1" iconName="p-file-folder" />
                                     ) : (
                                         <SvgIcon className="table-icon mr-1" iconName={getIconName(row.extension)} />
                                     )}

@@ -25,19 +25,16 @@ import DrawerPro from '@/components/drawer-pro/index';
 
 interface CodemodProps {
     [key: string]: any;
-
 }
 
 const emits = {
-    'search': () => true,
+    search: () => true,
 };
 
-
-
 const options = {
-        name: "tag",
-        props: {},
-        emits: emits,
+    name: 'tag',
+    props: {},
+    emits: emits,
 };
 
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
@@ -51,7 +48,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             fromRepo: false,
             repo: '',
             originName: '',
-        
+
             tags: [],
         });
         const rules = reactive({
@@ -96,7 +93,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             await nextTick();
             const inputEl = inputTagRef.value?.$el?.querySelector('input');
             if (!inputEl) return;
-        
+
             inputEl.value = text;
             inputEl.dispatchEvent(new Event('input', { bubbles: true }));
             inputEl.dispatchEvent(new Event('change', { bubbles: true }));
@@ -111,7 +108,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                     tags: form.tags,
                 };
                 loading.value = true;
-                await rpc.container.tagImage(params as any)
+                await rpc.container
+                    .tagImage(params as any)
                     .then(async () => {
                         loading.value = false;
                         drawerVisible.value = false;
@@ -135,10 +133,118 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
             }
         };
         ctx.expose({
-    acceptParams,
-});
+            acceptParams,
+        });
         return () => (
-            <DrawerPro modelValue={unref(drawerVisible)} onUpdate:modelValue={$v => { drawerVisible.value = $v as any }} header={$t('container.imageTag')} onClose={($event?: any) => { (handleClose as any)($event); }} size="large" v-slots={{ "footer": () => <><span class={"dialog-footer"}><ElButton disabled={unref(loading)} onClick={($event?: any) => { drawerVisible.value = false; }}>{$t('commons.button.cancel')}</ElButton><ElButton disabled={unref(loading)} type="primary" onClick={($event?: any) => { onSubmit(unref(formRef)); }}>{$t('commons.button.save')}</ElButton></span></> }}>{withDirectives(<ElForm label-position="top" ref={formRef} model={form} rules={rules} label-width="80px" onSubmit={($event?: any) => { $event.preventDefault(); ; }}><ElFormItem label={$t('app.source')}><ElCheckbox modelValue={form.fromRepo} onUpdate:modelValue={$v => { form.fromRepo = $v as any }}>{$t('container.imageRepo')}</ElCheckbox></ElFormItem>{(form.fromRepo) ? <ElFormItem label={$t('container.repoName')} rules={Rules.requiredSelect} prop="repo"><ElSelect clearable filterable modelValue={form.repo} onUpdate:modelValue={$v => { form.repo = $v as any }} onChange={($event?: any) => { (changeRepo as any)($event); }}>{((unref(repos) || [])).map((item) => <ElOption value={item.name} label={item.name} key={item.id} />)}</ElSelect></ElFormItem> : null}<ElFormItem label={$t('container.imageTag')} prop="tags"><ElInputTag ref={inputTagRef} onAddTag={($event?: any) => { (handleAdd as any)($event); }} modelValue={form.tags} onUpdate:modelValue={$v => { form.tags = $v as any }} v-slots={{ "tag": ({ value }) => <><ElButton onClick={($event?: any) => { setInputValue(value); }} size="small" link type="info">{value}</ElButton></> }} /><span class={"input-help"}>{$t('container.imageTagHelper')}</span></ElFormItem></ElForm>, [[vLoading, unref(loading)]])}</DrawerPro>
+            <DrawerPro
+                modelValue={unref(drawerVisible)}
+                onUpdate:modelValue={($v) => {
+                    drawerVisible.value = $v as any;
+                }}
+                header={$t('container.imageTag')}
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                size="large"
+                v-slots={{
+                    footer: () => (
+                        <>
+                            <span class={'dialog-footer'}>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    onClick={($event?: any) => {
+                                        drawerVisible.value = false;
+                                    }}
+                                >
+                                    {$t('commons.button.cancel')}
+                                </ElButton>
+                                <ElButton
+                                    disabled={unref(loading)}
+                                    type="primary"
+                                    onClick={($event?: any) => {
+                                        onSubmit(unref(formRef));
+                                    }}
+                                >
+                                    {$t('commons.button.save')}
+                                </ElButton>
+                            </span>
+                        </>
+                    ),
+                }}
+            >
+                {withDirectives(
+                    <ElForm
+                        label-position="top"
+                        ref={formRef}
+                        model={form}
+                        rules={rules}
+                        label-width="80px"
+                        onSubmit={($event?: any) => {
+                            $event.preventDefault();
+                        }}
+                    >
+                        <ElFormItem label={$t('app.source')}>
+                            <ElCheckbox
+                                modelValue={form.fromRepo}
+                                onUpdate:modelValue={($v) => {
+                                    form.fromRepo = $v as any;
+                                }}
+                            >
+                                {$t('container.imageRepo')}
+                            </ElCheckbox>
+                        </ElFormItem>
+                        {form.fromRepo ? (
+                            <ElFormItem label={$t('container.repoName')} rules={Rules.requiredSelect} prop="repo">
+                                <ElSelect
+                                    clearable
+                                    filterable
+                                    modelValue={form.repo}
+                                    onUpdate:modelValue={($v) => {
+                                        form.repo = $v as any;
+                                    }}
+                                    onChange={($event?: any) => {
+                                        (changeRepo as any)($event);
+                                    }}
+                                >
+                                    {(unref(repos) || []).map((item) => (
+                                        <ElOption value={item.name} label={item.name} key={item.id} />
+                                    ))}
+                                </ElSelect>
+                            </ElFormItem>
+                        ) : null}
+                        <ElFormItem label={$t('container.imageTag')} prop="tags">
+                            <ElInputTag
+                                ref={inputTagRef}
+                                onAddTag={($event?: any) => {
+                                    (handleAdd as any)($event);
+                                }}
+                                modelValue={form.tags}
+                                onUpdate:modelValue={($v) => {
+                                    form.tags = $v as any;
+                                }}
+                                v-slots={{
+                                    tag: ({ value }) => (
+                                        <>
+                                            <ElButton
+                                                onClick={($event?: any) => {
+                                                    setInputValue(value);
+                                                }}
+                                                size="small"
+                                                link
+                                                type="info"
+                                            >
+                                                {value}
+                                            </ElButton>
+                                        </>
+                                    ),
+                                }}
+                            />
+                            <span class={'input-help'}>{$t('container.imageTagHelper')}</span>
+                        </ElFormItem>
+                    </ElForm>,
+                    [[vLoading, unref(loading)]],
+                )}
+            </DrawerPro>
         );
     },
     options,

@@ -1,24 +1,24 @@
 .import-file-bar[data-v-fc765d1e] {
-  display: flex;
-  min-height: 32px;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    min-height: 32px;
+    align-items: center;
+    gap: 12px;
 }
 .import-file-info[data-v-fc765d1e] {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: 6px;
-  color: var(--el-text-color-regular);
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 6px;
+    color: var(--el-text-color-regular);
 }
 .import-file-name[data-v-fc765d1e] {
-  overflow: hidden;
-  max-width: 420px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    max-width: 420px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .import-preview-header[data-v-fc765d1e] {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

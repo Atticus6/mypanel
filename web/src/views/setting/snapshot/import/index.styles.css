@@ -1,17 +1,17 @@
 .import-help[data-v-889f5f1b] {
-  font-size: 12px;
-  color: #8f959e;
+    font-size: 12px;
+    color: #8f959e;
 }
 .import-link-help[data-v-889f5f1b] {
-  color: var(--el-color-primary);
-  cursor: pointer;
+    color: var(--el-color-primary);
+    cursor: pointer;
 }
 .import-link-help[data-v-889f5f1b]:hover {
-  opacity: 0.6;
+    opacity: 0.6;
 }
 .tagClass[data-v-889f5f1b] {
-  float: right;
-  margin-right: 10px;
-  font-size: 12px;
-  margin-top: 5px;
+    float: right;
+    margin-right: 10px;
+    font-size: 12px;
+    margin-top: 5px;
 }

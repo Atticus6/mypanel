@@ -175,7 +175,6 @@ export namespace Website {
 
     export type NginxScopeReq = Init<typeof GetNginxScopeConfigRequestSchema>;
 
-
     export type NginxParam = Init<typeof NginxParamSchema>;
     export type NginxScopeConfig = Init<typeof NginxScopeConfigSchema>;
 
@@ -300,7 +299,6 @@ export namespace Website {
     export type LeechReq = Init<typeof GetAntiLeechRequestSchema> & { websiteID?: number };
     export type WebsiteReq = Init<typeof GetWebsiteRequestSchema> & { websiteID?: number };
 
-
     export type RedirectConfig = Init<typeof RedirectConfigSchema> & {
         operate?: string;
         websiteID?: number;
@@ -329,7 +327,6 @@ export namespace Website {
         nodes?: string;
     }
     export type SSLObtain = Init<typeof ObtainCARequestSchema> & { ID?: number };
-
 
     export type CA = Init<typeof CADetailSchema>;
     export type CACreate = Init<typeof CreateCARequestSchema>;

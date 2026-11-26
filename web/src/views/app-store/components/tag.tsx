@@ -15,18 +15,18 @@ interface CodemodProps {
     hideKey?: string;
 }
 const emits = {
-    'change': (...args: unknown[]) => true,
+    change: (...args: unknown[]) => true,
 };
 const options = {
-        name: "tag",
-        props: {
-    "hideKey": {
-        type: String,
-        default: '',
-    },
-} as unknown as ComponentObjectPropsOptions<CodemodProps>,
-        emits: emits,
-        __scopeId: "data-v-621cafdb",
+    name: 'tag',
+    props: {
+        hideKey: {
+            type: String,
+            default: '',
+        },
+    } as unknown as ComponentObjectPropsOptions<CodemodProps>,
+    emits: emits,
+    __scopeId: 'data-v-621cafdb',
 };
 export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
     (__panelSetupProps, ctx) => {
@@ -90,40 +90,40 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         };
         const calculateVisibleTagCount = () => {
             if (!containerRef.value) return;
-        
+
             const safeReserve = 8;
             const containerWidth = containerRef.value.getBoundingClientRect().width - safeReserve;
             const gap = getContainerGap();
             const allWidth = getElementWidth(allMeasureRef.value);
             const moreWidth = getElementWidth(moreMeasureRef.value);
-        
+
             if (!containerWidth || !allWidth) {
                 return;
             }
-        
+
             let usedWidth = allWidth;
             let count = 0;
-        
+
             for (let i = 0; i < tags.value.length; i++) {
                 const currentWidth = getElementWidth(measureTagRefs[tags.value[i].key]);
                 if (!currentWidth) {
                     continue;
                 }
-        
+
                 const hasRemainingTags = i < tags.value.length - 1;
                 const nextWidth = usedWidth + gap + currentWidth + (hasRemainingTags ? gap + moreWidth : 0);
-        
+
                 if (nextWidth <= containerWidth) {
                     usedWidth += gap + currentWidth;
                     count++;
                     continue;
                 }
-        
+
                 break;
             }
-        
+
             visibleTagCount.value = count;
-        
+
             const activeIndex = tags.value.findIndex((tag) => tag.key === activeTag.value);
             const expectedMoreTag = activeIndex >= visibleTagCount.value ? activeTag.value : '';
             if (expectedMoreTag !== moreTag.value) {
@@ -136,11 +136,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         let resizeObserver: ResizeObserver | null = null;
         const initResizeObserver = () => {
             if (!containerRef.value) return;
-        
+
             resizeObserver = new ResizeObserver(() => {
                 calculateVisibleTagCount();
             });
-        
+
             resizeObserver.observe(containerRef.value);
         };
         const getTags = async () => {
@@ -169,8 +169,72 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         });
         return () => (
             <>
-            <div ref={containerRef} class={"tag-container flex gap-2"}><ElCheckTag checked={unref(activeTag) == 'all'} onClick={($event?: any) => { changeTag('all'); }}>{$t('app.all')}</ElCheckTag>{((unref(visibleTags) || [])).map((item) => <ElCheckTag checked={unref(activeTag) == item.key} onClick={($event?: any) => { changeTag(item.key); }} key={item.key}>{item.name}</ElCheckTag>)}{(unref(hiddenTags).length > 0) ? <div class={"more-tag inline"}><ElDropdown v-slots={{ "dropdown": () => <><ElDropdownMenu>{((unref(hiddenTags) || [])).map((item) => <ElDropdownItem onClick={($event?: any) => { changeTag(item.key); }} key={item.key}>{item.name}</ElDropdownItem>)}</ElDropdownMenu></> }}><ElCheckTag checked={unref(moreTag) !== ''}>{unref(moreLabel)}<ElIcon size={10}><ArrowDown /></ElIcon></ElCheckTag></ElDropdown></div> : null}</div>
-            <div aria-hidden="true" class={"tag-measurements"}><ElCheckTag ref={allMeasureRef}>{$t('app.all')}</ElCheckTag>{((unref(tags) || [])).map((item) => <ElCheckTag ref={(el) => setMeasureTagRef(item.key, el)} key={`measure-${item.key}`}>{item.name}</ElCheckTag>)}<ElCheckTag ref={moreMeasureRef}>{unref(moreLabel)}<ElIcon size={10}><ArrowDown /></ElIcon></ElCheckTag></div>
+                <div ref={containerRef} class={'tag-container flex gap-2'}>
+                    <ElCheckTag
+                        checked={unref(activeTag) == 'all'}
+                        onClick={($event?: any) => {
+                            changeTag('all');
+                        }}
+                    >
+                        {$t('app.all')}
+                    </ElCheckTag>
+                    {(unref(visibleTags) || []).map((item) => (
+                        <ElCheckTag
+                            checked={unref(activeTag) == item.key}
+                            onClick={($event?: any) => {
+                                changeTag(item.key);
+                            }}
+                            key={item.key}
+                        >
+                            {item.name}
+                        </ElCheckTag>
+                    ))}
+                    {unref(hiddenTags).length > 0 ? (
+                        <div class={'more-tag inline'}>
+                            <ElDropdown
+                                v-slots={{
+                                    dropdown: () => (
+                                        <>
+                                            <ElDropdownMenu>
+                                                {(unref(hiddenTags) || []).map((item) => (
+                                                    <ElDropdownItem
+                                                        onClick={($event?: any) => {
+                                                            changeTag(item.key);
+                                                        }}
+                                                        key={item.key}
+                                                    >
+                                                        {item.name}
+                                                    </ElDropdownItem>
+                                                ))}
+                                            </ElDropdownMenu>
+                                        </>
+                                    ),
+                                }}
+                            >
+                                <ElCheckTag checked={unref(moreTag) !== ''}>
+                                    {unref(moreLabel)}
+                                    <ElIcon size={10}>
+                                        <ArrowDown />
+                                    </ElIcon>
+                                </ElCheckTag>
+                            </ElDropdown>
+                        </div>
+                    ) : null}
+                </div>
+                <div aria-hidden="true" class={'tag-measurements'}>
+                    <ElCheckTag ref={allMeasureRef}>{$t('app.all')}</ElCheckTag>
+                    {(unref(tags) || []).map((item) => (
+                        <ElCheckTag ref={(el) => setMeasureTagRef(item.key, el)} key={`measure-${item.key}`}>
+                            {item.name}
+                        </ElCheckTag>
+                    ))}
+                    <ElCheckTag ref={moreMeasureRef}>
+                        {unref(moreLabel)}
+                        <ElIcon size={10}>
+                            <ArrowDown />
+                        </ElIcon>
+                    </ElCheckTag>
+                </div>
             </>
         );
     },

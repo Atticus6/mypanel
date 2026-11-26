@@ -1481,7 +1481,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                             <>
                                 <div
                                     ref={dialogHeader}
-                                    class={'flex items-center justify-between code-header px-4 rounded-t'}
+                                    class={'code-header flex items-center justify-between rounded-t px-4'}
                                 >
                                     <div class={'code-title'}>
                                         <span class={'dialog-object-name'}>
@@ -1505,7 +1505,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     }}
                                                     icon="FullScreen"
                                                     class={
-                                                        '!border-none !bg-transparent !text-base !font-semibold !py-2 !px-1 mr-2.5'
+                                                        'mr-2.5 !border-none !bg-transparent !px-1 !py-2 !text-base !font-semibold'
                                                     }
                                                 />
                                             </ElTooltip>
@@ -1515,7 +1515,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 (handleClose as any)($event);
                                             }}
                                             icon="Close"
-                                            class={'!border-none !bg-transparent !text-xl !py-2 !px-1'}
+                                            class={'!border-none !bg-transparent !px-1 !py-2 !text-xl'}
                                         />
                                     </ElSpace>
                                 </div>
@@ -1523,8 +1523,8 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         ),
                         content: () => (
                             <>
-                                <div ref={dialogForm} class={'px-4 py-2 code-action'}>
-                                    <div class={'flex justify-start items-center gap-x-4 card-action'}>
+                                <div ref={dialogForm} class={'code-action px-4 py-2'}>
+                                    <div class={'card-action flex items-center justify-start gap-x-4'}>
                                         {unref(isMobile) ? (
                                             <>
                                                 <ElButton
@@ -1582,7 +1582,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         onClick={($event?: any) => {
                                                             saveContent();
                                                         }}
-                                                        class={'cursor-pointer ml-0'}
+                                                        class={'ml-0 cursor-pointer'}
                                                     >
                                                         {$t('commons.button.save')}
                                                     </ElText>,
@@ -1609,7 +1609,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 <ElDropdownItem command={item.value} key={item.label}>
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {item.label}
@@ -1644,7 +1644,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 <ElDropdownItem command={item.label} key={item.label}>
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {item.label}
@@ -1679,7 +1679,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 <ElDropdownItem command={item.value} key={item.label}>
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {item.label}
@@ -1715,7 +1715,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {$t('file.minimap')}
@@ -1733,7 +1733,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {$t('file.wordWrap')}
@@ -1804,11 +1804,11 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                             >
                                                 <div
                                                     class={
-                                                        'monaco-editor monaco-editor-background border-0 tree-container'
+                                                        'monaco-editor monaco-editor-background tree-container border-0'
                                                     }
                                                     style={[{}, { display: unref(isShow) ? '' : 'none' }]}
                                                 >
-                                                    <div class={'flex items-center justify-between px-1 h-7'}>
+                                                    <div class={'flex h-7 items-center justify-between px-1'}>
                                                         <ElText
                                                             size="small"
                                                             onClick={($event?: any) => {
@@ -1819,7 +1819,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             <ElIcon>
                                                                 <Top />
                                                             </ElIcon>
-                                                            <span class={'sm:inline hidden pl-1'}>{$t('file.up')}</span>
+                                                            <span class={'hidden pl-1 sm:inline'}>{$t('file.up')}</span>
                                                         </ElText>
                                                         <ElDivider direction="vertical" class={'!mx-0'} />
                                                         <ElText
@@ -1832,7 +1832,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                             <ElIcon>
                                                                 <Refresh />
                                                             </ElIcon>
-                                                            <span class={'sm:inline hidden pl-1'}>
+                                                            <span class={'hidden pl-1 sm:inline'}>
                                                                 {$t('commons.button.refresh')}
                                                             </span>
                                                         </ElText>
@@ -1853,7 +1853,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 >
                                                                                     <SvgIcon
                                                                                         iconName="p-file-folder"
-                                                                                        class={'!w-5 !h-5'}
+                                                                                        class={'!h-5 !w-5'}
                                                                                     />
                                                                                     {$t('file.dir')}
                                                                                 </FuDropdownItem>,
@@ -1869,7 +1869,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                 >
                                                                                     <SvgIcon
                                                                                         iconName="p-file-normal"
-                                                                                        class={'!w-5 !h-5'}
+                                                                                        class={'!h-5 !w-5'}
                                                                                     />
                                                                                     {$t('menu.files')}
                                                                                 </FuDropdownItem>,
@@ -1939,7 +1939,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                 newFolder.value =
                                                                                                     $v as any;
                                                                                             }}
-                                                                                            class={'!flex-1 !min-w-0'}
+                                                                                            class={'!min-w-0 !flex-1'}
                                                                                         />
                                                                                         <ElIcon
                                                                                             size="small"
@@ -1948,7 +1948,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                 createFolder(true);
                                                                                             }}
                                                                                             class={
-                                                                                                'cursor-pointer w-4 pl-1'
+                                                                                                'w-4 cursor-pointer pl-1'
                                                                                             }
                                                                                         >
                                                                                             <Check />
@@ -1959,7 +1959,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                 $event.stopPropagation();
                                                                                                 cancelFolder();
                                                                                             }}
-                                                                                            class={'cursor-pointer w-4'}
+                                                                                            class={'w-4 cursor-pointer'}
                                                                                         >
                                                                                             <Close />
                                                                                         </ElIcon>
@@ -2009,7 +2009,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                 newFolder.value =
                                                                                                     $v as any;
                                                                                             }}
-                                                                                            class={'!flex-1 !min-w-0'}
+                                                                                            class={'!min-w-0 !flex-1'}
                                                                                         />
                                                                                         <ElIcon
                                                                                             size="small"
@@ -2018,7 +2018,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                 createFolder(false);
                                                                                             }}
                                                                                             class={
-                                                                                                'cursor-pointer w-4 pl-1'
+                                                                                                'w-4 cursor-pointer pl-1'
                                                                                             }
                                                                                         >
                                                                                             <Check />
@@ -2029,7 +2029,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                                                 $event.stopPropagation();
                                                                                                 cancelFolder();
                                                                                             }}
-                                                                                            class={'cursor-pointer w-4'}
+                                                                                            class={'w-4 cursor-pointer'}
                                                                                         >
                                                                                             <Close />
                                                                                         </ElIcon>
@@ -2315,7 +2315,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     />
                                                     <div ref={codeBox} class={'code-box relative'}>
                                                         {unref(fileTabs).length === 0 ? (
-                                                            <div class={'flex justify-center items-center h-full'}>
+                                                            <div class={'flex h-full items-center justify-center'}>
                                                                 <ElEmpty image={noUpdateImage} />
                                                             </div>
                                                         ) : null}
@@ -2326,7 +2326,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                         <div
                                             ref={dialogFooter}
                                             class={
-                                                'hidden code-footer pl-4 h-7 sm:flex justify-end items-center gap-4 rounded-b'
+                                                'code-footer hidden h-7 items-center justify-end gap-4 rounded-b pl-4 sm:flex'
                                             }
                                         >
                                             {config.theme ? <ElDivider direction="vertical" class={'!h-6'} /> : null}
@@ -2348,7 +2348,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     >
                                                                         <div
                                                                             class={
-                                                                                'flex items-center justify-between gap-4 w-full'
+                                                                                'flex w-full items-center justify-between gap-4'
                                                                             }
                                                                         >
                                                                             {item.label}
@@ -2389,7 +2389,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     >
                                                                         <div
                                                                             class={
-                                                                                'flex items-center justify-between gap-4 w-full'
+                                                                                'flex w-full items-center justify-between gap-4'
                                                                             }
                                                                         >
                                                                             {item.label}
@@ -2416,7 +2416,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                 onClick={($event?: any) => {
                                                     (openHistoryDrawer as any)($event);
                                                 }}
-                                                class={'cursor-pointer inline-flex items-center gap-1'}
+                                                class={'inline-flex cursor-pointer items-center gap-1'}
                                             >
                                                 <span class={'el-dropdown-link'}>
                                                     {$t('file.history')}
@@ -2444,7 +2444,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                     >
                                                                         <div
                                                                             class={
-                                                                                'flex items-center justify-between gap-4 w-full'
+                                                                                'flex w-full items-center justify-between gap-4'
                                                                             }
                                                                         >
                                                                             {item.label}
@@ -2486,7 +2486,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {$t('commons.button.enable')}
@@ -2504,7 +2504,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {$t('commons.button.disable')}
@@ -2546,7 +2546,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {$t('commons.button.enable')}
@@ -2564,7 +2564,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                                 >
                                                                     <div
                                                                         class={
-                                                                            'flex items-center justify-between gap-4 w-full'
+                                                                            'flex w-full items-center justify-between gap-4'
                                                                         }
                                                                     >
                                                                         {$t('commons.button.disable')}
@@ -2590,7 +2590,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                         )}
                                                 </span>
                                             </ElDropdown>
-                                            <ElDivider direction="vertical" class={'!h-6 !mr-3.5'} />
+                                            <ElDivider direction="vertical" class={'!mr-3.5 !h-6'} />
                                         </div>
                                     </div>,
                                     [[vLoading, unref(loading)]],

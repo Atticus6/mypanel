@@ -6,7 +6,7 @@
     white-space: nowrap;
 }
 @media (max-width: 767px) {
-.el-dropdown-link[data-v-73c6758d] {
+    .el-dropdown-link[data-v-73c6758d] {
         max-width: 112px;
-}
+    }
 }

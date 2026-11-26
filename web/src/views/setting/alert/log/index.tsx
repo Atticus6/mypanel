@@ -350,7 +350,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                         v-slots={{
                             toolbar: () => (
                                 <>
-                                    <div class={'flex justify-between gap-2 flex-wrap sm:flex-row'}>
+                                    <div class={'flex flex-wrap justify-between gap-2 sm:flex-row'}>
                                         <div class={'flex flex-wrap gap-3'}>
                                             {unref(isProductPro) && !unref(isIntl)
                                                 ? withDirectives(

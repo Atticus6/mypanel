@@ -22,9 +22,7 @@ export namespace Dashboard {
     export type QuickDirectory = Init<typeof QuickDirectorySchema>;
     export type QuickJump = Init<typeof QuickJumpSchema>;
 
-
     export type AppLauncherOption = Init<typeof LauncherOptionSchema>;
-
 
     export type BaseInfo = Omit<Init<typeof DashboardBaseSchema>, 'currentInfo' | 'quickJumps'> & {
         httpProxy?: string;
@@ -104,8 +102,4 @@ export namespace Dashboard {
         inodesUsed?: number;
         inodesFree?: number;
     };
-
-
-
-
 }

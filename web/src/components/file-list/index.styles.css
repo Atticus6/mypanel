@@ -1,28 +1,28 @@
 .file-row[data-v-bd741571] {
-  display: flex;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 .address-bar[data-v-bd741571] {
-  border: var(--el-border);
+    border: var(--el-border);
 }
 .address-bar .arrow[data-v-bd741571] {
-  color: #726e6e;
+    color: #726e6e;
 }
 .file-list-bottom[data-v-bd741571] {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 .file-list-bottom .path[data-v-bd741571] {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 [data-v-bd741571] .dialog-file-list .el-table__body tr.current-row > td.el-table__cell {
-  background-color: var(--panel-main-bg-color-4);
+    background-color: var(--panel-main-bg-color-4);
 }
 .favorite-item[data-v-bd741571] {
-  transition: background-color 0.15s;
+    transition: background-color 0.15s;
 }
 .favorite-item[data-v-bd741571]:hover {
-  background-color: var(--panel-main-bg-color-4);
+    background-color: var(--panel-main-bg-color-4);
 }

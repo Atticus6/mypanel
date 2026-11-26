@@ -54,7 +54,10 @@ export namespace Alert {
     };
 
     // 容量字段在 proto 中为 uint64（bigint），展示层按 number 处理。
-    export type DisksDTO = Omit<Init<typeof AlertDiskSchema>, 'total' | 'free' | 'used' | 'inodesTotal' | 'inodesUsed' | 'inodesFree'> & {
+    export type DisksDTO = Omit<
+        Init<typeof AlertDiskSchema>,
+        'total' | 'free' | 'used' | 'inodesTotal' | 'inodesUsed' | 'inodesFree'
+    > & {
         total: number;
         free: number;
         used: number;

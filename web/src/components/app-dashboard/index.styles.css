@@ -1,16 +1,16 @@
 .dashboard-links[data-v-d80a38e5] {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  max-height: 65vh;
-  overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-height: 65vh;
+    overflow-y: auto;
 }
 .dashboard-links .el-button.is-link[data-v-d80a38e5] {
-  margin-left: 0;
-  white-space: normal;
-  text-align: left;
-  height: auto;
-  line-height: 1.4;
-  word-break: break-all;
+    margin-left: 0;
+    white-space: normal;
+    text-align: left;
+    height: auto;
+    line-height: 1.4;
+    word-break: break-all;
 }

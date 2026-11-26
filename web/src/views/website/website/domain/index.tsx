@@ -214,7 +214,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                 onClick={($event?: any) => {
                                     openConfig(__panelSetupProps.row.id);
                                 }}
-                                class={'cursor-pointer domain-text'}
+                                class={'domain-text cursor-pointer'}
                             >
                                 <span class={'domain-text__content'}>
                                     {__panelSetupProps.row.primaryDomain}

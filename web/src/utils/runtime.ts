@@ -1,7 +1,7 @@
 export interface CommonModel {
-id: number;
-createdAt?: string;
-updatedAt?: string;
+    id: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface Runtime extends CommonModel {
@@ -21,7 +21,6 @@ export interface Runtime extends CommonModel {
     appID: number;
     remark: string;
 }
-
 
 export function disabledButton(row: Runtime, type: string): boolean {
     switch (type) {

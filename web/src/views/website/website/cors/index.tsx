@@ -87,7 +87,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
         return () => (
             <div>
                 {__panelSetupProps.enableSize == 'large' ? (
-                    <div class={'flex justify-between items-center py-3'}>
+                    <div class={'flex items-center justify-between py-3'}>
                         <div class={'flex flex-col gap-1'}>
                             <span class={'font-medium'}>{$t('website.enableCors')}</span>
                         </div>

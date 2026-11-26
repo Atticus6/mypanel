@@ -52,7 +52,10 @@ type Init<T extends DescMessage> = MessageInitShape<T>;
 // 文件域 DTO 统一来自 proto 生成类型；这里只保留 AI 搜索（已剔除能力）
 // 的本地结构与少量展示层字段的兼容别名。
 export namespace File {
-    export type File = Omit<Init<typeof FileEntrySchema>, 'size' | 'favoriteId' | 'updateTime' | 'modTime' | 'items'> & {
+    export type File = Omit<
+        Init<typeof FileEntrySchema>,
+        'size' | 'favoriteId' | 'updateTime' | 'modTime' | 'items'
+    > & {
         size: number;
         favoriteId: number;
         updateTime: string;
@@ -79,7 +82,8 @@ export namespace File {
     export type FileDeCompressStopReq = Init<typeof StopDecompressRequestSchema>;
     export type FileEdit = Init<typeof SaveFileRequestSchema>;
     export type FileHistorySearchReq = Init<typeof SearchFileHistoryRequestSchema>;
-    export type FileHistoryInfo = Init<typeof FileHistoryEntrySchema> & Partial<Init<typeof GetHistoryContentResponseSchema>>;
+    export type FileHistoryInfo = Init<typeof FileHistoryEntrySchema> &
+        Partial<Init<typeof GetHistoryContentResponseSchema>>;
     export type FileHistoryDeleteReq = { ids: number[] };
     export type FileRename = Init<typeof ChangeFileNameRequestSchema>;
     export type FileOwner = Init<typeof ChangeOwnerRequestSchema>;
@@ -111,12 +115,11 @@ export namespace File {
     export type FileShareCreate = Init<typeof CreateShareRequestSchema>;
     export type FileShareCheck = { code: string; password?: string };
     export type FileShareInfo = Omit<Init<typeof FileShareInfoSchema>, 'expiresAt'> & { expiresAt: number };
-    export type FileSharePublicInfo = Omit<Init<typeof GetPublicShareResponseSchema>, 'expiresAt'> & { expiresAt: number };
+    export type FileSharePublicInfo = Omit<Init<typeof GetPublicShareResponseSchema>, 'expiresAt'> & {
+        expiresAt: number;
+    };
 
     // 文件 AI 搜索已剔除，以下结构只供抽屉组件的本地空桩使用。
-
-
-
 
     export type CheckFileReq = Init<typeof CheckFileRequestSchema>;
 }

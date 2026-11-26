@@ -1,56 +1,56 @@
 .share-link-bar[data-v-6cfd7728] {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  line-height: 1.8;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    line-height: 1.8;
 }
 .share-risk-alert[data-v-6cfd7728] {
-  margin-bottom: 18px;
+    margin-bottom: 18px;
 }
 .share-link-prefix[data-v-6cfd7728] {
-  color: var(--el-text-color-secondary);
+    color: var(--el-text-color-secondary);
 }
 .share-link-value[data-v-6cfd7728] {
-  max-width: min(100%, 480px);
-  justify-content: flex-start;
-  text-align: left;
-  word-break: break-all;
+    max-width: min(100%, 480px);
+    justify-content: flex-start;
+    text-align: left;
+    word-break: break-all;
 }
 .share-link-button[data-v-6cfd7728] {
-  padding: 0;
+    padding: 0;
 }
 .share-link-icon[data-v-6cfd7728] {
-  width: 14px;
-  height: 14px;
-  margin-right: 4px;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
 }
 .share-qr-dialog[data-v-6cfd7728] {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 6px 0 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 6px 0 2px;
 }
 .share-qr-title[data-v-6cfd7728] {
-  color: var(--el-color-primary);
-  font-size: 18px;
+    color: var(--el-color-primary);
+    font-size: 18px;
 }
 .share-qr-image[data-v-6cfd7728] {
-  width: 240px;
-  height: 240px;
-  object-fit: contain;
-  background: #fff;
+    width: 240px;
+    height: 240px;
+    object-fit: contain;
+    background: #fff;
 }
 .share-qr-helper[data-v-6cfd7728] {
-  color: var(--el-text-color-regular);
+    color: var(--el-text-color-regular);
 }
 .share-qr-actions[data-v-6cfd7728] {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--el-border-color-lighter);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--el-border-color-lighter);
 }
