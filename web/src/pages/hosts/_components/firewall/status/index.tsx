@@ -9,6 +9,7 @@ import { Document } from '@element-plus/icons-vue';
 import { routerToName, routerToNameWithQuery } from '@/utils/router';
 import TaskLog from '@/components/log/task/index';
 import FamilyIssues from '@/pages/hosts/_components/firewall/components/family-issues';
+import { toFirewallSubsystem } from '@/pages/hosts/_components/firewall/utils/subsystem';
 import RuleInitialize from '@/pages/hosts/_components/firewall/components/rule-initialize';
 import { newUUID } from '@/utils/id';
 import { useGlobalStore } from '@/composables/useGlobalStore';
@@ -192,7 +193,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, S
                 const raw: any =
                     __panelSetupProps.currentTab === 'forward'
                         ? await rpc.firewall.getForwardBase({})
-                        : await rpc.firewall.baseInfo({ name: __panelSetupProps.currentTab });
+                        : await rpc.firewall.baseInfo({ name: toFirewallSubsystem(__panelSetupProps.currentTab) });
                 if (disposed || requestID !== baseInfoRequestID) return;
                 baseInfo.value = {
                     ...raw,
