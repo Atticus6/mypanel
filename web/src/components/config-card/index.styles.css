@@ -1,0 +1,35 @@
+.config-card[data-v-a2efb66d] {
+  cursor: pointer;
+}
+.config-card .web-tag[data-v-a2efb66d] {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.config-card .config-header[data-v-a2efb66d] {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-start;
+  align-items: center;
+}
+.config-card .config-header span[data-v-a2efb66d] {
+  font-weight: normal;
+  font-size: 18px;
+}
+.config-card .config-header .header-r[data-v-a2efb66d] {
+  margin-left: 20px;
+}
+.config-card .config-content[data-v-a2efb66d] {
+  display: flex;
+  justify-content: flex-end;
+}
+.config-card .config-form[data-v-a2efb66d] {
+  margin-top: 20px;
+}
+.config-card[data-v-a2efb66d] {
+  border: var(--panel-border) !important;
+}
+.config-card[data-v-a2efb66d]:hover {
+  cursor: pointer;
+  border: 1px solid var(--el-color-primary) !important;
+}

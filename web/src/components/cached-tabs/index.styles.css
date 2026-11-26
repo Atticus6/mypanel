@@ -1,0 +1,16 @@
+.cached-tabs[data-v-9e332ffc] {
+  --el-card-padding: 0;
+}
+.cached-tabs[data-v-9e332ffc] .el-radio-button__inner {
+  min-width: 100px;
+  height: 100%;
+  background-color: var(--panel-button-active) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: 2px solid transparent !important;
+}
+.cached-tabs[data-v-9e332ffc] .el-radio-button__original-radio:checked + .el-radio-button__inner {
+  color: var(--el-color-primary);
+  border-color: var(--el-color-primary) !important;
+  border-radius: 4px;
+}

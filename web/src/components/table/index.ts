@@ -1,13 +1,13 @@
 import type { App } from 'vue';
 
 import FuTable from './Table';
-import FuTableColumnSelect from './TableColumnSelect.vue';
-import FuTableOperations from './TableOperations.vue';
-import FuTablePagination from './TablePagination.vue';
-import TableRefresh from './TableRefresh.vue';
-import TableSearch from './TableSearch.vue';
-import TableSetting from './TableSetting.vue';
-import TableViewSwitch from './TableViewSwitch.vue';
+import FuTableColumnSelect from './TableColumnSelect';
+import FuTableOperations from './TableOperations';
+import FuTablePagination from './TablePagination';
+import TableRefresh from './TableRefresh';
+import TableSearch from './TableSearch';
+import TableSetting from './TableSetting';
+import TableViewSwitch from './TableViewSwitch';
 
 const components = [
     FuTable,

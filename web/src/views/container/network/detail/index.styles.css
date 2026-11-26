@@ -1,0 +1,7 @@
+[data-v-483f409b] .el-descriptions__label {
+  width: 180px;
+  background-color: transparent !important;
+}
+.text-el-color-primary[data-v-483f409b] {
+  color: var(--el-text-color-primary);
+}

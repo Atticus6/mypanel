@@ -1,0 +1,8 @@
+[data-v-b9e3fda8] .detail-label {
+    min-width: 100px !important;
+}
+[data-v-b9e3fda8] .detail-content {
+    max-width: 295px;
+    word-break: break-all;
+    word-wrap: break-word;
+}

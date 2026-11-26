@@ -44,12 +44,27 @@ export const routerArray: RouteRecordRaw[] = rolesRoutes;
 
 // 侧栏只展示未标记 meta.hidden 的直接子路由。
 export const menuList: RouteRecordRaw[] = [];
+const absolutePath = (parent: string, child: string) => {
+    if (!child) return parent;
+    if (child.startsWith('/')) return child;
+    return `${parent.replace(/\/$/, '')}/${child}`;
+};
+
+const withAbsolutePaths = (route: RouteRecordRaw, parent = ''): RouteRecordRaw => {
+    const path = parent ? absolutePath(parent, route.path) : route.path;
+    return {
+        ...route,
+        path,
+        children: (route.children || []).map((child) => withAbsolutePaths(child as RouteRecordRaw, path)),
+    } as RouteRecordRaw;
+};
+
 rolesRoutes.forEach((item) => {
-    const menuItem = JSON.parse(JSON.stringify(item));
+    const menuItem = withAbsolutePaths(item);
     menuItem.children = (Array.isArray(menuItem.children) ? menuItem.children : []).filter(
         (child: RouteRecordRaw) => !child.meta?.hidden,
     );
-    menuList.push(menuItem as RouteRecordRaw);
+    menuList.push(menuItem);
 });
 
 const otherRoutes = mutableRoutes.filter((route) => typeof route.meta?.sort !== 'number');

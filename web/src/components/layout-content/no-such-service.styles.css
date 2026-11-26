@@ -1,0 +1,28 @@
+[data-v-57dab4a7] .firewall-backend-link {
+    appearance: none;
+    margin: 0;
+    margin-inline: 4px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--el-color-primary);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    vertical-align: baseline;
+}
+[data-v-57dab4a7] .firewall-backend-link:hover {
+    color: var(--el-color-primary-light-3);
+}
+[data-v-57dab4a7] .firewall-backend-link:active {
+    color: var(--el-color-primary-dark-2);
+}
+[data-v-57dab4a7] .firewall-backend-link:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--el-color-primary-light-5);
+    outline-offset: 2px;
+}

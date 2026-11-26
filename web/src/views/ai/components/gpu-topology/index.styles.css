@@ -1,0 +1,172 @@
+.gpu-topology[data-v-5aa82289] {
+  width: 100%;
+  display: grid;
+  gap: 24px;
+}
+.topology-cards[data-v-5aa82289] {
+  grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.topology-cards > .numa-node[data-v-5aa82289] {
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: 8px;
+  padding: 20px;
+}
+.topology-cards > .numa-node.unknown[data-v-5aa82289] {
+  border-style: dashed;
+}
+.topology-cards .numa-node-header[data-v-5aa82289] {
+  margin-bottom: 16px;
+}
+.topology-cards .numa-node-header strong[data-v-5aa82289] {
+  font-size: 16px;
+}
+.topology-cards .topology-device[data-v-5aa82289] {
+  align-content: start;
+}
+.topology-cards .numa-devices[data-v-5aa82289] {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.topology-cards .topology-device[data-v-5aa82289] {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.topology-cards .topology-device + .topology-device[data-v-5aa82289] {
+  border-top-color: var(--el-border-color-extra-light);
+}
+.topology-cards .topology-device.selected[data-v-5aa82289] {
+  background: var(--el-color-primary-light-9);
+  border-color: var(--el-color-primary-light-5);
+}
+.topology-cards.selectable .numa-devices[data-v-5aa82289] {
+  gap: 12px;
+}
+.topology-cards.selectable .topology-device[data-v-5aa82289]:not(.selected) {
+  border-color: var(--el-border-color-lighter);
+}
+.topology-cards.selectable[data-v-5aa82289] {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.topology-cards.selectable > .numa-node[data-v-5aa82289] {
+  padding: 16px;
+  border-radius: 8px;
+}
+.topology-cards.selectable .numa-node-header strong[data-v-5aa82289] {
+  font-size: 13px;
+}
+.numa-node[data-v-5aa82289] {
+  min-width: 0;
+}
+.numa-node-header[data-v-5aa82289] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.numa-node-header > div[data-v-5aa82289] {
+  min-width: 0;
+}
+.numa-node-header strong[data-v-5aa82289] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.numa-node-header strong[data-v-5aa82289]::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--el-color-primary);
+  opacity: 0.65;
+}
+.unknown .numa-node-header strong[data-v-5aa82289]::before {
+  background: var(--el-text-color-placeholder);
+}
+.numa-resources[data-v-5aa82289] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--el-text-color-secondary);
+  margin-top: 3px;
+  margin-left: 14px;
+  overflow-wrap: anywhere;
+}
+.numa-devices[data-v-5aa82289] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: 8px;
+}
+.topology-device[data-v-5aa82289] {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  background: var(--el-fill-color-light);
+}
+.topology-device > strong[data-v-5aa82289] {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.topology-device.selected[data-v-5aa82289] {
+  background: var(--el-color-primary-light-9);
+}
+.topology-device.unavailable[data-v-5aa82289] {
+  color: var(--el-text-color-secondary);
+}
+.topology-device[data-v-5aa82289] .el-checkbox {
+  height: auto;
+  width: 100%;
+  align-items: flex-start;
+  white-space: normal;
+}
+.topology-device[data-v-5aa82289] .el-checkbox__input {
+  margin-top: 3px;
+}
+.topology-device[data-v-5aa82289] .el-checkbox__label {
+  white-space: normal;
+  line-height: 20px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.numa-empty[data-v-5aa82289] {
+  color: var(--el-text-color-placeholder);
+  font-size: 12px;
+  padding-left: 14px;
+  line-height: 20px;
+}
+.missing-devices[data-v-5aa82289] .el-tag {
+  max-width: 100%;
+  height: auto;
+}
+.missing-devices[data-v-5aa82289] .el-tag__content {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.missing-devices[data-v-5aa82289] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.numa-info[data-v-5aa82289] {
+  color: var(--el-text-color-secondary);
+  font-size: 12px;
+  cursor: help;
+}

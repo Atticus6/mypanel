@@ -1,0 +1,4 @@
+.el-dialog.recycle-file-dialog:not(.is-fullscreen) {
+    width: 60vw !important;
+    min-width: 0;
+}

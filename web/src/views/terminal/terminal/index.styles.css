@@ -1,0 +1,169 @@
+.terminal-page[data-v-57898941] {
+  --terminal-actions-width: 40px;
+  position: relative;
+  min-width: 0;
+  padding-top: 7px;
+}
+.terminal-page.is-mobile[data-v-57898941] {
+  --terminal-actions-width: 0px;
+}
+.terminal-actions[data-v-57898941] {
+  position: absolute;
+  top: 7px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: var(--terminal-actions-width);
+  height: var(--el-tabs-header-height, 40px);
+}
+.terminal-action[data-v-57898941] {
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+  color: var(--el-text-color-regular);
+}
+.terminal-action[data-v-57898941]:hover {
+  color: var(--el-color-primary);
+}
+.terminal-tabs[data-v-57898941] .el-tabs__header {
+  justify-content: flex-start;
+  padding: 0 var(--terminal-actions-width) 0 0;
+  min-height: var(--el-tabs-header-height);
+  position: relative;
+  margin: 0 0 3px 0;
+}
+.terminal-tabs[data-v-57898941] .el-tabs__nav {
+  white-space: nowrap;
+  position: relative;
+  transition: transform var(--el-transition-duration);
+  float: left;
+  z-index: calc(var(--el-index-normal) + 1);
+}
+.terminal-tabs[data-v-57898941] .el-tabs__item {
+  padding: 0;
+}
+.terminal-tabs[data-v-57898941] .el-tabs__nav-wrap {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.terminal-tabs[data-v-57898941] .el-tabs__new-tab {
+  width: auto;
+  height: auto;
+  margin: 0;
+  border: 0;
+}
+.terminal-tabs[data-v-57898941] .el-tabs__item.is-active {
+  color: var(--panel-terminal-tag-active-text-color);
+  background-color: var(--panel-terminal-tag-active-bg-color);
+}
+.terminal-tabs[data-v-57898941] .el-tabs__item:hover {
+  color: var(--panel-terminal-tag-hover-text-color);
+}
+.terminal-tabs[data-v-57898941] .el-tabs__item.is-active:hover {
+  color: var(--panel-terminal-tag-active-text-color);
+}
+.terminal-tabs[data-v-57898941] .el-tabs__header .el-tabs__item.is-closable {
+  padding: 0 12px;
+}
+.terminal-tabs[data-v-57898941] .el-tabs__header .el-tabs__item.is-closable .is-icon-close {
+  width: 14px;
+  margin-left: 6px;
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--el-transition-duration);
+}
+.terminal-tabs[data-v-57898941] .el-tabs__header .el-tabs__item.is-closable.is-active .is-icon-close, .terminal-tabs[data-v-57898941] .el-tabs__header .el-tabs__item.is-closable:hover .is-icon-close, .terminal-tabs[data-v-57898941] .el-tabs__header .el-tabs__item.is-closable:focus-within .is-icon-close {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (hover: none), (pointer: coarse) {
+.terminal-tabs[data-v-57898941] .el-tabs__header .el-tabs__item.is-closable .is-icon-close {
+    opacity: 1;
+    pointer-events: auto;
+}
+}
+.terminal-tab-label[data-v-57898941] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 220px;
+}
+.terminal-tab-status[data-v-57898941],
+.terminal-tab-reconnect[data-v-57898941] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+}
+.terminal-status-dot[data-v-57898941] {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--el-color-success);
+}
+.terminal-tab-reconnect[data-v-57898941] {
+  color: inherit;
+}
+.terminal-tab-title[data-v-57898941] {
+  min-width: 0;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.terminal-tab-latency[data-v-57898941] {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+.terminal-slot[data-v-57898941] {
+  width: 100%;
+}
+.vertical-tabs > .el-tabs__content[data-v-57898941] {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+.el-input__wrapper[data-v-57898941] {
+  border-radius: 50px;
+}
+[data-v-57898941] .el-textarea__inner {
+  border-radius: 4px;
+  resize: none;
+  min-height: 32px;
+  transition: height 0.2s ease;
+}
+.quick-command-cascader[data-v-57898941] .el-input__wrapper {
+  border-radius: 6px;
+}
+.cascader-option[data-v-57898941] {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.cascader-option-label[data-v-57898941] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+[data-v-57898941] .command-detail-tooltip {
+  max-width: 420px;
+}
+.command-detail-content[data-v-57898941] {
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.5;
+}

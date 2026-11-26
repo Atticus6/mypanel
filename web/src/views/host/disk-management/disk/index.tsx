@@ -1,12 +1,12 @@
 import { Host } from '@/types/host';
-import DiskRouter from '@/views/host/disk-management/index.vue';
-import DiskCard from '@/views/host/disk-management/components/disk-card.vue';
-import Partition from '@/views/host/disk-management/partition/index.vue';
+import DiskRouter from '@/views/host/disk-management/index';
+import DiskCard from '@/views/host/disk-management/components/disk-card';
+import Partition from '@/views/host/disk-management/partition/index';
 import { rpc } from '@/lib/rpc';
 import { defineComponent, Fragment, unref, withDirectives } from 'vue';
 import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
 import { vLoading } from 'element-plus';
-import MainDiv from '@/components/main-div/index.vue';
+import MainDiv from '@/components/main-div/index';
 
 interface CodemodProps {
     [key: string]: any;

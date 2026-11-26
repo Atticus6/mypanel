@@ -1,5 +1,8 @@
-html {
+html,
+body {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Arial, sans-serif;
+    // 内容不足一屏时，容器外露出的背景跟随主题，避免暗色模式下出现白边。
+    background-color: var(--panel-main-bg-color-9);
 }
 .flx-center {
     display: flex;

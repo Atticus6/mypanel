@@ -1,0 +1,10 @@
+.terminal-host[data-v-b1568ae1] {
+    position: fixed;
+    left: -10000px;
+    top: 0;
+    width: 1000px;
+    height: 600px;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+}

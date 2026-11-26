@@ -1,0 +1,71 @@
+.name-row[data-v-ecb336bc] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+}
+.name-main[data-v-ecb336bc] {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+.name-main--actions-only[data-v-ecb336bc] {
+    flex: initial;
+}
+.domain-text[data-v-ecb336bc] {
+    display: inline-flex;
+    align-items: center;
+    flex: 1;
+    width: 0;
+    min-width: 0;
+    max-width: 100%;
+}
+.domain-text__content[data-v-ecb336bc] {
+    display: inline-block;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+[data-v-ecb336bc] .el-form {
+    margin: 0;
+    line-height: 1;
+}
+[data-v-ecb336bc] .el-form-item {
+    margin-bottom: 0;
+}
+[data-v-ecb336bc] .el-form-item__error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 2px;
+}
+.domain-input[data-v-ecb336bc] {
+    width: 200px;
+}
+[data-v-ecb336bc] .website-domain-tooltip {
+    max-width: min(720px, calc(100vw - 120px));
+}
+.website-domain-tooltip__content[data-v-ecb336bc] {
+    white-space: normal;
+    word-break: break-all;
+    line-height: 1.5;
+}
+.website-pin-button[data-v-ecb336bc] {
+    opacity: 0.72;
+    transition: opacity 0.2s;
+}
+.website-pin-button[data-v-ecb336bc]:hover,
+.website-pin-button[data-v-ecb336bc]:focus-visible,
+.website-pin-button.is-pinned[data-v-ecb336bc] {
+    opacity: 1;
+}
+.website-pin-button[data-v-ecb336bc] .website-pin-icon {
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    vertical-align: middle;
+}

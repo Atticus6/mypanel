@@ -1,0 +1,23 @@
+.formInput[data-v-8ea9a857] {
+    width: 100%;
+}
+.account-option[data-v-8ea9a857] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+.account-option__name[data-v-8ea9a857] {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.account-option__tags[data-v-8ea9a857] {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}

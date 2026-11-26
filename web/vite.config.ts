@@ -5,7 +5,6 @@ import viteCompression from 'vite-plugin-compression';
 import tailwindcss from '@tailwindcss/vite';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { defineConfig, loadEnv, ConfigEnv, UserConfig, Plugin } from 'vite';
-import vue from '@vitejs/plugin-vue';
 import pkg from './package.json';
 import dayjs from 'dayjs';
 
@@ -122,7 +121,6 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
             VueRouter({ extensions: ['.tsx', '.vue'], dts: 'src/typed-router.d.ts' }),
             benchmarkReportPlugin(__dirname),
             patchCodeFilterOverflow(),
-            vue(),
             tailwindcss(),
             vueJsx(),
             reportPlugin,

@@ -1,4 +1,4 @@
-import Layout from '@/layout/index.vue';
+import Layout from '@/layout/index';
 definePage({
     name: 'Log-Menu',
     redirect: '/logs/operation',

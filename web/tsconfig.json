@@ -35,7 +35,6 @@
         "src/**/*.d.ts",
         "src/typed-router.d.ts",
         "src/**/*.tsx",
-        "src/**/*.vue",
         "build/**/*.ts",
         "build/**/*.d.ts",
         "vite.config.ts",

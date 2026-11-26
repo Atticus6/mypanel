@@ -622,19 +622,19 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/home/index.vue': {
+    'src/pages/home/index.tsx': {
       routes:
         | 'home'
       views:
         | never
     }
-    'src/pages/[[code]].vue': {
+    'src/pages/[[code]].tsx': {
       routes:
         | 'entrance'
       views:
         | never
     }
-    'src/pages/500.vue': {
+    'src/pages/500.tsx': {
       routes:
         | '500'
       views:
@@ -651,7 +651,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/apps/index.vue': {
+    'src/pages/apps/index.tsx': {
       routes:
         | 'App'
         | 'AppAll'
@@ -667,25 +667,25 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/apps/index/installed.vue': {
+    'src/pages/apps/index/installed.tsx': {
       routes:
         | 'AppInstalled'
       views:
         | never
     }
-    'src/pages/apps/index/setting.vue': {
+    'src/pages/apps/index/setting.tsx': {
       routes:
         | 'AppStoreSetting'
       views:
         | never
     }
-    'src/pages/apps/index/upgrade.vue': {
+    'src/pages/apps/index/upgrade.tsx': {
       routes:
         | 'AppUpgrade'
       views:
         | never
     }
-    'src/pages/containers.vue': {
+    'src/pages/containers.tsx': {
       routes:
         | 'Compose'
         | 'ComposeTemplate'
@@ -702,7 +702,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/containers/index.vue': {
+    'src/pages/containers/index.tsx': {
       routes:
         | 'Compose'
         | 'ComposeTemplate'
@@ -718,61 +718,61 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/containers/index/compose.vue': {
+    'src/pages/containers/index/compose.tsx': {
       routes:
         | 'Compose'
       views:
         | never
     }
-    'src/pages/containers/index/container.vue': {
+    'src/pages/containers/index/container.tsx': {
       routes:
         | 'ContainerItem'
       views:
         | never
     }
-    'src/pages/containers/index/container.operate.vue': {
+    'src/pages/containers/index/container.operate.tsx': {
       routes:
         | 'ContainerCreate'
       views:
         | never
     }
-    'src/pages/containers/index/dashboard.vue': {
+    'src/pages/containers/index/dashboard.tsx': {
       routes:
         | 'ContainerDashboard'
       views:
         | never
     }
-    'src/pages/containers/index/image.vue': {
+    'src/pages/containers/index/image.tsx': {
       routes:
         | 'Image'
       views:
         | never
     }
-    'src/pages/containers/index/network.vue': {
+    'src/pages/containers/index/network.tsx': {
       routes:
         | 'Network'
       views:
         | never
     }
-    'src/pages/containers/index/repo.vue': {
+    'src/pages/containers/index/repo.tsx': {
       routes:
         | 'Repo'
       views:
         | never
     }
-    'src/pages/containers/index/setting.vue': {
+    'src/pages/containers/index/setting.tsx': {
       routes:
         | 'ContainerSetting'
       views:
         | never
     }
-    'src/pages/containers/index/template.vue': {
+    'src/pages/containers/index/template.tsx': {
       routes:
         | 'ComposeTemplate'
       views:
         | never
     }
-    'src/pages/containers/index/volume.vue': {
+    'src/pages/containers/index/volume.tsx': {
       routes:
         | 'Volume'
       views:
@@ -788,7 +788,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/cronjobs/index.vue': {
+    'src/pages/cronjobs/index.tsx': {
       routes:
         | 'Cronjob'
         | 'CronjobItem'
@@ -797,31 +797,31 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/cronjobs/index/cronjob.vue': {
+    'src/pages/cronjobs/index/cronjob.tsx': {
       routes:
         | 'CronjobItem'
       views:
         | never
     }
-    'src/pages/cronjobs/index/cronjob.operate.vue': {
+    'src/pages/cronjobs/index/cronjob.operate.tsx': {
       routes:
         | 'CronjobOperate'
       views:
         | never
     }
-    'src/pages/cronjobs/index/library.vue': {
+    'src/pages/cronjobs/index/library.tsx': {
       routes:
         | 'Library'
       views:
         | never
     }
-    'src/pages/error.vue': {
+    'src/pages/error.tsx': {
       routes:
         | '404'
       views:
         | 'default'
     }
-    'src/pages/error/404.vue': {
+    'src/pages/error/404.tsx': {
       routes:
         | '404'
       views:
@@ -847,7 +847,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/hosts/disk.vue': {
+    'src/pages/hosts/disk.tsx': {
       routes:
         | 'Disk'
       views:
@@ -859,79 +859,79 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/hosts/firewall.docker.vue': {
+    'src/pages/hosts/firewall.docker.tsx': {
       routes:
         | 'FirewallDockerGuard'
       views:
         | never
     }
-    'src/pages/hosts/firewall.forward.vue': {
+    'src/pages/hosts/firewall.forward.tsx': {
       routes:
         | 'FirewallForward'
       views:
         | never
     }
-    'src/pages/hosts/firewall.rules.vue': {
+    'src/pages/hosts/firewall.rules.tsx': {
       routes:
         | 'FirewallPort'
       views:
         | never
     }
-    'src/pages/hosts/firewall.setting.vue': {
+    'src/pages/hosts/firewall.setting.tsx': {
       routes:
         | 'FirewallSetting'
       views:
         | never
     }
-    'src/pages/hosts/monitor.export.vue': {
+    'src/pages/hosts/monitor.export.tsx': {
       routes:
         | 'HostMonitorExport'
       views:
         | never
     }
-    'src/pages/hosts/monitor.monitor.vue': {
+    'src/pages/hosts/monitor.monitor.tsx': {
       routes:
         | 'Monitorx'
       views:
         | never
     }
-    'src/pages/hosts/monitor.setting.vue': {
+    'src/pages/hosts/monitor.setting.tsx': {
       routes:
         | 'HostMonitorSetting'
       views:
         | never
     }
-    'src/pages/hosts/process.network.vue': {
+    'src/pages/hosts/process.network.tsx': {
       routes:
         | 'ProcessNetwork'
       views:
         | never
     }
-    'src/pages/hosts/process.process.vue': {
+    'src/pages/hosts/process.process.tsx': {
       routes:
         | 'Process'
       views:
         | never
     }
-    'src/pages/hosts/ssh.log.vue': {
+    'src/pages/hosts/ssh.log.tsx': {
       routes:
         | 'SSHLog'
       views:
         | never
     }
-    'src/pages/hosts/ssh.session.vue': {
+    'src/pages/hosts/ssh.session.tsx': {
       routes:
         | 'SSHSession'
       views:
         | never
     }
-    'src/pages/hosts/ssh.ssh.vue': {
+    'src/pages/hosts/ssh.ssh.tsx': {
       routes:
         | 'SSH'
       views:
         | never
     }
-    'src/pages/login.vue': {
+    'src/pages/login.tsx': {
       routes:
         | 'login'
       views:
@@ -951,7 +951,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/logs/index.vue': {
+    'src/pages/logs/index.tsx': {
       routes:
         | 'HostSystemLog'
         | 'Log'
@@ -964,13 +964,13 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/logs/index/host.vue': {
+    'src/pages/logs/index/host.tsx': {
       routes:
         | 'HostSystemLog'
       views:
         | never
     }
-    'src/pages/logs/index/login.vue': {
+    'src/pages/logs/index/login.tsx': {
       routes:
         | 'LoginLog'
       views:
@@ -982,37 +982,37 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/logs/index/ssh.vue': {
+    'src/pages/logs/index/ssh.tsx': {
       routes:
         | 'SSHLog2'
       views:
         | never
     }
-    'src/pages/logs/index/system.vue': {
+    'src/pages/logs/index/system.tsx': {
       routes:
         | 'SystemLog'
       views:
         | never
     }
-    'src/pages/logs/index/task.vue': {
+    'src/pages/logs/index/task.tsx': {
       routes:
         | 'Task'
       views:
         | never
     }
-    'src/pages/logs/index/website.vue': {
+    'src/pages/logs/index/website.tsx': {
       routes:
         | 'WebsiteLog'
       views:
         | never
     }
-    'src/pages/s/[code].vue': {
+    'src/pages/s/[code].tsx': {
       routes:
         | 'file-share'
       views:
         | never
     }
-    'src/pages/settings.vue': {
+    'src/pages/settings.tsx': {
       routes:
         | 'About'
         | 'Alert'
@@ -1026,7 +1026,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/settings/index.vue': {
+    'src/pages/settings/index.tsx': {
       routes:
         | 'About'
         | 'Alert'
@@ -1045,56 +1045,56 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/settings/index/alert.vue': {
+    'src/pages/settings/index/alert.tsx': {
       routes:
         | 'Alert'
       views:
         | never
     }
-    'src/pages/settings/index/backupaccount.vue': {
+    'src/pages/settings/index/backupaccount.tsx': {
       routes:
         | 'BackupAccount'
       views:
         | never
     }
-    'src/pages/settings/index/expired.vue': {
+    'src/pages/settings/index/expired.tsx': {
       routes:
         | 'Expired'
       views:
         | never
     }
-    'src/pages/settings/index/panel.vue': {
+    'src/pages/settings/index/panel.tsx': {
       routes:
         | 'Panel'
       views:
         | never
     }
-    'src/pages/settings/index/safe.vue': {
+    'src/pages/settings/index/safe.tsx': {
       routes:
         | 'Safe'
       views:
         | never
     }
-    'src/pages/settings/index/snapshot.vue': {
+    'src/pages/settings/index/snapshot.tsx': {
       routes:
         | 'Snapshot'
       views:
         | never
     }
-    'src/pages/terminal.vue': {
+    'src/pages/terminal.tsx': {
       routes:
         | 'Terminal'
         | 'Terminal-Menu'
       views:
         | 'default'
     }
-    'src/pages/terminal/index.vue': {
+    'src/pages/terminal/index.tsx': {
       routes:
         | 'Terminal'
       views:
         | never
     }
-    'src/pages/websites.vue': {
+    'src/pages/websites.tsx': {
       routes:
         | 'SSL'
         | 'SSL-ACME'
@@ -1106,37 +1106,37 @@ declare module 'vue-router/auto-routes' {
       views:
         | 'default'
     }
-    'src/pages/websites/index.vue': {
+    'src/pages/websites/index.tsx': {
       routes:
         | 'Website'
       views:
         | never
     }
-    'src/pages/websites/[id].config.[tab].vue': {
+    'src/pages/websites/[id].config.[tab].tsx': {
       routes:
         | 'WebsiteConfig'
       views:
         | never
     }
-    'src/pages/websites/ssl.vue': {
+    'src/pages/websites/ssl.tsx': {
       routes:
         | 'SSL'
       views:
         | never
     }
-    'src/pages/websites/ssl.acme-account.vue': {
+    'src/pages/websites/ssl.acme-account.tsx': {
       routes:
         | 'SSL-ACME'
       views:
         | never
     }
-    'src/pages/websites/ssl.ca.vue': {
+    'src/pages/websites/ssl.ca.tsx': {
       routes:
         | 'SSL-CA'
       views:
         | never
     }
-    'src/pages/websites/ssl.dns-account.vue': {
+    'src/pages/websites/ssl.dns-account.tsx': {
       routes:
         | 'SSL-DNS'
       views:

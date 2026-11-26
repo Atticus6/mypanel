@@ -1,0 +1,90 @@
+.hidden-autofill-field[data-v-536c91d0] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    pointer-events: none;
+}
+.setting-section[data-v-536c91d0] {
+    padding-top: 6px;
+    border-top: 1px solid var(--el-border-color-lighter);
+}
+.setting-action-row[data-v-536c91d0] {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.tooltip-help-list[data-v-536c91d0] {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    color: inherit;
+}
+.tooltip-help-block[data-v-536c91d0] {
+    margin-bottom: 6px;
+}
+.tooltip-help-link[data-v-536c91d0] {
+    padding: 0;
+    color: inherit;
+    vertical-align: baseline;
+}
+.tooltip-help-link[data-v-536c91d0]:hover {
+    color: inherit;
+}
+.label-with-help[data-v-536c91d0] {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.help-icon[data-v-536c91d0] {
+    color: var(--el-text-color-secondary);
+    cursor: help;
+}
+.passkey-prereq-dialog[data-v-536c91d0] {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.passkey-prereq-title[data-v-536c91d0] {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--el-text-color-primary);
+}
+.passkey-prereq-list[data-v-536c91d0] {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.passkey-prereq-item[data-v-536c91d0] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.5;
+}
+.passkey-prereq-item.is-browser[data-v-536c91d0] {
+    align-items: flex-start;
+}
+.passkey-prereq-status[data-v-536c91d0] {
+    flex-shrink: 0;
+    font-size: 16px;
+    margin-top: 1px;
+}
+.passkey-prereq-status.is-ok[data-v-536c91d0] {
+    color: var(--el-color-success);
+}
+.passkey-prereq-status.is-missing[data-v-536c91d0] {
+    color: var(--el-color-danger);
+}
+.passkey-prereq-browser-copy[data-v-536c91d0] {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.passkey-prereq-detail[data-v-536c91d0] {
+    font-size: 12px;
+    color: var(--el-text-color-secondary);
+}

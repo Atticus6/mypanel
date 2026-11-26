@@ -1,0 +1,13 @@
+.image-pin-button[data-v-3b08cae1] {
+  opacity: 0.72;
+  transition: opacity 0.2s;
+}
+.image-pin-button[data-v-3b08cae1]:hover, .image-pin-button[data-v-3b08cae1]:focus-visible, .image-pin-button.is-pinned[data-v-3b08cae1] {
+  opacity: 1;
+}
+.image-pin-button[data-v-3b08cae1] .image-pin-icon {
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  vertical-align: middle;
+}

@@ -1,0 +1,12 @@
+.search-submit[data-v-f7f1ea59] {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+.search-submit[data-v-f7f1ea59]:disabled {
+    cursor: not-allowed;
+}

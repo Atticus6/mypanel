@@ -1,0 +1,23 @@
+.el-dialog.file-delete-dialog:not(.is-fullscreen) {
+    width: 60vw !important;
+    min-width: 0;
+}
+.resource[data-v-3f72e292] {
+    margin-top: 10px;
+    max-height: 400px;
+    overflow: auto;
+}
+.file-list[data-v-3f72e292] {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+.delete-warn[data-v-3f72e292] {
+    line-height: 20px;
+    word-wrap: break-word;
+}
+.force-delete[data-v-3f72e292] {
+    white-space: pre-line;
+    word-wrap: break-word;
+    line-height: 50px;
+}

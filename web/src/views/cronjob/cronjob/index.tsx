@@ -1,13 +1,13 @@
 import { $t } from '@/utils/i18n-t';
 import { useSearchState } from '@/utils/search-reset';
-import Records from '@/views/cronjob/cronjob/record/index.vue';
-import Backups from '@/views/cronjob/cronjob/backup/index.vue';
-import Import from '@/views/cronjob/cronjob/import/index.vue';
+import Records from '@/views/cronjob/cronjob/record/index';
+import Backups from '@/views/cronjob/cronjob/backup/index';
+import Import from '@/views/cronjob/cronjob/import/index';
 import { toRef, onMounted, ref, toRefs } from 'vue';
 import { exportCronjob } from '@/api/modules/cronjob';
 import i18n from '@/lang';
 import { Cronjob } from '@/types/cronjob';
-import GroupDialog from '@/components/group/index.vue';
+import GroupDialog from '@/components/group/index';
 import { ElMessageBox } from 'element-plus';
 import { MsgSuccess } from '@/utils/message';
 import { hasBackup, transSpecToStr } from './helper';
@@ -33,16 +33,16 @@ import { ElFormItem } from 'element-plus';
 import { ElCheckbox } from 'element-plus';
 import { ElDialog } from 'element-plus';
 import { ElIcon } from 'element-plus';
-import LayoutContent from '@/components/layout-content/index.vue';
-import TableViewSwitch from '@/components/table/TableViewSwitch.vue';
-import TableSearch from '@/components/table/TableSearch.vue';
-import TableRefresh from '@/components/table/TableRefresh.vue';
-import TableSetting from '@/components/table/TableSetting.vue';
-import ComplexTable from '@/components/table/complex/ComplexTable.vue';
-import FuSelectRwSwitch from '@/components/fu/FuSelectRwSwitch.vue';
-import Status from '@/components/status/index.vue';
-import FuTableOperations from '@/components/table/TableOperations.vue';
-import OpDialog from '@/components/del-dialog/index.vue';
+import LayoutContent from '@/components/layout-content/index';
+import TableViewSwitch from '@/components/table/TableViewSwitch';
+import TableSearch from '@/components/table/TableSearch';
+import TableRefresh from '@/components/table/TableRefresh';
+import TableSetting from '@/components/table/TableSetting';
+import ComplexTable from '@/components/table/complex/ComplexTable';
+import FuSelectRwSwitch from '@/components/fu/FuSelectRwSwitch';
+import Status from '@/components/status/index';
+import FuTableOperations from '@/components/table/TableOperations';
+import OpDialog from '@/components/del-dialog/index';
 import { Star } from '@element-plus/icons-vue';
 
 interface CodemodProps {
@@ -547,7 +547,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                               onUpdate:selects={($v) => {
                                                   selects.value = $v as any;
                                               }}
-                                              onSort-change={($event?: any) => {
+                                              onSortChange={($event?: any) => {
                                                   (search as any)($event);
                                               }}
                                               onSearch={($event?: any) => {

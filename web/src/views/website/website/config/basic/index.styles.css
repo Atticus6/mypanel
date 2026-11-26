@@ -1,0 +1,17 @@
+.custom-tabs[data-v-35f5f2ad] {
+    height: var(--main-height);
+    display: flex;
+    overflow: hidden;
+}
+.custom-tabs[data-v-35f5f2ad] .el-tabs__header.is-left {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-shrink: 0;
+}
+.custom-tabs[data-v-35f5f2ad] .el-tabs__content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+}

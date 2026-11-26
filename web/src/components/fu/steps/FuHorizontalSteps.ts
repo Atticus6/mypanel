@@ -1,7 +1,7 @@
 import { computed, defineComponent, h, provide, ref, Transition, watch } from 'vue';
 
 import { flattenVNodes, getVNodeComponentName } from '@/components/shared/vnode';
-import FuHorizontalNavigation from './FuHorizontalNavigation.vue';
+import FuHorizontalNavigation from './FuHorizontalNavigation';
 import FuStepsFooter from './FuStepsFooter';
 import { Step, Stepper } from './Stepper';
 

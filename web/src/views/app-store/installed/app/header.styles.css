@@ -1,0 +1,121 @@
+.sortable-ghost[data-v-afaf0aa9] {
+  opacity: 0.4;
+}
+.install-card[data-v-afaf0aa9] {
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 10px;
+}
+.install-card .icon[data-v-afaf0aa9] {
+  text-align: center;
+}
+.install-card .a-detail .d-name .d-name-row[data-v-afaf0aa9] {
+  gap: 8px;
+  min-width: 0;
+}
+.install-card .a-detail .d-name .name-actions[data-v-afaf0aa9] {
+  flex: 1;
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+.install-card .a-detail .d-name .operate-actions[data-v-afaf0aa9] {
+  flex-shrink: 0;
+}
+.install-card .a-detail .d-name .name-wrap[data-v-afaf0aa9] {
+  min-width: 0;
+  max-width: clamp(140px, 22vw, 320px);
+  flex-shrink: 1;
+  margin-right: 4px;
+  overflow: hidden;
+}
+.install-card .a-detail .d-name .name[data-v-afaf0aa9] {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--panel-text-color);
+  max-width: 100%;
+}
+.install-card .a-detail .d-name .status[data-v-afaf0aa9] {
+  margin-left: 5px;
+}
+.install-card .a-detail .d-name .h-button[data-v-afaf0aa9] {
+  float: right;
+}
+.install-card .a-detail .d-name .msg[data-v-afaf0aa9] {
+  margin-left: 5px;
+}
+.install-card .a-detail .d-description[data-v-afaf0aa9] {
+  margin-top: 10px;
+  overflow: hidden;
+}
+.install-card .a-detail .d-description .el-tag[data-v-afaf0aa9] {
+  margin-right: 5px;
+}
+.install-card .a-detail .description[data-v-afaf0aa9] {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--el-text-color-regular);
+}
+.install-card .a-detail .d-button[data-v-afaf0aa9] {
+  margin-top: 10px;
+  min-width: 330px;
+}
+.install-card .e-card[data-v-afaf0aa9] {
+  border: var(--panel-border) !important;
+}
+.install-card .e-card[data-v-afaf0aa9]:hover {
+  cursor: pointer;
+  border: 1px solid var(--el-color-primary) !important;
+}
+.table-button[data-v-afaf0aa9] {
+  display: inline;
+  margin-right: 5px;
+}
+.app-divider[data-v-afaf0aa9] {
+  margin-top: 5px;
+  border: 0;
+  border-top: var(--panel-border);
+}
+.update-prompt[data-v-afaf0aa9] {
+  text-align: center;
+  margin-top: 100px;
+}
+.update-prompt span[data-v-afaf0aa9] {
+  color: #bbbfc4;
+}
+.update-prompt img[data-v-afaf0aa9] {
+  width: 300px;
+  height: 300px;
+}
+.tag-button.no-active[data-v-afaf0aa9] {
+  background: none;
+  border: none;
+}
+.page-button[data-v-afaf0aa9] {
+  float: right;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+@media (max-width: 575px) {
+.install-card .a-detail .d-name .h-button[data-v-afaf0aa9] {
+    float: none;
+    display: inline-block;
+    margin-left: 5px;
+}
+.install-card .a-detail .d-button[data-v-afaf0aa9] {
+    min-width: auto;
+}
+.install-card .a-detail .d-button .app-button[data-v-afaf0aa9] {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+}
+.svg-icon[data-v-afaf0aa9] {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}

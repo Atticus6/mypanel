@@ -1,0 +1,9 @@
+.el-dialog.recycle-file-dialog:not(.is-fullscreen) {
+    width: 60vw !important;
+    min-width: 0;
+}
+.resource[data-v-c601d418] {
+    margin-top: 10px;
+    max-height: 400px;
+    overflow: auto;
+}

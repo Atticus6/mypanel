@@ -1,0 +1,33 @@
+.tagClass[data-v-36e7f894] {
+  float: right;
+  margin-right: 10px;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.alert-config-option[data-v-36e7f894] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+.alert-config-option__name[data-v-36e7f894] {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.alert-config-option__tag[data-v-36e7f894] {
+  flex: 0 0 auto;
+}
+.alert-config-option--all[data-v-36e7f894] {
+  justify-content: flex-start;
+}
+.alert-config-method-dropdown .el-select-dropdown__item {
+  padding-right: 52px;
+}
+.alert-config-method-dropdown .el-select-dropdown__item.is-selected::after {
+  right: 16px;
+}

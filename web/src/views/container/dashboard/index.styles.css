@@ -1,0 +1,13 @@
+.count[data-v-901c1de7] {
+    margin-left: 20px;
+    font-size: 25px;
+    color: var(--el-color-primary);
+    font-weight: 500;
+    line-height: 32px;
+    cursor: pointer;
+}
+@media (max-width: 767px) {
+    .container-stat-row[data-v-901c1de7] {
+        row-gap: 7px;
+    }
+}

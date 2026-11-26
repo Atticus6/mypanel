@@ -1,0 +1,33 @@
+[data-v-243425e4] .el-transfer {
+  --el-transfer-panel-width: 265px;
+}
+[data-v-243425e4] .el-transfer__buttons {
+  padding: 10px 30px;
+}
+@media (max-width: 600px) {
+[data-v-243425e4] .el-transfer__buttons {
+    width: 265px;
+    text-align: center;
+    padding: 10px 0;
+}
+[data-v-243425e4] .el-transfer__buttons .el-button [class*=el-icon] svg {
+    transform: rotate(90deg);
+}
+}
+@media (min-width: 601px) {
+[data-v-243425e4] .el-transfer__buttons {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+}
+[data-v-243425e4] .el-transfer__buttons .el-button + .el-button {
+    margin-left: 0;
+}
+}
+[data-v-243425e4] .el-transfer-panel .el-transfer-panel__footer {
+  height: 65px;
+}

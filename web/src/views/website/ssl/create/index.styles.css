@@ -1,0 +1,11 @@
+.dns-name[data-v-ec4e8289] {
+  display: inline-block;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+}
+.ssl-http-helper[data-v-ec4e8289] {
+  color: var(--el-color-danger);
+}

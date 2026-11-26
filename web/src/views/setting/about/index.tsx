@@ -1,9 +1,9 @@
 import { defineComponent, onMounted, ref, withDirectives } from 'vue';
 import { ElIcon, ElLink, vLoading } from 'element-plus';
 import { Document } from '@element-plus/icons-vue';
-import LayoutContent from '@/components/layout-content/index.vue';
-import SystemUpgrade from '@/components/system-upgrade/index.vue';
-import SvgIcon from '@/components/svg-icon/svg-icon.vue';
+import LayoutContent from '@/components/layout-content/index';
+import SystemUpgrade from '@/components/system-upgrade/index';
+import SvgIcon from '@/components/svg-icon/svg-icon';
 import PrimaryLogo from '@/assets/images/1panel-logo.svg?component';
 import { useGlobalStore } from '@/composables/useGlobalStore';
 import i18n from '@/lang';

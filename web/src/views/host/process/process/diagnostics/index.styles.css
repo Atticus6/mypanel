@@ -1,0 +1,96 @@
+.summary-item[data-v-047ea927] {
+    padding: 4px 12px 4px 0;
+}
+.summary-title[data-v-047ea927] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--el-text-color-secondary);
+    font-size: 13px;
+}
+.summary-help[data-v-047ea927] {
+    flex-shrink: 0;
+    color: var(--el-text-color-placeholder);
+    cursor: help;
+}
+.summary-value[data-v-047ea927] {
+    margin-top: 5px;
+    color: var(--el-text-color-primary);
+    font-size: 18px;
+    font-weight: 600;
+}
+.diagnostics-content[data-v-047ea927] {
+    min-height: 520px;
+}
+.section-header[data-v-047ea927] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 32px;
+    margin-bottom: 10px;
+}
+.section-title[data-v-047ea927] {
+    margin-bottom: 10px;
+    color: var(--el-text-color-primary);
+    font-size: 15px;
+    font-weight: 600;
+}
+.section-header .section-title[data-v-047ea927] {
+    margin-bottom: 4px;
+}
+.profile-toolbar[data-v-047ea927] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+.profile-type[data-v-047ea927] {
+    width: 160px;
+}
+.goroutine-summary[data-v-047ea927] {
+    color: var(--el-text-color-secondary);
+    font-size: 13px;
+}
+.snapshot-warning[data-v-047ea927] {
+    margin-bottom: 10px;
+}
+.stack-view[data-v-047ea927] {
+    max-height: 65vh;
+    margin: 0;
+    padding: 14px;
+    overflow: auto;
+    border-radius: 4px;
+    background: var(--el-fill-color-light);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.runtime-profile-select-popper {
+    min-width: min(560px, calc(100vw - 64px));
+}
+.runtime-profile-select-popper .el-select-dropdown__item {
+    height: auto;
+    min-height: 54px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: normal;
+}
+.runtime-profile-option {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    white-space: normal;
+}
+.runtime-profile-option-title {
+    color: var(--el-text-color-primary);
+    font-weight: 500;
+}
+.runtime-profile-option-description {
+    color: var(--el-text-color-secondary);
+    font-size: 12px;
+    line-height: 17px;
+}

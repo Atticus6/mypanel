@@ -1,0 +1,61 @@
+.version[data-v-e952c508] {
+  margin-left: 10px;
+  display: inline-block;
+  width: 50px;
+}
+.date[data-v-e952c508] {
+  margin-left: 20px;
+  margin-right: 40px;
+  display: inline-block;
+  width: 100px;
+}
+.icon-span[data-v-e952c508] {
+  display: inline-block;
+  width: 10px;
+}
+.panel-MdEditor[data-v-e952c508] .md-editor-preview {
+  font-size: 12px;
+}
+[data-v-e952c508] .md-editor-dark {
+  background-color: var(--panel-main-bg-color-9);
+}
+[data-v-e952c508] .el-collapse-item__content {
+  padding: 0px;
+}
+.icon[data-v-e952c508] {
+  display: inline-block;
+  font-size: 7px;
+  margin-left: 50px;
+}
+.pageRoute[data-v-e952c508] {
+  font-size: 12px;
+  margin-left: 5px;
+  margin-top: -4px;
+}
+.release-settings[data-v-e952c508] {
+  margin-bottom: 16px;
+  padding: 14px 14px 10px;
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 10px;
+}
+.compact-form-item[data-v-e952c508] {
+  margin-bottom: 12px;
+}
+.compact-form-item[data-v-e952c508] .el-form-item__label {
+  padding-bottom: 6px;
+}
+.setting-control[data-v-e952c508] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 340px;
+  width: 100%;
+}
+.setting-control[data-v-e952c508] .el-input,
+.setting-control[data-v-e952c508] .el-input-number {
+  flex: 1;
+  width: 100%;
+}
+.setting-action-btn[data-v-e952c508] {
+  min-width: 64px;
+}

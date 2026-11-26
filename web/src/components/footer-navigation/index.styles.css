@@ -1,0 +1,18 @@
+.footer-navigation[data-v-cb87ad58] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 8px;
+}
+[data-v-cb87ad58] .el-link__inner {
+  font-weight: 400;
+}
+@media (max-width: 767px) {
+.footer-navigation[data-v-cb87ad58] {
+    column-gap: 12px;
+    justify-content: center;
+}
+.footer-navigation[data-v-cb87ad58] .el-divider--vertical {
+    display: none;
+}
+}

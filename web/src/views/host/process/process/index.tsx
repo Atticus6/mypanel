@@ -1,12 +1,12 @@
 import { $t } from '@/utils/i18n-t';
-import FireRouter from '@/views/host/process/index.vue';
+import FireRouter from '@/views/host/process/index';
 import { ref, onMounted, onUnmounted, computed, watch, h, resolveDirective, withDirectives } from 'vue';
-import ProcessDetail from './detail/index.vue';
+import ProcessDetail from './detail/index';
 import i18n from '@/lang';
 import { ProcessStore } from '@/store';
 import { SortBy, TableV2SortOrder, ElButton } from 'element-plus';
 import { useGlobalStore } from '@/composables/useGlobalStore';
-import RuntimeDiagnostics from './diagnostics/index.vue';
+import RuntimeDiagnostics from './diagnostics/index';
 import { useMediaQuery } from '@vueuse/core';
 import { rpc } from '@/lib/rpc';
 import './index.styles.css';
@@ -17,9 +17,9 @@ import { ElSelect } from 'element-plus';
 import { ElOption } from 'element-plus';
 import { ElAutoResizer } from 'element-plus';
 import { ElTableV2 } from 'element-plus';
-import LayoutContent from '@/components/layout-content/index.vue';
-import TableSearch from '@/components/table/TableSearch.vue';
-import OpDialog from '@/components/del-dialog/index.vue';
+import LayoutContent from '@/components/layout-content/index';
+import TableSearch from '@/components/table/TableSearch';
+import OpDialog from '@/components/del-dialog/index';
 
 interface CodemodProps {
     [key: string]: any;
@@ -337,7 +337,7 @@ export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, R
                                                     <>
                                                         <ElTableV2
                                                             fixed={unref(isCompactTable)}
-                                                            onColumn-sort={($event?: any) => {
+                                                            onColumnSort={($event?: any) => {
                                                                 (changeSort as any)($event);
                                                             }}
                                                             columns={unref(columns)}

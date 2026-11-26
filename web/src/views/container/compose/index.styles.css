@@ -1,0 +1,64 @@
+.compose-item[data-v-78c587a1] {
+    cursor: pointer;
+}
+.compose-title[data-v-78c587a1] {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.15s;
+}
+.compose-title__name[data-v-78c587a1] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.compose-pin-button[data-v-78c587a1] {
+    flex-shrink: 0;
+    margin-left: auto;
+    opacity: 0.72;
+    transition: opacity 0.2s;
+}
+.compose-pin-button[data-v-78c587a1]:hover,
+.compose-pin-button[data-v-78c587a1]:focus-visible,
+.compose-pin-button.is-pinned[data-v-78c587a1] {
+    opacity: 1;
+}
+.compose-pin-button[data-v-78c587a1] .compose-pin-icon {
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    vertical-align: middle;
+}
+.compose-item.is-active .compose-title[data-v-78c587a1] {
+    color: var(--el-color-primary);
+}
+.compose-actions[data-v-78c587a1] {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        opacity 0.2s,
+        max-height 0.2s;
+}
+.compose-item:hover .compose-actions[data-v-78c587a1],
+.compose-item.is-active .compose-actions[data-v-78c587a1] {
+    opacity: 1;
+    max-height: 40px;
+}
+.resource-detail-icon[data-v-78c587a1] {
+    margin-top: -3px;
+    font-size: 6px;
+    cursor: pointer;
+}
+.envTitle[data-v-78c587a1] {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--el-text-color-primary);
+    margin-top: 12px;
+    margin-bottom: 4px;
+    display: block;
+}
+.round-btn[data-v-78c587a1] {
+    padding: 4px 8px;
+}

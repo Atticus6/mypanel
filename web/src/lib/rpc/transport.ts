@@ -46,6 +46,8 @@ const csrfInterceptor: Interceptor = (next) => async (request) => {
  * 不在这里跳转路由：拦截器不知道当前是否已经在登录页，
  * 交给 `auth-response` 之类的上层逻辑处理更安全。
  */
+let unauthenticatedRedirecting = false;
+
 const errorInterceptor: Interceptor = (next) => async (request) => {
     try {
         return await next(request);
@@ -53,6 +55,19 @@ const errorInterceptor: Interceptor = (next) => async (request) => {
         const connectError = ConnectError.from(error);
         if (connectError.code === Code.Unauthenticated) {
             connectError.metadata.set('panel-unauthenticated', '1');
+            // 登录/安全入口页面自身也会返回 401，不能再跳转，否则会形成循环。
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const onAuthPage = segments.length <= 1;
+            if (!onAuthPage && !unauthenticatedRedirecting) {
+                unauthenticatedRedirecting = true;
+                void import('@/utils/auth-response')
+                    .then(({ redirectToEntrance }) => redirectToEntrance())
+                    .finally(() => {
+                        window.setTimeout(() => {
+                            unauthenticatedRedirecting = false;
+                        }, 1000);
+                    });
+            }
         }
         throw connectError;
     }

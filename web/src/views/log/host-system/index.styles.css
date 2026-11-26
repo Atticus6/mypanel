@@ -1,0 +1,20 @@
+.log-raw[data-v-17709ec9] {
+  overflow: auto;
+  padding: 12px;
+  color: #f5f5f5;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+  background: var(--panel-logs-bg-color);
+  border: 1px solid var(--el-border-color-darker);
+  border-radius: 4px;
+}
+@media only screen and (max-width: 767px) {
+[data-v-17709ec9] .host-log-time-range.el-date-editor {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+}

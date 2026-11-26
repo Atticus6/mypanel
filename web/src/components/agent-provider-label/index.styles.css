@@ -1,0 +1,13 @@
+.agent-provider-label[data-v-983b90f9] {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-width: 0;
+  gap: 6px;
+  white-space: nowrap;
+}
+.agent-provider-label__name[data-v-983b90f9] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

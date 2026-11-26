@@ -1,0 +1,16 @@
+.site-form-wrapper[data-v-0b812b2a] {
+  min-width: 600px;
+  width: 60%;
+  padding: 20px;
+}
+.site-form[data-v-0b812b2a] .el-form-item__label {
+  padding-right: 20px !important;
+  box-sizing: content-box;
+}
+.site-form .user-num-input[data-v-0b812b2a] {
+  width: 190px;
+}
+.warnHelper[data-v-0b812b2a] {
+  white-space: pre-line;
+  display: block;
+}

@@ -1,6 +1,6 @@
 import { computed, defineComponent, h, inject, ref } from 'vue';
 
-import FuStepButton from './FuStepButton.vue';
+import FuStepButton from './FuStepButton';
 import type { Stepper } from './Stepper';
 
 export default defineComponent({

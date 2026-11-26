@@ -1,0 +1,18 @@
+.status-wrapper[data-v-32ee14ed] {
+  display: inline-flex;
+}
+.status-wrapper.is-disabled[data-v-32ee14ed] {
+  cursor: not-allowed;
+}
+.status-wrapper.is-disabled[data-v-32ee14ed] .el-tag {
+  opacity: 0.55;
+  filter: grayscale(1);
+}
+.content[data-v-32ee14ed] {
+  width: 300px;
+  word-break: break-all;
+}
+.status-icon[data-v-32ee14ed] {
+  width: 1em;
+  height: 1em;
+}

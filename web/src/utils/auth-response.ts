@@ -22,10 +22,14 @@ export const redirectToEntrance = () => {
     const { entrance, globalStore } = useGlobalStore();
     globalStore.setLogStatus(false);
     globalStore.clearAuthInfo();
-    router.push({
-        name: 'entrance',
-        params: { code: entrance.value },
-    });
+    if (entrance.value) {
+        router.push({
+            name: 'entrance',
+            params: { code: entrance.value },
+        });
+    } else {
+        router.push({ name: 'login' });
+    }
 };
 
 export const redirectToExpired = () => {

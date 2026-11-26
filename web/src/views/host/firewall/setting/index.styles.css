@@ -1,0 +1,23 @@
+.option-row[data-v-778b2729] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.option-status[data-v-778b2729] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    white-space: nowrap;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+.option-name[data-v-778b2729] {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.selected-icon[data-v-778b2729] {
+    color: var(--el-color-primary);
+}

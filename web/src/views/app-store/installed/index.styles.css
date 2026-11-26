@@ -1,0 +1,147 @@
+.sortable-ghost[data-v-f866143a] {
+    opacity: 0.4;
+}
+.install-card[data-v-f866143a] {
+    margin-top: 10px;
+    cursor: pointer;
+    padding: 10px;
+}
+.install-card .icon[data-v-f866143a] {
+    text-align: center;
+}
+.install-card .a-detail .d-name .d-name-row[data-v-f866143a] {
+    gap: 8px;
+    min-width: 0;
+}
+.install-card .a-detail .d-name .name-actions[data-v-f866143a] {
+    flex: 1;
+    min-width: 0;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+.install-card .a-detail .d-name .operate-actions[data-v-f866143a] {
+    flex-shrink: 0;
+}
+.install-card .a-detail .d-name .name-wrap[data-v-f866143a] {
+    min-width: 0;
+    max-width: clamp(140px, 22vw, 320px);
+    flex-shrink: 1;
+    margin-right: 4px;
+    overflow: hidden;
+}
+.install-card .a-detail .d-name .name[data-v-f866143a] {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--panel-text-color);
+    max-width: 100%;
+}
+.install-card .a-detail .d-name .status[data-v-f866143a] {
+    margin-left: 5px;
+}
+.install-card .a-detail .d-name .h-button[data-v-f866143a] {
+    float: right;
+}
+.install-card .a-detail .d-name .msg[data-v-f866143a] {
+    margin-left: 5px;
+}
+.install-card .a-detail .d-description[data-v-f866143a] {
+    margin-top: 10px;
+    overflow: hidden;
+}
+.install-card .a-detail .d-description .el-tag[data-v-f866143a] {
+    margin-right: 5px;
+}
+.install-card .a-detail .description[data-v-f866143a] {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--el-text-color-regular);
+}
+.install-card .a-detail .d-button[data-v-f866143a] {
+    margin-top: 10px;
+    min-width: 330px;
+}
+.install-card .e-card[data-v-f866143a] {
+    border: var(--panel-border) !important;
+}
+.install-card .e-card[data-v-f866143a]:hover {
+    cursor: pointer;
+    border: 1px solid var(--el-color-primary) !important;
+}
+.table-button[data-v-f866143a] {
+    display: inline;
+    margin-right: 5px;
+}
+.app-divider[data-v-f866143a] {
+    margin-top: 5px;
+    border: 0;
+    border-top: var(--panel-border);
+}
+.update-prompt[data-v-f866143a] {
+    text-align: center;
+    margin-top: 100px;
+}
+.update-prompt span[data-v-f866143a] {
+    color: #bbbfc4;
+}
+.update-prompt img[data-v-f866143a] {
+    width: 300px;
+    height: 300px;
+}
+.tag-button.no-active[data-v-f866143a] {
+    background: none;
+    border: none;
+}
+.page-button[data-v-f866143a] {
+    float: right;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+@media (max-width: 575px) {
+    .install-card .a-detail .d-name .h-button[data-v-f866143a] {
+        float: none;
+        display: inline-block;
+        margin-left: 5px;
+    }
+    .install-card .a-detail .d-button[data-v-f866143a] {
+        min-width: auto;
+    }
+    .install-card .a-detail .d-button .app-button[data-v-f866143a] {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+.d-button .el-button + .el-button[data-v-f866143a] {
+    margin-left: 0;
+}
+.app-install-helper[data-v-f866143a] {
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+}
+.app-install-helper-text[data-v-f866143a] {
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+.app-install-helper-link[data-v-f866143a] {
+    flex: 0 0 auto;
+}
+@media only screen and (max-width: 767px) {
+    .app-install-alert[data-v-f866143a] .el-alert__content,
+    .app-install-alert[data-v-f866143a] .el-alert__title {
+        width: 100%;
+        min-width: 0;
+    }
+    .app-install-helper[data-v-f866143a] {
+        width: 100%;
+        align-items: flex-start;
+    }
+    .app-install-helper-text[data-v-f866143a] {
+        flex: 0 0 100%;
+        width: 100%;
+        text-wrap: balance;
+    }
+}

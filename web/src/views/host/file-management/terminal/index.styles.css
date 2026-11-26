@@ -1,0 +1,14 @@
+.terminal-container[data-v-70c1ae79] {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 140px);
+}
+.terminal-content[data-v-70c1ae79] {
+    flex: 1;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.quick-command[data-v-70c1ae79] {
+    flex-shrink: 0;
+    margin-top: 1px;
+}

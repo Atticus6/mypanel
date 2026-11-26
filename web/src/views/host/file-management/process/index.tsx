@@ -1,0 +1,424 @@
+import { $t } from '@/utils/i18n-t';
+import { rpc } from '@/lib/rpc';
+import { computeSize } from '@/utils/size';
+import { onBeforeUnmount, ref, watch } from 'vue';
+import { useGlobalStore } from '@/composables/useGlobalStore';
+import { ElMessageBox } from 'element-plus';
+import { MsgError, MsgSuccess } from '@/utils/message';
+import i18n from '@/lang';
+import { checkStreamAuth } from '@/utils/stream-auth';
+interface DownloadProcess {
+    key: string;
+    name: string;
+    written: number;
+    total: number;
+    percent: number;
+    status?: 'Downloading' | 'Retrying' | 'Success' | 'Failed' | 'Canceled';
+    attempt?: number;
+    error?: string;
+}
+import './index.styles.css';
+import { defineComponent, Fragment, unref, withDirectives } from 'vue';
+import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
+import { vLoading } from 'element-plus';
+import { cn } from '@/utils/cn';
+import { ElTooltip } from 'element-plus';
+import { ElButton } from 'element-plus';
+import { ElProgress } from 'element-plus';
+import DialogPro from '@/components/dialog-pro/index';
+
+interface CodemodProps {
+    [key: string]: any;
+}
+
+const emits = {
+    close: (...args: unknown[]) => true,
+};
+
+const options = {
+    name: 'process',
+    props: {},
+    emits: emits,
+    __scopeId: 'data-v-edee8e33',
+};
+
+export default defineComponent<CodemodProps, typeof emits, keyof typeof emits, Record<string, never>>(
+    (__panelSetupProps, ctx) => {
+        const { currentNode: globalCurrentNode } = useGlobalStore();
+        let processSocket: WebSocket | null = null;
+        let sendTimer: ReturnType<typeof setInterval> | null = null;
+        let initProcessToken = 0;
+        const res = ref<DownloadProcess[]>([]);
+        const stoppingKeys = ref<string[]>([]);
+        const removingKeys = ref<string[]>([]);
+        const removedKeys = ref<string[]>([]);
+        const reportedFailures = new Set<string>();
+        const reportedSuccesses = new Set<string>();
+        const autoRemoveAttempts = new Map<string, number>();
+        const keys = ref(['']);
+        const open = ref(false);
+        const loading = ref(false);
+        const handleClose = () => {
+            initProcessToken++;
+            closeSocket();
+            loading.value = false;
+            open.value = false;
+            ctx.emit('close', open.value);
+        };
+        const isWsOpen = () => {
+            return processSocket?.readyState === WebSocket.OPEN;
+        };
+        const clearSendTimer = () => {
+            if (sendTimer) {
+                clearInterval(sendTimer);
+                sendTimer = null;
+            }
+        };
+        const closeSocket = () => {
+            clearSendTimer();
+            if (processSocket) {
+                processSocket.onopen = null;
+                processSocket.onmessage = null;
+                processSocket.onerror = null;
+                processSocket.onclose = null;
+                processSocket.close();
+            }
+            processSocket = null;
+        };
+        const onOpenProcess = () => {
+            sendProgressRequest();
+            sendMsg();
+        };
+        const onMessage = async (message: any) => {
+            const token = initProcessToken;
+            let processes: DownloadProcess[];
+            try {
+                processes = JSON.parse(message.data) || [];
+            } catch {
+                return;
+            }
+            if (!Array.isArray(processes)) return;
+            loading.value = false;
+            res.value = processes
+                .map((value, index) => ({
+                    ...value,
+                    key:
+                        value.key ||
+                        (processes.length === keys.value.length ? keys.value[index] : `legacy:${value.name}`),
+                }))
+                .filter((value) => !removedKeys.value.includes(value.key));
+            if (open.value) {
+                const failures = res.value.filter(
+                    (value) => getStatus(value) === 'Failed' && !reportedFailures.has(value.key),
+                );
+                if (failures.length > 0) {
+                    failures.forEach((value) => reportedFailures.add(value.key));
+                    MsgError(
+                        failures
+                            .map((value) =>
+                                i18n.global.t(value.error ? 'file.downloadFailureDetail' : 'file.downloadFailed', {
+                                    error: value.error,
+                                }),
+                            )
+                            .join('\n'),
+                    );
+                }
+                const successes = res.value.filter(
+                    (value) => getStatus(value) === 'Success' && !reportedSuccesses.has(value.key),
+                );
+                if (successes.length > 0) {
+                    successes.forEach((value) => reportedSuccesses.add(value.key));
+                    MsgSuccess(i18n.global.t('file.downloadSuccess'));
+                }
+                await onRemove(getAutoRemoveKeys());
+            }
+            if (token !== initProcessToken) return;
+            closeIdleSocket();
+        };
+        const onerror = () => {
+            if (open.value && loading.value) {
+                MsgError(i18n.global.t('commons.msg.operationFailed'));
+                handleClose();
+            }
+        };
+        const onClose = () => {
+            clearSendTimer();
+            onerror();
+        };
+        const getStatus = (value: DownloadProcess) =>
+            value.status || (value.percent === 100 ? 'Success' : 'Downloading');
+        const isActive = (value: DownloadProcess) => ['Downloading', 'Retrying'].includes(getStatus(value));
+        const isRemovable = (value: DownloadProcess) =>
+            keys.value.includes(value.key) && ['Success', 'Failed', 'Canceled'].includes(getStatus(value));
+        const getFinishedKeys = () => res.value.filter(isRemovable).map((value) => value.key);
+        const getAutoRemoveKeys = () =>
+            res.value
+                .filter((value) => isRemovable(value) && (autoRemoveAttempts.get(value.key) || 0) < 3)
+                .map((value) => value.key);
+        const closeIdleSocket = () => {
+            if (open.value && res.value.length === 0 && removingKeys.value.length === 0) {
+                keys.value = [];
+                handleClose();
+                return;
+            }
+            if (res.value.every((value) => !isActive(value)) && getAutoRemoveKeys().length === 0) closeSocket();
+        };
+        const onRemove = async (requestedKeys: string[]) => {
+            if (removingKeys.value.length > 0) return;
+            const removable = getFinishedKeys();
+            const selected = [...new Set(requestedKeys.filter((key) => removable.includes(key)))];
+            if (selected.length === 0) return;
+            const node = globalCurrentNode.value;
+            const token = initProcessToken;
+            removingKeys.value = selected;
+            try {
+                for (let offset = 0; offset < selected.length; offset += 1000) {
+                    if (node !== globalCurrentNode.value || token !== initProcessToken || !open.value) return;
+                    const batch = selected.slice(offset, offset + 1000);
+                    batch.forEach((key) => autoRemoveAttempts.set(key, (autoRemoveAttempts.get(key) || 0) + 1));
+                    const response = await rpc.file.removeWgetRecords({ keys: batch });
+                    if (node !== globalCurrentNode.value || token !== initProcessToken || !open.value) return;
+                    const removed = (response.keys || []).filter((key) => batch.includes(key));
+                    removedKeys.value.push(...removed);
+                    res.value = res.value.filter((value) => !removed.includes(value.key));
+                    keys.value = keys.value.filter((key) => !removed.includes(key));
+                    closeIdleSocket();
+                    if (removed.length !== batch.length) {
+                        if (batch.some((key) => (autoRemoveAttempts.get(key) || 0) >= 3)) {
+                            MsgError(i18n.global.t('file.downloadRecordsNotRemoved'));
+                        }
+                        return;
+                    }
+                }
+            } catch (error) {
+            } finally {
+                if (token === initProcessToken) {
+                    removingKeys.value = [];
+                    closeIdleSocket();
+                }
+            }
+        };
+        const getProgressPercent = (value: DownloadProcess) => {
+            if (getStatus(value) === 'Success') return 100;
+            if (!Number.isFinite(value.percent)) return 0;
+            const maximum = isActive(value) ? 99.99 : 100;
+            return Number(Math.min(maximum, Math.max(0, value.percent)).toFixed(2));
+        };
+        const getStatusText = (value: DownloadProcess) => {
+            switch (getStatus(value)) {
+                case 'Success':
+                    return i18n.global.t('file.downloadSuccess');
+                case 'Failed':
+                    return i18n.global.t('commons.status.failed');
+                case 'Canceled':
+                    return i18n.global.t('commons.status.canceled');
+                case 'Retrying':
+                    return `${i18n.global.t('commons.button.retry')} (${value.attempt}/3)`;
+                default:
+                    return i18n.global.t('file.downloading');
+            }
+        };
+        const getProgressStatus = (value: DownloadProcess) => {
+            const status = getStatus(value);
+            if (status === 'Success') return 'success';
+            if (status === 'Failed') return 'exception';
+            if (status === 'Canceled') return 'warning';
+            return '';
+        };
+        const initProcess = async () => {
+            const token = initProcessToken;
+            let href = window.location.href;
+            let protocol = href.split('//')[0] === 'http:' ? 'ws' : 'wss';
+            let ipLocal = href.split('//')[1].split('/')[0];
+            let currentNode = globalCurrentNode.value;
+            const url = `${protocol}://${ipLocal}/api/v2/files/wget/process?operateNode=${currentNode}`;
+            const authError = await checkStreamAuth(url, currentNode);
+            if (token !== initProcessToken || !open.value) {
+                return;
+            }
+            if (authError) {
+                MsgError(authError);
+                handleClose();
+                return;
+            }
+            closeSocket();
+            processSocket = new WebSocket(url);
+            processSocket.onopen = onOpenProcess;
+            processSocket.onmessage = onMessage;
+            processSocket.onerror = onerror;
+            processSocket.onclose = onClose;
+        };
+        const getKeys = async () => {
+            const token = ++initProcessToken;
+            keys.value = [];
+            res.value = [];
+            removingKeys.value = [];
+            removedKeys.value = [];
+            reportedFailures.clear();
+            reportedSuccesses.clear();
+            autoRemoveAttempts.clear();
+            loading.value = true;
+            try {
+                const result = await rpc.file.getWgetProcessKeys({});
+                if (token !== initProcessToken || !open.value) return;
+                if (result.keys.length > 0) {
+                    keys.value = result.keys;
+                    await initProcess();
+                } else {
+                    handleClose();
+                }
+            } catch (error) {
+                if (token === initProcessToken && open.value) handleClose();
+            }
+        };
+        const sendProgressRequest = () => {
+            if (isWsOpen()) {
+                processSocket?.send(JSON.stringify({ type: 'wget', keys: keys.value }));
+            }
+        };
+        const sendMsg = () => {
+            clearSendTimer();
+            sendTimer = setInterval(sendProgressRequest, 1000);
+        };
+        const getFileSize = (size: number) => {
+            return computeSize(size);
+        };
+        const onStop = async (key: string) => {
+            if (!keys.value.includes(key) || stoppingKeys.value.includes(key)) return;
+            const node = globalCurrentNode.value;
+            const token = initProcessToken;
+            try {
+                await ElMessageBox.confirm(i18n.global.t('file.stopWgetConfirm'), i18n.global.t('commons.button.tip'), {
+                    type: 'warning',
+                    confirmButtonText: i18n.global.t('commons.button.confirm'),
+                    cancelButtonText: i18n.global.t('commons.button.cancel'),
+                });
+            } catch {
+                return;
+            }
+            if (node !== globalCurrentNode.value || token !== initProcessToken || !open.value) return;
+            stoppingKeys.value.push(key);
+            try {
+                await rpc.file.stopWget({ key });
+                if (token === initProcessToken && open.value && node === globalCurrentNode.value) {
+                    MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
+                }
+            } catch (e) {
+            } finally {
+                stoppingKeys.value = stoppingKeys.value.filter((item) => item !== key);
+            }
+        };
+        watch(globalCurrentNode, () => {
+            handleClose();
+            keys.value = [];
+            res.value = [];
+            removingKeys.value = [];
+            removedKeys.value = [];
+            reportedFailures.clear();
+            reportedSuccesses.clear();
+            autoRemoveAttempts.clear();
+        });
+        onBeforeUnmount(() => {
+            initProcessToken++;
+            closeSocket();
+        });
+        const acceptParams = () => {
+            open.value = true;
+            getKeys();
+        };
+        ctx.expose({ acceptParams });
+        return () => (
+            <DialogPro
+                modelValue={unref(open)}
+                onUpdate:modelValue={($v) => {
+                    open.value = $v as any;
+                }}
+                title={$t('file.downloadProcess')}
+                size="small"
+                onClose={($event?: any) => {
+                    (handleClose as any)($event);
+                }}
+                v-slots={{
+                    content: () => (
+                        <>
+                            {withDirectives(
+                                <div class={'space-y-4 p-4 min-h-[160px]'}>
+                                    {(unref(res) || []).map((value) => (
+                                        <div
+                                            class={cn(
+                                                'rounded-lg p-4 shadow-sm border border-gray-100 transition-all duration-200 hover:shadow-md',
+                                                { completed: getStatus(value) === 'Success' },
+                                            )}
+                                            key={value.key}
+                                        >
+                                            <div class={'flex items-center gap-3'}>
+                                                <div class={'flex-1 min-w-0'}>
+                                                    <ElTooltip content={value.name} placement="top">
+                                                        <div class={'dialog-object-name text-gray-700'}>
+                                                            {value.name}
+                                                        </div>
+                                                    </ElTooltip>
+                                                    <div class={'text-gray-500'}>{getStatusText(value)}</div>
+                                                    {value.error ? (
+                                                        <div class={'text-red-500 break-all'}>{value.error}</div>
+                                                    ) : null}
+                                                </div>
+                                            </div>
+                                            <div class={'space-y-2'}>
+                                                <div class={'flex justify-between items-center mb-1 text-gray-500'}>
+                                                    <div>
+                                                        <span>{getFileSize(value.written)}</span>
+                                                        {value.total > 0 ? (
+                                                            <span class={'text-gray-400'}>
+                                                                {' /'}
+                                                                {getFileSize(value.total)}
+                                                            </span>
+                                                        ) : null}
+                                                    </div>
+                                                    {isActive(value) && unref(keys).includes(value.key) ? (
+                                                        <ElButton
+                                                            link
+                                                            type="danger"
+                                                            size="small"
+                                                            loading={unref(stoppingKeys).includes(value.key)}
+                                                            onClick={($event?: any) => {
+                                                                onStop(value.key);
+                                                            }}
+                                                        >
+                                                            {$t('commons.button.stop')}
+                                                        </ElButton>
+                                                    ) : null}
+                                                </div>
+                                                <div class={'w-full'}>
+                                                    {value.total === 0 && isActive(value) ? (
+                                                        <ElProgress
+                                                            percentage={100}
+                                                            indeterminate={true}
+                                                            duration={1}
+                                                            stroke-width={8}
+                                                            show-text={false}
+                                                            class={'progress-bar'}
+                                                        />
+                                                    ) : (
+                                                        <ElProgress
+                                                            percentage={getProgressPercent(value)}
+                                                            stroke-width={8}
+                                                            status={getProgressStatus(value)}
+                                                            class={'progress-bar'}
+                                                        />
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>,
+                                [[vLoading, unref(loading)]],
+                            )}
+                        </>
+                    ),
+                }}
+            />
+        );
+    },
+    options,
+);

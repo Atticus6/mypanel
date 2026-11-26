@@ -2,11 +2,24 @@
 
 import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { basename, dirname, relative } from 'node:path';
+import { basename, dirname, relative, resolve } from 'node:path';
 import { parse as parseSFC, compileStyle } from '@vue/compiler-sfc';
 import { baseParse } from '@vue/compiler-dom';
 import { transformScript } from './transform-script';
 import { genTemplate, directiveImports, helperImports, elementPlusImports, componentImports } from './gen-jsx';
+
+/** 把 SCSS 的 @use 内联展开，避免编译器无法识别 @/ 别名。 */
+function expandScssImports(source: string, filename: string, seen = new Set<string>()): string {
+    return source.replace(/@use\s+['"]([^'"]+)['"]\s*(?:as\s+\*)?\s*;/g, (full, spec: string) => {
+        if (spec.includes('var.scss')) return '';
+        const base = spec.startsWith('@/') ? resolve('src', spec.slice(2)) : resolve(dirname(filename), spec);
+        const candidates = [base, `${base}.scss`, resolve(dirname(base), '_' + basename(base) + '.scss')];
+        const found = candidates.find((p) => existsSync(p));
+        if (!found || seen.has(found)) return '';
+        seen.add(found);
+        return expandScssImports(readFileSync(found, 'utf8'), found, seen);
+    });
+}
 
 /** 转换单个 SFC 文件。 */
 export function convertFile(file: string): { tsx: string; css?: string } | undefined {
@@ -45,13 +58,17 @@ export function convertFile(file: string): { tsx: string; css?: string } | undef
     const scopeId = 'data-v-' + createHash('md5').update(file).digest('hex').slice(0, 8);
     const cssParts: string[] = [];
     let hasScopedStyle = false;
+    const sharedVars = existsSync('src/styles/var.scss') ? readFileSync('src/styles/var.scss', 'utf8') : '';
     for (const style of descriptor.styles) {
+        const isScss = style.lang === 'scss' || style.lang === 'sass';
+        const scssSource = isScss ? `${sharedVars}\n${expandScssImports(style.content, file)}` : style.content;
         const result = compileStyle({
-            source: style.content,
+            source: scssSource,
             filename: file,
             id: scopeId,
             scoped: style.scoped,
-            preprocessLang: style.lang === 'scss' || style.lang === 'sass' ? style.lang : undefined,
+            preprocessLang: isScss ? style.lang : undefined,
+            preprocessOptions: isScss ? { loadPaths: [process.cwd()] } : undefined,
         });
         if (result.errors.length) {
             console.error('样式编译失败', file, result.errors.map((e) => String(e)).join('\n'));
@@ -68,11 +85,33 @@ export function convertFile(file: string): { tsx: string; css?: string } | undef
     if (/\bcomputed\s*\(/.test(info.body) && !already('computed')) vueImports.push('computed');
     const typeImports = ['type VNode', 'type SlotsType', 'type ComponentObjectPropsOptions'];
 
+    const importedNames = new Set<string>();
+    for (const m of info.header.matchAll(/import\s*\{([^}]+)\}/g)) {
+        for (const name of m[1].split(',')) if (name.trim()) importedNames.add(name.trim());
+    }
+    const dedupeImports = (lines: Set<string>): string[] => {
+        const out: string[] = [];
+        for (const line of lines) {
+            const m = line.match(/import\s*\{([^}]+)\}\s*from\s*'([^']+)'/);
+            if (!m) {
+                out.push(line);
+                continue;
+            }
+            const names = m[1]
+                .split(',')
+                .map((n) => n.trim())
+                .filter((n) => n && !importedNames.has(n));
+            if (!names.length) continue;
+            names.forEach((n) => importedNames.add(n));
+            out.push(`import { ${names.join(', ')} } from '${m[2]}';`);
+        }
+        return out;
+    };
     const directiveImportLines = [
-        ...directiveImports,
-        ...helperImports,
-        ...elementPlusImports,
-        ...componentImports,
+        ...dedupeImports(directiveImports),
+        ...dedupeImports(helperImports),
+        ...dedupeImports(elementPlusImports),
+        ...dedupeImports(componentImports),
     ].join('\n');
     const emitsName = 'emits';
     const slotsType = slotNames.size

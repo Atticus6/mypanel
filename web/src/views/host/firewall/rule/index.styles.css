@@ -1,0 +1,138 @@
+.firewall-filter-bar[data-v-55fc9dc6] {
+    display: inline-flex;
+    flex: none;
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+.firewall-rule-filter[data-v-55fc9dc6] {
+    width: 240px;
+}
+.firewall-action[data-v-55fc9dc6] {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--el-text-color-regular);
+    font-size: 12px;
+    line-height: 18px;
+}
+.firewall-action.is-accept .firewall-action-icon[data-v-55fc9dc6] {
+    color: var(--el-color-primary);
+}
+.firewall-action.is-drop .firewall-action-icon[data-v-55fc9dc6] {
+    color: var(--el-color-info);
+}
+.firewall-action.is-unknown[data-v-55fc9dc6] {
+    color: var(--el-text-color-secondary);
+}
+.firewall-action-icon[data-v-55fc9dc6] {
+    flex: none;
+    font-size: 14px;
+    line-height: 1;
+}
+.firewall-action-lock[data-v-55fc9dc6] {
+    flex: none;
+    color: var(--el-text-color-secondary);
+    font-size: 15px;
+    line-height: 1;
+}
+.firewall-used-cell[data-v-55fc9dc6] {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    white-space: nowrap;
+}
+.firewall-used-more[data-v-55fc9dc6] {
+    flex: none;
+}
+.firewall-used-entry[data-v-55fc9dc6] {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+.firewall-used-entry[data-v-55fc9dc6] .el-tag__content {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    max-width: 100%;
+}
+.firewall-used-entry-owner[data-v-55fc9dc6] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.firewall-used-entry-port[data-v-55fc9dc6],
+.firewall-used-entry-icon[data-v-55fc9dc6] {
+    flex: none;
+}
+.firewall-used-entry-icon[data-v-55fc9dc6] {
+    margin-left: 2px;
+}
+.firewall-used-popover-list[data-v-55fc9dc6] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-height: 280px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.firewall-used-popover-entry[data-v-55fc9dc6] {
+    display: inline-flex;
+    flex: none;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+.firewall-used-popover-entry[data-v-55fc9dc6] .el-tag__content {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    max-width: 100%;
+}
+.firewall-raw-rule-message .el-message-box__message {
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.firewall-rule-filter-popper .el-select-group__wrap {
+    padding: 6px 8px 8px;
+}
+.firewall-rule-filter-popper .el-select-group__wrap:not(:last-of-type) {
+    padding-bottom: 10px;
+}
+.firewall-rule-filter-popper .el-select-group__wrap:not(:last-of-type)::after {
+    display: none;
+}
+.firewall-rule-filter-popper .el-select-group__title {
+    height: 30px;
+    margin-bottom: 4px;
+    padding: 0 10px;
+    border-left: 3px solid var(--el-color-primary);
+    border-radius: 4px;
+    background: var(--el-fill-color-light);
+    color: var(--el-text-color-primary);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 30px;
+}
+.firewall-rule-filter-popper .firewall-state-filter-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+.firewall-rule-filter-popper .firewall-state-filter-description {
+    overflow: hidden;
+    color: var(--el-text-color-secondary);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

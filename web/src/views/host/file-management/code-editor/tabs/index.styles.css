@@ -1,0 +1,12 @@
+.el-dropdown-link[data-v-73c6758d] {
+    display: block;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media (max-width: 767px) {
+.el-dropdown-link[data-v-73c6758d] {
+        max-width: 112px;
+}
+}

@@ -1,0 +1,90 @@
+.app-wrapper[data-v-e22e721d] {
+  position: relative;
+  width: 100%;
+}
+.drawer-bg[data-v-e22e721d] {
+  background-color: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
+.main-container[data-v-e22e721d] {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  min-width: 0;
+  transition: margin-left 0.3s;
+  margin-left: var(--panel-menu-width);
+  background-color: var(--panel-main-bg-color-9);
+  overflow-x: hidden;
+}
+.app-main {
+  padding: 7px 20px;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+.app-sidebar[data-v-e22e721d] {
+  z-index: 2;
+  transition: width 0.3s;
+  width: var(--panel-menu-width) !important;
+  position: fixed;
+  font-size: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+.app-sidebar .affix[data-v-e22e721d] {
+  z-index: 5;
+}
+.hideSidebar .main-container[data-v-e22e721d] {
+  margin-left: var(--panel-menu-hide-width);
+}
+.hideSidebar .app-sidebar[data-v-e22e721d] {
+  width: var(--panel-menu-hide-width) !important;
+}
+.hideSidebar .fixed-header[data-v-e22e721d] {
+  width: calc(100% - var(--panel-menu-hide-width));
+}
+.fullScreen .main-container[data-v-e22e721d] {
+  margin-left: 0px;
+}
+.mobile .main-container[data-v-e22e721d] {
+  margin-left: 0px;
+}
+.mobile .app-sidebar[data-v-e22e721d] {
+  transition: transform 0.3s;
+  width: var(--panel-menu-width) !important;
+  background: #ffffff;
+  z-index: 9999;
+}
+.mobile .app-footer[data-v-e22e721d] {
+  display: block;
+  text-align: center;
+}
+.mobile.openSidebar[data-v-e22e721d] {
+  position: fixed;
+  top: 0;
+}
+.mobile.hideSidebar .app-sidebar[data-v-e22e721d] {
+  pointer-events: none;
+  transition-duration: 0.3s;
+  transform: translate3d(calc(0px - var(--panel-menu-width)), 0, 0);
+}
+.withoutAnimation .main-container[data-v-e22e721d],
+.withoutAnimation .sidebar-container[data-v-e22e721d] {
+  transition: none;
+}
+@media (max-width: 767px) {
+.app-main {
+    padding-right: 12px;
+    padding-left: 12px;
+}
+}

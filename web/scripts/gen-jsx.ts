@@ -81,7 +81,11 @@ function resolveComponentTag(tag: string, imported: Set<string>): string {
               .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
               .join('')
         : tag.charAt(0).toUpperCase() + tag.slice(1);
-    if (imported.has(pascal) || !/^[A-Z]/.test(pascal)) return tag;
+    if (imported.has(pascal)) {
+        imported.add(pascal);
+        return pascal;
+    }
+    if (!/^[A-Z]/.test(pascal)) return tag;
     const mapped = globalComponentMap.get(pascal);
     if (!mapped) return tag;
     if (mapped === 'vue-icon') {

@@ -1,0 +1,23 @@
+.website-card-domain[data-v-84f81abe] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+.website-card-domain__name[data-v-84f81abe] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+[data-v-84f81abe] .website-card-domain__actions {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 1;
+    width: auto;
+}
+[data-v-84f81abe] .website-card-domain__actions > div:last-child {
+    display: flex;
+    align-items: center;
+}

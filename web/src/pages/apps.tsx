@@ -1,4 +1,4 @@
-import Layout from '@/layout/index.vue';
+import Layout from '@/layout/index';
 definePage({
     name: 'App-Menu',
     redirect: '/apps/all',

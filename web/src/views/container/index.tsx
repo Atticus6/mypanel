@@ -1,9 +1,9 @@
 import i18n from '@/lang';
 import { defineComponent, Fragment, unref, withDirectives } from 'vue';
 import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
-import RouterButton from '@/components/router-button/index.vue';
-import LayoutContent from '@/components/layout-content/index.vue';
-import RouterViewCache from '@/components/router-view-cache/index.vue';
+import RouterButton from '@/components/router-button/index';
+import LayoutContent from '@/components/layout-content/index';
+import RouterViewCache from '@/components/router-view-cache/index';
 
 interface CodemodProps {
     [key: string]: any;

@@ -18,7 +18,7 @@ loadXpackStyles();
 import router from '@/routers/index';
 import i18n, { ensureFallbackLocale, loadLocaleMessages } from '@/lang/index';
 import pinia from '@/store/index';
-import SvgIcon from './components/svg-icon/svg-icon.vue';
+import SvgIcon from './components/svg-icon/svg-icon';
 import Components from '@/components';
 
 import directives from '@/directives/index';

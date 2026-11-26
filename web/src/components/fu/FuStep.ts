@@ -1,1 +1,1 @@
-export { default } from './steps/FuStep.vue';
+export { default } from './steps/FuStep';

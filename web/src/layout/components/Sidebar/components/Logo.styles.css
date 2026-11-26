@@ -1,0 +1,12 @@
+.logo[data-v-32a22a25] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 49px;
+  z-index: 1;
+}
+.logo img[data-v-32a22a25] {
+  object-fit: contain;
+  width: 95%;
+  height: 45px;
+}

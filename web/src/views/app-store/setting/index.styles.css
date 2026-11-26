@@ -1,0 +1,19 @@
+.app-setting-form[data-v-068c21b2] .el-form-item {
+    align-items: flex-start;
+}
+.app-setting-form[data-v-068c21b2] .el-form-item__label {
+    white-space: normal;
+    line-height: 20px;
+    word-break: break-word;
+    padding-top: 6px;
+}
+.logText {
+    &[data-v-068c21b2] {
+        line-height: 22px;
+        font-size: 12px;
+    }
+    .link[data-v-068c21b2] {
+        font-size: 12px !important;
+        margin-top: -3px;
+    }
+}

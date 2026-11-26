@@ -96,17 +96,12 @@ func New(opts Options) http.Handler {
 	// 否则浏览器用旧公钥（或明文）发密码，登录会以「解码 AES Key 失败」告终。
 	// core 的 repo 直接读全局 DB，DB 未初始化时跳过，避免单元测试里 panic。
 	setPublicKey := coremiddleware.SetPasswordPublicKey()
-	frontendFallback := coremiddleware.FrontendFallback()
 	r.Use(func(c *gin.Context) {
 		if coreglobal.DB == nil {
 			c.Next()
 			return
 		}
 		setPublicKey(c)
-		// 前端导航请求走 core 的安全检查：设置安全入口后，非入口路径
-		// 会显示「未认证设置」页面，而不是直接返回登录页。
-		// FrontendFallback 内部会过滤静态资源与 API，非 HTML 请求直接放行。
-		frontendFallback(c)
 	})
 
 	// 同一个生成处理器同时支持 Connect、gRPC 与 gRPC-Web，因此只需注册一次，

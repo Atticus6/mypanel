@@ -1,0 +1,28 @@
+.upgrade-group + .upgrade-group[data-v-47aaf329] {
+    border-top: 1px solid var(--el-border-color);
+    padding-top: 20px;
+}
+.group-name[data-v-47aaf329] {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--el-text-color-primary);
+    font-size: var(--el-font-size-base);
+    overflow-wrap: anywhere;
+}
+html.dark {
+    color: #fff;
+}
+.app-warning[data-v-47aaf329] {
+    --el-alert-title-font-size: var(--el-font-size-base);
+    --el-alert-title-with-description-font-size: var(--el-font-size-base);
+    --el-alert-description-font-size: var(--el-font-size-base);
+}
+.image-name[data-v-47aaf329] {
+    max-width: 100%;
+    height: auto;
+    min-height: 24px;
+    font-size: var(--el-font-size-base);
+    line-height: 22px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}

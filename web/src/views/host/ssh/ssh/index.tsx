@@ -1,15 +1,15 @@
 import { $t } from '@/utils/i18n-t';
 import { computed, onMounted, reactive, ref } from 'vue';
-import FireRouter from '@/views/host/ssh/index.vue';
-import AuthKeys from '@/views/host/ssh/ssh/auth-keys/index.vue';
-import Cert from '@/views/host/ssh/ssh/certification/index.vue';
-import Root from '@/views/host/ssh/ssh/root/index.vue';
-import Port from '@/views/host/ssh/ssh/port/index.vue';
-import Address from '@/views/host/ssh/ssh/address/index.vue';
+import FireRouter from '@/views/host/ssh/index';
+import AuthKeys from '@/views/host/ssh/ssh/auth-keys/index';
+import Cert from '@/views/host/ssh/ssh/certification/index';
+import Root from '@/views/host/ssh/ssh/root/index';
+import Port from '@/views/host/ssh/ssh/port/index';
+import Address from '@/views/host/ssh/ssh/address/index';
 import i18n from '@/lang';
 import { MsgSuccess } from '@/utils/message';
 import { ElMessageBox, FormInstance } from 'element-plus';
-import CodemirrorPro from '@/components/codemirror-pro/index.vue';
+import CodemirrorPro from '@/components/codemirror-pro/index';
 import { rpc } from '@/lib/rpc';
 import { defineComponent, Fragment, unref, withDirectives } from 'vue';
 import { type VNode, type SlotsType, type ComponentObjectPropsOptions } from 'vue';
@@ -31,8 +31,8 @@ import { ElInput } from 'element-plus';
 import { ElAlert } from 'element-plus';
 import { ElSelect } from 'element-plus';
 import { ElOption } from 'element-plus';
-import Status from '@/components/status/index.vue';
-import LayoutContent from '@/components/layout-content/index.vue';
+import Status from '@/components/status/index';
+import LayoutContent from '@/components/layout-content/index';
 
 interface CodemodProps {
     [key: string]: any;

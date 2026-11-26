@@ -1,0 +1,27 @@
+.tag-container[data-v-621cafdb] {
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow: hidden;
+}
+.more-tag[data-v-621cafdb] {
+  flex-shrink: 0;
+}
+.tag-measurements[data-v-621cafdb] {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 0;
+}
+.tag-container[data-v-621cafdb] .el-check-tag,
+.tag-measurements[data-v-621cafdb] .el-check-tag {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.el-check-tag.el-check-tag--primary.is-checked[data-v-621cafdb] {
+  background-color: var(--el-color-info-light-9) !important;
+}
+.el-check-tag[data-v-621cafdb]:hover {
+  background-color: var(--el-color-info-light-9) !important;
+}

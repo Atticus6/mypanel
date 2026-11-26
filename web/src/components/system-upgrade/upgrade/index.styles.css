@@ -1,0 +1,23 @@
+.line-height[data-v-d4e1025d] {
+  line-height: 25px;
+}
+.panel-MdEditor[data-v-d4e1025d] {
+  height: calc(100vh - 330px);
+}
+.panel-MdEditor .tag[data-v-d4e1025d] {
+  margin-top: -6px;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+.panel-MdEditor[data-v-d4e1025d] .md-editor-preview {
+  font-size: 14px;
+}
+.panel-MdEditor[data-v-d4e1025d] .default-theme h2 {
+  color: var(--el-color-primary);
+  margin: 13px 0;
+  padding: 0;
+  font-size: 16px;
+}
+[data-v-d4e1025d] .md-editor-dark {
+  background-color: var(--panel-main-bg-color-9);
+}
