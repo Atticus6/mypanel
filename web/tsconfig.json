@@ -21,6 +21,8 @@
         "sourceMap": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
+        // vite.config.ts 为兼容原生配置加载器，import 路径带 .ts 扩展名。
+        "allowImportingTsExtensions": true,
         "lib": ["esnext", "dom"],
         // 模块名到基于 tsconfig 所在目录的路径映射列表。
         "paths": {

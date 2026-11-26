@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import { PiniaColada } from '@pinia/colada';
 import App from './App';
 
-import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import * as Icons from '@element-plus/icons-vue';
 
@@ -30,8 +29,8 @@ const bootstrap = async () => {
 
     const app = createApp(App);
     app.component('SvgIcon', SvgIcon);
-    app.use(ElementPlus);
 
+    // 图标仍以字符串名传给 ElButton 的 icon 属性，Element Plus 内部按名称查全局注册，不能移除。
     Object.keys(Icons).forEach((key) => {
         app.component(key, Icons[key as keyof typeof Icons]);
     });

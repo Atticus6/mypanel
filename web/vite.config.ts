@@ -1,11 +1,11 @@
 import { resolve } from 'path';
-import { benchmarkReportPlugin } from './build/benchmark-report';
-import { wrapperEnv } from './src/utils/get-env';
+import { benchmarkReportPlugin } from './build/benchmark-report.ts';
+import { wrapperEnv } from './src/utils/get-env.ts';
 import viteCompression from 'vite-plugin-compression';
 import tailwindcss from '@tailwindcss/vite';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { defineConfig, loadEnv, ConfigEnv, UserConfig, Plugin } from 'vite';
-import pkg from './package.json';
+import pkg from './package.json' with { type: 'json' };
 import dayjs from 'dayjs';
 
 import VueRouter from 'unplugin-vue-router/vite';
@@ -65,7 +65,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
         resolve: {
             preserveSymlinks: true,
             alias: {
-                '@': resolve(__dirname, './src'),
+                '@': resolve(import.meta.dirname, './src'),
                 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
             },
         },
@@ -119,7 +119,7 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
         plugins: [
             // 文件路由必须放在 vue() 之前，definePage 宏才能在 SFC 编译前被提取。
             VueRouter({ extensions: ['.tsx', '.vue'], dts: 'src/types/typed-router.d.ts' }),
-            benchmarkReportPlugin(__dirname),
+            benchmarkReportPlugin(import.meta.dirname),
             patchCodeFilterOverflow(),
             tailwindcss(),
             vueJsx(),
@@ -134,6 +134,9 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
                 }),
             AutoImport({
                 dts: 'src/types/auto-imports.d.ts',
+                // 只扫描业务源码，跳过生成代码与声明文件，减少 transform 调用。
+                include: ['src/**/*.{ts,tsx}'],
+                exclude: ['src/gen/**', 'src/types/**', 'src/assets/**'],
                 imports: ['vue', 'vue-router'],
                 resolvers: [
                     ElementPlusResolver({
@@ -156,6 +159,10 @@ export default defineConfig(async ({ mode }: ConfigEnv): Promise<UserConfig> => 
         build: {
             sourcemap: false,
             outDir: 'dist',
+            // Monaco 与 Element Plus 已按 vendor 拆包，单块天然超过默认 500 kB，阈值按实际体量调整。
+            chunkSizeWarningLimit: 2500,
+            // 产物体积由部署侧的 gzip 配置决定，构建时不必再逐块压缩统计。
+            reportCompressedSize: false,
             minify: 'oxc',
             target: 'esnext',
             cssCodeSplit: false,
